@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FDB_BetaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="THuiyuan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="xingming" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="xingbie" Type="bit" Nullable="false" />
+          <Property Name="shengri" Type="date" Nullable="false" />
+          <Property Name="shouji" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="qq" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="weixin" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TJintuihuo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jintui" Type="bit" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TJintuimingxi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jinhuoid" Type="int" Nullable="false" />
+          <Property Name="tiaoma" Type="bigint" Nullable="false" />
+          <Property Name="kuanhao" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="pinming" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="yanse" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="chima" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="jinjia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="shoujia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="shuliang" Type="smallint" Nullable="false" />
+          <Property Name="jinhuoriqi" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TXiaoshou">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="shangpinid" Type="int" Nullable="false" />
+          <Property Name="danjia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="shuliang" Type="smallint" Nullable="false" />
+          <Property Name="zhekou" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="moling" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TJinhuomingxi_TJinhuo">
+          <End Role="TJintuihuo" Type="Self.TJintuihuo" Multiplicity="1" />
+          <End Role="TJintuimingxi" Type="Self.TJintuimingxi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TJintuihuo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TJintuimingxi">
+              <PropertyRef Name="jinhuoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TXiaoshou_TShangpinxinxi">
+          <End Role="TJintuimingxi" Type="Self.TJintuimingxi" Multiplicity="1" />
+          <End Role="TXiaoshou" Type="Self.TXiaoshou" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TJintuimingxi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TXiaoshou">
+              <PropertyRef Name="shangpinid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FDB_BetaModelStoreContainer">
+          <EntitySet Name="THuiyuan" EntityType="Self.THuiyuan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TJintuihuo" EntityType="Self.TJintuihuo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TJintuimingxi" EntityType="Self.TJintuimingxi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TXiaoshou" EntityType="Self.TXiaoshou" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TJinhuomingxi_TJinhuo" Association="Self.FK_TJinhuomingxi_TJinhuo">
+            <End Role="TJintuihuo" EntitySet="TJintuihuo" />
+            <End Role="TJintuimingxi" EntitySet="TJintuimingxi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TXiaoshou_TShangpinxinxi" Association="Self.FK_TXiaoshou_TShangpinxinxi">
+            <End Role="TJintuimingxi" EntitySet="TJintuimingxi" />
+            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FDB_BetaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FDB_BetaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TXiaoshou" EntityType="FDB_BetaModel.TXiaoshou" />
+          <EntitySet Name="TJintuihuo" EntityType="FDB_BetaModel.TJintuihuo" />
+          <EntitySet Name="THuiyuan" EntityType="FDB_BetaModel.THuiyuan" />
+          <EntitySet Name="TJintuimingxi" EntityType="FDB_BetaModel.TJintuimingxi" />
+          <AssociationSet Name="FK_TJinhuomingxi_TJinhuo" Association="FDB_BetaModel.FK_TJinhuomingxi_TJinhuo">
+            <End Role="TJintuihuo" EntitySet="TJintuihuo" />
+            <End Role="TJintuimingxi" EntitySet="TJintuimingxi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TXiaoshou_TShangpinxinxi" Association="FDB_BetaModel.FK_TXiaoshou_TShangpinxinxi">
+            <End Role="TJintuimingxi" EntitySet="TJintuimingxi" />
+            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TXiaoshou">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shangpinid" Type="Int32" Nullable="false" />
+          <Property Name="danjia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="shuliang" Type="Int16" Nullable="false" />
+          <Property Name="zhekou" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <Property Name="moling" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TJintuimingxi" Relationship="FDB_BetaModel.FK_TXiaoshou_TShangpinxinxi" FromRole="TXiaoshou" ToRole="TJintuimingxi" />
+        </EntityType>
+        <EntityType Name="TJintuihuo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jintui" Type="Boolean" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TJintuimingxi" Relationship="FDB_BetaModel.FK_TJinhuomingxi_TJinhuo" FromRole="TJintuihuo" ToRole="TJintuimingxi" />
+        </EntityType>
+        <EntityType Name="THuiyuan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xingming" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="xingbie" Type="Boolean" Nullable="false" />
+          <Property Name="shengri" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="shouji" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="qq" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="weixin" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TJintuimingxi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jinhuoid" Type="Int32" Nullable="false" />
+          <Property Name="tiaoma" Type="Int64" Nullable="false" />
+          <Property Name="kuanhao" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="pinming" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="yanse" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="chima" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="jinjia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="shoujia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="shuliang" Type="Int16" Nullable="false" />
+          <Property Name="jinhuoriqi" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TJintuihuo" Relationship="FDB_BetaModel.FK_TJinhuomingxi_TJinhuo" FromRole="TJintuimingxi" ToRole="TJintuihuo" />
+          <NavigationProperty Name="TXiaoshou" Relationship="FDB_BetaModel.FK_TXiaoshou_TShangpinxinxi" FromRole="TJintuimingxi" ToRole="TXiaoshou" />
+        </EntityType>
+        <Association Name="FK_TJinhuomingxi_TJinhuo">
+          <End Type="FDB_BetaModel.TJintuihuo" Role="TJintuihuo" Multiplicity="1" />
+          <End Type="FDB_BetaModel.TJintuimingxi" Role="TJintuimingxi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TJintuihuo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TJintuimingxi">
+              <PropertyRef Name="jinhuoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TXiaoshou_TShangpinxinxi">
+          <End Type="FDB_BetaModel.TJintuimingxi" Role="TJintuimingxi" Multiplicity="1" />
+          <End Type="FDB_BetaModel.TXiaoshou" Role="TXiaoshou" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TJintuimingxi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TXiaoshou">
+              <PropertyRef Name="shangpinid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FDB_BetaModelStoreContainer" CdmEntityContainer="FDB_BetaEntities">
+          <EntitySetMapping Name="TXiaoshou">
+            <EntityTypeMapping TypeName="FDB_BetaModel.TXiaoshou">
+              <MappingFragment StoreEntitySet="TXiaoshou">
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="moling" ColumnName="moling" />
+                <ScalarProperty Name="zhekou" ColumnName="zhekou" />
+                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
+                <ScalarProperty Name="danjia" ColumnName="danjia" />
+                <ScalarProperty Name="shangpinid" ColumnName="shangpinid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TJintuihuo">
+            <EntityTypeMapping TypeName="FDB_BetaModel.TJintuihuo">
+              <MappingFragment StoreEntitySet="TJintuihuo">
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="jintui" ColumnName="jintui" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THuiyuan">
+            <EntityTypeMapping TypeName="FDB_BetaModel.THuiyuan">
+              <MappingFragment StoreEntitySet="THuiyuan">
+                <ScalarProperty Name="weixin" ColumnName="weixin" />
+                <ScalarProperty Name="qq" ColumnName="qq" />
+                <ScalarProperty Name="shouji" ColumnName="shouji" />
+                <ScalarProperty Name="shengri" ColumnName="shengri" />
+                <ScalarProperty Name="xingbie" ColumnName="xingbie" />
+                <ScalarProperty Name="xingming" ColumnName="xingming" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TJintuimingxi">
+            <EntityTypeMapping TypeName="FDB_BetaModel.TJintuimingxi">
+              <MappingFragment StoreEntitySet="TJintuimingxi">
+                <ScalarProperty Name="jinhuoriqi" ColumnName="jinhuoriqi" />
+                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
+                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
+                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
+                <ScalarProperty Name="chima" ColumnName="chima" />
+                <ScalarProperty Name="yanse" ColumnName="yanse" />
+                <ScalarProperty Name="pinming" ColumnName="pinming" />
+                <ScalarProperty Name="kuanhao" ColumnName="kuanhao" />
+                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
+                <ScalarProperty Name="jinhuoid" ColumnName="jinhuoid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
