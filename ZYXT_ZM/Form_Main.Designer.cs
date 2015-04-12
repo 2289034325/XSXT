@@ -32,6 +32,9 @@
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清除旧数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重置扫描枪ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.数据中心ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.注册ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.连接ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.当前用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gdv_kucun = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +48,21 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage15 = new System.Windows.Forms.TabPage();
             this.dataGridView22 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn109 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn110 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn111 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn112 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn114 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn108 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn113 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn115 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn116 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn117 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn118 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn119 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn120 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn121 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel27 = new System.Windows.Forms.Panel();
             this.button66 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
@@ -213,95 +231,7 @@
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.tabPage13 = new System.Windows.Forms.TabPage();
-            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView20 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn89 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn98 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.splitContainer9 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView19 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn99 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn100 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView18 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn87 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn94 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn95 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn96 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn97 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel25 = new System.Windows.Forms.Panel();
-            this.textBox48 = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.button58 = new System.Windows.Forms.Button();
-            this.textBox52 = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.dataGridView9 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.button25 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.dataGridView10 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button36 = new System.Windows.Forms.Button();
-            this.tabPage14 = new System.Windows.Forms.TabPage();
-            this.dataGridView21 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn101 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn102 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn103 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn104 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn105 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn106 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn107 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column60 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column62 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column63 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column64 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column65 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column66 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel26 = new System.Windows.Forms.Panel();
-            this.button59 = new System.Windows.Forms.Button();
-            this.button60 = new System.Windows.Forms.Button();
-            this.数据中心ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.注册ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.连接ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewTextBoxColumn109 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn110 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn111 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn112 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn114 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn108 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn113 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn115 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn116 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn117 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn118 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn119 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn120 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn121 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdv_kucun)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -348,31 +278,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.tabPage13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
-            this.splitContainer7.Panel1.SuspendLayout();
-            this.splitContainer7.Panel2.SuspendLayout();
-            this.splitContainer7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
-            this.splitContainer8.Panel1.SuspendLayout();
-            this.splitContainer8.Panel2.SuspendLayout();
-            this.splitContainer8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).BeginInit();
-            this.splitContainer9.Panel1.SuspendLayout();
-            this.splitContainer9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView18)).BeginInit();
-            this.panel25.SuspendLayout();
-            this.tabPage10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).BeginInit();
-            this.panel13.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).BeginInit();
-            this.panel14.SuspendLayout();
-            this.tabPage14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView21)).BeginInit();
-            this.panel26.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
@@ -399,14 +304,35 @@
             // 清除旧数据ToolStripMenuItem
             // 
             this.清除旧数据ToolStripMenuItem.Name = "清除旧数据ToolStripMenuItem";
-            this.清除旧数据ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.清除旧数据ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.清除旧数据ToolStripMenuItem.Text = "清除旧数据";
             // 
             // 重置扫描枪ToolStripMenuItem
             // 
             this.重置扫描枪ToolStripMenuItem.Name = "重置扫描枪ToolStripMenuItem";
-            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.重置扫描枪ToolStripMenuItem.Text = "重置扫描枪";
+            // 
+            // 数据中心ToolStripMenuItem
+            // 
+            this.数据中心ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.注册ToolStripMenuItem,
+            this.连接ToolStripMenuItem});
+            this.数据中心ToolStripMenuItem.Name = "数据中心ToolStripMenuItem";
+            this.数据中心ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.数据中心ToolStripMenuItem.Text = "数据中心";
+            // 
+            // 注册ToolStripMenuItem
+            // 
+            this.注册ToolStripMenuItem.Name = "注册ToolStripMenuItem";
+            this.注册ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.注册ToolStripMenuItem.Text = "注册";
+            // 
+            // 连接ToolStripMenuItem
+            // 
+            this.连接ToolStripMenuItem.Name = "连接ToolStripMenuItem";
+            this.连接ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.连接ToolStripMenuItem.Text = "连接";
             // 
             // 当前用户ToolStripMenuItem
             // 
@@ -484,10 +410,6 @@
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage13);
-            this.tabControl1.Controls.Add(this.tabPage10);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage14);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
@@ -534,6 +456,83 @@
             this.dataGridView22.RowTemplate.Height = 23;
             this.dataGridView22.Size = new System.Drawing.Size(1112, 396);
             this.dataGridView22.TabIndex = 7;
+            // 
+            // dataGridViewTextBoxColumn109
+            // 
+            this.dataGridViewTextBoxColumn109.HeaderText = "序号";
+            this.dataGridViewTextBoxColumn109.Name = "dataGridViewTextBoxColumn109";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "款号ID";
+            this.Column10.Name = "Column10";
+            this.Column10.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn110
+            // 
+            this.dataGridViewTextBoxColumn110.HeaderText = "款号";
+            this.dataGridViewTextBoxColumn110.Name = "dataGridViewTextBoxColumn110";
+            // 
+            // dataGridViewTextBoxColumn111
+            // 
+            this.dataGridViewTextBoxColumn111.HeaderText = "供应商款号";
+            this.dataGridViewTextBoxColumn111.Name = "dataGridViewTextBoxColumn111";
+            // 
+            // dataGridViewTextBoxColumn112
+            // 
+            this.dataGridViewTextBoxColumn112.HeaderText = "品名";
+            this.dataGridViewTextBoxColumn112.Name = "dataGridViewTextBoxColumn112";
+            // 
+            // dataGridViewTextBoxColumn114
+            // 
+            this.dataGridViewTextBoxColumn114.HeaderText = "类型";
+            this.dataGridViewTextBoxColumn114.Name = "dataGridViewTextBoxColumn114";
+            // 
+            // dataGridViewTextBoxColumn108
+            // 
+            this.dataGridViewTextBoxColumn108.HeaderText = "商品ID";
+            this.dataGridViewTextBoxColumn108.Name = "dataGridViewTextBoxColumn108";
+            this.dataGridViewTextBoxColumn108.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn113
+            // 
+            this.dataGridViewTextBoxColumn113.HeaderText = "条码";
+            this.dataGridViewTextBoxColumn113.Name = "dataGridViewTextBoxColumn113";
+            // 
+            // dataGridViewTextBoxColumn115
+            // 
+            this.dataGridViewTextBoxColumn115.HeaderText = "颜色";
+            this.dataGridViewTextBoxColumn115.Name = "dataGridViewTextBoxColumn115";
+            // 
+            // dataGridViewTextBoxColumn116
+            // 
+            this.dataGridViewTextBoxColumn116.HeaderText = "尺码";
+            this.dataGridViewTextBoxColumn116.Name = "dataGridViewTextBoxColumn116";
+            // 
+            // dataGridViewTextBoxColumn117
+            // 
+            this.dataGridViewTextBoxColumn117.HeaderText = "数量";
+            this.dataGridViewTextBoxColumn117.Name = "dataGridViewTextBoxColumn117";
+            // 
+            // dataGridViewTextBoxColumn118
+            // 
+            this.dataGridViewTextBoxColumn118.HeaderText = "进价";
+            this.dataGridViewTextBoxColumn118.Name = "dataGridViewTextBoxColumn118";
+            // 
+            // dataGridViewTextBoxColumn119
+            // 
+            this.dataGridViewTextBoxColumn119.HeaderText = "售价";
+            this.dataGridViewTextBoxColumn119.Name = "dataGridViewTextBoxColumn119";
+            // 
+            // dataGridViewTextBoxColumn120
+            // 
+            this.dataGridViewTextBoxColumn120.HeaderText = "供应商";
+            this.dataGridViewTextBoxColumn120.Name = "dataGridViewTextBoxColumn120";
+            // 
+            // dataGridViewTextBoxColumn121
+            // 
+            this.dataGridViewTextBoxColumn121.HeaderText = "买手";
+            this.dataGridViewTextBoxColumn121.Name = "dataGridViewTextBoxColumn121";
             // 
             // panel27
             // 
@@ -1545,6 +1544,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.checkBox2);
             this.panel6.Controls.Add(this.textBox15);
             this.panel6.Controls.Add(this.label12);
             this.panel6.Controls.Add(this.textBox14);
@@ -1995,679 +1995,16 @@
             this.label20.TabIndex = 0;
             this.label20.Text = "条码";
             // 
-            // tabPage13
-            // 
-            this.tabPage13.Controls.Add(this.splitContainer7);
-            this.tabPage13.Location = new System.Drawing.Point(4, 22);
-            this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(1118, 434);
-            this.tabPage13.TabIndex = 17;
-            this.tabPage13.Text = "款号分类";
-            this.tabPage13.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer7
-            // 
-            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer7.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer7.Name = "splitContainer7";
-            // 
-            // splitContainer7.Panel1
-            // 
-            this.splitContainer7.Panel1.Controls.Add(this.splitContainer8);
-            // 
-            // splitContainer7.Panel2
-            // 
-            this.splitContainer7.Panel2.Controls.Add(this.dataGridView18);
-            this.splitContainer7.Panel2.Controls.Add(this.panel25);
-            this.splitContainer7.Size = new System.Drawing.Size(1112, 428);
-            this.splitContainer7.SplitterDistance = 473;
-            this.splitContainer7.TabIndex = 0;
-            // 
-            // splitContainer8
-            // 
-            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer8.Name = "splitContainer8";
-            // 
-            // splitContainer8.Panel1
-            // 
-            this.splitContainer8.Panel1.Controls.Add(this.dataGridView20);
-            // 
-            // splitContainer8.Panel2
-            // 
-            this.splitContainer8.Panel2.Controls.Add(this.splitContainer9);
-            this.splitContainer8.Size = new System.Drawing.Size(473, 428);
-            this.splitContainer8.SplitterDistance = 227;
-            this.splitContainer8.TabIndex = 9;
-            // 
-            // dataGridView20
-            // 
-            this.dataGridView20.AllowUserToAddRows = false;
-            this.dataGridView20.AllowUserToDeleteRows = false;
-            this.dataGridView20.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView20.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn89,
-            this.dataGridViewTextBoxColumn98,
-            this.Column24});
-            this.dataGridView20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView20.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView20.Name = "dataGridView20";
-            this.dataGridView20.RowHeadersVisible = false;
-            this.dataGridView20.RowTemplate.Height = 23;
-            this.dataGridView20.Size = new System.Drawing.Size(227, 428);
-            this.dataGridView20.TabIndex = 7;
-            // 
-            // dataGridViewTextBoxColumn89
-            // 
-            this.dataGridViewTextBoxColumn89.HeaderText = "组名";
-            this.dataGridViewTextBoxColumn89.Name = "dataGridViewTextBoxColumn89";
-            // 
-            // dataGridViewTextBoxColumn98
-            // 
-            this.dataGridViewTextBoxColumn98.HeaderText = "款数";
-            this.dataGridViewTextBoxColumn98.Name = "dataGridViewTextBoxColumn98";
-            // 
-            // Column24
-            // 
-            this.Column24.HeaderText = "件数";
-            this.Column24.Name = "Column24";
-            // 
-            // splitContainer9
-            // 
-            this.splitContainer9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer9.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer9.Name = "splitContainer9";
-            this.splitContainer9.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer9.Panel1
-            // 
-            this.splitContainer9.Panel1.Controls.Add(this.dataGridView19);
-            this.splitContainer9.Size = new System.Drawing.Size(242, 428);
-            this.splitContainer9.SplitterDistance = 214;
-            this.splitContainer9.TabIndex = 9;
-            // 
-            // dataGridView19
-            // 
-            this.dataGridView19.AllowUserToAddRows = false;
-            this.dataGridView19.AllowUserToDeleteRows = false;
-            this.dataGridView19.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView19.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn99,
-            this.dataGridViewTextBoxColumn100,
-            this.Column42});
-            this.dataGridView19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView19.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView19.Name = "dataGridView19";
-            this.dataGridView19.RowHeadersVisible = false;
-            this.dataGridView19.RowTemplate.Height = 23;
-            this.dataGridView19.Size = new System.Drawing.Size(242, 214);
-            this.dataGridView19.TabIndex = 8;
-            // 
-            // dataGridViewTextBoxColumn99
-            // 
-            this.dataGridViewTextBoxColumn99.HeaderText = "类名";
-            this.dataGridViewTextBoxColumn99.Name = "dataGridViewTextBoxColumn99";
-            // 
-            // dataGridViewTextBoxColumn100
-            // 
-            this.dataGridViewTextBoxColumn100.HeaderText = "款数";
-            this.dataGridViewTextBoxColumn100.Name = "dataGridViewTextBoxColumn100";
-            // 
-            // Column42
-            // 
-            this.Column42.HeaderText = "件数";
-            this.Column42.Name = "Column42";
-            // 
-            // dataGridView18
-            // 
-            this.dataGridView18.AllowUserToAddRows = false;
-            this.dataGridView18.AllowUserToDeleteRows = false;
-            this.dataGridView18.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView18.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn87,
-            this.dataGridViewTextBoxColumn94,
-            this.dataGridViewTextBoxColumn95,
-            this.dataGridViewTextBoxColumn96,
-            this.dataGridViewTextBoxColumn97,
-            this.Column12,
-            this.Column18,
-            this.Column19,
-            this.Column21,
-            this.Column22,
-            this.Column23});
-            this.dataGridView18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView18.Location = new System.Drawing.Point(0, 32);
-            this.dataGridView18.Name = "dataGridView18";
-            this.dataGridView18.RowHeadersVisible = false;
-            this.dataGridView18.RowTemplate.Height = 23;
-            this.dataGridView18.Size = new System.Drawing.Size(635, 396);
-            this.dataGridView18.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn87
-            // 
-            this.dataGridViewTextBoxColumn87.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn87.Name = "dataGridViewTextBoxColumn87";
-            this.dataGridViewTextBoxColumn87.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn94
-            // 
-            this.dataGridViewTextBoxColumn94.HeaderText = "款号";
-            this.dataGridViewTextBoxColumn94.Name = "dataGridViewTextBoxColumn94";
-            // 
-            // dataGridViewTextBoxColumn95
-            // 
-            this.dataGridViewTextBoxColumn95.HeaderText = "品名";
-            this.dataGridViewTextBoxColumn95.Name = "dataGridViewTextBoxColumn95";
-            // 
-            // dataGridViewTextBoxColumn96
-            // 
-            this.dataGridViewTextBoxColumn96.HeaderText = "颜色";
-            this.dataGridViewTextBoxColumn96.Name = "dataGridViewTextBoxColumn96";
-            // 
-            // dataGridViewTextBoxColumn97
-            // 
-            this.dataGridViewTextBoxColumn97.HeaderText = "尺码";
-            this.dataGridViewTextBoxColumn97.Name = "dataGridViewTextBoxColumn97";
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "进价";
-            this.Column12.Name = "Column12";
-            // 
-            // Column18
-            // 
-            this.Column18.HeaderText = "售价";
-            this.Column18.Name = "Column18";
-            // 
-            // Column19
-            // 
-            this.Column19.HeaderText = "供应商";
-            this.Column19.Name = "Column19";
-            // 
-            // Column21
-            // 
-            this.Column21.HeaderText = "买手";
-            this.Column21.Name = "Column21";
-            // 
-            // Column22
-            // 
-            this.Column22.HeaderText = "进货量";
-            this.Column22.Name = "Column22";
-            // 
-            // Column23
-            // 
-            this.Column23.HeaderText = "销量";
-            this.Column23.Name = "Column23";
-            // 
-            // panel25
-            // 
-            this.panel25.Controls.Add(this.textBox48);
-            this.panel25.Controls.Add(this.label37);
-            this.panel25.Controls.Add(this.button58);
-            this.panel25.Controls.Add(this.textBox52);
-            this.panel25.Controls.Add(this.label40);
-            this.panel25.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel25.Location = new System.Drawing.Point(0, 0);
-            this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(635, 32);
-            this.panel25.TabIndex = 6;
-            // 
-            // textBox48
-            // 
-            this.textBox48.Location = new System.Drawing.Point(175, 5);
-            this.textBox48.Name = "textBox48";
-            this.textBox48.Size = new System.Drawing.Size(70, 21);
-            this.textBox48.TabIndex = 8;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(128, 8);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(29, 12);
-            this.label37.TabIndex = 7;
-            this.label37.Text = "类型";
-            // 
-            // button58
-            // 
-            this.button58.Location = new System.Drawing.Point(275, 3);
-            this.button58.Name = "button58";
-            this.button58.Size = new System.Drawing.Size(75, 23);
-            this.button58.TabIndex = 6;
-            this.button58.Text = "筛选";
-            this.button58.UseVisualStyleBackColor = true;
-            // 
-            // textBox52
-            // 
-            this.textBox52.Location = new System.Drawing.Point(52, 5);
-            this.textBox52.Name = "textBox52";
-            this.textBox52.Size = new System.Drawing.Size(70, 21);
-            this.textBox52.TabIndex = 3;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(5, 8);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(41, 12);
-            this.label40.TabIndex = 0;
-            this.label40.Text = "入库ID";
-            // 
-            // tabPage10
-            // 
-            this.tabPage10.Controls.Add(this.dataGridView9);
-            this.tabPage10.Controls.Add(this.panel13);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(1118, 434);
-            this.tabPage10.TabIndex = 9;
-            this.tabPage10.Text = "系统用户";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView9
-            // 
-            this.dataGridView9.AllowUserToAddRows = false;
-            this.dataGridView9.AllowUserToDeleteRows = false;
-            this.dataGridView9.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView9.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn52,
-            this.Column25,
-            this.Column26,
-            this.Column27,
-            this.Column28});
-            this.dataGridView9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView9.Location = new System.Drawing.Point(3, 35);
-            this.dataGridView9.Name = "dataGridView9";
-            this.dataGridView9.RowHeadersVisible = false;
-            this.dataGridView9.RowTemplate.Height = 23;
-            this.dataGridView9.Size = new System.Drawing.Size(1112, 396);
-            this.dataGridView9.TabIndex = 13;
-            // 
-            // dataGridViewTextBoxColumn52
-            // 
-            this.dataGridViewTextBoxColumn52.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn52.Name = "dataGridViewTextBoxColumn52";
-            // 
-            // Column25
-            // 
-            this.Column25.HeaderText = "登录名";
-            this.Column25.Name = "Column25";
-            // 
-            // Column26
-            // 
-            this.Column26.HeaderText = "用户名";
-            this.Column26.Name = "Column26";
-            // 
-            // Column27
-            // 
-            this.Column27.HeaderText = "系统角色";
-            this.Column27.Name = "Column27";
-            // 
-            // Column28
-            // 
-            this.Column28.HeaderText = "备注";
-            this.Column28.Name = "Column28";
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.button25);
-            this.panel13.Controls.Add(this.button29);
-            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel13.Location = new System.Drawing.Point(3, 3);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1112, 32);
-            this.panel13.TabIndex = 12;
-            // 
-            // button25
-            // 
-            this.button25.Location = new System.Drawing.Point(5, 6);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(75, 23);
-            this.button25.TabIndex = 8;
-            this.button25.Text = "刷新";
-            this.button25.UseVisualStyleBackColor = true;
-            // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(86, 6);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(75, 23);
-            this.button29.TabIndex = 7;
-            this.button29.Text = "新增";
-            this.button29.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.dataGridView10);
-            this.tabPage5.Controls.Add(this.panel14);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1118, 434);
-            this.tabPage5.TabIndex = 11;
-            this.tabPage5.Text = "分店信息";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView10
-            // 
-            this.dataGridView10.AllowUserToAddRows = false;
-            this.dataGridView10.AllowUserToDeleteRows = false;
-            this.dataGridView10.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView10.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn55,
-            this.Column29,
-            this.Column30,
-            this.Column34,
-            this.Column35,
-            this.Column36,
-            this.Column39});
-            this.dataGridView10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView10.Location = new System.Drawing.Point(3, 35);
-            this.dataGridView10.Name = "dataGridView10";
-            this.dataGridView10.RowTemplate.Height = 23;
-            this.dataGridView10.Size = new System.Drawing.Size(1112, 396);
-            this.dataGridView10.TabIndex = 15;
-            // 
-            // dataGridViewTextBoxColumn55
-            // 
-            this.dataGridViewTextBoxColumn55.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn55.Name = "dataGridViewTextBoxColumn55";
-            // 
-            // Column29
-            // 
-            this.Column29.HeaderText = "店名";
-            this.Column29.Name = "Column29";
-            // 
-            // Column30
-            // 
-            this.Column30.HeaderText = "面积";
-            this.Column30.Name = "Column30";
-            // 
-            // Column34
-            // 
-            this.Column34.HeaderText = "地址";
-            this.Column34.Name = "Column34";
-            // 
-            // Column35
-            // 
-            this.Column35.HeaderText = "联系人";
-            this.Column35.Name = "Column35";
-            // 
-            // Column36
-            // 
-            this.Column36.HeaderText = "电话";
-            this.Column36.Name = "Column36";
-            // 
-            // Column39
-            // 
-            this.Column39.HeaderText = "备注";
-            this.Column39.Name = "Column39";
-            // 
-            // panel14
-            // 
-            this.panel14.Controls.Add(this.button26);
-            this.panel14.Controls.Add(this.button36);
-            this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel14.Location = new System.Drawing.Point(3, 3);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(1112, 32);
-            this.panel14.TabIndex = 14;
-            // 
-            // button26
-            // 
-            this.button26.Location = new System.Drawing.Point(13, 6);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(75, 23);
-            this.button26.TabIndex = 8;
-            this.button26.Text = "刷新";
-            this.button26.UseVisualStyleBackColor = true;
-            // 
-            // button36
-            // 
-            this.button36.Location = new System.Drawing.Point(94, 6);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(75, 23);
-            this.button36.TabIndex = 7;
-            this.button36.Text = "增加";
-            this.button36.UseVisualStyleBackColor = true;
-            // 
-            // tabPage14
-            // 
-            this.tabPage14.Controls.Add(this.dataGridView21);
-            this.tabPage14.Controls.Add(this.panel26);
-            this.tabPage14.Location = new System.Drawing.Point(4, 22);
-            this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1118, 434);
-            this.tabPage14.TabIndex = 18;
-            this.tabPage14.Text = "员工表";
-            this.tabPage14.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView21
-            // 
-            this.dataGridView21.AllowUserToAddRows = false;
-            this.dataGridView21.AllowUserToDeleteRows = false;
-            this.dataGridView21.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView21.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn101,
-            this.dataGridViewTextBoxColumn102,
-            this.dataGridViewTextBoxColumn103,
-            this.dataGridViewTextBoxColumn104,
-            this.dataGridViewTextBoxColumn105,
-            this.dataGridViewTextBoxColumn106,
-            this.dataGridViewTextBoxColumn107,
-            this.Column60,
-            this.Column61,
-            this.Column62,
-            this.Column63,
-            this.Column64,
-            this.Column65,
-            this.Column66});
-            this.dataGridView21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView21.Location = new System.Drawing.Point(3, 35);
-            this.dataGridView21.Name = "dataGridView21";
-            this.dataGridView21.RowHeadersVisible = false;
-            this.dataGridView21.RowTemplate.Height = 23;
-            this.dataGridView21.Size = new System.Drawing.Size(1112, 396);
-            this.dataGridView21.TabIndex = 17;
-            // 
-            // dataGridViewTextBoxColumn101
-            // 
-            this.dataGridViewTextBoxColumn101.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn101.Name = "dataGridViewTextBoxColumn101";
-            // 
-            // dataGridViewTextBoxColumn102
-            // 
-            this.dataGridViewTextBoxColumn102.HeaderText = "分店";
-            this.dataGridViewTextBoxColumn102.Name = "dataGridViewTextBoxColumn102";
-            // 
-            // dataGridViewTextBoxColumn103
-            // 
-            this.dataGridViewTextBoxColumn103.HeaderText = "姓名";
-            this.dataGridViewTextBoxColumn103.Name = "dataGridViewTextBoxColumn103";
-            // 
-            // dataGridViewTextBoxColumn104
-            // 
-            this.dataGridViewTextBoxColumn104.HeaderText = "出生日期";
-            this.dataGridViewTextBoxColumn104.Name = "dataGridViewTextBoxColumn104";
-            // 
-            // dataGridViewTextBoxColumn105
-            // 
-            this.dataGridViewTextBoxColumn105.HeaderText = "性别";
-            this.dataGridViewTextBoxColumn105.Name = "dataGridViewTextBoxColumn105";
-            // 
-            // dataGridViewTextBoxColumn106
-            // 
-            this.dataGridViewTextBoxColumn106.HeaderText = "职位";
-            this.dataGridViewTextBoxColumn106.Name = "dataGridViewTextBoxColumn106";
-            // 
-            // dataGridViewTextBoxColumn107
-            // 
-            this.dataGridViewTextBoxColumn107.HeaderText = "基本工资";
-            this.dataGridViewTextBoxColumn107.Name = "dataGridViewTextBoxColumn107";
-            // 
-            // Column60
-            // 
-            this.Column60.HeaderText = "销售提成";
-            this.Column60.Name = "Column60";
-            // 
-            // Column61
-            // 
-            this.Column61.HeaderText = "工作性质";
-            this.Column61.Name = "Column61";
-            // 
-            // Column62
-            // 
-            this.Column62.HeaderText = "入职日期";
-            this.Column62.Name = "Column62";
-            // 
-            // Column63
-            // 
-            this.Column63.HeaderText = "离职日期";
-            this.Column63.Name = "Column63";
-            // 
-            // Column64
-            // 
-            this.Column64.HeaderText = "备注";
-            this.Column64.Name = "Column64";
-            // 
-            // Column65
-            // 
-            this.Column65.HeaderText = "插入时间";
-            this.Column65.Name = "Column65";
-            // 
-            // Column66
-            // 
-            this.Column66.HeaderText = "修改时间";
-            this.Column66.Name = "Column66";
-            // 
-            // panel26
-            // 
-            this.panel26.Controls.Add(this.button59);
-            this.panel26.Controls.Add(this.button60);
-            this.panel26.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel26.Location = new System.Drawing.Point(3, 3);
-            this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(1112, 32);
-            this.panel26.TabIndex = 16;
-            // 
-            // button59
-            // 
-            this.button59.Location = new System.Drawing.Point(13, 6);
-            this.button59.Name = "button59";
-            this.button59.Size = new System.Drawing.Size(75, 23);
-            this.button59.TabIndex = 8;
-            this.button59.Text = "刷新";
-            this.button59.UseVisualStyleBackColor = true;
-            // 
-            // button60
-            // 
-            this.button60.Location = new System.Drawing.Point(94, 6);
-            this.button60.Name = "button60";
-            this.button60.Size = new System.Drawing.Size(75, 23);
-            this.button60.TabIndex = 7;
-            this.button60.Text = "增加";
-            this.button60.UseVisualStyleBackColor = true;
-            // 
-            // 数据中心ToolStripMenuItem
-            // 
-            this.数据中心ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.注册ToolStripMenuItem,
-            this.连接ToolStripMenuItem});
-            this.数据中心ToolStripMenuItem.Name = "数据中心ToolStripMenuItem";
-            this.数据中心ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.数据中心ToolStripMenuItem.Text = "数据中心";
-            // 
-            // 注册ToolStripMenuItem
-            // 
-            this.注册ToolStripMenuItem.Name = "注册ToolStripMenuItem";
-            this.注册ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.注册ToolStripMenuItem.Text = "注册";
-            // 
-            // 连接ToolStripMenuItem
-            // 
-            this.连接ToolStripMenuItem.Name = "连接ToolStripMenuItem";
-            this.连接ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.连接ToolStripMenuItem.Text = "连接";
-            // 
-            // dataGridViewTextBoxColumn109
-            // 
-            this.dataGridViewTextBoxColumn109.HeaderText = "序号";
-            this.dataGridViewTextBoxColumn109.Name = "dataGridViewTextBoxColumn109";
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "款号ID";
-            this.Column10.Name = "Column10";
-            this.Column10.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn110
-            // 
-            this.dataGridViewTextBoxColumn110.HeaderText = "款号";
-            this.dataGridViewTextBoxColumn110.Name = "dataGridViewTextBoxColumn110";
-            // 
-            // dataGridViewTextBoxColumn111
-            // 
-            this.dataGridViewTextBoxColumn111.HeaderText = "供应商款号";
-            this.dataGridViewTextBoxColumn111.Name = "dataGridViewTextBoxColumn111";
-            // 
-            // dataGridViewTextBoxColumn112
-            // 
-            this.dataGridViewTextBoxColumn112.HeaderText = "品名";
-            this.dataGridViewTextBoxColumn112.Name = "dataGridViewTextBoxColumn112";
-            // 
-            // dataGridViewTextBoxColumn114
-            // 
-            this.dataGridViewTextBoxColumn114.HeaderText = "类型";
-            this.dataGridViewTextBoxColumn114.Name = "dataGridViewTextBoxColumn114";
-            // 
-            // dataGridViewTextBoxColumn108
-            // 
-            this.dataGridViewTextBoxColumn108.HeaderText = "商品ID";
-            this.dataGridViewTextBoxColumn108.Name = "dataGridViewTextBoxColumn108";
-            this.dataGridViewTextBoxColumn108.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn113
-            // 
-            this.dataGridViewTextBoxColumn113.HeaderText = "条码";
-            this.dataGridViewTextBoxColumn113.Name = "dataGridViewTextBoxColumn113";
-            // 
-            // dataGridViewTextBoxColumn115
-            // 
-            this.dataGridViewTextBoxColumn115.HeaderText = "颜色";
-            this.dataGridViewTextBoxColumn115.Name = "dataGridViewTextBoxColumn115";
-            // 
-            // dataGridViewTextBoxColumn116
-            // 
-            this.dataGridViewTextBoxColumn116.HeaderText = "尺码";
-            this.dataGridViewTextBoxColumn116.Name = "dataGridViewTextBoxColumn116";
-            // 
-            // dataGridViewTextBoxColumn117
-            // 
-            this.dataGridViewTextBoxColumn117.HeaderText = "数量";
-            this.dataGridViewTextBoxColumn117.Name = "dataGridViewTextBoxColumn117";
-            // 
-            // dataGridViewTextBoxColumn118
-            // 
-            this.dataGridViewTextBoxColumn118.HeaderText = "进价";
-            this.dataGridViewTextBoxColumn118.Name = "dataGridViewTextBoxColumn118";
-            // 
-            // dataGridViewTextBoxColumn119
-            // 
-            this.dataGridViewTextBoxColumn119.HeaderText = "售价";
-            this.dataGridViewTextBoxColumn119.Name = "dataGridViewTextBoxColumn119";
-            // 
-            // dataGridViewTextBoxColumn120
-            // 
-            this.dataGridViewTextBoxColumn120.HeaderText = "供应商";
-            this.dataGridViewTextBoxColumn120.Name = "dataGridViewTextBoxColumn120";
-            // 
-            // dataGridViewTextBoxColumn121
-            // 
-            this.dataGridViewTextBoxColumn121.HeaderText = "买手";
-            this.dataGridViewTextBoxColumn121.Name = "dataGridViewTextBoxColumn121";
+            // checkBox2
+            // 
+            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(731, 3);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(63, 22);
+            this.checkBox2.TabIndex = 15;
+            this.checkBox2.Text = "库存重建";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // Form_Main
             // 
@@ -2678,7 +2015,7 @@
             this.Controls.Add(this.mn_main);
             this.MainMenuStrip = this.mn_main;
             this.Name = "Form_Main";
-            this.Text = "中央系统";
+            this.Text = "仓库管理";
             this.mn_main.ResumeLayout(false);
             this.mn_main.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdv_kucun)).EndInit();
@@ -2733,32 +2070,6 @@
             this.panel9.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            this.tabPage13.ResumeLayout(false);
-            this.splitContainer7.Panel1.ResumeLayout(false);
-            this.splitContainer7.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
-            this.splitContainer7.ResumeLayout(false);
-            this.splitContainer8.Panel1.ResumeLayout(false);
-            this.splitContainer8.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
-            this.splitContainer8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView20)).EndInit();
-            this.splitContainer9.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).EndInit();
-            this.splitContainer9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView18)).EndInit();
-            this.panel25.ResumeLayout(false);
-            this.panel25.PerformLayout();
-            this.tabPage10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).EndInit();
-            this.panel13.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).EndInit();
-            this.panel14.ResumeLayout(false);
-            this.tabPage14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView21)).EndInit();
-            this.panel26.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2779,7 +2090,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.ToolStripMenuItem 当前用户ToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
@@ -2814,25 +2124,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button button35;
-        private System.Windows.Forms.DataGridView dataGridView9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn52;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column25;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column26;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column28;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Button button29;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.DataGridView dataGridView10;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.Button button36;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn55;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column29;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column30;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column34;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column35;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column36;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column39;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 清除旧数据ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn43;
@@ -2882,59 +2173,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column54;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button26;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.Button button55;
-        private System.Windows.Forms.TabPage tabPage13;
-        private System.Windows.Forms.SplitContainer splitContainer7;
-        private System.Windows.Forms.SplitContainer splitContainer8;
-        private System.Windows.Forms.DataGridView dataGridView20;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn89;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn98;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column24;
-        private System.Windows.Forms.DataGridView dataGridView19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn99;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn100;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column42;
-        private System.Windows.Forms.DataGridView dataGridView18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn87;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn94;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn95;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn96;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn97;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column22;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column23;
-        private System.Windows.Forms.Panel panel25;
-        private System.Windows.Forms.Button button58;
-        private System.Windows.Forms.TextBox textBox52;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.TextBox textBox48;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.SplitContainer splitContainer9;
-        private System.Windows.Forms.TabPage tabPage14;
-        private System.Windows.Forms.DataGridView dataGridView21;
-        private System.Windows.Forms.Panel panel26;
-        private System.Windows.Forms.Button button59;
-        private System.Windows.Forms.Button button60;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn101;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn102;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn103;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn104;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn105;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn106;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn107;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column60;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column61;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column62;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column63;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column64;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column65;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column66;
         private System.Windows.Forms.TextBox textBox49;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.TextBox textBox1;
@@ -3040,6 +2280,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn119;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn120;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn121;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

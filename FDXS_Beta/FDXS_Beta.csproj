@@ -185,9 +185,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RawInput\RawInput.csproj">
+    <ProjectReference Include="..\RawInput\RawInput（扫描枪辨别工具）.csproj">
       <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
-      <Name>RawInput</Name>
+      <Name>RawInput（扫描枪辨别工具）</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

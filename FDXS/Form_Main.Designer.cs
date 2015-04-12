@@ -45,6 +45,17 @@
             this.连接ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.当前用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gdv_kucun = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
@@ -335,17 +346,7 @@
             this.button48 = new System.Windows.Forms.Button();
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdv_kucun)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -561,6 +562,62 @@
             this.gdv_kucun.RowTemplate.Height = 23;
             this.gdv_kucun.Size = new System.Drawing.Size(1112, 183);
             this.gdv_kucun.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "ID";
+            this.Column1.Name = "Column1";
+            this.Column1.Visible = false;
+            // 
+            // Column55
+            // 
+            this.Column55.HeaderText = "批次号";
+            this.Column55.Name = "Column55";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "方向";
+            this.Column8.Name = "Column8";
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "分店";
+            this.Column9.Name = "Column9";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "件数";
+            this.Column2.Name = "Column2";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "备注";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "操作人";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "登记时间";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "修改时间";
+            this.Column7.Name = "Column7";
+            // 
+            // Column38
+            // 
+            this.Column38.HeaderText = "确定";
+            this.Column38.Name = "Column38";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "同步时间";
+            this.Column10.Name = "Column10";
             // 
             // tabControl1
             // 
@@ -1012,6 +1069,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.checkBox1);
             this.panel6.Controls.Add(this.textBox15);
             this.panel6.Controls.Add(this.label12);
             this.panel6.Controls.Add(this.textBox14);
@@ -3040,61 +3098,16 @@
             this.button50.Text = "上一页";
             this.button50.UseVisualStyleBackColor = true;
             // 
-            // Column1
+            // checkBox1
             // 
-            this.Column1.HeaderText = "ID";
-            this.Column1.Name = "Column1";
-            this.Column1.Visible = false;
-            // 
-            // Column55
-            // 
-            this.Column55.HeaderText = "批次号";
-            this.Column55.Name = "Column55";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "方向";
-            this.Column8.Name = "Column8";
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "分店";
-            this.Column9.Name = "Column9";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "件数";
-            this.Column2.Name = "Column2";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "备注";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "操作人";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "登记时间";
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "修改时间";
-            this.Column7.Name = "Column7";
-            // 
-            // Column38
-            // 
-            this.Column38.HeaderText = "确定";
-            this.Column38.Name = "Column38";
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "同步时间";
-            this.Column10.Name = "Column10";
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(731, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(63, 22);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "库存重建";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Form_Main
             // 
@@ -3514,6 +3527,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column38;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
