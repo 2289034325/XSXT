@@ -44,6 +44,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_Bianma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Bianma.Designer.cs">
+      <DependentUpon>Form_Bianma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Ruku.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Ruku.Designer.cs">
+      <DependentUpon>Dlg_Ruku.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_KuanhaoXinxi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_KuanhaoXinxi.Designer.cs">
+      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_SPShaixuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_SPShaixuan.Designer.cs">
+      <DependentUpon>Dlg_SPShaixuan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +76,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form_Bianma.resx">
+      <DependentUpon>Form_Bianma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Ruku.resx">
+      <DependentUpon>Dlg_Ruku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_KuanhaoXinxi.resx">
+      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_SPShaixuan.resx">
+      <DependentUpon>Dlg_SPShaixuan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
