@@ -1,6 +1,6 @@
 ﻿namespace BIANMA
 {
-    partial class Form_Main
+    partial class Form_Bianma
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -52,6 +52,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -162,6 +163,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button3);
@@ -181,7 +183,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 23;
-            this.button6.Text = "入库";
+            this.button6.Text = "加载";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // button5
@@ -238,6 +240,15 @@
             this.button4.Text = "款号信息";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(834, 6);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 24;
+            this.button7.Text = "确定";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -279,6 +290,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button7;
     }
 }
 

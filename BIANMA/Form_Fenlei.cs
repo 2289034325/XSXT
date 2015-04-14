@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BIANMA
 {
-    public partial class Form_Main : Form
+    public partial class Form_Fenlei : Form
     {
-        public Form_Main()
+        public Form_Fenlei()
         {
             InitializeComponent();
         }
