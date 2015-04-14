@@ -327,7 +327,7 @@ namespace FDXS_Beta
         }
 
         /// <summary>
-        /// 自动抹零
+        /// 抹零小数
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -336,7 +336,7 @@ namespace FDXS_Beta
             //将总价的零头在第一行抹去
             decimal zongjia = Xses.Sum(r => r.danjia * r.shuliang * r.zhekou / 10);
 
-            decimal lingtou = zongjia % 10;
+            decimal lingtou = zongjia-Math.Truncate(zongjia);
             Xses.First().moling = lingtou;
 
             txb_tiaoma.Focus();
@@ -394,6 +394,38 @@ namespace FDXS_Beta
             txb_tiaoma.Text = "";
             txb_shishou.Text = "";
             Xses.Clear();
+            shuaxinGrid();
+            shuaxinZongjia();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Xses.ForEach(x => x.zhekou = 7);
+            txb_tiaoma.Focus();
+
+            shuaxinGrid();
+            shuaxinZongjia();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Xses.ForEach(x => x.zhekou = 7.5M);
+            txb_tiaoma.Focus();
+
+            shuaxinGrid();
+            shuaxinZongjia();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //将总价的零头在第一行抹去
+            decimal zongjia = Xses.Sum(r => r.danjia * r.shuliang * r.zhekou / 10);
+
+            decimal lingtou = zongjia % 10;
+            Xses.First().moling = lingtou;
+
+            txb_tiaoma.Focus();
+
             shuaxinGrid();
             shuaxinZongjia();
         }

@@ -672,21 +672,21 @@ namespace FDXS_Beta
                 }).OrderBy(r => r.X).ToList();
 
             var xdata_s = en.TXiaoshou.GroupBy(r => SqlFunctions.DateName("hh", r.charushijian)).
-                Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
+                Select(r => new { X = r.Key, Y = r.Average(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
             var xdata_j = en.TXiaoshou.GroupBy(r => SqlFunctions.DateName("hh", r.charushijian)).
                  Select(r => new
                  {
                      X = r.Key,
-                     Y = r.Sum(rx => DbFunctions.Truncate(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moling, 2))
+                     Y = r.Average(rx => DbFunctions.Truncate(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moling, 2))
                  }).OrderBy(r => r.X).ToList();
 
             var wdata_s = en.TXiaoshou.GroupBy(r => SqlFunctions.DateName("dw", r.charushijian)).
-                Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
+                Select(r => new { X = r.Key, Y = r.Average(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
             var wdata_j = en.TXiaoshou.GroupBy(r => SqlFunctions.DateName("dw", r.charushijian)).
                  Select(r => new
                  {
                      X = r.Key,
-                     Y = r.Sum(rx => DbFunctions.Truncate(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moling, 2))
+                     Y = r.Average(rx => DbFunctions.Truncate(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moling, 2))
                  }).OrderBy(r => r.X).ToList();
 
             DataTable ddt,xdt,wdt;
@@ -694,13 +694,13 @@ namespace FDXS_Beta
             {
                 ddt = Tool.LINQToDataTable(ddata_s);
                 xdt = Tool.LINQToDataTable(xdata_s);
-                wdt = Tool.LINQToDataTable(wdata_s);
+                wdt = changeWeek(Tool.LINQToDataTable(wdata_s));
             }
             else
             {
                 ddt = Tool.LINQToDataTable(ddata_j);
                 xdt = Tool.LINQToDataTable(xdata_j);
-                wdt = Tool.LINQToDataTable(wdata_j);
+                wdt = changeWeek(Tool.LINQToDataTable(wdata_j));
             }
 
             //做报表
@@ -730,6 +730,56 @@ namespace FDXS_Beta
         }
 
         /// <summary>
+        /// 将星期几转换成数字
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        DataTable changeWeek(DataTable dt)
+        {
+            dt.Columns.Add("week");
+            foreach (DataRow dr in dt.Rows)
+            {
+                string w = dr["X"].ToString();
+                if (w == "星期日")
+                {
+                    dr["week"] = 7;
+                }
+                else if (w == "星期一")
+                {
+                    dr["week"] = 1;
+                }
+                else if (w == "星期二")
+                {
+                    dr["week"] = 2;
+                }
+                else if (w == "星期三")
+                {
+                    dr["week"] = 3;
+                }
+                else if (w == "星期四")
+                {
+                    dr["week"] = 4;
+                }
+                else if (w == "星期五")
+                {
+                    dr["week"] = 5;
+                }
+                else if (w == "星期六")
+                {
+                    dr["week"] = 6;
+                }
+            }
+
+            DataView dv = dt.DefaultView;
+            dv.Sort = "week";
+            DataTable ndt = dv.ToTable();
+
+            return ndt;
+
+        }
+
+
+        /// <summary>
         /// 将扫描枪信息置空，以便重新设置
         /// </summary>
         /// <param name="sender"></param>
@@ -739,97 +789,6 @@ namespace FDXS_Beta
             Settings.Default.ScanName = "";
             Settings.Default.Save();
             MessageBox.Show("重置完毕，请关闭程序然后再次打开，校准新的扫描枪");
-        }
-
-        /// <summary>
-        /// 刷新会员
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-            shuaxinhuiyuan();
-        }
-
-        private void shuaxinhuiyuan()
-        {
-            FDB_BetaEntities en = new FDB_BetaEntities();
-            gdv_huiyuan.DataSource = Tool.LINQToDataTable(en.THuiyuan.Select(r => new
-            {
-                id = r.id,
-                xingming = r.xingming,
-                xingbie = r.xingbie ? "男" : "女",
-                shengri = r.shengri,
-                nianling = SqlFunctions.DateDiff("year", r.shengri, DateTime.Now).Value,
-                shouji = r.shouji,
-                qq = r.qq,
-                weixin = r.weixin
-            }).OrderByDescending(r=>r.id).ToList());
-        }
-
-        /// <summary>
-        /// 修改会员信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void gdv_huiyuan_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            FDB_BetaEntities en = new FDB_BetaEntities();
-            //取得被修改的信息
-            DataGridViewRow dr = gdv_huiyuan.Rows[e.RowIndex];
-            int id = (int)dr.Cells[0].Value;
-            THuiyuan tj = en.THuiyuan.Single(r => r.id == id);
-            tj.xingming = (string)dr.Cells[1].Value;
-            tj.xingbie = (bool)dr.Cells[2].Value.Equals("男")?true:false;
-            tj.shengri = (DateTime)dr.Cells[3].Value;
-            tj.shouji = (string)dr.Cells[5].Value;
-            tj.qq = (string)dr.Cells[6].Value;
-            tj.weixin = (string)dr.Cells[7].Value;
-
-            en.SaveChanges();
-        }
-
-
-        /// <summary>
-        /// 增加新会员
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button7_Click(object sender, EventArgs e)
-        {
-            THuiyuan h = new THuiyuan 
-            {
-                xingming = "",
-                xingbie = true,
-                shengri = DateTime.ParseExact("19901010","yyyyMMdd",null),
-                shouji = "",
-                qq="",
-                weixin = ""
-            };
-            FDB_BetaEntities en = new FDB_BetaEntities();            
-            en.THuiyuan.Add(h);
-            en.SaveChanges();
-
-            shuaxinhuiyuan();
-        }
-
-
-        /// <summary>
-        /// 删除会员
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void gdv_huiyuan_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-        {
-            //取得条码
-            DataGridViewRow dgr = gdv_huiyuan.SelectedRows[0];
-            int id = (int)dgr.Cells[0].Value;
-
-            FDB_BetaEntities en = new FDB_BetaEntities();
-            THuiyuan t = en.THuiyuan.Single(r => r.id == id);
-            en.THuiyuan.Remove(t);
-            en.SaveChanges();
-        }
+        }       
     }
 }
