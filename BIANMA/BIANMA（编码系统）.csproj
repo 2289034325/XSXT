@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15773901-8064-421E-B24F-AE844CA89749}</ProjectGuid>
+    <ProjectGuid>{359232C3-26C9-45D1-89AD-EA906F977213}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZYXT_ZM</RootNamespace>
-    <AssemblyName>ZYXT_ZM</AssemblyName>
+    <RootNamespace>BIANMA</RootNamespace>
+    <AssemblyName>BIANMA</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,24 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dlg_Ruku.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_Ruku.Designer.cs">
-      <DependentUpon>Dlg_Ruku.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_KuanhaoXinxi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_KuanhaoXinxi.Designer.cs">
-      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_SPShaixuan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_SPShaixuan.Designer.cs">
-      <DependentUpon>Dlg_SPShaixuan.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,15 +52,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Dlg_Ruku.resx">
-      <DependentUpon>Dlg_Ruku.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_KuanhaoXinxi.resx">
-      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_SPShaixuan.resx">
-      <DependentUpon>Dlg_SPShaixuan.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>

@@ -225,6 +225,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -345,6 +346,7 @@
             this.gdv_kucun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdv_kucun.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
+            this.Column9,
             this.Column2,
             this.Column4,
             this.Column5,
@@ -361,8 +363,8 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage15);
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage9);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -568,7 +570,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1118, 434);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "入库";
+            this.tabPage1.Text = "出入库";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // splitContainer5
@@ -752,7 +754,7 @@
             this.button67.Name = "button67";
             this.button67.Size = new System.Drawing.Size(75, 23);
             this.button67.TabIndex = 23;
-            this.button67.Text = "有条码入库";
+            this.button67.Text = "出库";
             this.button67.UseVisualStyleBackColor = true;
             // 
             // textBox50
@@ -793,7 +795,7 @@
             this.button55.Name = "button55";
             this.button55.Size = new System.Drawing.Size(75, 23);
             this.button55.TabIndex = 18;
-            this.button55.Text = "无条码入库";
+            this.button55.Text = "入库";
             this.button55.UseVisualStyleBackColor = true;
             // 
             // textBox13
@@ -1967,9 +1969,14 @@
             this.Column1.HeaderText = "ID";
             this.Column1.Name = "Column1";
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "方向";
+            this.Column9.Name = "Column9";
+            // 
             // Column2
             // 
-            this.Column2.HeaderText = "进货件数";
+            this.Column2.HeaderText = "数量";
             this.Column2.Name = "Column2";
             // 
             // Column4
@@ -1984,7 +1991,7 @@
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "入库时间";
+            this.Column6.HeaderText = "登记时间";
             this.Column6.Name = "Column6";
             // 
             // Column7
@@ -2260,6 +2267,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn121;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;

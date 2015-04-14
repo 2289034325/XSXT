@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ZYXT_ZM
+namespace BIANMA
 {
-    public partial class Form_Bianma : Form
+    public partial class Form_Main : Form
     {
-        public Form_Bianma()
+        public Form_Main()
         {
             InitializeComponent();
         }
