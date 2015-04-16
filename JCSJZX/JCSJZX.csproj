@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{555BEDC9-16AC-4038-86F8-AD09D6CF180F}</ProjectGuid>
+    <ProjectGuid>{E625A412-9075-4872-BD2B-4D8A4CD37A05}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZYXT_WB</RootNamespace>
-    <AssemblyName>ZYXT_WB</AssemblyName>
+    <RootNamespace>JCSJZX</RootNamespace>
+    <AssemblyName>JCSJZX</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -57,11 +57,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cangku_Shuju.aspx" />
-    <Content Include="Cangku_Xinxi.aspx" />
-    <Content Include="Fendian_Shuju.aspx" />
-    <Content Include="Fendian_Xinxi.aspx" />
-    <Content Include="Main.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -73,41 +68,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cangku_Shuju.aspx.cs">
-      <DependentUpon>Cangku_Shuju.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Cangku_Shuju.aspx.designer.cs">
-      <DependentUpon>Cangku_Shuju.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Cangku_Xinxi.aspx.cs">
-      <DependentUpon>Cangku_Xinxi.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Cangku_Xinxi.aspx.designer.cs">
-      <DependentUpon>Cangku_Xinxi.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fendian_Shuju.aspx.cs">
-      <DependentUpon>Fendian_Shuju.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fendian_Shuju.aspx.designer.cs">
-      <DependentUpon>Fendian_Shuju.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fendian_Xinxi.aspx.cs">
-      <DependentUpon>Fendian_Xinxi.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fendian_Xinxi.aspx.designer.cs">
-      <DependentUpon>Fendian_Xinxi.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main.Master.cs">
-      <DependentUpon>Main.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main.Master.designer.cs">
-      <DependentUpon>Main.Master</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>
@@ -123,9 +83,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1583</DevelopmentServerPort>
+          <DevelopmentServerPort>2782</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1550/</IISUrl>
+          <IISUrl>http://localhost:3442/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

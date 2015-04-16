@@ -1,0 +1,58 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="ZYXT_WB.Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="div_head" style="margin:auto; width:1024px;">
+            <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal" BackColor="#FFFBD6" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#990000" StaticSubMenuIndent="10px" Width="1024px">
+                <DynamicHoverStyle BackColor="#990000" ForeColor="White"></DynamicHoverStyle>
+
+                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></DynamicMenuItemStyle>
+
+                <DynamicMenuStyle BackColor="#FFFBD6"></DynamicMenuStyle>
+
+                <DynamicSelectedStyle BackColor="#FFCC66"></DynamicSelectedStyle>
+                <Items>
+                    <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Fendian_Xinxi.aspx">
+                        <asp:MenuItem Text="分店信息" Value="分店信息"></asp:MenuItem>
+                        <asp:MenuItem Text="进出货数据" Value="进出货数据"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Cangku_Xinxi.aspx">
+                        <asp:MenuItem Text="仓库信息" Value="仓库信息"></asp:MenuItem>
+                        <asp:MenuItem Text="进出货数据" Value="进出货数据"></asp:MenuItem>
+                        <asp:MenuItem Text="核销数据" Value="核销数据"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="款号条码信息" Value="款号条码信息">
+                        <asp:MenuItem Text="款号信息" Value="款号信息"></asp:MenuItem>
+                        <asp:MenuItem Text="条码信息" Value="条码信息"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="销售数据" Value="销售数据"></asp:MenuItem>
+                    <asp:MenuItem Text="报表" Value="报表">
+                        <asp:MenuItem Text="总报表" Value="总报表"></asp:MenuItem>
+                        <asp:MenuItem Text="分店报表" Value="分店报表"></asp:MenuItem>
+                        <asp:MenuItem Text="款号报表" Value="款号报表"></asp:MenuItem>
+                    </asp:MenuItem>
+                </Items>
+                <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
+
+                <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></StaticMenuItemStyle>
+
+                <StaticSelectedStyle BackColor="#FFCC66"></StaticSelectedStyle>
+            </asp:Menu>
+        </div>
+    <div id="div_body">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+        <div id="div_foot"></div>
+    </form>
+</body>
+</html>

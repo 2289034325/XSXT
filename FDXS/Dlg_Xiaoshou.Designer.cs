@@ -46,7 +46,6 @@
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.lbl_printflg = new System.Windows.Forms.Label();
             this.lbl_zongjia = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -56,18 +55,25 @@
             this.txb_tiaoma = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.txb_zhekou = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gdv_kaidan)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gdv_kaidan
@@ -108,14 +114,14 @@
             this.gdv_kaidan.DefaultCellStyle = dataGridViewCellStyle5;
             this.gdv_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gdv_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.gdv_kaidan.Location = new System.Drawing.Point(0, 103);
+            this.gdv_kaidan.Location = new System.Drawing.Point(0, 0);
             this.gdv_kaidan.Name = "gdv_kaidan";
             this.gdv_kaidan.RowHeadersVisible = false;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gdv_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.gdv_kaidan.RowTemplate.Height = 23;
             this.gdv_kaidan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gdv_kaidan.Size = new System.Drawing.Size(1126, 168);
+            this.gdv_kaidan.Size = new System.Drawing.Size(808, 203);
             this.gdv_kaidan.TabIndex = 0;
             // 
             // Column1
@@ -211,7 +217,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.lbl_printflg);
             this.panel1.Controls.Add(this.lbl_zongjia);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button1);
@@ -219,9 +224,9 @@
             this.panel1.Controls.Add(this.txb_shishou);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 271);
+            this.panel1.Location = new System.Drawing.Point(0, 306);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1126, 156);
+            this.panel1.Size = new System.Drawing.Size(1127, 156);
             this.panel1.TabIndex = 1;
             // 
             // label2
@@ -234,21 +239,12 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "找零￥";
             // 
-            // lbl_printflg
-            // 
-            this.lbl_printflg.AutoSize = true;
-            this.lbl_printflg.Location = new System.Drawing.Point(-2, 141);
-            this.lbl_printflg.Name = "lbl_printflg";
-            this.lbl_printflg.Size = new System.Drawing.Size(35, 12);
-            this.lbl_printflg.TabIndex = 10;
-            this.lbl_printflg.Text = "Print";
-            // 
             // lbl_zongjia
             // 
             this.lbl_zongjia.AutoSize = true;
             this.lbl_zongjia.Font = new System.Drawing.Font("宋体", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbl_zongjia.ForeColor = System.Drawing.Color.Red;
-            this.lbl_zongjia.Location = new System.Drawing.Point(-15, 35);
+            this.lbl_zongjia.Location = new System.Drawing.Point(3, 35);
             this.lbl_zongjia.Name = "lbl_zongjia";
             this.lbl_zongjia.Size = new System.Drawing.Size(261, 107);
             this.lbl_zongjia.TabIndex = 6;
@@ -314,41 +310,26 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.button6);
-            this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.dateTimePicker1);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txb_tiaoma);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.txb_zhekou);
             this.panel2.Controls.Add(this.button4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1126, 103);
+            this.panel2.Size = new System.Drawing.Size(1127, 103);
             this.panel2.TabIndex = 2;
             // 
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button6.Location = new System.Drawing.Point(834, 3);
+            this.button6.Location = new System.Drawing.Point(523, 4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(136, 96);
             this.button6.TabIndex = 15;
             this.button6.Text = "活动折扣";
             this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button5.Location = new System.Drawing.Point(730, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(98, 96);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "9折";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // dateTimePicker1
             // 
@@ -368,16 +349,6 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "销售时间";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(291, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 27);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "其他折扣";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -388,50 +359,113 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "输入条码";
             // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.Location = new System.Drawing.Point(626, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(98, 96);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "85折";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(523, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 96);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "8折";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // txb_zhekou
-            // 
-            this.txb_zhekou.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_zhekou.Location = new System.Drawing.Point(417, 9);
-            this.txb_zhekou.Name = "txb_zhekou";
-            this.txb_zhekou.Size = new System.Drawing.Size(100, 30);
-            this.txb_zhekou.TabIndex = 5;
-            // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button4.Location = new System.Drawing.Point(976, 3);
+            this.button4.Location = new System.Drawing.Point(665, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(112, 96);
             this.button4.TabIndex = 4;
             this.button4.Text = "抹零";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 103);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.gdv_kaidan);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label9);
+            this.splitContainer1.Panel2.Controls.Add(this.label10);
+            this.splitContainer1.Panel2.Controls.Add(this.button7);
+            this.splitContainer1.Panel2.Controls.Add(this.label8);
+            this.splitContainer1.Panel2.Controls.Add(this.label7);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.label6);
+            this.splitContainer1.Size = new System.Drawing.Size(1127, 203);
+            this.splitContainer1.SplitterDistance = 808;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(156, 7);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(147, 30);
+            this.textBox1.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(5, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(147, 27);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "会员手机号";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(10, 55);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 27);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "积分";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(156, 55);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 27);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "积分";
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button7.Location = new System.Drawing.Point(163, 157);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(140, 40);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "注册会员";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Location = new System.Drawing.Point(156, 105);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 27);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "折扣";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(10, 105);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 27);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "折扣";
+            // 
             // Dlg_xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 427);
-            this.Controls.Add(this.gdv_kaidan);
+            this.ClientSize = new System.Drawing.Size(1127, 462);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.KeyPreview = true;
@@ -445,6 +479,11 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -462,16 +501,10 @@
         private System.Windows.Forms.TextBox txb_tiaoma;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox txb_zhekou;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label lbl_printflg;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -485,5 +518,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
