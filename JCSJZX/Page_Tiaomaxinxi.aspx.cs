@@ -5,13 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ZYXT_WB
+namespace JCSJZX
 {
-    public partial class Cangku_Xiinxi : System.Web.UI.Page
+    public partial class Page_Tiaomaxinxi : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

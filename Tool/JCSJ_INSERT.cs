@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tool
+namespace Tool.DB.JCSJ
 {
-    public class Class1
+    public partial class OPT
     {
+
     }
 }

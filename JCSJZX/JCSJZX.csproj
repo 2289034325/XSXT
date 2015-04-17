@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Main.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -65,10 +66,48 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Page_Login.aspx" />
+    <Content Include="Page_Tiaomaxinxi.aspx" />
+    <Content Include="Page_Users.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CONSTS.cs" />
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Login.aspx.cs">
+      <DependentUpon>Page_Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Login.aspx.designer.cs">
+      <DependentUpon>Page_Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Tiaomaxinxi.aspx.cs">
+      <DependentUpon>Page_Tiaomaxinxi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Tiaomaxinxi.aspx.designer.cs">
+      <DependentUpon>Page_Tiaomaxinxi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Users.aspx.cs">
+      <DependentUpon>Page_Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Users.aspx.designer.cs">
+      <DependentUpon>Page_Users.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tool\Tool（共通接口）.csproj">
+      <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
+      <Name>Tool（共通接口）</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

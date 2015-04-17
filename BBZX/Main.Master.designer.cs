@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace ZYXT_WB {
+namespace BBZX {
     
     
     public partial class Main {

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ZYXT_WB
+namespace BBZX
 {
-    public partial class Fendian_Xinxi : System.Web.UI.Page
+    public partial class Cangku_Shuju : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

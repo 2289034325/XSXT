@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace ZYXT_WB {
+namespace BBZX {
     
     
-    public partial class Cangku_Xiinxi {
+    public partial class Fendian_Xinxi {
         
         /// <summary>
         /// GridView1 控件。

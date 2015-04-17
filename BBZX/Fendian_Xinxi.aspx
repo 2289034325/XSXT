@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Fendian_Xinxi.aspx.cs" Inherits="ZYXT_WB.Fendian_Xinxi" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Fendian_Xinxi.aspx.cs" Inherits="BBZX.Fendian_Xinxi" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>分店信息</title>
 </asp:Content>
