@@ -30,9 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +50,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonFunc.cs" />
-    <Compile Include="JCSJ_DELETE.cs" />
-    <Compile Include="JCSJ_CONSTS.cs" />
-    <Compile Include="JCSJ_UPDATE.cs" />
-    <Compile Include="JCSJ_INSERT.cs" />
-    <Compile Include="JCSJ_SCH.cs" />
-    <Compile Include="JCSJ.designer.cs">
+    <Compile Include="DB\JCSJ\JCSJ.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJ.dbml</DependentUpon>
+      <DependentUpon>JCSJ.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\JCSJ.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JCSJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\JCSJ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JCSJ.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\JCSJ_DELETE.cs" />
+    <Compile Include="DB\JCSJ\JCSJ_CONSTS.cs" />
+    <Compile Include="DB\JCSJ\JCSJ_UPDATE.cs" />
+    <Compile Include="DB\JCSJ\JCSJ_INSERT.cs" />
+    <Compile Include="DB\JCSJ\JCSJ_SCH.cs" />
+    <Compile Include="DB\JCSJ\TGongyingshang.cs">
+      <DependentUpon>JCSJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\TKuanhao.cs">
+      <DependentUpon>JCSJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\TTiaoma.cs">
+      <DependentUpon>JCSJ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\TUser.cs">
+      <DependentUpon>JCSJ.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -60,11 +91,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="JCSJ.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>JCSJ.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <EntityDeploy Include="DB\JCSJ\JCSJ.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>JCSJ.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\JCSJ\JCSJ.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JCSJ.edmx</DependentUpon>
+      <LastGenOutput>JCSJ.Context.cs</LastGenOutput>
     </None>
+    <None Include="DB\JCSJ\JCSJ.edmx.diagram">
+      <DependentUpon>JCSJ.edmx</DependentUpon>
+    </None>
+    <None Include="DB\JCSJ\JCSJ.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>JCSJ.edmx</DependentUpon>
+      <LastGenOutput>JCSJ.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -72,12 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="JCSJ.dbml.layout">
-      <DependentUpon>JCSJ.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

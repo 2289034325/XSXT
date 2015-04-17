@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0624ce310c9d4fba9361aadccf4f8b06" Name="Diagram1">
+        <EntityTypeShape EntityType="JCSJModel.TGongyingshang" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JCSJModel.TKuanhao" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JCSJModel.TTiaoma" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="JCSJModel.TUser" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="JCSJModel.FK_TGongyingshang_TUser" ManuallyRouted="false" />
+        <AssociationConnector Association="JCSJModel.FK_TTiaoma_TGongyingshang" ManuallyRouted="false" />
+        <AssociationConnector Association="JCSJModel.FK_TKuanhao_TUser" ManuallyRouted="false" />
+        <AssociationConnector Association="JCSJModel.FK_TTiaoma_TKuanhao" ManuallyRouted="false" />
+        <AssociationConnector Association="JCSJModel.FK_TTiaoma_TUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

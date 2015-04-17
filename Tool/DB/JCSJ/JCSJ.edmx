@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JCSJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TGongyingshang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mingcheng" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="lianxiren" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="dianhua" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="dizhi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="beizhu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="caozuorenid" Type="int" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+          <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TKuanhao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kuanhao" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="leixing" Type="tinyint" Nullable="false" />
+          <Property Name="pinming" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="beizhu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="caozuorenid" Type="int" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+          <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TTiaoma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tiaoma" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="yanse" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="chima" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="jinjia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="shoujia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="kuanhaoid" Type="int" Nullable="false" />
+          <Property Name="gysid" Type="int" Nullable="false" />
+          <Property Name="gyskuanhao" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="maishou" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="caozuorenid" Type="int" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+          <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dengluming" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="mima" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="yonghuming" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="juese" Type="tinyint" Nullable="false" />
+          <Property Name="beizhu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="zhuangtai" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="charushijian" Type="datetime" Nullable="false" />
+          <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TGongyingshang_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TGongyingshang" Type="Self.TGongyingshang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TGongyingshang">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TKuanhao_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TKuanhao">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TGongyingshang">
+          <End Role="TGongyingshang" Type="Self.TGongyingshang" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGongyingshang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="gysid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TKuanhao">
+          <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TKuanhao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="kuanhaoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JCSJModelStoreContainer">
+          <EntitySet Name="TGongyingshang" EntityType="Self.TGongyingshang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TKuanhao" EntityType="Self.TKuanhao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUser" EntityType="Self.TUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TGongyingshang_TUser" Association="Self.FK_TGongyingshang_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TGongyingshang" EntitySet="TGongyingshang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TKuanhao_TUser" Association="Self.FK_TKuanhao_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TKuanhao" EntitySet="TKuanhao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TGongyingshang" Association="Self.FK_TTiaoma_TGongyingshang">
+            <End Role="TGongyingshang" EntitySet="TGongyingshang" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TKuanhao" Association="Self.FK_TTiaoma_TKuanhao">
+            <End Role="TKuanhao" EntitySet="TKuanhao" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TUser" Association="Self.FK_TTiaoma_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JCSJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TGongyingshang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mingcheng" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lianxiren" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dianhua" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dizhi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="beizhu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="caozuorenid" Type="Int32" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TUser" Relationship="Self.FK_TGongyingshang_TUser" FromRole="TGongyingshang" ToRole="TUser" />
+          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TTiaoma_TGongyingshang" FromRole="TGongyingshang" ToRole="TTiaoma" />
+        </EntityType>
+        <EntityType Name="TKuanhao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuanhao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="leixing" Type="Byte" Nullable="false" />
+          <Property Name="pinming" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="beizhu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="caozuorenid" Type="Int32" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TUser" Relationship="Self.FK_TKuanhao_TUser" FromRole="TKuanhao" ToRole="TUser" />
+          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TTiaoma_TKuanhao" FromRole="TKuanhao" ToRole="TTiaoma" />
+        </EntityType>
+        <EntityType Name="TTiaoma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tiaoma" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="yanse" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="chima" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="jinjia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="shoujia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="kuanhaoid" Type="Int32" Nullable="false" />
+          <Property Name="gysid" Type="Int32" Nullable="false" />
+          <Property Name="gyskuanhao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maishou" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="caozuorenid" Type="Int32" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TGongyingshang" Relationship="Self.FK_TTiaoma_TGongyingshang" FromRole="TTiaoma" ToRole="TGongyingshang" />
+          <NavigationProperty Name="TKuanhao" Relationship="Self.FK_TTiaoma_TKuanhao" FromRole="TTiaoma" ToRole="TKuanhao" />
+          <NavigationProperty Name="TUser" Relationship="Self.FK_TTiaoma_TUser" FromRole="TTiaoma" ToRole="TUser" />
+        </EntityType>
+        <EntityType Name="TUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dengluming" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mima" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="yonghuming" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="juese" Type="Byte" Nullable="false" />
+          <Property Name="beizhu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="zhuangtai" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TGongyingshang" Relationship="Self.FK_TGongyingshang_TUser" FromRole="TUser" ToRole="TGongyingshang" />
+          <NavigationProperty Name="TKuanhao" Relationship="Self.FK_TKuanhao_TUser" FromRole="TUser" ToRole="TKuanhao" />
+          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TTiaoma_TUser" FromRole="TUser" ToRole="TTiaoma" />
+        </EntityType>
+        <Association Name="FK_TGongyingshang_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TGongyingshang" Type="Self.TGongyingshang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TGongyingshang">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TGongyingshang">
+          <End Role="TGongyingshang" Type="Self.TGongyingshang" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGongyingshang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="gysid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TKuanhao_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TKuanhao">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TKuanhao">
+          <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TKuanhao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="kuanhaoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TGongyingshang" EntityType="Self.TGongyingshang" />
+          <EntitySet Name="TKuanhao" EntityType="Self.TKuanhao" />
+          <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" />
+          <EntitySet Name="TUser" EntityType="Self.TUser" />
+          <AssociationSet Name="FK_TGongyingshang_TUser" Association="Self.FK_TGongyingshang_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TGongyingshang" EntitySet="TGongyingshang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TGongyingshang" Association="Self.FK_TTiaoma_TGongyingshang">
+            <End Role="TGongyingshang" EntitySet="TGongyingshang" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TKuanhao_TUser" Association="Self.FK_TKuanhao_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TKuanhao" EntitySet="TKuanhao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TKuanhao" Association="Self.FK_TTiaoma_TKuanhao">
+            <End Role="TKuanhao" EntitySet="TKuanhao" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TUser" Association="Self.FK_TTiaoma_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JCSJModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="TGongyingshang">
+            <EntityTypeMapping TypeName="JCSJModel.TGongyingshang">
+              <MappingFragment StoreEntitySet="TGongyingshang">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="mingcheng" ColumnName="mingcheng" />
+                <ScalarProperty Name="lianxiren" ColumnName="lianxiren" />
+                <ScalarProperty Name="dianhua" ColumnName="dianhua" />
+                <ScalarProperty Name="dizhi" ColumnName="dizhi" />
+                <ScalarProperty Name="beizhu" ColumnName="beizhu" />
+                <ScalarProperty Name="caozuorenid" ColumnName="caozuorenid" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TKuanhao">
+            <EntityTypeMapping TypeName="JCSJModel.TKuanhao">
+              <MappingFragment StoreEntitySet="TKuanhao">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kuanhao" ColumnName="kuanhao" />
+                <ScalarProperty Name="leixing" ColumnName="leixing" />
+                <ScalarProperty Name="pinming" ColumnName="pinming" />
+                <ScalarProperty Name="beizhu" ColumnName="beizhu" />
+                <ScalarProperty Name="caozuorenid" ColumnName="caozuorenid" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTiaoma">
+            <EntityTypeMapping TypeName="JCSJModel.TTiaoma">
+              <MappingFragment StoreEntitySet="TTiaoma">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
+                <ScalarProperty Name="yanse" ColumnName="yanse" />
+                <ScalarProperty Name="chima" ColumnName="chima" />
+                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
+                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
+                <ScalarProperty Name="kuanhaoid" ColumnName="kuanhaoid" />
+                <ScalarProperty Name="gysid" ColumnName="gysid" />
+                <ScalarProperty Name="gyskuanhao" ColumnName="gyskuanhao" />
+                <ScalarProperty Name="maishou" ColumnName="maishou" />
+                <ScalarProperty Name="caozuorenid" ColumnName="caozuorenid" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUser">
+            <EntityTypeMapping TypeName="JCSJModel.TUser">
+              <MappingFragment StoreEntitySet="TUser">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dengluming" ColumnName="dengluming" />
+                <ScalarProperty Name="mima" ColumnName="mima" />
+                <ScalarProperty Name="yonghuming" ColumnName="yonghuming" />
+                <ScalarProperty Name="juese" ColumnName="juese" />
+                <ScalarProperty Name="beizhu" ColumnName="beizhu" />
+                <ScalarProperty Name="zhuangtai" ColumnName="zhuangtai" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
