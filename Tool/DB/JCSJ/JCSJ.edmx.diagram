@@ -8,12 +8,19 @@
         <EntityTypeShape EntityType="JCSJModel.TGongyingshang" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JCSJModel.TKuanhao" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JCSJModel.TTiaoma" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="JCSJModel.TUser" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <AssociationConnector Association="JCSJModel.FK_TGongyingshang_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TTiaoma_TGongyingshang" ManuallyRouted="false" />
-        <AssociationConnector Association="JCSJModel.FK_TKuanhao_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TTiaoma_TKuanhao" ManuallyRouted="false" />
-        <AssociationConnector Association="JCSJModel.FK_TTiaoma_TUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JCSJModel.TUser" Width="1.5" PointX="0.75" PointY="3.375" />
+        <AssociationConnector Association="JCSJModel.FK_TGongyingshang_TUser" />
+        <AssociationConnector Association="JCSJModel.FK_TKuanhao_TUser" />
+        <AssociationConnector Association="JCSJModel.FK_TTiaoma_TUser" />
+        <EntityTypeShape EntityType="JCSJModel.TCangku" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="JCSJModel.THuiyuan" Width="1.5" PointX="3" PointY="9.125" />
+        <AssociationConnector Association="JCSJModel.FK_TCangku_TUser" />
+        <AssociationConnector Association="JCSJModel.FK_THuiyuan_TUser" />
+        <EntityTypeShape EntityType="JCSJModel.TFendian" Width="1.5" PointX="3" PointY="16.875" />
+        <AssociationConnector Association="JCSJModel.FK_TFendian_TUser" />
+        <AssociationConnector Association="JCSJModel.FK_THuiyuan_TFendian" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -21,7 +21,8 @@ namespace JCSJWCF
         public TUser Login(string dlm, string mm)
         {
             OPT dbo = new OPT();
-            return dbo.ValidateLogin(dlm, mm);
+            TUser tu = dbo.GetUser(dlm, mm);
+            return tu;
         }
 
         /// <summary>
@@ -29,10 +30,10 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="ExceptAdmin">是否排除系统管理员</param>
         /// <returns></returns>
-        public DataTable GetAllUsers(bool ExceptAdmin)
+        public TUser[] GetAllUsers(bool ExceptAdmin)
         {
             OPT dbo = new OPT();
-            return dbo.GetAllUsers(true);
+            return dbo.GetAllUsers(true);            
         }
     }
 }

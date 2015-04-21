@@ -14,7 +14,7 @@ namespace JCSJWCF
     public interface IService_GL
     {
         [OperationContract]
-        DataTable GetAllUsers(bool ExceptAdmin);
+        TUser[] GetAllUsers(bool ExceptAdmin);
 
         [OperationContract]
         TUser Login(string dlm, string mm);

@@ -19,6 +19,9 @@ namespace Tool.DB.JCSJ
             this.TGongyingshang = new HashSet<TGongyingshang>();
             this.TKuanhao = new HashSet<TKuanhao>();
             this.TTiaoma = new HashSet<TTiaoma>();
+            this.TCangku = new HashSet<TCangku>();
+            this.THuiyuan = new HashSet<THuiyuan>();
+            this.TFendian = new HashSet<TFendian>();
         }
     
         public int id { get; set; }
@@ -27,12 +30,15 @@ namespace Tool.DB.JCSJ
         public string yonghuming { get; set; }
         public byte juese { get; set; }
         public string beizhu { get; set; }
-        public string zhuangtai { get; set; }
+        public byte zhuangtai { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual ICollection<TGongyingshang> TGongyingshang { get; set; }
         public virtual ICollection<TKuanhao> TKuanhao { get; set; }
         public virtual ICollection<TTiaoma> TTiaoma { get; set; }
+        public virtual ICollection<TCangku> TCangku { get; set; }
+        public virtual ICollection<THuiyuan> THuiyuan { get; set; }
+        public virtual ICollection<TFendian> TFendian { get; set; }
     }
 }

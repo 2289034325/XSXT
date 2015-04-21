@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f0c4b0fa-594c-4cf8-949c-5288e6574aab" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:17841/Service_GL.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service_GL.wsdl" MetadataType="Wsdl" ID="30f5550b-f601-4cd0-be9e-9bd424c7636a" SourceId="1" SourceUrl="http://localhost:17841/Service_GL.svc?wsdl" />
+    <MetadataFile FileName="Service_GL1.xsd" MetadataType="Schema" ID="143d7598-ed54-4f2b-87d6-3e96d768151f" SourceId="1" SourceUrl="http://localhost:17841/Service_GL.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service_GL.xsd" MetadataType="Schema" ID="793bc14f-2b1d-4206-b714-7873dec9a57c" SourceId="1" SourceUrl="http://localhost:17841/Service_GL.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service_GL.disco" MetadataType="Disco" ID="4ed8b95e-9312-45a2-a0bb-a1d37d540a87" SourceId="1" SourceUrl="http://localhost:17841/Service_GL.svc?disco" />
+    <MetadataFile FileName="Service_GL2.xsd" MetadataType="Schema" ID="f6ad7b6b-c368-4271-85a3-30419bca81b3" SourceId="1" SourceUrl="http://localhost:17841/Service_GL.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
