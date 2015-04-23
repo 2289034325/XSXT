@@ -20,6 +20,7 @@ namespace JCSJG
 
                 //初始化下拉框
                 Tool.CommonFunc.InitCombbox(cmb_lx, typeof(CONSTS.KUANHAO_LX));
+                Tool.CommonFunc.InitCombbox(cmb_xb, typeof(CONSTS.KUANHAO_XB));
             }
             else
             {
@@ -59,12 +60,13 @@ namespace JCSJG
                 id = r.id,
                 kuanhao=r.kuanhao,
                 leixing = ((CONSTS.KUANHAO_LX)r.leixing).ToString(),
+                xingbie = ((CONSTS.KUANHAO_XB)r.xingbie).ToString(),
                 pinming = r.pinming,
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.pinming + "','" + r.beizhu + "'"
+                editParams = r.id + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.xingbie + "','" + r.pinming + "','" + r.beizhu + "'"
             });
 
             grid_kuanhao.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -97,6 +99,7 @@ namespace JCSJG
         {
             string kuanhao = txb_kh.Text.Trim();
             byte leixing = byte.Parse(cmb_lx.SelectedValue);
+            byte xingbie = byte.Parse(cmb_xb.SelectedValue);
             string piming = txb_pm.Text.Trim();
             string bz = txb_bz.Text.Trim();
 
@@ -104,6 +107,7 @@ namespace JCSJG
             {
                 kuanhao=kuanhao,
                 leixing = leixing,
+                xingbie = xingbie,
                 pinming = piming,
                 beizhu = bz
             };

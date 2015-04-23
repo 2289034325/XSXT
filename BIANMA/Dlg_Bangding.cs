@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Management;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Tool;
+
+namespace BIANMA
+{
+    public partial class Dlg_Bangding : Form
+    {
+        public Dlg_Bangding()
+        {
+            InitializeComponent();
+        }
+
+
+        /// <summary>
+        /// 用户绑定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ok_Click(object sender, EventArgs e)
+        {
+            string dlm = txb_dlm.Text.Trim();
+            string mm = txb_mm.Text;
+            string zcm = txb_zcm.Text.Trim();
+            string tzm = Tool.CommonFunc.GetJQM();
+
+            try
+            {
+                JCSJValid.ValidServiceClient vc = new JCSJValid.ValidServiceClient();
+                vc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(tzm), zcm);
+                
+                MessageBox.Show("绑定成功");
+            }
+            catch (MyException ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("发生未知错误"); 
+            }
+        }       
+    }
+}

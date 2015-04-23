@@ -98,5 +98,15 @@ namespace Tool.DB.JCSJ
             包=5,
             配件=6
         }
+
+        /// <summary>
+        /// 款号性别
+        /// </summary>
+        public enum KUANHAO_XB : byte
+        {
+            女=0,
+            男=1,
+            通用=2
+        }
     }
 }

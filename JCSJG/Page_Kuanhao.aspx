@@ -4,10 +4,11 @@
     <title>款号管理</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,kh,lx,pm,bz) {
+        function EditInfo(id,kh,lx,xb,pm,bz) {
             $("#hid_id").val(id);
             $("#txb_kh").val(kh);
             $("#cmb_lx").val(lx);
+            $("#cmb_xb").val(xb);
             $("#txb_pm").val(pm);
             $("#txb_bz").val(bz);
         }
@@ -26,6 +27,7 @@
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>
+            <asp:BoundField DataField="xingbie" HeaderText="性别"></asp:BoundField>
             <asp:BoundField DataField="pinming" HeaderText="品名"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="caozuoren" HeaderText="编辑人"></asp:BoundField>
@@ -43,6 +45,7 @@
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="类型"></asp:Label><asp:DropDownList runat="server" ID="cmb_lx" ClientIDMode="Static"></asp:DropDownList>
+    <asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList>
     <asp:Label runat="server" Text="品名"></asp:Label><asp:TextBox runat="server" ID="txb_pm" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
     <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />

@@ -65,7 +65,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Service References\WCF\Reference.cs">
+    <Compile Include="Service References\Data\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Valid\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -87,40 +92,57 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
-    <None Include="Service References\WCF\Service_GL.wsdl" />
-    <None Include="Service References\WCF\Service_GL.xsd">
+    <None Include="Service References\Data\DataService.wsdl" />
+    <None Include="Service References\Data\DataService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WCF\Service_GL1.xsd">
+    <None Include="Service References\Data\DataService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WCF\Service_GL2.xsd">
+    <None Include="Service References\Valid\ValidService.wsdl" />
+    <None Include="Service References\Valid\ValidService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WCF\Service_GL3.xsd">
+    <None Include="Service References\Valid\ValidService1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\WCF\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WCF\Service_GL.disco" />
+    <WCFMetadataStorage Include="Service References\Data\" />
+    <WCFMetadataStorage Include="Service References\Valid\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WCF\configuration91.svcinfo" />
+    <None Include="Service References\Data\DataService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WCF\configuration.svcinfo" />
+    <None Include="Service References\Data\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WCF\Reference.svcmap">
+    <None Include="Service References\Data\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Data\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <None Include="Service References\Valid\ValidService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Valid\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Valid\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Valid\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

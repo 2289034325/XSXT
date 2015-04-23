@@ -25,7 +25,7 @@ namespace Tool.DB.JCSJ
         public System.DateTime xiugaishijian { get; set; }
         public string beizhu { get; set; }
     
-        public virtual TUser TUser { get; set; }
         public virtual TFendian TFendian { get; set; }
+        public virtual TUser TUser { get; set; }
     }
 }

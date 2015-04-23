@@ -6,17 +6,18 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using Tool;
 using Tool.DB.JCSJ;
 
 namespace JCSJWCF
 {
     [ServiceContract]
-    public interface IService_GL
+    public interface IValidService
     {
         [OperationContract]
-        TUser[] GetAllUsers(bool ExceptAdmin);
+        void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm);
 
         [OperationContract]
-        TUser Login(string dlm, string mm);
+        void BMZHBangding(string dlm, string mm, string tzm, string zcm);
     }
 }

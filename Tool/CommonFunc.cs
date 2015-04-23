@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Management;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Tool
 {
@@ -103,7 +106,6 @@ namespace Tool
             Cmb.DataSource = dt;
             Cmb.DataBind();
         }
-
         public static void InitCombbox(DropDownList Cmb, object[] Items,string TextField,string ValueField)
         {
             if (Items.Length < 1)
@@ -133,6 +135,102 @@ namespace Tool
             Cmb.DataValueField = "Value";
             Cmb.DataSource = dt;
             Cmb.DataBind();
+        }
+
+        /// <summary>
+        /// 获取机器硬件特征码
+        /// </summary>
+        /// <returns></returns>
+        public static string GetJQM()
+        {
+            string tzm = "";
+            //获取网卡硬件地址
+            string mac = "";
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection moc = mc.GetInstances();
+            foreach (ManagementObject mo in moc)
+            {
+                if ((bool)mo["IPEnabled"] == true)
+                {
+                    mac = mo["MacAddress"].ToString();
+                    break;
+                }
+            }
+            tzm += mac;
+
+            //cpu序列号
+            string cpuInfo = "";
+            mc = new ManagementClass("Win32_Processor");
+            moc = mc.GetInstances();
+            foreach (ManagementObject mo in moc)
+            {
+                cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
+            }
+            tzm += cpuInfo;
+
+
+            return tzm;
+        }
+
+        /// <summary>
+        /// 验证动态密码
+        /// </summary>
+        /// <param name="mm"></param>
+        /// <returns></returns>
+        public static bool ValidateDTMM(string mm)
+        {
+            string bm = getDTMM();
+            if (mm == bm)
+            {
+                //重新生成动态密码
+                string nm = makeNewDTMM();
+                setNewDTMM(nm);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 将新动态密码保存入配置文件
+        /// </summary>
+        /// <param name="nm"></param>
+        private static void setNewDTMM(string nm)
+        {
+            XElement xe = XElement.Load(@"Settings.xml");
+            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+            dmnode.Value = nm;
+
+            xe.Save(@"Settings.xml");
+        }
+
+        /// <summary>
+        /// 生成新的动态密码
+        /// </summary>
+        /// <returns></returns>
+        private static string makeNewDTMM()
+        {
+            Random r = new Random();
+            string nm = "";
+            string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            for (int i = 0; i < 5; i++)
+            {
+                nm += sources[r.Next(0, sources.Length - 1)];
+            }
+
+            return nm;
+        }
+
+        /// <summary>
+        /// 从配置文件取得动态密码
+        /// </summary>
+        /// <returns></returns>
+        private static string getDTMM()
+        {
+            XElement xe = XElement.Load(@"Settings.xml");
+            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+
+            return dmnode.Value;
         }
     }
 

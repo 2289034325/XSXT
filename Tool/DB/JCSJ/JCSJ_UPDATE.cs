@@ -43,6 +43,22 @@ namespace Tool.DB.JCSJ
         }
 
         /// <summary>
+        /// 修改用户绑定的机器码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="jqm"></param>
+        public void UpdateUserJQM(int id, string jqm)
+        {
+            TUser ou = _db.TUser.Single(r => r.id == id);
+
+            ou.jiqima = jqm;
+
+            ou.xiugaishijian = DateTime.Now;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
         /// 修改分店信息
         /// </summary>
         /// <param name="f"></param>
@@ -139,6 +155,7 @@ namespace Tool.DB.JCSJ
 
             ok.kuanhao = k.kuanhao;
             ok.leixing = k.leixing;
+            ok.xingbie = k.xingbie;
             ok.pinming = k.pinming;
             ok.beizhu = k.beizhu;
             ok.caozuorenid = k.caozuorenid;

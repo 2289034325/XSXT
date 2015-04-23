@@ -12,11 +12,13 @@ namespace Tool.DB.JCSJ
         /// 插入一个新用户
         /// </summary>
         /// <param name="u"></param>
-        public void InsertUser(TUser u)
+        public TUser InsertUser(TUser u)
         {
-            _db.TUser.Add(u);
+           TUser nu = _db.TUser.Add(u);
 
             _db.SaveChanges();
+
+            return nu;
         }
 
         /// <summary>

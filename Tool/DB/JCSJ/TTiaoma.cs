@@ -29,7 +29,7 @@ namespace Tool.DB.JCSJ
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual TGongyingshang TGongyingshang { get; set; }
-        public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
+        public virtual TKuanhao TKuanhao { get; set; }
     }
 }

@@ -28,46 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.编码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.mn_main = new System.Windows.Forms.MenuStrip();
+            this.mni_bianma = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_fenlei = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // mn_main
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.编码ToolStripMenuItem,
-            this.分类ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(810, 25);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_bianma,
+            this.mni_fenlei});
+            this.mn_main.Location = new System.Drawing.Point(0, 0);
+            this.mn_main.Name = "mn_main";
+            this.mn_main.Size = new System.Drawing.Size(810, 25);
+            this.mn_main.TabIndex = 0;
+            this.mn_main.Text = "menuStrip1";
             // 
-            // 编码ToolStripMenuItem
+            // mni_bianma
             // 
-            this.编码ToolStripMenuItem.Name = "编码ToolStripMenuItem";
-            this.编码ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.编码ToolStripMenuItem.Text = "编码";
+            this.mni_bianma.Name = "mni_bianma";
+            this.mni_bianma.Size = new System.Drawing.Size(44, 21);
+            this.mni_bianma.Text = "编码";
+            this.mni_bianma.Click += new System.EventHandler(this.mni_bianma_Click);
             // 
-            // 分类ToolStripMenuItem
+            // mni_fenlei
             // 
-            this.分类ToolStripMenuItem.Name = "分类ToolStripMenuItem";
-            this.分类ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.分类ToolStripMenuItem.Text = "分类";
+            this.mni_fenlei.Name = "mni_fenlei";
+            this.mni_fenlei.Size = new System.Drawing.Size(44, 21);
+            this.mni_fenlei.Text = "分类";
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 438);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.mn_main);
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.mn_main;
             this.Name = "Form_Main";
             this.Text = "编码分类系统";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.mn_main.ResumeLayout(false);
+            this.mn_main.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -75,8 +77,8 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 编码ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分类ToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip mn_main;
+        private System.Windows.Forms.ToolStripMenuItem mni_bianma;
+        private System.Windows.Forms.ToolStripMenuItem mni_fenlei;
     }
 }

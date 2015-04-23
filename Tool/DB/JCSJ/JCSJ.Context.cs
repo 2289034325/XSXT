@@ -26,11 +26,11 @@ namespace Tool.DB.JCSJ
         }
     
         public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
-        public virtual DbSet<TKuanhao> TKuanhao { get; set; }
         public virtual DbSet<TTiaoma> TTiaoma { get; set; }
-        public virtual DbSet<TUser> TUser { get; set; }
         public virtual DbSet<TCangku> TCangku { get; set; }
         public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<TFendian> TFendian { get; set; }
+        public virtual DbSet<TUser> TUser { get; set; }
+        public virtual DbSet<TKuanhao> TKuanhao { get; set; }
     }
 }

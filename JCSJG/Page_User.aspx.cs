@@ -137,6 +137,7 @@ namespace JCSJG
             {
                 dengluming = dlm,
                 mima = Tool.CommonFunc.MD5_16(mm),
+                jiqima = "",
                 yonghuming = yhm,
                 juese = js,
                 zhuangtai = zt,

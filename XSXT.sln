@@ -15,6 +15,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCSJG", "JCSJG\JCSJG.csproj", "{06D046C5-DDC1-4A82-B536-65C18F2CFCDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIANMA", "BIANMA\BIANMA.csproj", "{359232C3-26C9-45D1-89AD-EA906F977213}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28DEAFAF-7E89-412F-B4C3-E1B38174DC77} = {28DEAFAF-7E89-412F-B4C3-E1B38174DC77}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

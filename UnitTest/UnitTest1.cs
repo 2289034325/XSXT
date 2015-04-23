@@ -17,8 +17,8 @@ namespace UnitTest
         [TestMethod]
         public void Login()
         {
-            WCF.Service_GLClient client = new WCF.Service_GLClient();
-           Tool.DB.JCSJ.TUser u = client.Login("a", Tool.CommonFunc.MD5_16("a"));
+           // WCF.Service_GLClient client = new WCF.Service_GLClient();
+           //Tool.DB.JCSJ.TUser u = client.Login("a", Tool.CommonFunc.MD5_16("a"));
             //Tool.DB.JCSJ.TUser u = client.Logint();
         }
 
@@ -33,6 +33,17 @@ namespace UnitTest
         {
             OPT db = new OPT();
             TFendian[] fs = db.GetAllFendians();
+        }
+
+        [TestMethod]
+        public void ConnectWCF()
+        {
+            Data.DataServiceClient dc = new Data.DataServiceClient();
+            dc.ClientCredentials.UserName.UserName = "";
+            dc.ClientCredentials.UserName.Password = "";
+            dc.Open();
+
+            dc.BMZHLogin("", "", "");
         }
     }
 }

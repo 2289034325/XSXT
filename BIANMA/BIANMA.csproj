@@ -34,6 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dlg_XiugaiMima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_XiugaiMima.Designer.cs">
+      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Bangding.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Bangding.Designer.cs">
+      <DependentUpon>Dlg_Bangding.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Zhuce.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Zhuce.Designer.cs">
+      <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg_Denglu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +97,25 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\JCSJData\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\JCSJValid\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Dlg_XiugaiMima.resx">
+      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Bangding.resx">
+      <DependentUpon>Dlg_Bangding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Zhuce.resx">
+      <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +140,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,9 +150,69 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\JCSJData\DataService.wsdl" />
+    <None Include="Service References\JCSJData\DataService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJData\DataService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJData\DataService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJValid\ValidService.wsdl" />
+    <None Include="Service References\JCSJValid\ValidService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJValid\ValidService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tool\Tool.csproj">
+      <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
+      <Name>Tool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\JCSJData\" />
+    <WCFMetadataStorage Include="Service References\JCSJValid\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\DataService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\ValidService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
