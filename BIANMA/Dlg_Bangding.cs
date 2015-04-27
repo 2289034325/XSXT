@@ -39,13 +39,9 @@ namespace BIANMA
                 
                 MessageBox.Show("绑定成功");
             }
-            catch (MyException ex)
-            {
-                MessageBox.Show(ex.Message); 
-            }
             catch (Exception ex)
             {
-                MessageBox.Show("发生未知错误"); 
+                MessageBox.Show(ex.Message); 
             }
         }       
     }

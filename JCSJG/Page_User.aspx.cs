@@ -19,8 +19,8 @@ namespace JCSJG
                 loadUsers();
 
                 //初始化下拉框
-                Tool.CommonFunc.InitCombbox(cmb_js, typeof(CONSTS.USER_XTJS));
-                Tool.CommonFunc.InitCombbox(cmb_zt, typeof(CONSTS.USER_ZT));
+                Tool.CommonFunc.InitCombbox(cmb_js, typeof(DBCONSTS.USER_XTJS));
+                Tool.CommonFunc.InitCombbox(cmb_zt, typeof(DBCONSTS.USER_ZT));
             }
             else
             {
@@ -69,16 +69,16 @@ namespace JCSJG
         private void loadUsers()
         {
             OPT db = new OPT();
-            TUser[] us = db.GetAllUsers(true);
+            TUser[] us = db.GetUsers(true);
             var dus = us.Select(r => new
             {
                 id = r.id,
                 dengluming = r.dengluming,
                 yonghuming = r.yonghuming,
                 juese = r.juese,
-                juese_view = ((CONSTS.USER_XTJS)r.juese).ToString(),
+                juese_view = ((DBCONSTS.USER_XTJS)r.juese).ToString(),
                 zhuangtai = r.zhuangtai,
-                zhuangtai_view = ((CONSTS.USER_ZT)r.zhuangtai).ToString(),
+                zhuangtai_view = ((DBCONSTS.USER_ZT)r.zhuangtai).ToString(),
                 beizhu = r.beizhu,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,

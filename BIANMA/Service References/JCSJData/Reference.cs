@@ -26,6 +26,84 @@ namespace BIANMA.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
         System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
+        Tool.DB.JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangsByUserId", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsByUserIdResponse")]
+        Tool.DB.JCSJ.TGongyingshang[] GetGongyingshangsByUserId(int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangsByUserId", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsByUserIdResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TGongyingshang[]> GetGongyingshangsByUserIdAsync(int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaosByUserId", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosByUserIdResponse")]
+        Tool.DB.JCSJ.TKuanhao[] GetKuanhaosByUserId(int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaosByUserId", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosByUserIdResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao[]> GetKuanhaosByUserIdAsync(int UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertKuanhao", ReplyAction="http://tempuri.org/IDataService/InsertKuanhaoResponse")]
+        Tool.DB.JCSJ.TKuanhao InsertKuanhao(Tool.DB.JCSJ.TKuanhao k);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertKuanhao", ReplyAction="http://tempuri.org/IDataService/InsertKuanhaoResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao> InsertKuanhaoAsync(Tool.DB.JCSJ.TKuanhao k);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditKuanhao", ReplyAction="http://tempuri.org/IDataService/EditKuanhaoResponse")]
+        void EditKuanhao(Tool.DB.JCSJ.TKuanhao k);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditKuanhao", ReplyAction="http://tempuri.org/IDataService/EditKuanhaoResponse")]
+        System.Threading.Tasks.Task EditKuanhaoAsync(Tool.DB.JCSJ.TKuanhao k);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteKuanhao", ReplyAction="http://tempuri.org/IDataService/DeleteKuanhaoResponse")]
+        void DeleteKuanhao(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteKuanhao", ReplyAction="http://tempuri.org/IDataService/DeleteKuanhaoResponse")]
+        System.Threading.Tasks.Task DeleteKuanhaoAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertGongyingshang", ReplyAction="http://tempuri.org/IDataService/InsertGongyingshangResponse")]
+        Tool.DB.JCSJ.TGongyingshang InsertGongyingshang(Tool.DB.JCSJ.TGongyingshang g);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertGongyingshang", ReplyAction="http://tempuri.org/IDataService/InsertGongyingshangResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TGongyingshang> InsertGongyingshangAsync(Tool.DB.JCSJ.TGongyingshang g);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditGongyingshang", ReplyAction="http://tempuri.org/IDataService/EditGongyingshangResponse")]
+        void EditGongyingshang(Tool.DB.JCSJ.TGongyingshang g);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditGongyingshang", ReplyAction="http://tempuri.org/IDataService/EditGongyingshangResponse")]
+        System.Threading.Tasks.Task EditGongyingshangAsync(Tool.DB.JCSJ.TGongyingshang g);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteGongyingshang", ReplyAction="http://tempuri.org/IDataService/DeleteGongyingshangResponse")]
+        void DeleteGongyingshang(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteGongyingshang", ReplyAction="http://tempuri.org/IDataService/DeleteGongyingshangResponse")]
+        System.Threading.Tasks.Task DeleteGongyingshangAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaoByMc", ReplyAction="http://tempuri.org/IDataService/GetKuanhaoByMcResponse")]
+        Tool.DB.JCSJ.TKuanhao GetKuanhaoByMc(string kh);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaoByMc", ReplyAction="http://tempuri.org/IDataService/GetKuanhaoByMcResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao> GetKuanhaoByMcAsync(string kh);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMcResponse")]
+        Tool.DB.JCSJ.TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMcResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasByKuanhaoMcAsync(string kh);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/CheckKuanhaosChongfu", ReplyAction="http://tempuri.org/IDataService/CheckKuanhaosChongfuResponse")]
+        string[] CheckKuanhaosChongfu(string[] khs);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/CheckKuanhaosChongfu", ReplyAction="http://tempuri.org/IDataService/CheckKuanhaosChongfuResponse")]
+        System.Threading.Tasks.Task<string[]> CheckKuanhaosChongfuAsync(string[] khs);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/CheckTiaomaChongfu", ReplyAction="http://tempuri.org/IDataService/CheckTiaomaChongfuResponse")]
+        string[] CheckTiaomaChongfu(string[] tms);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/CheckTiaomaChongfu", ReplyAction="http://tempuri.org/IDataService/CheckTiaomaChongfuResponse")]
+        System.Threading.Tasks.Task<string[]> CheckTiaomaChongfuAsync(string[] tms);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +147,110 @@ namespace BIANMA.JCSJData {
         
         public System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm) {
             return base.Channel.BMZHEditPswAsync(om, nm);
+        }
+        
+        public Tool.DB.JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+            return base.Channel.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+            return base.Channel.GetTiaomasAsync(Userid, Kuanhao, Tiaoma, Start, End);
+        }
+        
+        public Tool.DB.JCSJ.TGongyingshang[] GetGongyingshangsByUserId(int UserId) {
+            return base.Channel.GetGongyingshangsByUserId(UserId);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TGongyingshang[]> GetGongyingshangsByUserIdAsync(int UserId) {
+            return base.Channel.GetGongyingshangsByUserIdAsync(UserId);
+        }
+        
+        public Tool.DB.JCSJ.TKuanhao[] GetKuanhaosByUserId(int UserId) {
+            return base.Channel.GetKuanhaosByUserId(UserId);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao[]> GetKuanhaosByUserIdAsync(int UserId) {
+            return base.Channel.GetKuanhaosByUserIdAsync(UserId);
+        }
+        
+        public Tool.DB.JCSJ.TKuanhao InsertKuanhao(Tool.DB.JCSJ.TKuanhao k) {
+            return base.Channel.InsertKuanhao(k);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao> InsertKuanhaoAsync(Tool.DB.JCSJ.TKuanhao k) {
+            return base.Channel.InsertKuanhaoAsync(k);
+        }
+        
+        public void EditKuanhao(Tool.DB.JCSJ.TKuanhao k) {
+            base.Channel.EditKuanhao(k);
+        }
+        
+        public System.Threading.Tasks.Task EditKuanhaoAsync(Tool.DB.JCSJ.TKuanhao k) {
+            return base.Channel.EditKuanhaoAsync(k);
+        }
+        
+        public void DeleteKuanhao(int id) {
+            base.Channel.DeleteKuanhao(id);
+        }
+        
+        public System.Threading.Tasks.Task DeleteKuanhaoAsync(int id) {
+            return base.Channel.DeleteKuanhaoAsync(id);
+        }
+        
+        public Tool.DB.JCSJ.TGongyingshang InsertGongyingshang(Tool.DB.JCSJ.TGongyingshang g) {
+            return base.Channel.InsertGongyingshang(g);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TGongyingshang> InsertGongyingshangAsync(Tool.DB.JCSJ.TGongyingshang g) {
+            return base.Channel.InsertGongyingshangAsync(g);
+        }
+        
+        public void EditGongyingshang(Tool.DB.JCSJ.TGongyingshang g) {
+            base.Channel.EditGongyingshang(g);
+        }
+        
+        public System.Threading.Tasks.Task EditGongyingshangAsync(Tool.DB.JCSJ.TGongyingshang g) {
+            return base.Channel.EditGongyingshangAsync(g);
+        }
+        
+        public void DeleteGongyingshang(int id) {
+            base.Channel.DeleteGongyingshang(id);
+        }
+        
+        public System.Threading.Tasks.Task DeleteGongyingshangAsync(int id) {
+            return base.Channel.DeleteGongyingshangAsync(id);
+        }
+        
+        public Tool.DB.JCSJ.TKuanhao GetKuanhaoByMc(string kh) {
+            return base.Channel.GetKuanhaoByMc(kh);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao> GetKuanhaoByMcAsync(string kh) {
+            return base.Channel.GetKuanhaoByMcAsync(kh);
+        }
+        
+        public Tool.DB.JCSJ.TTiaoma[] GetTiaomasByKuanhaoMc(string kh) {
+            return base.Channel.GetTiaomasByKuanhaoMc(kh);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasByKuanhaoMcAsync(string kh) {
+            return base.Channel.GetTiaomasByKuanhaoMcAsync(kh);
+        }
+        
+        public string[] CheckKuanhaosChongfu(string[] khs) {
+            return base.Channel.CheckKuanhaosChongfu(khs);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> CheckKuanhaosChongfuAsync(string[] khs) {
+            return base.Channel.CheckKuanhaosChongfuAsync(khs);
+        }
+        
+        public string[] CheckTiaomaChongfu(string[] tms) {
+            return base.Channel.CheckTiaomaChongfu(tms);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> CheckTiaomaChongfuAsync(string[] tms) {
+            return base.Channel.CheckTiaomaChongfuAsync(tms);
         }
     }
 }

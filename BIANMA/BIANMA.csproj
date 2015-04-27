@@ -37,6 +37,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CONSTS.cs" />
+    <Compile Include="Dlg_Kuanhao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Kuanhao.Designer.cs">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Gongyingshang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Gongyingshang.Designer.cs">
+      <DependentUpon>Dlg_Gongyingshang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Jiazai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Jiazai.Designer.cs">
+      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg_XiugaiMima.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,12 +91,7 @@
     <Compile Include="Dlg_Denglu.Designer.cs">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_KuanhaoXinxi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_KuanhaoXinxi.Designer.cs">
-      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Entities.cs" />
     <Compile Include="Form_Fenlei.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +122,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dlg_Kuanhao.resx">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Gongyingshang.resx">
+      <DependentUpon>Dlg_Gongyingshang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Jiazai.resx">
+      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg_XiugaiMima.resx">
       <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,9 +142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_KuanhaoXinxi.resx">
-      <DependentUpon>Dlg_KuanhaoXinxi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Fenlei.resx">
       <DependentUpon>Form_Fenlei.cs</DependentUpon>
@@ -140,6 +161,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.TKuanhao.datasource" />
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.TTiaoma.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -158,6 +182,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\JCSJData\DataService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />

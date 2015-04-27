@@ -19,8 +19,8 @@ namespace JCSJG
                 loadKuanhaos();
 
                 //初始化下拉框
-                Tool.CommonFunc.InitCombbox(cmb_lx, typeof(CONSTS.KUANHAO_LX));
-                Tool.CommonFunc.InitCombbox(cmb_xb, typeof(CONSTS.KUANHAO_XB));
+                Tool.CommonFunc.InitCombbox(cmb_lx, typeof(DBCONSTS.KUANHAO_LX));
+                Tool.CommonFunc.InitCombbox(cmb_xb, typeof(DBCONSTS.KUANHAO_XB));
             }
             else
             {
@@ -54,13 +54,13 @@ namespace JCSJG
         private void loadKuanhaos()
         {
             OPT db = new OPT();
-            TKuanhao[] fs = db.GetAllKuanhaos();
+            TKuanhao[] fs = db.GetKuanhaos();
             var dfs = fs.Select(r => new
             {
                 id = r.id,
                 kuanhao=r.kuanhao,
-                leixing = ((CONSTS.KUANHAO_LX)r.leixing).ToString(),
-                xingbie = ((CONSTS.KUANHAO_XB)r.xingbie).ToString(),
+                leixing = ((DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
+                xingbie = ((DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
                 pinming = r.pinming,
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,

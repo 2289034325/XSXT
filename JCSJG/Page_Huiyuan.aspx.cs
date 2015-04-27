@@ -19,9 +19,9 @@ namespace JCSJG
                 loadHuiyuans();
 
                 OPT db = new OPT();
-                TFendian[] fs = db.GetAllFendians();
+                TFendian[] fs = db.GetFendians();
                 //初始化下拉框
-                Tool.CommonFunc.InitCombbox(cmb_xb, typeof(CONSTS.HUIYUAN_XB));
+                Tool.CommonFunc.InitCombbox(cmb_xb, typeof(DBCONSTS.HUIYUAN_XB));
                 Tool.CommonFunc.InitCombbox(cmb_fd, fs, "dianming", "id");
             }
             else
@@ -56,14 +56,14 @@ namespace JCSJG
         private void loadHuiyuans()
         {
             OPT db = new OPT();
-            THuiyuan[] fs = db.GetAllHuiyuans();
+            THuiyuan[] fs = db.GetHuiyuans();
             var dfs = fs.Select(r => new
             {
                 id = r.id,
                 fendian = r.TFendian.dianming,
                 shoujihao = r.shoujihao,
                 xingming = r.xingming,
-                xingbie = ((CONSTS.HUIYUAN_XB)r.xingbie).ToString(),
+                xingbie = ((DBCONSTS.HUIYUAN_XB)r.xingbie).ToString(),
                 shengri = r.shengri.ToString("yyyy-MM-dd"),
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,

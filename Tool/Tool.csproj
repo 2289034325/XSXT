@@ -53,47 +53,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonFunc.cs" />
-    <Compile Include="DB\JCSJ\JCSJ.Context.cs">
+    <Compile Include="DB\JCSJ\DELETE.cs" />
+    <Compile Include="DB\JCSJ\CONSTS.cs" />
+    <Compile Include="DB\JCSJ\Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJ.Context.tt</DependentUpon>
+      <DependentUpon>Entities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\JCSJ\JCSJ.cs">
+    <Compile Include="DB\JCSJ\Entities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\JCSJ\JCSJ.Designer.cs">
+    <Compile Include="DB\JCSJ\Entities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJ.edmx</DependentUpon>
+      <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DB\JCSJ\JCSJ_DELETE.cs" />
-    <Compile Include="DB\JCSJ\JCSJ_CONSTS.cs" />
-    <Compile Include="DB\JCSJ\JCSJ_UPDATE.cs" />
-    <Compile Include="DB\JCSJ\JCSJ_INSERT.cs" />
-    <Compile Include="DB\JCSJ\JCSJ_SCH.cs" />
     <Compile Include="DB\JCSJ\TCangku.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TFendian.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TGongyingshang.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\THuiyuan.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TKuanhao.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\JCSJ\TMaishou.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TTiaoma.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TUser.cs">
-      <DependentUpon>JCSJ.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\JCSJ\UPDATE.cs" />
+    <Compile Include="DB\JCSJ\INSERT.cs" />
+    <Compile Include="DB\JCSJ\SCH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -103,22 +106,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EntityDeploy Include="DB\JCSJ\JCSJ.edmx">
+    <EntityDeploy Include="DB\JCSJ\Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>JCSJ.Designer.cs</LastGenOutput>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DB\JCSJ\JCSJ.Context.tt">
+    <None Include="DB\JCSJ\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JCSJ.edmx</DependentUpon>
-      <LastGenOutput>JCSJ.Context.cs</LastGenOutput>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
     </None>
-    <None Include="DB\JCSJ\JCSJ.edmx.diagram">
-      <DependentUpon>JCSJ.edmx</DependentUpon>
+    <None Include="DB\JCSJ\Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
     </None>
-    <None Include="DB\JCSJ\JCSJ.tt">
+    <None Include="DB\JCSJ\Entities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JCSJ.edmx</DependentUpon>
-      <LastGenOutput>JCSJ.cs</LastGenOutput>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

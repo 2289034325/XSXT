@@ -11,9 +11,7 @@
             $("#txb_jj").val(jj);
             $("#txb_sj").val(sj);
             $("#txb_kh").val(kh);
-            $("#cmb_gys").val(gys);
             $("#txb_gyskh").val(gyskh);
-            $("#txb_ms").val(ms);
         }
 
         //删除
@@ -37,7 +35,6 @@
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
             <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
             <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
-            <asp:BoundField DataField="maishou" HeaderText="买手"></asp:BoundField>
             <asp:BoundField DataField="caozuoren" HeaderText="编辑人"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
@@ -58,8 +55,6 @@
     <asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="供应商"></asp:Label><asp:DropDownList runat="server" ID="cmb_gys" ClientIDMode="Static"></asp:DropDownList>
-    <asp:Label runat="server" Text="买手"></asp:Label><asp:TextBox runat="server" ID="txb_ms" ClientIDMode="Static"></asp:TextBox>
     <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
 
 </asp:Content>

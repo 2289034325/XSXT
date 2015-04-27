@@ -12,20 +12,26 @@ namespace UnitTest.Data {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Data.IDataService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Data.IDataService", SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IDataService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        void BMZHLogin(string dlm, string mm, string tzm);
+        Tool.DB.JCSJ.TUser BMZHLogin(string dlm, string mm, string tzm);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        System.Threading.Tasks.Task BMZHLoginAsync(string dlm, string mm, string tzm);
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> BMZHLoginAsync(string dlm, string mm, string tzm);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
         void BMZHEditPsw(string om, string nm);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
         System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
+        Tool.DB.JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,11 +61,11 @@ namespace UnitTest.Data {
                 base(binding, remoteAddress) {
         }
         
-        public void BMZHLogin(string dlm, string mm, string tzm) {
-            base.Channel.BMZHLogin(dlm, mm, tzm);
+        public Tool.DB.JCSJ.TUser BMZHLogin(string dlm, string mm, string tzm) {
+            return base.Channel.BMZHLogin(dlm, mm, tzm);
         }
         
-        public System.Threading.Tasks.Task BMZHLoginAsync(string dlm, string mm, string tzm) {
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> BMZHLoginAsync(string dlm, string mm, string tzm) {
             return base.Channel.BMZHLoginAsync(dlm, mm, tzm);
         }
         
@@ -69,6 +75,14 @@ namespace UnitTest.Data {
         
         public System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm) {
             return base.Channel.BMZHEditPswAsync(om, nm);
+        }
+        
+        public Tool.DB.JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+            return base.Channel.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+            return base.Channel.GetTiaomasAsync(Userid, Kuanhao, Tiaoma, Start, End);
         }
     }
 }

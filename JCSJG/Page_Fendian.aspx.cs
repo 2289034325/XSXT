@@ -19,11 +19,11 @@ namespace JCSJG
                 loadFendians();
 
                 //初始化下拉框
-                Tool.CommonFunc.InitCombbox(cmb_fzxz, typeof(CONSTS.FENDIAN_FZXB));
-                Tool.CommonFunc.InitCombbox(cmb_fzlx, typeof(CONSTS.FENDIAN_FZLX));
-                Tool.CommonFunc.InitCombbox(cmb_dc, typeof(CONSTS.FENDIAN_DC));
-                Tool.CommonFunc.InitCombbox(cmb_dpxz, typeof(CONSTS.FENDIAN_DPXZ));
-                Tool.CommonFunc.InitCombbox(cmb_zt, typeof(CONSTS.FENDIAN_ZT));
+                Tool.CommonFunc.InitCombbox(cmb_fzxz, typeof(DBCONSTS.FENDIAN_FZXB));
+                Tool.CommonFunc.InitCombbox(cmb_fzlx, typeof(DBCONSTS.FENDIAN_FZLX));
+                Tool.CommonFunc.InitCombbox(cmb_dc, typeof(DBCONSTS.FENDIAN_DC));
+                Tool.CommonFunc.InitCombbox(cmb_dpxz, typeof(DBCONSTS.FENDIAN_DPXZ));
+                Tool.CommonFunc.InitCombbox(cmb_zt, typeof(DBCONSTS.FENDIAN_ZT));
             }
             else
             {
@@ -54,24 +54,24 @@ namespace JCSJG
         private void loadFendians()
         {
             OPT db = new OPT();
-            TFendian[] fs = db.GetAllFendians();
+            TFendian[] fs = db.GetFendians();
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                fzxingbie = ((CONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
-                fzleixing = ((CONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
+                fzxingbie = ((DBCONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
+                fzleixing = ((DBCONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
                 dianming = r.dianming,
                 mianji = r.mianji,
                 keliuliang = r.keliuliang,
-                dangci = ((CONSTS.FENDIAN_DC)r.dangci).ToString(),
-                dpxingzhi = ((CONSTS.FENDIAN_DPXZ)r.dpxingzhi).ToString(),
+                dangci = ((DBCONSTS.FENDIAN_DC)r.dangci).ToString(),
+                dpxingzhi = ((DBCONSTS.FENDIAN_DPXZ)r.dpxingzhi).ToString(),
                 zhuanrangfei = r.zhuanrangfei,
                 yuezu = r.yuezu,
                 dizhi = r.dizhi,
                 lianxiren = r.lianxiren,
                 dianhua = r.dianhua,
                 kaidianriqi = r.kaidianriqi.ToString("yyyy-MM-dd"),
-                zhuangtai = ((CONSTS.FENDIAN_ZT)r.zhuangtai).ToString(),
+                zhuangtai = ((DBCONSTS.FENDIAN_ZT)r.zhuangtai).ToString(),
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,

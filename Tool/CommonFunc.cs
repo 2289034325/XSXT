@@ -76,11 +76,12 @@ namespace Tool
             dt.Columns.Add("Text");
             dt.Columns.Add("Value");
             Array vs = Enum.GetValues(type);
-            foreach (int v in vs)
+            foreach (Enum v in vs)
             {
                 DataRow dr = dt.NewRow();
-                dr["Text"] = Enum.GetName(type,v);
-                dr["Value"] = v;
+                dr["Text"] = Enum.GetName(type, v);
+                dr["Value"] = Convert.ToInt16(v);
+                dt.Rows.Add(dr);
             }
 
             Cmb.DisplayMember = "Text";

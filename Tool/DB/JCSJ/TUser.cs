@@ -20,8 +20,8 @@ namespace Tool.DB.JCSJ
             this.TFendian = new HashSet<TFendian>();
             this.TGongyingshang = new HashSet<TGongyingshang>();
             this.THuiyuan = new HashSet<THuiyuan>();
-            this.TTiaoma = new HashSet<TTiaoma>();
             this.TKuanhao = new HashSet<TKuanhao>();
+            this.TTiaoma = new HashSet<TTiaoma>();
         }
     
         public int id { get; set; }
@@ -39,7 +39,7 @@ namespace Tool.DB.JCSJ
         public virtual ICollection<TFendian> TFendian { get; set; }
         public virtual ICollection<TGongyingshang> TGongyingshang { get; set; }
         public virtual ICollection<THuiyuan> THuiyuan { get; set; }
-        public virtual ICollection<TTiaoma> TTiaoma { get; set; }
         public virtual ICollection<TKuanhao> TKuanhao { get; set; }
+        public virtual ICollection<TTiaoma> TTiaoma { get; set; }
     }
 }

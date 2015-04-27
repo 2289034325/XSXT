@@ -42,8 +42,8 @@ namespace JCSJWCF
                 u.yonghuming = xm;
                 u.mima = mm;
                 u.jiqima = tzm;
-                u.juese = (byte)CONSTS.USER_XTJS.编码员;
-                u.zhuangtai = (byte)CONSTS.USER_ZT.可用;
+                u.juese = (byte)DBCONSTS.USER_XTJS.编码员;
+                u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
                 u.beizhu = "";
                 u.charushijian = DateTime.Now;
                 u.xiugaishijian = DateTime.Now;

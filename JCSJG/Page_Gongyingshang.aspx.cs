@@ -50,7 +50,7 @@ namespace JCSJG
         private void loadGongyingshangs()
         {
             OPT db = new OPT();
-            TGongyingshang[] cs = db.GetAllGongyingshangs();
+            TGongyingshang[] cs = db.GetGongyingshangs();
             var dfs = cs.Select(r => new
             {
                 id = r.id,

@@ -51,7 +51,7 @@ namespace JCSJG
         private void loadCangkus()
         {
             OPT db = new OPT();
-            TCangku[] cs = db.GetAllCangkus();
+            TCangku[] cs = db.GetCangkus();
             var dfs = cs.Select(r => new
             {
                 id = r.id,

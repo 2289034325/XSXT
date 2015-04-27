@@ -21,8 +21,7 @@ namespace JCSJG
 
                 //初始化下拉框
                 OPT db = new OPT();
-                TGongyingshang[] gs = db.GetAllGongyingshangs();
-                Tool.CommonFunc.InitCombbox(cmb_gys, gs, "mingcheng", "id");
+                TGongyingshang[] gs = db.GetGongyingshangs();
             }
             else
             {
@@ -56,7 +55,7 @@ namespace JCSJG
         private void loadTiaomas()
         {
             OPT db = new OPT();
-            TTiaoma[] fs = db.GetAllTiaomas();
+            TTiaoma[] fs = db.GetTiaomas();
             var dfs = fs.Select(r => new
             {
                 id = r.id,
@@ -66,15 +65,14 @@ namespace JCSJG
                 jinjia = r.jinjia,
                 shoujia = r.shoujia,
                 kuanhao = r.TKuanhao.kuanhao,
-                leixing = ((CONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
+                leixing = ((DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
                 pinming = r.TKuanhao.pinming,
                 gyskuanhao = r.gyskuanhao,
-                maishou = r.maishou,
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.tiaoma + "','" + r.yanse + "','" + r.chima + "','" + r.jinjia + "','" + r.shoujia + "','" +
-                             r.TKuanhao.kuanhao + "','" + r.TGongyingshang.mingcheng + "','" + r.gyskuanhao + "','" + r.maishou + "'"
+                             r.TKuanhao.kuanhao + "','" + r.gyskuanhao + "'"
             });
 
             grid_tiaoma.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -118,9 +116,7 @@ namespace JCSJG
                 throw new MyException("该款号不存在");
             }
 
-            int gysid = int.Parse(cmb_gys.SelectedValue);
             string gyskuanhao = txb_gyskh.Text.Trim();
-            string maishou = txb_ms.Text.Trim();
 
             TTiaoma f = new TTiaoma
             {
@@ -130,9 +126,7 @@ namespace JCSJG
                 jinjia = jinjia,
                 shoujia = shoujia,
                 kuanhaoid = k.id,
-                gysid = gysid,
                 gyskuanhao = gyskuanhao,
-                maishou = maishou
             };
 
             return f;

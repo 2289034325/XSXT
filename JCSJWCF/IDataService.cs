@@ -19,5 +19,49 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating=false)]
         void BMZHEditPsw(string om,string nm);
+
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start,DateTime  End);
+
+
+        [OperationContract(IsInitiating = false)]
+        TGongyingshang[] GetGongyingshangsByUserId(int UserId);
+
+
+        [OperationContract(IsInitiating = false)]
+        TKuanhao[] GetKuanhaosByUserId(int UserId);
+
+
+        [OperationContract(IsInitiating = false)]
+        TKuanhao InsertKuanhao(TKuanhao k);
+
+
+        [OperationContract(IsInitiating = false)]
+        void EditKuanhao(TKuanhao k);
+
+
+        [OperationContract(IsInitiating = false)]
+        void DeleteKuanhao(int id);
+
+        [OperationContract(IsInitiating = false)]
+        TGongyingshang InsertGongyingshang(TGongyingshang g);
+
+        [OperationContract(IsInitiating = false)]
+        void EditGongyingshang(TGongyingshang g);
+
+        [OperationContract(IsInitiating = false)]
+        void DeleteGongyingshang(int id);
+
+        [OperationContract(IsInitiating = false)]
+        TKuanhao GetKuanhaoByMc(string kh);
+
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
+
+        [OperationContract(IsInitiating = false)]
+        string[] CheckKuanhaosChongfu(string[] khs);
+
+        [OperationContract(IsInitiating = false)]
+        string[] CheckTiaomaChongfu(string[] tms);
     }
 }

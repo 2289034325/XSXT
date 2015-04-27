@@ -20,10 +20,10 @@ namespace Tool.DB.JCSJ
         public string xingming { get; set; }
         public byte xingbie { get; set; }
         public System.DateTime shengri { get; set; }
+        public string beizhu { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
-        public string beizhu { get; set; }
     
         public virtual TFendian TFendian { get; set; }
         public virtual TUser TUser { get; set; }

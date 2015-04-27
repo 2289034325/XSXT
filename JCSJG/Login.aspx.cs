@@ -26,7 +26,7 @@ namespace JCSJG
                 }
                 else
                 {
-                    if (u.zhuangtai == (byte)CONSTS.USER_ZT.停用)
+                    if (u.zhuangtai == (byte)DBCONSTS.USER_ZT.停用)
                     {
                         Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
                     }

@@ -16,7 +16,7 @@ namespace Tool.DB.JCSJ
     public partial class Entities : DbContext
     {
         public Entities()
-            : base("name=Entities")
+            : base("name=JCSJEntities")
         {
         }
     
@@ -25,12 +25,13 @@ namespace Tool.DB.JCSJ
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
-        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TCangku> TCangku { get; set; }
-        public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<TFendian> TFendian { get; set; }
-        public virtual DbSet<TUser> TUser { get; set; }
+        public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
+        public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<TKuanhao> TKuanhao { get; set; }
+        public virtual DbSet<TMaishou> TMaishou { get; set; }
+        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
+        public virtual DbSet<TUser> TUser { get; set; }
     }
 }

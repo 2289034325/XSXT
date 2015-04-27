@@ -14,11 +14,6 @@ namespace Tool.DB.JCSJ
     
     public partial class TGongyingshang
     {
-        public TGongyingshang()
-        {
-            this.TTiaoma = new HashSet<TTiaoma>();
-        }
-    
         public int id { get; set; }
         public string mingcheng { get; set; }
         public string lianxiren { get; set; }
@@ -29,7 +24,6 @@ namespace Tool.DB.JCSJ
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
     
-        public virtual ICollection<TTiaoma> TTiaoma { get; set; }
         public virtual TUser TUser { get; set; }
     }
 }

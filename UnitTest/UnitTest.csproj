@@ -91,12 +91,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.TTiaoma.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
     <None Include="Service References\Data\DataService.wsdl" />
     <None Include="Service References\Data\DataService.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Data\DataService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Data\DataService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Valid\ValidService.wsdl" />
