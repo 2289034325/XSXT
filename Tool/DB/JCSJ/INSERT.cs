@@ -81,6 +81,19 @@ namespace Tool.DB.JCSJ
 
                 return nk;
             }
+            /// <summary>
+            /// 增加一组款号
+            /// </summary>
+            /// <param name="k"></param>
+            /// <returns></returns>
+            public TKuanhao[] InsertKuanhao(TKuanhao[] ks)
+            {
+                TKuanhao[] nks = _db.TKuanhao.AddRange(ks).ToArray();
+
+                _db.SaveChanges();
+
+                return nks;
+            }
 
             /// <summary>
             /// 增加一个条码信息
@@ -91,6 +104,19 @@ namespace Tool.DB.JCSJ
                 _db.TTiaoma.Add(t);
 
                 _db.SaveChanges();
+            }
+            /// <summary>
+            /// 增加一组条码信息
+            /// </summary>
+            /// <param name="ts"></param>
+            /// <returns></returns>
+            public TTiaoma[] InsertTiaoma(TTiaoma[] ts)
+            {
+                TTiaoma[] nts = _db.TTiaoma.AddRange(ts).ToArray();
+
+                _db.SaveChanges();
+
+                return nts;
             }
         }
     }

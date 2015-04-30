@@ -14,5 +14,8 @@
     <Setting Name="TMQIANZHUI" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="DUMPFILENAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

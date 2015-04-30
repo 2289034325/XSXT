@@ -104,6 +104,24 @@ namespace BIANMA.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/CheckTiaomaChongfu", ReplyAction="http://tempuri.org/IDataService/CheckTiaomaChongfuResponse")]
         System.Threading.Tasks.Task<string[]> CheckTiaomaChongfuAsync(string[] tms);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/SaveKuanhaos", ReplyAction="http://tempuri.org/IDataService/SaveKuanhaosResponse")]
+        Tool.DB.JCSJ.TKuanhao[] SaveKuanhaos(Tool.DB.JCSJ.TKuanhao[] ks);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/SaveKuanhaos", ReplyAction="http://tempuri.org/IDataService/SaveKuanhaosResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao[]> SaveKuanhaosAsync(Tool.DB.JCSJ.TKuanhao[] ks);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/SaveTiaomas", ReplyAction="http://tempuri.org/IDataService/SaveTiaomasResponse")]
+        Tool.DB.JCSJ.TTiaoma[] SaveTiaomas(Tool.DB.JCSJ.TTiaoma[] ts);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/SaveTiaomas", ReplyAction="http://tempuri.org/IDataService/SaveTiaomasResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> SaveTiaomasAsync(Tool.DB.JCSJ.TTiaoma[] ts);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditTiaoma", ReplyAction="http://tempuri.org/IDataService/EditTiaomaResponse")]
+        void EditTiaoma(Tool.DB.JCSJ.TTiaoma t);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditTiaoma", ReplyAction="http://tempuri.org/IDataService/EditTiaomaResponse")]
+        System.Threading.Tasks.Task EditTiaomaAsync(Tool.DB.JCSJ.TTiaoma t);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -251,6 +269,30 @@ namespace BIANMA.JCSJData {
         
         public System.Threading.Tasks.Task<string[]> CheckTiaomaChongfuAsync(string[] tms) {
             return base.Channel.CheckTiaomaChongfuAsync(tms);
+        }
+        
+        public Tool.DB.JCSJ.TKuanhao[] SaveKuanhaos(Tool.DB.JCSJ.TKuanhao[] ks) {
+            return base.Channel.SaveKuanhaos(ks);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TKuanhao[]> SaveKuanhaosAsync(Tool.DB.JCSJ.TKuanhao[] ks) {
+            return base.Channel.SaveKuanhaosAsync(ks);
+        }
+        
+        public Tool.DB.JCSJ.TTiaoma[] SaveTiaomas(Tool.DB.JCSJ.TTiaoma[] ts) {
+            return base.Channel.SaveTiaomas(ts);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TTiaoma[]> SaveTiaomasAsync(Tool.DB.JCSJ.TTiaoma[] ts) {
+            return base.Channel.SaveTiaomasAsync(ts);
+        }
+        
+        public void EditTiaoma(Tool.DB.JCSJ.TTiaoma t) {
+            base.Channel.EditTiaoma(t);
+        }
+        
+        public System.Threading.Tasks.Task EditTiaomaAsync(Tool.DB.JCSJ.TTiaoma t) {
+            return base.Channel.EditTiaomaAsync(t);
         }
     }
 }

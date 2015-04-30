@@ -64,5 +64,17 @@ namespace BIANMA.Properties {
                 this["TMQIANZHUI"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data.xml")]
+        public string DUMPFILENAME {
+            get {
+                return ((string)(this["DUMPFILENAME"]));
+            }
+            set {
+                this["DUMPFILENAME"] = value;
+            }
+        }
     }
 }

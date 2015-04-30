@@ -325,7 +325,7 @@ namespace JCSJWCF
         {
             OPT db = new OPT();
             List<string> eTms = new List<string>();
-            foreach (string t in eTms)
+            foreach (string t in tms)
             {
                 if (db.GetTiaomaByTiaomahao(t) != null)
                 {
@@ -334,6 +334,65 @@ namespace JCSJWCF
             }
 
             return eTms.ToArray();
+        }
+
+        /// <summary>
+        /// 保存一组款号
+        /// </summary>
+        /// <param name="ks"></param>
+        /// <returns></returns>
+        public TKuanhao[] SaveKuanhaos(TKuanhao[] ks)
+        {
+            foreach (TKuanhao k in ks)
+            {
+                k.caozuorenid = _user.id;
+                k.charushijian = DateTime.Now;
+                k.xiugaishijian = DateTime.Now;
+            }
+
+            OPT db = new OPT();
+            TKuanhao[] nks = db.InsertKuanhao(ks);
+
+            return nks;
+        }
+
+        /// <summary>
+        /// 保存一组条码
+        /// </summary>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        public TTiaoma[] SaveTiaomas(TTiaoma[] ts)
+        {
+            foreach (TTiaoma t in ts)
+            {
+                t.caozuorenid = _user.id;
+                t.charushijian = DateTime.Now;
+                t.xiugaishijian = DateTime.Now;
+            }
+
+            OPT db = new OPT();
+            TTiaoma[] nts = db.InsertTiaoma(ts);
+
+            return nts;
+        }
+
+        /// <summary>
+        /// 修改条码信息
+        /// </summary>
+        /// <param name="t"></param>
+        public void EditTiaoma(TTiaoma t)
+        {
+            OPT db = new OPT();
+            TTiaoma ot = db.GetTiaomaByTiaomahao(t.tiaoma);
+            if (ot.caozuorenid != _user.id)
+            {
+                throw new FaultException("不允许修改其他用户的条码信息");
+            }
+            else
+            {
+                t.xiugaishijian = DateTime.Now;
+                db.UpdateTiaoma(t);
+            }
         }
     }
 }

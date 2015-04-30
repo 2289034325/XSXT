@@ -109,6 +109,24 @@
   <wsdl:message name="IDataService_CheckTiaomaChongfu_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckTiaomaChongfuResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_SaveKuanhaos_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKuanhaos" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_SaveKuanhaos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKuanhaosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_SaveTiaomas_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTiaomas" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_SaveTiaomas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTiaomasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_EditTiaoma_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditTiaoma" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_EditTiaoma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditTiaomaResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
@@ -169,6 +187,18 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="CheckTiaomaChongfu">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CheckTiaomaChongfu" message="tns:IDataService_CheckTiaomaChongfu_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/CheckTiaomaChongfuResponse" message="tns:IDataService_CheckTiaomaChongfu_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SaveKuanhaos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/SaveKuanhaos" message="tns:IDataService_SaveKuanhaos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/SaveKuanhaosResponse" message="tns:IDataService_SaveKuanhaos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SaveTiaomas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/SaveTiaomas" message="tns:IDataService_SaveTiaomas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/SaveTiaomasResponse" message="tns:IDataService_SaveTiaomas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="EditTiaoma">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/EditTiaoma" message="tns:IDataService_EditTiaoma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/EditTiaomaResponse" message="tns:IDataService_EditTiaoma_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -302,6 +332,33 @@
     </wsdl:operation>
     <wsdl:operation name="CheckTiaomaChongfu">
       <soap12:operation soapAction="http://tempuri.org/IDataService/CheckTiaomaChongfu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveKuanhaos">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/SaveKuanhaos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTiaomas">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/SaveTiaomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditTiaoma">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/EditTiaoma" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -30,6 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grid_tiaoma = new System.Windows.Forms.DataGridView();
+            this.col_tm_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_xj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_jj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_czrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.mni_login = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_zhuce = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,14 +61,10 @@
             this.mni_jiazai = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_qingkong = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_saveServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_saveLoacal = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grid_kuanhao = new System.Windows.Forms.DataGridView();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.grid_all = new System.Windows.Forms.DataGridView();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
             this.col_kh_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh_xj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,21 +72,9 @@
             this.col_kh_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh_czrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_kh_tms = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh_khex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_xj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_jj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_czrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.grid_all = new System.Windows.Forms.DataGridView();
             this.col_all_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,6 +90,17 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算售价ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txb_sjxs = new System.Windows.Forms.ToolStripTextBox();
+            this.mni_jssj = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -108,6 +115,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
             this.cmn_kh.SuspendLayout();
+            this.cmn_tm.SuspendLayout();
             this.SuspendLayout();
             // 
             // grid_tiaoma
@@ -117,7 +125,6 @@
             this.grid_tiaoma.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_tiaoma.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tm_idex,
-            this.col_tm_khidex,
             this.col_tm_xj,
             this.col_tm_tm,
             this.col_tm_gyskh,
@@ -131,16 +138,90 @@
             this.col_tm_xgsj});
             this.grid_tiaoma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_tiaoma.Location = new System.Drawing.Point(0, 0);
-            this.grid_tiaoma.MultiSelect = false;
             this.grid_tiaoma.Name = "grid_tiaoma";
             this.grid_tiaoma.RowTemplate.Height = 23;
-            this.grid_tiaoma.Size = new System.Drawing.Size(839, 250);
+            this.grid_tiaoma.Size = new System.Drawing.Size(741, 250);
             this.grid_tiaoma.TabIndex = 8;
             this.grid_tiaoma.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_tiaoma_CellBeginEdit);
             this.grid_tiaoma.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_tiaoma_CellValidating);
             this.grid_tiaoma.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_tiaoma_CellValueChanged);
+            this.grid_tiaoma.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.grid_tiaoma_RowStateChanged);
             this.grid_tiaoma.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_tiaoma_UserDeletedRow);
             this.grid_tiaoma.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_tiaoma_UserDeletingRow);
+            this.grid_tiaoma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_tiaoma_KeyDown);
+            // 
+            // col_tm_idex
+            // 
+            this.col_tm_idex.HeaderText = "IDEX";
+            this.col_tm_idex.Name = "col_tm_idex";
+            this.col_tm_idex.Visible = false;
+            // 
+            // col_tm_xj
+            // 
+            this.col_tm_xj.HeaderText = "新/旧";
+            this.col_tm_xj.Name = "col_tm_xj";
+            this.col_tm_xj.ReadOnly = true;
+            // 
+            // col_tm_tm
+            // 
+            this.col_tm_tm.DataPropertyName = "tiaoma";
+            this.col_tm_tm.HeaderText = "条码";
+            this.col_tm_tm.Name = "col_tm_tm";
+            // 
+            // col_tm_gyskh
+            // 
+            this.col_tm_gyskh.DataPropertyName = "gyskuanhao";
+            this.col_tm_gyskh.HeaderText = "供应商款号";
+            this.col_tm_gyskh.Name = "col_tm_gyskh";
+            // 
+            // col_tm_ys
+            // 
+            this.col_tm_ys.DataPropertyName = "yanse";
+            this.col_tm_ys.HeaderText = "颜色";
+            this.col_tm_ys.Name = "col_tm_ys";
+            // 
+            // col_tm_cm
+            // 
+            this.col_tm_cm.DataPropertyName = "chima";
+            this.col_tm_cm.HeaderText = "尺码";
+            this.col_tm_cm.Name = "col_tm_cm";
+            // 
+            // col_tm_sl
+            // 
+            this.col_tm_sl.HeaderText = "数量";
+            this.col_tm_sl.Name = "col_tm_sl";
+            // 
+            // col_tm_jj
+            // 
+            this.col_tm_jj.DataPropertyName = "jinjia";
+            this.col_tm_jj.HeaderText = "进价";
+            this.col_tm_jj.Name = "col_tm_jj";
+            // 
+            // col_tm_sj
+            // 
+            this.col_tm_sj.DataPropertyName = "shoujia";
+            this.col_tm_sj.HeaderText = "售价";
+            this.col_tm_sj.Name = "col_tm_sj";
+            // 
+            // col_tm_czrid
+            // 
+            this.col_tm_czrid.HeaderText = "操作人ID";
+            this.col_tm_czrid.Name = "col_tm_czrid";
+            this.col_tm_czrid.Visible = false;
+            // 
+            // col_tm_crsj
+            // 
+            this.col_tm_crsj.DataPropertyName = "charushijian";
+            this.col_tm_crsj.HeaderText = "插入时间";
+            this.col_tm_crsj.Name = "col_tm_crsj";
+            this.col_tm_crsj.ReadOnly = true;
+            // 
+            // col_tm_xgsj
+            // 
+            this.col_tm_xgsj.DataPropertyName = "xiugaishijian";
+            this.col_tm_xgsj.HeaderText = "修改时间";
+            this.col_tm_xgsj.Name = "col_tm_xgsj";
+            this.col_tm_xgsj.ReadOnly = true;
             // 
             // mn_main
             // 
@@ -154,6 +235,7 @@
             this.mni_addxkh,
             this.mni_addjkh,
             this.mni_addsm,
+            this.计算售价ToolStripMenuItem,
             this.生成款号ToolStripMenuItem,
             this.生成条码ToolStripMenuItem,
             this.mni_jiazai,
@@ -240,14 +322,14 @@
             // mni_sckh
             // 
             this.mni_sckh.Name = "mni_sckh";
-            this.mni_sckh.Size = new System.Drawing.Size(124, 22);
+            this.mni_sckh.Size = new System.Drawing.Size(152, 22);
             this.mni_sckh.Text = "生成款号";
             this.mni_sckh.Click += new System.EventHandler(this.mni_sckh_Click);
             // 
             // mni_jckh
             // 
             this.mni_jckh.Name = "mni_jckh";
-            this.mni_jckh.Size = new System.Drawing.Size(124, 22);
+            this.mni_jckh.Size = new System.Drawing.Size(152, 22);
             this.mni_jckh.Text = "检查款号";
             this.mni_jckh.Click += new System.EventHandler(this.mni_jckh_Click);
             // 
@@ -276,10 +358,12 @@
             // 
             // mni_jiazai
             // 
+            this.mni_jiazai.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_jiazai_fuwuqi,
+            this.mni_jiazai_bendi});
             this.mni_jiazai.Name = "mni_jiazai";
             this.mni_jiazai.Size = new System.Drawing.Size(92, 21);
             this.mni_jiazai.Text = "加载条码信息";
-            this.mni_jiazai.Click += new System.EventHandler(this.mni_jiazai_Click);
             // 
             // mni_qingkong
             // 
@@ -289,9 +373,26 @@
             // 
             // 保存ToolStripMenuItem
             // 
+            this.保存ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_saveServer,
+            this.mni_saveLoacal});
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
-            this.保存ToolStripMenuItem.Text = "保存到服务器";
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.保存ToolStripMenuItem.Text = "保存";
+            // 
+            // mni_saveServer
+            // 
+            this.mni_saveServer.Name = "mni_saveServer";
+            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveServer.Text = "保存到服务器";
+            this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
+            // 
+            // mni_saveLoacal
+            // 
+            this.mni_saveLoacal.Name = "mni_saveLoacal";
+            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveLoacal.Text = "保存到本地";
+            this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
             // splitContainer1
             // 
@@ -307,11 +408,12 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grid_tiaoma);
             this.splitContainer1.Size = new System.Drawing.Size(1170, 250);
-            this.splitContainer1.SplitterDistance = 327;
+            this.splitContainer1.SplitterDistance = 425;
             this.splitContainer1.TabIndex = 11;
             // 
             // grid_kuanhao
             // 
+            this.grid_kuanhao.AllowDrop = true;
             this.grid_kuanhao.AllowUserToAddRows = false;
             this.grid_kuanhao.AllowUserToResizeRows = false;
             this.grid_kuanhao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -323,14 +425,13 @@
             this.col_kh_lx,
             this.col_kh_pm,
             this.col_kh_czrid,
-            this.col_kh_tms,
             this.col_kh_khex});
             this.grid_kuanhao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kuanhao.Location = new System.Drawing.Point(0, 0);
             this.grid_kuanhao.MultiSelect = false;
             this.grid_kuanhao.Name = "grid_kuanhao";
             this.grid_kuanhao.RowTemplate.Height = 23;
-            this.grid_kuanhao.Size = new System.Drawing.Size(327, 250);
+            this.grid_kuanhao.Size = new System.Drawing.Size(425, 250);
             this.grid_kuanhao.TabIndex = 9;
             this.grid_kuanhao.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_kuanhao_CellBeginEdit);
             this.grid_kuanhao.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_kuanhao_CellEndEdit);
@@ -340,6 +441,56 @@
             this.grid_kuanhao.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.grid_kuanhao_RowStateChanged);
             this.grid_kuanhao.SelectionChanged += new System.EventHandler(this.grid_kuanhao_SelectionChanged);
             this.grid_kuanhao.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_kuanhao_UserDeletingRow);
+            this.grid_kuanhao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_kuanhao_KeyDown);
+            // 
+            // col_kh_idex
+            // 
+            this.col_kh_idex.HeaderText = "IDEX";
+            this.col_kh_idex.Name = "col_kh_idex";
+            this.col_kh_idex.Visible = false;
+            // 
+            // col_kh_xj
+            // 
+            this.col_kh_xj.HeaderText = "新/旧款";
+            this.col_kh_xj.Name = "col_kh_xj";
+            this.col_kh_xj.ReadOnly = true;
+            // 
+            // col_kh_kh
+            // 
+            this.col_kh_kh.DataPropertyName = "kuanhao";
+            this.col_kh_kh.HeaderText = "款号";
+            this.col_kh_kh.Name = "col_kh_kh";
+            // 
+            // col_kh_xb
+            // 
+            this.col_kh_xb.DataPropertyName = "xingbie";
+            this.col_kh_xb.HeaderText = "性别";
+            this.col_kh_xb.Name = "col_kh_xb";
+            // 
+            // col_kh_lx
+            // 
+            this.col_kh_lx.DataPropertyName = "leixing";
+            this.col_kh_lx.HeaderText = "类型";
+            this.col_kh_lx.Name = "col_kh_lx";
+            // 
+            // col_kh_pm
+            // 
+            this.col_kh_pm.DataPropertyName = "pinming";
+            this.col_kh_pm.HeaderText = "品名";
+            this.col_kh_pm.Name = "col_kh_pm";
+            // 
+            // col_kh_czrid
+            // 
+            this.col_kh_czrid.DataPropertyName = "caozuorenid";
+            this.col_kh_czrid.HeaderText = "操作人ID";
+            this.col_kh_czrid.Name = "col_kh_czrid";
+            this.col_kh_czrid.Visible = false;
+            // 
+            // col_kh_khex
+            // 
+            this.col_kh_khex.HeaderText = "款号EX";
+            this.col_kh_khex.Name = "col_kh_khex";
+            this.col_kh_khex.Visible = false;
             // 
             // splitContainer2
             // 
@@ -386,177 +537,11 @@
             this.grid_all.Location = new System.Drawing.Point(0, 0);
             this.grid_all.Name = "grid_all";
             this.grid_all.ReadOnly = true;
-            this.grid_all.RowHeadersVisible = false;
             this.grid_all.RowTemplate.Height = 23;
-            this.grid_all.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_all.Size = new System.Drawing.Size(1170, 247);
             this.grid_all.TabIndex = 9;
             this.grid_all.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellDoubleClick);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
-            // 
-            // cmn_all
-            // 
-            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_all_shuaxin});
-            this.cmn_all.Name = "cmn_all";
-            this.cmn_all.Size = new System.Drawing.Size(101, 26);
-            // 
-            // cmn_all_shuaxin
-            // 
-            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
-            this.cmn_all_shuaxin.Size = new System.Drawing.Size(100, 22);
-            this.cmn_all_shuaxin.Text = "刷新";
-            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
-            // 
-            // cmn_kh
-            // 
-            this.cmn_kh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_kh_loadTms});
-            this.cmn_kh.Name = "cmn_kh";
-            this.cmn_kh.Size = new System.Drawing.Size(149, 26);
-            // 
-            // cmn_kh_loadTms
-            // 
-            this.cmn_kh_loadTms.Name = "cmn_kh_loadTms";
-            this.cmn_kh_loadTms.Size = new System.Drawing.Size(148, 22);
-            this.cmn_kh_loadTms.Text = "加载条码模板";
-            this.cmn_kh_loadTms.Click += new System.EventHandler(this.cmn_kh_loadTms_Click);
-            // 
-            // col_kh_idex
-            // 
-            this.col_kh_idex.HeaderText = "IDEX";
-            this.col_kh_idex.Name = "col_kh_idex";
-            this.col_kh_idex.Visible = false;
-            // 
-            // col_kh_xj
-            // 
-            this.col_kh_xj.HeaderText = "新/旧款";
-            this.col_kh_xj.Name = "col_kh_xj";
-            this.col_kh_xj.ReadOnly = true;
-            // 
-            // col_kh_kh
-            // 
-            this.col_kh_kh.DataPropertyName = "kuanhao";
-            this.col_kh_kh.HeaderText = "款号";
-            this.col_kh_kh.Name = "col_kh_kh";
-            // 
-            // col_kh_xb
-            // 
-            this.col_kh_xb.DataPropertyName = "xingbie";
-            this.col_kh_xb.HeaderText = "性别";
-            this.col_kh_xb.Name = "col_kh_xb";
-            // 
-            // col_kh_lx
-            // 
-            this.col_kh_lx.DataPropertyName = "leixing";
-            this.col_kh_lx.HeaderText = "类型";
-            this.col_kh_lx.Name = "col_kh_lx";
-            // 
-            // col_kh_pm
-            // 
-            this.col_kh_pm.DataPropertyName = "pinming";
-            this.col_kh_pm.HeaderText = "品名";
-            this.col_kh_pm.Name = "col_kh_pm";
-            // 
-            // col_kh_czrid
-            // 
-            this.col_kh_czrid.DataPropertyName = "caozuorenid";
-            this.col_kh_czrid.HeaderText = "操作人ID";
-            this.col_kh_czrid.Name = "col_kh_czrid";
-            this.col_kh_czrid.Visible = false;
-            // 
-            // col_kh_tms
-            // 
-            this.col_kh_tms.HeaderText = "条码";
-            this.col_kh_tms.Name = "col_kh_tms";
-            this.col_kh_tms.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_kh_tms.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.col_kh_tms.Visible = false;
-            // 
-            // col_kh_khex
-            // 
-            this.col_kh_khex.HeaderText = "款号EX";
-            this.col_kh_khex.Name = "col_kh_khex";
-            this.col_kh_khex.Visible = false;
-            // 
-            // col_tm_idex
-            // 
-            this.col_tm_idex.HeaderText = "IDEX";
-            this.col_tm_idex.Name = "col_tm_idex";
-            this.col_tm_idex.Visible = false;
-            // 
-            // col_tm_khidex
-            // 
-            this.col_tm_khidex.HeaderText = "KHINDEX";
-            this.col_tm_khidex.Name = "col_tm_khidex";
-            this.col_tm_khidex.Visible = false;
-            // 
-            // col_tm_xj
-            // 
-            this.col_tm_xj.HeaderText = "新/旧";
-            this.col_tm_xj.Name = "col_tm_xj";
-            this.col_tm_xj.ReadOnly = true;
-            // 
-            // col_tm_tm
-            // 
-            this.col_tm_tm.DataPropertyName = "tiaoma";
-            this.col_tm_tm.HeaderText = "条码";
-            this.col_tm_tm.Name = "col_tm_tm";
-            // 
-            // col_tm_gyskh
-            // 
-            this.col_tm_gyskh.DataPropertyName = "gyskuanhao";
-            this.col_tm_gyskh.HeaderText = "供应商款号";
-            this.col_tm_gyskh.Name = "col_tm_gyskh";
-            // 
-            // col_tm_ys
-            // 
-            this.col_tm_ys.DataPropertyName = "yanse";
-            this.col_tm_ys.HeaderText = "颜色";
-            this.col_tm_ys.Name = "col_tm_ys";
-            // 
-            // col_tm_cm
-            // 
-            this.col_tm_cm.DataPropertyName = "chima";
-            this.col_tm_cm.HeaderText = "尺码";
-            this.col_tm_cm.Name = "col_tm_cm";
-            // 
-            // col_tm_sl
-            // 
-            this.col_tm_sl.HeaderText = "数量";
-            this.col_tm_sl.Name = "col_tm_sl";
-            // 
-            // col_tm_jj
-            // 
-            this.col_tm_jj.DataPropertyName = "jinjia";
-            this.col_tm_jj.HeaderText = "进价";
-            this.col_tm_jj.Name = "col_tm_jj";
-            // 
-            // col_tm_sj
-            // 
-            this.col_tm_sj.DataPropertyName = "shoujia";
-            this.col_tm_sj.HeaderText = "售价";
-            this.col_tm_sj.Name = "col_tm_sj";
-            // 
-            // col_tm_czrid
-            // 
-            this.col_tm_czrid.HeaderText = "操作人ID";
-            this.col_tm_czrid.Name = "col_tm_czrid";
-            this.col_tm_czrid.Visible = false;
-            // 
-            // col_tm_crsj
-            // 
-            this.col_tm_crsj.DataPropertyName = "charushijian";
-            this.col_tm_crsj.HeaderText = "插入时间";
-            this.col_tm_crsj.Name = "col_tm_crsj";
-            this.col_tm_crsj.ReadOnly = true;
-            // 
-            // col_tm_xgsj
-            // 
-            this.col_tm_xgsj.DataPropertyName = "xiugaishijian";
-            this.col_tm_xgsj.HeaderText = "修改时间";
-            this.col_tm_xgsj.Name = "col_tm_xgsj";
-            this.col_tm_xgsj.ReadOnly = true;
             // 
             // col_all_idex
             // 
@@ -662,6 +647,83 @@
             this.col_all_xgsj.Name = "col_all_xgsj";
             this.col_all_xgsj.ReadOnly = true;
             // 
+            // cmn_all
+            // 
+            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_all_shuaxin});
+            this.cmn_all.Name = "cmn_all";
+            this.cmn_all.Size = new System.Drawing.Size(101, 26);
+            // 
+            // cmn_all_shuaxin
+            // 
+            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
+            this.cmn_all_shuaxin.Size = new System.Drawing.Size(100, 22);
+            this.cmn_all_shuaxin.Text = "刷新";
+            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
+            // 
+            // cmn_kh
+            // 
+            this.cmn_kh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_kh_loadTms});
+            this.cmn_kh.Name = "cmn_kh";
+            this.cmn_kh.Size = new System.Drawing.Size(149, 26);
+            // 
+            // cmn_kh_loadTms
+            // 
+            this.cmn_kh_loadTms.Name = "cmn_kh_loadTms";
+            this.cmn_kh_loadTms.Size = new System.Drawing.Size(148, 22);
+            this.cmn_kh_loadTms.Text = "加载条码模板";
+            this.cmn_kh_loadTms.Click += new System.EventHandler(this.cmn_kh_loadTms_Click);
+            // 
+            // cmn_tm
+            // 
+            this.cmn_tm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_tm_xg});
+            this.cmn_tm.Name = "cmn_tm";
+            this.cmn_tm.Size = new System.Drawing.Size(125, 26);
+            // 
+            // cmn_tm_xg
+            // 
+            this.cmn_tm_xg.Name = "cmn_tm_xg";
+            this.cmn_tm_xg.Size = new System.Drawing.Size(124, 22);
+            this.cmn_tm_xg.Text = "保存修改";
+            this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
+            // 
+            // 计算售价ToolStripMenuItem
+            // 
+            this.计算售价ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txb_sjxs,
+            this.mni_jssj});
+            this.计算售价ToolStripMenuItem.Name = "计算售价ToolStripMenuItem";
+            this.计算售价ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.计算售价ToolStripMenuItem.Text = "计算售价";
+            // 
+            // txb_sjxs
+            // 
+            this.txb_sjxs.Name = "txb_sjxs";
+            this.txb_sjxs.Size = new System.Drawing.Size(100, 23);
+            // 
+            // mni_jssj
+            // 
+            this.mni_jssj.Name = "mni_jssj";
+            this.mni_jssj.Size = new System.Drawing.Size(160, 22);
+            this.mni_jssj.Text = "计算";
+            this.mni_jssj.Click += new System.EventHandler(this.mni_jssj_Click);
+            // 
+            // mni_jiazai_fuwuqi
+            // 
+            this.mni_jiazai_fuwuqi.Name = "mni_jiazai_fuwuqi";
+            this.mni_jiazai_fuwuqi.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_fuwuqi.Text = "从服务器加载";
+            this.mni_jiazai_fuwuqi.Click += new System.EventHandler(this.mni_jiazai_Click);
+            // 
+            // mni_jiazai_bendi
+            // 
+            this.mni_jiazai_bendi.Name = "mni_jiazai_bendi";
+            this.mni_jiazai_bendi.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_bendi.Text = "从本地XML加载";
+            this.mni_jiazai_bendi.Click += new System.EventHandler(this.mni_jiazai_bendi_Click);
+            // 
             // Form_Bianma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -669,10 +731,12 @@
             this.ClientSize = new System.Drawing.Size(1170, 526);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.mn_main);
+            this.KeyPreview = true;
             this.Name = "Form_Bianma";
             this.Text = "商品编码";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Bianma_FormClosing);
             this.Load += new System.EventHandler(this.Form_Bianma_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_Bianma_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).EndInit();
             this.mn_main.ResumeLayout(false);
             this.mn_main.PerformLayout();
@@ -688,6 +752,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).EndInit();
             this.cmn_all.ResumeLayout(false);
             this.cmn_kh.ResumeLayout(false);
+            this.cmn_tm.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -723,28 +788,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_sctm;
         private System.Windows.Forms.ToolStripMenuItem mni_jctm;
         private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_idex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_xj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_kh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_xb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_lx;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_pm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_czrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_tms;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_khex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_idex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_khidex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_xj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_tm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_gyskh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_ys;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_cm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_sl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_jj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_sj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_czrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_crsj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_xgsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_idex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
@@ -760,6 +803,35 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem mni_saveServer;
+        private System.Windows.Forms.ToolStripMenuItem mni_saveLoacal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_idex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_xj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_xb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_lx;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_pm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_czrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_khex;
+        private System.Windows.Forms.ContextMenuStrip cmn_tm;
+        private System.Windows.Forms.ToolStripMenuItem cmn_tm_xg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_idex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_xj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_tm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_gyskh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_ys;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_cm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_sl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_jj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_sj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_czrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_crsj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem 计算售价ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox txb_sjxs;
+        private System.Windows.Forms.ToolStripMenuItem mni_jssj;
+        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_fuwuqi;
+        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_bendi;
     }
 }
 

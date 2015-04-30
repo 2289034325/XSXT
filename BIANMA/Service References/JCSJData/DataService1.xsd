@@ -209,4 +209,44 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SaveKuanhaos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" minOccurs="0" name="ks" nillable="true" type="q17:ArrayOfTKuanhao" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveKuanhaosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" minOccurs="0" name="SaveKuanhaosResult" nillable="true" type="q18:ArrayOfTKuanhao" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveTiaomas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" minOccurs="0" name="ts" nillable="true" type="q19:ArrayOfTTiaoma" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveTiaomasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" minOccurs="0" name="SaveTiaomasResult" nillable="true" type="q20:ArrayOfTTiaoma" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditTiaoma">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" minOccurs="0" name="t" nillable="true" type="q21:TTiaoma" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditTiaomaResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -14,7 +14,7 @@ namespace BIANMA
     class TTiaomaExtend : ICloneable
     {
         public int idex;
-        public int khidex;
+        //public int khidex;
         public XTCONSTS.TIAOMA_XINJIU xj;
         public TTiaoma tiaoma;
         public short shuliang;
@@ -25,10 +25,11 @@ namespace BIANMA
             TTiaomaExtend ct = new TTiaomaExtend()
             {
                 idex = idex,
-                khidex = khidex,
+                //khidex = khidex,
                 xj = xj,
                 tiaoma = new TTiaoma
                 {
+                    kuanhaoid = tiaoma.kuanhaoid,
                     tiaoma = tiaoma.tiaoma,
                     gyskuanhao = tiaoma.gyskuanhao,
                     yanse = tiaoma.yanse,
@@ -45,12 +46,11 @@ namespace BIANMA
             return ct;
         }
 
-        public string ToXml()
+        public XElement ToXml()
         {
             XElement xt = new XElement("TTiaomaExtend");
             xt.Add(new XElement("idex") { Value = idex.ToString() });
-            xt.Add(new XElement("khindex") { Value = khidex.ToString() });
-            xt.Add(new XElement("xj") { Value = xj.ToString() });
+            xt.Add(new XElement("xj") { Value = ((byte)xj).ToString() });
             XElement Ntiaoma = new XElement("tiaoma");
             Ntiaoma.Add(new XElement("id") { Value = tiaoma.id.ToString() });
             Ntiaoma.Add(new XElement("tiaoma") { Value = tiaoma.tiaoma });
@@ -65,28 +65,27 @@ namespace BIANMA
             xt.Add(Ntiaoma);
             xt.Add(new XElement("shuliang") { Value = shuliang.ToString() });
 
-            return xt.ToString();
+            return xt;
         }
 
-        public TTiaomaExtend FromXml(XElement xml)
+        public static TTiaomaExtend FromXml(XElement xml)
         {
             TTiaomaExtend tx = new TTiaomaExtend();
 
             tx.idex = int.Parse(xml.Element("idex").Value);
-            tx.khidex = int.Parse(xml.Element("khindex").Value);
             tx.xj = (XTCONSTS.TIAOMA_XINJIU)(byte.Parse(xml.Element("xj").Value));
             tx.tiaoma = new TTiaoma
             {
                 id = int.Parse(xml.Element("tiaoma").Element("id").Value),
                 tiaoma = xml.Element("tiaoma").Element("tiaoma").Value,
-                gyskuanhao = xml.Element("tiaoma").Element("tiaoma").Value,
-                yanse = xml.Element("tiaoma").Element("tiaoma").Value,
-                chima = xml.Element("tiaoma").Element("tiaoma").Value,
-                jinjia = decimal.Parse(xml.Element("tiaoma").Element("tiaoma").Value),
-                shoujia = decimal.Parse(xml.Element("tiaoma").Element("tiaoma").Value),
-                caozuorenid = int.Parse(xml.Element("tiaoma").Element("tiaoma").Value),
-                charushijian = DateTime.Parse(xml.Element("tiaoma").Element("tiaoma").Value),
-                xiugaishijian = DateTime.Parse(xml.Element("tiaoma").Element("tiaoma").Value)
+                gyskuanhao = xml.Element("tiaoma").Element("gyskuanhao").Value,
+                yanse = xml.Element("tiaoma").Element("yanse").Value,
+                chima = xml.Element("tiaoma").Element("chima").Value,
+                jinjia = decimal.Parse(xml.Element("tiaoma").Element("jinjia").Value),
+                shoujia = decimal.Parse(xml.Element("tiaoma").Element("shoujia").Value),
+                caozuorenid = int.Parse(xml.Element("tiaoma").Element("caozuorenid").Value),
+                charushijian = DateTime.Parse(xml.Element("tiaoma").Element("charushijian").Value),
+                xiugaishijian = DateTime.Parse(xml.Element("tiaoma").Element("xiugaishijian").Value)
             };
             tx.shuliang = short.Parse(xml.Element("shuliang").Value);
 
@@ -100,46 +99,64 @@ namespace BIANMA
         public int idex;
         public XTCONSTS.KUANHAO_XINJIU xj;
         public TKuanhao kuanhao;
-        //public List<TTiaomaExtend> tms;
+        public List<TTiaomaExtend> tms;
 
         public TKuanhaoExtend()
         {
-            //tms = new List<TTiaomaExtend>();
+            tms = new List<TTiaomaExtend>();
         }
 
-        public string ToXml()
+        public XElement ToXml()
         {
             XElement xk = new XElement("TKuanhaoExtend");
 
             xk.Add(new XElement("idex") { Value = idex.ToString() });
-            xk.Add(new XElement("xj") { Value = xj.ToString() });
+            xk.Add(new XElement("xj") { Value = ((byte)xj).ToString() });
             XElement Nkuanhao = new XElement("kuanhao");
+            Nkuanhao.Add(new XElement("id") { Value = kuanhao.id.ToString() });
             Nkuanhao.Add(new XElement("kuanhao") { Value = kuanhao.kuanhao });
             Nkuanhao.Add(new XElement("xingbie") { Value = kuanhao.xingbie.ToString() });
             Nkuanhao.Add(new XElement("leixing") { Value = kuanhao.leixing.ToString() });
             Nkuanhao.Add(new XElement("pinming") { Value = kuanhao.pinming });
             Nkuanhao.Add(new XElement("caozuorenid") { Value = kuanhao.caozuorenid.ToString() });
             xk.Add(Nkuanhao);
+            XElement Ntms = new XElement("tms");
+            foreach (TTiaomaExtend tex in tms)
+            {
+                Ntms.Add(tex.ToXml());
+            }
+            xk.Add(Ntms);
 
-            return xk.ToString();
+            return xk;
         }
 
-        public TKuanhaoExtend FromXml(XElement xml)
+        public static TKuanhaoExtend[] FromXml(string xmlPath)
         {
-            TKuanhaoExtend kx = new TKuanhaoExtend();
-
-            kx.idex = int.Parse(xml.Element("idex").Value);
-            kx.xj = (XTCONSTS.KUANHAO_XINJIU)Enum.Parse(typeof(XTCONSTS.KUANHAO_XINJIU), xml.Element("xj").Value);
-            kx.kuanhao = new TKuanhao
+            XElement doc = XElement.Load(xmlPath);
+            List<TKuanhaoExtend> ks = new List<TKuanhaoExtend>();
+            List<XElement> xmls = doc.Elements("TKuanhaoExtend").ToList();
+            foreach (XElement xml in xmls)
             {
-                id = int.Parse(xml.Element("id").Value),
-                leixing = byte.Parse(xml.Element("idex").Value),
-                xingbie = byte.Parse(xml.Element("idex").Value),
-                pinming = xml.Element("idex").Value,
-                caozuorenid = int.Parse(xml.Element("idex").Value)
-            };
+                TKuanhaoExtend kx = new TKuanhaoExtend
+                {
+                    idex = int.Parse(xml.Element("idex").Value),
+                    xj = (XTCONSTS.KUANHAO_XINJIU)byte.Parse(xml.Element("xj").Value.ToString()),
+                    kuanhao = new TKuanhao
+                    {
+                        id = int.Parse(xml.Element("kuanhao").Element("id").Value),
+                        kuanhao = xml.Element("kuanhao").Element("kuanhao").Value,
+                        leixing = byte.Parse(xml.Element("kuanhao").Element("leixing").Value),
+                        xingbie = byte.Parse(xml.Element("kuanhao").Element("xingbie").Value),
+                        pinming = xml.Element("kuanhao").Element("pinming").Value,
+                        caozuorenid = int.Parse(xml.Element("kuanhao").Element("caozuorenid").Value)
+                    },
+                    tms = xml.Element("tms").Elements("TTiaomaExtend").Select(r => TTiaomaExtend.FromXml(r)).ToList()
+                };
 
-            return kx;
+                ks.Add(kx);
+            }
+
+            return ks.ToArray();
         }
     }
 }

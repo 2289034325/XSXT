@@ -63,5 +63,14 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         string[] CheckTiaomaChongfu(string[] tms);
+
+        [OperationContract(IsInitiating = false)]
+        TKuanhao[] SaveKuanhaos(TKuanhao[] ks);
+
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] SaveTiaomas(TTiaoma[] ts);
+
+        [OperationContract(IsInitiating = false)]
+        void EditTiaoma(TTiaoma t);
     }
 }
