@@ -16,7 +16,7 @@ namespace Tool.DB.JCSJ
     public partial class Entities : DbContext
     {
         public Entities()
-            : base("name=JCSJEntities")
+            : base("name=Entities")
         {
         }
     
@@ -33,5 +33,6 @@ namespace Tool.DB.JCSJ
         public virtual DbSet<TMaishou> TMaishou { get; set; }
         public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
+        public virtual DbSet<TXiazaijilu> TXiazaijilu { get; set; }
     }
 }

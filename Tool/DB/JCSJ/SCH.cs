@@ -8,10 +8,10 @@ using Tool.DB.JCSJ;
 
 namespace Tool.DB.JCSJ
 {
-        public partial class OPT
+        public partial class DBContext
         {
             private Entities _db;
-            public OPT()
+            public DBContext()
             {
                 _db = new Entities();
                 //此项会引起entity无法序列化的错误
@@ -27,6 +27,15 @@ namespace Tool.DB.JCSJ
             public TUser GetUser(string dlm, string mmd5)
             {
                 return _db.TUser.SingleOrDefault(r => r.dengluming == dlm && r.mima == mmd5);
+            }
+            /// <summary>
+            /// 根据登陆名取得用户
+            /// </summary>
+            /// <param name="dlm"></param>
+            /// <returns></returns>
+            public TUser GetUserByDlm(string dlm)
+            {
+                return _db.TUser.SingleOrDefault(r => r.dengluming == dlm);
             }
 
             /// <summary>
@@ -61,6 +70,20 @@ namespace Tool.DB.JCSJ
                 var Cangkus = _db.TCangku.Include("TUser");
 
                 return Cangkus.ToArray();
+            }
+            /// <summary>
+            /// 根据id和名称取得仓库信息
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="mc"></param>
+            /// <returns></returns>
+            public TCangku GetCangkuByIdMc(int id, string mc)
+            {
+                return _db.TCangku.SingleOrDefault(r => r.id == id && r.mingcheng == mc);
+            }
+            public TCangku GetCangkuById(int id)
+            {
+                return _db.TCangku.SingleOrDefault(r => r.id == id);
             }
 
             /// <summary>
@@ -146,6 +169,10 @@ namespace Tool.DB.JCSJ
 
                 return Tiaomas.ToArray();
             }
+            public TTiaoma[] GetTiaomasByUpdTime(DateTime dt)
+            {
+                return _db.TTiaoma.Include("TUser").Include("TKuanhao").Where(r => r.xiugaishijian >= dt).ToArray();
+            }
 
             /// <summary>
             /// 按条件取得条码信息
@@ -191,6 +218,21 @@ namespace Tool.DB.JCSJ
             public TTiaoma GetTiaomaByTiaomahao(string t)
             {
                 return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == t);
+            }
+            public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+            {
+                return _db.TTiaoma.Include("TKuanhao").Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+            }
+
+            /// <summary>
+            /// 取得某用户的下载记录
+            /// </summary>
+            /// <param name="userid">用户ID</param>
+            /// <param name="neirong">下载内容</param>
+            /// <returns></returns>
+            public TXiazaijilu GetXiazaijilu(int userid, string neirong)
+            {
+                return _db.TXiazaijilu.SingleOrDefault(r => r.yonghuid == userid && r.neirong == neirong);
             }
         }
  

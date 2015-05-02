@@ -7,7 +7,7 @@ using Tool.DB.JCSJ;
 
 namespace Tool.DB.JCSJ
     {
-        public partial class OPT
+        public partial class DBContext
         {
             /// <summary>
             /// 删除用户

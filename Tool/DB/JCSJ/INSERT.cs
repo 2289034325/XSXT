@@ -7,7 +7,7 @@ using Tool.DB.JCSJ;
 
 namespace Tool.DB.JCSJ
     {
-        public partial class OPT
+        public partial class DBContext
         {
             /// <summary>
             /// 插入一个新用户
@@ -117,6 +117,17 @@ namespace Tool.DB.JCSJ
                 _db.SaveChanges();
 
                 return nts;
+            }
+
+            /// <summary>
+            /// 增加一个下载记录
+            /// </summary>
+            /// <param name="x"></param>
+            public void InsertXiazaijilu(TXiazaijilu x)
+            {
+                _db.TXiazaijilu.Add(x);
+
+                _db.SaveChanges();
             }
         }
     }

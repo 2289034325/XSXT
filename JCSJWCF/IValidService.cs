@@ -18,6 +18,9 @@ namespace JCSJWCF
         void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm);
 
         [OperationContract]
+        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
+
+        [OperationContract]
         void BMZHBangding(string dlm, string mm, string tzm, string zcm);
     }
 }

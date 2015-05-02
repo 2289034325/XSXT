@@ -53,6 +53,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonFunc.cs" />
+    <Compile Include="DB\CK\CONSTS.cs" />
+    <Compile Include="DB\CK\Entities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\INSERT.cs" />
+    <Compile Include="DB\CK\DELETE.cs" />
+    <Compile Include="DB\CK\UPDATE.cs" />
+    <Compile Include="DB\CK\SCH.cs" />
+    <Compile Include="DB\CK\TChuruku.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\TChurukuMX.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\TTiaoma.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\TUser.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\VKucun.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\JCSJ\DELETE.cs" />
     <Compile Include="DB\JCSJ\CONSTS.cs" />
     <Compile Include="DB\JCSJ\Entities.Context.cs">
@@ -94,6 +129,9 @@
     <Compile Include="DB\JCSJ\TUser.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\JCSJ\TXiazaijilu.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\JCSJ\UPDATE.cs" />
     <Compile Include="DB\JCSJ\INSERT.cs" />
     <Compile Include="DB\JCSJ\SCH.cs" />
@@ -110,6 +148,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="DB\CK\Entities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\CK\Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DB\CK\Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </None>
+    <None Include="DB\CK\Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
+    </None>
     <None Include="DB\JCSJ\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entities.edmx</DependentUpon>

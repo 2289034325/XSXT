@@ -9,6 +9,11 @@ namespace Tool.DB.JCSJ
         public class DBCONSTS
         {
             /// <summary>
+            /// 下载内容命名
+            /// </summary>
+            public const string XIAZAI_TIAOMA = "条码信息";
+
+            /// <summary>
             /// 系统角色
             /// </summary>
             public enum USER_XTJS : byte
@@ -16,8 +21,24 @@ namespace Tool.DB.JCSJ
                 系统管理员 = 1,
                 总经理 = 2,
                 编码员 = 3,
-                照片上传 = 4
+                照片上传 = 4,
+                分店系统 = 5,
+                仓库系统 = 6,
+                报表系统 = 7
             }
+
+            /// <summary>
+            /// 仓库系统注册时的登录名前缀
+            /// </summary>
+            public const string USER_DLM_PRE_CK = "CK";
+            /// <summary>
+            /// 分店系统注册时的登录名前缀
+            /// </summary>
+            public const string USER_DLM_PRE_FD = "FD";
+            /// <summary>
+            /// 报表系统注册时的登录名前缀
+            /// </summary>
+            public const string USER_DLM_PRE_BB = "BB";
 
             /// <summary>
             /// 系统用户状态

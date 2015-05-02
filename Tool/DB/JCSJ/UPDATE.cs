@@ -7,7 +7,7 @@ using Tool.DB.JCSJ;
 
 namespace Tool.DB.JCSJ
     {
-        public partial class OPT
+        public partial class DBContext
         {
             /// <summary>
             /// 修改系统用户信息
@@ -156,6 +156,11 @@ namespace Tool.DB.JCSJ
                 ok.pinming = k.pinming;
                 ok.beizhu = k.beizhu;
                 ok.xiugaishijian = k.xiugaishijian;
+                //该款号所有的条码信息也标为被修改
+                foreach (TTiaoma t in ok.TTiaoma)
+                {
+                    t.xiugaishijian = k.xiugaishijian;
+                }
 
                 _db.SaveChanges();
             }
@@ -176,6 +181,20 @@ namespace Tool.DB.JCSJ
                 ot.kuanhaoid = t.kuanhaoid;
                 ot.gyskuanhao = t.gyskuanhao;
                 ot.xiugaishijian = t.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+
+
+            /// <summary>
+            /// 修改下载记录的时间
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="t"></param>
+            public void UpdateXiazaijilu(TXiazaijilu x)
+            {
+                TXiazaijilu ox = _db.TXiazaijilu.Single(r => r.id == x.id);
+                ox.xiazaishijian = x.xiazaishijian;
 
                 _db.SaveChanges();
             }

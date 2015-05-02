@@ -25,13 +25,13 @@ namespace UnitTest
         [TestMethod]
         public void InitComb()
         {
-            Tool.CommonFunc.InitCombbox(new DropDownList(), typeof(Tool.DB.JCSJ.DBCONSTS.USER_XTJS));
+            Tool.CommonFunc.InitDropDownList(new DropDownList(), typeof(Tool.DB.JCSJ.DBCONSTS.USER_XTJS));
         }
 
         [TestMethod]
         public void GetFendians()
         {
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TFendian[] fs = db.GetFendians();
         }
 

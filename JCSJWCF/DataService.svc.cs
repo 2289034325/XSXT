@@ -28,7 +28,7 @@ namespace JCSJWCF
         public TUser BMZHLogin(string dlm, string mm, string tzm)
         {
             //验证账号密码
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TUser u = db.GetUser(dlm, mm);
             if (u == null)
             {
@@ -58,6 +58,40 @@ namespace JCSJWCF
         }
 
         /// <summary>
+        /// 仓库系统登陆
+        /// </summary>
+        /// <param name="ckid">仓库ID</param>
+        /// <param name="tzm">机器码的MD5值</param>
+        /// <returns></returns>
+        public void CKZHLogin(int ckid, string tzm)
+        {
+            //验证Id是否存在
+            DBContext db = new DBContext();
+            TCangku ck = db.GetCangkuById(ckid);
+            if (ck == null)
+            {
+                throw new FaultException("错误的仓库ID");
+            }
+
+            //验证机器码
+            TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_CK + ckid);
+            if (u == null)
+            {
+                throw new FaultException("该仓库未注册，请先注册");
+            }
+            else
+            {
+                //检查机器码是否相符
+                if (u.jiqima != tzm)
+                {
+                    throw new FaultException("禁止在该设备登陆中心系统");
+                }
+            }
+
+            _user = u;
+        }
+
+        /// <summary>
         /// 编码系统账号修改密码
         /// </summary>
         /// <param name="om">旧密码</param>
@@ -68,7 +102,7 @@ namespace JCSJWCF
             //checkLogin();
 
             //验证旧密码
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             if (db.GetUser(_user.dengluming, om) == null)
             {
                 throw new FaultException("旧密码不正确");
@@ -105,7 +139,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TTiaoma[] ts = db.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
             foreach (TTiaoma t in ts)
             {
@@ -124,7 +158,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TGongyingshang[] gs = db.GetGongyingshangsByUserId(UserId);
 
             return gs;
@@ -140,7 +174,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TKuanhao[] ks = db.GetKuanhaosByUserId(UserId);
 
             return ks;
@@ -156,7 +190,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             k.caozuorenid = _user.id;
             k.charushijian = DateTime.Now;
             k.xiugaishijian = DateTime.Now;
@@ -169,7 +203,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TKuanhao ok = db.GetKuanhaoById(k.id);
             if (ok.caozuorenid != _user.id)
             {
@@ -189,7 +223,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
             
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TKuanhao k = db.GetKuanhaoById(id);
 
             if (k.caozuorenid != _user.id)
@@ -211,7 +245,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT(); 
+            DBContext db = new DBContext(); 
             g.caozuorenid = _user.id;
             g.charushijian = DateTime.Now;
             g.xiugaishijian = DateTime.Now;
@@ -228,7 +262,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TGongyingshang og = db.GetGongyingshangById(g.id);
             if (og.caozuorenid != _user.id)
             {
@@ -247,7 +281,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TGongyingshang g = db.GetGongyingshangById(id);
 
             if (g.caozuorenid != _user.id)
@@ -268,7 +302,7 @@ namespace JCSJWCF
             //检查是否已登录
             //checkLogin();
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TKuanhao k = db.GetKuanhaoByMc(kh);
             if (k != null)
             {
@@ -289,7 +323,7 @@ namespace JCSJWCF
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByKuanhaoMc(string kh)
         {
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TTiaoma[] ts = db.GetTiaomasByKuanhaoMc(kh);
 
             return ts;
@@ -303,7 +337,7 @@ namespace JCSJWCF
         /// <returns></returns>
         public string[] CheckKuanhaosChongfu(string[] khs)
         {
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             List<string> eKhs = new List<string>();
             foreach (string k in khs)
             {
@@ -323,7 +357,7 @@ namespace JCSJWCF
         /// <returns></returns>
         public string[] CheckTiaomaChongfu(string[] tms)
         {
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             List<string> eTms = new List<string>();
             foreach (string t in tms)
             {
@@ -350,7 +384,7 @@ namespace JCSJWCF
                 k.xiugaishijian = DateTime.Now;
             }
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TKuanhao[] nks = db.InsertKuanhao(ks);
 
             return nks;
@@ -370,7 +404,7 @@ namespace JCSJWCF
                 t.xiugaishijian = DateTime.Now;
             }
 
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TTiaoma[] nts = db.InsertTiaoma(ts);
 
             return nts;
@@ -382,7 +416,7 @@ namespace JCSJWCF
         /// <param name="t"></param>
         public void EditTiaoma(TTiaoma t)
         {
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TTiaoma ot = db.GetTiaomaByTiaomahao(t.tiaoma);
             if (ot.caozuorenid != _user.id)
             {
@@ -393,6 +427,61 @@ namespace JCSJWCF
                 t.xiugaishijian = DateTime.Now;
                 db.UpdateTiaoma(t);
             }
+        }
+
+        /// <summary>
+        /// 取得最新插入和修改的条码
+        /// </summary>
+        /// <returns></returns>
+        public TTiaoma[] GetTiaomasByUpdTime()
+        {
+            TTiaoma[] tms;
+            DBContext db = new DBContext();
+            //取得该用户上次下载的时间
+            TXiazaijilu j = db.GetXiazaijilu(_user.id, DBCONSTS.XIAZAI_TIAOMA);
+            DateTime t = DateTime.Now;
+            if (j == null)
+            {
+                //加载所有条码信息
+                tms = db.GetTiaomas();                
+                db.InsertXiazaijilu(new TXiazaijilu {yonghuid = _user.id, neirong = DBCONSTS.XIAZAI_TIAOMA,xiazaishijian = t });
+            }
+            else
+            {
+                //加载修改时间在此时间之后的条码信息
+                tms = db.GetTiaomasByUpdTime(j.xiazaishijian);
+                //更新下载时间
+                db.UpdateXiazaijilu(new TXiazaijilu { id = j.id, xiazaishijian = t });
+            }
+
+            //去除循环引用
+            foreach (TTiaoma tm in tms)
+            {
+                tm.TUser.TTiaoma.Clear();
+                tm.TUser.TKuanhao = null;
+                tm.TKuanhao.TTiaoma.Clear();
+                tm.TKuanhao.TUser = null;
+            }
+
+            return tms;
+        }
+
+        /// <summary>
+        /// 取得一组条码号的所有条码信息
+        /// </summary>
+        /// <param name="tmhs">条码号数组</param>
+        /// <returns></returns>
+        public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+        {
+            DBContext db = new DBContext();
+            TTiaoma[] ts = db.GetTiaomasByTiaomahaos(tmhs);
+            //去除循环引用
+            foreach (TTiaoma t in ts)
+            {
+                t.TKuanhao.TTiaoma.Clear();
+            }
+
+            return ts;
         }
     }
 }

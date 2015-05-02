@@ -23,6 +23,7 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="ValidService.xsd" MetadataType="Schema" ID="975aa810-b7dd-4e9a-a964-b1a01a98f7b8" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ValidService2.xsd" MetadataType="Schema" ID="fd344975-c03f-46d1-ab6a-95a27cf559cd" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd2" />
     <MetadataFile FileName="ValidService1.xsd" MetadataType="Schema" ID="f98ed5fc-42f8-4a47-bb15-fb4e407bab39" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd0" />
     <MetadataFile FileName="ValidService.disco" MetadataType="Disco" ID="7baeaa3c-96a6-4b8a-9f1c-0f06ed1caa26" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?disco" />
     <MetadataFile FileName="ValidService.wsdl" MetadataType="Wsdl" ID="53a39b7e-d7dd-47eb-8499-29f80bc1e95c" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?wsdl" />

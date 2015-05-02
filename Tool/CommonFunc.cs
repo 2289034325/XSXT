@@ -73,14 +73,14 @@ namespace Tool
         public static void InitCombbox(ComboBox Cmb,Type type)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Text");
-            dt.Columns.Add("Value");
+            dt.Columns.Add("Text", typeof(string));
+            dt.Columns.Add("Value",typeof(string));
             Array vs = Enum.GetValues(type);
             foreach (Enum v in vs)
             {
                 DataRow dr = dt.NewRow();
                 dr["Text"] = Enum.GetName(type, v);
-                dr["Value"] = Convert.ToInt16(v);
+                dr["Value"] = Convert.ToInt16(v).ToString();
                 dt.Rows.Add(dr);
             }
 
@@ -88,17 +88,17 @@ namespace Tool
             Cmb.ValueMember = "Value";
             Cmb.DataSource = dt;
         }
-        public static void InitCombbox(DropDownList Cmb, Type type)
+        public static void InitDropDownList(DropDownList Cmb, Type type)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Text");
-            dt.Columns.Add("Value");
+            dt.Columns.Add("Text", typeof(string));
+            dt.Columns.Add("Value", typeof(string));
             Array vs = Enum.GetValues(type);
             foreach (Enum v in vs)
             {
                 DataRow dr = dt.NewRow();
                 dr["Text"] = Enum.GetName(type, v);
-                dr["Value"] = Convert.ToInt16(v);
+                dr["Value"] = Convert.ToInt16(v).ToString();
                 dt.Rows.Add(dr);
             }
 
@@ -107,7 +107,7 @@ namespace Tool
             Cmb.DataSource = dt;
             Cmb.DataBind();
         }
-        public static void InitCombbox(DropDownList Cmb, object[] Items,string TextField,string ValueField)
+        public static void InitDropDownList(DropDownList Cmb, object[] Items, string TextField, string ValueField)
         {
             if (Items.Length < 1)
             {
@@ -171,67 +171,6 @@ namespace Tool
 
 
             return tzm;
-        }
-
-        /// <summary>
-        /// 验证动态密码
-        /// </summary>
-        /// <param name="mm"></param>
-        /// <returns></returns>
-        public static bool ValidateDTMM(string mm)
-        {
-            string bm = getDTMM();
-            if (mm == bm)
-            {
-                //重新生成动态密码
-                string nm = makeNewDTMM();
-                setNewDTMM(nm);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 将新动态密码保存入配置文件
-        /// </summary>
-        /// <param name="nm"></param>
-        private static void setNewDTMM(string nm)
-        {
-            XElement xe = XElement.Load(@"Settings.xml");
-            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
-            dmnode.Value = nm;
-
-            xe.Save(@"Settings.xml");
-        }
-
-        /// <summary>
-        /// 生成新的动态密码
-        /// </summary>
-        /// <returns></returns>
-        private static string makeNewDTMM()
-        {
-            Random r = new Random();
-            string nm = "";
-            string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            for (int i = 0; i < 5; i++)
-            {
-                nm += sources[r.Next(0, sources.Length - 1)];
-            }
-
-            return nm;
-        }
-
-        /// <summary>
-        /// 从配置文件取得动态密码
-        /// </summary>
-        /// <returns></returns>
-        private static string getDTMM()
-        {
-            XElement xe = XElement.Load(@"Settings.xml");
-            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
-
-            return dmnode.Value;
         }
     }
 

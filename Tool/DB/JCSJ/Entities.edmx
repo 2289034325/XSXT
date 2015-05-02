@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="JCSJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="JCSJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TCangku">
           <Key>
             <PropertyRef Name="id" />
@@ -124,6 +124,15 @@
           <Property Name="charushijian" Type="datetime" Nullable="false" />
           <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="TXiazaijilu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yonghuid" Type="int" Nullable="false" />
+          <Property Name="neirong" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="xiazaishijian" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_TCangku_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
           <End Role="TCangku" Type="Self.TCangku" Multiplicity="*" />
@@ -229,6 +238,7 @@
           <EntitySet Name="TMaishou" EntityType="Self.TMaishou" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUser" EntityType="Self.TUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TXiazaijilu" EntityType="Self.TXiazaijilu" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TCangku_TUser" Association="Self.FK_TCangku_TUser">
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TCangku" EntitySet="TCangku" />
@@ -262,8 +272,7 @@
             <End Role="TTiaoma" EntitySet="TTiaoma" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JCSJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -539,7 +548,17 @@
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TTiaoma" EntitySet="TTiaoma" />
           </AssociationSet>
+          <EntitySet Name="TXiazaijilu" EntityType="JCSJModel.TXiazaijilu" />
         </EntityContainer>
+        <EntityType Name="TXiazaijilu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yonghuid" Type="Int32" Nullable="false" />
+          <Property Name="neirong" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="xiazaishijian" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -670,6 +689,16 @@
                 <ScalarProperty Name="zhuangtai" ColumnName="zhuangtai" />
                 <ScalarProperty Name="charushijian" ColumnName="charushijian" />
                 <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TXiazaijilu">
+            <EntityTypeMapping TypeName="JCSJModel.TXiazaijilu">
+              <MappingFragment StoreEntitySet="TXiazaijilu">
+                <ScalarProperty Name="xiazaishijian" ColumnName="xiazaishijian" />
+                <ScalarProperty Name="neirong" ColumnName="neirong" />
+                <ScalarProperty Name="yonghuid" ColumnName="yonghuid" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

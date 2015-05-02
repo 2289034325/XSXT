@@ -15,9 +15,6 @@ namespace JCSJWCF
 {
     public class ValidService : IValidService
     {
-        //登陆的用户账号
-        private TUser _user = null;
-
         /// <summary>
         /// 编码系统注册
         /// </summary>
@@ -30,9 +27,9 @@ namespace JCSJWCF
         public void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm)
         {
             //验证注册码
-            if (!Tool.CommonFunc.ValidateDTMM(zcm))
+            if (!validateDTMM(zcm))
             {
-                throw new MyException("动态密码错误");
+                throw new FaultException("注册码错误");
             }
             else
             {
@@ -48,8 +45,59 @@ namespace JCSJWCF
                 u.charushijian = DateTime.Now;
                 u.xiugaishijian = DateTime.Now;
 
-                OPT db = new OPT();
+                DBContext db = new DBContext();
                 TUser nu = db.InsertUser(u);
+            }
+        }
+
+        /// <summary>
+        /// 仓库系统注册
+        /// </summary>
+        /// <param name="ckid">仓库id</param>
+        /// <param name="ckmc">仓库名</param>
+        /// <param name="tzm">机器特征码</param>
+        /// <param name="zcm">注册码</param>
+        public void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm)
+        {
+            //验证注册码
+            if (!validateDTMM(zcm))
+            {
+                throw new FaultException("注册码错误");
+            }
+            else
+            {
+                DBContext db = new DBContext();
+                //检查仓库ID和仓库名称是否匹配
+                if (db.GetCangkuByIdMc(ckid, ckmc) == null)
+                {
+                    throw new FaultException("仓库ID和仓库名称不匹配");
+                }
+
+                //检查账号是否已经存在
+                TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_CK + ckid);
+                if (u == null)
+                {
+                    u = new TUser();
+                    //登陆名由一个前缀加上仓库ID组成
+                    u.dengluming = DBCONSTS.USER_DLM_PRE_CK + ckid;
+                    u.yonghuming = ckmc;
+                    u.mima = Tool.CommonFunc.MD5_16(ckid.ToString());
+                    u.jiqima = tzm;
+                    u.juese = (byte)DBCONSTS.USER_XTJS.仓库系统;
+                    u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
+                    u.beizhu = "";
+                    u.charushijian = DateTime.Now;
+                    u.xiugaishijian = DateTime.Now;
+
+                    db.InsertUser(u);
+                }
+                else
+                {
+                    u.jiqima = tzm;
+                    u.xiugaishijian = DateTime.Now;
+
+                    db.UpdateUserInfo(u);
+                }
             }
         }
 
@@ -63,18 +111,18 @@ namespace JCSJWCF
         public void BMZHBangding(string dlm, string mm, string tzm, string zcm)
         {
             //验证账号密码
-            OPT db = new OPT();
+            DBContext db = new DBContext();
             TUser u = db.GetUser(dlm, mm);
             if (u == null)
             {
-                throw new MyException("用户名或密码不正确");
+                throw new FaultException("用户名或密码不正确");
             }
             else
             {
                 //验证注册码
-                if (!Tool.CommonFunc.ValidateDTMM(zcm))
+                if (!validateDTMM(zcm))
                 {
-                    throw new MyException("注册码不正确");
+                    throw new FaultException("注册码不正确");
                 }
                 else
                 {
@@ -82,6 +130,67 @@ namespace JCSJWCF
                     db.UpdateUserJQM(u.id, tzm);
                 }
             }
+        }
+
+        /// <summary>
+        /// 验证动态密码
+        /// </summary>
+        /// <param name="mm"></param>
+        /// <returns></returns>
+        private bool validateDTMM(string mm)
+        {
+            string bm = getDTMM();
+            if (mm == bm)
+            {
+                //重新生成动态密码
+                string nm = makeNewDTMM();
+                setNewDTMM(nm);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 生成新的动态密码
+        /// </summary>
+        /// <returns></returns>
+        private string makeNewDTMM()
+        {
+            Random r = new Random();
+            string nm = "";
+            string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            for (int i = 0; i < 5; i++)
+            {
+                nm += sources[r.Next(0, sources.Length - 1)];
+            }
+
+            return nm;
+        }
+
+        /// <summary>
+        /// 将新动态密码保存入配置文件
+        /// </summary>
+        /// <param name="nm"></param>
+        private void setNewDTMM(string nm)
+        {
+            XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+            dmnode.Value = nm;
+
+            xe.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+        }
+
+        /// <summary>
+        /// 从配置文件取得动态密码
+        /// </summary>
+        /// <returns></returns>
+        private string getDTMM()
+        {
+            XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+
+            return dmnode.Value;
         }
 
        

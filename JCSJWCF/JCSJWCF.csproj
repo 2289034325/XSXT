@@ -15,7 +15,7 @@
     <AssemblyName>JCSJWCF</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -72,7 +72,7 @@
   <ItemGroup>
     <Content Include="DataService.svc" />
     <Content Include="ValidService.svc" />
-    <Content Include="Settings.xml">
+    <Content Include="App_Data\Settings.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.config" />
@@ -89,9 +89,7 @@
     <Compile Include="IValidService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -125,7 +123,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>17841</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:17841/</IISUrl>
+          <IISUrl>http://localhost/JCSJWCF</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

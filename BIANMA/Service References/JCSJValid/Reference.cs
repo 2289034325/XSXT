@@ -21,6 +21,12 @@ namespace BIANMA.JCSJValid {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/BMZHZhuce", ReplyAction="http://tempuri.org/IValidService/BMZHZhuceResponse")]
         System.Threading.Tasks.Task BMZHZhuceAsync(string dlm, string mm, string xm, string tzm, string zcm);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
+        Tool.DB.JCSJ.TUser CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
+        System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/BMZHBangding", ReplyAction="http://tempuri.org/IValidService/BMZHBangdingResponse")]
         void BMZHBangding(string dlm, string mm, string tzm, string zcm);
         
@@ -61,6 +67,14 @@ namespace BIANMA.JCSJValid {
         
         public System.Threading.Tasks.Task BMZHZhuceAsync(string dlm, string mm, string xm, string tzm, string zcm) {
             return base.Channel.BMZHZhuceAsync(dlm, mm, xm, tzm, zcm);
+        }
+        
+        public Tool.DB.JCSJ.TUser CKZHZhuce(int ckid, string ckmc, string tzm, string zcm) {
+            return base.Channel.CKZHZhuce(ckid, ckmc, tzm, zcm);
+        }
+        
+        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm) {
+            return base.Channel.CKZHZhuceAsync(ckid, ckmc, tzm, zcm);
         }
         
         public void BMZHBangding(string dlm, string mm, string tzm, string zcm) {

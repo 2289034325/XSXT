@@ -17,6 +17,9 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = true)]
         TUser BMZHLogin(string dlm, string mm, string tzm);
 
+        [OperationContract(IsInitiating = true)]
+        void CKZHLogin(int ckid,string tzm);
+
         [OperationContract(IsInitiating=false)]
         void BMZHEditPsw(string om,string nm);
 
@@ -72,5 +75,12 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         void EditTiaoma(TTiaoma t);
+
+
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] GetTiaomasByUpdTime();
+
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
     }
 }

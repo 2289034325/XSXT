@@ -21,6 +21,7 @@
         <AssociationConnector Association="JCSJModel.FK_TKuanhao_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TTiaoma_TKuanhao" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TTiaoma_TUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JCSJModel.TXiazaijilu" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
