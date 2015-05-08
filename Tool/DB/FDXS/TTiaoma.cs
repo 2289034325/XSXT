@@ -17,8 +17,9 @@ namespace Tool.DB.FDXS
         public TTiaoma()
         {
             this.TJinchuMX = new HashSet<TJinchuMX>();
-            this.TKucunXZ = new HashSet<TKucunXZ>();
             this.TPandian = new HashSet<TPandian>();
+            this.TKucunXZ = new HashSet<TKucunXZ>();
+            this.TXiaoshou = new HashSet<TXiaoshou>();
         }
     
         public int id { get; set; }
@@ -35,7 +36,8 @@ namespace Tool.DB.FDXS
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual ICollection<TJinchuMX> TJinchuMX { get; set; }
-        public virtual ICollection<TKucunXZ> TKucunXZ { get; set; }
         public virtual ICollection<TPandian> TPandian { get; set; }
+        public virtual ICollection<TKucunXZ> TKucunXZ { get; set; }
+        public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
     }
 }

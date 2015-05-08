@@ -100,7 +100,7 @@ namespace Tool.DB.FDXS
         /// 取得当前库存信息
         /// </summary>
         /// <returns></returns>
-        public Dictionary<TTiaoma, int> GetKucunView(string tmh, string kh, string lx)
+        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, string lx)
         {
             var ks = from k in _db.VFKucun
                      join t in _db.TTiaoma
@@ -123,7 +123,7 @@ namespace Tool.DB.FDXS
                 byte blx = byte.Parse(lx);
                 ks = ks.Where(r => r.t.leixing == blx);
             }
-            return ks.ToDictionary(k => k.t, v => v.shuliang.Value);
+            return ks.ToDictionary(k => k.t, v => (short)v.shuliang.Value);
 
             //return new Dictionary<TTiaoma, int>();
         }
@@ -162,7 +162,7 @@ namespace Tool.DB.FDXS
         /// <returns></returns>
         public TPandian GetPandianByTmId(int tmid)
         {
-            return _db.TPandian.SingleOrDefault(r => r.tiaomaid == tmid);
+            return _db.TPandian.Include("TTiaoma").SingleOrDefault(r => r.tiaomaid == tmid);
         }
 
         /// <summary>
@@ -172,6 +172,25 @@ namespace Tool.DB.FDXS
         public TPandian[] GetPandians()
         {
             return _db.TPandian.Include("TTiaoma").ToArray();
+        }
+
+        /// <summary>
+        /// 取得所有库存修正信息
+        /// </summary>
+        /// <returns></returns>
+        public TKucunXZ[] GetKucunXZs()
+        {
+            return _db.TKucunXZ.Include("TTiaoma").Include("TUser").ToArray();
+        }
+
+        /// <summary>
+        /// 根据ID取得修正记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TKucunXZ GetKucunXZById(int id)
+        {
+            return _db.TKucunXZ.Single(r => r.id == id);
         }
     }
 }

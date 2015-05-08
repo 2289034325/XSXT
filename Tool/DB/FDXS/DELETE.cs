@@ -33,5 +33,36 @@ namespace Tool.DB.FDXS
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 删除所有盘点记录
+        /// </summary>
+        public void DeletePandianAll()
+        {
+            var pds = _db.TPandian;
+            _db.TPandian.RemoveRange(pds);
+
+            _db.SaveChanges();
+        }
+        public void DeletePandianById(int id)
+        {
+            TPandian p = _db.TPandian.Single(r => r.id == id);
+            _db.TPandian.Remove(p);
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 删除一个库存修正记录
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteKucunXZ(int id)
+        {
+            TKucunXZ k = _db.TKucunXZ.Single(r => r.id == id);
+
+            _db.TKucunXZ.Remove(k);
+
+            _db.SaveChanges();
+        }
     }
 }

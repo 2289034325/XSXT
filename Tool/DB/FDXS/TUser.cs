@@ -18,6 +18,7 @@ namespace Tool.DB.FDXS
         {
             this.TJinchuhuo = new HashSet<TJinchuhuo>();
             this.TKucunXZ = new HashSet<TKucunXZ>();
+            this.TXiaoshou = new HashSet<TXiaoshou>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,6 @@ namespace Tool.DB.FDXS
     
         public virtual ICollection<TJinchuhuo> TJinchuhuo { get; set; }
         public virtual ICollection<TKucunXZ> TKucunXZ { get; set; }
+        public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
     }
 }

@@ -37,8 +37,9 @@
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
             this.系统用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tiaoma = new System.Windows.Forms.ToolStripMenuItem();
+            this.报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xs = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.mn_main_jch,
             this.mn_main_kcyl,
             this.mn_main_kcgl,
+            this.mn_main_xs,
             this.系统用户ToolStripMenuItem,
             this.mn_main_tiaoma,
             this.报表ToolStripMenuItem});
@@ -71,20 +73,20 @@
             // mn_main_xtzc
             // 
             this.mn_main_xtzc.Name = "mn_main_xtzc";
-            this.mn_main_xtzc.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_xtzc.Size = new System.Drawing.Size(148, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_xtzc_Click);
             // 
             // 设置默认折扣ToolStripMenuItem
             // 
             this.设置默认折扣ToolStripMenuItem.Name = "设置默认折扣ToolStripMenuItem";
-            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.设置默认折扣ToolStripMenuItem.Text = "设置默认折扣";
             // 
             // 重置扫描枪ToolStripMenuItem
             // 
             this.重置扫描枪ToolStripMenuItem.Name = "重置扫描枪ToolStripMenuItem";
-            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.重置扫描枪ToolStripMenuItem.Text = "重置扫描枪";
             // 
             // mn_main_jch
@@ -114,18 +116,25 @@
             this.系统用户ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.系统用户ToolStripMenuItem.Text = "系统用户";
             // 
-            // 报表ToolStripMenuItem
-            // 
-            this.报表ToolStripMenuItem.Name = "报表ToolStripMenuItem";
-            this.报表ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.报表ToolStripMenuItem.Text = "报表";
-            // 
             // mn_main_tiaoma
             // 
             this.mn_main_tiaoma.Name = "mn_main_tiaoma";
             this.mn_main_tiaoma.Size = new System.Drawing.Size(68, 21);
             this.mn_main_tiaoma.Text = "条码信息";
             this.mn_main_tiaoma.Click += new System.EventHandler(this.mn_main_tiaoma_Click);
+            // 
+            // 报表ToolStripMenuItem
+            // 
+            this.报表ToolStripMenuItem.Name = "报表ToolStripMenuItem";
+            this.报表ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.报表ToolStripMenuItem.Text = "报表";
+            // 
+            // mn_main_xs
+            // 
+            this.mn_main_xs.Name = "mn_main_xs";
+            this.mn_main_xs.Size = new System.Drawing.Size(44, 21);
+            this.mn_main_xs.Text = "销售";
+            this.mn_main_xs.Click += new System.EventHandler(this.mn_main_xs_Click);
             // 
             // Form_Main
             // 
@@ -158,6 +167,7 @@
         private System.Windows.Forms.ToolStripMenuItem 系统用户ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 报表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mn_main_tiaoma;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_xs;
     }
 }
 

@@ -173,7 +173,30 @@ namespace FDXS
             Form_KucunGuanli fm = (Form_KucunGuanli)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunGuanli)));
             if (fm == null)
             {
-                fm = new Form_KucunGuanli();
+                fm = new Form_KucunGuanli(_user);
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 销售窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_xs_Click(object sender, EventArgs e)
+        {
+
+            Form_Xiaoshou fm = (Form_Xiaoshou)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Xiaoshou)));
+            if (fm == null)
+            {
+                fm = new Form_Xiaoshou(_user);
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();

@@ -27,10 +27,11 @@ namespace Tool.DB.FDXS
     
         public virtual DbSet<TJinchuhuo> TJinchuhuo { get; set; }
         public virtual DbSet<TJinchuMX> TJinchuMX { get; set; }
-        public virtual DbSet<TKucunXZ> TKucunXZ { get; set; }
         public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
         public virtual DbSet<VFKucun> VFKucun { get; set; }
         public virtual DbSet<TPandian> TPandian { get; set; }
+        public virtual DbSet<TKucunXZ> TKucunXZ { get; set; }
+        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
     }
 }

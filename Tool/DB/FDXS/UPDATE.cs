@@ -66,12 +66,25 @@ namespace Tool.DB.FDXS
             TPandian op = _db.TPandian.Single(r => r.id == id);
             if (jiajian)
             {
-                op.shuliang = (short)(op.shuliang + 1);
+                op.pdshuliang = (short)(op.pdshuliang + 1);
             }
             else
             {
-                op.shuliang = (short)(op.shuliang - 1);
+                op.pdshuliang = (short)(op.pdshuliang - 1);
             }
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改库存修正的数量
+        /// </summary>
+        /// <param name="x"></param>
+        public void UpdateKucunXZ(TKucunXZ x)
+        {
+            TKucunXZ ox = _db.TKucunXZ.Single(r => r.id == x.id);
+            ox.shuliang = x.shuliang;
+            ox.xiugaishijian = x.xiugaishijian;
 
             _db.SaveChanges();
         }

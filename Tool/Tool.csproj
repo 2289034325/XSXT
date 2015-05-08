@@ -128,6 +128,9 @@
     <Compile Include="DB\FDXS\TUser.cs">
       <DependentUpon>FDXSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\FDXS\TXiaoshou.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\FDXS\UPDATE.cs" />
     <Compile Include="DB\FDXS\VFKucun.cs">
       <DependentUpon>FDXSEntities.tt</DependentUpon>

@@ -33,10 +33,10 @@ namespace FDXS
 
             //入-出+库存修正
             DBContext db= new DBContext();
-            Dictionary<TTiaoma, int> ks = db.GetKucunView(tmh,kh,lx);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
 
             grid_kc.Rows.Clear();
-            foreach (KeyValuePair<TTiaoma, int> p in ks)
+            foreach (KeyValuePair<TTiaoma, short> p in ks)
             {
                 grid_kc.Rows.Add(new object[] 
                 {

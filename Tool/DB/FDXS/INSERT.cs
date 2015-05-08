@@ -59,5 +59,21 @@ namespace Tool.DB.FDXS
             return npd;
         }
 
+        /// <summary>
+        /// 插入一个库存修正记录
+        /// </summary>
+        /// <param name="xz"></param>
+        /// <returns></returns>
+        public TKucunXZ InsertKucunXZ(TKucunXZ xz)
+        {
+            TKucunXZ nxz = _db.TKucunXZ.Add(xz);
+            _db.SaveChanges();
+
+            nxz.TTiaoma = _db.TTiaoma.Single(r => r.id == nxz.tiaomaid);
+            nxz.TUser = _db.TUser.Single(r => r.id == nxz.caozuorenid);
+
+            return nxz;
+        }
+
     }
 }

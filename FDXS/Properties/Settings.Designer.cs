@@ -58,5 +58,17 @@ namespace FDXS.Properties {
                 this["ScanName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal MRZK {
+            get {
+                return ((decimal)(this["MRZK"]));
+            }
+            set {
+                this["MRZK"] = value;
+            }
+        }
     }
 }
