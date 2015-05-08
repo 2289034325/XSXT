@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a1516785-4619-4c54-8d4b-6dcaac68755b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/JCSJWCF/DataService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DataService.xsd" MetadataType="Schema" ID="8611a65a-ca64-469c-8e2e-d77d95bf89ab" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DataService1.xsd" MetadataType="Schema" ID="19d83848-dd32-4861-b0e6-1cf7e6985f59" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DataService.wsdl" MetadataType="Wsdl" ID="8abe96d4-6a5b-4c37-8a1f-c7f339e47176" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?wsdl" />
+    <MetadataFile FileName="DataService2.xsd" MetadataType="Schema" ID="1b38f0a0-d2ee-4e09-b7f5-78d38386b098" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?xsd=xsd3" />
+    <MetadataFile FileName="DataService3.xsd" MetadataType="Schema" ID="da0b40ca-77de-4e42-84d9-da729883b907" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DataService.disco" MetadataType="Disco" ID="066f8cae-d8b5-449a-88cc-108def70e4e5" SourceId="1" SourceUrl="http://localhost/JCSJWCF/DataService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

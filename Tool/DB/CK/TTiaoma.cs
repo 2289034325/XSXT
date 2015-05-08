@@ -17,6 +17,7 @@ namespace Tool.DB.CK
         public TTiaoma()
         {
             this.TChurukuMX = new HashSet<TChurukuMX>();
+            this.TKucunXZ = new HashSet<TKucunXZ>();
         }
     
         public int id { get; set; }
@@ -33,5 +34,6 @@ namespace Tool.DB.CK
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual ICollection<TChurukuMX> TChurukuMX { get; set; }
+        public virtual ICollection<TKucunXZ> TKucunXZ { get; set; }
     }
 }

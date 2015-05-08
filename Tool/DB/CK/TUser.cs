@@ -17,6 +17,7 @@ namespace Tool.DB.CK
         public TUser()
         {
             this.TChuruku = new HashSet<TChuruku>();
+            this.TKucunXZ = new HashSet<TKucunXZ>();
         }
     
         public int id { get; set; }
@@ -30,5 +31,6 @@ namespace Tool.DB.CK
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual ICollection<TChuruku> TChuruku { get; set; }
+        public virtual ICollection<TKucunXZ> TKucunXZ { get; set; }
     }
 }

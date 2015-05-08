@@ -18,7 +18,10 @@ namespace JCSJWCF
         TUser BMZHLogin(string dlm, string mm, string tzm);
 
         [OperationContract(IsInitiating = true)]
-        void CKZHLogin(int ckid,string tzm);
+        void CKZHLogin(int ckid, string tzm);
+
+        [OperationContract(IsInitiating = true)]
+        void FDZHLogin(int fdid, string tzm);
 
         [OperationContract(IsInitiating=false)]
         void BMZHEditPsw(string om,string nm);

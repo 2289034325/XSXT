@@ -92,6 +92,39 @@ namespace JCSJWCF
         }
 
         /// <summary>
+        /// 分店系统登陆
+        /// </summary>
+        /// <param name="fdid">分店ID</param>
+        /// <param name="tzm"></param>
+        public void FDZHLogin(int fdid, string tzm)
+        {
+            //验证Id是否存在
+            DBContext db = new DBContext();
+            TFendian fd = db.GetFendianById(fdid);
+            if (fd == null)
+            {
+                throw new FaultException("错误的分店ID");
+            }
+
+            //验证机器码
+            TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_FD + fdid);
+            if (u == null)
+            {
+                throw new FaultException("该分店未注册，请先注册");
+            }
+            else
+            {
+                //检查机器码是否相符
+                if (u.jiqima != tzm)
+                {
+                    throw new FaultException("禁止在该设备登陆中心系统");
+                }
+            }
+
+            _user = u;
+        }
+
+        /// <summary>
         /// 编码系统账号修改密码
         /// </summary>
         /// <param name="om">旧密码</param>

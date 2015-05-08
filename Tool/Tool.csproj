@@ -53,130 +53,198 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonFunc.cs" />
+    <Compile Include="DB\CK\CKEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CKEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\CKEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\CKEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CKEntities.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DB\CK\CONSTS.cs" />
-    <Compile Include="DB\CK\Entities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\CK\Entities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\CK\Entities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DB\CK\INSERT.cs" />
     <Compile Include="DB\CK\DELETE.cs" />
-    <Compile Include="DB\CK\UPDATE.cs" />
-    <Compile Include="DB\CK\SCH.cs" />
     <Compile Include="DB\CK\TChuruku.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>CKEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\CK\TChurukuMX.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>CKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CK\TKucunXZ.cs">
+      <DependentUpon>CKEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\CK\TTiaoma.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>CKEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\CK\TUser.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>CKEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\CK\UPDATE.cs" />
+    <Compile Include="DB\CK\SCH.cs" />
     <Compile Include="DB\CK\VKucun.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>CKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\CONSTS.cs" />
+    <Compile Include="DB\FDXS\DELETE.cs" />
+    <Compile Include="DB\FDXS\FDXSEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FDXSEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\FDXSEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\FDXSEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FDXSEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\INSERT.cs" />
+    <Compile Include="DB\FDXS\SCH.cs" />
+    <Compile Include="DB\FDXS\TJinchuhuo.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\TJinchuMX.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\TKucunXZ.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\TPandian.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\TTiaoma.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\TUser.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\FDXS\UPDATE.cs" />
+    <Compile Include="DB\FDXS\VFKucun.cs">
+      <DependentUpon>FDXSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\DELETE.cs" />
     <Compile Include="DB\JCSJ\CONSTS.cs" />
-    <Compile Include="DB\JCSJ\Entities.Context.cs">
+    <Compile Include="DB\JCSJ\JCSJEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.Context.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\JCSJ\Entities.cs">
+    <Compile Include="DB\JCSJ\JCSJEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\JCSJ\Entities.Designer.cs">
+    <Compile Include="DB\JCSJ\JCSJEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
+      <DependentUpon>JCSJEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TCangku.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TFendian.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TGongyingshang.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\THuiyuan.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TKuanhao.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TMaishou.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TTiaoma.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TUser.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\TXiazaijilu.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JCSJ\UPDATE.cs" />
     <Compile Include="DB\JCSJ\INSERT.cs" />
     <Compile Include="DB\JCSJ\SCH.cs" />
+    <Compile Include="MyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RawInputAddIn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EntityDeploy Include="DB\JCSJ\Entities.edmx">
+    <EntityDeploy Include="DB\CK\CKEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
+      <LastGenOutput>CKEntities.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Tool.DB.CK</CustomToolNamespace>
     </EntityDeploy>
-    <EntityDeploy Include="DB\CK\Entities.edmx">
+    <None Include="DB\CK\CKEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CKEntities.edmx</DependentUpon>
+      <LastGenOutput>CKEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DB\CK\CKEntities.edmx.diagram">
+      <DependentUpon>CKEntities.edmx</DependentUpon>
+    </None>
+    <None Include="DB\CK\CKEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CKEntities.edmx</DependentUpon>
+      <LastGenOutput>CKEntities.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="DB\FDXS\FDXSEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
+      <LastGenOutput>FDXSEntities.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Tool.DB.FDXS</CustomToolNamespace>
     </EntityDeploy>
-    <None Include="DB\CK\Entities.Context.tt">
+    <None Include="DB\FDXS\FDXSEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+      <DependentUpon>FDXSEntities.edmx</DependentUpon>
+      <LastGenOutput>FDXSEntities.Context.cs</LastGenOutput>
     </None>
-    <None Include="DB\CK\Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
+    <None Include="DB\FDXS\FDXSEntities.edmx.diagram">
+      <DependentUpon>FDXSEntities.edmx</DependentUpon>
     </None>
-    <None Include="DB\CK\Entities.tt">
+    <None Include="DB\FDXS\FDXSEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
+      <DependentUpon>FDXSEntities.edmx</DependentUpon>
+      <LastGenOutput>FDXSEntities.cs</LastGenOutput>
     </None>
-    <None Include="DB\JCSJ\Entities.Context.tt">
+    <EntityDeploy Include="DB\JCSJ\JCSJEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>JCSJEntities.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Tool.DB.JCSJ</CustomToolNamespace>
+    </EntityDeploy>
+    <None Include="DB\JCSJ\JCSJEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+      <DependentUpon>JCSJEntities.edmx</DependentUpon>
+      <LastGenOutput>JCSJEntities.Context.cs</LastGenOutput>
     </None>
-    <None Include="DB\JCSJ\Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
+    <None Include="DB\JCSJ\JCSJEntities.edmx.diagram">
+      <DependentUpon>JCSJEntities.edmx</DependentUpon>
     </None>
-    <None Include="DB\JCSJ\Entities.tt">
+    <None Include="DB\JCSJ\JCSJEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
+      <DependentUpon>JCSJEntities.edmx</DependentUpon>
+      <LastGenOutput>JCSJEntities.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -188,7 +256,12 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RawInput\RawInput.csproj">
+      <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
+      <Name>RawInput</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

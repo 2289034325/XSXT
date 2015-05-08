@@ -19,7 +19,7 @@ namespace Tool.DB.CK
         public int tiaomaid { get; set; }
         public short shuliang { get; set; }
     
-        public virtual TTiaoma TTiaoma { get; set; }
         public virtual TChuruku TChuruku { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

@@ -102,6 +102,57 @@ namespace JCSJWCF
         }
 
         /// <summary>
+        /// 分店账号注册
+        /// </summary>
+        /// <param name="fdid">分店ID</param>
+        /// <param name="fdmc">分店名</param>
+        /// <param name="tzm">机器码</param>
+        /// <param name="zcm">注册码</param>
+        public void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm)
+        {
+            //验证注册码
+            if (!validateDTMM(zcm))
+            {
+                throw new FaultException("注册码错误");
+            }
+            else
+            {
+                DBContext db = new DBContext();
+                //检查分店ID和分店名称是否匹配
+                if (db.GetFendianByIdMc(fdid, fdmc) == null)
+                {
+                    throw new FaultException("分店ID和店名不匹配");
+                }
+
+                //检查账号是否已经存在
+                TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_FD + fdid);
+                if (u == null)
+                {
+                    u = new TUser();
+                    //登陆名由一个前缀加上分店ID组成
+                    u.dengluming = DBCONSTS.USER_DLM_PRE_FD + fdid;
+                    u.yonghuming = fdmc;
+                    u.mima = Tool.CommonFunc.MD5_16(fdid.ToString());
+                    u.jiqima = tzm;
+                    u.juese = (byte)DBCONSTS.USER_XTJS.分店系统;
+                    u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
+                    u.beizhu = "";
+                    u.charushijian = DateTime.Now;
+                    u.xiugaishijian = DateTime.Now;
+
+                    db.InsertUser(u);
+                }
+                else
+                {
+                    u.jiqima = tzm;
+                    u.xiugaishijian = DateTime.Now;
+
+                    db.UpdateUserInfo(u);
+                }
+            }
+        }
+
+        /// <summary>
         /// 编码系统账号绑定
         /// </summary>
         /// <param name="dlm">登录名</param>

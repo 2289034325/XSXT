@@ -34,6 +34,7 @@ namespace CKGL
             DBContext db= new DBContext();
             Dictionary<TTiaoma, int> ks = db.GetKucunView(tmh,kh,lx);
 
+            grid_kc.Rows.Clear();
             foreach (KeyValuePair<TTiaoma, int> p in ks)
             {
                 grid_kc.Rows.Add(new object[] 

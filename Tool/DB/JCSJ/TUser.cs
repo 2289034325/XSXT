@@ -22,6 +22,7 @@ namespace Tool.DB.JCSJ
             this.THuiyuan = new HashSet<THuiyuan>();
             this.TKuanhao = new HashSet<TKuanhao>();
             this.TTiaoma = new HashSet<TTiaoma>();
+            this.TXiazaijilu = new HashSet<TXiazaijilu>();
         }
     
         public int id { get; set; }
@@ -41,5 +42,6 @@ namespace Tool.DB.JCSJ
         public virtual ICollection<THuiyuan> THuiyuan { get; set; }
         public virtual ICollection<TKuanhao> TKuanhao { get; set; }
         public virtual ICollection<TTiaoma> TTiaoma { get; set; }
+        public virtual ICollection<TXiazaijilu> TXiazaijilu { get; set; }
     }
 }

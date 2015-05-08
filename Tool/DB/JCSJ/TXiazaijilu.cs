@@ -18,5 +18,7 @@ namespace Tool.DB.JCSJ
         public int yonghuid { get; set; }
         public string neirong { get; set; }
         public System.DateTime xiazaishijian { get; set; }
+    
+        public virtual TUser TUser { get; set; }
     }
 }

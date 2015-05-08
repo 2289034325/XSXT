@@ -10,10 +10,10 @@ namespace Tool.DB.JCSJ
 {
         public partial class DBContext
         {
-            private Entities _db;
+            private JCSJEntities _db;
             public DBContext()
             {
-                _db = new Entities();
+                _db = new JCSJEntities();
                 //此项会引起entity无法序列化的错误
                 _db.Configuration.ProxyCreationEnabled = false;
             }
@@ -59,6 +59,14 @@ namespace Tool.DB.JCSJ
                 var Fendians = _db.TFendian.Include("TUser");
 
                 return Fendians.ToArray();
+            }
+            public TFendian GetFendianByIdMc(int id, string mc)
+            {
+                return _db.TFendian.SingleOrDefault(r => r.id == id && r.dianming == mc);
+            }
+            public TFendian GetFendianById(int id)
+            {
+                return _db.TFendian.SingleOrDefault(r => r.id == id);
             }
 
             /// <summary>

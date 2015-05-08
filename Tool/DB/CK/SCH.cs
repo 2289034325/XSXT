@@ -8,10 +8,10 @@ namespace Tool.DB.CK
 {
     public partial class DBContext
     {
-        private Entities _db;
+        private CKEntities _db;
         public DBContext()
         {
-            _db = new Entities();
+            _db = new CKEntities();
             //此项会引起entity无法序列化的错误
             _db.Configuration.ProxyCreationEnabled = false;
         }
