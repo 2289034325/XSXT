@@ -1,4 +1,5 @@
-﻿using FDXS.Properties;
+﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
 
 namespace FDXS
 {

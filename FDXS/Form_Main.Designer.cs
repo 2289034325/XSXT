@@ -36,10 +36,13 @@
             this.mn_main_jch = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xs = new System.Windows.Forms.ToolStripMenuItem();
             this.系统用户ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tiaoma = new System.Windows.Forms.ToolStripMenuItem();
             this.报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_xs = new System.Windows.Forms.ToolStripMenuItem();
+            this.会员ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_hyyl = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_jfzk = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +56,8 @@
             this.mn_main_xs,
             this.系统用户ToolStripMenuItem,
             this.mn_main_tiaoma,
-            this.报表ToolStripMenuItem});
+            this.报表ToolStripMenuItem,
+            this.会员ToolStripMenuItem});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
             this.mn_main.Name = "mn_main";
             this.mn_main.Size = new System.Drawing.Size(1126, 25);
@@ -110,6 +114,13 @@
             this.mn_main_kcgl.Text = "库存管理";
             this.mn_main_kcgl.Click += new System.EventHandler(this.mn_main_kcgl_Click);
             // 
+            // mn_main_xs
+            // 
+            this.mn_main_xs.Name = "mn_main_xs";
+            this.mn_main_xs.Size = new System.Drawing.Size(44, 21);
+            this.mn_main_xs.Text = "销售";
+            this.mn_main_xs.Click += new System.EventHandler(this.mn_main_xs_Click);
+            // 
             // 系统用户ToolStripMenuItem
             // 
             this.系统用户ToolStripMenuItem.Name = "系统用户ToolStripMenuItem";
@@ -129,12 +140,28 @@
             this.报表ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.报表ToolStripMenuItem.Text = "报表";
             // 
-            // mn_main_xs
+            // 会员ToolStripMenuItem
             // 
-            this.mn_main_xs.Name = "mn_main_xs";
-            this.mn_main_xs.Size = new System.Drawing.Size(44, 21);
-            this.mn_main_xs.Text = "销售";
-            this.mn_main_xs.Click += new System.EventHandler(this.mn_main_xs_Click);
+            this.会员ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mn_main_hyyl,
+            this.mn_main_jfzk});
+            this.会员ToolStripMenuItem.Name = "会员ToolStripMenuItem";
+            this.会员ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.会员ToolStripMenuItem.Text = "会员";
+            // 
+            // mn_main_hyyl
+            // 
+            this.mn_main_hyyl.Name = "mn_main_hyyl";
+            this.mn_main_hyyl.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_hyyl.Text = "会员一览";
+            this.mn_main_hyyl.Click += new System.EventHandler(this.mn_main_hyyl_Click);
+            // 
+            // mn_main_jfzk
+            // 
+            this.mn_main_jfzk.Name = "mn_main_jfzk";
+            this.mn_main_jfzk.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_jfzk.Text = "积分折扣";
+            this.mn_main_jfzk.Click += new System.EventHandler(this.mn_main_jfzk_Click);
             // 
             // Form_Main
             // 
@@ -168,6 +195,9 @@
         private System.Windows.Forms.ToolStripMenuItem 报表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mn_main_tiaoma;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xs;
+        private System.Windows.Forms.ToolStripMenuItem 会员ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_hyyl;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_jfzk;
     }
 }
 

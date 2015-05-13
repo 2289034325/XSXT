@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c246eeb923849e9848aba8c961b2f50" Name="Diagram1">
+        <EntityTypeShape EntityType="FDModel.THuiyuan" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.THuiyuanZK" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TJinchuhuo" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TJinchuMX" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TKucunXZ" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TPandian" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TTiaoma" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TUser" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.TXiaoshou" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FDModel.VKucun" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_THuiyuan" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TJinchuhuo_TUser" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TJinchuMX_TJinchuhuo" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TJinchuMX_TTiaoma" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TKucunXZ_TTiaoma" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TKucunXZ_TUser" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TPandian_TTiaoma" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_TTiaoma" ManuallyRouted="false" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_TUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

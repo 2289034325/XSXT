@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_FD;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
 
 namespace FDXS
 {
@@ -38,7 +38,7 @@ namespace FDXS
                 User = db.GetUser(dlm, CommonFunc.MD5_16(mm));
                 if (User != null)
                 {
-                    if (User.zhuangtai == (byte)DBCONSTS.USER_ZT.停用)
+                    if (User.zhuangtai == (byte)Tool.FD.DBCONSTS.USER_ZT.停用)
                     {
                         MessageBox.Show("账号已被停用");
                         return;

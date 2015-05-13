@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -19,8 +19,8 @@ namespace JCSJG
                 loadUsers();
 
                 //初始化下拉框
-                Tool.CommonFunc.InitDropDownList(cmb_js, typeof(DBCONSTS.USER_XTJS));
-                Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(DBCONSTS.USER_ZT));
+                Tool.CommonFunc.InitDropDownList(cmb_js, typeof(Tool.JCSJ.DBCONSTS.USER_XTJS));
+                Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.USER_ZT));
             }
             else
             {
@@ -69,16 +69,16 @@ namespace JCSJG
         private void loadUsers()
         {
             DBContext db = new DBContext();
-            TUser[] us = db.GetUsers(true);
+            TUser[] us = db.GetUsersExcept((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员);
             var dus = us.Select(r => new
             {
                 id = r.id,
                 dengluming = r.dengluming,
                 yonghuming = r.yonghuming,
                 juese = r.juese,
-                juese_view = ((DBCONSTS.USER_XTJS)r.juese).ToString(),
+                juese_view = ((Tool.JCSJ.DBCONSTS.USER_XTJS)r.juese).ToString(),
                 zhuangtai = r.zhuangtai,
-                zhuangtai_view = ((DBCONSTS.USER_ZT)r.zhuangtai).ToString(),
+                zhuangtai_view = ((Tool.JCSJ.DBCONSTS.USER_ZT)r.zhuangtai).ToString(),
                 beizhu = r.beizhu,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,

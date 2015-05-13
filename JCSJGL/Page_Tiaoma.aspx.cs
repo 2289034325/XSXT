@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Tool;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -65,7 +65,7 @@ namespace JCSJG
                 jinjia = r.jinjia,
                 shoujia = r.shoujia,
                 kuanhao = r.TKuanhao.kuanhao,
-                leixing = ((DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
+                leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
                 pinming = r.TKuanhao.pinming,
                 gyskuanhao = r.gyskuanhao,
                 caozuoren = r.TUser.yonghuming,

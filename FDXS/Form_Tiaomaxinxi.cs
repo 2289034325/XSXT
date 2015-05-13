@@ -1,4 +1,5 @@
-﻿using FDXS.Properties;
+﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
 
 namespace FDXS
 {
@@ -38,7 +38,7 @@ namespace FDXS
             {
                 loginJCSJ();
 
-                Tool.DB.JCSJ.TTiaoma[] jtms = _jdc.GetTiaomasByUpdTime();
+                JCSJData.TTiaoma[] jtms = _jdc.GetTiaomasByUpdTime();
                 saveToLocal(jtms);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace FDXS
                 if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                    Tool.DB.JCSJ.TTiaoma[] jtms = _jdc.GetTiaomasByTiaomahaos(tmhs);
+                    JCSJData.TTiaoma[] jtms = _jdc.GetTiaomasByTiaomahaos(tmhs);
                     saveToLocal(jtms);
                 }
             }
@@ -75,10 +75,10 @@ namespace FDXS
         /// 把取得的条码信息保存到本地
         /// </summary>
         /// <param name="jtms"></param>
-        private void saveToLocal(Tool.DB.JCSJ.TTiaoma[] jtms)
+        private void saveToLocal(JCSJData.TTiaoma[] jtms)
         {
             List<TTiaoma> tms = new List<TTiaoma>();
-            foreach (Tool.DB.JCSJ.TTiaoma jtm in jtms)
+            foreach (JCSJData.TTiaoma jtm in jtms)
             {
                 TTiaoma tm = new TTiaoma
                 {
@@ -137,7 +137,7 @@ namespace FDXS
         private void Form_Tiaomaxinxi_Load(object sender, EventArgs e)
         {
             //类型下拉框
-            Tool.CommonFunc.InitCombbox(cmb_lx, typeof(Tool.DB.JCSJ.DBCONSTS.KUANHAO_LX));
+            Tool.CommonFunc.InitCombbox(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
             DataTable dt = (DataTable)cmb_lx.DataSource;
             dt.Rows.InsertAt(dt.NewRow(), 0);
             cmb_lx.SelectedIndex = 0;
@@ -167,7 +167,7 @@ namespace FDXS
                     t.tiaoma,
                     t.kuanhao,
                     t.gyskuanhao,
-                    ((Tool.DB.JCSJ.DBCONSTS.KUANHAO_LX)t.leixing).ToString(),
+                    ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)t.leixing).ToString(),
                     t.pinming,
                     t.yanse,
                     t.chima,

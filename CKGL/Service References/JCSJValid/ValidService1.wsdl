@@ -18,6 +18,12 @@
   <wsdl:message name="IValidService_CKZHZhuce_OutputMessage">
     <wsdl:part name="parameters" element="tns:CKZHZhuceResponse" />
   </wsdl:message>
+  <wsdl:message name="IValidService_FDZHZhuce_InputMessage">
+    <wsdl:part name="parameters" element="tns:FDZHZhuce" />
+  </wsdl:message>
+  <wsdl:message name="IValidService_FDZHZhuce_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FDZHZhuceResponse" />
+  </wsdl:message>
   <wsdl:message name="IValidService_BMZHBangding_InputMessage">
     <wsdl:part name="parameters" element="tns:BMZHBangding" />
   </wsdl:message>
@@ -32,6 +38,10 @@
     <wsdl:operation name="CKZHZhuce">
       <wsdl:input wsaw:Action="http://tempuri.org/IValidService/CKZHZhuce" message="tns:IValidService_CKZHZhuce_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IValidService/CKZHZhuceResponse" message="tns:IValidService_CKZHZhuce_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FDZHZhuce">
+      <wsdl:input wsaw:Action="http://tempuri.org/IValidService/FDZHZhuce" message="tns:IValidService_FDZHZhuce_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IValidService/FDZHZhuceResponse" message="tns:IValidService_FDZHZhuce_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="BMZHBangding">
       <wsdl:input wsaw:Action="http://tempuri.org/IValidService/BMZHBangding" message="tns:IValidService_BMZHBangding_InputMessage" />
@@ -51,6 +61,15 @@
     </wsdl:operation>
     <wsdl:operation name="CKZHZhuce">
       <soap:operation soapAction="http://tempuri.org/IValidService/CKZHZhuce" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FDZHZhuce">
+      <soap:operation soapAction="http://tempuri.org/IValidService/FDZHZhuce" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

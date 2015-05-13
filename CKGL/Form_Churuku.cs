@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_CK;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tool.DB.CK;
 
 namespace CKGL
 {
@@ -67,8 +67,8 @@ namespace CKGL
             grid_crk.Rows.Insert(0,new object[] 
                 {
                     c.id,
-                    ((DBCONSTS.CRK_FX)c.fangxiang).ToString(),
-                    ((DBCONSTS.CRK_LYQX)c.laiyuanquxiang).ToString(),
+                    ((Tool.CK.DBCONSTS.CRK_FX)c.fangxiang).ToString(),
+                    ((Tool.CK.DBCONSTS.CRK_LYQX)c.laiyuanquxiang).ToString(),
                     c.TChurukuMX.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
@@ -140,8 +140,8 @@ namespace CKGL
         {
             TChuruku c = new TChuruku 
             {
-                fangxiang = (byte)DBCONSTS.CRK_FX.入,
-                laiyuanquxiang = (byte)DBCONSTS.CRK_LYQX.新货,
+                fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.入,
+                laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.新货,
                 beizhu = "",
                 caozuorenid = _user.id,
                 charushijian = DateTime.Now,
@@ -164,8 +164,8 @@ namespace CKGL
         {
             TChuruku c = new TChuruku
             {
-                fangxiang = (byte)DBCONSTS.CRK_FX.出,
-                laiyuanquxiang = (byte)DBCONSTS.CRK_LYQX.内部,
+                fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.出,
+                laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.内部,
                 beizhu = "",
                 caozuorenid = _user.id,
                 charushijian = DateTime.Now,
@@ -287,35 +287,35 @@ namespace CKGL
             if (e.ColumnIndex == col_crk_lyqx.Index)
             {
                 string text = e.FormattedValue.ToString();
-                DBCONSTS.CRK_LYQX lyfx;
-                if (!Enum.TryParse<DBCONSTS.CRK_LYQX>(text, out lyfx))
+                Tool.CK.DBCONSTS.CRK_LYQX lyfx;
+                if (!Enum.TryParse<Tool.CK.DBCONSTS.CRK_LYQX>(text, out lyfx))
                 {
                     e.Cancel = true;
-                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(DBCONSTS.CRK_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
+                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(Tool.CK.DBCONSTS.CRK_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
                 }
                 else
                 {
                     //来源只能是新货和内部，去向只能是退货，丢弃，其他
                     string sfx = (string)grid_crk.SelectedRows[0].Cells[col_crk_fx.Name].Value;
-                    DBCONSTS.CRK_FX fx = (DBCONSTS.CRK_FX)Enum.Parse(typeof(DBCONSTS.CRK_FX), sfx);
-                    if (fx == DBCONSTS.CRK_FX.入)
+                    Tool.CK.DBCONSTS.CRK_FX fx = (Tool.CK.DBCONSTS.CRK_FX)Enum.Parse(typeof(Tool.CK.DBCONSTS.CRK_FX), sfx);
+                    if (fx == Tool.CK.DBCONSTS.CRK_FX.入)
                     {
-                        if (!(lyfx == DBCONSTS.CRK_LYQX.新货 || lyfx == DBCONSTS.CRK_LYQX.内部))
+                        if (!(lyfx == Tool.CK.DBCONSTS.CRK_LYQX.新货 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.内部))
                         {
                             e.Cancel = true;
-                            MessageBox.Show("入库的来源只能是[" + DBCONSTS.CRK_LYQX.新货.ToString() + 
-                                "]和[" + DBCONSTS.CRK_LYQX.内部.ToString() + "]");
+                            MessageBox.Show("入库的来源只能是[" + Tool.CK.DBCONSTS.CRK_LYQX.新货.ToString() +
+                                "]和[" + Tool.CK.DBCONSTS.CRK_LYQX.内部.ToString() + "]");
                         }
                     }
                     else
                     {
-                        if (!(lyfx == DBCONSTS.CRK_LYQX.退货 || lyfx == DBCONSTS.CRK_LYQX.内部 ||
-                            lyfx == DBCONSTS.CRK_LYQX.其他 || lyfx == DBCONSTS.CRK_LYQX.丢弃))
+                        if (!(lyfx == Tool.CK.DBCONSTS.CRK_LYQX.退货 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.内部 ||
+                            lyfx == Tool.CK.DBCONSTS.CRK_LYQX.其他 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.丢弃))
                         {
                             e.Cancel = true;
-                            MessageBox.Show("出库的去向只能是[" + DBCONSTS.CRK_LYQX.退货.ToString() +
-                                "]或[" + DBCONSTS.CRK_LYQX.内部.ToString() + "]" +
-                                "或[" + DBCONSTS.CRK_LYQX.丢弃.ToString() + "]");
+                            MessageBox.Show("出库的去向只能是[" + Tool.CK.DBCONSTS.CRK_LYQX.退货.ToString() +
+                                "]或[" + Tool.CK.DBCONSTS.CRK_LYQX.内部.ToString() + "]" +
+                                "或[" + Tool.CK.DBCONSTS.CRK_LYQX.丢弃.ToString() + "]");
                         }
                     }
                 }
@@ -357,7 +357,7 @@ namespace CKGL
             else
             {
                 DBContext db = new DBContext();
-                byte lyqx = (byte)(DBCONSTS.CRK_LYQX)Enum.Parse(typeof(DBCONSTS.CRK_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
+                byte lyqx = (byte)(Tool.CK.DBCONSTS.CRK_LYQX)Enum.Parse(typeof(Tool.CK.DBCONSTS.CRK_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
                 string bz = (string)grid_crk.SelectedRows[0].Cells[col_crk_bz.Name].Value ?? "";
                 TChuruku nc = new TChuruku 
                 {

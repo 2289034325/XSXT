@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dlg_HuiyuanEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_HuiyuanEdit.Designer.cs">
+      <DependentUpon>Dlg_HuiyuanEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg_Denglu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,12 @@
     <Compile Include="Dlg_Zhuce.Designer.cs">
       <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_JifenZhekou.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_JifenZhekou.Designer.cs">
+      <DependentUpon>Form_JifenZhekou.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Jinchuhuo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +126,12 @@
     </Compile>
     <Compile Include="Form_KucunGuanli.Designer.cs">
       <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Huiyuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Huiyuan.Designer.cs">
+      <DependentUpon>Form_Huiyuan.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Xiaoshou.cs">
       <SubType>Form</SubType>
@@ -151,6 +169,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dlg_HuiyuanEdit.resx">
+      <DependentUpon>Dlg_HuiyuanEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>
@@ -175,11 +196,17 @@
     <EmbeddedResource Include="Dlg_Zhuce.resx">
       <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_JifenZhekou.resx">
+      <DependentUpon>Form_JifenZhekou.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Jinchuhuo.resx">
       <DependentUpon>Form_Jinchuhuo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_KucunGuanli.resx">
       <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Huiyuan.resx">
+      <DependentUpon>Form_Huiyuan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Xiaoshou.resx">
       <DependentUpon>Form_Xiaoshou.cs</DependentUpon>
@@ -204,6 +231,8 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuan1.datasource" />
+    <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuanZK.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TKuanhao.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TTiaoma.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
@@ -229,6 +258,24 @@
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TGongyingshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuanZK.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TTiaoma.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />
     <None Include="Service References\JCSJValid\ValidService.xsd">
       <SubType>Designer</SubType>
@@ -245,6 +292,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DB_FD\DB_FD.csproj">
+      <Project>{b93ae903-7c0c-4c2b-8b9e-b7fdaa678059}</Project>
+      <Name>DB_FD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Xml.Linq;
 using Tool;
-using Tool.DB.JCSJ;
 
 namespace JCSJWCF
 {
@@ -44,7 +44,7 @@ namespace JCSJWCF
                 else
                 {
                     //验证角色
-                    if (u.juese != (byte)DBCONSTS.USER_XTJS.编码员)
+                    if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码员)
                     {
                         throw new FaultException("此帐号不允许在该系统登录");
                     }
@@ -74,7 +74,7 @@ namespace JCSJWCF
             }
 
             //验证机器码
-            TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_CK + ckid);
+            TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
             if (u == null)
             {
                 throw new FaultException("该仓库未注册，请先注册");
@@ -107,7 +107,7 @@ namespace JCSJWCF
             }
 
             //验证机器码
-            TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_FD + fdid);
+            TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
             if (u == null)
             {
                 throw new FaultException("该分店未注册，请先注册");
@@ -160,6 +160,10 @@ namespace JCSJWCF
 
         /// <summary>
         /// 按条件取得条码信息
+        /// TODO:此服务可以放到报表中心
+        /// 用户先从报表中心去取条码信息
+        /// 报表中心如果没有该条码，再从基础数据取
+        /// 这样即可以横向拓展报表服务器的个数，缓解基础数据服务的压力
         /// </summary>
         /// <param name="Userid">操作人ID</param>
         /// <param name="Kuanhao"></param>
@@ -169,9 +173,6 @@ namespace JCSJWCF
         /// <returns></returns>
         public TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start, DateTime End)
         {
-            //检查是否已登录
-            //checkLogin();
-
             DBContext db = new DBContext();
             TTiaoma[] ts = db.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
             foreach (TTiaoma t in ts)
@@ -471,13 +472,13 @@ namespace JCSJWCF
             TTiaoma[] tms;
             DBContext db = new DBContext();
             //取得该用户上次下载的时间
-            TXiazaijilu j = db.GetXiazaijilu(_user.id, DBCONSTS.XIAZAI_TIAOMA);
+            TXiazaijilu j = db.GetXiazaijilu(_user.id, Tool.JCSJ.DBCONSTS.XIAZAI_TIAOMA);
             DateTime t = DateTime.Now;
             if (j == null)
             {
                 //加载所有条码信息
-                tms = db.GetTiaomas();                
-                db.InsertXiazaijilu(new TXiazaijilu {yonghuid = _user.id, neirong = DBCONSTS.XIAZAI_TIAOMA,xiazaishijian = t });
+                tms = db.GetTiaomas();
+                db.InsertXiazaijilu(new TXiazaijilu { yonghuid = _user.id, neirong = Tool.JCSJ.DBCONSTS.XIAZAI_TIAOMA, xiazaishijian = t });
             }
             else
             {
@@ -515,6 +516,71 @@ namespace JCSJWCF
             }
 
             return ts;
+        }
+
+        /// <summary>
+        /// 注册会员
+        /// </summary>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public THuiyuan HuiyuanZhuce(THuiyuan h)
+        {
+            DBContext db = new DBContext();
+            //找到分店ID
+            TUser_Fendian uf = db.GetUserFendianByUserid(_user.id);
+            h.fendianid = uf.fendianid;
+            h.caozuorenid = _user.id;
+            h.charushijian = DateTime.Now;
+            h.xiugaishijian = DateTime.Now;
+
+            THuiyuan nh = db.InsertHuiyuan(h);
+            
+            return nh;
+        }
+
+        /// <summary>
+        /// 根据手机号取得会员信息
+        /// </summary>
+        /// <param name="sjh"></param>
+        /// <returns></returns>
+        public THuiyuan GetHuiyuanByShoujihao(string sjh)
+        {
+            DBContext db = new DBContext();
+
+            return db.GetHuiyuanByShoujihao(sjh);
+        }
+
+        /// <summary>
+        /// 根据会员ID取得会员信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        public THuiyuan GetHuiyuanById(int id)
+        {
+            DBContext db = new DBContext();
+            return db.GetHuiyuanById(id);
+        }
+
+        /// <summary>
+        /// 更新会员信息
+        /// </summary>
+        /// <param name="h"></param>
+        public void UpdateHuiyuan(THuiyuan h)
+        {
+            DBContext db = new DBContext();
+            db.UpdateHuiyuan(h);
+        }
+
+        /// <summary>
+        /// 取得会员积分折扣记录
+        /// </summary>
+        /// <returns></returns>
+        public THuiyuanZK[] GetHuiyuanZhekous()
+        {
+            DBContext db = new DBContext();
+
+            return db.GetHuiyuanZKs();
         }
     }
 }

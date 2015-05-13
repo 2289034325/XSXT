@@ -62,12 +62,12 @@ namespace FDXS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public decimal MRZK {
+        public decimal GDZK {
             get {
-                return ((decimal)(this["MRZK"]));
+                return ((decimal)(this["GDZK"]));
             }
             set {
-                this["MRZK"] = value;
+                this["GDZK"] = value;
             }
         }
     }

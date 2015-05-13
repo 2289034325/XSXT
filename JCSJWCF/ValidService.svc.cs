@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Xml.Linq;
 using Tool;
-using Tool.DB.JCSJ;
 
 namespace JCSJWCF
 {
@@ -39,8 +39,8 @@ namespace JCSJWCF
                 u.yonghuming = xm;
                 u.mima = mm;
                 u.jiqima = tzm;
-                u.juese = (byte)DBCONSTS.USER_XTJS.编码员;
-                u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
+                u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码员;
+                u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
                 u.beizhu = "";
                 u.charushijian = DateTime.Now;
                 u.xiugaishijian = DateTime.Now;
@@ -74,17 +74,17 @@ namespace JCSJWCF
                 }
 
                 //检查账号是否已经存在
-                TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_CK + ckid);
+                TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
                 if (u == null)
                 {
                     u = new TUser();
                     //登陆名由一个前缀加上仓库ID组成
-                    u.dengluming = DBCONSTS.USER_DLM_PRE_CK + ckid;
+                    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid;
                     u.yonghuming = ckmc;
                     u.mima = Tool.CommonFunc.MD5_16(ckid.ToString());
                     u.jiqima = tzm;
-                    u.juese = (byte)DBCONSTS.USER_XTJS.仓库系统;
-                    u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
+                    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.仓库系统;
+                    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
                     u.beizhu = "";
                     u.charushijian = DateTime.Now;
                     u.xiugaishijian = DateTime.Now;
@@ -125,17 +125,17 @@ namespace JCSJWCF
                 }
 
                 //检查账号是否已经存在
-                TUser u = db.GetUserByDlm(DBCONSTS.USER_DLM_PRE_FD + fdid);
+                TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
                 if (u == null)
                 {
                     u = new TUser();
                     //登陆名由一个前缀加上分店ID组成
-                    u.dengluming = DBCONSTS.USER_DLM_PRE_FD + fdid;
+                    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid;
                     u.yonghuming = fdmc;
                     u.mima = Tool.CommonFunc.MD5_16(fdid.ToString());
                     u.jiqima = tzm;
-                    u.juese = (byte)DBCONSTS.USER_XTJS.分店系统;
-                    u.zhuangtai = (byte)DBCONSTS.USER_ZT.可用;
+                    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.分店系统;
+                    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
                     u.beizhu = "";
                     u.charushijian = DateTime.Now;
                     u.xiugaishijian = DateTime.Now;

@@ -82,7 +82,6 @@
     <Compile Include="DataService.svc.cs">
       <DependentUpon>DataService.svc</DependentUpon>
     </Compile>
-    <Compile Include="MyNameValidator.cs" />
     <Compile Include="ValidService.svc.cs">
       <DependentUpon>ValidService.svc</DependentUpon>
     </Compile>
@@ -100,6 +99,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DB_JCSJ\DB_JCSJ.csproj">
+      <Project>{37d3328a-3f55-41e6-93f2-9f03ec17afec}</Project>
+      <Name>DB_JCSJ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>

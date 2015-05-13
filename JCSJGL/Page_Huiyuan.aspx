@@ -19,6 +19,12 @@
             $("#hid_opt").val("DELETE");
             $("#hid_id").val(id);
         }
+
+        function DeleteZK(id)
+        {
+            $("#hid_opt").val("DELETEZK");
+            $("#hid_id").val(id);
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
@@ -51,5 +57,22 @@
     <asp:Label runat="server" Text="生日"></asp:Label><asp:TextBox runat="server" ID="txb_sr" ClientIDMode="Static"></asp:TextBox>    
     <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
     <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
+
+    <asp:GridView ID="grid_zhekou" runat="server" AutoGenerateColumns="False">
+        <Columns>
+            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
+            <asp:BoundField DataField="jifen" HeaderText="积分"></asp:BoundField>
+            <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
+            <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
+                    <input type="submit" onclick="Delete(<%# Eval("id")%>)" value="删除"></input>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+        </Columns>
+    </asp:GridView>
+    <asp:Label runat="server" Text="积分"></asp:Label><asp:TextBox runat="server" ID="TextBox1" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="折扣"></asp:Label><asp:TextBox runat="server" ID="TextBox2" ClientIDMode="Static"></asp:TextBox>
+    <asp:Button runat="server" ID="Button2" Text="增加" OnClick="btn_add_Click" />
 
 </asp:Content>

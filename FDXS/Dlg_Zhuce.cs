@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
 
 namespace FDXS
 {

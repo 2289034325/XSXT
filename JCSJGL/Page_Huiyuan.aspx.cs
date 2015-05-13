@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -21,7 +21,7 @@ namespace JCSJG
                 DBContext db = new DBContext();
                 TFendian[] fs = db.GetFendians();
                 //初始化下拉框
-                Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(DBCONSTS.HUIYUAN_XB));
+                Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
             }
             else
@@ -63,7 +63,7 @@ namespace JCSJG
                 fendian = r.TFendian.dianming,
                 shoujihao = r.shoujihao,
                 xingming = r.xingming,
-                xingbie = ((DBCONSTS.HUIYUAN_XB)r.xingbie).ToString(),
+                xingbie = ((Tool.JCSJ.DBCONSTS.HUIYUAN_XB)r.xingbie).ToString(),
                 shengri = r.shengri.ToString("yyyy-MM-dd"),
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,

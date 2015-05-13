@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btn_kd = new System.Windows.Forms.Button();
+            this.dp_end = new System.Windows.Forms.DateTimePicker();
+            this.dp_start = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
             this.btn_sch = new System.Windows.Forms.Button();
             this.txb_kuanhao = new System.Windows.Forms.TextBox();
             this.txb_tiaoma = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.grid_xs = new System.Windows.Forms.DataGridView();
-            this.dp_end = new System.Windows.Forms.DateTimePicker();
-            this.dp_start = new System.Windows.Forms.DateTimePicker();
-            this.label9 = new System.Windows.Forms.Label();
-            this.btn_kd = new System.Windows.Forms.Button();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,9 +75,44 @@
             this.panel6.Size = new System.Drawing.Size(1001, 32);
             this.panel6.TabIndex = 8;
             // 
+            // btn_kd
+            // 
+            this.btn_kd.Location = new System.Drawing.Point(693, 3);
+            this.btn_kd.Name = "btn_kd";
+            this.btn_kd.Size = new System.Drawing.Size(75, 23);
+            this.btn_kd.TabIndex = 29;
+            this.btn_kd.Text = "开单";
+            this.btn_kd.UseVisualStyleBackColor = true;
+            this.btn_kd.Click += new System.EventHandler(this.btn_kd_Click);
+            // 
+            // dp_end
+            // 
+            this.dp_end.Location = new System.Drawing.Point(484, 5);
+            this.dp_end.Name = "dp_end";
+            this.dp_end.ShowCheckBox = true;
+            this.dp_end.Size = new System.Drawing.Size(122, 21);
+            this.dp_end.TabIndex = 28;
+            // 
+            // dp_start
+            // 
+            this.dp_start.Location = new System.Drawing.Point(358, 5);
+            this.dp_start.Name = "dp_start";
+            this.dp_start.ShowCheckBox = true;
+            this.dp_start.Size = new System.Drawing.Size(120, 21);
+            this.dp_start.TabIndex = 27;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(299, 8);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "销售日期";
+            // 
             // btn_sch
             // 
-            this.btn_sch.Location = new System.Drawing.Point(574, 3);
+            this.btn_sch.Location = new System.Drawing.Point(612, 3);
             this.btn_sch.Name = "btn_sch";
             this.btn_sch.Size = new System.Drawing.Size(75, 23);
             this.btn_sch.TabIndex = 6;
@@ -147,39 +182,6 @@
             this.grid_xs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_xs.Size = new System.Drawing.Size(1001, 452);
             this.grid_xs.TabIndex = 11;
-            // 
-            // dp_end
-            // 
-            this.dp_end.Location = new System.Drawing.Point(466, 5);
-            this.dp_end.Name = "dp_end";
-            this.dp_end.Size = new System.Drawing.Size(102, 21);
-            this.dp_end.TabIndex = 28;
-            // 
-            // dp_start
-            // 
-            this.dp_start.Location = new System.Drawing.Point(358, 5);
-            this.dp_start.Name = "dp_start";
-            this.dp_start.Size = new System.Drawing.Size(102, 21);
-            this.dp_start.TabIndex = 27;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(299, 8);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 12);
-            this.label9.TabIndex = 26;
-            this.label9.Text = "销售日期";
-            // 
-            // btn_kd
-            // 
-            this.btn_kd.Location = new System.Drawing.Point(655, 3);
-            this.btn_kd.Name = "btn_kd";
-            this.btn_kd.Size = new System.Drawing.Size(75, 23);
-            this.btn_kd.TabIndex = 29;
-            this.btn_kd.Text = "开单";
-            this.btn_kd.UseVisualStyleBackColor = true;
-            this.btn_kd.Click += new System.EventHandler(this.btn_kd_Click);
             // 
             // col_id
             // 

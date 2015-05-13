@@ -11,7 +11,7 @@
     <Setting Name="ScanName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="MRZK" Type="System.Decimal" Scope="User">
+    <Setting Name="GDZK" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
   </Settings>

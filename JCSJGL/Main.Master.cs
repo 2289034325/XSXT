@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -24,7 +24,7 @@ namespace JCSJG
                 //用户界面只有系统管理员有权限
                 if (Request.RawUrl == "/Page_User.aspx")
                 {
-                    if (u.juese != (byte)Tool.DB.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                    if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                     {
                         Response.Redirect("Page_Error.aspx?ErrorMsg=没有权限");
                     }
@@ -32,8 +32,8 @@ namespace JCSJG
                 //其他页面只有系统管理员和总经理有权限
                 else
                 {
-                    if (u.juese != (byte)Tool.DB.JCSJ.DBCONSTS.USER_XTJS.系统管理员 && 
-                        u.juese != (byte)Tool.DB.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                    if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 && 
+                        u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                     {
                         Response.Redirect("Page_Error.aspx?ErrorMsg=没有权限");
                     }

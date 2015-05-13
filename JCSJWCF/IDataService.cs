@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Tool;
-using Tool.DB.JCSJ;
 
 namespace JCSJWCF
 {
@@ -85,5 +85,22 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
+
+
+        [OperationContract(IsInitiating = false)]
+        THuiyuan HuiyuanZhuce(THuiyuan h);
+
+        [OperationContract(IsInitiating = false)]
+        THuiyuan GetHuiyuanByShoujihao(string sjh);
+
+        [OperationContract(IsInitiating = false)]
+        THuiyuan GetHuiyuanById(int id);
+
+        [OperationContract(IsInitiating = false)]
+        void UpdateHuiyuan(THuiyuan h);
+
+
+        [OperationContract(IsInitiating = false)]
+        THuiyuanZK[] GetHuiyuanZhekous();
     }
 }

@@ -31,6 +31,21 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="FDZHZhuce">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fdid" type="xs:int" />
+        <xs:element minOccurs="0" name="fdmc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="zcm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FDZHZhuceResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="BMZHBangding">
     <xs:complexType>
       <xs:sequence>

@@ -1,4 +1,5 @@
-﻿using FDXS.Properties;
+﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
 
 namespace FDXS
 {
@@ -197,6 +197,50 @@ namespace FDXS
             if (fm == null)
             {
                 fm = new Form_Xiaoshou(_user);
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 会员一览
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_hyyl_Click(object sender, EventArgs e)
+        {
+            Form_Huiyuan fm = (Form_Huiyuan)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Huiyuan)));
+            if (fm == null)
+            {
+                fm = new Form_Huiyuan(_user);
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 积分折扣规则
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_jfzk_Click(object sender, EventArgs e)
+        {
+            Form_JifenZhekou fm = (Form_JifenZhekou)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_JifenZhekou)));
+            if (fm == null)
+            {
+                fm = new Form_JifenZhekou(_user);
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();

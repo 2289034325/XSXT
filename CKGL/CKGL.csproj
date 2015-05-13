@@ -185,6 +185,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TGongyingshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.THuiyuan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.THuiyuanZK.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TKuanhao.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TTiaoma.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\DataService1.wsdl" />
     <None Include="Service References\JCSJData\DataService4.xsd">
       <SubType>Designer</SubType>
@@ -241,6 +259,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DB_CK\DB_CK.csproj">
+      <Project>{dcc7bbfd-da82-42b6-96a5-86084e2bb40a}</Project>
+      <Name>DB_CK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>

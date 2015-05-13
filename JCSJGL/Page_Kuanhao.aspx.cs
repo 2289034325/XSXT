@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -19,8 +19,8 @@ namespace JCSJG
                 loadKuanhaos();
 
                 //初始化下拉框
-                Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(DBCONSTS.KUANHAO_LX));
-                Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(DBCONSTS.KUANHAO_XB));
+                Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
+                Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB));
             }
             else
             {
@@ -59,8 +59,8 @@ namespace JCSJG
             {
                 id = r.id,
                 kuanhao=r.kuanhao,
-                leixing = ((DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
-                xingbie = ((DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
+                leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
+                xingbie = ((Tool.JCSJ.DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
                 pinming = r.pinming,
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,

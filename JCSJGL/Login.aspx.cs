@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DB_JCSJ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Tool.DB.JCSJ;
 
 namespace JCSJG
 {
@@ -26,7 +26,7 @@ namespace JCSJG
                 }
                 else
                 {
-                    if (u.zhuangtai == (byte)DBCONSTS.USER_ZT.停用)
+                    if (u.zhuangtai == (byte)Tool.JCSJ.DBCONSTS.USER_ZT.停用)
                     {
                         Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
                     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_FD;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.DB.FDXS;
+using Tool.FD;
 
 namespace FDXS
 {
@@ -68,8 +69,8 @@ namespace FDXS
             grid_jch.Rows.Insert(0,new object[] 
                 {
                     c.id,
-                    ((DBCONSTS.JCH_FX)c.fangxiang).ToString(),
-                    ((DBCONSTS.JCH_LYQX)c.laiyuanquxiang).ToString(),
+                    ((Tool.FD.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
+                    ((Tool.FD.DBCONSTS.JCH_LYQX)c.laiyuanquxiang).ToString(),
                     c.TJinchuMX.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
@@ -288,20 +289,20 @@ namespace FDXS
             if (e.ColumnIndex == col_jc_lyqx.Index)
             {
                 string text = e.FormattedValue.ToString();
-                DBCONSTS.JCH_LYQX lyfx;
-                if (!Enum.TryParse<DBCONSTS.JCH_LYQX>(text, out lyfx))
+                Tool.FD.DBCONSTS.JCH_LYQX lyfx;
+                if (!Enum.TryParse<Tool.FD.DBCONSTS.JCH_LYQX>(text, out lyfx))
                 {
                     e.Cancel = true;
-                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(DBCONSTS.JCH_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
+                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(Tool.FD.DBCONSTS.JCH_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
                 }
                 else
                 {
                     //来源只能是新货和内部，去向只能是退货，丢弃，其他
                     string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;
-                    DBCONSTS.JCH_FX fx = (DBCONSTS.JCH_FX)Enum.Parse(typeof(DBCONSTS.JCH_FX), sfx);
-                    if (fx == DBCONSTS.JCH_FX.进)
+                    Tool.FD.DBCONSTS.JCH_FX fx = (Tool.FD.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_FX), sfx);
+                    if (fx == Tool.FD.DBCONSTS.JCH_FX.进)
                     {
-                        if (lyfx != DBCONSTS.JCH_LYQX.内部)
+                        if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部)
                         {
                             e.Cancel = true;
                             MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]");
@@ -357,7 +358,7 @@ namespace FDXS
             else
             {
                 DBContext db = new DBContext();
-                byte lyqx = (byte)(DBCONSTS.JCH_LYQX)Enum.Parse(typeof(DBCONSTS.JCH_LYQX), (string)grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value);
+                byte lyqx = (byte)(Tool.FD.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_LYQX), (string)grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value);
                 string bz = (string)grid_jch.SelectedRows[0].Cells[col_jc_bz.Name].Value ?? "";
                 TJinchuhuo nc = new TJinchuhuo 
                 {

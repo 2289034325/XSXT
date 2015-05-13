@@ -7,6 +7,7 @@ using System.Management;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -81,6 +82,35 @@ namespace Tool
                 DataRow dr = dt.NewRow();
                 dr["Text"] = Enum.GetName(type, v);
                 dr["Value"] = Convert.ToInt16(v).ToString();
+                dt.Rows.Add(dr);
+            }
+
+            Cmb.DisplayMember = "Text";
+            Cmb.ValueMember = "Value";
+            Cmb.DataSource = dt;
+        }
+        public static void InitCombbox(ComboBox Cmb, object[] Items, string TextField, string ValueField)
+        {
+            if (Items.Length < 1)
+            {
+                return;
+            }
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Text");
+            dt.Columns.Add("Value");
+
+            Type type = Items[0].GetType();
+            System.Reflection.PropertyInfo tInfo = type.GetProperty(TextField);
+            System.Reflection.PropertyInfo vInfo = type.GetProperty(ValueField);
+            foreach (object o in Items)
+            {
+                string text = tInfo.GetValue(o, null).ToString();
+                string value = vInfo.GetValue(o, null).ToString();
+
+                DataRow dr = dt.NewRow();
+                dr["Text"] = text;
+                dr["Value"] = value;
                 dt.Rows.Add(dr);
             }
 
@@ -171,6 +201,31 @@ namespace Tool
 
 
             return tzm;
+        }
+
+        /// <summary>
+        /// 检测是否是正常的手机号
+        /// </summary>
+        /// <param name="sjh"></param>
+        /// <returns></returns>
+        public static bool IsTelNum(string sjh)
+        {
+            //电信手机号码正则        
+            string dianxin = @"^1[3578][01379]\d{8}$";        
+            Regex dReg = new Regex(dianxin);        
+            //联通手机号正则        
+            string liantong = @"^1[34578][01256]\d{8}$";        
+            Regex tReg = new Regex(liantong);       
+            //移动手机号正则        
+            string yidong = @"^(134[012345678]\d{7}|1[34578][012356789]\d{8})$";       
+            Regex yReg = new Regex(yidong);
+
+            if (dReg.IsMatch(sjh) || tReg.IsMatch(sjh) || yReg.IsMatch(sjh))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 

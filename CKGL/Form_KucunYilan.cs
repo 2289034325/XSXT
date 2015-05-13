@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_CK;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tool.DB.CK;
 
 namespace CKGL
 {
@@ -42,7 +42,7 @@ namespace CKGL
                     p.Key.tiaoma,
                     p.Key.kuanhao,
                     p.Key.gyskuanhao,
-                    ((Tool.DB.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
+                    ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
                     p.Key.pinming,
                     p.Key.yanse,
                     p.Key.chima,
@@ -60,7 +60,7 @@ namespace CKGL
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
             //类型下拉框
-            Tool.CommonFunc.InitCombbox(cmb_leixing, typeof(Tool.DB.JCSJ.DBCONSTS.KUANHAO_LX));
+            Tool.CommonFunc.InitCombbox(cmb_leixing, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
             DataTable dt = (DataTable)cmb_leixing.DataSource;
             dt.Rows.InsertAt(dt.NewRow(), 0);
             cmb_leixing.SelectedIndex = 0;

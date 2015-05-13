@@ -7,7 +7,6 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Tool;
-using Tool.DB.JCSJ;
 
 namespace JCSJWCF
 {
