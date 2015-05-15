@@ -181,6 +181,24 @@
   <wsdl:message name="IDataService_GetHuiyuanZhekous_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetHuiyuanZhekousResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoXiaoshou_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoXiaoshou" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoXiaoshou_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoXiaoshouResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucun" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucunResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuoResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
@@ -289,6 +307,18 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetHuiyuanZhekous">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanZhekous" message="tns:IDataService_GetHuiyuanZhekous_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanZhekousResponse" message="tns:IDataService_GetHuiyuanZhekous_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoXiaoshou">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoXiaoshou" message="tns:IDataService_ShangbaoXiaoshou_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoXiaoshouResponse" message="tns:IDataService_ShangbaoXiaoshou_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoKucun">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucun" message="tns:IDataService_ShangbaoKucun_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucunResponse" message="tns:IDataService_ShangbaoKucun_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoJinchuhuo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo" message="tns:IDataService_ShangbaoJinchuhuo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuoResponse" message="tns:IDataService_ShangbaoJinchuhuo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -530,6 +560,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetHuiyuanZhekous">
       <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanZhekous" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoXiaoshou">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoXiaoshou" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoKucun">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoKucun" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoJinchuhuo">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

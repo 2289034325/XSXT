@@ -102,5 +102,16 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         THuiyuanZK[] GetHuiyuanZhekous();
+
+
+        [OperationContract(IsInitiating = false)]
+        void ShangbaoXiaoshou(TXiaoshou[] xss);
+
+
+        [OperationContract(IsInitiating = false)]
+        void ShangbaoKucun(TFendianKucun[] fks);
+
+        [OperationContract(IsInitiating = false)]
+        void ShangbaoJinchuhuo(TFendianJinchuhuo[] fjcs);
     }
 }

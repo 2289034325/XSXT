@@ -35,7 +35,7 @@ namespace FDXS
             try
             {
                 DBContext db = new DBContext();
-                User = db.GetUser(dlm, CommonFunc.MD5_16(mm));
+                User = db.GetUser(dlm,  Tool.CommonFunc.MD5_16(mm));
                 if (User != null)
                 {
                     if (User.zhuangtai == (byte)Tool.FD.DBCONSTS.USER_ZT.停用)

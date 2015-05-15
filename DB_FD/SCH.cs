@@ -97,6 +97,17 @@ namespace DB_FD
         }
 
         /// <summary>
+        /// 取得所有未上报的进出货数据
+        /// </summary>
+        /// <returns></returns>
+        public TJinchuhuo[] GetJinchuhuosWeishangbao()
+        {
+            return _db.TJinchuhuo.Include("TJinchuMX").
+                //未上报，且有明细数据
+                Where(r => r.shangbaoshijian == null && r.TJinchuMX.Any()).ToArray();
+        }
+
+        /// <summary>
         /// 取得当前库存信息
         /// </summary>
         /// <returns></returns>
@@ -124,8 +135,14 @@ namespace DB_FD
                 ks = ks.Where(r => r.t.leixing == blx);
             }
             return ks.ToDictionary(k => k.t, v => (short)v.shuliang.Value);
-
-            //return new Dictionary<TTiaoma, int>();
+        }
+        /// <summary>
+        /// 查出所有的库存信息
+        /// </summary>
+        /// <returns></returns>
+        public VKucun[] GetKucunView()
+        {
+            return _db.VKucun.ToArray();
         }
 
         /// <summary>
@@ -235,6 +252,19 @@ namespace DB_FD
 
             return xss.ToArray();
         }
+        public TXiaoshou GetXiaoshouById(int id)
+        {
+            return _db.TXiaoshou.Single(r => r.id == id);
+        }
+        /// <summary>
+        /// 取未上报的销售信息
+        /// </summary>
+        /// <returns></returns>
+        public TXiaoshou[] GetXiaoshousWeishangbao()
+        {
+            return _db.TXiaoshou.Include("TUser").Where(r => r.shangbaoshijian == null).ToArray();
+        }
+
 
         /// <summary>
         /// 根据手机号查询会员信息

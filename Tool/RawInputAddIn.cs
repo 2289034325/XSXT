@@ -30,12 +30,12 @@ namespace Tool
 
         private void OnRawKeyPressed(object sender, RawInputEventArg e)
         {
-            //if (_scanName == null)
-            //{
-            //    OnScan(e.KeyPressEvent.DeviceName);
-            //}
-            //else 
-            if (e.KeyPressEvent.DeviceName.Equals(_scanName))
+            //注册扫码器的名称
+            if (_scanName == null)
+            {
+                OnScan(e.KeyPressEvent.DeviceName);
+            }
+            else if (e.KeyPressEvent.DeviceName.Equals(_scanName))
             {
                 _rawinput.AddMessageFilter();
                 //按键UP时再收集字符，不然会重复

@@ -61,7 +61,7 @@ namespace DB_FD
         /// 给已有的盘点记录数量加减1
         /// </summary>
         /// <param name="jiajian"></param>
-        public void UpdatePandian(int id,bool jiajian)
+        public void UpdatePandian(int id, bool jiajian)
         {
             TPandian op = _db.TPandian.Single(r => r.id == id);
             if (jiajian)
@@ -124,6 +124,38 @@ namespace DB_FD
             oh.xingbie = h.xingbie;
             oh.xingming = h.xingming;
             oh.xxgxshijian = h.xxgxshijian;
+        }
+
+        /// <summary>
+        /// 更新销售记录的上报时间
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="sbsj"></param>
+        public void UpdateXiaoshouShangbaoshijian(int[] ids, DateTime sbsj)
+        {
+            var xss = _db.TXiaoshou.Where(r => ids.Contains(r.id));
+            foreach (TXiaoshou x in xss)
+            {
+                x.shangbaoshijian = sbsj;
+            }
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 更新进出货记录的上报时间
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="sbsj"></param>
+        public void UpdateJinchuhuoShangbaoshijian(int[] ids, DateTime sbsj)
+        {
+            var jcs = _db.TJinchuhuo.Where(r => ids.Contains(r.id));
+            foreach (TJinchuhuo jc in jcs)
+            {
+                jc.shangbaoshijian = sbsj;
+            }
+
+            _db.SaveChanges();
         }
     }
 }

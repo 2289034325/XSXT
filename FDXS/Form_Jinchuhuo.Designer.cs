@@ -40,9 +40,6 @@
             this.btn_cx = new System.Windows.Forms.Button();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.grid_jch = new System.Windows.Forms.DataGridView();
-            this.grid_jcmx = new System.Windows.Forms.DataGridView();
-            this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
             this.col_jc_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_jc_fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_jc_lyqx = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +49,7 @@
             this.col_jc_djsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_jc_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_jc_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grid_jcmx = new System.Windows.Forms.DataGridView();
             this.col_mx_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +58,9 @@
             this.col_mx_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_shangbao = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_shangbao);
             this.panel1.Controls.Add(this.dp_end);
             this.panel1.Controls.Add(this.dp_start);
             this.panel1.Controls.Add(this.btn_ch);
@@ -204,48 +206,6 @@
             this.grid_jch.SelectionChanged += new System.EventHandler(this.grid_crk_SelectionChanged);
             this.grid_jch.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_crk_UserDeletingRow);
             // 
-            // grid_jcmx
-            // 
-            this.grid_jcmx.AllowUserToAddRows = false;
-            this.grid_jcmx.AllowUserToResizeRows = false;
-            this.grid_jcmx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_jcmx.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_mx_id,
-            this.col_mx_tm,
-            this.col_mx_kh,
-            this.col_mx_pm,
-            this.col_mx_ys,
-            this.col_mx_cm,
-            this.col_mx_sl,
-            this.col_mx_sj});
-            this.grid_jcmx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grid_jcmx.Location = new System.Drawing.Point(0, 0);
-            this.grid_jcmx.MultiSelect = false;
-            this.grid_jcmx.Name = "grid_jcmx";
-            this.grid_jcmx.RowHeadersVisible = false;
-            this.grid_jcmx.RowTemplate.Height = 23;
-            this.grid_jcmx.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid_jcmx.Size = new System.Drawing.Size(905, 280);
-            this.grid_jcmx.TabIndex = 4;
-            this.grid_jcmx.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_crkmx_CellBeginEdit);
-            this.grid_jcmx.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_crkmx_CellValidating);
-            this.grid_jcmx.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_crkmx_CellValueChanged);
-            this.grid_jcmx.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_crkmx_UserDeletingRow);
-            // 
-            // cmn_crk
-            // 
-            this.cmn_crk.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_crk_daoru});
-            this.cmn_crk.Name = "cmn_crk";
-            this.cmn_crk.Size = new System.Drawing.Size(137, 26);
-            // 
-            // cmn_crk_daoru
-            // 
-            this.cmn_crk_daoru.Name = "cmn_crk_daoru";
-            this.cmn_crk_daoru.Size = new System.Drawing.Size(136, 22);
-            this.cmn_crk_daoru.Text = "从文件导入";
-            this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
-            // 
             // col_jc_id
             // 
             this.col_jc_id.DataPropertyName = "id";
@@ -299,6 +259,34 @@
             this.col_jc_sbsj.Name = "col_jc_sbsj";
             this.col_jc_sbsj.ReadOnly = true;
             // 
+            // grid_jcmx
+            // 
+            this.grid_jcmx.AllowUserToAddRows = false;
+            this.grid_jcmx.AllowUserToResizeRows = false;
+            this.grid_jcmx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_jcmx.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_mx_id,
+            this.col_mx_tm,
+            this.col_mx_kh,
+            this.col_mx_pm,
+            this.col_mx_ys,
+            this.col_mx_cm,
+            this.col_mx_sl,
+            this.col_mx_sj});
+            this.grid_jcmx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid_jcmx.Location = new System.Drawing.Point(0, 0);
+            this.grid_jcmx.MultiSelect = false;
+            this.grid_jcmx.Name = "grid_jcmx";
+            this.grid_jcmx.RowHeadersVisible = false;
+            this.grid_jcmx.RowTemplate.Height = 23;
+            this.grid_jcmx.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grid_jcmx.Size = new System.Drawing.Size(905, 280);
+            this.grid_jcmx.TabIndex = 4;
+            this.grid_jcmx.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_crkmx_CellBeginEdit);
+            this.grid_jcmx.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_crkmx_CellValidating);
+            this.grid_jcmx.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_crkmx_CellValueChanged);
+            this.grid_jcmx.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_crkmx_UserDeletingRow);
+            // 
             // col_mx_id
             // 
             this.col_mx_id.HeaderText = "ID";
@@ -345,6 +333,30 @@
             this.col_mx_sj.HeaderText = "售价";
             this.col_mx_sj.Name = "col_mx_sj";
             this.col_mx_sj.ReadOnly = true;
+            // 
+            // cmn_crk
+            // 
+            this.cmn_crk.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_crk_daoru});
+            this.cmn_crk.Name = "cmn_crk";
+            this.cmn_crk.Size = new System.Drawing.Size(137, 26);
+            // 
+            // cmn_crk_daoru
+            // 
+            this.cmn_crk_daoru.Name = "cmn_crk_daoru";
+            this.cmn_crk_daoru.Size = new System.Drawing.Size(136, 22);
+            this.cmn_crk_daoru.Text = "从文件导入";
+            this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
+            // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.Location = new System.Drawing.Point(612, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(75, 23);
+            this.btn_shangbao.TabIndex = 26;
+            this.btn_shangbao.Text = "上报数据";
+            this.btn_shangbao.UseVisualStyleBackColor = true;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
             // 
             // Form_Jinchuhuo
             // 
@@ -401,5 +413,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_cm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_sl;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_sj;
+        private System.Windows.Forms.Button btn_shangbao;
     }
 }

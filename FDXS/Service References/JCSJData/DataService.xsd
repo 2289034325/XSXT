@@ -367,4 +367,40 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ShangbaoXiaoshou">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="xss" nillable="true" type="q31:ArrayOfTXiaoshou" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShangbaoXiaoshouResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShangbaoKucun">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="fks" nillable="true" type="q32:ArrayOfTFendianKucun" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShangbaoKucunResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShangbaoJinchuhuo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="fjcs" nillable="true" type="q33:ArrayOfTFendianJinchuhuo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShangbaoJinchuhuoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

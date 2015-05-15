@@ -130,6 +130,77 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 增加一个会员积分折扣规则
+            /// </summary>
+            /// <param name="z"></param>
+            public void InsertHuiyuanZK(THuiyuanZK z)
+            {
+                _db.THuiyuanZK.Add(z);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 分店系统注册后，关联上分店ID
+            /// </summary>
+            /// <param name="uf"></param>
+            public void InsertUser_Fendian(TUser_Fendian uf)
+            {
+                _db.TUser_Fendian.Add(uf);
+
+                _db.SaveChanges();
+            }
+            public void InsertUser_Cangku(TUser_Cangku uc)
+            {
+                _db.TUser_Cangku.Add(uc);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 插入分店上报的销售记录
+            /// </summary>
+            /// <param name="xss"></param>
+            public void InsertXiaoshous(TXiaoshou[] xss)
+            {
+                _db.TXiaoshou.AddRange(xss);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 更新分店库存
+            /// </summary>
+            /// <param name="fks"></param>
+            public void InsertFendianKucun(int fdid, TFendianKucun[] fks)
+            {
+                //先删除旧数据
+                var oks = _db.Database.ExecuteSqlCommand("DELETE FROM TFendianKucun WHERE fendianid = " + fdid);
+
+                //插入旧数据
+                _db.TFendianKucun.AddRange(fks);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 插入分店进出货记录
+            /// </summary>
+            /// <param name="fdid"></param>
+            /// <param name="fjcs"></param>
+            public void InsertFendianJinchuhuo(int fdid, TFendianJinchuhuo[] fjcs)
+            {
+                _db.TFendianJinchuhuo.AddRange(fjcs);
+                foreach (TFendianJinchuhuo jc in fjcs)
+                {
+                    _db.TFendianJinchuhuoMX.AddRange(jc.TFendianJinchuhuoMX);
+                }
+
+                _db.SaveChanges();
+            }
+            
         }
     }
 

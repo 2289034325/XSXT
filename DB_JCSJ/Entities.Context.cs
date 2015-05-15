@@ -37,5 +37,9 @@ namespace DB_JCSJ
         public virtual DbSet<TUser_Cangku> TUser_Cangku { get; set; }
         public virtual DbSet<TUser_Fendian> TUser_Fendian { get; set; }
         public virtual DbSet<TXiazaijilu> TXiazaijilu { get; set; }
+        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
+        public virtual DbSet<TFendianKucun> TFendianKucun { get; set; }
+        public virtual DbSet<TFendianJinchuhuo> TFendianJinchuhuo { get; set; }
+        public virtual DbSet<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
     }
 }

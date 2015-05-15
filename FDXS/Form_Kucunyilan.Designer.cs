@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cmb_leixing = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btn_sch = new System.Windows.Forms.Button();
             this.txb_kuanhao = new System.Windows.Forms.TextBox();
@@ -36,7 +37,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.grid_kc = new System.Windows.Forms.DataGridView();
-            this.cmb_leixing = new System.Windows.Forms.ComboBox();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,12 +46,14 @@
             this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_sbkc = new System.Windows.Forms.Button();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kc)).BeginInit();
             this.SuspendLayout();
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.btn_sbkc);
             this.panel6.Controls.Add(this.cmb_leixing);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Controls.Add(this.btn_sch);
@@ -64,6 +66,15 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1013, 32);
             this.panel6.TabIndex = 8;
+            // 
+            // cmb_leixing
+            // 
+            this.cmb_leixing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_leixing.FormattingEnabled = true;
+            this.cmb_leixing.Location = new System.Drawing.Point(334, 6);
+            this.cmb_leixing.Name = "cmb_leixing";
+            this.cmb_leixing.Size = new System.Drawing.Size(77, 20);
+            this.cmb_leixing.TabIndex = 11;
             // 
             // label8
             // 
@@ -140,15 +151,6 @@
             this.grid_kc.Size = new System.Drawing.Size(1013, 452);
             this.grid_kc.TabIndex = 11;
             // 
-            // cmb_leixing
-            // 
-            this.cmb_leixing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_leixing.FormattingEnabled = true;
-            this.cmb_leixing.Location = new System.Drawing.Point(334, 6);
-            this.cmb_leixing.Name = "cmb_leixing";
-            this.cmb_leixing.Size = new System.Drawing.Size(77, 20);
-            this.cmb_leixing.TabIndex = 11;
-            // 
             // col_tm
             // 
             this.col_tm.HeaderText = "条码";
@@ -203,6 +205,16 @@
             this.col_sl.Name = "col_sl";
             this.col_sl.ReadOnly = true;
             // 
+            // btn_sbkc
+            // 
+            this.btn_sbkc.Location = new System.Drawing.Point(498, 3);
+            this.btn_sbkc.Name = "btn_sbkc";
+            this.btn_sbkc.Size = new System.Drawing.Size(75, 23);
+            this.btn_sbkc.TabIndex = 12;
+            this.btn_sbkc.Text = "上报库存";
+            this.btn_sbkc.UseVisualStyleBackColor = true;
+            this.btn_sbkc.Click += new System.EventHandler(this.btn_sbkc_Click);
+            // 
             // Form_KucunYilan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -240,5 +252,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sl;
+        private System.Windows.Forms.Button btn_sbkc;
     }
 }

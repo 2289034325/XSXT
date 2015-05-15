@@ -17,11 +17,16 @@ namespace FDXS
     {
         //当前登陆的用户
         private TUser _user;
+        /// <summary>
+        /// 基础数据WCF服务
+        /// </summary>
+        private JCSJData.DataServiceClient _jdc;
 
         public Form_Jinchuhuo(TUser user)
         {
             InitializeComponent();
             _user = user;
+            _jdc = null;
         }
 
         /// <summary>
@@ -481,6 +486,47 @@ namespace FDXS
             {
                 e.Row.ContextMenuStrip = null;
             }
+        }
+
+        /// <summary>
+        /// 上报进出货数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_shangbao_Click(object sender, EventArgs e)
+        {
+            //取得所有未上报的数据
+            DBContext db = new DBContext();
+            TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
+            if (jcs.Count() == 0)
+            {
+                MessageBox.Show("没有需要上报的数据");
+                return;
+            }
+
+            JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
+            {
+                oid = r.id,
+                fangxiang = r.fangxiang,
+                laiyuanquxiang = r.laiyuanquxiang,
+                beizhu = r.beizhu,
+                fashengshijian = r.charushijian,
+                TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX 
+                {
+                    tiaomaid = mr.tiaomaid,
+                    shuliang = mr.shuliang
+                }).ToArray()
+            }).ToArray();
+
+            //登陆到数据中心
+            _jdc = CommonFunc.LoginJCSJ(_jdc);
+            _jdc.ShangbaoJinchuhuo(jcjcs);
+
+            //更新本地上报时间
+            int[] ids = jcs.Select(r => r.id).ToArray();
+            db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
+
+            MessageBox.Show("完成");
         }
     }
 }

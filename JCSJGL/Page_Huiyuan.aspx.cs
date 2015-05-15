@@ -17,6 +17,7 @@ namespace JCSJG
             {
                 //加载所有会员信息
                 loadHuiyuans();
+                loadHuiyuanZKs();
 
                 DBContext db = new DBContext();
                 TFendian[] fs = db.GetFendians();
@@ -32,6 +33,11 @@ namespace JCSJG
                     int id = int.Parse(hid_id.Value);
                     deleteHuiyuan(id);
                 }
+                else if (opt == "DELETEZK")
+                {
+                    int id = int.Parse(hid_id.Value);
+                    deleteHuiyuanZK(id);
+                }
 
                 //操作后清除操作标志
                 hid_opt.Value = "";
@@ -45,9 +51,16 @@ namespace JCSJG
         private void deleteHuiyuan(int id)
         {
             DBContext db = new DBContext();
-            db.DeleteHuihuan(id);
+            db.DeleteHuiyuan(id);
 
             loadHuiyuans();
+        }
+        private void deleteHuiyuanZK(int id)
+        {
+            DBContext db = new DBContext();
+            db.DeleteHuiyuanZK(id);
+
+            loadHuiyuanZKs();
         }
 
         /// <summary>
@@ -65,6 +78,8 @@ namespace JCSJG
                 xingming = r.xingming,
                 xingbie = ((Tool.JCSJ.DBCONSTS.HUIYUAN_XB)r.xingbie).ToString(),
                 shengri = r.shengri.ToString("yyyy-MM-dd"),
+                jifen = r.jifen,
+                jfjsshijian = r.jfjsshijian,
                 beizhu = r.beizhu,
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
@@ -75,6 +90,18 @@ namespace JCSJG
 
             grid_huiyuan.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
             grid_huiyuan.DataBind();
+        }
+
+        /// <summary>
+        /// 加载会员积分折扣规则
+        /// </summary>
+        private void loadHuiyuanZKs()
+        {
+            DBContext db = new DBContext();
+
+            THuiyuanZK[] zs = db.GetHuiyuanZKs();
+            grid_zhekou.DataSource = zs.OrderBy(r=>r.jifen).ToArray();
+            grid_zhekou.DataBind();
         }
 
         /// <summary>
@@ -137,6 +164,31 @@ namespace JCSJG
             db.InsertHuiyuan(f);
 
             loadHuiyuans();
+        }
+
+        /// <summary>
+        /// 增加一个积分折扣规则
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_zk_add_Click(object sender, EventArgs e)
+        {
+            string sjf = txb_jf.Text.Trim();
+            string szk = txb_zk.Text.Trim();
+
+            decimal jf = decimal.Parse(sjf);
+            decimal zk = decimal.Parse(szk);
+
+            THuiyuanZK z = new THuiyuanZK 
+            {
+                jifen = jf,
+                zhekou = zk
+            };
+
+            DBContext db = new DBContext();
+            db.InsertHuiyuanZK(z);
+
+            loadHuiyuanZKs();
         }
     }
 }

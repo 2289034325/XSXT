@@ -36,6 +36,8 @@
             <asp:BoundField DataField="xingming" HeaderText="姓名"></asp:BoundField>
             <asp:BoundField DataField="xingbie" HeaderText="性别"></asp:BoundField>
             <asp:BoundField DataField="shengri" HeaderText="生日"></asp:BoundField>
+            <asp:BoundField DataField="jifen" HeaderText="积分"></asp:BoundField>
+            <asp:BoundField DataField="jfjsshijian" HeaderText="积分计算时间"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="caozuoren" HeaderText="编辑人"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
@@ -65,14 +67,14 @@
             <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <input type="submit" onclick="Delete(<%# Eval("id")%>)" value="删除"></input>
+                    <input type="submit" onclick="DeleteZK(<%# Eval("id")%>)" value="删除"></input>
                 </ItemTemplate>
             </asp:TemplateField>
 
         </Columns>
     </asp:GridView>
-    <asp:Label runat="server" Text="积分"></asp:Label><asp:TextBox runat="server" ID="TextBox1" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="折扣"></asp:Label><asp:TextBox runat="server" ID="TextBox2" ClientIDMode="Static"></asp:TextBox>
-    <asp:Button runat="server" ID="Button2" Text="增加" OnClick="btn_add_Click" />
+    <asp:Label runat="server" Text="积分"></asp:Label><asp:TextBox runat="server" ID="txb_jf" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="折扣"></asp:Label><asp:TextBox runat="server" ID="txb_zk" ClientIDMode="Static"></asp:TextBox>
+    <asp:Button runat="server" ID="btn_zk_add" Text="增加" OnClick="btn_zk_add_Click" />
 
 </asp:Content>

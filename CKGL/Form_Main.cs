@@ -36,29 +36,6 @@ namespace CKGL
             Dlg_Zhuce dz = new Dlg_Zhuce();
             dz.ShowDialog();
         }
-
-        /// <summary>
-        /// 下载最新条码信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mn_main_xzzxtm_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-
-        /// <summary>
-        /// 下载指定条码的信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mn_main_xzzdtm_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-
         
 
         /// <summary>

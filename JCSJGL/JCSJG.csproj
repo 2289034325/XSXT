@@ -85,6 +85,7 @@
     <Content Include="Page_Gongyingshang.aspx" />
     <Content Include="Page_Huiyuan.aspx" />
     <Content Include="Page_Kuanhao.aspx" />
+    <Content Include="Page_Xiaoshou.aspx" />
     <Content Include="Page_Tiaoma.aspx" />
     <Content Include="Page_User.aspx" />
     <Content Include="Web.config" />
@@ -145,6 +146,13 @@
     </Compile>
     <Compile Include="Page_Kuanhao.aspx.designer.cs">
       <DependentUpon>Page_Kuanhao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Xiaoshou.aspx.cs">
+      <DependentUpon>Page_Xiaoshou.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Xiaoshou.aspx.designer.cs">
+      <DependentUpon>Page_Xiaoshou.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Tiaoma.aspx.cs">
       <DependentUpon>Page_Tiaoma.aspx</DependentUpon>

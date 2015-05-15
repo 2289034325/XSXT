@@ -18,6 +18,8 @@ namespace JCSJWCF
     {
         //登陆的用户账号
         private TUser _user = null;
+        private TFendian _fendian = null;
+        private TCangku _cangku = null;
         
         /// <summary>
         /// 编码账号登陆
@@ -88,6 +90,8 @@ namespace JCSJWCF
                 }
             }
 
+            //取账号对应的仓库信息
+            _cangku = db.GetUserCangkuByUserId(u.id).TCangku;
             _user = u;
         }
 
@@ -121,7 +125,9 @@ namespace JCSJWCF
                 }
             }
 
+            //取得分店信息
             _user = u;
+            _fendian = db.GetUserFendianByUserid(u.id).TFendian;
         }
 
         /// <summary>
@@ -131,9 +137,6 @@ namespace JCSJWCF
         /// <param name="nm">新密码</param>
         public void BMZHEditPsw(string om, string nm)
         {
-            //检查是否已登录
-            //checkLogin();
-
             //验证旧密码
             DBContext db = new DBContext();
             if (db.GetUser(_user.dengluming, om) == null)
@@ -145,18 +148,6 @@ namespace JCSJWCF
                 db.UpdateUserPsw(_user.id, nm);
             }
         }
-
-        /// <summary>
-        /// 检查用户是否已经登录
-        /// </summary>
-        //private void checkLogin()
-        //{
-        //    if (_user == null)
-        //    {
-        //        throw new FaultException("未登录");
-        //    }
-        //}
-
 
         /// <summary>
         /// 按条件取得条码信息
@@ -581,6 +572,54 @@ namespace JCSJWCF
             DBContext db = new DBContext();
 
             return db.GetHuiyuanZKs();
+        }
+
+        /// <summary>
+        /// 上报销售记录
+        /// </summary>
+        /// <param name="xss"></param>
+        public void ShangbaoXiaoshou(TXiaoshou[] xss)
+        {
+            DBContext db = new DBContext();
+            foreach (TXiaoshou xs in xss)
+            {
+                xs.fendianid = _fendian.id;
+                xs.shangbaoshijian = DateTime.Now;
+            }
+
+            db.InsertXiaoshous(xss);
+        }
+
+        /// <summary>
+        /// 上报库存
+        /// </summary>
+        /// <param name="fks"></param>
+        public void ShangbaoKucun(TFendianKucun[] fks)
+        {
+            foreach (TFendianKucun fk in fks)
+            {
+                fk.fendianid = _fendian.id;
+                fk.shangbaoshijian = DateTime.Now;
+            }
+
+            DBContext db = new DBContext();
+            db.InsertFendianKucun(_fendian.id, fks);
+        }
+
+        /// <summary>
+        /// 上报进出货记录
+        /// </summary>
+        /// <param name="fjcs"></param>
+        public void ShangbaoJinchuhuo(TFendianJinchuhuo[] fjcs)
+        {
+            foreach (TFendianJinchuhuo jc in fjcs)
+            {
+                jc.fendianid = _fendian.id;
+                jc.shangbaoshijian = DateTime.Now;
+            }
+
+            DBContext db = new DBContext();
+            db.InsertFendianJinchuhuo(_fendian.id, fjcs);
         }
     }
 }

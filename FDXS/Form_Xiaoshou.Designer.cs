@@ -54,12 +54,14 @@
             this.col_xsy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xssj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_shangbao = new System.Windows.Forms.Button();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_xs)).BeginInit();
             this.SuspendLayout();
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.btn_shangbao);
             this.panel6.Controls.Add(this.btn_kd);
             this.panel6.Controls.Add(this.dp_end);
             this.panel6.Controls.Add(this.dp_start);
@@ -155,7 +157,7 @@
             // grid_xs
             // 
             this.grid_xs.AllowUserToAddRows = false;
-            this.grid_xs.AllowUserToDeleteRows = false;
+            this.grid_xs.AllowUserToResizeRows = false;
             this.grid_xs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_xs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
@@ -182,6 +184,7 @@
             this.grid_xs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_xs.Size = new System.Drawing.Size(1001, 452);
             this.grid_xs.TabIndex = 11;
+            this.grid_xs.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xs_UserDeletingRow);
             // 
             // col_id
             // 
@@ -274,6 +277,16 @@
             this.col_sbsj.Name = "col_sbsj";
             this.col_sbsj.ReadOnly = true;
             // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.Location = new System.Drawing.Point(774, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(89, 23);
+            this.btn_shangbao.TabIndex = 30;
+            this.btn_shangbao.Text = "上报销售数据";
+            this.btn_shangbao.UseVisualStyleBackColor = true;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
+            // 
             // Form_Xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -319,5 +332,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xsy;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xssj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sbsj;
+        private System.Windows.Forms.Button btn_shangbao;
     }
 }

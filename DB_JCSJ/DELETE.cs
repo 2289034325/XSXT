@@ -51,11 +51,19 @@ namespace DB_JCSJ
             /// 删除会员
             /// </summary>
             /// <param name="id"></param>
-            public void DeleteHuihuan(int id)
+            public void DeleteHuiyuan(int id)
             {
                 THuiyuan h = _db.THuiyuan.Single(r => r.id == id);
 
                 _db.THuiyuan.Remove(h);
+
+                _db.SaveChanges();
+            }
+            public void DeleteHuiyuanZK(int id)
+            {
+                THuiyuanZK z = _db.THuiyuanZK.Single(r => r.id == id);
+
+                _db.THuiyuanZK.Remove(z);
 
                 _db.SaveChanges();
             }

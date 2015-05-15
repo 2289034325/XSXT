@@ -89,14 +89,20 @@ namespace JCSJWCF
                     u.charushijian = DateTime.Now;
                     u.xiugaishijian = DateTime.Now;
 
-                    db.InsertUser(u);
+                    TUser nu = db.InsertUser(u);
+
+                    //插入用户 仓库 关系表
+                    TUser_Cangku uc = new TUser_Cangku 
+                    {
+                        yonghuid = nu.id,
+                        cangkuid = ckid
+                    };
+
+                    db.InsertUser_Cangku(uc);
                 }
                 else
                 {
-                    u.jiqima = tzm;
-                    u.xiugaishijian = DateTime.Now;
-
-                    db.UpdateUserInfo(u);
+                    db.UpdateUserJQM(u.id,tzm);
                 }
             }
         }
@@ -140,14 +146,20 @@ namespace JCSJWCF
                     u.charushijian = DateTime.Now;
                     u.xiugaishijian = DateTime.Now;
 
-                    db.InsertUser(u);
+                    TUser nu = db.InsertUser(u);
+
+                    //插入账号，分店关系表
+                    TUser_Fendian uf = new TUser_Fendian 
+                    {
+                        yonghuid = nu.id,
+                        fendianid = fdid
+                    };
+
+                    db.InsertUser_Fendian(uf);
                 }
                 else
                 {
-                    u.jiqima = tzm;
-                    u.xiugaishijian = DateTime.Now;
-
-                    db.UpdateUserInfo(u);
+                    db.UpdateUserJQM(u.id,tzm);
                 }
             }
         }

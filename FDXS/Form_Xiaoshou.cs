@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,11 +19,17 @@ namespace FDXS
         //开单对话框
         private Dlg_xiaoshou _dlgKaidan;
 
+        /// <summary>
+        /// 基础数据WCF服务
+        /// </summary>
+        private JCSJData.DataServiceClient _jdc;
+
         public Form_Xiaoshou(TUser user)
         {
             InitializeComponent();
             _dlgKaidan = null;
             _user = user;
+            _jdc = null;
         }
 
         /// <summary>
@@ -139,6 +146,65 @@ namespace FDXS
                 x.xiaoshoushijian,
                 x.shangbaoshijian
             });
+        }
+
+        /// <summary>
+        /// 检查销售记录是否允许被删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_xs_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            int id = (int)e.Row.Cells[col_id.Name].Value;
+
+            DBContext db = new DBContext();
+            TXiaoshou x = db.GetXiaoshouById(id);
+            if (x.shangbaoshijian != null)
+            {
+                e.Cancel = true;
+                MessageBox.Show("销售记录已经上报，不允许删除");
+            }
+        }
+
+        /// <summary>
+        /// 上报销售数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_shangbao_Click(object sender, EventArgs e)
+        {
+
+            DBContext db = new DBContext();
+            //取得未上报的销售记录
+            TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
+            if (xs.Count() == 0)
+            {
+                MessageBox.Show("没有需要上报的数据");
+                return;
+            }
+
+            JCSJData.TXiaoshou[] jxss = xs.Select(r=>new JCSJData.TXiaoshou
+            {
+                oid = r.id,
+                xiaoshoushijian = r.xiaoshoushijian,
+                xiaoshouyuan = r.TUser.yonghuming,
+                tiaomaid = r.tiaomaid,
+                huiyuanid = r.huiyuanid,
+                shuliang = r.shuliang,
+                danjia = r.danjia,
+                zhekou = r.zhekou,
+                moling = r.moliing                
+            }).ToArray();
+
+            //登陆到数据中心
+            _jdc = CommonFunc.LoginJCSJ(_jdc);
+            _jdc.ShangbaoXiaoshou(jxss);
+
+            //更新本地上报时间
+            int[] ids = xs.Select(r=>r.id).ToArray();
+            db.UpdateXiaoshouShangbaoshijian(ids, DateTime.Now);
+
+            MessageBox.Show("完成");
         }
     }
 }

@@ -37,6 +37,7 @@ namespace FDXS
             _user = user;
             _huiyuan = null;
             _huiyuanZK = 10;
+            _jdc = null;
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace FDXS
                     return;
                 }
 
-                THuiyuan nh = new THuiyuan 
+                h = new THuiyuan 
                 {
                     id=jh.id,
                     fendianid = jh.fendianid,
@@ -349,27 +350,30 @@ namespace FDXS
                     xxgxshijian = DateTime.Now
                 };
 
-                _huiyuan = nh;
+                _huiyuan = h;
 
                 //保存到本地
-                db.InsertHuiyuan(nh);
-
-                //按照积分折扣表给该会员应有的折扣
-                THuiyuanZK[] zks = db.GetHuiyuanZKs();
-                decimal hyzk = zks.Where(r => r.jifen <= nh.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
-
-                //设置页面显示
-                lbl_hyxm.Text = nh.xingming;
-                lbl_hyjf.Text = nh.jifen.ToString();
-                lbl_hyzk.Text = hyzk.ToString();
-
-                //在现有折扣基础上，乘以会员折扣
-                foreach (DataGridViewRow dr in grid_kaidan.Rows)
-                {
-                    decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-                    dr.Cells[col_zk.Name].Value = decimal.Round(zk * hyzk/10, 2);
-                }
+                db.InsertHuiyuan(h);
             }
+            
+            //按照积分折扣表给该会员应有的折扣
+            THuiyuanZK[] zks = db.GetHuiyuanZKs();
+            decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
+
+            //设置页面显示
+            lbl_hyxm.Text = h.xingming;
+            lbl_hyjf.Text = h.jifen.ToString();
+            lbl_hyzk.Text = hyzk.ToString();
+
+            //在现有折扣基础上，乘以会员折扣
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
+                dr.Cells[col_zk.Name].Value = decimal.Round(zk * hyzk / 10, 2);
+            }
+
+            //刷新总价
+            refreshZongjia();
         }
 
         /// <summary>
@@ -402,6 +406,8 @@ namespace FDXS
 
             //注册
             _jdc.HuiyuanZhuce(h);
+
+            txb_sjh_KeyDown(null, new KeyEventArgs(Keys.Enter));
         }
 
         /// <summary>

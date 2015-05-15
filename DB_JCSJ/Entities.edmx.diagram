@@ -30,6 +30,18 @@
         <AssociationConnector Association="JCSJModel.FK_TUser_Cangku_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TUser_Fendian_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="JCSJModel.FK_TXiazaijilu_TUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JCSJModel.TXiaoshou" Width="1.5" PointX="7.5" PointY="13.125" />
+        <AssociationConnector Association="JCSJModel.FK_TXiaoshou_TFendian" />
+        <AssociationConnector Association="JCSJModel.FK_TXiaoshou_THuiyuan" />
+        <AssociationConnector Association="JCSJModel.FK_TXiaoshou_TTiaoma" />
+        <EntityTypeShape EntityType="JCSJModel.TFendianKucun" Width="1.5" PointX="10.5" PointY="12" />
+        <AssociationConnector Association="JCSJModel.FK_TFendianKucun_TFendian" />
+        <AssociationConnector Association="JCSJModel.FK_TFendianKucun_TTiaoma" />
+        <EntityTypeShape EntityType="JCSJModel.TFendianJinchuhuo" Width="1.5" PointX="5.25" PointY="20.875" />
+        <EntityTypeShape EntityType="JCSJModel.TFendianJinchuhuoMX" Width="1.5" PointX="7.5" PointY="18.75" />
+        <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuo_TFendian" />
+        <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuoMX_TFendianJinchuhuo" />
+        <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuoMX_TTiaoma" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

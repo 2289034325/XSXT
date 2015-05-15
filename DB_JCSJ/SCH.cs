@@ -249,7 +249,11 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TUser_Fendian GetUserFendianByUserid(int userid)
             {
-                return _db.TUser_Fendian.SingleOrDefault(r => r.yonghuid == userid);
+                return _db.TUser_Fendian.Include("TFendian").Single(r => r.yonghuid == userid);
+            }
+            public TUser_Cangku GetUserCangkuByUserId(int userid)
+            {
+                return _db.TUser_Cangku.Include("TCangku").Single(r => r.yonghuid == userid);
             }
 
             /// <summary>
@@ -273,6 +277,47 @@ namespace DB_JCSJ
             public THuiyuanZK[] GetHuiyuanZKs()
             {
                 return _db.THuiyuanZK.ToArray();
+            }
+
+            /// <summary>
+            /// 按条件查询销售记录
+            /// </summary>
+            /// <param name="fdid">分店ID</param>
+            /// <param name="xsrq_start">销售日期</param>
+            /// <param name="xsrq_end"></param>
+            /// <param name="sbrq_start">上报日期</param>
+            /// <param name="sbrq_end"></param>
+            /// <returns></returns>
+            public TXiaoshou[] GetXiaoshousByCond(int? fdid, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int pageSize, int pageIndex,out int recordCount)
+            {
+                var xss = _db.TXiaoshou.Include("TTiaoma").Include("TTiaoma.TKuanhao").
+                    Include("TFendian").Include("THuiyuan").AsQueryable();
+                if (fdid != null)
+                {
+                    xss = xss.Where(r => r.fendianid == fdid);
+                }
+                if (xsrq_start != null)
+                {
+                    xss = xss.Where(r => r.xiaoshoushijian >= xsrq_start);
+                }
+                if (xsrq_end != null)
+                {
+                    xsrq_end = xsrq_end.Value.AddDays(1);
+                    xss = xss.Where(r => r.xiaoshoushijian <= xsrq_end);
+                }
+                if (sbrq_start != null)
+                {
+                    xss = xss.Where(r => r.shangbaoshijian >= sbrq_start);
+                }
+                if (sbrq_end != null)
+                {
+                    sbrq_end = sbrq_end.Value.AddDays(1);
+                    xss = xss.Where(r => r.shangbaoshijian <= sbrq_end);
+                }
+                recordCount = xss.Count();
+                xss = xss.OrderByDescending(r=>r.shangbaoshijian).Skip(pageSize * pageIndex);
+
+                return xss.ToArray();
             }
 
         }

@@ -14,6 +14,13 @@ namespace DB_JCSJ
     
     public partial class TTiaoma
     {
+        public TTiaoma()
+        {
+            this.TXiaoshou = new HashSet<TXiaoshou>();
+            this.TFendianKucun = new HashSet<TFendianKucun>();
+            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
+        }
+    
         public int id { get; set; }
         public int kuanhaoid { get; set; }
         public string gyskuanhao { get; set; }
@@ -28,5 +35,8 @@ namespace DB_JCSJ
     
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
+        public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
+        public virtual ICollection<TFendianKucun> TFendianKucun { get; set; }
+        public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
     }
 }

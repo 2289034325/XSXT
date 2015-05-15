@@ -12,28 +12,23 @@ namespace DB_JCSJ
     using System;
     using System.Collections.Generic;
     
-    public partial class THuiyuan
+    public partial class TFendianJinchuhuo
     {
-        public THuiyuan()
+        public TFendianJinchuhuo()
         {
-            this.TXiaoshou = new HashSet<TXiaoshou>();
+            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
         }
     
         public int id { get; set; }
         public int fendianid { get; set; }
-        public string shoujihao { get; set; }
-        public string xingming { get; set; }
-        public byte xingbie { get; set; }
-        public System.DateTime shengri { get; set; }
+        public int oid { get; set; }
+        public byte fangxiang { get; set; }
+        public byte laiyuanquxiang { get; set; }
         public string beizhu { get; set; }
-        public decimal jifen { get; set; }
-        public System.DateTime jfjsshijian { get; set; }
-        public int caozuorenid { get; set; }
-        public System.DateTime charushijian { get; set; }
-        public System.DateTime xiugaishijian { get; set; }
+        public System.DateTime fashengshijian { get; set; }
+        public System.DateTime shangbaoshijian { get; set; }
     
         public virtual TFendian TFendian { get; set; }
-        public virtual TUser TUser { get; set; }
-        public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
+        public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
     }
 }
