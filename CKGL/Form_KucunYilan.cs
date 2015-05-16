@@ -13,9 +13,15 @@ namespace CKGL
 {
     public partial class Form_KucunYilan : Form
     {
+        /// <summary>
+        /// 基础数据WCF服务
+        /// </summary>
+        private JCSJData.DataServiceClient _jdc;
+
         public Form_KucunYilan()
         {
             InitializeComponent();
+            _jdc = null;
         }
 
         /// <summary>
@@ -32,10 +38,10 @@ namespace CKGL
 
             //入-出+库存修正
             DBContext db= new DBContext();
-            Dictionary<TTiaoma, int> ks = db.GetKucunView(tmh,kh,lx);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
 
             grid_kc.Rows.Clear();
-            foreach (KeyValuePair<TTiaoma, int> p in ks)
+            foreach (KeyValuePair<TTiaoma, short> p in ks)
             {
                 grid_kc.Rows.Add(new object[] 
                 {
@@ -64,6 +70,30 @@ namespace CKGL
             DataTable dt = (DataTable)cmb_leixing.DataSource;
             dt.Rows.InsertAt(dt.NewRow(), 0);
             cmb_leixing.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 想数据中心上报库存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_shangbao_Click(object sender, EventArgs e)
+        {
+            //登陆到数据中心
+            _jdc = CommonFunc.LoginJCSJ(_jdc);
+
+            DBContext db = new DBContext();
+            VKucun[] ks = db.GetKucunView();
+
+            JCSJData.TCangkuKucun[] fks = ks.Select(r => new JCSJData.TCangkuKucun
+            {
+                tiaomaid = r.id,
+                shuliang = r.shuliang.Value
+            }).ToArray();
+
+            _jdc.ShangbaoKucun_CK(fks);
+
+            MessageBox.Show("完成");
         }
     }
 }

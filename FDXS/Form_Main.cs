@@ -93,6 +93,7 @@ namespace FDXS
                 dengluming = "2",
                 yonghuming = "2"
             };
+
             //登陆检查
             if (_user == null)
             {
@@ -241,6 +242,36 @@ namespace FDXS
             if (fm == null)
             {
                 fm = new Form_JifenZhekou(_user);
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 系统用户管理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_xtyh_Click(object sender, EventArgs e)
+        {
+            //店长和系统管理员才有权限
+            if (!(_user.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 ||
+                _user.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员))
+            {
+                MessageBox.Show("没有权限");
+                return;
+            }
+
+            Form_User fm = (Form_User)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_User)));
+            if (fm == null)
+            {
+                fm = new Form_User(_user);
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();

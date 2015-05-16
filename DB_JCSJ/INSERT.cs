@@ -179,8 +179,23 @@ namespace DB_JCSJ
                 //先删除旧数据
                 var oks = _db.Database.ExecuteSqlCommand("DELETE FROM TFendianKucun WHERE fendianid = " + fdid);
 
-                //插入旧数据
+                //插入新数据
                 _db.TFendianKucun.AddRange(fks);
+
+                _db.SaveChanges();
+            }
+            /// <summary>
+            /// 更新仓库库存
+            /// </summary>
+            /// <param name="ckid"></param>
+            /// <param name="cks"></param>
+            public void InsertCangkuKucun(int ckid, TCangkuKucun[] cks)
+            {
+                //先删除旧数据
+                var oks = _db.Database.ExecuteSqlCommand("DELETE FROM TCangkuKucun WHERE cangkuid = " + ckid);
+
+                //插入新数据
+                _db.TCangkuKucun.AddRange(cks);
 
                 _db.SaveChanges();
             }
@@ -193,10 +208,23 @@ namespace DB_JCSJ
             public void InsertFendianJinchuhuo(int fdid, TFendianJinchuhuo[] fjcs)
             {
                 _db.TFendianJinchuhuo.AddRange(fjcs);
-                foreach (TFendianJinchuhuo jc in fjcs)
-                {
-                    _db.TFendianJinchuhuoMX.AddRange(jc.TFendianJinchuhuoMX);
-                }
+                
+                //明细信息已经自动插入，不许执行下面步骤
+                //foreach (TFendianJinchuhuo jc in fjcs)
+                //{
+                //    _db.TFendianJinchuhuoMX.AddRange(jc.TFendianJinchuhuoMX);
+                //}
+
+                _db.SaveChanges();
+            }
+            /// <summary>
+            /// 插入仓库进出货记录
+            /// </summary>
+            /// <param name="ckid"></param>
+            /// <param name="cjcs"></param>
+            public void InsertCangkuJinchuhuo(int ckid, TCangkuJinchuhuo[] cjcs)
+            {
+                _db.TCangkuJinchuhuo.AddRange(cjcs);
 
                 _db.SaveChanges();
             }

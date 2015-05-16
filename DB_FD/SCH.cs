@@ -52,6 +52,18 @@ namespace DB_FD
 
             return u;
         }
+        public TUser GetUserById(int id)
+        {
+            return _db.TUser.Single(r => r.id == id);
+        }
+        /// <summary>
+        /// 取所有系统用户，不包含系统管理员
+        /// </summary>
+        /// <returns></returns>
+        public TUser[] GetUsersExceptAdmin(byte excepJS)
+        {
+            return _db.TUser.Where(r => r.juese != excepJS).ToArray();
+        }
 
         /// <summary>
         /// 搜索进出货记录

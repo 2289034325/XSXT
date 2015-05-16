@@ -92,7 +92,7 @@ namespace FDXS
                 shuliang = r.shuliang.Value
             }).ToArray();
 
-            _jdc.ShangbaoKucun(fks);
+            _jdc.ShangbaoKucun_FD(fks);
 
             MessageBox.Show("完成");
         }

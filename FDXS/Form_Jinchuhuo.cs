@@ -520,7 +520,7 @@ namespace FDXS
 
             //登陆到数据中心
             _jdc = CommonFunc.LoginJCSJ(_jdc);
-            _jdc.ShangbaoJinchuhuo(jcjcs);
+            _jdc.ShangbaoJinchuhuo_FD(jcjcs);
 
             //更新本地上报时间
             int[] ids = jcs.Select(r => r.id).ToArray();

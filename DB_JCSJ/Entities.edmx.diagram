@@ -42,6 +42,14 @@
         <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuo_TFendian" />
         <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuoMX_TFendianJinchuhuo" />
         <AssociationConnector Association="JCSJModel.FK_TFendianJinchuhuoMX_TTiaoma" />
+        <EntityTypeShape EntityType="JCSJModel.TCangkuJinchuhuo" Width="1.5" PointX="5.25" PointY="25" />
+        <EntityTypeShape EntityType="JCSJModel.TCangkuJinchuhuoMX" Width="1.5" PointX="7.5" PointY="21.875" />
+        <EntityTypeShape EntityType="JCSJModel.TCangkuKucun" Width="1.5" PointX="10.5" PointY="8.25" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuJinchuhuo_TCangku" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuKucun_TCangku" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuJinchuhuoMX_TCangkuJinchuhuo" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuJinchuhuoMX_TTiaoma" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuKucun_TTiaoma" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

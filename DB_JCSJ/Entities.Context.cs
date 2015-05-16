@@ -41,5 +41,8 @@ namespace DB_JCSJ
         public virtual DbSet<TFendianKucun> TFendianKucun { get; set; }
         public virtual DbSet<TFendianJinchuhuo> TFendianJinchuhuo { get; set; }
         public virtual DbSet<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
+        public virtual DbSet<TCangkuJinchuhuo> TCangkuJinchuhuo { get; set; }
+        public virtual DbSet<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
+        public virtual DbSet<TCangkuKucun> TCangkuKucun { get; set; }
     }
 }

@@ -73,6 +73,15 @@ namespace DB_CK
         }
 
         /// <summary>
+        /// 取得所有未上报的数据
+        /// </summary>
+        /// <returns></returns>
+        public TChuruku[] GetChurukuWeishangbao()
+        {
+            return _db.TChuruku.Include("TChurukuMX").Where(r => r.shangbaoshijian == null && r.TChurukuMX.Any()).ToArray();
+        }
+
+        /// <summary>
         /// 根据ID取得出入库记录信息
         /// </summary>
         /// <param name="id"></param>
@@ -96,7 +105,7 @@ namespace DB_CK
         /// 取得当前库存信息
         /// </summary>
         /// <returns></returns>
-        public Dictionary<TTiaoma, int> GetKucunView(string tmh, string kh, string lx)
+        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, string lx)
         {
             var ks = from k in _db.VKucun
                      join t in _db.TTiaoma
@@ -121,6 +130,11 @@ namespace DB_CK
             }
             return ks.ToDictionary(k => k.t, v => v.shuliang.Value);
         }
+        public VKucun[] GetKucunView()
+        {
+            return _db.VKucun.ToArray();
+        }
+
 
         /// <summary>
         /// 根据查询条件查询条码

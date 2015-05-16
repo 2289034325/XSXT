@@ -517,10 +517,11 @@ namespace JCSJWCF
         public THuiyuan HuiyuanZhuce(THuiyuan h)
         {
             DBContext db = new DBContext();
-            //找到分店ID
-            TUser_Fendian uf = db.GetUserFendianByUserid(_user.id);
-            h.fendianid = uf.fendianid;
+
+            h.fendianid = _fendian.id;
             h.caozuorenid = _user.id;
+            h.jifen = 0;
+            h.jfjsshijian = DateTime.Now;
             h.charushijian = DateTime.Now;
             h.xiugaishijian = DateTime.Now;
 
@@ -594,7 +595,7 @@ namespace JCSJWCF
         /// 上报库存
         /// </summary>
         /// <param name="fks"></param>
-        public void ShangbaoKucun(TFendianKucun[] fks)
+        public void ShangbaoKucun_FD(TFendianKucun[] fks)
         {
             foreach (TFendianKucun fk in fks)
             {
@@ -610,7 +611,7 @@ namespace JCSJWCF
         /// 上报进出货记录
         /// </summary>
         /// <param name="fjcs"></param>
-        public void ShangbaoJinchuhuo(TFendianJinchuhuo[] fjcs)
+        public void ShangbaoJinchuhuo_FD(TFendianJinchuhuo[] fjcs)
         {
             foreach (TFendianJinchuhuo jc in fjcs)
             {
@@ -620,6 +621,38 @@ namespace JCSJWCF
 
             DBContext db = new DBContext();
             db.InsertFendianJinchuhuo(_fendian.id, fjcs);
+        }
+
+        /// <summary>
+        /// 上报仓库库存
+        /// </summary>
+        /// <param name="cks"></param>
+        public void ShangbaoKucun_CK(TCangkuKucun[] cks)
+        {
+            foreach (TCangkuKucun ck in cks)
+            {
+                ck.cangkuid = _cangku.id;
+                ck.shangbaoshijian = DateTime.Now;
+            }
+
+            DBContext db = new DBContext();
+            db.InsertCangkuKucun(_cangku.id, cks);
+        }
+
+        /// <summary>
+        /// 上报仓库进出货记录
+        /// </summary>
+        /// <param name="cjcs"></param>
+        public void ShangbaoJinchuhuo_CK(TCangkuJinchuhuo[] cjcs)
+        {
+            foreach (TCangkuJinchuhuo jc in cjcs)
+            {
+                jc.cangkuid = _cangku.id;
+                jc.shangbaoshijian = DateTime.Now;
+            }
+
+            DBContext db = new DBContext();
+            db.InsertCangkuJinchuhuo(_cangku.id, cjcs);
         }
     }
 }

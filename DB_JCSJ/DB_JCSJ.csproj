@@ -70,6 +70,15 @@
     <Compile Include="TCangku.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="TCangkuJinchuhuo.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TCangkuJinchuhuoMX.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TCangkuKucun.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="TFendian.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

@@ -115,7 +115,7 @@
             this.cmb_xb.Size = new System.Drawing.Size(100, 20);
             this.cmb_xb.TabIndex = 22;
             // 
-            // Dlg_Denglu
+            // Dlg_HuiyuanEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,8 +131,8 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Dlg_Denglu";
-            this.Text = "登陆";
+            this.Name = "Dlg_HuiyuanEdit";
+            this.Text = "会员信息";
             this.ResumeLayout(false);
             this.PerformLayout();
 

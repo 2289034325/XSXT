@@ -157,5 +157,24 @@ namespace DB_FD
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="u"></param>
+        public void UpdateUser(TUser u)
+        {
+            var ou = _db.TUser.Single(r => r.id == u.id);
+
+            ou.dengluming = u.dengluming;
+            ou.mima = u.mima;
+            ou.yonghuming = u.yonghuming;
+            ou.juese = u.juese;
+            ou.zhuangtai = u.zhuangtai;
+            ou.beizhu = u.beizhu;
+            ou.xiuggaishijian = u.xiuggaishijian;
+
+            _db.SaveChanges();
+        }
     }
 }

@@ -10,12 +10,12 @@
         <EntityTypeShape EntityType="CKModel.TKucunXZ" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CKModel.TTiaoma" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CKModel.TUser" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CKModel.VKucun" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
         <AssociationConnector Association="CKModel.FK_TChuruku_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="CKModel.FK_TChurukuMX_TChuruku" ManuallyRouted="false" />
         <AssociationConnector Association="CKModel.FK_TChurukuMX_TTiaoma" ManuallyRouted="false" />
         <AssociationConnector Association="CKModel.FK_TKucunXZ_TTiaoma" ManuallyRouted="false" />
         <AssociationConnector Association="CKModel.FK_TKucunXZ_TUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CKModel.VKucun" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

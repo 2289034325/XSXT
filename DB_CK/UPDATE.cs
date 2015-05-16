@@ -55,5 +55,21 @@ namespace DB_CK
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 更新出入库记录的上报时间
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="sj"></param>
+        public void UpdateChurukuShangbaoshijian(int[] ids, DateTime sj)
+        {
+            var crs = _db.TChuruku.Where(r => ids.Contains(r.id));
+            foreach (TChuruku cr in crs)
+            {
+                cr.shangbaoshijian = sj;
+            }
+
+            _db.SaveChanges();
+        }
     }
 }

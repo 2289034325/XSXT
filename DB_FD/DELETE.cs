@@ -75,5 +75,17 @@ namespace DB_FD
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 删除一个系统用户
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteUser(int id)
+        {
+            var u = _db.TUser.Single(r => r.id == id);
+            _db.TUser.Remove(u);
+
+            _db.SaveChanges();
+        }
     }
 }

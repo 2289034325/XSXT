@@ -270,6 +270,13 @@ namespace FDXS
                 return;
             }
 
+            //销售员不能空白
+            if (string.IsNullOrEmpty(cmb_xsy.SelectedText))
+            {
+                MessageBox.Show("请选择销售员");
+                return;
+            }
+
             //将表格数据组装成实例
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
@@ -437,6 +444,12 @@ namespace FDXS
         /// <param name="e"></param>
         private void txb_tiaoma_KeyDown(object sender, KeyEventArgs e)
         {
+            //回车事件
+            if (e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
             string tmh = txb_tiaoma.Text.Trim();
             DBContext db = new DBContext();
 

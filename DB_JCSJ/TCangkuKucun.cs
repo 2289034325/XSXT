@@ -7,14 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DB_CK
+namespace DB_JCSJ
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class VKucun
+    public partial class TCangkuKucun
     {
         public int id { get; set; }
-        public Nullable<short> shuliang { get; set; }
+        public int cangkuid { get; set; }
+        public int tiaomaid { get; set; }
+        public short shuliang { get; set; }
+        public System.DateTime shangbaoshijian { get; set; }
+    
+        public virtual TCangku TCangku { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

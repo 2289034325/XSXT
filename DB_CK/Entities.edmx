@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TChuruku">
           <Key>
             <PropertyRef Name="id" />
@@ -77,7 +77,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="shuliang" Type="int" />
+          <Property Name="shuliang" Type="smallint" />
         </EntityType>
         <Association Name="FK_TChuruku_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
@@ -172,8 +172,7 @@
             <End Role="TKucunXZ" EntitySet="TKucunXZ" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -252,13 +251,6 @@
           <NavigationProperty Name="TChuruku" Relationship="Self.FK_TChuruku_TUser" FromRole="TUser" ToRole="TChuruku" />
           <NavigationProperty Name="TKucunXZ" Relationship="Self.FK_TKucunXZ_TUser" FromRole="TUser" ToRole="TKucunXZ" />
         </EntityType>
-        <EntityType Name="VKucun">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="shuliang" Type="Int32" />
-        </EntityType>
         <Association Name="FK_TChuruku_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
           <End Role="TChuruku" Type="Self.TChuruku" Multiplicity="*" />
@@ -325,7 +317,6 @@
           <EntitySet Name="TKucunXZ" EntityType="Self.TKucunXZ" />
           <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" />
           <EntitySet Name="TUser" EntityType="Self.TUser" />
-          <EntitySet Name="VKucun" EntityType="Self.VKucun" />
           <AssociationSet Name="FK_TChuruku_TUser" Association="Self.FK_TChuruku_TUser">
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TChuruku" EntitySet="TChuruku" />
@@ -346,7 +337,15 @@
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TKucunXZ" EntitySet="TKucunXZ" />
           </AssociationSet>
+          <EntitySet Name="VKucun" EntityType="CKModel.VKucun" />
         </EntityContainer>
+        <EntityType Name="VKucun">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="shuliang" Type="Int16" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -426,8 +425,8 @@
           <EntitySetMapping Name="VKucun">
             <EntityTypeMapping TypeName="CKModel.VKucun">
               <MappingFragment StoreEntitySet="VKucun">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="shuliang" ColumnName="shuliang" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

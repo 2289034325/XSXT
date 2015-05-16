@@ -17,6 +17,8 @@ namespace DB_JCSJ
         public TCangku()
         {
             this.TUser_Cangku = new HashSet<TUser_Cangku>();
+            this.TCangkuJinchuhuo = new HashSet<TCangkuJinchuhuo>();
+            this.TCangkuKucun = new HashSet<TCangkuKucun>();
         }
     
         public int id { get; set; }
@@ -31,5 +33,7 @@ namespace DB_JCSJ
     
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TUser_Cangku> TUser_Cangku { get; set; }
+        public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuo { get; set; }
+        public virtual ICollection<TCangkuKucun> TCangkuKucun { get; set; }
     }
 }

@@ -111,5 +111,19 @@ namespace DB_FD
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 新增一个系统用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public TUser InsertUser(TUser user)
+        {
+            TUser nu = _db.TUser.Add(user);
+
+            _db.SaveChanges();
+
+            return nu;
+        }
     }
 }

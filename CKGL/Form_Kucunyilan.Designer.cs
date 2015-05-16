@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btn_shangbao = new System.Windows.Forms.Button();
+            this.cmb_leixing = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btn_sch = new System.Windows.Forms.Button();
             this.txb_kuanhao = new System.Windows.Forms.TextBox();
@@ -36,7 +38,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.grid_kc = new System.Windows.Forms.DataGridView();
-            this.cmb_leixing = new System.Windows.Forms.ComboBox();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +53,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.btn_shangbao);
             this.panel6.Controls.Add(this.cmb_leixing);
             this.panel6.Controls.Add(this.label8);
             this.panel6.Controls.Add(this.btn_sch);
@@ -64,6 +66,25 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1013, 32);
             this.panel6.TabIndex = 8;
+            // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.Location = new System.Drawing.Point(498, 4);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(75, 23);
+            this.btn_shangbao.TabIndex = 12;
+            this.btn_shangbao.Text = "上报库存";
+            this.btn_shangbao.UseVisualStyleBackColor = true;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
+            // 
+            // cmb_leixing
+            // 
+            this.cmb_leixing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_leixing.FormattingEnabled = true;
+            this.cmb_leixing.Location = new System.Drawing.Point(334, 6);
+            this.cmb_leixing.Name = "cmb_leixing";
+            this.cmb_leixing.Size = new System.Drawing.Size(77, 20);
+            this.cmb_leixing.TabIndex = 11;
             // 
             // label8
             // 
@@ -120,6 +141,7 @@
             // 
             this.grid_kc.AllowUserToAddRows = false;
             this.grid_kc.AllowUserToDeleteRows = false;
+            this.grid_kc.AllowUserToResizeRows = false;
             this.grid_kc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tm,
@@ -139,15 +161,6 @@
             this.grid_kc.RowTemplate.Height = 23;
             this.grid_kc.Size = new System.Drawing.Size(1013, 452);
             this.grid_kc.TabIndex = 11;
-            // 
-            // cmb_leixing
-            // 
-            this.cmb_leixing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_leixing.FormattingEnabled = true;
-            this.cmb_leixing.Location = new System.Drawing.Point(334, 6);
-            this.cmb_leixing.Name = "cmb_leixing";
-            this.cmb_leixing.Size = new System.Drawing.Size(77, 20);
-            this.cmb_leixing.TabIndex = 11;
             // 
             // col_tm
             // 
@@ -240,5 +253,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sl;
+        private System.Windows.Forms.Button btn_shangbao;
     }
 }
