@@ -59,7 +59,8 @@ namespace FDXS
             THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK 
             {
                 jifen = r.jifen,
-                zhekou = r.zhekou
+                zhekou = r.zhekou,
+                gengxinshijian = DateTime.Now
             }).ToArray();
             db.DeleteHuiyuanZK();
             db.InsertHuiyuanZKs(fzks);
@@ -85,6 +86,7 @@ namespace FDXS
             //加载积分折扣规则
             DBContext db = new DBContext();
             THuiyuanZK[] zks = db.GetHuiyuanZKs();
+            zks = zks.OrderBy(z => z.jifen).ToArray();
 
             foreach (THuiyuanZK zk in zks)
             {

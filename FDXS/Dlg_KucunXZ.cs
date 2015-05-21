@@ -51,6 +51,14 @@ namespace FDXS
                 return;
             }
 
+            //检查是否会导致库存数为负
+            VKucun kc = db.GetKucunByTiaomaId(tm.id);
+            if (kc.shuliang +sl < 0)
+            {
+                MessageBox.Show("会导致库存数量为负数");
+                return;
+            }
+
             //插入一个修正记录
             XZ = db.InsertKucunXZ(new TKucunXZ
             {

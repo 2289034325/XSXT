@@ -21,7 +21,7 @@ namespace FDXS
         private string _startTM;
         public List<TXiaoshou> XSS;
         private TUser _user;
-        public THuiyuan _huiyuan;
+        public THuiyuan Huiyuan;
         private decimal _huiyuanZK;
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FDXS
             _startTM = tm;
             XSS = new List<TXiaoshou>();
             _user = user;
-            _huiyuan = null;
+            Huiyuan = null;
             _huiyuanZK = 10;
             _jdc = null;
         }
@@ -105,7 +105,7 @@ namespace FDXS
                 xs.danjia,
                 xs.zhekou,
                 xs.moliing,
-                xs.danjia,
+                decimal.Round(xs.danjia*xs.shuliang*xs.zhekou/10-xs.moliing,2),
                 xs.beizhu
             });
         }
@@ -223,6 +223,14 @@ namespace FDXS
             }
 
             lbl_zongjia.Text = zj.ToString();
+
+            if (grid_kaidan.Rows.Count > 0)
+            {
+                //将小数零头在第一行抹去
+                decimal ml = decimal.Parse(grid_kaidan.Rows[0].Cells[col_ml.Name].Value.ToString());
+                ml = decimal.Truncate(ml) + (zj + ml - decimal.Truncate(zj + ml));
+                grid_kaidan.Rows[0].Cells[col_ml.Name].Value = ml;
+            }
         }
 
         /// <summary>
@@ -232,6 +240,20 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_kaidan_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1 || e.ColumnIndex == col_yingshou.Index)
+            {
+                return;
+            }
+
+            //刷新应收列
+            short sl = short.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_sl.Name].Value.ToString());
+            decimal dj = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_dj.Name].Value.ToString());
+            decimal zk = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_zk.Name].Value.ToString());
+            decimal ml = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value.ToString());
+            decimal jiage = decimal.Round(sl * dj * zk / 10 - ml, 2);
+
+            grid_kaidan.Rows[e.RowIndex].Cells[col_yingshou.Name].Value = jiage;
+
             //刷新总价
             refreshZongjia();
         }
@@ -271,13 +293,17 @@ namespace FDXS
             }
 
             //销售员不能空白
-            if (string.IsNullOrEmpty(cmb_xsy.SelectedText))
+            if (string.IsNullOrEmpty(cmb_xsy.Text))
             {
                 MessageBox.Show("请选择销售员");
                 return;
             }
 
             //将表格数据组装成实例
+            DBContext db = new DBContext();
+            //int[] kids = XSS.Select(r => r.tiaomaid).ToArray();
+            //VKucun[] vs = db.GetKucunsByTiaomaIds(kids);
+
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
                 int tmid = (int)dr.Cells[col_tmid.Name].Value;
@@ -286,11 +312,33 @@ namespace FDXS
                 decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
                 decimal ml = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
                 string bz = dr.Cells[col_zk.Name].Value.ToString();
+                string pm = dr.Cells[col_pm.Name].Value.ToString();
+
+                if (sl == 0)
+                {
+                    MessageBox.Show(pm + "销售数量不可以为零");
+                    return;
+                }
+
+                if (ml != 0 && dr.Index != 0)
+                {
+                    MessageBox.Show("只允许在第一行抹零");
+                    return;
+                }
+
+                //检查库存数量是否足够
+                VKucun vx = db.GetKucunByTiaomaId(tmid);
+                if (vx.shuliang < sl)
+                {
+                    MessageBox.Show(pm + "库存不足");
+                    return;
+                }
+
                 TXiaoshou x = new TXiaoshou
                 {
                     xiaoshoushijian = dp_xssj.Value,
                     xiaoshouyuan = cmb_xsy.SelectedText,
-                    huiyuanid = _huiyuan == null ? null : (int?)_huiyuan.id,
+                    huiyuanid = Huiyuan == null ? null : (int?)Huiyuan.id,
                     tiaomaid = tmid,
                     danjia = danjia,
                     shuliang = sl,
@@ -357,12 +405,11 @@ namespace FDXS
                     xxgxshijian = DateTime.Now
                 };
 
-                _huiyuan = h;
-
                 //保存到本地
                 db.InsertHuiyuan(h);
             }
-            
+
+            Huiyuan = h;
             //按照积分折扣表给该会员应有的折扣
             THuiyuanZK[] zks = db.GetHuiyuanZKs();
             decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
@@ -491,6 +538,17 @@ namespace FDXS
 
                 addKaidan(xs);
             }
+        }
+
+        /// <summary>
+        /// 显示积分折扣规则
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lbl_jfzk_Click(object sender, EventArgs e)
+        {
+            Form_JifenZhekou jf = new Form_JifenZhekou(_user);
+            jf.ShowDialog();
         }
     }
 }

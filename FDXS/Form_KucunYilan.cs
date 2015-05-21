@@ -84,7 +84,7 @@ namespace FDXS
             _jdc = CommonFunc.LoginJCSJ(_jdc);
 
             DBContext db = new DBContext();
-            VKucun[] ks = db.GetKucunView();
+            VKucun[] ks = db.GetKucuns();
 
             JCSJData.TFendianKucun[] fks = ks.Select(r => new JCSJData.TFendianKucun 
             {

@@ -152,9 +152,22 @@ namespace DB_FD
         /// 查出所有的库存信息
         /// </summary>
         /// <returns></returns>
-        public VKucun[] GetKucunView()
+        public VKucun[] GetKucuns()
         {
             return _db.VKucun.ToArray();
+        }
+        /// <summary>
+        /// 查询一批条码的库存
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public VKucun[] GetKucunsByTiaomaIds(int[] ids)
+        {
+            return _db.VKucun.Where(r => ids.Contains(r.id)).ToArray();
+        }
+        public VKucun GetKucunByTiaomaId(int id)
+        {
+            return _db.VKucun.Single(r => r.id == id);
         }
 
         /// <summary>

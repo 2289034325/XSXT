@@ -257,7 +257,7 @@ namespace FDXS
         }
 
         /// <summary>
-        /// 在grid中增加一行
+        /// 在修正grid中增加一行
         /// </summary>
         /// <param name="tKucunXZ"></param>
         private void addXiuzheng(TKucunXZ x)
@@ -265,6 +265,7 @@ namespace FDXS
             grid_xz.Rows.Insert(0,new object[] 
             {
                 x.id,
+                x.tiaomaid,
                 x.TTiaoma.tiaoma,
                 x.TTiaoma.kuanhao,
                 x.TTiaoma.pinming,
@@ -309,6 +310,7 @@ namespace FDXS
 
             DataGridViewRow dr = grid_xz.Rows[0];
             int id = (int)dr.Cells[col_xz_id.Name].Value;
+            int tmid = (int)dr.Cells[col_xz_tmid.Name].Value;
 
             //数量必须是数字
             short sl;
@@ -329,6 +331,17 @@ namespace FDXS
                 MessageBox.Show("1天前的记录不允许修改");
                 return;
             }            
+
+            //检查是否会导致库存数为负
+            VKucun kc = db.GetKucunByTiaomaId(tmid);
+            //库存数量-该修正记录的原来的数量，得到除该修正记录外的库存数量X
+            //用X加上此次修改的修正数量得到修改之后的库存数量
+            if (kc.shuliang - xz.shuliang + sl < 0)
+            {
+                e.Cancel = true;
+                MessageBox.Show("修改后会导致库存数量为负数");
+                return;
+            }
         }
 
         /// <summary>
@@ -375,6 +388,7 @@ namespace FDXS
         private void grid_xz_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             int id = (int)e.Row.Cells[col_xz_id.Name].Value;
+            int tmid = (int)e.Row.Cells[col_xz_tmid.Name].Value;
             DBContext db = new DBContext();
             TKucunXZ x = db.GetKucunXZById(id);
             //1天前的记录不允许删除
@@ -384,6 +398,15 @@ namespace FDXS
                 MessageBox.Show("1天前的记录不允许删除");
                 return;
             }       
+
+            //删除后是否会导致库存数量为负
+            VKucun k = db.GetKucunByTiaomaId(tmid);
+            if (k.shuliang - x.shuliang < 0)
+            {
+                e.Cancel = true;
+                MessageBox.Show("删除该记录会导致库存数量为负数");
+                return;
+            }
         }
 
         /// <summary>

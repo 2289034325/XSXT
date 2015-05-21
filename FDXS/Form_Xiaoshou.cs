@@ -49,16 +49,32 @@ namespace FDXS
                 _dlgKaidan = dx; 
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    List<TXiaoshou> xss = dx.XSS;
-                    //保存到数据库
-                    DBContext db = new DBContext();
-                    TXiaoshou[] nxss = db.InsertXiaoshous(xss.ToArray());
-                    foreach (TXiaoshou x in nxss)
-                    {
-                        addXiaoshou(x);
-                    }
+                    xiaoshouDlgOK(dx.XSS,dx.Huiyuan);
                 }
                 _dlgKaidan = null;
+            }
+        }
+
+        /// <summary>
+        /// 销售对话框OK
+        /// </summary>
+        /// <param name="xss"></param>
+        /// <param name="hy"></param>
+        private void xiaoshouDlgOK(List<TXiaoshou> xss, THuiyuan hy)
+        {
+            //保存到数据库
+            DBContext db = new DBContext();
+            TXiaoshou[] nxss = db.InsertXiaoshous(xss.ToArray());
+            foreach (TXiaoshou x in nxss)
+            {
+                addXiaoshou(x);
+            }
+
+            //将积分加给会员
+            if (hy != null)
+            {
+                decimal zj = decimal.Round(xss.Sum(r => r.danjia * r.shuliang * r.zhekou / 10 - r.moliing), 0);
+                db.UpdateHuiyuanJF(hy.id, zj);
             }
         }
 
@@ -105,17 +121,7 @@ namespace FDXS
                 _dlgKaidan = dx;
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    List<TXiaoshou> xss = dx.XSS;
-                    //保存到数据库
-                    DBContext db = new DBContext();
-                    TXiaoshou[] nxss = db.InsertXiaoshous(xss.ToArray());
-                    foreach (TXiaoshou x in nxss)
-                    {
-                        addXiaoshou(x);
-                    }
-                    //将积分加给会员
-                    decimal zj = decimal.Round(nxss.Sum(r => r.danjia * r.shuliang * r.zhekou / 10 - r.moliing), 0);
-                    db.UpdateHuiyuanJF(dx._huiyuan.id, zj);
+                    xiaoshouDlgOK(dx.XSS, dx.Huiyuan);
                 }
                 _dlgKaidan = null;
         }
@@ -163,6 +169,16 @@ namespace FDXS
             {
                 e.Cancel = true;
                 MessageBox.Show("销售记录已经上报，不允许删除");
+                return;
+            }
+
+            //检查是否会导致库存数量为负，因为有可能删除的是退货记录，销售数量为负数
+            VKucun kc = db.GetKucunByTiaomaId(x.tiaomaid);
+            if (kc.shuliang - x.shuliang < 0)
+            {
+                e.Cancel = true;
+                MessageBox.Show("删除后会导致库存数量为负数");
+                return;
             }
         }
 
