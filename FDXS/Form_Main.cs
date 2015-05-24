@@ -282,5 +282,17 @@ namespace FDXS
                 fm.Activate();
             }
         }
+
+        /// <summary>
+        /// 重置扫描枪
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_czsmq_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ScanName = "";
+            Settings.Default.Save();
+            MessageBox.Show("重置完毕，请关闭程序然后再次打开，校准新的扫描枪");
+        }
     }
 }

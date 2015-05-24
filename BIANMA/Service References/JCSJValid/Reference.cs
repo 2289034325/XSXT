@@ -22,10 +22,16 @@ namespace BIANMA.JCSJValid {
         System.Threading.Tasks.Task BMZHZhuceAsync(string dlm, string mm, string xm, string tzm, string zcm);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
-        Tool.DB.JCSJ.TUser CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
+        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
-        System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm);
+        System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/FDZHZhuce", ReplyAction="http://tempuri.org/IValidService/FDZHZhuceResponse")]
+        void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/FDZHZhuce", ReplyAction="http://tempuri.org/IValidService/FDZHZhuceResponse")]
+        System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/BMZHBangding", ReplyAction="http://tempuri.org/IValidService/BMZHBangdingResponse")]
         void BMZHBangding(string dlm, string mm, string tzm, string zcm);
@@ -69,12 +75,20 @@ namespace BIANMA.JCSJValid {
             return base.Channel.BMZHZhuceAsync(dlm, mm, xm, tzm, zcm);
         }
         
-        public Tool.DB.JCSJ.TUser CKZHZhuce(int ckid, string ckmc, string tzm, string zcm) {
-            return base.Channel.CKZHZhuce(ckid, ckmc, tzm, zcm);
+        public void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm) {
+            base.Channel.CKZHZhuce(ckid, ckmc, tzm, zcm);
         }
         
-        public System.Threading.Tasks.Task<Tool.DB.JCSJ.TUser> CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm) {
+        public System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm) {
             return base.Channel.CKZHZhuceAsync(ckid, ckmc, tzm, zcm);
+        }
+        
+        public void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm) {
+            base.Channel.FDZHZhuce(fdid, fdmc, tzm, zcm);
+        }
+        
+        public System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm) {
+            return base.Channel.FDZHZhuceAsync(fdid, fdmc, tzm, zcm);
         }
         
         public void BMZHBangding(string dlm, string mm, string tzm, string zcm) {

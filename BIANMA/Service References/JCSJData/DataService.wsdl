@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsp:Policy wsu:Id="WSHttpBinding_IDataService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -13,10 +13,10 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:17841/DataService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:17841/DataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:17841/DataService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Tool.DB.JCSJ" />
-      <xsd:import schemaLocation="http://localhost:17841/DataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost/JCSJWCF/DataService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost/JCSJWCF/DataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost/JCSJWCF/DataService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ" />
+      <xsd:import schemaLocation="http://localhost/JCSJWCF/DataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDataService_BMZHLogin_InputMessage">
@@ -24,6 +24,18 @@
   </wsdl:message>
   <wsdl:message name="IDataService_BMZHLogin_OutputMessage">
     <wsdl:part name="parameters" element="tns:BMZHLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CKZHLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:CKZHLogin" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CKZHLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CKZHLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_FDZHLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:FDZHLogin" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_FDZHLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FDZHLoginResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_BMZHEditPsw_InputMessage">
     <wsdl:part name="parameters" element="tns:BMZHEditPsw" />
@@ -127,10 +139,90 @@
   <wsdl:message name="IDataService_EditTiaoma_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditTiaomaResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByUpdTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByUpdTime" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByUpdTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByUpdTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByTiaomahaos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByTiaomahaos" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByTiaomahaos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByTiaomahaosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_HuiyuanZhuce_InputMessage">
+    <wsdl:part name="parameters" element="tns:HuiyuanZhuce" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_HuiyuanZhuce_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HuiyuanZhuceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanByShoujihao_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanByShoujihao" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanByShoujihao_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanByShoujihaoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanById" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_UpdateHuiyuan_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateHuiyuan" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_UpdateHuiyuan_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateHuiyuanResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanZhekous_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanZhekous" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetHuiyuanZhekous_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHuiyuanZhekousResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoXiaoshou_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoXiaoshou" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoXiaoshou_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoXiaoshouResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_FD_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucun_FD" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_FD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucun_FDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_FD_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo_FD" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_FD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo_FDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_CK_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucun_CK" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoKucun_CK_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoKucun_CKResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_CK_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo_CK" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_ShangbaoJinchuhuo_CK_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo_CKResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/BMZHLoginResponse" message="tns:IDataService_BMZHLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CKZHLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CKZHLogin" message="tns:IDataService_CKZHLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/CKZHLoginResponse" message="tns:IDataService_CKZHLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="FDZHLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/FDZHLogin" message="tns:IDataService_FDZHLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/FDZHLoginResponse" message="tns:IDataService_FDZHLogin_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="BMZHEditPsw">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHEditPsw" message="tns:IDataService_BMZHEditPsw_InputMessage" />
@@ -200,12 +292,78 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/EditTiaoma" message="tns:IDataService_EditTiaoma_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/EditTiaomaResponse" message="tns:IDataService_EditTiaoma_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetTiaomasByUpdTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime" message="tns:IDataService_GetTiaomasByUpdTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse" message="tns:IDataService_GetTiaomasByUpdTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetTiaomasByTiaomahaos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos" message="tns:IDataService_GetTiaomasByTiaomahaos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse" message="tns:IDataService_GetTiaomasByTiaomahaos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="HuiyuanZhuce">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/HuiyuanZhuce" message="tns:IDataService_HuiyuanZhuce_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/HuiyuanZhuceResponse" message="tns:IDataService_HuiyuanZhuce_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetHuiyuanByShoujihao">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanByShoujihao" message="tns:IDataService_GetHuiyuanByShoujihao_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanByShoujihaoResponse" message="tns:IDataService_GetHuiyuanByShoujihao_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetHuiyuanById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanById" message="tns:IDataService_GetHuiyuanById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanByIdResponse" message="tns:IDataService_GetHuiyuanById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="UpdateHuiyuan">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/UpdateHuiyuan" message="tns:IDataService_UpdateHuiyuan_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/UpdateHuiyuanResponse" message="tns:IDataService_UpdateHuiyuan_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetHuiyuanZhekous">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanZhekous" message="tns:IDataService_GetHuiyuanZhekous_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetHuiyuanZhekousResponse" message="tns:IDataService_GetHuiyuanZhekous_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoXiaoshou">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoXiaoshou" message="tns:IDataService_ShangbaoXiaoshou_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoXiaoshouResponse" message="tns:IDataService_ShangbaoXiaoshou_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoKucun_FD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucun_FD" message="tns:IDataService_ShangbaoKucun_FD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucun_FDResponse" message="tns:IDataService_ShangbaoKucun_FD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoJinchuhuo_FD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FD" message="tns:IDataService_ShangbaoJinchuhuo_FD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FDResponse" message="tns:IDataService_ShangbaoJinchuhuo_FD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoKucun_CK">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucun_CK" message="tns:IDataService_ShangbaoKucun_CK_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoKucun_CKResponse" message="tns:IDataService_ShangbaoKucun_CK_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoJinchuhuo_CK">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK" message="tns:IDataService_ShangbaoJinchuhuo_CK_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CKResponse" message="tns:IDataService_ShangbaoJinchuhuo_CK_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
     <wsp:PolicyReference URI="#WSHttpBinding_IDataService_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="BMZHLogin">
       <soap12:operation soapAction="http://tempuri.org/IDataService/BMZHLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CKZHLogin">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CKZHLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FDZHLogin">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/FDZHLogin" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -366,12 +524,120 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByUpdTime">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByUpdTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByTiaomahaos">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HuiyuanZhuce">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/HuiyuanZhuce" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanByShoujihao">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanByShoujihao" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanById">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHuiyuan">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/UpdateHuiyuan" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanZhekous">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanZhekous" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoXiaoshou">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoXiaoshou" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoKucun_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoKucun_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoJinchuhuo_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoKucun_CK">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoKucun_CK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoJinchuhuo_CK">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="DataService">
     <wsdl:port name="WSHttpBinding_IDataService" binding="tns:WSHttpBinding_IDataService">
-      <soap12:address location="http://localhost:17841/DataService.svc/DataService" />
+      <soap12:address location="http://localhost/JCSJWCF/DataService.svc/DataService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:17841/DataService.svc/DataService</wsa10:Address>
+        <wsa10:Address>http://localhost/JCSJWCF/DataService.svc/DataService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

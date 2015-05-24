@@ -32,7 +32,7 @@
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtzc = new System.Windows.Forms.ToolStripMenuItem();
             this.设置默认折扣ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重置扫描枪ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_czsmq = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_jch = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +69,7 @@
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mn_main_xtzc,
             this.设置默认折扣ToolStripMenuItem,
-            this.重置扫描枪ToolStripMenuItem});
+            this.mn_main_czsmq});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -77,21 +77,22 @@
             // mn_main_xtzc
             // 
             this.mn_main_xtzc.Name = "mn_main_xtzc";
-            this.mn_main_xtzc.Size = new System.Drawing.Size(148, 22);
+            this.mn_main_xtzc.Size = new System.Drawing.Size(152, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_xtzc_Click);
             // 
             // 设置默认折扣ToolStripMenuItem
             // 
             this.设置默认折扣ToolStripMenuItem.Name = "设置默认折扣ToolStripMenuItem";
-            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.设置默认折扣ToolStripMenuItem.Text = "设置默认折扣";
             // 
-            // 重置扫描枪ToolStripMenuItem
+            // mn_main_czsmq
             // 
-            this.重置扫描枪ToolStripMenuItem.Name = "重置扫描枪ToolStripMenuItem";
-            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.重置扫描枪ToolStripMenuItem.Text = "重置扫描枪";
+            this.mn_main_czsmq.Name = "mn_main_czsmq";
+            this.mn_main_czsmq.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_czsmq.Text = "重置扫描枪";
+            this.mn_main_czsmq.Click += new System.EventHandler(this.mn_main_czsmq_Click);
             // 
             // mn_main_jch
             // 
@@ -188,7 +189,7 @@
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xtzc;
         private System.Windows.Forms.ToolStripMenuItem 设置默认折扣ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重置扫描枪ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_czsmq;
         private System.Windows.Forms.ToolStripMenuItem mn_main_jch;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcgl;

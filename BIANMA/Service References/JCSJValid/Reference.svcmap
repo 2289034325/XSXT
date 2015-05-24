@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="54f51b0d-e578-4ac7-af15-99df88861ac7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="08796290-ac43-4e6d-9045-5e6a98e559ff" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,14 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:17841/ValidService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/JCSJWCF/ValidService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ValidService.xsd" MetadataType="Schema" ID="975aa810-b7dd-4e9a-a964-b1a01a98f7b8" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ValidService2.xsd" MetadataType="Schema" ID="fd344975-c03f-46d1-ab6a-95a27cf559cd" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ValidService1.xsd" MetadataType="Schema" ID="f98ed5fc-42f8-4a47-bb15-fb4e407bab39" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ValidService.disco" MetadataType="Disco" ID="7baeaa3c-96a6-4b8a-9f1c-0f06ed1caa26" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?disco" />
-    <MetadataFile FileName="ValidService.wsdl" MetadataType="Wsdl" ID="53a39b7e-d7dd-47eb-8499-29f80bc1e95c" SourceId="1" SourceUrl="http://localhost:17841/ValidService.svc?wsdl" />
+    <MetadataFile FileName="ValidService.disco" MetadataType="Disco" ID="1b6fcbfb-fa64-4d9f-be9b-bc9ff67e43b5" SourceId="1" SourceUrl="http://localhost/JCSJWCF/ValidService.svc?disco" />
+    <MetadataFile FileName="ValidService.wsdl" MetadataType="Wsdl" ID="64675efc-8a2f-4e60-ac29-46623cffdfc7" SourceId="1" SourceUrl="http://localhost/JCSJWCF/ValidService.svc?wsdl" />
+    <MetadataFile FileName="ValidService.xsd" MetadataType="Schema" ID="c0b07b7a-c8c2-48d2-a421-9943c3639b1c" SourceId="1" SourceUrl="http://localhost/JCSJWCF/ValidService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ValidService1.xsd" MetadataType="Schema" ID="0c3afe1c-f07a-48eb-8254-cd385d23fdb2" SourceId="1" SourceUrl="http://localhost/JCSJWCF/ValidService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

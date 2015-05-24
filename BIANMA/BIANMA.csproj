@@ -161,6 +161,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\DB_JCSJ.TGongyingshang.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.THuiyuan.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.THuiyuanZK.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.TKuanhao.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.TTiaoma.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.TUser.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TKuanhao.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TTiaoma.datasource" />
@@ -194,9 +200,6 @@
     <None Include="Service References\JCSJValid\ValidService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJValid\ValidService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -205,6 +208,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DB_JCSJ\DB_JCSJ.csproj">
+      <Project>{37d3328a-3f55-41e6-93f2-9f03ec17afec}</Project>
+      <Name>DB_JCSJ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>
@@ -213,21 +220,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\JCSJData\" />
     <WCFMetadataStorage Include="Service References\JCSJValid\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\DataService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\JCSJValid\ValidService.disco" />
@@ -240,6 +232,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\JCSJValid\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\DataService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

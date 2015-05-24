@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_FD", "DB_FD\DB_FD.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKGL", "CKGL\CKGL.csproj", "{45798A63-AF32-43A9-8EEC-16AF4C271878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIANMA", "BIANMA\BIANMA.csproj", "{359232C3-26C9-45D1-89AD-EA906F977213}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28DEAFAF-7E89-412F-B4C3-E1B38174DC77} = {28DEAFAF-7E89-412F-B4C3-E1B38174DC77}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +128,14 @@ Global
 		{45798A63-AF32-43A9-8EEC-16AF4C271878}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45798A63-AF32-43A9-8EEC-16AF4C271878}.Release|x64.ActiveCfg = Release|Any CPU
 		{45798A63-AF32-43A9-8EEC-16AF4C271878}.Release|x86.ActiveCfg = Release|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|x64.ActiveCfg = Release|Any CPU
+		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

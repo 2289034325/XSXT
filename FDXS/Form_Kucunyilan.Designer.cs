@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btn_sbkc = new System.Windows.Forms.Button();
             this.cmb_leixing = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btn_sch = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_sbkc = new System.Windows.Forms.Button();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kc)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +66,16 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1013, 32);
             this.panel6.TabIndex = 8;
+            // 
+            // btn_sbkc
+            // 
+            this.btn_sbkc.Location = new System.Drawing.Point(498, 3);
+            this.btn_sbkc.Name = "btn_sbkc";
+            this.btn_sbkc.Size = new System.Drawing.Size(75, 23);
+            this.btn_sbkc.TabIndex = 12;
+            this.btn_sbkc.Text = "上报库存";
+            this.btn_sbkc.UseVisualStyleBackColor = true;
+            this.btn_sbkc.Click += new System.EventHandler(this.btn_sbkc_Click);
             // 
             // cmb_leixing
             // 
@@ -131,6 +141,7 @@
             // 
             this.grid_kc.AllowUserToAddRows = false;
             this.grid_kc.AllowUserToDeleteRows = false;
+            this.grid_kc.AllowUserToResizeRows = false;
             this.grid_kc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tm,
@@ -204,16 +215,6 @@
             this.col_sl.HeaderText = "数量";
             this.col_sl.Name = "col_sl";
             this.col_sl.ReadOnly = true;
-            // 
-            // btn_sbkc
-            // 
-            this.btn_sbkc.Location = new System.Drawing.Point(498, 3);
-            this.btn_sbkc.Name = "btn_sbkc";
-            this.btn_sbkc.Size = new System.Drawing.Size(75, 23);
-            this.btn_sbkc.TabIndex = 12;
-            this.btn_sbkc.Text = "上报库存";
-            this.btn_sbkc.UseVisualStyleBackColor = true;
-            this.btn_sbkc.Click += new System.EventHandler(this.btn_sbkc_Click);
             // 
             // Form_KucunYilan
             // 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace FDXS
         private TUser _user;
         //开单对话框
         private Dlg_xiaoshou _dlgKaidan;
+        //开单数据
+        private List<TXiaoshou> _XSS;
 
         /// <summary>
         /// 基础数据WCF服务
@@ -30,6 +33,7 @@ namespace FDXS
             _dlgKaidan = null;
             _user = user;
             _jdc = null;
+            _XSS = null;
         }
 
         /// <summary>
@@ -76,6 +80,82 @@ namespace FDXS
                 decimal zj = decimal.Round(xss.Sum(r => r.danjia * r.shuliang * r.zhekou / 10 - r.moliing), 0);
                 db.UpdateHuiyuanJF(hy.id, zj);
             }
+
+            _XSS = xss;
+
+            //打印小票
+            xiaopiao();
+        }
+
+        private void xiaopiao()
+        {
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += new PrintPageEventHandler(this.printDocument_PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+
+            try
+            {
+                printDocument.Print();
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(excep.Message, "打印出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                printDocument.PrintController.OnEndPrint(printDocument, new PrintEventArgs());
+            }
+        }
+        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Graphics printG = e.Graphics; //获得绘图对象 
+            Font printFont = new System.Drawing.Font("宋体", 9);
+            float yPosition = 0;
+            float leftMargin = 0;
+            float cH = printFont.GetHeight(printG);
+            SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
+
+            printG.DrawString("      ", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("   Miss名店", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            yPosition += cH;
+            printG.DrawString("**********欢迎光临**********", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("品名", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString("数量", printFont, myBrush, leftMargin + 80, yPosition, new StringFormat());
+            printG.DrawString("单价", printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
+            printG.DrawString("金额", printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
+            yPosition += cH;
+            foreach (TXiaoshou x in _XSS)
+            {
+                string tiaoma = x.TTiaoma.tiaoma;
+                string pinming = x.TTiaoma.pinming;
+                short shuliang = x.shuliang;
+                decimal danjia = x.danjia;
+                decimal jine = decimal.Round(x.danjia * x.shuliang * x.zhekou / 10 - x.moliing, 2);
+                printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
+                printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
+                printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
+                printG.DrawString(jine.ToString(), printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
+                yPosition += cH;
+                printG.DrawString(pinming, printFont, myBrush, leftMargin, yPosition, new StringFormat());
+                yPosition += cH;
+            }
+            printG.DrawString("_______________________________", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("小计", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("优惠", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moliing).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * x.zhekou / 10 - x.moliing).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("交易时间", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), printFont, myBrush, leftMargin + 65, yPosition, new StringFormat());
+
+            e.HasMorePages = false;
         }
 
         /// <summary>

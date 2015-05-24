@@ -307,10 +307,10 @@ namespace FDXS
                     Tool.FD.DBCONSTS.JCH_FX fx = (Tool.FD.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_FX), sfx);
                     if (fx == Tool.FD.DBCONSTS.JCH_FX.进)
                     {
-                        if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部)
+                        if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部 && lyfx != Tool.FD.DBCONSTS.JCH_LYQX.新货)
                         {
                             e.Cancel = true;
-                            MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]");
+                            MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]或[" + DBCONSTS.JCH_LYQX.新货.ToString() + "]");
                         }
                     }
                     else

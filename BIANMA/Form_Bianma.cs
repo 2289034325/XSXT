@@ -1,15 +1,17 @@
 ﻿using BIANMA.Properties;
+using DB_JCSJ;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Tool.DB.JCSJ;
+using Tool.JCSJ;
 
 namespace BIANMA
 {
@@ -1633,9 +1635,9 @@ namespace BIANMA
         private void mni_jssj_Click(object sender, EventArgs e)
         {
             decimal x;
-            if(!decimal.TryParse(txb_sjxs.Text.Trim(),out x))
+            if (!decimal.TryParse(txb_sjxs.Text.Trim(), out x))
             {
-                MessageBox.Show("系数必须是整数");
+                MessageBox.Show("系数必须是数字");
                 return;
             }
 
@@ -1647,9 +1649,9 @@ namespace BIANMA
                     if (tex.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
                     {
                         decimal sj = tex.tiaoma.jinjia * x;
-                        tex.tiaoma.shoujia = (((int)decimal.Truncate(sj)) / 10) * 10 + 9;
+                        tex.tiaoma.shoujia = sj;
                     }
-                }               
+                }
             }
 
             refreshTiaoma();
@@ -1662,8 +1664,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_saveLoacal_Click(object sender, EventArgs e)
         {
-            localSave();
-           
+            localSave();           
         }
 
         /// <summary>
@@ -1722,6 +1723,55 @@ namespace BIANMA
             if (e.Control && e.KeyCode == Keys.S)
             {
                 localSave();
+            }
+        }
+
+        /// <summary>
+        /// 导出成标签打印需要的格式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_dyexcel_Click(object sender, EventArgs e)
+        {
+            string bq = "";
+            //表头
+            bq += "序号,条码,款号,品名,颜色,尺码,售价\r\n";
+            int i = 1;
+            foreach (DataGridViewRow dr in grid_kuanhao.Rows)
+            {
+                TKuanhaoExtend kex = (TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value;
+                List<TTiaomaExtend> tms = kex.tms;
+                if (tms.Count == 0)
+                {
+                    continue;
+                }
+                foreach (TTiaomaExtend tex in tms)
+                {
+                    int sl = tex.shuliang;
+                    if (sl == 0)
+                    {
+                        break;
+                    }
+                    while ( sl != 0)
+                    {
+                        bq += i + ",";
+                        bq += tex.tiaoma.tiaoma + ",";
+                        bq += kex.kuanhao.kuanhao + ",";
+                        bq += kex.kuanhao.pinming + ",";
+                        bq += tex.tiaoma.yanse + ",";
+                        bq += tex.tiaoma.chima + ",";
+                        bq += tex.tiaoma.shoujia + "\r\n";
+
+                        sl--;
+                    }
+                    i++;
+                }
+            }
+
+            SaveFileDialog sdlg = new SaveFileDialog();
+            if (sdlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                File.WriteAllText(sdlg.FileName, bq, Encoding.Default);
             }
         }
     }

@@ -52,6 +52,9 @@
             this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addjkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addsm = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算售价ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txb_sjxs = new System.Windows.Forms.ToolStripTextBox();
+            this.mni_jssj = new System.Windows.Forms.ToolStripMenuItem();
             this.生成款号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_sckh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jckh = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +62,8 @@
             this.mni_sctm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jctm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_qingkong = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveServer = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,11 +101,9 @@
             this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
-            this.计算售价ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txb_sjxs = new System.Windows.Forms.ToolStripTextBox();
-            this.mni_jssj = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -240,7 +243,8 @@
             this.生成条码ToolStripMenuItem,
             this.mni_jiazai,
             this.mni_qingkong,
-            this.保存ToolStripMenuItem});
+            this.保存ToolStripMenuItem,
+            this.导出ToolStripMenuItem});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
             this.mn_main.Name = "mn_main";
             this.mn_main.Size = new System.Drawing.Size(1170, 25);
@@ -310,6 +314,27 @@
             this.mni_addsm.Text = "新增色码";
             this.mni_addsm.Click += new System.EventHandler(this.mni_addsm_Click);
             // 
+            // 计算售价ToolStripMenuItem
+            // 
+            this.计算售价ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txb_sjxs,
+            this.mni_jssj});
+            this.计算售价ToolStripMenuItem.Name = "计算售价ToolStripMenuItem";
+            this.计算售价ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.计算售价ToolStripMenuItem.Text = "计算售价";
+            // 
+            // txb_sjxs
+            // 
+            this.txb_sjxs.Name = "txb_sjxs";
+            this.txb_sjxs.Size = new System.Drawing.Size(100, 23);
+            // 
+            // mni_jssj
+            // 
+            this.mni_jssj.Name = "mni_jssj";
+            this.mni_jssj.Size = new System.Drawing.Size(160, 22);
+            this.mni_jssj.Text = "计算";
+            this.mni_jssj.Click += new System.EventHandler(this.mni_jssj_Click);
+            // 
             // 生成款号ToolStripMenuItem
             // 
             this.生成款号ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -322,14 +347,14 @@
             // mni_sckh
             // 
             this.mni_sckh.Name = "mni_sckh";
-            this.mni_sckh.Size = new System.Drawing.Size(152, 22);
+            this.mni_sckh.Size = new System.Drawing.Size(124, 22);
             this.mni_sckh.Text = "生成款号";
             this.mni_sckh.Click += new System.EventHandler(this.mni_sckh_Click);
             // 
             // mni_jckh
             // 
             this.mni_jckh.Name = "mni_jckh";
-            this.mni_jckh.Size = new System.Drawing.Size(152, 22);
+            this.mni_jckh.Size = new System.Drawing.Size(124, 22);
             this.mni_jckh.Text = "检查款号";
             this.mni_jckh.Click += new System.EventHandler(this.mni_jckh_Click);
             // 
@@ -365,6 +390,20 @@
             this.mni_jiazai.Size = new System.Drawing.Size(92, 21);
             this.mni_jiazai.Text = "加载条码信息";
             // 
+            // mni_jiazai_fuwuqi
+            // 
+            this.mni_jiazai_fuwuqi.Name = "mni_jiazai_fuwuqi";
+            this.mni_jiazai_fuwuqi.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_fuwuqi.Text = "从服务器加载";
+            this.mni_jiazai_fuwuqi.Click += new System.EventHandler(this.mni_jiazai_Click);
+            // 
+            // mni_jiazai_bendi
+            // 
+            this.mni_jiazai_bendi.Name = "mni_jiazai_bendi";
+            this.mni_jiazai_bendi.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_bendi.Text = "从本地XML加载";
+            this.mni_jiazai_bendi.Click += new System.EventHandler(this.mni_jiazai_bendi_Click);
+            // 
             // mni_qingkong
             // 
             this.mni_qingkong.Name = "mni_qingkong";
@@ -383,14 +422,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -689,40 +728,27 @@
             this.cmn_tm_xg.Text = "保存修改";
             this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
             // 
-            // 计算售价ToolStripMenuItem
+            // 导出ToolStripMenuItem
             // 
-            this.计算售价ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txb_sjxs,
-            this.mni_jssj});
-            this.计算售价ToolStripMenuItem.Name = "计算售价ToolStripMenuItem";
-            this.计算售价ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.计算售价ToolStripMenuItem.Text = "计算售价";
+            this.导出ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_bqdy,
+            this.mni_fddr});
+            this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
+            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.导出ToolStripMenuItem.Text = "导出";
             // 
-            // txb_sjxs
+            // mni_bqdy
             // 
-            this.txb_sjxs.Name = "txb_sjxs";
-            this.txb_sjxs.Size = new System.Drawing.Size(100, 23);
+            this.mni_bqdy.Name = "mni_bqdy";
+            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
+            this.mni_bqdy.Text = "标签打印";
+            this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
-            // mni_jssj
+            // mni_fddr
             // 
-            this.mni_jssj.Name = "mni_jssj";
-            this.mni_jssj.Size = new System.Drawing.Size(160, 22);
-            this.mni_jssj.Text = "计算";
-            this.mni_jssj.Click += new System.EventHandler(this.mni_jssj_Click);
-            // 
-            // mni_jiazai_fuwuqi
-            // 
-            this.mni_jiazai_fuwuqi.Name = "mni_jiazai_fuwuqi";
-            this.mni_jiazai_fuwuqi.Size = new System.Drawing.Size(162, 22);
-            this.mni_jiazai_fuwuqi.Text = "从服务器加载";
-            this.mni_jiazai_fuwuqi.Click += new System.EventHandler(this.mni_jiazai_Click);
-            // 
-            // mni_jiazai_bendi
-            // 
-            this.mni_jiazai_bendi.Name = "mni_jiazai_bendi";
-            this.mni_jiazai_bendi.Size = new System.Drawing.Size(162, 22);
-            this.mni_jiazai_bendi.Text = "从本地XML加载";
-            this.mni_jiazai_bendi.Click += new System.EventHandler(this.mni_jiazai_bendi_Click);
+            this.mni_fddr.Name = "mni_fddr";
+            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
+            this.mni_fddr.Text = "分店导入";
             // 
             // Form_Bianma
             // 
@@ -832,6 +858,9 @@
         private System.Windows.Forms.ToolStripMenuItem mni_jssj;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_fuwuqi;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_bendi;
+        private System.Windows.Forms.ToolStripMenuItem 导出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mni_bqdy;
+        private System.Windows.Forms.ToolStripMenuItem mni_fddr;
     }
 }
 

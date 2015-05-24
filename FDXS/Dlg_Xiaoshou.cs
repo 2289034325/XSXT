@@ -23,6 +23,7 @@ namespace FDXS
         private TUser _user;
         public THuiyuan Huiyuan;
         private decimal _huiyuanZK;
+        private bool _mlAuto;
 
         /// <summary>
         /// 基础数据WCF服务
@@ -38,6 +39,7 @@ namespace FDXS
             Huiyuan = null;
             _huiyuanZK = 10;
             _jdc = null;
+            _mlAuto = true;
         }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace FDXS
             if (existsTM(tm,out index))
             {
                 //在原有的行上数量加1
-                short sl = (short)grid_kaidan.Rows[index].Cells[col_sl.Name].Value;
+                short sl = short.Parse(grid_kaidan.Rows[index].Cells[col_sl.Name].Value.ToString());
                 grid_kaidan.Rows[index].Cells[col_sl.Name].Value = (short)(sl + 1);
             }
             else
@@ -217,20 +219,22 @@ namespace FDXS
                 decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
                 short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
                 decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-                decimal moling = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
 
-                zj += decimal.Round(danjia * shuliang * zhekou / 10 - moling, 2);
+                zj += decimal.Round(danjia * shuliang * zhekou / 10, 2);
             }
 
-            lbl_zongjia.Text = zj.ToString();
-
+            //小数抹零
+            decimal ml = 0;
             if (grid_kaidan.Rows.Count > 0)
             {
                 //将小数零头在第一行抹去
-                decimal ml = decimal.Parse(grid_kaidan.Rows[0].Cells[col_ml.Name].Value.ToString());
-                ml = decimal.Truncate(ml) + (zj + ml - decimal.Truncate(zj + ml));
+                ml = decimal.Parse(grid_kaidan.Rows[0].Cells[col_ml.Name].Value.ToString());
+                ml = decimal.Truncate(ml) + (zj - decimal.Truncate(zj));
+                _mlAuto = true;
                 grid_kaidan.Rows[0].Cells[col_ml.Name].Value = ml;
             }
+
+            lbl_zongjia.Text = (zj - ml).ToString();
         }
 
         /// <summary>
@@ -254,7 +258,12 @@ namespace FDXS
 
             grid_kaidan.Rows[e.RowIndex].Cells[col_yingshou.Name].Value = jiage;
 
-            //刷新总价
+            //自动抹零不需要刷新总价
+            if (e.ColumnIndex == col_ml.Index && _mlAuto == true)
+            {
+                return;
+            }
+
             refreshZongjia();
         }
 
@@ -264,17 +273,6 @@ namespace FDXS
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_hdzk_Click(object sender, EventArgs e)
-        {
-            //刷新总价
-            refreshZongjia();
-        }
-
-        /// <summary>
-        /// 总价个位数抹零
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_gwml_Click(object sender, EventArgs e)
         {
             //刷新总价
             refreshZongjia();
@@ -313,6 +311,7 @@ namespace FDXS
                 decimal ml = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
                 string bz = dr.Cells[col_zk.Name].Value.ToString();
                 string pm = dr.Cells[col_pm.Name].Value.ToString();
+                decimal yingshou = decimal.Parse(dr.Cells[col_yingshou.Name].Value.ToString());
 
                 if (sl == 0)
                 {
@@ -323,6 +322,12 @@ namespace FDXS
                 if (ml != 0 && dr.Index != 0)
                 {
                     MessageBox.Show("只允许在第一行抹零");
+                    return;
+                }
+
+                if (yingshou < 0)
+                {
+                    MessageBox.Show(pm + "应收金额不应当小于0");
                     return;
                 }
 
@@ -549,6 +554,126 @@ namespace FDXS
         {
             Form_JifenZhekou jf = new Form_JifenZhekou(_user);
             jf.ShowDialog();
+        }
+
+        /// <summary>
+        /// 个位抹零
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chk_gwml_CheckedChanged(object sender, EventArgs e)
+        {
+            //手动抹零
+            _mlAuto = false;
+
+            if (grid_kaidan.Rows.Count == 0)
+            {
+                return;
+            }
+            //计算总价的个位数
+            decimal zj = 0;
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
+                short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
+                decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
+
+                zj += decimal.Round(danjia * shuliang * zhekou / 10, 2);
+            }
+            decimal gw = decimal.Truncate(zj % 10);
+            decimal ml = decimal.Parse(grid_kaidan.Rows[0].Cells[col_ml.Name].Value.ToString());
+            //抹零
+            if (chk_gwml.Checked)
+            {
+
+                ml = gw + ml - decimal.Truncate(ml);
+            }
+            //取消抹零
+            else
+            {
+                ml = ml - decimal.Truncate(ml);
+            }
+            grid_kaidan.Rows[0].Cells[col_ml.Name].Value = ml;
+
+            //刷新总价
+            refreshZongjia();
+        }
+
+        /// <summary>
+        /// 手动修改抹零时，留下标记
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_kaidan_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            //如果要手动抹零，就先要取消自动个位抹零按钮的按下状态
+            if (chk_gwml.Checked)
+            {
+                //除了备注，修改值的时候，先要取消抹零状态
+                if (e.ColumnIndex != col_bz.Index)
+                {
+                    MessageBox.Show("如果要手动输入数值，请先点击一下【个位抹零】按钮，取消自动抹零状态。");
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            if (e.ColumnIndex == col_ml.Index)
+            {
+                //只允许修改第一行的抹零值
+                if (e.RowIndex == 0)
+                {
+                    _mlAuto = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void btn_7z_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                dr.Cells[col_zk.Name].Value = 7;
+            }
+        }
+
+        private void btn_75z_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                dr.Cells[col_zk.Name].Value = 7.5;
+            }
+        }
+
+        private void btn_8z_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                dr.Cells[col_zk.Name].Value = 8;
+            }
+        }
+
+        private void btn_85z_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                dr.Cells[col_zk.Name].Value = 8.5;
+            }
+        }
+
+        private void btn_9z_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            {
+                dr.Cells[col_zk.Name].Value = 9;
+            }
         }
     }
 }
