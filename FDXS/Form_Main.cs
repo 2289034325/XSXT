@@ -15,16 +15,9 @@ namespace FDXS
 {
     public partial class Form_Main : Form
     {
-
-        /// <summary>
-        /// 当前登陆的用户
-        /// </summary>
-        private TUser _user;
-
         public Form_Main()
         {
             InitializeComponent();
-            _user = null;
 
             //校准扫描枪
             if (string.IsNullOrEmpty(Settings.Default.ScanName))
@@ -67,7 +60,7 @@ namespace FDXS
             Form_Jinchuhuo fm = (Form_Jinchuhuo)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Jinchuhuo)));
             if (fm == null)
             {
-                fm = new Form_Jinchuhuo(_user);
+                fm = new Form_Jinchuhuo();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -86,7 +79,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            _user = new TUser
+            LoginInfo.User = new TUser
             {
                 id = 1,
                 juese = 1,
@@ -95,14 +88,10 @@ namespace FDXS
             };
 
             //登陆检查
-            if (_user == null)
+            if (LoginInfo.User == null)
             {
                 Dlg_Denglu df = new Dlg_Denglu();
-                if (df.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    _user = df.User;
-                }
-                else
+                if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
                     this.Close();
                 }
@@ -174,7 +163,7 @@ namespace FDXS
             Form_KucunGuanli fm = (Form_KucunGuanli)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunGuanli)));
             if (fm == null)
             {
-                fm = new Form_KucunGuanli(_user);
+                fm = new Form_KucunGuanli();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -197,7 +186,7 @@ namespace FDXS
             Form_Xiaoshou fm = (Form_Xiaoshou)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Xiaoshou)));
             if (fm == null)
             {
-                fm = new Form_Xiaoshou(_user);
+                fm = new Form_Xiaoshou();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -219,7 +208,7 @@ namespace FDXS
             Form_Huiyuan fm = (Form_Huiyuan)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Huiyuan)));
             if (fm == null)
             {
-                fm = new Form_Huiyuan(_user);
+                fm = new Form_Huiyuan();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -241,7 +230,7 @@ namespace FDXS
             Form_JifenZhekou fm = (Form_JifenZhekou)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_JifenZhekou)));
             if (fm == null)
             {
-                fm = new Form_JifenZhekou(_user);
+                fm = new Form_JifenZhekou();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -261,8 +250,8 @@ namespace FDXS
         private void mn_main_xtyh_Click(object sender, EventArgs e)
         {
             //店长和系统管理员才有权限
-            if (!(_user.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 ||
-                _user.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员))
+            if (!(LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 ||
+                LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员))
             {
                 MessageBox.Show("没有权限");
                 return;
@@ -271,7 +260,7 @@ namespace FDXS
             Form_User fm = (Form_User)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_User)));
             if (fm == null)
             {
-                fm = new Form_User(_user);
+                fm = new Form_User();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();

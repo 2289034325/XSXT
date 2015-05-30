@@ -9,10 +9,10 @@
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="TMDAYL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="TMQIANZHUI" Type="System.String" Scope="User">
-      <Value Profile="(Default)">100</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="DUMPFILENAME" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data.xml</Value>

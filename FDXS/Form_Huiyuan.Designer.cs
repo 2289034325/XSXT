@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel6 = new System.Windows.Forms.Panel();
             this.btn_sch = new System.Windows.Forms.Button();
-            this.txb_tiaoma = new System.Windows.Forms.TextBox();
+            this.txb_sjh = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.grid_hy = new System.Windows.Forms.DataGridView();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,7 +52,7 @@
             // panel6
             // 
             this.panel6.Controls.Add(this.btn_sch);
-            this.panel6.Controls.Add(this.txb_tiaoma);
+            this.panel6.Controls.Add(this.txb_sjh);
             this.panel6.Controls.Add(this.label17);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
@@ -70,12 +70,12 @@
             this.btn_sch.UseVisualStyleBackColor = true;
             this.btn_sch.Click += new System.EventHandler(this.btn_sch_Click);
             // 
-            // txb_tiaoma
+            // txb_sjh
             // 
-            this.txb_tiaoma.Location = new System.Drawing.Point(52, 5);
-            this.txb_tiaoma.Name = "txb_tiaoma";
-            this.txb_tiaoma.Size = new System.Drawing.Size(135, 21);
-            this.txb_tiaoma.TabIndex = 3;
+            this.txb_sjh.Location = new System.Drawing.Point(52, 5);
+            this.txb_sjh.Name = "txb_sjh";
+            this.txb_sjh.Size = new System.Drawing.Size(135, 21);
+            this.txb_sjh.TabIndex = 3;
             // 
             // label17
             // 
@@ -156,19 +156,19 @@
             this.cmn_hy_update,
             this.cmn_hy_edit});
             this.cmn_hy.Name = "cmn_hy";
-            this.cmn_hy.Size = new System.Drawing.Size(153, 70);
+            this.cmn_hy.Size = new System.Drawing.Size(101, 48);
             // 
             // cmn_hy_update
             // 
             this.cmn_hy_update.Name = "cmn_hy_update";
-            this.cmn_hy_update.Size = new System.Drawing.Size(152, 22);
+            this.cmn_hy_update.Size = new System.Drawing.Size(100, 22);
             this.cmn_hy_update.Text = "更新";
             this.cmn_hy_update.Click += new System.EventHandler(this.cmn_hy_gxxx_Click);
             // 
             // cmn_hy_edit
             // 
             this.cmn_hy_edit.Name = "cmn_hy_edit";
-            this.cmn_hy_edit.Size = new System.Drawing.Size(152, 22);
+            this.cmn_hy_edit.Size = new System.Drawing.Size(100, 22);
             this.cmn_hy_edit.Text = "修改";
             this.cmn_hy_edit.Click += new System.EventHandler(this.cmn_hy_edit_Click);
             // 
@@ -194,7 +194,7 @@
 
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btn_sch;
-        private System.Windows.Forms.TextBox txb_tiaoma;
+        private System.Windows.Forms.TextBox txb_sjh;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DataGridView grid_hy;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;

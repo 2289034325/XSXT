@@ -42,8 +42,7 @@ namespace FDXS
 
             try
             {
-                JCSJValid.ValidServiceClient vc = new JCSJValid.ValidServiceClient();
-                vc.FDZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(jqm), zcm);
+                JCSJWCF.FDZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(jqm), zcm);
 
                 //把仓库ID，库名，写入本地配置文件
                 Settings.Default.FDID = ckid;
@@ -55,7 +54,8 @@ namespace FDXS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("注册失败\r\n"+ex.Message); 
+                MessageBox.Show("注册失败\r\n"+ex.Message);
+                return;
             }
         }
 

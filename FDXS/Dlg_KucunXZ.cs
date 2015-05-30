@@ -16,12 +16,10 @@ namespace FDXS
 {
     public partial class Dlg_KucunXZ : Form
     {
-        private TUser _user;
         public TKucunXZ XZ;
-        public Dlg_KucunXZ(TUser user)
+        public Dlg_KucunXZ()
         {
             InitializeComponent();
-            _user = user;
             XZ = new TKucunXZ();
         }
 
@@ -64,7 +62,7 @@ namespace FDXS
             {
                 tiaomaid = tm.id,
                 shuliang = sl,
-                caozuorenid = _user.id,
+                caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now
             });

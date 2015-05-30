@@ -14,11 +14,9 @@ namespace BIANMA
 {
     public partial class Dlg_XiugaiMima : Form
     {
-        private JCSJData.DataServiceClient _dc;
-        public Dlg_XiugaiMima(JCSJData.DataServiceClient dc)
+        public Dlg_XiugaiMima()
         {
             InitializeComponent();
-            _dc = dc;
         }
 
 
@@ -34,15 +32,16 @@ namespace BIANMA
 
             try
             {
-                _dc.BMZHEditPsw(Tool.CommonFunc.MD5_16(om), Tool.CommonFunc.MD5_16(nm));
-
-                MessageBox.Show("修改成功");
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                JCSJWCF.BMZHEditPsw(om, nm);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); 
+                MessageBox.Show(ex.Message);
+                return;
             }
+
+            MessageBox.Show("修改成功");
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
 }

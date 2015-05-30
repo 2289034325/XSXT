@@ -15,15 +15,9 @@ namespace FDXS
 {
     public partial class Form_Tiaomaxinxi : MyForm
     {
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
         public Form_Tiaomaxinxi()
         {
             InitializeComponent();
-            _jdc = null;
         }
 
         /// <summary>
@@ -33,18 +27,18 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            //先登陆基础数据中心
+            JCSJData.TTiaoma[] jtms;
             try
             {
-                loginJCSJ();
-
-                JCSJData.TTiaoma[] jtms = _jdc.GetTiaomasByUpdTime();
-                saveToLocal(jtms);
+                jtms = JCSJWCF.GetTiaomasByUpdTime();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            saveToLocal(jtms);
         }
 
         /// <summary>
@@ -54,20 +48,23 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzdtm_Click(object sender, EventArgs e)
         {
-            try
+            Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
+            if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                loginJCSJ();
-                Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
-                if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                JCSJData.TTiaoma[] jtms;
+
+                try
                 {
-                    string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                    JCSJData.TTiaoma[] jtms = _jdc.GetTiaomasByTiaomahaos(tmhs);
-                    saveToLocal(jtms);
+                    jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
+                saveToLocal(jtms);
             }
         }
 
@@ -107,26 +104,6 @@ namespace FDXS
             nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
             db.UpdateTiaomas(uts);
             db.InsertTiaomas(nts);
-        }
-
-        /// <summary>
-        /// 登陆数据中心
-        /// </summary>
-        private void loginJCSJ()
-        {
-            if (_jdc == null)
-            {
-                _jdc = new JCSJData.DataServiceClient();
-                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-            }
-            else
-            {
-                if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
-                {
-                    _jdc = new JCSJData.DataServiceClient();
-                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-                }
-            }
         }
 
         /// <summary>

@@ -20,25 +20,17 @@ namespace FDXS
     {
         private string _startTM;
         public List<TXiaoshou> XSS;
-        private TUser _user;
         public THuiyuan Huiyuan;
         private decimal _huiyuanZK;
         private bool _mlAuto;
 
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
-        public Dlg_xiaoshou(string tm,TUser user)
+        public Dlg_xiaoshou(string tm)
         {
             InitializeComponent();
             _startTM = tm;
             XSS = new List<TXiaoshou>();
-            _user = user;
             Huiyuan = null;
             _huiyuanZK = 10;
-            _jdc = null;
             _mlAuto = true;
         }
 
@@ -146,7 +138,7 @@ namespace FDXS
                 Tool.CommonFunc.InitCombbox(cmb_xsy, xss, "yonghuming", "id");
             
             //默认为当前登陆的用户
-                cmb_xsy.SelectedValue = _user.id;
+                cmb_xsy.SelectedValue = LoginInfo.User.id;
 
             //如果是传入了条码的构造
             if (!string.IsNullOrEmpty(_startTM))
@@ -350,7 +342,7 @@ namespace FDXS
                     zhekou = zk,
                     moliing = ml,
                     beizhu = bz,
-                    caozuorenid = _user.id,
+                    caozuorenid = LoginInfo.User.id,
                     charushijian = DateTime.Now,
                     xiugaishijian = DateTime.Now,
                     shangbaoshijian = null
@@ -381,29 +373,37 @@ namespace FDXS
                 return;
             }
 
-            //先从本地查找
+
+            //先从数据中心查找会员信息
+            JCSJData.THuiyuan jh = null;
+            try
+            {
+                jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            
+            if (jh == null)
+            {
+                MessageBox.Show("会员不存在，请先注册");
+                return;
+            }
+
+            //在本地查找该会员信息，如果存在，更新其积分，如果不存在就添加该会员信息到本地
             DBContext db = new DBContext();
             THuiyuan h = db.GetHuiyuanByShoujihao(sjh);
             if (h == null)
             {
-                //本地没有，从基础数据服务查询
-                loginJCSJ();
-
-                JCSJData.THuiyuan jh = _jdc.GetHuiyuanByShoujihao(sjh);
-
-                if (jh == null)
+                h = new THuiyuan
                 {
-                    MessageBox.Show("会员不存在，请先注册");
-                    return;
-                }
-
-                h = new THuiyuan 
-                {
-                    id=jh.id,
+                    id = jh.id,
                     fendianid = jh.fendianid,
                     shoujihao = jh.shoujihao,
                     xingming = jh.xingming,
-                    xingbie =jh.xingbie,
+                    xingbie = jh.xingbie,
                     shengri = jh.shengri,
                     jifen = jh.jifen,
                     jfgxshijian = jh.jfjsshijian,
@@ -413,7 +413,12 @@ namespace FDXS
                 //保存到本地
                 db.InsertHuiyuan(h);
             }
-
+            else
+            {
+                db.UpdateHuiyuanJF(h.id, jh.jifen);
+                h.jifen = jh.jifen;
+            }
+           
             Huiyuan = h;
             //按照积分折扣表给该会员应有的折扣
             THuiyuanZK[] zks = db.GetHuiyuanZKs();
@@ -425,11 +430,11 @@ namespace FDXS
             lbl_hyzk.Text = hyzk.ToString();
 
             //在现有折扣基础上，乘以会员折扣
-            foreach (DataGridViewRow dr in grid_kaidan.Rows)
-            {
-                decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-                dr.Cells[col_zk.Name].Value = decimal.Round(zk * hyzk / 10, 2);
-            }
+            //foreach (DataGridViewRow dr in grid_kaidan.Rows)
+            //{
+            //    decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
+            //    dr.Cells[col_zk.Name].Value = decimal.Round(zk * hyzk / 10, 2);
+            //}
 
             //刷新总价
             refreshZongjia();
@@ -460,33 +465,18 @@ namespace FDXS
                 beizhu = ""
             };
 
-            //登陆数据中心
-            loginJCSJ();
-
-            //注册
-            _jdc.HuiyuanZhuce(h);
+            //注册会员
+            try
+            {
+                JCSJWCF.HuiyuanZhuce(h);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             txb_sjh_KeyDown(null, new KeyEventArgs(Keys.Enter));
-        }
-
-        /// <summary>
-        /// 登陆到基础数据服务系统
-        /// </summary>
-        private void loginJCSJ()
-        {
-            if (_jdc == null)
-            {
-                _jdc = new JCSJData.DataServiceClient();
-                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-            }
-            else
-            {
-                if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
-                {
-                    _jdc = new JCSJData.DataServiceClient();
-                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-                }
-            }
         }
 
         /// <summary>
@@ -552,7 +542,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void lbl_jfzk_Click(object sender, EventArgs e)
         {
-            Form_JifenZhekou jf = new Form_JifenZhekou(_user);
+            Form_JifenZhekou jf = new Form_JifenZhekou();
             jf.ShowDialog();
         }
 

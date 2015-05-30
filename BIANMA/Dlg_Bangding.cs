@@ -34,8 +34,7 @@ namespace BIANMA
 
             try
             {
-                JCSJValid.ValidServiceClient vc = new JCSJValid.ValidServiceClient();
-                vc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(tzm), zcm);
+                JCSJWCF.BMZHBangding(dlm, mm, zcm);
                 
                 MessageBox.Show("绑定成功");
             }

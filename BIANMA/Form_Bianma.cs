@@ -17,10 +17,6 @@ namespace BIANMA
 {
     public partial class Form_Bianma : Form
     {
-        private JCSJData.DataServiceClient _dc;
-
-        private TUser _u;
-
         private int _cid;
 
         //剪切或者复制的条码idex
@@ -37,8 +33,7 @@ namespace BIANMA
             _tiaomaOK = false;
             //从1开始发号
             _cid = 1;
-            _tmidex = 0;
-            _dc = new JCSJData.DataServiceClient();            
+            _tmidex = 0;        
         }
 
         /// <summary>
@@ -48,73 +43,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Bianma_Load(object sender, EventArgs e)
         {
-            try
-            {
-                _u = _dc.BMZHLogin("2", Tool.CommonFunc.MD5_16("2"), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 修改账号密码
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_xgmm_Click(object sender, EventArgs e)
-        {
-            if (checkLogin())
-            {             
-                Dlg_XiugaiMima dx = new Dlg_XiugaiMima(_dc);
-                dx.ShowDialog();
-            }
-        }
-
-        /// <summary>
-        /// 检查是否已登录
-        /// </summary>
-        /// <returns></returns>
-        private bool checkLogin()
-        {
-            if (_u == null)
-            {
-                MessageBox.Show("未登录");
-                return false;
-            }
-            else if (_dc.State != System.ServiceModel.CommunicationState.Opened)
-            {
-                _dc.Open();
-
-                MessageBox.Show("未登录");
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 注册账号
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_zhuce_Click(object sender, EventArgs e)
-        {
-            Dlg_Zhuce dz = new Dlg_Zhuce();
-            dz.ShowDialog();
-        }
-
-        /// <summary>
-        /// 账号绑定
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_zhbd_Click(object sender, EventArgs e)
-        {
-            Dlg_Bangding db = new Dlg_Bangding();
-            db.ShowDialog();
-        }
+        }       
 
         /// <summary>
         /// 加载所有该用户编辑的款号条码信息
@@ -123,8 +52,6 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_jiazai_Click(object sender, EventArgs e)
         {
-            if (checkLogin())
-            {
                 Dlg_Jiazai dj = new Dlg_Jiazai();
                 if (dj.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -134,21 +61,17 @@ namespace BIANMA
                     DateTime end = dj.dp_end.Value.Date;
                     TTiaoma[] ts = null;
                     TKuanhao[] ks = null;
+                    try
+                    {
+                        ts = JCSJWCF.GetTiaomas(LoginInfo.User.id, kuanhao, tiaoma, start, end);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
 
-                    ts = _dc.GetTiaomas(_u.id, kuanhao, tiaoma, start, end);
                     ks = ts.Select(r => r.TKuanhao).ToArray();
-
-                    //List<TTiaomaExtend> tsex = new List<TTiaomaExtend>();
-                    //foreach (TTiaoma t in ts)
-                    //{
-                    //    tsex.Add(new TTiaomaExtend 
-                    //    {
-                    //        idex = getClientId(),                            
-                    //        tiaoma = t,
-                    //        shuliang = 0,
-                    //        xj = XTCONSTS.TIAOMA_XINJIU.旧条码
-                    //    });
-                    //}
 
                     //显示款号
                     List<TKuanhaoExtend> khexs = new List<TKuanhaoExtend>();
@@ -173,7 +96,7 @@ namespace BIANMA
                     }
                     //刷新表格显示
                     refreshKuanhao();
-                }
+                
             }
         }
 
@@ -298,7 +221,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_gysxx_Click(object sender, EventArgs e)
         {
-            Dlg_Gongyingshang dg = new Dlg_Gongyingshang(_dc, _u);
+            Dlg_Gongyingshang dg = new Dlg_Gongyingshang();
             dg.ShowDialog();
         }
 
@@ -309,9 +232,6 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addkh_Click(object sender, EventArgs e)
         {
-            if (!checkLogin())
-            { return; }
-
             addKuanhao(new TKuanhaoExtend
             {
                 idex = getClientId(),
@@ -323,7 +243,7 @@ namespace BIANMA
                     leixing = (byte)DBCONSTS.KUANHAO_LX.衣服,
                     pinming = "",
                     beizhu = "",
-                    caozuorenid = _u.id
+                    caozuorenid = LoginInfo.User.id
                 },
                 tms = new List<TTiaomaExtend>()
             });
@@ -336,9 +256,6 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addjkh_Click(object sender, EventArgs e)
         {
-            if (!checkLogin())
-            { return; }
-
             addKuanhao(new TKuanhaoExtend
             {
                 idex = getClientId(),
@@ -350,7 +267,7 @@ namespace BIANMA
                     leixing = (byte)DBCONSTS.KUANHAO_LX.衣服,
                     pinming = "",
                     beizhu = "",
-                    caozuorenid = _u.id
+                    caozuorenid = LoginInfo.User.id
                 },
                 tms = new List<TTiaomaExtend>()
             });
@@ -382,29 +299,8 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_khxx_Click(object sender, EventArgs e)
         {
-            Dlg_Kuanhao dk = new Dlg_Kuanhao(_dc, _u);
+            Dlg_Kuanhao dk = new Dlg_Kuanhao();
             dk.ShowDialog();
-        }
-
-        /// <summary>
-        /// 登陆
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_login_Click(object sender, EventArgs e)
-        {
-            if (_u == null)
-            {
-                Dlg_Denglu dl = new Dlg_Denglu(_dc);
-                if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    _u = dl.User;
-                }
-            }
-            else
-            {
-                MessageBox.Show("已登录");
-            }
         }
         
         /// <summary>
@@ -563,7 +459,16 @@ namespace BIANMA
             }
 
             string kh = dr.Cells[col_kh_kh.Name].Value.ToString();
-            TTiaoma[] ts = _dc.GetTiaomasByKuanhaoMc(kh);
+            TTiaoma[] ts;
+            try
+            {
+                ts = JCSJWCF.GetTiaomasByKuanhaoMc(kh);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             TKuanhaoExtend kx = (TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value;
             List<TTiaomaExtend> txs = kx.tms;
@@ -636,7 +541,7 @@ namespace BIANMA
                 tx.xj = XTCONSTS.TIAOMA_XINJIU.新条码;
                 tx.idex = getClientId();
                 tx.tiaoma.tiaoma = "";
-                tx.tiaoma.caozuorenid = _u.id;
+                tx.tiaoma.caozuorenid = LoginInfo.User.id;
                 tx.tiaoma.charushijian = DateTime.Now;
                 tx.tiaoma.xiugaishijian = DateTime.Now;
             }
@@ -656,7 +561,7 @@ namespace BIANMA
                         chima = "",
                         jinjia = 0,
                         shoujia = 0,
-                        caozuorenid = _u.id,
+                        caozuorenid = LoginInfo.User.id,
                         charushijian = DateTime.Now,
                         xiugaishijian = DateTime.Now
                     },
@@ -887,7 +792,17 @@ namespace BIANMA
                     if (!string.IsNullOrEmpty(kh) && !string.IsNullOrWhiteSpace(kh))
                     {
                         ;
-                        TKuanhao k = _dc.GetKuanhaoByMc(kh);
+                        TKuanhao k;
+                        try
+                        {
+                            k = JCSJWCF.GetKuanhaoByMc(kh);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return;
+                        }
+
                         if (k == null)
                         {
                             _kuanhaoOK = false;
@@ -916,22 +831,6 @@ namespace BIANMA
             kex.kuanhao.xingbie = (byte)Enum.Parse(typeof(DBCONSTS.KUANHAO_XB), (string)grid_kuanhao[col_kh_xb.Name, e.RowIndex].Value);
             kex.kuanhao.leixing = (byte)Enum.Parse(typeof(DBCONSTS.KUANHAO_LX), (string)grid_kuanhao[col_kh_lx.Name, e.RowIndex].Value);
             kex.kuanhao.pinming = (string)grid_kuanhao[col_kh_pm.Name, e.RowIndex].Value;
-
-
-            //DataGridViewRow dr = grid_kuanhao.Rows[e.RowIndex];
-            //List<TTiaomaExtend> ts = (List<TTiaomaExtend>)dr.Cells[col_kh_tms.Name].Value;
-            ////新旧
-            //XTCONSTS.KUANHAO_XINJIU xj = (XTCONSTS.KUANHAO_XINJIU)Enum.Parse(typeof(XTCONSTS.KUANHAO_XINJIU),dr.Cells[col_kh_xj.Name].Value.ToString());
-            ////款号ID
-            ////int khid = (int)dr.Cells["col_kh_id"].Value;
-            ////款号
-            //string kh = (string)dr.Cells[col_kh_kh.Name].Value;
-            ////性别
-            //DBCONSTS.KUANHAO_XB xb = (DBCONSTS.KUANHAO_XB)Enum.Parse(typeof(DBCONSTS.KUANHAO_XB), dr.Cells[col_kh_xb.Name].Value.ToString());
-            ////类型
-            //DBCONSTS.KUANHAO_LX lx = (DBCONSTS.KUANHAO_LX)Enum.Parse(typeof(DBCONSTS.KUANHAO_LX), dr.Cells[col_kh_lx.Name].Value.ToString());
-            ////品名
-            //string pm = dr.Cells[col_kh_pm.Name].Value.ToString();
         }
 
         /// <summary>
@@ -1112,7 +1011,16 @@ namespace BIANMA
             //去服务器验证新款号
             if (nkhs.Count() > 0)
             {
-                string[] eKhs = _dc.CheckKuanhaosChongfu(nkhs.ToArray());
+                string[] eKhs;
+                try
+                {
+                    eKhs = JCSJWCF.CheckKuanhaosChongfu(nkhs.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
 
                 if (eKhs.Length != 0)
                 {
@@ -1210,7 +1118,17 @@ namespace BIANMA
 
             if (tms.Count > 0)
             {
-                string[] eTms = _dc.CheckTiaomaChongfu(tms.ToArray());
+                string[] eTms;
+                try
+                {
+                    eTms = JCSJWCF.CheckTiaomaChongfu(tms.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
                 refreshGridAll();
                 if (eTms.Length > 0)
                 {
@@ -1359,7 +1277,7 @@ namespace BIANMA
                     TKuanhao[] nks = null;
                     try
                     {
-                        nks = _dc.SaveKuanhaos(ks.ToArray());
+                        nks = JCSJWCF.SaveKuanhaos(ks.ToArray());
                     }
                     catch (Exception ex)
                     {
@@ -1367,6 +1285,7 @@ namespace BIANMA
                         MessageBox.Show("款号保存失败\r\n" + ex.Message);
                         return;
                     }
+
                     //用返回结果更新grid
                     foreach (DataGridViewRow dr in grid_kuanhao.Rows)
                     {
@@ -1415,7 +1334,7 @@ namespace BIANMA
                     TTiaoma[] nts = null;
                     try
                     {
-                        nts = _dc.SaveTiaomas(ts.ToArray());
+                        nts = JCSJWCF.SaveTiaomas(ts.ToArray());
                     }
                     catch (Exception ex)
                     {
@@ -1485,13 +1404,15 @@ namespace BIANMA
             }
             try
             {
-                _dc.EditTiaoma(t);
-                MessageBox.Show("修改成功");
+                JCSJWCF.EditTiaoma(t);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            MessageBox.Show("修改成功");
         }
 
         /// <summary>
@@ -1603,6 +1524,8 @@ namespace BIANMA
                         if (grid_tiaoma.SelectedCells[0].ColumnIndex == col_tm_xj.Index)
                         {
                             grid_kuanhao.Focus();
+                            //将焦点行移动到最上面
+                            //grid_kuanhao.FirstDisplayedScrollingRowIndex = grid_kuanhao.SelectedCells[0].RowIndex;
                         }
                     }
                 }
@@ -1772,6 +1695,40 @@ namespace BIANMA
             if (sdlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 File.WriteAllText(sdlg.FileName, bq, Encoding.Default);
+            }
+        }
+
+        /// <summary>
+        /// 修改售价
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_all_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            //合计行，跳过
+            if (grid_all.Rows[e.RowIndex].Cells[col_all_khidex.Name].Value == null)
+            {
+                return;
+            }
+
+            int khidex = int.Parse(grid_all[col_all_khidex.Index, e.RowIndex].Value.ToString());
+            int tmidex = int.Parse(grid_all[col_all_tmidex.Index, e.RowIndex].Value.ToString());
+            decimal sj = decimal.Parse(grid_all[e.ColumnIndex, e.RowIndex].Value.ToString());
+
+            foreach (DataGridViewRow dr in grid_kuanhao.Rows)
+            {
+                int idex = (int)dr.Cells[col_kh_idex.Name].Value;
+                if (idex == khidex)
+                {
+                    List<TTiaomaExtend> tms = ((TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value).tms;
+                    TTiaomaExtend tm = tms.Single(r => r.idex == tmidex);
+                    tm.tiaoma.shoujia = sj;
+                    break;
+                }
             }
         }
     }

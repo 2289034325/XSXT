@@ -13,14 +13,9 @@ namespace BIANMA
 {
     public partial class Dlg_Denglu : Form
     {
-        private JCSJData.DataServiceClient _dc;
-
-        public TUser User;
-
-        public Dlg_Denglu(JCSJData.DataServiceClient dc)
+        public Dlg_Denglu()
         {
             InitializeComponent();
-            _dc = dc;
         }
 
 
@@ -36,7 +31,7 @@ namespace BIANMA
 
             try
             {
-                User = _dc.BMZHLogin(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                LoginInfo.User = JCSJWCF.Login(dlm, mm);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
             catch (Exception ex)

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_shangbao = new System.Windows.Forms.Button();
             this.dp_end = new System.Windows.Forms.DateTimePicker();
             this.dp_start = new System.Windows.Forms.DateTimePicker();
             this.btn_ch = new System.Windows.Forms.Button();
@@ -40,15 +41,6 @@
             this.btn_cx = new System.Windows.Forms.Button();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.grid_jch = new System.Windows.Forms.DataGridView();
-            this.col_jc_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_lyqx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_czr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_djsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_jc_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grid_jcmx = new System.Windows.Forms.DataGridView();
             this.col_mx_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,7 +52,15 @@
             this.col_mx_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_shangbao = new System.Windows.Forms.Button();
+            this.col_jc_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_lyqx = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_jc_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_czr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_djsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jc_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -87,6 +87,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(905, 32);
             this.panel1.TabIndex = 3;
+            // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.Location = new System.Drawing.Point(612, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(75, 23);
+            this.btn_shangbao.TabIndex = 26;
+            this.btn_shangbao.Text = "上报数据";
+            this.btn_shangbao.UseVisualStyleBackColor = true;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
             // 
             // dp_end
             // 
@@ -206,59 +216,6 @@
             this.grid_jch.SelectionChanged += new System.EventHandler(this.grid_crk_SelectionChanged);
             this.grid_jch.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_crk_UserDeletingRow);
             // 
-            // col_jc_id
-            // 
-            this.col_jc_id.DataPropertyName = "id";
-            this.col_jc_id.HeaderText = "ID";
-            this.col_jc_id.Name = "col_jc_id";
-            this.col_jc_id.ReadOnly = true;
-            // 
-            // col_jc_fx
-            // 
-            this.col_jc_fx.HeaderText = "方向";
-            this.col_jc_fx.Name = "col_jc_fx";
-            this.col_jc_fx.ReadOnly = true;
-            // 
-            // col_jc_lyqx
-            // 
-            this.col_jc_lyqx.HeaderText = "来源去向";
-            this.col_jc_lyqx.Name = "col_jc_lyqx";
-            // 
-            // col_jc_sl
-            // 
-            this.col_jc_sl.HeaderText = "数量";
-            this.col_jc_sl.Name = "col_jc_sl";
-            this.col_jc_sl.ReadOnly = true;
-            // 
-            // col_jc_bz
-            // 
-            this.col_jc_bz.HeaderText = "备注";
-            this.col_jc_bz.Name = "col_jc_bz";
-            // 
-            // col_jc_czr
-            // 
-            this.col_jc_czr.HeaderText = "操作人";
-            this.col_jc_czr.Name = "col_jc_czr";
-            this.col_jc_czr.ReadOnly = true;
-            // 
-            // col_jc_djsj
-            // 
-            this.col_jc_djsj.HeaderText = "登记时间";
-            this.col_jc_djsj.Name = "col_jc_djsj";
-            this.col_jc_djsj.ReadOnly = true;
-            // 
-            // col_jc_xgsj
-            // 
-            this.col_jc_xgsj.HeaderText = "修改时间";
-            this.col_jc_xgsj.Name = "col_jc_xgsj";
-            this.col_jc_xgsj.ReadOnly = true;
-            // 
-            // col_jc_sbsj
-            // 
-            this.col_jc_sbsj.HeaderText = "上报时间";
-            this.col_jc_sbsj.Name = "col_jc_sbsj";
-            this.col_jc_sbsj.ReadOnly = true;
-            // 
             // grid_jcmx
             // 
             this.grid_jcmx.AllowUserToAddRows = false;
@@ -348,15 +305,61 @@
             this.cmn_crk_daoru.Text = "从文件导入";
             this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
             // 
-            // btn_shangbao
+            // col_jc_id
             // 
-            this.btn_shangbao.Location = new System.Drawing.Point(612, 3);
-            this.btn_shangbao.Name = "btn_shangbao";
-            this.btn_shangbao.Size = new System.Drawing.Size(75, 23);
-            this.btn_shangbao.TabIndex = 26;
-            this.btn_shangbao.Text = "上报数据";
-            this.btn_shangbao.UseVisualStyleBackColor = true;
-            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
+            this.col_jc_id.DataPropertyName = "id";
+            this.col_jc_id.HeaderText = "ID";
+            this.col_jc_id.Name = "col_jc_id";
+            this.col_jc_id.ReadOnly = true;
+            // 
+            // col_jc_fx
+            // 
+            this.col_jc_fx.HeaderText = "方向";
+            this.col_jc_fx.Name = "col_jc_fx";
+            this.col_jc_fx.ReadOnly = true;
+            // 
+            // col_jc_lyqx
+            // 
+            this.col_jc_lyqx.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.col_jc_lyqx.HeaderText = "来源去向";
+            this.col_jc_lyqx.Name = "col_jc_lyqx";
+            this.col_jc_lyqx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_jc_lyqx.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // col_jc_sl
+            // 
+            this.col_jc_sl.HeaderText = "数量";
+            this.col_jc_sl.Name = "col_jc_sl";
+            this.col_jc_sl.ReadOnly = true;
+            // 
+            // col_jc_bz
+            // 
+            this.col_jc_bz.HeaderText = "备注";
+            this.col_jc_bz.Name = "col_jc_bz";
+            // 
+            // col_jc_czr
+            // 
+            this.col_jc_czr.HeaderText = "操作人";
+            this.col_jc_czr.Name = "col_jc_czr";
+            this.col_jc_czr.ReadOnly = true;
+            // 
+            // col_jc_djsj
+            // 
+            this.col_jc_djsj.HeaderText = "登记时间";
+            this.col_jc_djsj.Name = "col_jc_djsj";
+            this.col_jc_djsj.ReadOnly = true;
+            // 
+            // col_jc_xgsj
+            // 
+            this.col_jc_xgsj.HeaderText = "修改时间";
+            this.col_jc_xgsj.Name = "col_jc_xgsj";
+            this.col_jc_xgsj.ReadOnly = true;
+            // 
+            // col_jc_sbsj
+            // 
+            this.col_jc_sbsj.HeaderText = "上报时间";
+            this.col_jc_sbsj.Name = "col_jc_sbsj";
+            this.col_jc_sbsj.ReadOnly = true;
             // 
             // Form_Jinchuhuo
             // 
@@ -367,6 +370,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form_Jinchuhuo";
             this.Text = "进出货";
+            this.Load += new System.EventHandler(this.Form_Jinchuhuo_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.splitContainer5.Panel1.ResumeLayout(false);
@@ -396,15 +400,6 @@
         private System.Windows.Forms.DataGridView grid_jcmx;
         private System.Windows.Forms.ContextMenuStrip cmn_crk;
         private System.Windows.Forms.ToolStripMenuItem cmn_crk_daoru;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_fx;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_lyqx;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_bz;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_czr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_djsj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_xgsj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sbsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_kh;
@@ -414,5 +409,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_sl;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_mx_sj;
         private System.Windows.Forms.Button btn_shangbao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_fx;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_jc_lyqx;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_bz;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_czr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_djsj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_xgsj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sbsj;
     }
 }

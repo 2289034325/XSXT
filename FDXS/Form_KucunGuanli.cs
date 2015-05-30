@@ -15,11 +15,9 @@ namespace FDXS
 {
     public partial class Form_KucunGuanli : MyForm
     {
-        private TUser _user;
-        public Form_KucunGuanli(TUser user)
+        public Form_KucunGuanli()
         {
             InitializeComponent();
-            _user = user;
         }
 
         /// <summary>
@@ -249,7 +247,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xz_zj_Click(object sender, EventArgs e)
         {
-            Dlg_KucunXZ dx = new Dlg_KucunXZ(_user);
+            Dlg_KucunXZ dx = new Dlg_KucunXZ();
             if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 addXiuzheng(dx.XZ);

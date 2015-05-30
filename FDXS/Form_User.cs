@@ -15,13 +15,9 @@ namespace FDXS
 {
     public partial class Form_User : MyForm
     {
-        //当前登陆系统的用户
-        private TUser _user;
-
-        public Form_User(TUser user)
+        public Form_User()
         {
             InitializeComponent();
-            _user = user;
         }       
 
         /// <summary>

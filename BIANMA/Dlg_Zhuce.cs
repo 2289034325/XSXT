@@ -35,16 +35,15 @@ namespace BIANMA
 
             try
             {
-                JCSJValid.ValidServiceClient vc = new JCSJValid.ValidServiceClient();               
-                vc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(tzm), zcm);
-                
-                MessageBox.Show("注册成功");
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                JCSJWCF.BMZHZhuce(dlm, mm, xm, zcm);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); 
+                MessageBox.Show(ex.Message);
+                return;
             }
+            MessageBox.Show("注册成功");
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         

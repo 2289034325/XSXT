@@ -10,56 +10,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
+using Tool.FD;
 
 namespace FDXS
 {
     public partial class Form_Huiyuan : MyForm
     {
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-        private TUser _user;
-
-        public Form_Huiyuan(TUser user)
+        public Form_Huiyuan()
         {
             InitializeComponent();
-            _jdc = null;
-            _user = user;
         }
 
         /// <summary>
-        /// 查询库存
+        /// 查询会员信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
             //查询条件
-            //string tmh = txb_tiaoma.Text.Trim();
-            //string kh = txb_kuanhao.Text.Trim();
-            //string lx = cmb_leixing.SelectedValue.ToString();
+            string sjh = txb_sjh.Text.Trim();
+            DBContext db = new DBContext();
+            THuiyuan[] hys = db.GetHuiyuanByCond(sjh);
 
-            ////入-出+库存修正
-            //DBContext db= new DBContext();
-            //Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
-
-            //grid_kc.Rows.Clear();
-            //foreach (KeyValuePair<TTiaoma, short> p in ks)
-            //{
-            //    grid_kc.Rows.Add(new object[] 
-            //    {
-            //        p.Key.tiaoma,
-            //        p.Key.kuanhao,
-            //        p.Key.gyskuanhao,
-            //        ((JCSJData.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
-            //        p.Key.pinming,
-            //        p.Key.yanse,
-            //        p.Key.chima,
-            //        p.Key.shoujia,
-            //        p.Value
-            //    });
-            //}
+            foreach (THuiyuan h in hys)
+            {
+                grid_hy.Rows.Add(new object[] 
+                {
+                    h.id,
+                    h.shoujihao,
+                    h.xingming,
+                    (Tool.JCSJ.DBCONSTS.HUIYUAN_XB)h.xingbie,
+                    DateTime.Now.Year - h.shengri.Year,
+                    h.jifen,
+                    h.jfgxshijian
+                });
+            }
         }
 
         /// <summary>
@@ -87,7 +73,16 @@ namespace FDXS
             int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
 
             //调用接口
-            JCSJData.THuiyuan jh = _jdc.GetHuiyuanById(id);
+            JCSJData.THuiyuan jh = null;
+            try
+            {
+                jh = JCSJWCF.GetHuiyuanById(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             //更新到本地
             DBContext db = new DBContext();
@@ -105,27 +100,6 @@ namespace FDXS
             db.UpdateHuiyuanAll(fh);
         }
 
-
-        /// <summary>
-        /// 登陆数据中心
-        /// </summary>
-        private void loginJCSJ()
-        {
-            if (_jdc == null)
-            {
-                _jdc = new JCSJData.DataServiceClient();
-                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-            }
-            else
-            {
-                if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
-                {
-                    _jdc = new JCSJData.DataServiceClient();
-                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-                }
-            }
-        }
-
         /// <summary>
         /// 修改会员信息
         /// </summary>
@@ -133,11 +107,9 @@ namespace FDXS
         /// <param name="e"></param>
         private void cmn_hy_edit_Click(object sender, EventArgs e)
         {
-            loginJCSJ();
-
             //取得被选中的会员ID
             int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
-            Dlg_HuiyuanEdit dh = new Dlg_HuiyuanEdit( id,_jdc);
+            Dlg_HuiyuanEdit dh = new Dlg_HuiyuanEdit( id);
             dh.ShowDialog();
         }
     }

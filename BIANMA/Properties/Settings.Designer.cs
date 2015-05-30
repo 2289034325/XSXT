@@ -43,7 +43,7 @@ namespace BIANMA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public string TMDAYL {
             get {
                 return ((string)(this["TMDAYL"]));
@@ -55,7 +55,7 @@ namespace BIANMA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string TMQIANZHUI {
             get {
                 return ((string)(this["TMQIANZHUI"]));

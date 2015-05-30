@@ -15,13 +15,9 @@ namespace BIANMA
 {
     public partial class Dlg_Gongyingshang : Form
     {
-        private JCSJData.DataServiceClient _dc;
-        private TUser _u;
-        public Dlg_Gongyingshang(JCSJData.DataServiceClient dc,TUser u)
+        public Dlg_Gongyingshang()
         {
             InitializeComponent();
-            _dc = dc;
-            _u = u;
         }       
 
         /// <summary>
@@ -31,13 +27,17 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            if (_u == null)
+            TGongyingshang[] gs;
+            try
             {
-                MessageBox.Show("未登陆");
+                gs = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
                 return;
             }
 
-            TGongyingshang[] gs = _dc.GetGongyingshangsByUserId(_u.id);
 
             grid_gys.Rows.Clear();
             for (int i = 0; i < gs.Length;i++ )
@@ -63,18 +63,17 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_add_Click(object sender, EventArgs e)
         {
+            TGongyingshang g = getEditInfo();
+            TGongyingshang ng = null;
             try
             {
-                TGongyingshang g = getEditInfo();
-
-                TGongyingshang ng = _dc.InsertGongyingshang(g);
-
-                addGongyingshang(ng);
+                ng = JCSJWCF.InsertGongyingshang(g);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            addGongyingshang(ng);
         }
 
         private void addGongyingshang(TGongyingshang ng)
@@ -120,24 +119,25 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_edit_Click(object sender, EventArgs e)
         {
+            if (grid_gys.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            TGongyingshang og = getEditInfo();
+            og.id = (int)grid_gys.SelectedRows[0].Cells[col_id.Name].Value;
+
             try
             {
-                if (grid_gys.SelectedRows.Count == 0)
-                {
-                    return;
-                }
-
-                TGongyingshang og = getEditInfo();
-                og.id = (int)grid_gys.SelectedRows[0].Cells["col_id"].Value;
-
-                _dc.EditGongyingshang(og);
-
-                editGongyingshang(og);
+                JCSJWCF.EditGongyingshang(og);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            editGongyingshang(og);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace BIANMA
                     g.beizhu                    
                 });
 
-            dr.Cells["col_xgsj"].Value = DateTime.Now;
+            dr.Cells[col_xgsj.Name].Value = DateTime.Now;
         }
 
         /// <summary>
@@ -167,9 +167,17 @@ namespace BIANMA
         /// <param name="e"></param>
         private void grid_gys_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            int id = int.Parse(e.Row.Cells["col_id"].Value.ToString());
+            int id = int.Parse(e.Row.Cells[col_id.Name].Value.ToString());
 
-            _dc.DeleteGongyingshang(id);
+            try
+            {
+                JCSJWCF.DeleteGongyingshang(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
         }
 
         /// <summary>
@@ -192,11 +200,11 @@ namespace BIANMA
 
             DataGridViewRow dr = grid_gys.SelectedRows[0];
 
-            txb_mc.Text = dr.Cells["col_mc"].Value.ToString();
-            txb_lxr.Text = dr.Cells["col_lxr"].Value.ToString();
-            txb_dh.Text = dr.Cells["col_dh"].Value.ToString();
-            txb_dz.Text = dr.Cells["col_dz"].Value.ToString();
-            txb_bz.Text = dr.Cells["col_bz"].Value.ToString();
+            txb_mc.Text = dr.Cells[col_mc.Name].Value.ToString();
+            txb_lxr.Text = dr.Cells[col_lxr.Name].Value.ToString();
+            txb_dh.Text = dr.Cells[col_dh.Name].Value.ToString();
+            txb_dz.Text = dr.Cells[col_dz.Name].Value.ToString();
+            txb_bz.Text = dr.Cells[col_bz.Name].Value.ToString();
         }       
     }
 }

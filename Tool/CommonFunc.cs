@@ -67,6 +67,28 @@ namespace Tool
         }
 
         /// <summary>
+        /// 将枚举类型做成一个DataTable
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static DataTable GetTableFromEnum(Type type)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Text", typeof(string));
+            dt.Columns.Add("Value", typeof(string));
+            Array vs = Enum.GetValues(type);
+            foreach (Enum v in vs)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Text"] = Enum.GetName(type, v);
+                dr["Value"] = Convert.ToInt16(v).ToString();
+                dt.Rows.Add(dr);
+            }
+
+            return dt;
+        }
+
+        /// <summary>
         /// 初始化下拉框
         /// </summary>
         /// <param name="Cmb"></param>

@@ -43,10 +43,6 @@
             this.col_tm_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mn_main = new System.Windows.Forms.MenuStrip();
-            this.mni_login = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_zhuce = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_zhbd = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_xgmm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_khxx = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_gysxx = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +64,9 @@
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveServer = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveLoacal = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grid_kuanhao = new System.Windows.Forms.DataGridView();
             this.col_kh_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +79,7 @@
             this.col_kh_khex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grid_all = new System.Windows.Forms.DataGridView();
-            this.col_all_idex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xb = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,9 +100,6 @@
             this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
-            this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -228,11 +224,8 @@
             // 
             // mn_main
             // 
+            this.mn_main.AllowMerge = false;
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mni_login,
-            this.mni_zhuce,
-            this.mni_zhbd,
-            this.mni_xgmm,
             this.mni_khxx,
             this.mni_gysxx,
             this.mni_addxkh,
@@ -250,34 +243,6 @@
             this.mn_main.Size = new System.Drawing.Size(1170, 25);
             this.mn_main.TabIndex = 10;
             this.mn_main.Text = "menuStrip1";
-            // 
-            // mni_login
-            // 
-            this.mni_login.Name = "mni_login";
-            this.mni_login.Size = new System.Drawing.Size(44, 21);
-            this.mni_login.Text = "登陆";
-            this.mni_login.Click += new System.EventHandler(this.mni_login_Click);
-            // 
-            // mni_zhuce
-            // 
-            this.mni_zhuce.Name = "mni_zhuce";
-            this.mni_zhuce.Size = new System.Drawing.Size(68, 21);
-            this.mni_zhuce.Text = "用户注册";
-            this.mni_zhuce.Click += new System.EventHandler(this.mni_zhuce_Click);
-            // 
-            // mni_zhbd
-            // 
-            this.mni_zhbd.Name = "mni_zhbd";
-            this.mni_zhbd.Size = new System.Drawing.Size(68, 21);
-            this.mni_zhbd.Text = "账号绑定";
-            this.mni_zhbd.Click += new System.EventHandler(this.mni_zhbd_Click);
-            // 
-            // mni_xgmm
-            // 
-            this.mni_xgmm.Name = "mni_xgmm";
-            this.mni_xgmm.Size = new System.Drawing.Size(68, 21);
-            this.mni_xgmm.Text = "修改密码";
-            this.mni_xgmm.Click += new System.EventHandler(this.mni_xgmm_Click);
             // 
             // mni_khxx
             // 
@@ -433,6 +398,28 @@
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
+            // 导出ToolStripMenuItem
+            // 
+            this.导出ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_bqdy,
+            this.mni_fddr});
+            this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
+            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.导出ToolStripMenuItem.Text = "导出";
+            // 
+            // mni_bqdy
+            // 
+            this.mni_bqdy.Name = "mni_bqdy";
+            this.mni_bqdy.Size = new System.Drawing.Size(124, 22);
+            this.mni_bqdy.Text = "标签打印";
+            this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
+            // 
+            // mni_fddr
+            // 
+            this.mni_fddr.Name = "mni_fddr";
+            this.mni_fddr.Size = new System.Drawing.Size(124, 22);
+            this.mni_fddr.Text = "分店导入";
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -556,7 +543,7 @@
             this.grid_all.AllowUserToResizeRows = false;
             this.grid_all.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_all.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_all_idex,
+            this.col_all_tmidex,
             this.col_all_khidex,
             this.col_all_kh,
             this.col_all_xb,
@@ -575,25 +562,23 @@
             this.grid_all.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_all.Location = new System.Drawing.Point(0, 0);
             this.grid_all.Name = "grid_all";
-            this.grid_all.ReadOnly = true;
             this.grid_all.RowTemplate.Height = 23;
             this.grid_all.Size = new System.Drawing.Size(1170, 247);
             this.grid_all.TabIndex = 9;
             this.grid_all.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellDoubleClick);
+            this.grid_all.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellValueChanged);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
             // 
-            // col_all_idex
+            // col_all_tmidex
             // 
-            this.col_all_idex.HeaderText = "IDEX";
-            this.col_all_idex.Name = "col_all_idex";
-            this.col_all_idex.ReadOnly = true;
-            this.col_all_idex.Visible = false;
+            this.col_all_tmidex.HeaderText = "TMIDEX";
+            this.col_all_tmidex.Name = "col_all_tmidex";
+            this.col_all_tmidex.Visible = false;
             // 
             // col_all_khidex
             // 
             this.col_all_khidex.HeaderText = "KHIDEX";
             this.col_all_khidex.Name = "col_all_khidex";
-            this.col_all_khidex.ReadOnly = true;
             this.col_all_khidex.Visible = false;
             // 
             // col_all_kh
@@ -670,7 +655,6 @@
             this.col_all_sj.DataPropertyName = "shoujia";
             this.col_all_sj.HeaderText = "售价";
             this.col_all_sj.Name = "col_all_sj";
-            this.col_all_sj.ReadOnly = true;
             // 
             // col_all_crsj
             // 
@@ -728,28 +712,6 @@
             this.cmn_tm_xg.Text = "保存修改";
             this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
             // 
-            // 导出ToolStripMenuItem
-            // 
-            this.导出ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mni_bqdy,
-            this.mni_fddr});
-            this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
-            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.导出ToolStripMenuItem.Text = "导出";
-            // 
-            // mni_bqdy
-            // 
-            this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
-            this.mni_bqdy.Text = "标签打印";
-            this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
-            // 
-            // mni_fddr
-            // 
-            this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
-            this.mni_fddr.Text = "分店导入";
-            // 
             // Form_Bianma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -788,9 +750,6 @@
 
         private System.Windows.Forms.DataGridView grid_tiaoma;
         private System.Windows.Forms.MenuStrip mn_main;
-        private System.Windows.Forms.ToolStripMenuItem mni_zhuce;
-        private System.Windows.Forms.ToolStripMenuItem mni_zhbd;
-        private System.Windows.Forms.ToolStripMenuItem mni_xgmm;
         private System.Windows.Forms.ToolStripMenuItem mni_khxx;
         private System.Windows.Forms.ToolStripMenuItem mni_addxkh;
         private System.Windows.Forms.ToolStripMenuItem mni_addsm;
@@ -803,7 +762,6 @@
         private System.Windows.Forms.DataGridView grid_all;
         private System.Windows.Forms.ToolStripMenuItem mni_gysxx;
         private System.Windows.Forms.ToolStripMenuItem mni_addjkh;
-        private System.Windows.Forms.ToolStripMenuItem mni_login;
         private System.Windows.Forms.ContextMenuStrip cmn_kh;
         private System.Windows.Forms.ToolStripMenuItem cmn_kh_loadTms;
         private System.Windows.Forms.ContextMenuStrip cmn_all;
@@ -814,21 +772,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_sctm;
         private System.Windows.Forms.ToolStripMenuItem mni_jctm;
         private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_idex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_lx;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_pm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_gyskh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_ys;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_cm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_jj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
         private System.Windows.Forms.ToolStripMenuItem mni_saveServer;
         private System.Windows.Forms.ToolStripMenuItem mni_saveLoacal;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kh_idex;
@@ -861,6 +804,21 @@
         private System.Windows.Forms.ToolStripMenuItem 导出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mni_bqdy;
         private System.Windows.Forms.ToolStripMenuItem mni_fddr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_lx;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_pm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_gyskh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_ys;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_cm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_jj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
     }
 }
 

@@ -31,12 +31,20 @@
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.mni_bianma = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_fenlei = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_zhuce = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_zhbd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_xgmm = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_denglu = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
             // 
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_zhuce,
+            this.mni_denglu,
+            this.mni_zhbd,
+            this.mni_xgmm,
             this.mni_bianma,
             this.mni_fenlei});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
@@ -57,6 +65,35 @@
             this.mni_fenlei.Name = "mni_fenlei";
             this.mni_fenlei.Size = new System.Drawing.Size(44, 21);
             this.mni_fenlei.Text = "分类";
+            this.mni_fenlei.Click += new System.EventHandler(this.mni_fenlei_Click);
+            // 
+            // mni_zhuce
+            // 
+            this.mni_zhuce.Name = "mni_zhuce";
+            this.mni_zhuce.Size = new System.Drawing.Size(44, 21);
+            this.mni_zhuce.Text = "注册";
+            this.mni_zhuce.Click += new System.EventHandler(this.mni_zhuce_Click);
+            // 
+            // mni_zhbd
+            // 
+            this.mni_zhbd.Name = "mni_zhbd";
+            this.mni_zhbd.Size = new System.Drawing.Size(68, 21);
+            this.mni_zhbd.Text = "账号绑定";
+            this.mni_zhbd.Click += new System.EventHandler(this.mni_zhbd_Click);
+            // 
+            // mni_xgmm
+            // 
+            this.mni_xgmm.Name = "mni_xgmm";
+            this.mni_xgmm.Size = new System.Drawing.Size(68, 21);
+            this.mni_xgmm.Text = "修改密码";
+            this.mni_xgmm.Click += new System.EventHandler(this.mni_xgmm_Click);
+            // 
+            // mni_denglu
+            // 
+            this.mni_denglu.Name = "mni_denglu";
+            this.mni_denglu.Size = new System.Drawing.Size(44, 21);
+            this.mni_denglu.Text = "登陆";
+            this.mni_denglu.Click += new System.EventHandler(this.mni_denglu_Click);
             // 
             // Form_Main
             // 
@@ -68,6 +105,7 @@
             this.MainMenuStrip = this.mn_main;
             this.Name = "Form_Main";
             this.Text = "编码分类系统";
+            this.Load += new System.EventHandler(this.Form_Main_Load);
             this.mn_main.ResumeLayout(false);
             this.mn_main.PerformLayout();
             this.ResumeLayout(false);
@@ -80,5 +118,9 @@
         private System.Windows.Forms.MenuStrip mn_main;
         private System.Windows.Forms.ToolStripMenuItem mni_bianma;
         private System.Windows.Forms.ToolStripMenuItem mni_fenlei;
+        private System.Windows.Forms.ToolStripMenuItem mni_zhuce;
+        private System.Windows.Forms.ToolStripMenuItem mni_zhbd;
+        private System.Windows.Forms.ToolStripMenuItem mni_xgmm;
+        private System.Windows.Forms.ToolStripMenuItem mni_denglu;
     }
 }

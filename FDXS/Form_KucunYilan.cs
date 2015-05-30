@@ -14,15 +14,9 @@ namespace FDXS
 {
     public partial class Form_KucunYilan : MyForm
     {
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
         public Form_KucunYilan()
         {
             InitializeComponent();
-            _jdc = null;
         }
 
         /// <summary>
@@ -80,9 +74,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sbkc_Click(object sender, EventArgs e)
         {
-            //登陆到数据中心
-            _jdc = CommonFunc.LoginJCSJ(_jdc);
-
             DBContext db = new DBContext();
             VKucun[] ks = db.GetKucuns();
 
@@ -92,7 +83,15 @@ namespace FDXS
                 shuliang = r.shuliang.Value
             }).ToArray();
 
-            _jdc.ShangbaoKucun_FD(fks);
+            try
+            {
+                JCSJWCF.ShangbaoKucun_FD(fks);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             MessageBox.Show("完成");
         }

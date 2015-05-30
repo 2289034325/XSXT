@@ -15,18 +15,9 @@ namespace FDXS
 {
     public partial class Form_Jinchuhuo : MyForm
     {
-        //当前登陆的用户
-        private TUser _user;
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
-        public Form_Jinchuhuo(TUser user)
+        public Form_Jinchuhuo()
         {
             InitializeComponent();
-            _user = user;
-            _jdc = null;
         }
 
         /// <summary>
@@ -75,7 +66,7 @@ namespace FDXS
                 {
                     c.id,
                     ((Tool.FD.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
-                    ((Tool.FD.DBCONSTS.JCH_LYQX)c.laiyuanquxiang).ToString(),
+                    c.laiyuanquxiang.ToString(),
                     c.TJinchuMX.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
@@ -150,7 +141,7 @@ namespace FDXS
                 fangxiang = (byte)DBCONSTS.JCH_FX.进,
                 laiyuanquxiang = (byte)DBCONSTS.JCH_LYQX.内部,
                 beizhu = "",
-                caozuorenid = _user.id,
+                caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -174,7 +165,7 @@ namespace FDXS
                 fangxiang = (byte)DBCONSTS.JCH_FX.出,
                 laiyuanquxiang = (byte)DBCONSTS.JCH_LYQX.内部,
                 beizhu = "",
-                caozuorenid = _user.id,
+                caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -293,36 +284,28 @@ namespace FDXS
             //如果是来源去向列
             if (e.ColumnIndex == col_jc_lyqx.Index)
             {
-                string text = e.FormattedValue.ToString();
-                Tool.FD.DBCONSTS.JCH_LYQX lyfx;
-                if (!Enum.TryParse<Tool.FD.DBCONSTS.JCH_LYQX>(text, out lyfx))
+                DBCONSTS.JCH_LYQX lyfx = (DBCONSTS.JCH_LYQX)byte.Parse(e.FormattedValue.ToString());
+
+                //来源只能是新货和内部，去向只能是退货，丢弃，其他
+                string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;
+                Tool.FD.DBCONSTS.JCH_FX fx = (Tool.FD.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_FX), sfx);
+                if (fx == Tool.FD.DBCONSTS.JCH_FX.进)
                 {
-                    e.Cancel = true;
-                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(Tool.FD.DBCONSTS.JCH_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
+                    if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部 && lyfx != Tool.FD.DBCONSTS.JCH_LYQX.新货)
+                    {
+                        e.Cancel = true;
+                        MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]或[" + DBCONSTS.JCH_LYQX.新货.ToString() + "]");
+                    }
                 }
                 else
                 {
-                    //来源只能是新货和内部，去向只能是退货，丢弃，其他
-                    string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;
-                    Tool.FD.DBCONSTS.JCH_FX fx = (Tool.FD.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_FX), sfx);
-                    if (fx == Tool.FD.DBCONSTS.JCH_FX.进)
+                    if (!(lyfx == DBCONSTS.JCH_LYQX.退货 || lyfx == DBCONSTS.JCH_LYQX.内部 ||
+                        lyfx == DBCONSTS.JCH_LYQX.其他 || lyfx == DBCONSTS.JCH_LYQX.丢弃))
                     {
-                        if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部 && lyfx != Tool.FD.DBCONSTS.JCH_LYQX.新货)
-                        {
-                            e.Cancel = true;
-                            MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]或[" + DBCONSTS.JCH_LYQX.新货.ToString() + "]");
-                        }
-                    }
-                    else
-                    {
-                        if (!(lyfx == DBCONSTS.JCH_LYQX.退货 || lyfx == DBCONSTS.JCH_LYQX.内部 ||
-                            lyfx == DBCONSTS.JCH_LYQX.其他 || lyfx == DBCONSTS.JCH_LYQX.丢弃))
-                        {
-                            e.Cancel = true;
-                            MessageBox.Show("出货的去向只能是[" + DBCONSTS.JCH_LYQX.退货.ToString() +
-                                "]或[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]" +
-                                "或[" + DBCONSTS.JCH_LYQX.丢弃.ToString() + "]");
-                        }
+                        e.Cancel = true;
+                        MessageBox.Show("出货的去向只能是[" + DBCONSTS.JCH_LYQX.退货.ToString() +
+                            "]或[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]" +
+                            "或[" + DBCONSTS.JCH_LYQX.丢弃.ToString() + "]");
                     }
                 }
             }
@@ -363,7 +346,7 @@ namespace FDXS
             else
             {
                 DBContext db = new DBContext();
-                byte lyqx = (byte)(Tool.FD.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_LYQX), (string)grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value);
+                byte lyqx = byte.Parse(grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value.ToString());
                 string bz = (string)grid_jch.SelectedRows[0].Cells[col_jc_bz.Name].Value ?? "";
                 TJinchuhuo nc = new TJinchuhuo 
                 {
@@ -518,15 +501,34 @@ namespace FDXS
                 }).ToArray()
             }).ToArray();
 
-            //登陆到数据中心
-            _jdc = CommonFunc.LoginJCSJ(_jdc);
-            _jdc.ShangbaoJinchuhuo_FD(jcjcs);
+            try
+            {
+                JCSJWCF.ShangbaoJinchuhuo_FD(jcjcs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             //更新本地上报时间
             int[] ids = jcs.Select(r => r.id).ToArray();
             db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
 
             MessageBox.Show("完成");
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form_Jinchuhuo_Load(object sender, EventArgs e)
+        {
+            //来源去向列的下拉框值
+            col_jc_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(DBCONSTS.JCH_LYQX));
+            col_jc_lyqx.DisplayMember = "Text";
+            col_jc_lyqx.ValueMember = "Value";
         }
     }
 }

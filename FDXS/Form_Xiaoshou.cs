@@ -16,23 +16,15 @@ namespace FDXS
 {
     public partial class Form_Xiaoshou : MyForm
     {
-        private TUser _user;
         //开单对话框
         private Dlg_xiaoshou _dlgKaidan;
         //开单数据
         private List<TXiaoshou> _XSS;
 
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
-        public Form_Xiaoshou(TUser user)
+        public Form_Xiaoshou()
         {
             InitializeComponent();
             _dlgKaidan = null;
-            _user = user;
-            _jdc = null;
             _XSS = null;
         }
 
@@ -49,7 +41,7 @@ namespace FDXS
             else
             {
                 //打开开单对话框
-                Dlg_xiaoshou dx = new Dlg_xiaoshou(tm,_user);
+                Dlg_xiaoshou dx = new Dlg_xiaoshou(tm);
                 _dlgKaidan = dx; 
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -197,7 +189,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_kd_Click(object sender, EventArgs e)
         {
-                Dlg_xiaoshou dx = new Dlg_xiaoshou(null, _user);
+                Dlg_xiaoshou dx = new Dlg_xiaoshou(null);
                 _dlgKaidan = dx;
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -292,9 +284,15 @@ namespace FDXS
                 moling = r.moliing                
             }).ToArray();
 
-            //登陆到数据中心
-            _jdc = CommonFunc.LoginJCSJ(_jdc);
-            _jdc.ShangbaoXiaoshou(jxss);
+            try
+            {
+                JCSJWCF.ShangbaoXiaoshou(jxss);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             //更新本地上报时间
             int[] ids = xs.Select(r=>r.id).ToArray();

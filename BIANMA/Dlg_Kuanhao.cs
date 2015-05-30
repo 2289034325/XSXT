@@ -16,13 +16,9 @@ namespace BIANMA
 {
     public partial class Dlg_Kuanhao : Form
     {
-        private JCSJData.DataServiceClient _dc;
-        private TUser _u;
-        public Dlg_Kuanhao(JCSJData.DataServiceClient dc, TUser u)
+        public Dlg_Kuanhao()
         {
             InitializeComponent();
-            _dc = dc;
-            _u = u;
         }
 
         /// <summary>
@@ -44,13 +40,16 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            if (_u == null)
+            TKuanhao[] ks;
+            try
             {
-                MessageBox.Show("未登陆");
+                ks = JCSJWCF.GetKuanhaosByUserId(LoginInfo.User.id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
                 return;
             }
-
-            TKuanhao[] ks = _dc.GetKuanhaosByUserId(_u.id);
 
             grid_kh.Rows.Clear();
             foreach (TKuanhao k in ks)
@@ -66,18 +65,20 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_add_Click(object sender, EventArgs e)
         {
+            TKuanhao k = getEditInfo();
+            TKuanhao nk;
+
             try
             {
-                TKuanhao k = getEditInfo();
-
-                TKuanhao nk = _dc.InsertKuanhao(k);
-
-                addKuanhao(nk);
+                nk = JCSJWCF.InsertKuanhao(k);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            addKuanhao(nk);
         }
 
         /// <summary>
@@ -141,7 +142,7 @@ namespace BIANMA
                     k.beizhu
                 });
 
-            dr.Cells["col_xgsj"].Value = DateTime.Now;
+            dr.Cells[col_xgsj.Name].Value = DateTime.Now;
         }
 
         /// <summary>
@@ -162,12 +163,12 @@ namespace BIANMA
 
             DataGridViewRow dr = grid_kh.SelectedRows[0];
 
-            txb_kh.Text = dr.Cells["col_kh"].Value.ToString();
-            txb_pm.Text = dr.Cells["col_pm"].Value.ToString();
-            txb_bz.Text = dr.Cells["col_bz"].Value.ToString();
+            txb_kh.Text = dr.Cells[col_kh.Name].Value.ToString();
+            txb_pm.Text = dr.Cells[col_pm.Name].Value.ToString();
+            txb_bz.Text = dr.Cells[col_bz.Name].Value.ToString();
 
-            cmb_xb.SelectedText = dr.Cells["col_xb"].Value.ToString();
-            cmb_lx.SelectedText = dr.Cells["col_lx"].Value.ToString();
+            cmb_xb.SelectedText = dr.Cells[col_xb.Name].Value.ToString();
+            cmb_lx.SelectedText = dr.Cells[col_lx.Name].Value.ToString();
         }
 
 
@@ -178,24 +179,25 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_edit_Click(object sender, EventArgs e)
         {
+            if (grid_kh.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            TKuanhao ok = getEditInfo();
+            ok.id = (int)grid_kh.SelectedRows[0].Cells[col_id.Name].Value;
+
             try
             {
-                if (grid_kh.SelectedRows.Count == 0)
-                {
-                    return;
-                }
-
-                TKuanhao ok = getEditInfo();
-                ok.id = (int)grid_kh.SelectedRows[0].Cells["col_id"].Value;
-
-                _dc.EditKuanhao(ok);
-
-                editKuanhao(ok);
+                JCSJWCF.EditKuanhao(ok);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+
+            editKuanhao(ok);
         }
 
         /// <summary>
@@ -207,7 +209,15 @@ namespace BIANMA
         {
             int id = int.Parse(e.Row.Cells["col_id"].Value.ToString());
 
-            _dc.DeleteKuanhao(id);
+            try
+            {
+                JCSJWCF.DeleteKuanhao(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
         }     
     }
 }

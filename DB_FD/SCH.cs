@@ -319,5 +319,21 @@ namespace DB_FD
         {
             return _db.THuiyuan.Single(r => r.id == id);
         }
+
+        /// <summary>
+        /// 根据条件查询会员信息
+        /// </summary>
+        /// <param name="sjh"></param>
+        /// <returns></returns>
+        public THuiyuan[] GetHuiyuanByCond(string sjh)
+        {
+            var hys = _db.THuiyuan.AsQueryable();
+            if (string.IsNullOrEmpty(sjh))
+            {
+                hys = hys.Where(r => r.shoujihao == sjh);
+            }
+
+            return hys.ToArray();
+        }
     }
 }

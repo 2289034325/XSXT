@@ -15,33 +15,9 @@ namespace FDXS
 {
     public partial class Form_JifenZhekou : MyForm
     {
-        private JCSJData.DataServiceClient _jdc;
-        private TUser _user;
-        public Form_JifenZhekou(TUser user)
+        public Form_JifenZhekou()
         {
             InitializeComponent();
-            _user = user;
-            _jdc = null;
-        }
-
-        /// <summary>
-        /// 登陆数据中心
-        /// </summary>
-        private void loginJCSJ()
-        {
-            if (_jdc == null)
-            {
-                _jdc = new JCSJData.DataServiceClient();
-                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-            }
-            else
-            {
-                if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
-                {
-                    _jdc = new JCSJData.DataServiceClient();
-                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
-                }
-            }
         }
 
         /// <summary>
@@ -51,9 +27,16 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
-            loginJCSJ();
-
-            JCSJData.THuiyuanZK[] zks = _jdc.GetHuiyuanZhekous();
+            JCSJData.THuiyuanZK[] zks;
+            try
+            {
+                zks = JCSJWCF.GetHuiyuanZhekous();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             DBContext db = new DBContext();
             THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK 

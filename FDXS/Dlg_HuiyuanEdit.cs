@@ -15,13 +15,11 @@ namespace FDXS
     public partial class Dlg_HuiyuanEdit : Form
     {
         private int _id;
-        private JCSJData.DataServiceClient _jdc;
 
-        public Dlg_HuiyuanEdit( int id,JCSJData.DataServiceClient jdc)
+        public Dlg_HuiyuanEdit( int id)
         {
             InitializeComponent();
             _id = id;
-            _jdc = jdc;
         }
 
 
@@ -47,7 +45,15 @@ namespace FDXS
                 xiugaishijian = DateTime.Now
             };
 
-            _jdc.UpdateHuiyuan(jh);
+            try
+            {
+                JCSJWCF.UpdateHuiyuan(jh);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             //更新本地信息
             THuiyuan fh = new THuiyuan 

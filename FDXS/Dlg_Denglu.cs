@@ -14,8 +14,6 @@ namespace FDXS
 {
     public partial class Dlg_Denglu : Form
     {
-        public TUser User;
-
         public Dlg_Denglu()
         {
             InitializeComponent();
@@ -35,7 +33,7 @@ namespace FDXS
             try
             {
                 DBContext db = new DBContext();
-                User = db.GetUser(dlm,  Tool.CommonFunc.MD5_16(mm));
+                TUser User = db.GetUser(dlm,  Tool.CommonFunc.MD5_16(mm));
                 if (User != null)
                 {
                     if (User.zhuangtai == (byte)Tool.FD.DBCONSTS.USER_ZT.停用)
@@ -45,6 +43,7 @@ namespace FDXS
                     }
                     else
                     {
+                        LoginInfo.User = User;
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     }
                 }
