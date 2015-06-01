@@ -14,8 +14,6 @@ namespace CKGL
 {
     public partial class Dlg_Denglu : Form
     {
-        public TUser User;
-
         public Dlg_Denglu()
         {
             InitializeComponent();
@@ -32,31 +30,24 @@ namespace CKGL
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            try
+            DBContext db = new DBContext();
+            TUser user = db.GetUser(dlm, Tool.CommonFunc.MD5_16(mm));
+            if (user != null)
             {
-                DBContext db = new DBContext();
-                User = db.GetUser(dlm, Tool.CommonFunc.MD5_16(mm));
-                if (User != null)
+                if (user.zhuangtai == (byte)Tool.CK.DBCONSTS.USER_ZT.停用)
                 {
-                    if (User.zhuangtai == (byte)Tool.CK.DBCONSTS.USER_ZT.停用)
-                    {
-                        MessageBox.Show("账号已被停用");
-                        return;
-                    }
-                    else
-                    {
-                        this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                    }
+                    MessageBox.Show("账号已被停用");
+                    return;
                 }
                 else
                 {
-                    MessageBox.Show("登录名密码错误");
+                    LoginInfo.User = user;
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 }
-                
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("登录名密码错误");
             }
         }
     }

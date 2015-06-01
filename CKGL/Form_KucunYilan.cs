@@ -13,15 +13,9 @@ namespace CKGL
 {
     public partial class Form_KucunYilan : Form
     {
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
         public Form_KucunYilan()
         {
             InitializeComponent();
-            _jdc = null;
         }
 
         /// <summary>
@@ -79,8 +73,6 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-            //登陆到数据中心
-            _jdc = CommonFunc.LoginJCSJ(_jdc);
 
             DBContext db = new DBContext();
             VKucun[] ks = db.GetKucunView();
@@ -91,7 +83,15 @@ namespace CKGL
                 shuliang = r.shuliang.Value
             }).ToArray();
 
-            _jdc.ShangbaoKucun_CK(fks);
+            try
+            {
+                JCSJWCF.ShangbaoKucun_CK(fks);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             MessageBox.Show("完成");
         }

@@ -42,21 +42,21 @@ namespace CKGL
 
             try
             {
-                JCSJValid.ValidServiceClient vc = new JCSJValid.ValidServiceClient();
-                vc.CKZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(jqm), zcm);
-
-                //把仓库ID，库名，写入本地配置文件
-                Settings.Default.CKID = ckid;
-                Settings.Default.CKMC = ckm;
-                Settings.Default.Save();
-                
-                MessageBox.Show("注册成功");
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                JCSJWCF.CKZHZhuce(ckid, ckm, zcm);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("注册失败\r\n"+ex.Message); 
+                MessageBox.Show("注册失败\r\n" + ex.Message);
+                return;
             }
+
+            //把仓库ID，库名，写入本地配置文件
+            Settings.Default.CKID = ckid;
+            Settings.Default.CKMC = ckm;
+            Settings.Default.Save();
+
+            MessageBox.Show("注册成功");
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         /// <summary>

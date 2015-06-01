@@ -117,6 +117,7 @@
     <Compile Include="Form_Yonghu.Designer.cs">
       <DependentUpon>Form_Yonghu.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginUser.cs" />
     <Compile Include="Program.cs">
       <SubType>
       </SubType>
@@ -132,6 +133,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="WCF.cs" />
     <EmbeddedResource Include="Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>

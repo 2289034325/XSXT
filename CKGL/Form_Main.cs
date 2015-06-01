@@ -15,15 +15,9 @@ namespace CKGL
     public partial class Form_Main : Form
     {
 
-        /// <summary>
-        /// 当前登陆的用户
-        /// </summary>
-        private TUser _user;
-
         public Form_Main()
         {
             InitializeComponent();
-            _user = null;
         }
 
         /// <summary>
@@ -48,7 +42,7 @@ namespace CKGL
             Form_Churuku fm = (Form_Churuku)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Churuku)));
             if (fm == null)
             {
-                fm = new Form_Churuku(_user);
+                fm = new Form_Churuku();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -154,22 +148,11 @@ namespace CKGL
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            _user = new TUser
-            {
-                id = 1,
-                juese = 1,
-                dengluming = "2",
-                yonghuming = "2"
-            };
             //登陆检查
-            if (_user == null)
+            if (LoginInfo.User == null)
             {
                 Dlg_Denglu df = new Dlg_Denglu();
-                if (df.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    _user = df.User;
-                }
-                else
+                if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
                     this.Close();
                 }

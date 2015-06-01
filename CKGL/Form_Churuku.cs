@@ -13,19 +13,9 @@ namespace CKGL
 {
     public partial class Form_Churuku : Form
     {
-        //当前登陆的用户
-        private TUser _user;
-
-        /// <summary>
-        /// 基础数据WCF服务
-        /// </summary>
-        private JCSJData.DataServiceClient _jdc;
-
-        public Form_Churuku(TUser user)
+        public Form_Churuku()
         {
             InitializeComponent();
-            _user = user;
-            _jdc = null;
         }
 
         /// <summary>
@@ -149,7 +139,7 @@ namespace CKGL
                 fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.入,
                 laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.新货,
                 beizhu = "",
-                caozuorenid = _user.id,
+                caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -173,7 +163,7 @@ namespace CKGL
                 fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.出,
                 laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.内部,
                 beizhu = "",
-                caozuorenid = _user.id,
+                caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -518,9 +508,16 @@ namespace CKGL
                 }).ToArray()
             }).ToArray();
 
-            //登陆到数据中心
-            _jdc = CommonFunc.LoginJCSJ(_jdc);
-            _jdc.ShangbaoJinchuhuo_CK(jcjcs);
+            //数据中心处理
+            try
+            {
+                JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             //更新本地上报时间
             int[] ids = jcs.Select(r => r.id).ToArray();
