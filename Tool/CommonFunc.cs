@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -248,6 +249,79 @@ namespace Tool
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// 根据当前年月计算款号前缀
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static string Year_month_to_AB(int NumStartYear)
+        {
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            char startYear = 'A';
+            char startMonth = 'A';
+
+            char A = (char)(startYear + year - NumStartYear);
+            char B = (char)(startMonth + month - 1);
+
+            return A.ToString() + B.ToString();
+        }
+
+        /// <summary>
+        /// 取得指定长度的数字字符串
+        /// </summary>
+        /// <param name="L"></param>
+        /// <returns></returns>
+        public static string GetRandomNum(int L)
+        {
+            string s = "";
+            Random rd = new Random(GetRandomSeed());
+            while (L > 0)
+            {
+                s += rd.Next(0, 10);
+                L--;
+            }
+
+            return s;
+        }
+        static int GetRandomSeed()
+        {
+            byte[] bytes = new byte[4];
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(bytes);
+            return BitConverter.ToInt32(bytes, 0);
+        }
+
+        /// <summary>
+        /// 款号必须只能由字母和数字组成
+        /// </summary>
+        /// <param name="kh">款号</param>
+        /// <returns></returns>
+        public static bool CheckFormat_KH(string kh)
+        {
+            Regex reg = new Regex(@"^[A-Za-z0-9]+$");
+            return reg.IsMatch(kh);
+        }
+
+        /// <summary>
+        /// 条码只能由字母和数字组成
+        /// </summary>
+        /// <param name="tm"></param>
+        /// <returns></returns>
+        public static bool CheckFormat_TM(string tm)
+        {
+            if (tm.Length != 13)
+            {
+                return false;
+            }
+
+            Regex reg = new Regex(@"^[A-Za-z0-9]+$");
+            return reg.IsMatch(tm);
         }
     }
 

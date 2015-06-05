@@ -34,46 +34,37 @@ namespace BIANMA.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int KHDAYCOUNT {
-            get {
-                return ((int)(this["KHDAYCOUNT"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public string TMDAYL {
-            get {
-                return ((string)(this["TMDAYL"]));
-            }
-            set {
-                this["TMDAYL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public string TMQIANZHUI {
-            get {
-                return ((string)(this["TMQIANZHUI"]));
-            }
-            set {
-                this["TMQIANZHUI"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data.xml")]
         public string DUMPFILENAME {
             get {
                 return ((string)(this["DUMPFILENAME"]));
             }
-            set {
-                this["DUMPFILENAME"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int KH_NUM_LEN {
+            get {
+                return ((int)(this["KH_NUM_LEN"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int TM_NUM_LEN {
+            get {
+                return ((int)(this["TM_NUM_LEN"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public string TM_START_CHAR {
+            get {
+                return ((string)(this["TM_START_CHAR"]));
             }
         }
     }

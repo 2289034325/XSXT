@@ -72,6 +72,7 @@ namespace BIANMA
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
             addGongyingshang(ng);
         }

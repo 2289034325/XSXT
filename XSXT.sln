@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIANMA", "BIANMA\BIANMA.csp
 		{28DEAFAF-7E89-412F-B4C3-E1B38174DC77} = {28DEAFAF-7E89-412F-B4C3-E1B38174DC77}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTranslate", "DataTranslate\DataTranslate.csproj", "{F2405033-2511-4365-8F07-7989FB98FBE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,14 @@ Global
 		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|Any CPU.Build.0 = Release|Any CPU
 		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|x64.ActiveCfg = Release|Any CPU
 		{359232C3-26C9-45D1-89AD-EA906F977213}.Release|x86.ActiveCfg = Release|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|x64.ActiveCfg = Release|Any CPU
+		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

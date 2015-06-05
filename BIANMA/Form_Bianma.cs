@@ -695,12 +695,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_sckh_Click(object sender, EventArgs e)
         {
-            int dayCount = Settings.Default.KHDAYCOUNT;
-            int indexL = (dayCount * 31).ToString().Length;
-            int day = DateTime.Now.Day;
-
-            string AB = calcKuanhaoAB();
-            int startIndex = day * dayCount;
+            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
 
             foreach (DataGridViewRow dr in grid_kuanhao.Rows)
             {
@@ -714,15 +709,8 @@ namespace BIANMA
                 string kh = (string)dr.Cells[col_kh_kh.Name].Value;
                 if (string.IsNullOrEmpty(kh) || string.IsNullOrWhiteSpace(kh))
                 {
-                    string nkh = AB + startIndex.ToString().PadLeft(indexL,'0');
-                    while(kuanhaoExists(nkh))
-                    {
-                        startIndex++;
-                        nkh = AB + startIndex.ToString().PadLeft(indexL, '0');
-                    }
-
-                    ((TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value).kuanhao.kuanhao = nkh;
-                    startIndex++;
+                    string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.KH_NUM_LEN);
+                    ((TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value).kuanhao.kuanhao = AB + NUM;
                 }
             }
 
@@ -745,27 +733,6 @@ namespace BIANMA
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// 根据当前年月计算款号前缀
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <returns></returns>
-        private string calcKuanhaoAB()
-        {
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
-            int day = DateTime.Now.Day;
-
-            char startYear = 'A';
-            char startMonth = 'A';
-
-            char A = (char)(startYear + year - Settings.Default.STARTYEAR);
-            char B = (char)(startMonth + month - 1);
-
-            return A.ToString() + B.ToString();
         }
 
         /// <summary>
@@ -841,11 +808,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_sctm_Click(object sender, EventArgs e)
         {
-            string ymd = DateTime.Now.ToString("yyMMdd");
-            //号码部分的长度
-            int tmL = int.Parse(Settings.Default.TMDAYL);
-            int startIndex = 1;
-            string qz = Settings.Default.TMQIANZHUI;
+            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
 
             foreach (DataGridViewRow dr in grid_kuanhao.Rows)
             {
@@ -856,15 +819,8 @@ namespace BIANMA
                     string tm = t.tiaoma.tiaoma;
                     if (string.IsNullOrEmpty(tm) || string.IsNullOrWhiteSpace(tm))
                     {
-                        string ntm = qz + ymd + startIndex.ToString().PadLeft(tmL, '0');
-                        while (tiaomaExists(ntm))
-                        {
-                            startIndex++;
-                            ntm = qz + ymd + startIndex.ToString().PadLeft(tmL, '0');
-                        }
-
-                        t.tiaoma.tiaoma = ntm;
-                        startIndex++;
+                        string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.TM_NUM_LEN);
+                        t.tiaoma.tiaoma = Settings.Default.TM_START_CHAR + AB + NUM;
                     }
                 }
             }
@@ -986,6 +942,14 @@ namespace BIANMA
                 //检查新款号
                 if (dr.Cells[col_kh_xj.Name].Value.ToString().Equals(XTCONSTS.KUANHAO_XINJIU.新款.ToString()))
                 {
+                    //款号符合固定格式
+                    if (!Tool.CommonFunc.CheckFormat_KH(kh))
+                    {
+                        _kuanhaoOK = false;
+                        MessageBox.Show("款号格式非法");
+                        return;
+                    }
+
                     //检查款号是否没有条码信息
                     if (((TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value).tms.Count == 0)
                     {
@@ -1090,6 +1054,13 @@ namespace BIANMA
                         if (string.IsNullOrEmpty(t.tiaoma.tiaoma) || string.IsNullOrWhiteSpace(t.tiaoma.tiaoma))
                         {
                             MessageBox.Show("条码不能空白");
+                            return;
+                        }
+
+                        //条码符合固定格式
+                        if (!Tool.CommonFunc.CheckFormat_TM(t.tiaoma.tiaoma))
+                        {
+                            MessageBox.Show("条码格式非法");
                             return;
                         }
 

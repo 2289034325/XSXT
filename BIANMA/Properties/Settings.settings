@@ -5,17 +5,17 @@
     <Setting Name="STARTYEAR" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">2015</Value>
     </Setting>
-    <Setting Name="KHDAYCOUNT" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
-    <Setting Name="TMDAYL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="TMQIANZHUI" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1000</Value>
-    </Setting>
-    <Setting Name="DUMPFILENAME" Type="System.String" Scope="User">
+    <Setting Name="DUMPFILENAME" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Data.xml</Value>
+    </Setting>
+    <Setting Name="KH_NUM_LEN" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="TM_NUM_LEN" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="TM_START_CHAR" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">10000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

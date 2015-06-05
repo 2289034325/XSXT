@@ -3,7 +3,7 @@
     <title>条码信息</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,tm,ys,cm,jj,sj,kh,gys,gyskh,ms) {
+        function EditInfo(id,tm,ys,cm,jj,sj,kh,gyskh) {
             $("#hid_id").val(id);
             $("#txb_tm").val(tm);
             $("#txb_ys").val(ys);
