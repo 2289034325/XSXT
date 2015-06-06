@@ -71,13 +71,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataService.svc" />
+    <Content Include="Global.asax" />
     <Content Include="ValidService.svc" />
-    <Content Include="App_Data\Settings.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicPasHandler.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="IDataService.cs" />
     <Compile Include="DataService.svc.cs">
       <DependentUpon>DataService.svc</DependentUpon>
@@ -91,6 +93,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Ali.pubxml" />
     <None Include="Properties\PublishProfiles\LocalG.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

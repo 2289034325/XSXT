@@ -12,7 +12,6 @@ namespace FDXS
     public static class JCSJWCF
     {
         private static DataServiceClient _jdc = null;
-        private static ValidServiceClient _vdc = null;
 
         /// <summary>
         /// 检查到数据中心的连接状态
@@ -24,15 +23,16 @@ namespace FDXS
             if (_jdc == null)
             {
                 _jdc = new DataServiceClient();
+                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
                     _jdc = new DataServiceClient();
+                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
             }
-            _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
         }
 
 
@@ -60,8 +60,8 @@ namespace FDXS
 
         internal static void FDZHZhuce(int ckid, string ckm, string jqm, string zcm)
         {
-            Login();
-            _vdc.FDZHZhuce(ckid,ckm,jqm,zcm);
+            ValidServiceClient vdc = new ValidServiceClient();
+            vdc.FDZHZhuce(ckid, ckm, jqm, zcm);
         }
 
         internal static THuiyuan GetHuiyuanById(int id)

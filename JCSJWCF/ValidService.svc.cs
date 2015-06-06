@@ -15,6 +15,14 @@ namespace JCSJWCF
 {
     public class ValidService : IValidService
     {
+        //动态密码
+        //private string _DTMM = null;
+
+        //public ValidService()
+        //{
+        //    _DTMM = Tool.CommonFunc.GetRandomNum(6);
+        //}
+
         /// <summary>
         /// 编码系统注册
         /// </summary>
@@ -202,12 +210,12 @@ namespace JCSJWCF
         /// <returns></returns>
         private bool validateDTMM(string mm)
         {
-            string bm = getDTMM();
+            string bm = System.Web.HttpContext.Current.Application["DTMM"].ToString();
+             
             if (mm == bm)
             {
                 //重新生成动态密码
-                string nm = makeNewDTMM();
-                setNewDTMM(nm);
+                System.Web.HttpContext.Current.Application["DTMM"] = Tool.CommonFunc.GetRandomNum(6);
                 return true;
             }
 
@@ -218,43 +226,43 @@ namespace JCSJWCF
         /// 生成新的动态密码
         /// </summary>
         /// <returns></returns>
-        private string makeNewDTMM()
-        {
-            Random r = new Random();
-            string nm = "";
-            string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            for (int i = 0; i < 5; i++)
-            {
-                nm += sources[r.Next(0, sources.Length - 1)];
-            }
+        //private string makeNewDTMM()
+        //{
+        //    Random r = new Random();
+        //    string nm = "";
+        //    string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        nm += sources[r.Next(0, sources.Length - 1)];
+        //    }
 
-            return nm;
-        }
+        //    return nm;
+        //}
 
         /// <summary>
-        /// 将新动态密码保存入配置文件
+        /// 生成新动态密码
         /// </summary>
         /// <param name="nm"></param>
-        private void setNewDTMM(string nm)
-        {
-            XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
-            dmnode.Value = nm;
+        //private void setNewDTMM(string nm)
+        //{
+            //XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+            //XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+            //dmnode.Value = nm;
 
-            xe.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-        }
+            //xe.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+        //}
 
         /// <summary>
-        /// 从配置文件取得动态密码
+        /// 取得动态密码
         /// </summary>
         /// <returns></returns>
-        private string getDTMM()
-        {
-            XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-            XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
+        //private string getDTMM()
+        //{
+            //XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
+            //XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
 
-            return dmnode.Value;
-        }
+            //return dmnode.Value;
+        //}
 
        
     }

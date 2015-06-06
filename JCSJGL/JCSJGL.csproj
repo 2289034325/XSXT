@@ -70,6 +70,7 @@
     <Content Include="jquery-2.1.3.js" />
     <Content Include="Main.Master" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Ali.pubxml" />
     <None Include="Properties\PublishProfiles\LocalG.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

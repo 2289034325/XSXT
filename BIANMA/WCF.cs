@@ -12,7 +12,6 @@ namespace BIANMA
     public static class JCSJWCF
     {
         private static DataServiceClient _jdc = null;
-        private static ValidServiceClient _vdc = null;
 
         private static string _dlm = null;
         private static string _mm = null;
@@ -35,6 +34,7 @@ namespace BIANMA
                     _jdc = new DataServiceClient();
                 }
             }
+
             TUser User = _jdc.BMZHLogin(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
 
             _dlm = dlm;
@@ -47,21 +47,22 @@ namespace BIANMA
             if (_jdc == null)
             {
                 _jdc = new DataServiceClient();
+                _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
                     _jdc = new DataServiceClient();
+                    _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
             }
-
-            _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
         }
 
         internal static void BMZHBangding(string dlm, string mm, string zcm)
         {
-            _vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+            ValidServiceClient vdc = new ValidServiceClient();
+            vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
         internal static TGongyingshang[] GetGongyingshangsByUserId(int id)
@@ -120,7 +121,8 @@ namespace BIANMA
 
         internal static void BMZHZhuce(string dlm, string mm, string xm, string zcm)
         {
-            _vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+            ValidServiceClient vdc = new ValidServiceClient();
+            vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
         internal static TTiaoma[] GetTiaomas(int userid, string kuanhao, string tiaoma, DateTime start, DateTime end)
