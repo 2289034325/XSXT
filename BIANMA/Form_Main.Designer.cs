@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             this.mn_main = new System.Windows.Forms.MenuStrip();
-            this.mni_bianma = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_fenlei = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_zhuce = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_denglu = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_zhbd = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_xgmm = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_denglu = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_bianma = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_fenlei = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_version = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
             // 
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mni_version,
             this.mni_zhuce,
             this.mni_denglu,
             this.mni_zhbd,
@@ -53,26 +55,19 @@
             this.mn_main.TabIndex = 0;
             this.mn_main.Text = "menuStrip1";
             // 
-            // mni_bianma
-            // 
-            this.mni_bianma.Name = "mni_bianma";
-            this.mni_bianma.Size = new System.Drawing.Size(44, 21);
-            this.mni_bianma.Text = "编码";
-            this.mni_bianma.Click += new System.EventHandler(this.mni_bianma_Click);
-            // 
-            // mni_fenlei
-            // 
-            this.mni_fenlei.Name = "mni_fenlei";
-            this.mni_fenlei.Size = new System.Drawing.Size(44, 21);
-            this.mni_fenlei.Text = "分类";
-            this.mni_fenlei.Click += new System.EventHandler(this.mni_fenlei_Click);
-            // 
             // mni_zhuce
             // 
             this.mni_zhuce.Name = "mni_zhuce";
             this.mni_zhuce.Size = new System.Drawing.Size(44, 21);
             this.mni_zhuce.Text = "注册";
             this.mni_zhuce.Click += new System.EventHandler(this.mni_zhuce_Click);
+            // 
+            // mni_denglu
+            // 
+            this.mni_denglu.Name = "mni_denglu";
+            this.mni_denglu.Size = new System.Drawing.Size(44, 21);
+            this.mni_denglu.Text = "登陆";
+            this.mni_denglu.Click += new System.EventHandler(this.mni_denglu_Click);
             // 
             // mni_zhbd
             // 
@@ -88,12 +83,26 @@
             this.mni_xgmm.Text = "修改密码";
             this.mni_xgmm.Click += new System.EventHandler(this.mni_xgmm_Click);
             // 
-            // mni_denglu
+            // mni_bianma
             // 
-            this.mni_denglu.Name = "mni_denglu";
-            this.mni_denglu.Size = new System.Drawing.Size(44, 21);
-            this.mni_denglu.Text = "登陆";
-            this.mni_denglu.Click += new System.EventHandler(this.mni_denglu_Click);
+            this.mni_bianma.Name = "mni_bianma";
+            this.mni_bianma.Size = new System.Drawing.Size(44, 21);
+            this.mni_bianma.Text = "编码";
+            this.mni_bianma.Click += new System.EventHandler(this.mni_bianma_Click);
+            // 
+            // mni_fenlei
+            // 
+            this.mni_fenlei.Name = "mni_fenlei";
+            this.mni_fenlei.Size = new System.Drawing.Size(44, 21);
+            this.mni_fenlei.Text = "分类";
+            this.mni_fenlei.Click += new System.EventHandler(this.mni_fenlei_Click);
+            // 
+            // mni_version
+            // 
+            this.mni_version.Name = "mni_version";
+            this.mni_version.Size = new System.Drawing.Size(44, 21);
+            this.mni_version.Text = "版本";
+            this.mni_version.Click += new System.EventHandler(this.mni_version_Click);
             // 
             // Form_Main
             // 
@@ -122,5 +131,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_zhbd;
         private System.Windows.Forms.ToolStripMenuItem mni_xgmm;
         private System.Windows.Forms.ToolStripMenuItem mni_denglu;
+        private System.Windows.Forms.ToolStripMenuItem mni_version;
     }
 }

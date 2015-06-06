@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -157,6 +158,16 @@ namespace CKGL
                     this.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// 查看版本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_version_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
         }
     }
 }

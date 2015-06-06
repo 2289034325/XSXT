@@ -43,6 +43,7 @@
             this.会员ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_hyyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_jfzk = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +70,8 @@
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mn_main_xtzc,
             this.设置默认折扣ToolStripMenuItem,
-            this.mn_main_czsmq});
+            this.mn_main_czsmq,
+            this.mn_main_version});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -165,6 +167,13 @@
             this.mn_main_jfzk.Text = "积分折扣";
             this.mn_main_jfzk.Click += new System.EventHandler(this.mn_main_jfzk_Click);
             // 
+            // mn_main_version
+            // 
+            this.mn_main_version.Name = "mn_main_version";
+            this.mn_main_version.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_version.Text = "版本";
+            this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -200,6 +209,7 @@
         private System.Windows.Forms.ToolStripMenuItem 会员ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mn_main_hyyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_jfzk;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_version;
     }
 }
 

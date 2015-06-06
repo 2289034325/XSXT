@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -282,6 +283,16 @@ namespace FDXS
             Settings.Default.ScanName = "";
             Settings.Default.Save();
             MessageBox.Show("重置完毕，请关闭程序然后再次打开，校准新的扫描枪");
+        }
+
+        /// <summary>
+        /// 查看版本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_version_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
         }
     }
 }

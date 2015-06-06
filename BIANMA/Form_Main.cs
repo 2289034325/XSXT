@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -117,6 +118,16 @@ namespace BIANMA
         private void mni_fenlei_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 查看版本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_version_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
         }
     }
 }
