@@ -22,14 +22,16 @@ namespace FDXS
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient();
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
                 _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient();
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                    //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
                     _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
             }

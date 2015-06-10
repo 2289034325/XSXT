@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Xml.Linq;
@@ -482,11 +483,14 @@ namespace JCSJWCF
             //去除循环引用
             foreach (TTiaoma tm in tms)
             {
-                tm.TUser.TTiaoma.Clear();
-                tm.TUser.TKuanhao = null;
+                tm.TUser = null;
                 tm.TKuanhao.TTiaoma.Clear();
                 tm.TKuanhao.TUser = null;
             }
+
+            //数据量366，会引起超时
+            //tms = new TTiaoma[] { tms[0] };
+            //tms = tms.Skip(30).ToArray();
 
             return tms;
         }

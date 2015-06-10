@@ -9,10 +9,10 @@ namespace DB_JCSJ
 {
         public partial class DBContext
         {
-            private Entities _db;
+            private JCSJEntities _db;
             public DBContext()
             {
-                _db = new Entities();
+                _db = new JCSJEntities();
                 //此项会引起entity无法序列化的错误
                 _db.Configuration.ProxyCreationEnabled = false;
             }

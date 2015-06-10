@@ -15,6 +15,6 @@ namespace DB_FD
     public partial class VKucun
     {
         public int id { get; set; }
-        public Nullable<short> shuliang { get; set; }
+        public short shuliang { get; set; }
     }
 }

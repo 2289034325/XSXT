@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="Entities.Context.cs">
       <AutoGen>True</AutoGen>

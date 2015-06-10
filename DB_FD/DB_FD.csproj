@@ -48,77 +48,76 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnExtend.cs" />
     <Compile Include="DELETE.cs" />
-    <Compile Include="Entities.Context.cs">
+    <Compile Include="FDEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.Context.tt</DependentUpon>
+      <DependentUpon>FDEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities.cs">
+    <Compile Include="FDEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities.Designer.cs">
+    <Compile Include="FDEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
+      <DependentUpon>FDEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="INSERT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
     <Compile Include="THuiyuan.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="THuiyuanZK.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TJinchuhuo.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TJinchuMX.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TKucunXZ.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TPandian.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TTiaoma.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TUser.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TXiaoshou.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UPDATE.cs" />
     <Compile Include="VKucun.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+      <DependentUpon>FDEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Entities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Entities.Context.tt">
+    <EntityDeploy Include="FDEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FDEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="FDEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+      <DependentUpon>FDEntities.edmx</DependentUpon>
+      <LastGenOutput>FDEntities.Context.cs</LastGenOutput>
     </None>
-    <None Include="Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
+    <None Include="FDEntities.edmx.diagram">
+      <DependentUpon>FDEntities.edmx</DependentUpon>
     </None>
-    <None Include="Entities.tt">
+    <None Include="FDEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
+      <DependentUpon>FDEntities.edmx</DependentUpon>
+      <LastGenOutput>FDEntities.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

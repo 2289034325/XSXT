@@ -294,5 +294,16 @@ namespace FDXS
         {
             MessageBox.Show(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
         }
+
+        /// <summary>
+        /// 打开所在文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_folder_Click(object sender, EventArgs e)
+        {
+            string path = System.Environment.CurrentDirectory;
+            System.Diagnostics.Process.Start("explorer.exe", path);
+        }
     }
 }

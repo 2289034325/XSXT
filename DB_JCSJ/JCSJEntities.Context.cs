@@ -13,10 +13,10 @@ namespace DB_JCSJ
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class JCSJEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public JCSJEntities()
+            : base("name=JCSJEntities")
         {
         }
     
@@ -26,7 +26,13 @@ namespace DB_JCSJ
         }
     
         public virtual DbSet<TCangku> TCangku { get; set; }
+        public virtual DbSet<TCangkuJinchuhuo> TCangkuJinchuhuo { get; set; }
+        public virtual DbSet<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
+        public virtual DbSet<TCangkuKucun> TCangkuKucun { get; set; }
         public virtual DbSet<TFendian> TFendian { get; set; }
+        public virtual DbSet<TFendianJinchuhuo> TFendianJinchuhuo { get; set; }
+        public virtual DbSet<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
+        public virtual DbSet<TFendianKucun> TFendianKucun { get; set; }
         public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
         public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<THuiyuanZK> THuiyuanZK { get; set; }
@@ -36,13 +42,7 @@ namespace DB_JCSJ
         public virtual DbSet<TUser> TUser { get; set; }
         public virtual DbSet<TUser_Cangku> TUser_Cangku { get; set; }
         public virtual DbSet<TUser_Fendian> TUser_Fendian { get; set; }
-        public virtual DbSet<TXiazaijilu> TXiazaijilu { get; set; }
         public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
-        public virtual DbSet<TFendianKucun> TFendianKucun { get; set; }
-        public virtual DbSet<TFendianJinchuhuo> TFendianJinchuhuo { get; set; }
-        public virtual DbSet<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
-        public virtual DbSet<TCangkuJinchuhuo> TCangkuJinchuhuo { get; set; }
-        public virtual DbSet<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
-        public virtual DbSet<TCangkuKucun> TCangkuKucun { get; set; }
+        public virtual DbSet<TXiazaijilu> TXiazaijilu { get; set; }
     }
 }

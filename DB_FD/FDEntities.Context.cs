@@ -13,10 +13,10 @@ namespace DB_FD
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class FDEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public FDEntities()
+            : base("name=FDEntities")
         {
         }
     

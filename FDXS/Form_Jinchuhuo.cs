@@ -284,7 +284,7 @@ namespace FDXS
             //如果是来源去向列
             if (e.ColumnIndex == col_jc_lyqx.Index)
             {
-                DBCONSTS.JCH_LYQX lyfx = (DBCONSTS.JCH_LYQX)byte.Parse(e.FormattedValue.ToString());
+                DBCONSTS.JCH_LYQX lyfx = (DBCONSTS.JCH_LYQX)Enum.Parse(typeof(DBCONSTS.JCH_LYQX),e.FormattedValue.ToString());
 
                 //来源只能是新货和内部，去向只能是退货，丢弃，其他
                 string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;

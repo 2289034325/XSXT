@@ -16,11 +16,11 @@ namespace DB_JCSJ
     {
         public TTiaoma()
         {
-            this.TXiaoshou = new HashSet<TXiaoshou>();
-            this.TFendianKucun = new HashSet<TFendianKucun>();
-            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
             this.TCangkuJinchuhuoMX = new HashSet<TCangkuJinchuhuoMX>();
             this.TCangkuKucun = new HashSet<TCangkuKucun>();
+            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
+            this.TFendianKucun = new HashSet<TFendianKucun>();
+            this.TXiaoshou = new HashSet<TXiaoshou>();
         }
     
         public int id { get; set; }
@@ -35,12 +35,12 @@ namespace DB_JCSJ
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
     
+        public virtual ICollection<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
+        public virtual ICollection<TCangkuKucun> TCangkuKucun { get; set; }
+        public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
+        public virtual ICollection<TFendianKucun> TFendianKucun { get; set; }
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
-        public virtual ICollection<TFendianKucun> TFendianKucun { get; set; }
-        public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
-        public virtual ICollection<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
-        public virtual ICollection<TCangkuKucun> TCangkuKucun { get; set; }
     }
 }

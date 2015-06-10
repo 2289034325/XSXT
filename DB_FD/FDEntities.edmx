@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="THuiyuan">
           <Key>
             <PropertyRef Name="id" />
@@ -126,9 +126,10 @@
         <EntityType Name="VKucun">
           <Key>
             <PropertyRef Name="id" />
+            <PropertyRef Name="shuliang" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="shuliang" Type="smallint" />
+          <Property Name="shuliang" Type="smallint" Nullable="false" />
         </EntityType>
         <Association Name="FK_TJinchuhuo_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
@@ -291,7 +292,8 @@
             <End Role="TXiaoshou" EntitySet="TXiaoshou" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -429,6 +431,14 @@
           <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TXiaoshou_TTiaoma" FromRole="TXiaoshou" ToRole="TTiaoma" />
           <NavigationProperty Name="TUser" Relationship="Self.FK_TXiaoshou_TUser" FromRole="TXiaoshou" ToRole="TUser" />
         </EntityType>
+        <EntityType Name="VKucun">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="shuliang" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="shuliang" Type="Int16" Nullable="false" />
+        </EntityType>
         <Association Name="FK_TXiaoshou_THuiyuan">
           <End Role="THuiyuan" Type="Self.THuiyuan" Multiplicity="0..1" />
           <End Role="TXiaoshou" Type="Self.TXiaoshou" Multiplicity="*" />
@@ -537,7 +547,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="THuiyuan" EntityType="Self.THuiyuan" />
           <EntitySet Name="THuiyuanZK" EntityType="Self.THuiyuanZK" />
           <EntitySet Name="TJinchuhuo" EntityType="Self.TJinchuhuo" />
@@ -547,6 +557,7 @@
           <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" />
           <EntitySet Name="TUser" EntityType="Self.TUser" />
           <EntitySet Name="TXiaoshou" EntityType="Self.TXiaoshou" />
+          <EntitySet Name="VKucun" EntityType="Self.VKucun" />
           <AssociationSet Name="FK_TXiaoshou_THuiyuan" Association="Self.FK_TXiaoshou_THuiyuan">
             <End Role="THuiyuan" EntitySet="THuiyuan" />
             <End Role="TXiaoshou" EntitySet="TXiaoshou" />
@@ -583,21 +594,13 @@
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TXiaoshou" EntitySet="TXiaoshou" />
           </AssociationSet>
-          <EntitySet Name="VKucun" EntityType="FDModel.VKucun" />
         </EntityContainer>
-        <EntityType Name="VKucun">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="shuliang" Type="Int16" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FDModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="FDModelStoreContainer" CdmEntityContainer="FDEntities">
           <EntitySetMapping Name="THuiyuan">
             <EntityTypeMapping TypeName="FDModel.THuiyuan">
               <MappingFragment StoreEntitySet="THuiyuan">
@@ -726,8 +729,8 @@
           <EntitySetMapping Name="VKucun">
             <EntityTypeMapping TypeName="FDModel.VKucun">
               <MappingFragment StoreEntitySet="VKucun">
-                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

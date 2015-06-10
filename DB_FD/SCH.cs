@@ -8,10 +8,10 @@ namespace DB_FD
 {
     public partial class DBContext
     {
-        private Entities _db;
+        private FDEntities _db;
         public DBContext()
         {
-            _db = new Entities();
+            _db = new FDEntities();
             //此项会引起entity无法序列化的错误
             _db.Configuration.ProxyCreationEnabled = false;
         }
@@ -146,7 +146,7 @@ namespace DB_FD
                 byte blx = byte.Parse(lx);
                 ks = ks.Where(r => r.t.leixing == blx);
             }
-            return ks.ToDictionary(k => k.t, v => (short)v.shuliang.Value);
+            return ks.ToDictionary(k => k.t, v => (short)v.shuliang);
         }
         /// <summary>
         /// 查出所有的库存信息

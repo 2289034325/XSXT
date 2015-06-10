@@ -80,7 +80,7 @@ namespace FDXS
             JCSJData.TFendianKucun[] fks = ks.Select(r => new JCSJData.TFendianKucun 
             {
                 tiaomaid = r.id,
-                shuliang = r.shuliang.Value
+                shuliang = r.shuliang
             }).ToArray();
 
             try
