@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Cangku.aspx.cs" Inherits="JCSJG.Page_Cangku" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Cangku.aspx.cs" Inherits="JCSJGL.Page_Cangku" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>仓库管理</title>

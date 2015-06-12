@@ -14,13 +14,16 @@ namespace DB_JCSJ
     
     public partial class TFendianKucun
     {
+        public TFendianKucun()
+        {
+            this.TFendianKucunMX = new HashSet<TFendianKucunMX>();
+        }
+    
         public int id { get; set; }
         public int fendianid { get; set; }
-        public int tiaomaid { get; set; }
-        public short shuliang { get; set; }
         public System.DateTime shangbaoshijian { get; set; }
     
         public virtual TFendian TFendian { get; set; }
-        public virtual TTiaoma TTiaoma { get; set; }
+        public virtual ICollection<TFendianKucunMX> TFendianKucunMX { get; set; }
     }
 }

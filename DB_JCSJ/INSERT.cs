@@ -118,18 +118,7 @@ namespace DB_JCSJ
                 _db.SaveChanges();
 
                 return nts;
-            }
-
-            /// <summary>
-            /// 增加一个下载记录
-            /// </summary>
-            /// <param name="x"></param>
-            public void InsertXiazaijilu(TXiazaijilu x)
-            {
-                _db.TXiazaijilu.Add(x);
-
-                _db.SaveChanges();
-            }
+            }            
 
             /// <summary>
             /// 增加一个会员积分折扣规则
@@ -174,29 +163,20 @@ namespace DB_JCSJ
             /// 更新分店库存
             /// </summary>
             /// <param name="fks"></param>
-            public void InsertFendianKucun(int fdid, TFendianKucun[] fks)
+            public void InsertFendianKucun(TFendianKucun fk)
             {
-                //先删除旧数据
-                var oks = _db.Database.ExecuteSqlCommand("DELETE FROM TFendianKucun WHERE fendianid = " + fdid);
-
-                //插入新数据
-                _db.TFendianKucun.AddRange(fks);
-
+                _db.TFendianKucun.Add(fk);
                 _db.SaveChanges();
             }
+
             /// <summary>
             /// 更新仓库库存
             /// </summary>
             /// <param name="ckid"></param>
             /// <param name="cks"></param>
-            public void InsertCangkuKucun(int ckid, TCangkuKucun[] cks)
+            public void InsertCangkuKucun(TCangkuKucun ck)
             {
-                //先删除旧数据
-                var oks = _db.Database.ExecuteSqlCommand("DELETE FROM TCangkuKucun WHERE cangkuid = " + ckid);
-
-                //插入新数据
-                _db.TCangkuKucun.AddRange(cks);
-
+                _db.TCangkuKucun.Add(ck);
                 _db.SaveChanges();
             }
 

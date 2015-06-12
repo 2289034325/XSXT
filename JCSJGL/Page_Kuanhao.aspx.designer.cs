@@ -7,7 +7,8 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JCSJG {
+namespace JCSJGL
+{
     
     
     public partial class Page_Kuanhao {

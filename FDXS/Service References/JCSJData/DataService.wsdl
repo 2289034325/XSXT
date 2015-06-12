@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IDataService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="1800000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="NetTcpBinding_IDataService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -342,6 +353,298 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CKResponse" message="tns:IDataService_ShangbaoJinchuhuo_CK_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
+    <wsp:PolicyReference URI="#WSHttpBinding_IDataService_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BMZHLogin">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/BMZHLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CKZHLogin">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CKZHLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FDZHLogin">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/FDZHLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BMZHEditPsw">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/BMZHEditPsw" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiaomas">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGongyingshangsByUserId">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetGongyingshangsByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKuanhaosByUserId">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaosByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertKuanhao">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/InsertKuanhao" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditKuanhao">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/EditKuanhao" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteKuanhao">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteKuanhao" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertGongyingshang">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/InsertGongyingshang" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditGongyingshang">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/EditGongyingshang" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGongyingshang">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteGongyingshang" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKuanhaoByMc">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaoByMc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByKuanhaoMc">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckKuanhaosChongfu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CheckKuanhaosChongfu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckTiaomaChongfu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CheckTiaomaChongfu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveKuanhaos">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/SaveKuanhaos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTiaomas">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/SaveTiaomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditTiaoma">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/EditTiaoma" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByUpdTime">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByUpdTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByTiaomahaos">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HuiyuanZhuce">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/HuiyuanZhuce" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanByShoujihao">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanByShoujihao" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanById">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHuiyuan">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/UpdateHuiyuan" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHuiyuanZhekous">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetHuiyuanZhekous" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoXiaoshou">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoXiaoshou" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoKucun_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoKucun_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoJinchuhuo_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoKucun_CK">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoKucun_CK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShangbaoJinchuhuo_CK">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IDataService" type="tns:IDataService">
     <wsp:PolicyReference URI="#NetTcpBinding_IDataService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -635,10 +938,16 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="DataService">
-    <wsdl:port name="NetTcpBinding_IDataService" binding="tns:NetTcpBinding_IDataService">
-      <soap12:address location="net.tcp://cai-dell-17r/JCSJWCF/DataService.svc/DataService" />
+    <wsdl:port name="WSHttpBinding_IDataService" binding="tns:WSHttpBinding_IDataService">
+      <soap12:address location="http://localhost/JCSJWCF/DataService.svc/wsDataService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://cai-dell-17r/JCSJWCF/DataService.svc/DataService</wsa10:Address>
+        <wsa10:Address>http://localhost/JCSJWCF/DataService.svc/wsDataService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IDataService" binding="tns:NetTcpBinding_IDataService">
+      <soap12:address location="net.tcp://cai-dell-17r/JCSJWCF/DataService.svc/ntDataService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://cai-dell-17r/JCSJWCF/DataService.svc/ntDataService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

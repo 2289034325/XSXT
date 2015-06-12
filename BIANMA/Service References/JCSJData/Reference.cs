@@ -136,10 +136,10 @@ namespace BIANMA.JCSJData {
         System.Threading.Tasks.Task EditTiaomaAsync(DB_JCSJ.TTiaoma t);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        DB_JCSJ.TTiaoma[] GetTiaomasByUpdTime();
+        DB_JCSJ.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasByUpdTimeAsync();
+        System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse")]
         DB_JCSJ.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
@@ -184,10 +184,10 @@ namespace BIANMA.JCSJData {
         System.Threading.Tasks.Task ShangbaoXiaoshouAsync(DB_JCSJ.TXiaoshou[] xss);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_FDResponse")]
-        void ShangbaoKucun_FD(DB_JCSJ.TFendianKucun[] fks);
+        void ShangbaoKucun_FD(DB_JCSJ.TFendianKucunMX[] fks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_FDResponse")]
-        System.Threading.Tasks.Task ShangbaoKucun_FDAsync(DB_JCSJ.TFendianKucun[] fks);
+        System.Threading.Tasks.Task ShangbaoKucun_FDAsync(DB_JCSJ.TFendianKucunMX[] fks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FDResponse")]
         void ShangbaoJinchuhuo_FD(DB_JCSJ.TFendianJinchuhuo[] fjcs);
@@ -196,10 +196,10 @@ namespace BIANMA.JCSJData {
         System.Threading.Tasks.Task ShangbaoJinchuhuo_FDAsync(DB_JCSJ.TFendianJinchuhuo[] fjcs);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_CKResponse")]
-        void ShangbaoKucun_CK(DB_JCSJ.TCangkuKucun[] cks);
+        void ShangbaoKucun_CK(DB_JCSJ.TCangkuKucunMX[] cks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_CKResponse")]
-        System.Threading.Tasks.Task ShangbaoKucun_CKAsync(DB_JCSJ.TCangkuKucun[] cks);
+        System.Threading.Tasks.Task ShangbaoKucun_CKAsync(DB_JCSJ.TCangkuKucunMX[] cks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CKResponse")]
         void ShangbaoJinchuhuo_CK(DB_JCSJ.TCangkuJinchuhuo[] cjcs);
@@ -395,12 +395,12 @@ namespace BIANMA.JCSJData {
             return base.Channel.EditTiaomaAsync(t);
         }
         
-        public DB_JCSJ.TTiaoma[] GetTiaomasByUpdTime() {
-            return base.Channel.GetTiaomasByUpdTime();
+        public DB_JCSJ.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end) {
+            return base.Channel.GetTiaomasByUpdTime(upt_start, upt_end);
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasByUpdTimeAsync() {
-            return base.Channel.GetTiaomasByUpdTimeAsync();
+        public System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end) {
+            return base.Channel.GetTiaomasByUpdTimeAsync(upt_start, upt_end);
         }
         
         public DB_JCSJ.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs) {
@@ -459,11 +459,11 @@ namespace BIANMA.JCSJData {
             return base.Channel.ShangbaoXiaoshouAsync(xss);
         }
         
-        public void ShangbaoKucun_FD(DB_JCSJ.TFendianKucun[] fks) {
+        public void ShangbaoKucun_FD(DB_JCSJ.TFendianKucunMX[] fks) {
             base.Channel.ShangbaoKucun_FD(fks);
         }
         
-        public System.Threading.Tasks.Task ShangbaoKucun_FDAsync(DB_JCSJ.TFendianKucun[] fks) {
+        public System.Threading.Tasks.Task ShangbaoKucun_FDAsync(DB_JCSJ.TFendianKucunMX[] fks) {
             return base.Channel.ShangbaoKucun_FDAsync(fks);
         }
         
@@ -475,11 +475,11 @@ namespace BIANMA.JCSJData {
             return base.Channel.ShangbaoJinchuhuo_FDAsync(fjcs);
         }
         
-        public void ShangbaoKucun_CK(DB_JCSJ.TCangkuKucun[] cks) {
+        public void ShangbaoKucun_CK(DB_JCSJ.TCangkuKucunMX[] cks) {
             base.Channel.ShangbaoKucun_CK(cks);
         }
         
-        public System.Threading.Tasks.Task ShangbaoKucun_CKAsync(DB_JCSJ.TCangkuKucun[] cks) {
+        public System.Threading.Tasks.Task ShangbaoKucun_CKAsync(DB_JCSJ.TCangkuKucunMX[] cks) {
             return base.Channel.ShangbaoKucun_CKAsync(cks);
         }
         

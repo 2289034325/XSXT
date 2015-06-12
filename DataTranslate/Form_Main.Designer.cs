@@ -38,6 +38,8 @@
             this.btn_kc = new System.Windows.Forms.Button();
             this.btn_fdzb = new System.Windows.Forms.Button();
             this.btn_jcsjzb = new System.Windows.Forms.Button();
+            this.txb_kcid = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -132,11 +134,29 @@
             this.btn_jcsjzb.UseVisualStyleBackColor = true;
             this.btn_jcsjzb.Click += new System.EventHandler(this.btn_jcsjzb_Click);
             // 
+            // txb_kcid
+            // 
+            this.txb_kcid.Location = new System.Drawing.Point(559, 36);
+            this.txb_kcid.Name = "txb_kcid";
+            this.txb_kcid.Size = new System.Drawing.Size(100, 21);
+            this.txb_kcid.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(489, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "庫存ID";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 256);
+            this.Controls.Add(this.txb_kcid);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btn_jcsjzb);
             this.Controls.Add(this.btn_fdzb);
             this.Controls.Add(this.btn_kc);
@@ -166,5 +186,7 @@
         private System.Windows.Forms.Button btn_kc;
         private System.Windows.Forms.Button btn_fdzb;
         private System.Windows.Forms.Button btn_jcsjzb;
+        private System.Windows.Forms.TextBox txb_kcid;
+        private System.Windows.Forms.Label label3;
     }
 }

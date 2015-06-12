@@ -24,7 +24,6 @@ namespace DB_JCSJ
             this.TTiaoma = new HashSet<TTiaoma>();
             this.TUser_Cangku = new HashSet<TUser_Cangku>();
             this.TUser_Fendian = new HashSet<TUser_Fendian>();
-            this.TXiazaijilu = new HashSet<TXiazaijilu>();
         }
     
         public int id { get; set; }
@@ -46,6 +45,5 @@ namespace DB_JCSJ
         public virtual ICollection<TTiaoma> TTiaoma { get; set; }
         public virtual ICollection<TUser_Cangku> TUser_Cangku { get; set; }
         public virtual ICollection<TUser_Fendian> TUser_Fendian { get; set; }
-        public virtual ICollection<TXiazaijilu> TXiazaijilu { get; set; }
     }
 }

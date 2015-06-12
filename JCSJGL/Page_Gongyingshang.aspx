@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Gongyingshang.aspx.cs" Inherits="JCSJG.Page_Gongyingshang" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Gongyingshang.aspx.cs" Inherits="JCSJGL.Page_Gongyingshang" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>供应商管理</title>
     <script type="text/javascript">

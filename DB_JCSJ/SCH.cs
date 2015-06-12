@@ -167,42 +167,43 @@ namespace DB_JCSJ
             }
 
             /// <summary>
-            /// 取得所有条码信息
+            /// 取得指定个数的条码信息
             /// </summary>
             /// <returns></returns>
-            public TTiaoma[] GetTiaomas()
+            public TTiaoma[] GetTiaomasByCond(int? userid,byte? lx, string kh, string tmh,DateTime? xgsj_start,DateTime? xgsj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var Tiaomas = _db.TTiaoma.Include("TUser").Include("TKuanhao");
-
-                return Tiaomas.ToArray();
-            }
-            public TTiaoma[] GetTiaomasByUpdTime(DateTime dt)
-            {
-                return _db.TTiaoma.Include("TUser").Include("TKuanhao").Where(r => r.xiugaishijian >= dt).ToArray();
-            }
-
-            /// <summary>
-            /// 按条件取得条码信息
-            /// </summary>
-            /// <param name="Userid">操作人ID</param>
-            /// <param name="Kuanhao"></param>
-            /// <param name="Tiaoma"></param>
-            /// <param name="Start">条码插入时间</param>
-            /// <param name="End">条码插入时间</param>
-            /// <returns></returns>
-            public TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start, DateTime End)
-            {
-                var Tiaomas = _db.TTiaoma.Include("TKuanhao").Where(r => r.caozuorenid == Userid && r.charushijian >= Start && r.charushijian <= End);
-                if (!string.IsNullOrEmpty(Kuanhao))
+                var tms = _db.TTiaoma.Include("TUser").Include("TKuanhao").AsQueryable();
+                if (lx != null)
                 {
-                    Tiaomas = Tiaomas.Where(r => r.TKuanhao.kuanhao == Kuanhao);
+                    tms = tms.Where(r => r.TKuanhao.leixing == lx.Value);
                 }
-                if (!string.IsNullOrEmpty(Tiaoma))
+                if (!string.IsNullOrEmpty(kh))
                 {
-                    Tiaomas = Tiaomas.Where(r => r.tiaoma == Tiaoma);
+                    tms = tms.Where(r => r.TKuanhao.kuanhao == kh);
+                }
+                if (!string.IsNullOrEmpty(tmh))
+                {
+                    tms = tms.Where(r => r.tiaoma == tmh);
+                }
+                if (xgsj_start != null)
+                {
+                    xgsj_start = xgsj_start.Value.Date;
+                    tms = tms.Where(r => r.xiugaishijian >= xgsj_start.Value);
+                }
+                if (xgsj_end != null)
+                {
+                    xgsj_end = xgsj_end.Value.Date.AddDays(1);
+                    tms = tms.Where(r => r.xiugaishijian < xgsj_end.Value);
+                }
+                if (userid != null)
+                {
+                    tms = tms.Where(r => r.caozuorenid == userid.Value);
                 }
 
-                return Tiaomas.ToArray();
+                recordCount = tms.Count();
+                tms = tms.OrderByDescending(r => r.xiugaishijian).Skip(pageSize * pageIndex);
+
+                return tms.ToArray();
             }
 
             /// <summary>
@@ -231,16 +232,6 @@ namespace DB_JCSJ
                 return _db.TTiaoma.Include("TKuanhao").Where(r => tmhs.Contains(r.tiaoma)).ToArray();
             }
 
-            /// <summary>
-            /// 取得某用户的下载记录
-            /// </summary>
-            /// <param name="userid">用户ID</param>
-            /// <param name="neirong">下载内容</param>
-            /// <returns></returns>
-            public TXiazaijilu GetXiazaijilu(int userid, string neirong)
-            {
-                return _db.TXiazaijilu.SingleOrDefault(r => r.yonghuid == userid && r.neirong == neirong);
-            }
 
             /// <summary>
             /// 取得账号对应的分店ID
@@ -320,6 +311,89 @@ namespace DB_JCSJ
                 return xss.ToArray();
             }
 
+            /// <summary>
+            /// 查询分店进出货数据
+            /// </summary>
+            /// <param name="fdid"></param>
+            /// <param name="fsrq_start"></param>
+            /// <param name="fsrq_end"></param>
+            /// <param name="sbrq_start"></param>
+            /// <param name="sbrq_end"></param>
+            /// <param name="pageSize"></param>
+            /// <param name="pageIndex"></param>
+            /// <param name="recordCount"></param>
+            /// <returns></returns>
+            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int? fdid, DateTime? fsrq_start, DateTime? fsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int pageSize, int pageIndex, out int recordCount)
+            {
+                var jcs = _db.TFendianJinchuhuo.Include("TFendian").Include("TFendianJinchuhuoMX").AsQueryable();
+                if (fdid != null)
+                {
+                    jcs = jcs.Where(r => r.fendianid == fdid);
+                }
+                if (fsrq_start != null)
+                {
+                    jcs = jcs.Where(r => r.fashengshijian >= fsrq_start);
+                }
+                if (fsrq_end != null)
+                {
+                    fsrq_end = fsrq_end.Value.AddDays(1);
+                    jcs = jcs.Where(r => r.fashengshijian <= fsrq_end);
+                }
+                if (sbrq_start != null)
+                {
+                    jcs = jcs.Where(r => r.shangbaoshijian >= sbrq_start);
+                }
+                if (sbrq_end != null)
+                {
+                    sbrq_end = sbrq_end.Value.AddDays(1);
+                    jcs = jcs.Where(r => r.shangbaoshijian <= sbrq_end);
+                }
+                recordCount = jcs.Count();
+                jcs = jcs.OrderByDescending(r => r.shangbaoshijian).Skip(pageSize * pageIndex);
+
+                return jcs.ToArray();
+            }
+
+            /// <summary>
+            /// 取得进出货的详细清单
+            /// </summary>
+            /// <param name="jcid">进出货记录ID</param>
+            /// <returns></returns>
+            public TFendianJinchuhuoMX[] GetFDJinchuhuoMXsByJcId(int jcid)
+            {
+                return _db.TFendianJinchuhuoMX.Include("TTiaoma").Include("TTiaoma.TKuanhao").Where(r => r.jinchuhuoid == jcid).ToArray();
+            }
+
+            /// <summary>
+            /// 取得某分店的库存记录
+            /// </summary>
+            /// <param name="fdid"></param>
+            /// <param name="pageSize"></param>
+            /// <param name="pageIndex"></param>
+            /// <returns></returns>
+            public TFendianKucun[] GetFDKucunByCond(int? fdid, int pageSize, int pageIndex, out int recordCount)
+            {
+                var kcs = _db.TFendianKucun.Include("TFendian").Include("TFendianKucunMX").Include("TFendianKucunMX.TTiaoma").AsQueryable();
+                if (fdid != null)
+                {
+                    kcs = kcs.Where(r => r.fendianid == fdid);
+                }
+
+                recordCount = kcs.Count();
+                kcs = kcs.OrderByDescending(r => r.shangbaoshijian).Skip(pageSize * pageIndex);
+
+                return kcs.ToArray(); 
+            }
+
+            /// <summary>
+            /// 取得某库存记录的明细清单
+            /// </summary>
+            /// <param name="jcid"></param>
+            /// <returns></returns>
+            public TFendianKucunMX[] GetFDKucunMXsByKcId(int kcid)
+            {
+                return _db.TFendianKucunMX.Include("TTiaoma").Include("TTiaoma.TKuanhao").Where(r => r.kucunid == kcid).ToArray();
+            }
         }
  
 }

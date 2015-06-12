@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace JCSJG
+namespace JCSJGL
 {
     public partial class Page_Huiyuan : System.Web.UI.Page
     {

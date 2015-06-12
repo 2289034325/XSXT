@@ -77,7 +77,7 @@ namespace FDXS
             DBContext db = new DBContext();
             VKucun[] ks = db.GetKucuns();
 
-            JCSJData.TFendianKucun[] fks = ks.Select(r => new JCSJData.TFendianKucun 
+            JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX 
             {
                 tiaomaid = r.id,
                 shuliang = r.shuliang

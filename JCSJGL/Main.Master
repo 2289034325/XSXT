@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="JCSJG.Main" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="JCSJGL.Main" %>
 
 <!DOCTYPE html>
 
@@ -29,6 +29,8 @@
                     <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
                 </Items>
                 <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
 

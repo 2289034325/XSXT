@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Tool;
 
-namespace JCSJG
+namespace JCSJGL
 {
     public partial class Page_Tiaoma : System.Web.UI.Page
     {
@@ -16,12 +16,9 @@ namespace JCSJG
             //初始化
             if (!IsPostBack)
             {
-                //加载所有条码信息
-                loadTiaomas();
-
-                //初始化下拉框
-                DBContext db = new DBContext();
-                TGongyingshang[] gs = db.GetGongyingshangs();
+                //初始化类型下拉框
+                Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
+                cmb_lx.Items.Insert(0, "");
             }
             else
             {
@@ -37,6 +34,17 @@ namespace JCSJG
             }
         }
 
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
+            search();
+        }
+
         /// <summary>
         /// 删除一个条码
         /// </summary>
@@ -46,16 +54,26 @@ namespace JCSJG
             DBContext db = new DBContext();
             db.DeleteTiaoma(id);
 
-            loadTiaomas();
+            search();
         }
 
         /// <summary>
         /// 加载所有条码信息
         /// </summary>
-        private void loadTiaomas()
+        private void search()
         {
+            //取查询条件
+            byte? lx = null;
+            if (!string.IsNullOrEmpty(cmb_lx.SelectedValue))
+            {
+                lx = byte.Parse(cmb_lx.SelectedValue);
+            }
+            string kh = txb_kh_sch.Text.Trim();
+            string tmh = txb_tmh_sch.Text.Trim();
+            int recordCount = 0;
+
             DBContext db = new DBContext();
-            TTiaoma[] fs = db.GetTiaomas();
+            TTiaoma[] fs = db.GetTiaomasByCond(null,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
@@ -75,6 +93,7 @@ namespace JCSJG
                              r.TKuanhao.kuanhao + "','" + r.gyskuanhao + "'"
             });
 
+            grid_tiaoma.VirtualItemCount = recordCount;
             grid_tiaoma.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
             grid_tiaoma.DataBind();
         }
@@ -94,7 +113,7 @@ namespace JCSJG
             DBContext db = new DBContext();
             db.UpdateTiaoma(f);
 
-            loadTiaomas();
+            search();
         }
 
         /// <summary>
@@ -147,7 +166,18 @@ namespace JCSJG
             DBContext db = new DBContext();
             db.InsertTiaoma(f);
 
-            loadTiaomas();
+            search();
+        }
+
+        /// <summary>
+        /// 换页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void grid_tiaoma_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            grid_tiaoma.PageIndex = e.NewPageIndex;
+            search();
         }
     }
 }

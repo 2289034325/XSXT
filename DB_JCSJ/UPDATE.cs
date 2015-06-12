@@ -200,19 +200,5 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
-
-
-            /// <summary>
-            /// 修改下载记录的时间
-            /// </summary>
-            /// <param name="id"></param>
-            /// <param name="t"></param>
-            public void UpdateXiazaijilu(TXiazaijilu x)
-            {
-                TXiazaijilu ox = _db.TXiazaijilu.Single(r => r.id == x.id);
-                ox.xiazaishijian = x.xiazaishijian;
-
-                _db.SaveChanges();
-            }
         }
     }

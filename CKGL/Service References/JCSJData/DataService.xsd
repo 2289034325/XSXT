@@ -382,7 +382,7 @@
   <xs:element name="ShangbaoKucun_FD">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="fks" nillable="true" type="q32:ArrayOfTFendianKucun" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="fks" nillable="true" type="q32:ArrayOfTFendianKucunMX" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -406,7 +406,7 @@
   <xs:element name="ShangbaoKucun_CK">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="cks" nillable="true" type="q34:ArrayOfTCangkuKucun" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="cks" nillable="true" type="q34:ArrayOfTCangkuKucunMX" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

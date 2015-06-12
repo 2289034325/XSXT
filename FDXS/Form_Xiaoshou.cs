@@ -167,10 +167,18 @@ namespace FDXS
             DBContext db= new DBContext();
             grid_xs.Rows.Clear();
             TXiaoshou[] xss = db.GetXiaoshousByCond(tmh, kh, dstart, dend);
+            int tsl = 0;
             foreach (TXiaoshou x in xss)
             {
+                tsl += x.shuliang;
                 addXiaoshou(x);
             }
+
+            //合計行
+            int index = grid_xs.Rows.Add();
+            grid_xs.Rows[index].Cells[col_tm.Name].Value = "合計";
+            grid_xs.Rows[index].Cells[col_sl.Name].Value = tsl;
+            grid_xs.Rows[index].DefaultCellStyle.ForeColor = Color.Red;
         }
 
         /// <summary>
@@ -275,7 +283,7 @@ namespace FDXS
             {
                 oid = r.id,
                 xiaoshoushijian = r.xiaoshoushijian,
-                xiaoshouyuan = r.TUser.yonghuming,
+                xiaoshouyuan = r.xiaoshouyuan,
                 tiaomaid = r.tiaomaid,
                 huiyuanid = r.huiyuanid,
                 shuliang = r.shuliang,

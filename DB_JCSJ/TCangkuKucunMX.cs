@@ -12,18 +12,14 @@ namespace DB_JCSJ
     using System;
     using System.Collections.Generic;
     
-    public partial class TCangkuKucun
+    public partial class TCangkuKucunMX
     {
-        public TCangkuKucun()
-        {
-            this.TCangkuKucunMX = new HashSet<TCangkuKucunMX>();
-        }
-    
         public int id { get; set; }
-        public int cangkuid { get; set; }
-        public System.DateTime shangbaoshijian { get; set; }
+        public int kucunid { get; set; }
+        public int tiaomaid { get; set; }
+        public short shuliang { get; set; }
     
-        public virtual TCangku TCangku { get; set; }
-        public virtual ICollection<TCangkuKucunMX> TCangkuKucunMX { get; set; }
+        public virtual TCangkuKucun TCangkuKucun { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

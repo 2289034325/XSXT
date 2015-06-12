@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Xiaoshou.aspx.cs" Inherits="JCSJG.Page_Xiaoshou" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Xiaoshou.aspx.cs" Inherits="JCSJGL.Page_Xiaoshou" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>销售记录</title>
@@ -29,7 +29,7 @@
         <label>上报日期</label><asp:TextBox runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox runat="server" ID="txb_sbrq_end"></asp:TextBox>
         <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
     </div>
-    <asp:GridView ID="grid_xiaoshou" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="10"
+    <asp:GridView ID="grid_xiaoshou" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_xiaoshou_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>

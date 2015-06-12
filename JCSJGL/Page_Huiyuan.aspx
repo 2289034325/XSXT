@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Huiyuan.aspx.cs" Inherits="JCSJG.Page_Huiyuan" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Huiyuan.aspx.cs" Inherits="JCSJGL.Page_Huiyuan" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>会员管理</title>
     <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Fendian.aspx.cs" Inherits="JCSJG.Page_Fendian" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Fendian.aspx.cs" Inherits="JCSJGL.Page_Fendian" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>分店管理</title>
     <script type="text/javascript">

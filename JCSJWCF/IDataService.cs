@@ -81,7 +81,7 @@ namespace JCSJWCF
 
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByUpdTime();
+        TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end);
 
         [OperationContract(IsInitiating = false)]
         TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
@@ -109,14 +109,14 @@ namespace JCSJWCF
 
 
         [OperationContract(IsInitiating = false)]
-        void ShangbaoKucun_FD(TFendianKucun[] fks);
+        void ShangbaoKucun_FD(TFendianKucunMX[] fks);
 
         [OperationContract(IsInitiating = false)]
         void ShangbaoJinchuhuo_FD(TFendianJinchuhuo[] fjcs);
 
 
         [OperationContract(IsInitiating = false)]
-        void ShangbaoKucun_CK(TCangkuKucun[] cks);
+        void ShangbaoKucun_CK(TCangkuKucunMX[] cks);
 
         [OperationContract(IsInitiating = false)]
         void ShangbaoJinchuhuo_CK(TCangkuJinchuhuo[] cjcs);

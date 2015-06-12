@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Tiaoma.aspx.cs" Inherits="JCSJG.Page_Tiaoma" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Tiaoma.aspx.cs" Inherits="JCSJGL.Page_Tiaoma" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>条码信息</title>
     <script type="text/javascript">
@@ -23,7 +23,14 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <asp:GridView ID="grid_tiaoma" runat="server" AutoGenerateColumns="False">
+     <div id="div_sch">
+        <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx"></asp:DropDownList>
+        <label>款号</label><asp:TextBox runat="server" ID="txb_kh_sch"></asp:TextBox>
+        <label>条码号</label><asp:TextBox runat="server" ID="txb_tmh_sch"></asp:TextBox>        
+        <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+    </div>
+    <asp:GridView ID="grid_tiaoma" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20" 
+         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_tiaoma_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>
@@ -45,6 +52,24 @@
             </asp:TemplateField>
 
         </Columns>
+        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
+
+        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
+
+        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
+
+        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
+
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
+
+        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
+
+        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
+
+        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
+
+        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
+        <PagerSettings Mode="Numeric" Visible="true" />
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />

@@ -20,6 +20,7 @@ namespace DataTranslate
 
         private int _jcuserid;
         private int _fduserid;
+        private int _kcid;
 
         public Form_Main()
         {
@@ -35,27 +36,31 @@ namespace DataTranslate
         /// </summary>
         private void AddXiaoshou_FD()
         {
-            DB_FD.TXiaoshou[] xss = _fdb.TXiaoshou.ToArray();
-
-
-            foreach (DB_FD.TXiaoshou xs in xss)
+            var xss = _fdb.TXiaoshou.Select(r=>new{r.tiaomaid,r.shuliang}).GroupBy(r=>r.tiaomaid).Select(r=>new {tmid = r.Key,sl = (short)r.Sum(rr=>rr.shuliang)});
+            List<DB_FD.TJinchuMX> nmxs = new List<DB_FD.TJinchuMX>();
+            foreach (var xs in xss)
             {
-                DB_FD.TJinchuMX mx = _fdb.TJinchuMX.SingleOrDefault(r => r.tiaomaid == xs.tiaomaid);
-                if (mx == null)
+                if (!_fdb.TJinchuMX.Any(r => r.tiaomaid == xs.tmid))
                 {
-                    _fdb.TJinchuMX.Add(new DB_FD.TJinchuMX
+                    nmxs.Add(
+                    new DB_FD.TJinchuMX
                     {
                         jinchuid = _jcid,
-                        tiaomaid = xs.tiaomaid,
-                        shuliang = 1
+                        tiaomaid = xs.tmid,
+                        shuliang = xs.sl
                     });
                 }
                 else
                 {
-                    mx.shuliang++;
+                    DB_FD.TJinchuMX mx = _fdb.TJinchuMX.Single(r => r.tiaomaid == xs.tmid);
+                    mx.shuliang += xs.sl;
+                    
                 }
             }
 
+            _fdb.SaveChanges();
+            _fdb = new DB_FD.FDEntities("FDEntities");
+            _fdb.TJinchuMX.AddRange(nmxs);
             _fdb.SaveChanges();
         }
 
@@ -77,10 +82,21 @@ namespace DataTranslate
             {
                 xiaoshoushijian = r.charushijian,
                 xiaoshouyuan = "娜娜",
-                tiaomaid = idtms[oidtms[r.shangpinid]]
+                tiaomaid = idtms[oidtms[r.shangpinid]],
+                huiyuanid = null,
+                shuliang = r.shuliang,
+                danjia = r.danjia,
+                zhekou = r.zhekou,
+                moliing = r.moling,
+                beizhu = "",
+                caozuorenid = _fduserid,
+                charushijian = DateTime.Now,
+                xiugaishijian = DateTime.Now,
+                shangbaoshijian = null
             }).ToArray();
 
             _fdb.TXiaoshou.AddRange(nxss);
+            _fdb.SaveChanges();
         }
 
         /// <summary>
@@ -90,12 +106,12 @@ namespace DataTranslate
         private void Jinhuo_FD()
         {
             //取得现有库存
-            Dictionary<string, short> kcs = new Dictionary<string, short>();
+            Dictionary<string, short> kcs = _db_beta.TJintuihuo.Single(r => r.id == _kcid).TJintuimingxi.ToArray().ToDictionary(r => r.tiaoma.ToString(), r => r.shuliang);
             //将条码号，转换成新的ID
             Dictionary<string, int> idtms = _fdb.TTiaoma.ToDictionary(r => r.tiaoma, r => r.id);
             DB_FD.TJinchuMX[] mxs = kcs.Select(r => new DB_FD.TJinchuMX
             {
-                tiaomaid = r.Value,
+                tiaomaid = idtms[r.Key],
                 shuliang = kcs[r.Key]
             }).ToArray();
 
@@ -113,6 +129,7 @@ namespace DataTranslate
             jc.TJinchuMX = mxs;
 
             DB_FD.TJinchuhuo njc = _fdb.TJinchuhuo.Add(jc);
+            _fdb.SaveChanges();
             _jcid = njc.id;
         }
 
@@ -191,10 +208,14 @@ namespace DataTranslate
         private void btn_fdzb_Click(object sender, EventArgs e)
         {
             _fduserid = int.Parse(txb_fd.Text.Trim());
+            _kcid = int.Parse(txb_kcid.Text.Trim());
             if (_db_beta == null)
             { _db_beta = new FD_BetaEntities("FD_BetaEntities"); }
             if (_fdb == null)
-            { _fdb = new DB_FD.FDEntities("FDEntities"); }
+            {
+                _fdb = new DB_FD.FDEntities("FDEntities");
+                _fdb.Configuration.ProxyCreationEnabled = false;
+            }
         }
     }
 }

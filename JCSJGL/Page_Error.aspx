@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Page_Error.aspx.cs" Inherits="JCSJG.Page_Error" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Page_Error.aspx.cs" Inherits="JCSJGL.Page_Error" %>
 
 <!DOCTYPE html>
 

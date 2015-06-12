@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btn_shangbao = new System.Windows.Forms.Button();
             this.btn_kd = new System.Windows.Forms.Button();
             this.dp_end = new System.Windows.Forms.DateTimePicker();
             this.dp_start = new System.Windows.Forms.DateTimePicker();
@@ -54,7 +55,6 @@
             this.col_xsy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xssj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_shangbao = new System.Windows.Forms.Button();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_xs)).BeginInit();
             this.SuspendLayout();
@@ -74,8 +74,18 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1001, 32);
+            this.panel6.Size = new System.Drawing.Size(1116, 32);
             this.panel6.TabIndex = 8;
+            // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.Location = new System.Drawing.Point(774, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(89, 23);
+            this.btn_shangbao.TabIndex = 30;
+            this.btn_shangbao.Text = "上报销售数据";
+            this.btn_shangbao.UseVisualStyleBackColor = true;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
             // 
             // btn_kd
             // 
@@ -182,7 +192,7 @@
             this.grid_xs.RowHeadersVisible = false;
             this.grid_xs.RowTemplate.Height = 23;
             this.grid_xs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid_xs.Size = new System.Drawing.Size(1001, 452);
+            this.grid_xs.Size = new System.Drawing.Size(1116, 452);
             this.grid_xs.TabIndex = 11;
             this.grid_xs.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xs_UserDeletingRow);
             // 
@@ -277,21 +287,11 @@
             this.col_sbsj.Name = "col_sbsj";
             this.col_sbsj.ReadOnly = true;
             // 
-            // btn_shangbao
-            // 
-            this.btn_shangbao.Location = new System.Drawing.Point(774, 3);
-            this.btn_shangbao.Name = "btn_shangbao";
-            this.btn_shangbao.Size = new System.Drawing.Size(89, 23);
-            this.btn_shangbao.TabIndex = 30;
-            this.btn_shangbao.Text = "上报销售数据";
-            this.btn_shangbao.UseVisualStyleBackColor = true;
-            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
-            // 
             // Form_Xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 484);
+            this.ClientSize = new System.Drawing.Size(1116, 484);
             this.Controls.Add(this.grid_xs);
             this.Controls.Add(this.panel6);
             this.Name = "Form_Xiaoshou";

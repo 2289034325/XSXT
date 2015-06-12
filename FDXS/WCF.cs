@@ -84,16 +84,16 @@ namespace FDXS
             _jdc.ShangbaoJinchuhuo_FD(jcjcs);
         }
 
-        internal static void ShangbaoKucun_FD(TFendianKucun[] fks)
+        internal static void ShangbaoKucun_FD(TFendianKucunMX[] fks)
         {
             Login();
             _jdc.ShangbaoKucun_FD(fks);
         }
 
-        internal static TTiaoma[] GetTiaomasByUpdTime()
+        internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByUpdTime();
+            return _jdc.GetTiaomasByUpdTime(upt_start,upt_end);
         }
 
         internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)

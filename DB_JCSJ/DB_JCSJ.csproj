@@ -80,6 +80,9 @@
     <Compile Include="TCangkuKucun.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="TCangkuKucunMX.cs">
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="TFendian.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
@@ -90,6 +93,9 @@
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TFendianKucun.cs">
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TFendianKucunMX.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TGongyingshang.cs">
@@ -120,9 +126,6 @@
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TXiaoshou.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TXiazaijilu.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UPDATE.cs" />

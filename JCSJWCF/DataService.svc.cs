@@ -1,6 +1,7 @@
 ﻿using DB_JCSJ;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -166,7 +167,15 @@ namespace JCSJWCF
         public TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start, DateTime End)
         {
             DBContext db = new DBContext();
-            TTiaoma[] ts = db.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
+            int recordCount = 0;
+            int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
+
+            TTiaoma[] ts = db.GetTiaomasByCond(Userid,null, Kuanhao, Tiaoma, Start, End,dataLimit,0,out recordCount);
+            if (recordCount > dataLimit)
+            {
+                throw new FaultException("数据太多，请缩小时间区域");
+            }
+
             foreach (TTiaoma t in ts)
             {
                 t.TKuanhao.TTiaoma.Clear();
@@ -459,25 +468,18 @@ namespace JCSJWCF
         /// 取得最新插入和修改的条码
         /// </summary>
         /// <returns></returns>
-        public TTiaoma[] GetTiaomasByUpdTime()
+        public TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start,DateTime upt_end)
         {
             TTiaoma[] tms;
             DBContext db = new DBContext();
-            //取得该用户上次下载的时间
-            TXiazaijilu j = db.GetXiazaijilu(_user.id, Tool.JCSJ.DBCONSTS.XIAZAI_TIAOMA);
-            DateTime t = DateTime.Now;
-            if (j == null)
+
+            int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
+            int recordCount = 0;            
+            //加载条码信息
+            tms = db.GetTiaomasByCond(null, null, null, null, upt_start, upt_end, dataLimit, 0, out recordCount);
+            if (recordCount > dataLimit)
             {
-                //加载所有条码信息
-                tms = db.GetTiaomas();
-                db.InsertXiazaijilu(new TXiazaijilu { yonghuid = _user.id, neirong = Tool.JCSJ.DBCONSTS.XIAZAI_TIAOMA, xiazaishijian = t });
-            }
-            else
-            {
-                //加载修改时间在此时间之后的条码信息
-                tms = db.GetTiaomasByUpdTime(j.xiazaishijian);
-                //更新下载时间
-                db.UpdateXiazaijilu(new TXiazaijilu { id = j.id, xiazaishijian = t });
+                throw new FaultException("数据太多，请缩小时间区间");
             }
 
             //去除循环引用
@@ -487,11 +489,7 @@ namespace JCSJWCF
                 tm.TKuanhao.TTiaoma.Clear();
                 tm.TKuanhao.TUser = null;
             }
-
-            //数据量366，会引起超时
-            //tms = new TTiaoma[] { tms[0] };
-            //tms = tms.Skip(30).ToArray();
-
+            
             return tms;
         }
 
@@ -599,16 +597,20 @@ namespace JCSJWCF
         /// 上报库存
         /// </summary>
         /// <param name="fks"></param>
-        public void ShangbaoKucun_FD(TFendianKucun[] fks)
+        public void ShangbaoKucun_FD(TFendianKucunMX[] fks)
         {
-            foreach (TFendianKucun fk in fks)
+            DBContext db = new DBContext();
+            TFendianKucun fk = new TFendianKucun 
             {
-                fk.fendianid = _fendian.id;
-                fk.shangbaoshijian = DateTime.Now;
+                fendianid = _fendian.id,
+                shangbaoshijian = DateTime.Now
+            };
+            foreach (TFendianKucunMX kmx in fks)            
+            {
+                fk.TFendianKucunMX.Add(kmx);
             }
 
-            DBContext db = new DBContext();
-            db.InsertFendianKucun(_fendian.id, fks);
+            db.InsertFendianKucun(fk);
         }
 
         /// <summary>
@@ -631,16 +633,20 @@ namespace JCSJWCF
         /// 上报仓库库存
         /// </summary>
         /// <param name="cks"></param>
-        public void ShangbaoKucun_CK(TCangkuKucun[] cks)
+        public void ShangbaoKucun_CK(TCangkuKucunMX[] cks)
         {
-            foreach (TCangkuKucun ck in cks)
+            DBContext db = new DBContext();
+            TCangkuKucun ck = new TCangkuKucun 
             {
-                ck.cangkuid = _cangku.id;
-                ck.shangbaoshijian = DateTime.Now;
+                cangkuid = _cangku.id,
+                shangbaoshijian = DateTime.Now
+            };
+            foreach (TCangkuKucunMX cmx in cks)
+            {
+                ck.TCangkuKucunMX.Add(cmx);
             }
 
-            DBContext db = new DBContext();
-            db.InsertCangkuKucun(_cangku.id, cks);
+            db.InsertCangkuKucun(ck);
         }
 
         /// <summary>

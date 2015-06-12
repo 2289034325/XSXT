@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Kuanhao.aspx.cs" Inherits="JCSJG.Page_Kuanhao" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Kuanhao.aspx.cs" Inherits="JCSJGL.Page_Kuanhao" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>款号管理</title>

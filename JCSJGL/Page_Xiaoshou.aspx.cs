@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Tool;
 
-namespace JCSJG
+namespace JCSJGL
 {
     public partial class Page_Xiaoshou : System.Web.UI.Page
     {

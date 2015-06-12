@@ -242,24 +242,24 @@
     <None Include="Service References\JCSJData\CKGL.JCSJData.TUser.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\JCSJData\DataService1.wsdl" />
-    <None Include="Service References\JCSJData\DataService4.xsd">
+    <None Include="Service References\JCSJData\DataService.wsdl" />
+    <None Include="Service References\JCSJData\DataService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJData\DataService41.xsd">
+    <None Include="Service References\JCSJData\DataService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJData\DataService42.xsd">
+    <None Include="Service References\JCSJData\DataService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJData\DataService43.xsd">
+    <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJValid\ValidService1.wsdl" />
-    <None Include="Service References\JCSJValid\ValidService2.xsd">
+    <None Include="Service References\JCSJValid\ValidService.wsdl" />
+    <None Include="Service References\JCSJValid\ValidService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJValid\ValidService21.xsd">
+    <None Include="Service References\JCSJValid\ValidService1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -268,34 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\JCSJData\" />
-    <WCFMetadataStorage Include="Service References\JCSJValid\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DB_CK\DB_CK.csproj">
@@ -310,12 +282,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\DataService1.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\ValidService1.disco" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -333,6 +299,40 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\JCSJData\" />
+    <WCFMetadataStorage Include="Service References\JCSJValid\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\DataService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJData\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\ValidService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JCSJValid\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

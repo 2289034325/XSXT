@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JCSJG</RootNamespace>
-    <AssemblyName>JCSJG</AssemblyName>
+    <RootNamespace>JCSJGL</RootNamespace>
+    <AssemblyName>JCSJGL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -83,10 +83,14 @@
     <Content Include="Login.aspx" />
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
+    <Content Include="Page_FDKucunMX.aspx" />
+    <Content Include="Page_FDKucun.aspx" />
+    <Content Include="Page_FDJinchuhuoMX.aspx" />
     <Content Include="Page_Fendian.aspx" />
     <Content Include="Page_Gongyingshang.aspx" />
     <Content Include="Page_Huiyuan.aspx" />
     <Content Include="Page_Kuanhao.aspx" />
+    <Content Include="Page_FDJinchuhuo.aspx" />
     <Content Include="Page_Xiaoshou.aspx" />
     <Content Include="Page_Tiaoma.aspx" />
     <Content Include="Page_User.aspx" />
@@ -121,6 +125,27 @@
     <Compile Include="Page_Error.aspx.designer.cs">
       <DependentUpon>Page_Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Page_FDKucunMX.aspx.cs">
+      <DependentUpon>Page_FDKucunMX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_FDKucunMX.aspx.designer.cs">
+      <DependentUpon>Page_FDKucunMX.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_FDKucun.aspx.cs">
+      <DependentUpon>Page_FDKucun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_FDKucun.aspx.designer.cs">
+      <DependentUpon>Page_FDKucun.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_FDJinchuhuoMX.aspx.cs">
+      <DependentUpon>Page_FDJinchuhuoMX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_FDJinchuhuoMX.aspx.designer.cs">
+      <DependentUpon>Page_FDJinchuhuoMX.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Page_Fendian.aspx.cs">
       <DependentUpon>Page_Fendian.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -148,6 +173,13 @@
     </Compile>
     <Compile Include="Page_Kuanhao.aspx.designer.cs">
       <DependentUpon>Page_Kuanhao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_FDJinchuhuo.aspx.cs">
+      <DependentUpon>Page_FDJinchuhuo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_FDJinchuhuo.aspx.designer.cs">
+      <DependentUpon>Page_FDJinchuhuo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Xiaoshou.aspx.cs">
       <DependentUpon>Page_Xiaoshou.aspx</DependentUpon>

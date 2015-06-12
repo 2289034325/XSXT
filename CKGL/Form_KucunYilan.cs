@@ -77,7 +77,7 @@ namespace CKGL
             DBContext db = new DBContext();
             VKucun[] ks = db.GetKucunView();
 
-            JCSJData.TCangkuKucun[] fks = ks.Select(r => new JCSJData.TCangkuKucun
+            JCSJData.TCangkuKucunMX[] fks = ks.Select(r => new JCSJData.TCangkuKucunMX
             {
                 tiaomaid = r.id,
                 shuliang = r.shuliang.Value

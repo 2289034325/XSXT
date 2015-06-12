@@ -30,7 +30,7 @@ namespace FDXS
             JCSJData.TTiaoma[] jtms;
             try
             {
-                jtms = JCSJWCF.GetTiaomasByUpdTime();
+                jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
             }
             catch (Exception ex)
             {
@@ -119,6 +119,9 @@ namespace FDXS
             dt.Rows.InsertAt(dt.NewRow(), 0);
             cmb_lx.SelectedIndex = 0;
 
+            //日期
+            dp_start.Value = DateTime.Now.AddDays(-15);
+            dp_end.Value = DateTime.Now;
         }
 
         /// <summary>

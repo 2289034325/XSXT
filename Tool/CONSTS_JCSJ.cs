@@ -9,11 +9,6 @@ namespace Tool.JCSJ
         public class DBCONSTS
         {
             /// <summary>
-            /// 下载内容命名
-            /// </summary>
-            public const string XIAZAI_TIAOMA = "条码信息";
-
-            /// <summary>
             /// 系统角色
             /// </summary>
             public enum USER_XTJS : byte

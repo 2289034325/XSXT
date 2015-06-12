@@ -47,9 +47,6 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TUser_Fendian[] TUser_FendianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TXiazaijilu[] TXiazaijiluField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -189,19 +186,6 @@ namespace FDXS.JCSJData {
                 if ((object.ReferenceEquals(this.TUser_FendianField, value) != true)) {
                     this.TUser_FendianField = value;
                     this.RaisePropertyChanged("TUser_Fendian");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TXiazaijilu[] TXiazaijilu {
-            get {
-                return this.TXiazaijiluField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TXiazaijiluField, value) != true)) {
-                    this.TXiazaijiluField = value;
-                    this.RaisePropertyChanged("TXiazaijilu");
                 }
             }
         }
@@ -1688,13 +1672,13 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TCangkuKucun[] TCangkuKucunField;
+        private FDXS.JCSJData.TCangkuKucunMX[] TCangkuKucunMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private FDXS.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TFendianKucun[] TFendianKucunField;
+        private FDXS.JCSJData.TFendianKucunMX[] TFendianKucunMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private FDXS.JCSJData.TKuanhao TKuanhaoField;
@@ -1762,14 +1746,14 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TCangkuKucun[] TCangkuKucun {
+        public FDXS.JCSJData.TCangkuKucunMX[] TCangkuKucunMX {
             get {
-                return this.TCangkuKucunField;
+                return this.TCangkuKucunMXField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuKucunField, value) != true)) {
-                    this.TCangkuKucunField = value;
-                    this.RaisePropertyChanged("TCangkuKucun");
+                if ((object.ReferenceEquals(this.TCangkuKucunMXField, value) != true)) {
+                    this.TCangkuKucunMXField = value;
+                    this.RaisePropertyChanged("TCangkuKucunMX");
                 }
             }
         }
@@ -1788,14 +1772,14 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TFendianKucun[] TFendianKucun {
+        public FDXS.JCSJData.TFendianKucunMX[] TFendianKucunMX {
             get {
-                return this.TFendianKucunField;
+                return this.TFendianKucunMXField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianKucunField, value) != true)) {
-                    this.TFendianKucunField = value;
-                    this.RaisePropertyChanged("TFendianKucun");
+                if ((object.ReferenceEquals(this.TFendianKucunMXField, value) != true)) {
+                    this.TFendianKucunMXField = value;
+                    this.RaisePropertyChanged("TFendianKucunMX");
                 }
             }
         }
@@ -2212,115 +2196,6 @@ namespace FDXS.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TXiazaijilu", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
-    [System.SerializableAttribute()]
-    public partial class TXiazaijilu : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TUser TUserField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string neirongField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime xiazaishijianField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int yonghuidField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TUser TUser {
-            get {
-                return this.TUserField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TUserField, value) != true)) {
-                    this.TUserField = value;
-                    this.RaisePropertyChanged("TUser");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string neirong {
-            get {
-                return this.neirongField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.neirongField, value) != true)) {
-                    this.neirongField = value;
-                    this.RaisePropertyChanged("neirong");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime xiazaishijian {
-            get {
-                return this.xiazaishijianField;
-            }
-            set {
-                if ((this.xiazaishijianField.Equals(value) != true)) {
-                    this.xiazaishijianField = value;
-                    this.RaisePropertyChanged("xiazaishijian");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int yonghuid {
-            get {
-                return this.yonghuidField;
-            }
-            set {
-                if ((this.yonghuidField.Equals(value) != true)) {
-                    this.yonghuidField = value;
-                    this.RaisePropertyChanged("yonghuid");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuJinchuhuo", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
     [System.SerializableAttribute()]
     public partial class TCangkuJinchuhuo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2521,7 +2396,7 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TCangku TCangkuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TTiaoma TTiaomaField;
+        private FDXS.JCSJData.TCangkuKucunMX[] TCangkuKucunMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int cangkuidField;
@@ -2531,12 +2406,6 @@ namespace FDXS.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime shangbaoshijianField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short shuliangField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int tiaomaidField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -2562,14 +2431,14 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TTiaoma TTiaoma {
+        public FDXS.JCSJData.TCangkuKucunMX[] TCangkuKucunMX {
             get {
-                return this.TTiaomaField;
+                return this.TCangkuKucunMXField;
             }
             set {
-                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
-                    this.TTiaomaField = value;
-                    this.RaisePropertyChanged("TTiaoma");
+                if ((object.ReferenceEquals(this.TCangkuKucunMXField, value) != true)) {
+                    this.TCangkuKucunMXField = value;
+                    this.RaisePropertyChanged("TCangkuKucunMX");
                 }
             }
         }
@@ -2609,32 +2478,6 @@ namespace FDXS.JCSJData {
                 if ((this.shangbaoshijianField.Equals(value) != true)) {
                     this.shangbaoshijianField = value;
                     this.RaisePropertyChanged("shangbaoshijian");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short shuliang {
-            get {
-                return this.shuliangField;
-            }
-            set {
-                if ((this.shuliangField.Equals(value) != true)) {
-                    this.shuliangField = value;
-                    this.RaisePropertyChanged("shuliang");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int tiaomaid {
-            get {
-                return this.tiaomaidField;
-            }
-            set {
-                if ((this.tiaomaidField.Equals(value) != true)) {
-                    this.tiaomaidField = value;
-                    this.RaisePropertyChanged("tiaomaid");
                 }
             }
         }
@@ -2734,6 +2577,131 @@ namespace FDXS.JCSJData {
                 if ((this.jinchuhuoidField.Equals(value) != true)) {
                     this.jinchuhuoidField = value;
                     this.RaisePropertyChanged("jinchuhuoid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short shuliang {
+            get {
+                return this.shuliangField;
+            }
+            set {
+                if ((this.shuliangField.Equals(value) != true)) {
+                    this.shuliangField = value;
+                    this.RaisePropertyChanged("shuliang");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int tiaomaid {
+            get {
+                return this.tiaomaidField;
+            }
+            set {
+                if ((this.tiaomaidField.Equals(value) != true)) {
+                    this.tiaomaidField = value;
+                    this.RaisePropertyChanged("tiaomaid");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.SerializableAttribute()]
+    public partial class TCangkuKucunMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TCangkuKucun TCangkuKucunField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TTiaoma TTiaomaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int kucunidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short shuliangField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int tiaomaidField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TCangkuKucun TCangkuKucun {
+            get {
+                return this.TCangkuKucunField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TCangkuKucunField, value) != true)) {
+                    this.TCangkuKucunField = value;
+                    this.RaisePropertyChanged("TCangkuKucun");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TTiaoma TTiaoma {
+            get {
+                return this.TTiaomaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
+                    this.TTiaomaField = value;
+                    this.RaisePropertyChanged("TTiaoma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int kucunid {
+            get {
+                return this.kucunidField;
+            }
+            set {
+                if ((this.kucunidField.Equals(value) != true)) {
+                    this.kucunidField = value;
+                    this.RaisePropertyChanged("kucunid");
                 }
             }
         }
@@ -2901,27 +2869,24 @@ namespace FDXS.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
     [System.SerializableAttribute()]
-    public partial class TFendianKucun : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class TFendianKucunMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FDXS.JCSJData.TFendian TFendianField;
+        private FDXS.JCSJData.TFendianKucun TFendianKucunField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private FDXS.JCSJData.TTiaoma TTiaomaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int fendianidField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime shangbaoshijianField;
+        private int kucunidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short shuliangField;
@@ -2940,14 +2905,14 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FDXS.JCSJData.TFendian TFendian {
+        public FDXS.JCSJData.TFendianKucun TFendianKucun {
             get {
-                return this.TFendianField;
+                return this.TFendianKucunField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianField, value) != true)) {
-                    this.TFendianField = value;
-                    this.RaisePropertyChanged("TFendian");
+                if ((object.ReferenceEquals(this.TFendianKucunField, value) != true)) {
+                    this.TFendianKucunField = value;
+                    this.RaisePropertyChanged("TFendianKucun");
                 }
             }
         }
@@ -2966,19 +2931,6 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int fendianid {
-            get {
-                return this.fendianidField;
-            }
-            set {
-                if ((this.fendianidField.Equals(value) != true)) {
-                    this.fendianidField = value;
-                    this.RaisePropertyChanged("fendianid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int id {
             get {
                 return this.idField;
@@ -2992,14 +2944,14 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime shangbaoshijian {
+        public int kucunid {
             get {
-                return this.shangbaoshijianField;
+                return this.kucunidField;
             }
             set {
-                if ((this.shangbaoshijianField.Equals(value) != true)) {
-                    this.shangbaoshijianField = value;
-                    this.RaisePropertyChanged("shangbaoshijian");
+                if ((this.kucunidField.Equals(value) != true)) {
+                    this.kucunidField = value;
+                    this.RaisePropertyChanged("kucunid");
                 }
             }
         }
@@ -3500,6 +3452,115 @@ namespace FDXS.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.SerializableAttribute()]
+    public partial class TFendianKucun : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TFendian TFendianField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TFendianKucunMX[] TFendianKucunMXField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int fendianidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime shangbaoshijianField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TFendian TFendian {
+            get {
+                return this.TFendianField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TFendianField, value) != true)) {
+                    this.TFendianField = value;
+                    this.RaisePropertyChanged("TFendian");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TFendianKucunMX[] TFendianKucunMX {
+            get {
+                return this.TFendianKucunMXField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TFendianKucunMXField, value) != true)) {
+                    this.TFendianKucunMXField = value;
+                    this.RaisePropertyChanged("TFendianKucunMX");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int fendianid {
+            get {
+                return this.fendianidField;
+            }
+            set {
+                if ((this.fendianidField.Equals(value) != true)) {
+                    this.fendianidField = value;
+                    this.RaisePropertyChanged("fendianid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime shangbaoshijian {
+            get {
+                return this.shangbaoshijianField;
+            }
+            set {
+                if ((this.shangbaoshijianField.Equals(value) != true)) {
+                    this.shangbaoshijianField = value;
+                    this.RaisePropertyChanged("shangbaoshijian");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="THuiyuanZK", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
     [System.SerializableAttribute()]
     public partial class THuiyuanZK : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3700,10 +3761,10 @@ namespace FDXS.JCSJData {
         System.Threading.Tasks.Task EditTiaomaAsync(FDXS.JCSJData.TTiaoma t);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        FDXS.JCSJData.TTiaoma[] GetTiaomasByUpdTime();
+        FDXS.JCSJData.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByUpdTimeAsync();
+        System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse")]
         FDXS.JCSJData.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
@@ -3748,10 +3809,10 @@ namespace FDXS.JCSJData {
         System.Threading.Tasks.Task ShangbaoXiaoshouAsync(FDXS.JCSJData.TXiaoshou[] xss);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_FDResponse")]
-        void ShangbaoKucun_FD(FDXS.JCSJData.TFendianKucun[] fks);
+        void ShangbaoKucun_FD(FDXS.JCSJData.TFendianKucunMX[] fks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_FDResponse")]
-        System.Threading.Tasks.Task ShangbaoKucun_FDAsync(FDXS.JCSJData.TFendianKucun[] fks);
+        System.Threading.Tasks.Task ShangbaoKucun_FDAsync(FDXS.JCSJData.TFendianKucunMX[] fks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FD", ReplyAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_FDResponse")]
         void ShangbaoJinchuhuo_FD(FDXS.JCSJData.TFendianJinchuhuo[] fjcs);
@@ -3760,10 +3821,10 @@ namespace FDXS.JCSJData {
         System.Threading.Tasks.Task ShangbaoJinchuhuo_FDAsync(FDXS.JCSJData.TFendianJinchuhuo[] fjcs);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_CKResponse")]
-        void ShangbaoKucun_CK(FDXS.JCSJData.TCangkuKucun[] cks);
+        void ShangbaoKucun_CK(FDXS.JCSJData.TCangkuKucunMX[] cks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoKucun_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoKucun_CKResponse")]
-        System.Threading.Tasks.Task ShangbaoKucun_CKAsync(FDXS.JCSJData.TCangkuKucun[] cks);
+        System.Threading.Tasks.Task ShangbaoKucun_CKAsync(FDXS.JCSJData.TCangkuKucunMX[] cks);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK", ReplyAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CKResponse")]
         void ShangbaoJinchuhuo_CK(FDXS.JCSJData.TCangkuJinchuhuo[] cjcs);
@@ -3959,12 +4020,12 @@ namespace FDXS.JCSJData {
             return base.Channel.EditTiaomaAsync(t);
         }
         
-        public FDXS.JCSJData.TTiaoma[] GetTiaomasByUpdTime() {
-            return base.Channel.GetTiaomasByUpdTime();
+        public FDXS.JCSJData.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end) {
+            return base.Channel.GetTiaomasByUpdTime(upt_start, upt_end);
         }
         
-        public System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByUpdTimeAsync() {
-            return base.Channel.GetTiaomasByUpdTimeAsync();
+        public System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end) {
+            return base.Channel.GetTiaomasByUpdTimeAsync(upt_start, upt_end);
         }
         
         public FDXS.JCSJData.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs) {
@@ -4023,11 +4084,11 @@ namespace FDXS.JCSJData {
             return base.Channel.ShangbaoXiaoshouAsync(xss);
         }
         
-        public void ShangbaoKucun_FD(FDXS.JCSJData.TFendianKucun[] fks) {
+        public void ShangbaoKucun_FD(FDXS.JCSJData.TFendianKucunMX[] fks) {
             base.Channel.ShangbaoKucun_FD(fks);
         }
         
-        public System.Threading.Tasks.Task ShangbaoKucun_FDAsync(FDXS.JCSJData.TFendianKucun[] fks) {
+        public System.Threading.Tasks.Task ShangbaoKucun_FDAsync(FDXS.JCSJData.TFendianKucunMX[] fks) {
             return base.Channel.ShangbaoKucun_FDAsync(fks);
         }
         
@@ -4039,11 +4100,11 @@ namespace FDXS.JCSJData {
             return base.Channel.ShangbaoJinchuhuo_FDAsync(fjcs);
         }
         
-        public void ShangbaoKucun_CK(FDXS.JCSJData.TCangkuKucun[] cks) {
+        public void ShangbaoKucun_CK(FDXS.JCSJData.TCangkuKucunMX[] cks) {
             base.Channel.ShangbaoKucun_CK(cks);
         }
         
-        public System.Threading.Tasks.Task ShangbaoKucun_CKAsync(FDXS.JCSJData.TCangkuKucun[] cks) {
+        public System.Threading.Tasks.Task ShangbaoKucun_CKAsync(FDXS.JCSJData.TCangkuKucunMX[] cks) {
             return base.Channel.ShangbaoKucun_CKAsync(cks);
         }
         

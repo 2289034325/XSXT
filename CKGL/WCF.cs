@@ -29,7 +29,7 @@ namespace CKGL
             throw new NotImplementedException();
         }
 
-        internal static void ShangbaoKucun_CK(TCangkuKucun[] fks)
+        internal static void ShangbaoKucun_CK(TCangkuKucunMX[] fks)
         {
             throw new NotImplementedException();
         }
