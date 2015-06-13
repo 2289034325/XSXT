@@ -164,7 +164,7 @@ namespace JCSJWCF
         /// <param name="Start">条码插入时间</param>
         /// <param name="End">条码插入时间</param>
         /// <returns></returns>
-        public TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start, DateTime End)
+        public TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End)
         {
             DBContext db = new DBContext();
             int recordCount = 0;

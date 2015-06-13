@@ -27,7 +27,7 @@ namespace JCSJWCF
         void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime Start,DateTime  End);
+        TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime? Start,DateTime? End);
 
 
         [OperationContract(IsInitiating = false)]

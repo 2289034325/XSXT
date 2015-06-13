@@ -63,8 +63,8 @@
         <xs:element minOccurs="0" name="Userid" type="xs:int" />
         <xs:element minOccurs="0" name="Kuanhao" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Tiaoma" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
-        <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="End" nillable="true" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

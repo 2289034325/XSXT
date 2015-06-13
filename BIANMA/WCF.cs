@@ -25,13 +25,13 @@ namespace BIANMA
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient();
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient();
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
                 }
             }
 
@@ -42,18 +42,18 @@ namespace BIANMA
 
             return User;
         }
-        public static void Login()
+        public static void AutoLogin()
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient();
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
                 _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient();
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
                     _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
             }
@@ -67,55 +67,55 @@ namespace BIANMA
 
         internal static TGongyingshang[] GetGongyingshangsByUserId(int id)
         {
-            Login();
+            AutoLogin();
             return _jdc.GetGongyingshangsByUserId(id);
         }
 
         internal static TGongyingshang InsertGongyingshang(TGongyingshang g)
         {
-            Login();
+            AutoLogin();
             return _jdc.InsertGongyingshang(g);
         }
 
         internal static void EditGongyingshang(TGongyingshang og)
         {
-            Login();
+            AutoLogin();
             _jdc.EditGongyingshang(og);
         }
 
         internal static void DeleteGongyingshang(int id)
         {
-            Login();
+            AutoLogin();
             _jdc.DeleteGongyingshang(id);
         }
 
         internal static TKuanhao[] GetKuanhaosByUserId(int id)
         {
-            Login();
+            AutoLogin();
             return _jdc.GetKuanhaosByUserId(id);
         }
 
         internal static TKuanhao InsertKuanhao(TKuanhao k)
         {
-            Login();
+            AutoLogin();
             return _jdc.InsertKuanhao(k);
         }
 
         internal static void EditKuanhao(TKuanhao ok)
         {
-            Login();
+            AutoLogin();
             _jdc.EditKuanhao(ok);
         }
 
         internal static void DeleteKuanhao(int id)
         {
-            Login();
+            AutoLogin();
             _jdc.DeleteKuanhao(id);
         }
 
         internal static void BMZHEditPsw(string om, string nm)
         {
-            Login();
+            AutoLogin();
             _jdc.BMZHEditPsw(Tool.CommonFunc.MD5_16(om), Tool.CommonFunc.MD5_16(nm));
         }
 
@@ -125,51 +125,51 @@ namespace BIANMA
             vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
-        internal static TTiaoma[] GetTiaomas(int userid, string kuanhao, string tiaoma, DateTime start, DateTime end)
+        internal static TTiaoma[] GetTiaomas(int userid, string kuanhao, string tiaoma, DateTime? start, DateTime? end)
         {
-            Login();
+            AutoLogin();
             return _jdc.GetTiaomas(userid, kuanhao, tiaoma, start, end);
         }
 
         internal static TTiaoma[] GetTiaomasByKuanhaoMc(string kh)
         {
-            Login();
+            AutoLogin();
             return _jdc.GetTiaomasByKuanhaoMc(kh);
         }
 
         internal static TKuanhao GetKuanhaoByMc(string kh)
         {
-            Login();
+            AutoLogin();
             return _jdc.GetKuanhaoByMc(kh);
         }
 
         internal static string[] CheckKuanhaosChongfu(string[] khs)
         {
-            Login();
+            AutoLogin();
             return _jdc.CheckKuanhaosChongfu(khs);
         }
 
         internal static string[] CheckTiaomaChongfu(string[] tms)
         {
-            Login();
+            AutoLogin();
             return _jdc.CheckTiaomaChongfu(tms);
         }
 
         internal static TKuanhao[] SaveKuanhaos(TKuanhao[] tKuanhao)
         {
-            Login();
+            AutoLogin();
             return _jdc.SaveKuanhaos(tKuanhao);
         }
 
         internal static TTiaoma[] SaveTiaomas(TTiaoma[] tTiaoma)
         {
-            Login();
+            AutoLogin();
             return _jdc.SaveTiaomas(tTiaoma);
         }
 
         internal static void EditTiaoma(TTiaoma t)
         {
-            Login();
+            AutoLogin();
             _jdc.EditTiaoma(t);
         }
     }

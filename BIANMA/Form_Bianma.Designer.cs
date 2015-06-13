@@ -79,13 +79,21 @@
             this.col_kh_khex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grid_all = new System.Windows.Forms.DataGridView();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_all_khxj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xb = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_all_tmxj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,12 +102,6 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -139,7 +141,7 @@
             this.grid_tiaoma.Location = new System.Drawing.Point(0, 0);
             this.grid_tiaoma.Name = "grid_tiaoma";
             this.grid_tiaoma.RowTemplate.Height = 23;
-            this.grid_tiaoma.Size = new System.Drawing.Size(741, 250);
+            this.grid_tiaoma.Size = new System.Drawing.Size(741, 136);
             this.grid_tiaoma.TabIndex = 8;
             this.grid_tiaoma.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_tiaoma_CellBeginEdit);
             this.grid_tiaoma.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_tiaoma_CellValidating);
@@ -387,14 +389,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -433,7 +435,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grid_tiaoma);
-            this.splitContainer1.Size = new System.Drawing.Size(1170, 250);
+            this.splitContainer1.Size = new System.Drawing.Size(1170, 136);
             this.splitContainer1.SplitterDistance = 425;
             this.splitContainer1.TabIndex = 11;
             // 
@@ -457,7 +459,7 @@
             this.grid_kuanhao.MultiSelect = false;
             this.grid_kuanhao.Name = "grid_kuanhao";
             this.grid_kuanhao.RowTemplate.Height = 23;
-            this.grid_kuanhao.Size = new System.Drawing.Size(425, 250);
+            this.grid_kuanhao.Size = new System.Drawing.Size(425, 136);
             this.grid_kuanhao.TabIndex = 9;
             this.grid_kuanhao.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_kuanhao_CellBeginEdit);
             this.grid_kuanhao.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_kuanhao_CellEndEdit);
@@ -533,23 +535,24 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.grid_all);
             this.splitContainer2.Size = new System.Drawing.Size(1170, 501);
-            this.splitContainer2.SplitterDistance = 250;
+            this.splitContainer2.SplitterDistance = 136;
             this.splitContainer2.TabIndex = 12;
             // 
             // grid_all
             // 
             this.grid_all.AllowUserToAddRows = false;
-            this.grid_all.AllowUserToDeleteRows = false;
             this.grid_all.AllowUserToResizeRows = false;
             this.grid_all.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_all.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_all_tmidex,
             this.col_all_khidex,
             this.col_all_kh,
+            this.col_all_khxj,
             this.col_all_xb,
             this.col_all_lx,
             this.col_all_pm,
             this.col_all_tm,
+            this.col_all_tmxj,
             this.col_all_gyskh,
             this.col_all_ys,
             this.col_all_cm,
@@ -563,112 +566,15 @@
             this.grid_all.Location = new System.Drawing.Point(0, 0);
             this.grid_all.Name = "grid_all";
             this.grid_all.RowTemplate.Height = 23;
-            this.grid_all.Size = new System.Drawing.Size(1170, 247);
+            this.grid_all.Size = new System.Drawing.Size(1170, 361);
             this.grid_all.TabIndex = 9;
+            this.grid_all.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_all_CellBeginEdit);
             this.grid_all.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellDoubleClick);
+            this.grid_all.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellEndEdit);
+            this.grid_all.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_all_CellValidating);
             this.grid_all.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellValueChanged);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
-            // 
-            // col_all_tmidex
-            // 
-            this.col_all_tmidex.HeaderText = "TMIDEX";
-            this.col_all_tmidex.Name = "col_all_tmidex";
-            this.col_all_tmidex.Visible = false;
-            // 
-            // col_all_khidex
-            // 
-            this.col_all_khidex.HeaderText = "KHIDEX";
-            this.col_all_khidex.Name = "col_all_khidex";
-            this.col_all_khidex.Visible = false;
-            // 
-            // col_all_kh
-            // 
-            this.col_all_kh.DataPropertyName = "kuanhao";
-            this.col_all_kh.HeaderText = "款号";
-            this.col_all_kh.Name = "col_all_kh";
-            this.col_all_kh.ReadOnly = true;
-            // 
-            // col_all_xb
-            // 
-            this.col_all_xb.DataPropertyName = "xingbie";
-            this.col_all_xb.HeaderText = "性别";
-            this.col_all_xb.Name = "col_all_xb";
-            this.col_all_xb.ReadOnly = true;
-            // 
-            // col_all_lx
-            // 
-            this.col_all_lx.DataPropertyName = "leixing";
-            this.col_all_lx.HeaderText = "类型";
-            this.col_all_lx.Name = "col_all_lx";
-            this.col_all_lx.ReadOnly = true;
-            // 
-            // col_all_pm
-            // 
-            this.col_all_pm.DataPropertyName = "pinming";
-            this.col_all_pm.HeaderText = "品名";
-            this.col_all_pm.Name = "col_all_pm";
-            this.col_all_pm.ReadOnly = true;
-            // 
-            // col_all_tm
-            // 
-            this.col_all_tm.DataPropertyName = "tiaoma";
-            this.col_all_tm.HeaderText = "条码";
-            this.col_all_tm.Name = "col_all_tm";
-            this.col_all_tm.ReadOnly = true;
-            // 
-            // col_all_gyskh
-            // 
-            this.col_all_gyskh.DataPropertyName = "gyskuanhao";
-            this.col_all_gyskh.HeaderText = "供应商款号";
-            this.col_all_gyskh.Name = "col_all_gyskh";
-            this.col_all_gyskh.ReadOnly = true;
-            // 
-            // col_all_ys
-            // 
-            this.col_all_ys.DataPropertyName = "yanse";
-            this.col_all_ys.HeaderText = "颜色";
-            this.col_all_ys.Name = "col_all_ys";
-            this.col_all_ys.ReadOnly = true;
-            // 
-            // col_all_cm
-            // 
-            this.col_all_cm.DataPropertyName = "chima";
-            this.col_all_cm.HeaderText = "尺码";
-            this.col_all_cm.Name = "col_all_cm";
-            this.col_all_cm.ReadOnly = true;
-            // 
-            // col_all_sl
-            // 
-            this.col_all_sl.HeaderText = "数量";
-            this.col_all_sl.Name = "col_all_sl";
-            this.col_all_sl.ReadOnly = true;
-            // 
-            // col_all_jj
-            // 
-            this.col_all_jj.DataPropertyName = "jinjia";
-            this.col_all_jj.HeaderText = "进价";
-            this.col_all_jj.Name = "col_all_jj";
-            this.col_all_jj.ReadOnly = true;
-            // 
-            // col_all_sj
-            // 
-            this.col_all_sj.DataPropertyName = "shoujia";
-            this.col_all_sj.HeaderText = "售价";
-            this.col_all_sj.Name = "col_all_sj";
-            // 
-            // col_all_crsj
-            // 
-            this.col_all_crsj.DataPropertyName = "charushijian";
-            this.col_all_crsj.HeaderText = "插入时间";
-            this.col_all_crsj.Name = "col_all_crsj";
-            this.col_all_crsj.ReadOnly = true;
-            // 
-            // col_all_xgsj
-            // 
-            this.col_all_xgsj.DataPropertyName = "xiugaishijian";
-            this.col_all_xgsj.HeaderText = "修改时间";
-            this.col_all_xgsj.Name = "col_all_xgsj";
-            this.col_all_xgsj.ReadOnly = true;
+            this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
             // 
             // cmn_all
             // 
@@ -711,6 +617,109 @@
             this.cmn_tm_xg.Size = new System.Drawing.Size(124, 22);
             this.cmn_tm_xg.Text = "保存修改";
             this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
+            // 
+            // col_all_tmidex
+            // 
+            this.col_all_tmidex.HeaderText = "TMIDEX";
+            this.col_all_tmidex.Name = "col_all_tmidex";
+            this.col_all_tmidex.Visible = false;
+            // 
+            // col_all_khidex
+            // 
+            this.col_all_khidex.HeaderText = "KHIDEX";
+            this.col_all_khidex.Name = "col_all_khidex";
+            this.col_all_khidex.Visible = false;
+            // 
+            // col_all_kh
+            // 
+            this.col_all_kh.DataPropertyName = "kuanhao";
+            this.col_all_kh.HeaderText = "款号";
+            this.col_all_kh.Name = "col_all_kh";
+            // 
+            // col_all_khxj
+            // 
+            this.col_all_khxj.HeaderText = "新/旧款";
+            this.col_all_khxj.Name = "col_all_khxj";
+            this.col_all_khxj.ReadOnly = true;
+            // 
+            // col_all_xb
+            // 
+            this.col_all_xb.DataPropertyName = "xingbie";
+            this.col_all_xb.HeaderText = "性别";
+            this.col_all_xb.Name = "col_all_xb";
+            // 
+            // col_all_lx
+            // 
+            this.col_all_lx.DataPropertyName = "leixing";
+            this.col_all_lx.HeaderText = "类型";
+            this.col_all_lx.Name = "col_all_lx";
+            // 
+            // col_all_pm
+            // 
+            this.col_all_pm.DataPropertyName = "pinming";
+            this.col_all_pm.HeaderText = "品名";
+            this.col_all_pm.Name = "col_all_pm";
+            // 
+            // col_all_tm
+            // 
+            this.col_all_tm.DataPropertyName = "tiaoma";
+            this.col_all_tm.HeaderText = "条码";
+            this.col_all_tm.Name = "col_all_tm";
+            // 
+            // col_all_tmxj
+            // 
+            this.col_all_tmxj.HeaderText = "新/旧条码";
+            this.col_all_tmxj.Name = "col_all_tmxj";
+            this.col_all_tmxj.ReadOnly = true;
+            // 
+            // col_all_gyskh
+            // 
+            this.col_all_gyskh.DataPropertyName = "gyskuanhao";
+            this.col_all_gyskh.HeaderText = "供应商款号";
+            this.col_all_gyskh.Name = "col_all_gyskh";
+            // 
+            // col_all_ys
+            // 
+            this.col_all_ys.DataPropertyName = "yanse";
+            this.col_all_ys.HeaderText = "颜色";
+            this.col_all_ys.Name = "col_all_ys";
+            // 
+            // col_all_cm
+            // 
+            this.col_all_cm.DataPropertyName = "chima";
+            this.col_all_cm.HeaderText = "尺码";
+            this.col_all_cm.Name = "col_all_cm";
+            // 
+            // col_all_sl
+            // 
+            this.col_all_sl.HeaderText = "数量";
+            this.col_all_sl.Name = "col_all_sl";
+            // 
+            // col_all_jj
+            // 
+            this.col_all_jj.DataPropertyName = "jinjia";
+            this.col_all_jj.HeaderText = "进价";
+            this.col_all_jj.Name = "col_all_jj";
+            // 
+            // col_all_sj
+            // 
+            this.col_all_sj.DataPropertyName = "shoujia";
+            this.col_all_sj.HeaderText = "售价";
+            this.col_all_sj.Name = "col_all_sj";
+            // 
+            // col_all_crsj
+            // 
+            this.col_all_crsj.DataPropertyName = "charushijian";
+            this.col_all_crsj.HeaderText = "插入时间";
+            this.col_all_crsj.Name = "col_all_crsj";
+            this.col_all_crsj.ReadOnly = true;
+            // 
+            // col_all_xgsj
+            // 
+            this.col_all_xgsj.DataPropertyName = "xiugaishijian";
+            this.col_all_xgsj.HeaderText = "修改时间";
+            this.col_all_xgsj.Name = "col_all_xgsj";
+            this.col_all_xgsj.ReadOnly = true;
             // 
             // Form_Bianma
             // 
@@ -807,10 +816,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khxj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xb;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_lx;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_pm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmxj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_gyskh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_ys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_cm;

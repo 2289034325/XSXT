@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace Tool
 {
-    public class CommonFunc
+    public static class CommonFunc
     {
 
         /// <summary>
@@ -322,6 +322,26 @@ namespace Tool
 
             Regex reg = new Regex(@"^[A-Za-z0-9]+$");
             return reg.IsMatch(tm);
+        }
+        
+        /// <summary>
+        /// 扩展Distinct方法，可以比较多个列
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="keySelector"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> DistinctBy<TSource,TKey>(this IEnumerable<TSource> source,Func<TSource,TKey> keySelector)
+        {
+            HashSet<TKey> hashSet = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (hashSet.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
         }
     }
 

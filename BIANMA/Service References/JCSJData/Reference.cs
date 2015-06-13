@@ -40,10 +40,10 @@ namespace BIANMA.JCSJData {
         System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
-        DB_JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
+        DB_JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End);
+        System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangsByUserId", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsByUserIdResponse")]
         DB_JCSJ.TGongyingshang[] GetGongyingshangsByUserId(int UserId);
@@ -267,11 +267,11 @@ namespace BIANMA.JCSJData {
             return base.Channel.BMZHEditPswAsync(om, nm);
         }
         
-        public DB_JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+        public DB_JCSJ.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
             return base.Channel.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.DateTime Start, System.DateTime End) {
+        public System.Threading.Tasks.Task<DB_JCSJ.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
             return base.Channel.GetTiaomasAsync(Userid, Kuanhao, Tiaoma, Start, End);
         }
         

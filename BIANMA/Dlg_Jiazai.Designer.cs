@@ -51,13 +51,12 @@
             // 
             this.txb_kh.Location = new System.Drawing.Point(71, 20);
             this.txb_kh.Name = "txb_kh";
-            this.txb_kh.PasswordChar = '*';
             this.txb_kh.Size = new System.Drawing.Size(100, 21);
             this.txb_kh.TabIndex = 7;
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(237, 113);
+            this.btn_ok.Location = new System.Drawing.Point(260, 113);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 8;
@@ -69,8 +68,7 @@
             // 
             this.txb_tm.Location = new System.Drawing.Point(212, 20);
             this.txb_tm.Name = "txb_tm";
-            this.txb_tm.PasswordChar = '*';
-            this.txb_tm.Size = new System.Drawing.Size(100, 21);
+            this.txb_tm.Size = new System.Drawing.Size(123, 21);
             this.txb_tm.TabIndex = 10;
             // 
             // label3
@@ -86,14 +84,16 @@
             // 
             this.dp_start.Location = new System.Drawing.Point(71, 68);
             this.dp_start.Name = "dp_start";
-            this.dp_start.Size = new System.Drawing.Size(105, 21);
+            this.dp_start.ShowCheckBox = true;
+            this.dp_start.Size = new System.Drawing.Size(132, 21);
             this.dp_start.TabIndex = 11;
             // 
             // dp_end
             // 
             this.dp_end.Location = new System.Drawing.Point(209, 68);
             this.dp_end.Name = "dp_end";
-            this.dp_end.Size = new System.Drawing.Size(103, 21);
+            this.dp_end.ShowCheckBox = true;
+            this.dp_end.Size = new System.Drawing.Size(126, 21);
             this.dp_end.TabIndex = 12;
             // 
             // label1
@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 157);
+            this.ClientSize = new System.Drawing.Size(347, 157);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dp_end);
             this.Controls.Add(this.dp_start);
