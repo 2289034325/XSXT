@@ -118,6 +118,7 @@ namespace BIANMA
             Nkuanhao.Add(new XElement("xingbie") { Value = kuanhao.xingbie.ToString() });
             Nkuanhao.Add(new XElement("leixing") { Value = kuanhao.leixing.ToString() });
             Nkuanhao.Add(new XElement("pinming") { Value = kuanhao.pinming });
+            Nkuanhao.Add(new XElement("beizhu") { Value = kuanhao.beizhu });
             Nkuanhao.Add(new XElement("caozuorenid") { Value = kuanhao.caozuorenid.ToString() });
             xk.Add(Nkuanhao);
             XElement Ntms = new XElement("tms");
@@ -148,7 +149,8 @@ namespace BIANMA
                         leixing = byte.Parse(xml.Element("kuanhao").Element("leixing").Value),
                         xingbie = byte.Parse(xml.Element("kuanhao").Element("xingbie").Value),
                         pinming = xml.Element("kuanhao").Element("pinming").Value,
-                        caozuorenid = int.Parse(xml.Element("kuanhao").Element("caozuorenid").Value)
+                        caozuorenid = int.Parse(xml.Element("kuanhao").Element("caozuorenid").Value),
+                        beizhu = xml.Element("kuanhao").Element("beizhu").Value
                     },
                     tms = xml.Element("tms").Elements("TTiaomaExtend").Select(r => TTiaomaExtend.FromXml(r)).ToList()
                 };

@@ -112,7 +112,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-
+            LoginInfo.User = JCSJWCF.Login("2", "2");
         }
 
         private void mni_fenlei_Click(object sender, EventArgs e)

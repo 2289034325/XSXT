@@ -79,12 +79,6 @@
             this.col_kh_khex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grid_all = new System.Windows.Forms.DataGridView();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,6 +96,14 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_kh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -323,7 +325,6 @@
             this.mni_jckh.Name = "mni_jckh";
             this.mni_jckh.Size = new System.Drawing.Size(124, 22);
             this.mni_jckh.Text = "检查款号";
-            this.mni_jckh.Click += new System.EventHandler(this.mni_jckh_Click);
             // 
             // 生成条码ToolStripMenuItem
             // 
@@ -346,7 +347,6 @@
             this.mni_jctm.Name = "mni_jctm";
             this.mni_jctm.Size = new System.Drawing.Size(124, 22);
             this.mni_jctm.Text = "检查条码";
-            this.mni_jctm.Click += new System.EventHandler(this.mni_jctm_Click);
             // 
             // mni_jiazai
             // 
@@ -389,14 +389,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -574,49 +574,8 @@
             this.grid_all.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_all_CellValidating);
             this.grid_all.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellValueChanged);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
+            this.grid_all.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_all_UserDeletedRow);
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
-            // 
-            // cmn_all
-            // 
-            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_all_shuaxin});
-            this.cmn_all.Name = "cmn_all";
-            this.cmn_all.Size = new System.Drawing.Size(101, 26);
-            // 
-            // cmn_all_shuaxin
-            // 
-            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
-            this.cmn_all_shuaxin.Size = new System.Drawing.Size(100, 22);
-            this.cmn_all_shuaxin.Text = "刷新";
-            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
-            // 
-            // cmn_kh
-            // 
-            this.cmn_kh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_kh_loadTms});
-            this.cmn_kh.Name = "cmn_kh";
-            this.cmn_kh.Size = new System.Drawing.Size(149, 26);
-            // 
-            // cmn_kh_loadTms
-            // 
-            this.cmn_kh_loadTms.Name = "cmn_kh_loadTms";
-            this.cmn_kh_loadTms.Size = new System.Drawing.Size(148, 22);
-            this.cmn_kh_loadTms.Text = "加载条码模板";
-            this.cmn_kh_loadTms.Click += new System.EventHandler(this.cmn_kh_loadTms_Click);
-            // 
-            // cmn_tm
-            // 
-            this.cmn_tm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_tm_xg});
-            this.cmn_tm.Name = "cmn_tm";
-            this.cmn_tm.Size = new System.Drawing.Size(125, 26);
-            // 
-            // cmn_tm_xg
-            // 
-            this.cmn_tm_xg.Name = "cmn_tm_xg";
-            this.cmn_tm_xg.Size = new System.Drawing.Size(124, 22);
-            this.cmn_tm_xg.Text = "保存修改";
-            this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
             // 
             // col_all_tmidex
             // 
@@ -720,6 +679,64 @@
             this.col_all_xgsj.HeaderText = "修改时间";
             this.col_all_xgsj.Name = "col_all_xgsj";
             this.col_all_xgsj.ReadOnly = true;
+            // 
+            // cmn_all
+            // 
+            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_all_shuaxin,
+            this.cmn_all_saveTm,
+            this.cmn_all_jzkh});
+            this.cmn_all.Name = "cmn_all";
+            this.cmn_all.Size = new System.Drawing.Size(125, 70);
+            // 
+            // cmn_all_shuaxin
+            // 
+            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
+            this.cmn_all_shuaxin.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_shuaxin.Text = "刷新";
+            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
+            // 
+            // cmn_all_saveTm
+            // 
+            this.cmn_all_saveTm.Name = "cmn_all_saveTm";
+            this.cmn_all_saveTm.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_saveTm.Text = "保存修改";
+            this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
+            // 
+            // cmn_all_jzkh
+            // 
+            this.cmn_all_jzkh.Name = "cmn_all_jzkh";
+            this.cmn_all_jzkh.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_jzkh.Text = "加载款号";
+            this.cmn_all_jzkh.Click += new System.EventHandler(this.cmn_all_jzkh_Click);
+            // 
+            // cmn_kh
+            // 
+            this.cmn_kh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_kh_loadTms});
+            this.cmn_kh.Name = "cmn_kh";
+            this.cmn_kh.Size = new System.Drawing.Size(149, 26);
+            // 
+            // cmn_kh_loadTms
+            // 
+            this.cmn_kh_loadTms.Name = "cmn_kh_loadTms";
+            this.cmn_kh_loadTms.Size = new System.Drawing.Size(148, 22);
+            this.cmn_kh_loadTms.Text = "加载条码模板";
+            this.cmn_kh_loadTms.Click += new System.EventHandler(this.cmn_kh_loadTms_Click);
+            // 
+            // cmn_tm
+            // 
+            this.cmn_tm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_tm_xg});
+            this.cmn_tm.Name = "cmn_tm";
+            this.cmn_tm.Size = new System.Drawing.Size(125, 26);
+            // 
+            // cmn_tm_xg
+            // 
+            this.cmn_tm_xg.Name = "cmn_tm_xg";
+            this.cmn_tm_xg.Size = new System.Drawing.Size(124, 22);
+            this.cmn_tm_xg.Text = "保存修改";
+            this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
             // 
             // Form_Bianma
             // 
@@ -830,6 +847,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem cmn_all_saveTm;
+        private System.Windows.Forms.ToolStripMenuItem cmn_all_jzkh;
     }
 }
 
