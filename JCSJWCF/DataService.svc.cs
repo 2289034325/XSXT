@@ -176,9 +176,12 @@ namespace JCSJWCF
                 throw new FaultException("数据太多，请缩小时间区域");
             }
 
+            //去除循环引用
             foreach (TTiaoma t in ts)
             {
                 t.TKuanhao.TTiaoma.Clear();
+                t.TUser.TTiaoma.Clear();
+                t.TUser.TKuanhao.Clear();
             }
             return ts;
         }

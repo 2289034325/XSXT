@@ -31,6 +31,8 @@ namespace BIANMA
         private List<TKuanhaoExtend> _khs;
         //设置当前行的颜色
         private Color _rowColor;
+        private Color _color1;
+        private Color _color2;
 
         public Form_Bianma()
         {
@@ -42,7 +44,9 @@ namespace BIANMA
             _tmidex = 0;
 
             _khs = new List<TKuanhaoExtend>();
-            _rowColor = Color.Black;
+            _color1 = Color.White;
+            _color2 = Color.Azure;
+            _rowColor = _color2;
         }
 
         /// <summary>
@@ -80,7 +84,7 @@ namespace BIANMA
                     return;
                 }
 
-                ks = ts.Select(r => r.TKuanhao).ToArray();
+                ks = ts.Select(r => r.TKuanhao).DistinctBy(r=>r.id).ToArray();
 
                 //显示款号
                 List<TKuanhaoExtend> khexs = new List<TKuanhaoExtend>();
@@ -152,11 +156,22 @@ namespace BIANMA
 
             if (index == null)
             {
-                grid_all.Rows.Add(item);
+                int ni = grid_all.Rows.Add(item);
+                if (_rowColor == _color1)
+                {
+                    grid_all.Rows[ni].DefaultCellStyle.BackColor = _color2;
+                    _rowColor = _color2;
+                }
+                else
+                {
+                    grid_all.Rows[ni].DefaultCellStyle.BackColor = _color1;
+                    _rowColor = _color1;
+                }
             }
             else
             {
-                grid_all.Rows.Insert(index.Value,item);
+                grid_all.Rows.Insert(index.Value+1, item);
+                grid_all.Rows[index.Value + 1].DefaultCellStyle.BackColor = grid_all.Rows[index.Value].DefaultCellStyle.BackColor;
             }
 
         }
@@ -655,7 +670,17 @@ namespace BIANMA
                 return;
             }
 
-            TKuanhaoExtend tk = _khs.Last();
+            //如果选中了某一整行，则在该行西方添加一个条码
+            TKuanhaoExtend tk = null;
+            if (grid_all.SelectedRows.Count != 0)
+            {
+                int khidex = (int)grid_all.SelectedRows[0].Cells[col_all_khidex.Name].Value;
+                tk = _khs.Single(r => r.idex == khidex);
+            }
+            else
+            {
+                tk = _khs.Last();
+            }
             TTiaomaExtend tt = (TTiaomaExtend)tk.tms.Last().Clone();
             tt.xj = XTCONSTS.TIAOMA_XINJIU.新条码;
             tt.idex = getClientId();
@@ -1120,7 +1145,7 @@ namespace BIANMA
             }
 
             //款号不能重复
-            setCellColorByKh(null, col_all_kh.Index, Color.White);
+            setCellColorByKh(null, col_all_kh.Index, null);
             var dkhs = _khs.GroupBy(r => r.kuanhao.kuanhao).Select(r => new { kh = r.Key, c = r.Count() }).Where(r => r.c > 1);
             if (dkhs.Count() > 0)
             {
@@ -1146,7 +1171,8 @@ namespace BIANMA
                     return false;
                 }
 
-                setCellColorByKh(null,col_all_kh.Index, Color.White);
+                //先恢复为原色，再接受检查
+                setCellColorByKh(null,col_all_kh.Index, null);
                 if (eKhs.Length != 0)
                 {
                     foreach (string k in eKhs)
@@ -1166,60 +1192,103 @@ namespace BIANMA
         /// </summary>
         /// <param name="idex"></param>
         /// <param name="color"></param>
-        private void setCellColorByKhidex(int idex,int columnIndex, Color color)
+        private void setCellColorByKhidex(int idex, int columnIndex, Color? color)
         {
             foreach (DataGridViewRow dr in grid_all.Rows)
             {
                 int khidex = (int)dr.Cells[col_all_khidex.Name].Value;
                 if (khidex == idex)
                 {
-                    dr.Cells[columnIndex].Style.BackColor = color;
+                    if (color == null)
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                    }
+                    else
+                    {
+
+                        dr.Cells[columnIndex].Style.BackColor = color.Value;
+                    }
                 }
             }
         }
-        private void setCellColorByKh(string kh, int columnIndex, Color color)
+        private void setCellColorByKh(string kh, int columnIndex, Color? color)
         {
             foreach (DataGridViewRow dr in grid_all.Rows)
             {
                 string kuanhao = (string)dr.Cells[col_all_kh.Name].Value;
                 if (kh == null)
                 {
-                    dr.Cells[columnIndex].Style.BackColor = color;
+                    if(color == null)
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                    }
+                    else
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = color.Value;
+                    }
                 }
                 else
                 {
                     if (kuanhao == kh)
                     {
-                        dr.Cells[columnIndex].Style.BackColor = color;
+                        if (color == null)
+                        {
+                            dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                        }
+                        else
+                        {
+                            dr.Cells[columnIndex].Style.BackColor = color.Value;
+                        }
                     }
                 }
             }
         }
-        private void setCellColorByTmidex(int idex, int columnIndex, Color color)
+        private void setCellColorByTmidex(int idex, int columnIndex, Color? color)
         {
             foreach (DataGridViewRow dr in grid_all.Rows)
             {
                 int tmidex = (int)dr.Cells[col_all_tmidex.Name].Value;
                 if (tmidex == idex)
                 {
-                    dr.Cells[columnIndex].Style.BackColor = color;
+                    if (color == null)
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                    }
+                    else
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = color.Value;
+                    }
                 }
             }
         }
-        private void setCellColorByTm(string tm, int columnIndex, Color color)
+        private void setCellColorByTm(string tm, int columnIndex, Color? color)
         {
             foreach (DataGridViewRow dr in grid_all.Rows)
             {
                 string tiaoma = (string)dr.Cells[col_all_tm.Name].Value;
                 if (tiaoma == null)
                 {
-                    dr.Cells[columnIndex].Style.BackColor = color;
+                    if (color == null)
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                    }
+                    else
+                    {
+                        dr.Cells[columnIndex].Style.BackColor = color.Value;
+                    }
                 }
                 else
                 {
                     if (tiaoma == tm)
                     {
-                        dr.Cells[columnIndex].Style.BackColor = color;
+                        if (color == null)
+                        {
+                            dr.Cells[columnIndex].Style.BackColor = dr.DefaultCellStyle.BackColor;
+                        }
+                        else
+                        {
+                            dr.Cells[columnIndex].Style.BackColor = color.Value;
+                        }
                     }
                 }
             }
@@ -1314,7 +1383,7 @@ namespace BIANMA
                 }
 
                 //同一个款号内，不能有同色同码的
-                setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, Color.White);
+                setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, null);
                 if (tk.tms.DistinctBy(r => new { r.tiaoma.yanse, r.tiaoma.chima }).Count() != tk.tms.Count())
                 {
                     MessageBox.Show("同一个款号内，不能有同色同码的");
@@ -1324,7 +1393,7 @@ namespace BIANMA
             }
 
             //不能有相同的条码
-            setCellColorByTm(null, col_all_tm.Index, Color.White);
+            setCellColorByTm(null, col_all_tm.Index, null);
             var dtms = _khs.SelectMany(r => r.tms).GroupBy(r => r.tiaoma.tiaoma).Select(r => new { tm = r.Key, c = r.Count() }).Where(r => r.c > 1);
             if (dtms.Count() > 0)
             {
@@ -1430,8 +1499,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Bianma_FormClosing(object sender, FormClosingEventArgs e)
         {
-            List<TTiaomaExtend> ts = new List<TTiaomaExtend>();
-            
+            localSave();            
         }
 
         /// <summary>
@@ -1971,7 +2039,7 @@ namespace BIANMA
             }
 
             //修改值后，恢复正常背景色，等在再次检查
-            grid_all[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
+            grid_all[e.ColumnIndex, e.RowIndex].Style.BackColor = grid_all.Rows[e.RowIndex].DefaultCellStyle.BackColor;
 
             int khidex = int.Parse(grid_all[col_all_khidex.Index, e.RowIndex].Value.ToString());
             int tmidex = int.Parse(grid_all[col_all_tmidex.Index, e.RowIndex].Value.ToString());
