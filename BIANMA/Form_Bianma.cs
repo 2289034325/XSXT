@@ -21,8 +21,9 @@ namespace BIANMA
         //客户端发号的ID
         private int _cid;
 
-        //剪切或者复制的条码idex
-        private int _tmidex;
+        //复制的条码idex
+        private int? _copy_otmidex;
+        private int _copy_ocells;
 
         //输入的款号，条码，供应商是否都正确
         //private bool _kuanhaoOK;
@@ -41,7 +42,8 @@ namespace BIANMA
             //_tiaomaOK = false;
             //从1开始发号
             _cid = 1;
-            _tmidex = 0;
+            _copy_otmidex = 0;
+            _copy_ocells = 0;
 
             _khs = new List<TKuanhaoExtend>();
             _color1 = Color.White;
@@ -56,6 +58,10 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Bianma_Load(object sender, EventArgs e)
         {
+            //性别下拉框
+            col_all_xb.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_XB));
+            //类型下拉框
+            col_all_lx.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_LX));
         }       
 
         /// <summary>
@@ -143,20 +149,37 @@ namespace BIANMA
                             t.tiaoma.xiugaishijian
                         };
 
+
             //如果款号已经存在，在其下方插入
             int? index = null;
-            foreach (DataGridViewRow dr in grid_all.Rows)
+            //如果有某一整行被选中
+            if (grid_all.SelectedRows.Count == 1)
             {
+                DataGridViewRow dr = grid_all.SelectedRows[0];
+                //如果是同款则在该行的下方插入
                 int khidex = (int)dr.Cells[col_all_khidex.Name].Value;
                 if (khidex == k.idex)
                 {
                     index = dr.Index;
                 }
-            }            
+            }
+            else
+            {
+                foreach (DataGridViewRow dr in grid_all.Rows)
+                {
+                    int khidex = (int)dr.Cells[col_all_khidex.Name].Value;
+                    if (khidex == k.idex)
+                    {
+                        index = dr.Index;
+                    }
+                }
+            }
 
+            //新款，隔款改变行背景色
             if (index == null)
             {
-                int ni = grid_all.Rows.Add(item);
+                int ni = grid_all.Rows.Add(item);                
+
                 if (_rowColor == _color1)
                 {
                     grid_all.Rows[ni].DefaultCellStyle.BackColor = _color2;
@@ -167,13 +190,18 @@ namespace BIANMA
                     grid_all.Rows[ni].DefaultCellStyle.BackColor = _color1;
                     _rowColor = _color1;
                 }
+                grid_all.Rows[ni].Selected = true;
             }
+            //新条码，不用变背景色
             else
             {
                 grid_all.Rows.Insert(index.Value+1, item);
                 grid_all.Rows[index.Value + 1].DefaultCellStyle.BackColor = grid_all.Rows[index.Value].DefaultCellStyle.BackColor;
+                grid_all.Rows[index.Value + 1].Selected = true;
             }
 
+            //刷新合计行
+            refreshTotalRow();
         }
 
         /// <summary>
@@ -293,6 +321,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addkh_Click(object sender, EventArgs e)
         {
+            grid_all.ClearSelection();
             addKuanhao(true);            
         }
 
@@ -318,6 +347,7 @@ namespace BIANMA
             //    },
             //    tms = new List<TTiaomaExtend>()
             //});
+            grid_all.ClearSelection();
             addKuanhao(false);
         }
 
@@ -693,6 +723,7 @@ namespace BIANMA
 
             tk.tms.Add(tt);
 
+            grid_all.ClearSelection();
             addTiaomaAllMsg(tk, tt);
         }
 
@@ -1499,7 +1530,10 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Bianma_FormClosing(object sender, FormClosingEventArgs e)
         {
-            localSave();            
+            if (MessageBox.Show("是否保存数据到本地？", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                localSave();
+            }
         }
 
         /// <summary>
@@ -1724,11 +1758,11 @@ namespace BIANMA
                         List<TTiaomaExtend> tms = kex.tms;
                         foreach (TTiaomaExtend tex in tms)
                         {
-                            if (tex.idex == _tmidex)
-                            {
-                                ot = tex;
-                                break;
-                            }
+                            //if (tex.idex == _tmidex)
+                            //{
+                            //    ot = tex;
+                            //    break;
+                            //}
                         }
                         if (ot != null)
                         {
@@ -1736,7 +1770,7 @@ namespace BIANMA
                             ot.tiaoma.kuanhaoid = nkex.kuanhao.id;
                             nkex.tms.Add(ot);
                             tms.Remove(ot);
-                            _tmidex = 0;
+                            //_tmidex = 0;
                             break;
                         }
                     }
@@ -1780,7 +1814,7 @@ namespace BIANMA
                     //旧条码不允许剪切，因为剪切会修改款号
                     if (XTCONSTS.TIAOMA_XINJIU.旧条码.ToString().Equals(grid_tiaoma.SelectedRows[0].Cells[col_tm_idex.Name].Value))
                     {
-                        _tmidex = (int)grid_tiaoma.SelectedRows[0].Cells[col_tm_idex.Name].Value;
+                        //_tmidex = (int)grid_tiaoma.SelectedRows[0].Cells[col_tm_idex.Name].Value;
                     }
                     else
                     {
@@ -2032,11 +2066,6 @@ namespace BIANMA
             {
                 return;
             }
-            //合计行，跳过
-            if (grid_all.Rows[e.RowIndex].Cells[col_all_khidex.Name].Value == null)
-            {
-                return;
-            }
 
             //修改值后，恢复正常背景色，等在再次检查
             grid_all[e.ColumnIndex, e.RowIndex].Style.BackColor = grid_all.Rows[e.RowIndex].DefaultCellStyle.BackColor;
@@ -2049,7 +2078,7 @@ namespace BIANMA
             string kh = (string)grid_all[col_all_kh.Name, e.RowIndex].Value;
             XTCONSTS.KUANHAO_XINJIU khxj = (XTCONSTS.KUANHAO_XINJIU)Enum.Parse(typeof(XTCONSTS.KUANHAO_XINJIU), grid_all[col_all_khxj.Name, e.RowIndex].Value.ToString());
             DBCONSTS.KUANHAO_XB xb = (DBCONSTS.KUANHAO_XB)Enum.Parse(typeof(DBCONSTS.KUANHAO_XB), grid_all[col_all_xb.Name, e.RowIndex].Value.ToString());
-            DBCONSTS.KUANHAO_LX lx = (DBCONSTS.KUANHAO_LX)Enum.Parse(typeof(DBCONSTS.KUANHAO_LX), grid_all[col_all_lx.Name, e.RowIndex].Value.ToString());
+            DBCONSTS.KUANHAO_LX lx = (DBCONSTS.KUANHAO_LX)Enum.Parse(typeof(DBCONSTS.KUANHAO_LX), grid_all[col_all_lx.Name, e.RowIndex].Value.ToString());            
             string pm = (string)grid_all[col_all_pm.Name, e.RowIndex].Value;
             string tm = (string)grid_all[col_all_tm.Name, e.RowIndex].Value;
             XTCONSTS.TIAOMA_XINJIU tmxj = (XTCONSTS.TIAOMA_XINJIU)Enum.Parse(typeof(XTCONSTS.TIAOMA_XINJIU), grid_all[col_all_tmxj.Name, e.RowIndex].Value.ToString());
@@ -2058,6 +2087,7 @@ namespace BIANMA
             string cm = (string)grid_all[col_all_cm.Name, e.RowIndex].Value;
             decimal jj = decimal.Parse(grid_all[col_all_jj.Name, e.RowIndex].Value.ToString());
             decimal sj = decimal.Parse(grid_all[col_all_sj.Name, e.RowIndex].Value.ToString());
+            short sl = short.Parse(grid_all[col_all_sl.Name, e.RowIndex].Value.ToString());
 
             //修改的是款号
             if (e.ColumnIndex == col_all_kh.Index)
@@ -2147,6 +2177,12 @@ namespace BIANMA
             else if (e.ColumnIndex == col_all_sj.Index)
             {
                 tt.tiaoma.shoujia = sj;
+            }
+            else if (e.ColumnIndex == col_all_sl.Index)
+            {
+                tt.shuliang = sl;
+                //刷新合计
+                refreshTotalRow();
             }
 
             //修改了款号信息，需要将不同行的同一款号信息都修改
@@ -2370,6 +2406,133 @@ namespace BIANMA
             if (tk.tms.Count() == 0)
             {
                 _khs.Remove(tk);
+            }
+
+            //刷新合计行
+            refreshTotalRow();
+        }
+
+        /// <summary>
+        /// 显示行号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_all_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X,
+                                                e.RowBounds.Location.Y,
+                                                grid_all.RowHeadersWidth - 4,
+                                                e.RowBounds.Height);
+
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+                grid_all.RowHeadersDefaultCellStyle.Font,
+                rectangle,
+                grid_all.RowHeadersDefaultCellStyle.ForeColor,
+                TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+
+        /// <summary>
+        /// 刷新合计行
+        /// </summary>
+        private void refreshTotalRow()
+        {           
+            //更新合计行
+            col_all_sl.HeaderText = "数量(" + (_khs.SelectMany(r => r.tms).Sum(r => (short?)r.shuliang) ?? 0) + ")";
+        }
+
+        /// <summary>
+        /// 键盘快捷键事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_all_KeyDown(object sender, KeyEventArgs e)
+        {       
+            //复制
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                //选中一整行，复制供应商款号，颜色，尺码，进价，售价，数量
+                if (grid_all.SelectedRows.Count == 1)
+                {
+                    _copy_otmidex = (int)grid_all.SelectedRows[0].Cells[col_all_tmidex.Name].Value;
+                }
+                else
+                {
+                    _copy_otmidex = null;
+                    _copy_ocells = grid_all.SelectedCells.Count;
+                }
+            }
+            //粘贴
+            else if (e.Control && e.KeyCode == Keys.V)
+            {
+                //行选中模式，复制供应商款号，颜色，尺码，进价，售价，数量
+                if (grid_all.SelectedRows.Count == 1)
+                {
+                    if (_copy_otmidex != null)
+                    {
+                        DataGridViewRow dr = grid_all.SelectedRows[0];
+                        TTiaomaExtend tt = _khs.SelectMany(r => r.tms).Single(r => r.idex == _copy_otmidex.Value);
+                        dr.Cells[col_all_gyskh.Name].Value = tt.tiaoma.gyskuanhao;
+                        dr.Cells[col_all_ys.Name].Value = tt.tiaoma.yanse;
+                        dr.Cells[col_all_cm.Name].Value = tt.tiaoma.chima;
+                        dr.Cells[col_all_jj.Name].Value = tt.tiaoma.jinjia;
+                        dr.Cells[col_all_sj.Name].Value = tt.tiaoma.shoujia;
+                        dr.Cells[col_all_sl.Name].Value = tt.shuliang;
+                    }
+
+                    e.Handled = true;
+                }
+                //单元格选择模式
+                else if (grid_all.SelectedRows.Count == 0)
+                {
+                    if (grid_all.SelectedCells.Count == 0)
+                    {
+                        MessageBox.Show("未选择目标单元格");
+                        return;
+                    }
+
+                    //如果源数据有多个单元格，不允许复制
+                    if (_copy_ocells > 1)
+                    {
+                        e.Handled = true;
+                        MessageBox.Show("禁止复制多个单元格的数据");
+                        return;
+                    }
+
+                    //如果选中了不同的列，不允许粘贴
+                    List<int> indexs = new List<int>();
+                    foreach (DataGridViewCell dc in grid_all.SelectedCells)
+                    {
+                        indexs.Add(dc.ColumnIndex);
+                    }
+                    if (indexs.Distinct().Count() != 1)
+                    {
+                        e.Handled = true;
+                        MessageBox.Show("禁止把数据粘贴到不同的列");
+                        return;
+                    }
+
+                    foreach (DataGridViewCell dc in grid_all.SelectedCells)
+                    {
+                        //只读和条码列不允许粘贴
+                        if (!dc.ReadOnly)
+                        {
+                            //供应商款号，颜色，尺码，进价，售价，数量
+                            if (dc.ColumnIndex == col_all_gyskh.Index || dc.ColumnIndex == col_all_ys.Index ||
+                                dc.ColumnIndex == col_all_cm.Index || dc.ColumnIndex == col_all_jj.Index ||
+                                dc.ColumnIndex == col_all_sj.Index || dc.ColumnIndex == col_all_sl.Index)
+                            {
+                                dc.Value = Clipboard.GetData(DataFormats.Text);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    e.Handled = true;
+                    MessageBox.Show("禁止粘贴到多个行");
+                    return;
+                }
+                
             }
         }
     }

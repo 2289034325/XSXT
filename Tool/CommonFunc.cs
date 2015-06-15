@@ -158,7 +158,7 @@ namespace Tool
             Cmb.DataTextField = "Text";
             Cmb.DataValueField = "Value";
             Cmb.DataSource = dt;
-            Cmb.DataBind();
+            Cmb.DataBind();            
         }
         public static void InitDropDownList(DropDownList Cmb, object[] Items, string TextField, string ValueField)
         {
@@ -188,7 +188,7 @@ namespace Tool
             Cmb.DataTextField = "Text";
             Cmb.DataValueField = "Value";
             Cmb.DataSource = dt;
-            Cmb.DataBind();
+            Cmb.DataBind();            
         }
 
         /// <summary>

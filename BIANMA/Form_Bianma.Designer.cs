@@ -53,6 +53,7 @@
             this.mni_jssj = new System.Windows.Forms.ToolStripMenuItem();
             this.生成款号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_sckh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_sctm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,13 +84,12 @@
             this.cmn_kh_loadTms = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_tm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_tm_xg = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_sctm = new System.Windows.Forms.ToolStripMenuItem();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khxj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_all_xb = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_all_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_all_xb = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_all_lx = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.col_all_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_tmxj = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,6 +101,8 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.清空gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空本地缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tiaoma)).BeginInit();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -312,9 +314,16 @@
             // mni_sckh
             // 
             this.mni_sckh.Name = "mni_sckh";
-            this.mni_sckh.Size = new System.Drawing.Size(152, 22);
+            this.mni_sckh.Size = new System.Drawing.Size(124, 22);
             this.mni_sckh.Text = "生成款号";
             this.mni_sckh.Click += new System.EventHandler(this.mni_sckh_Click);
+            // 
+            // mni_sctm
+            // 
+            this.mni_sctm.Name = "mni_sctm";
+            this.mni_sctm.Size = new System.Drawing.Size(124, 22);
+            this.mni_sctm.Text = "生成条码";
+            this.mni_sctm.Click += new System.EventHandler(this.mni_sctm_Click);
             // 
             // mni_jiazai
             // 
@@ -341,6 +350,9 @@
             // 
             // mni_qingkong
             // 
+            this.mni_qingkong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清空gridToolStripMenuItem,
+            this.清空本地缓存ToolStripMenuItem});
             this.mni_qingkong.Name = "mni_qingkong";
             this.mni_qingkong.Size = new System.Drawing.Size(44, 21);
             this.mni_qingkong.Text = "清空";
@@ -541,9 +553,11 @@
             this.grid_all.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellEndEdit);
             this.grid_all.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_all_CellValidating);
             this.grid_all.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellValueChanged);
+            this.grid_all.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.grid_all_RowPostPaint);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
             this.grid_all.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_all_UserDeletedRow);
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
+            this.grid_all.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_all_KeyDown);
             // 
             // cmn_all
             // 
@@ -603,13 +617,6 @@
             this.cmn_tm_xg.Text = "保存修改";
             this.cmn_tm_xg.Click += new System.EventHandler(this.cmn_tm_xg_Click);
             // 
-            // mni_sctm
-            // 
-            this.mni_sctm.Name = "mni_sctm";
-            this.mni_sctm.Size = new System.Drawing.Size(152, 22);
-            this.mni_sctm.Text = "生成条码";
-            this.mni_sctm.Click += new System.EventHandler(this.mni_sctm_Click);
-            // 
             // col_all_tmidex
             // 
             this.col_all_tmidex.HeaderText = "TMIDEX";
@@ -639,16 +646,18 @@
             // col_all_xb
             // 
             this.col_all_xb.DataPropertyName = "xingbie";
+            this.col_all_xb.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.col_all_xb.HeaderText = "性别";
             this.col_all_xb.Name = "col_all_xb";
-            this.col_all_xb.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.col_all_xb.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // col_all_lx
             // 
             this.col_all_lx.DataPropertyName = "leixing";
+            this.col_all_lx.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.col_all_lx.HeaderText = "类型";
             this.col_all_lx.Name = "col_all_lx";
-            this.col_all_lx.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.col_all_lx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // col_all_pm
             // 
@@ -727,6 +736,18 @@
             this.col_all_xgsj.Name = "col_all_xgsj";
             this.col_all_xgsj.ReadOnly = true;
             this.col_all_xgsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // 清空gridToolStripMenuItem
+            // 
+            this.清空gridToolStripMenuItem.Name = "清空gridToolStripMenuItem";
+            this.清空gridToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.清空gridToolStripMenuItem.Text = "清空grid";
+            // 
+            // 清空本地缓存ToolStripMenuItem
+            // 
+            this.清空本地缓存ToolStripMenuItem.Name = "清空本地缓存ToolStripMenuItem";
+            this.清空本地缓存ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.清空本地缓存ToolStripMenuItem.Text = "清空本地缓存";
             // 
             // Form_Bianma
             // 
@@ -823,8 +844,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khxj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_all_lx;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_all_xb;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_all_lx;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_pm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmxj;
@@ -836,6 +857,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem 清空gridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空本地缓存ToolStripMenuItem;
     }
 }
 
