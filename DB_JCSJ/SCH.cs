@@ -274,12 +274,15 @@ namespace DB_JCSJ
             /// 按条件查询销售记录
             /// </summary>
             /// <param name="fdid">分店ID</param>
-            /// <param name="xsrq_start">销售日期</param>
-            /// <param name="xsrq_end"></param>
-            /// <param name="sbrq_start">上报日期</param>
-            /// <param name="sbrq_end"></param>
+            /// <param name="xsrq_start">销售日期起始</param>
+            /// <param name="xsrq_end">销售日期截止</param>
+            /// <param name="sbrq_start">数据上报日期开始</param>
+            /// <param name="sbrq_end">数据上报日期截止</param>
+            /// <param name="pageSize">页大小，如果不想分页，传入null</param>
+            /// <param name="pageIndex">取第几页数据，如果不想分页，传入null</param>
+            /// <param name="recordCount">符合条件的数据量</param>
             /// <returns></returns>
-            public TXiaoshou[] GetXiaoshousByCond(int? fdid, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int pageSize, int pageIndex,out int recordCount)
+            public TXiaoshou[] GetXiaoshousByCond(int? fdid, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int? pageSize, int? pageIndex,out int recordCount)
             {
                 var xss = _db.TXiaoshou.Include("TTiaoma").Include("TTiaoma.TKuanhao").
                     Include("TFendian").Include("THuiyuan").AsQueryable();
@@ -306,8 +309,10 @@ namespace DB_JCSJ
                     xss = xss.Where(r => r.shangbaoshijian <= sbrq_end);
                 }
                 recordCount = xss.Count();
-                xss = xss.OrderByDescending(r=>r.shangbaoshijian).Skip(pageSize * pageIndex);
-
+                if (pageSize != null)
+                {
+                    xss = xss.OrderByDescending(r => r.shangbaoshijian).Skip(pageSize.Value * pageIndex.Value);
+                }
                 return xss.ToArray();
             }
 

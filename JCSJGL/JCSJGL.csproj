@@ -48,6 +48,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -83,6 +84,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
+    <Content Include="Page_TongjiBaobiao.aspx" />
     <Content Include="Page_FDKucunMX.aspx" />
     <Content Include="Page_FDKucun.aspx" />
     <Content Include="Page_FDJinchuhuoMX.aspx" />
@@ -124,6 +126,13 @@
     </Compile>
     <Compile Include="Page_Error.aspx.designer.cs">
       <DependentUpon>Page_Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_TongjiBaobiao.aspx.cs">
+      <DependentUpon>Page_TongjiBaobiao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_TongjiBaobiao.aspx.designer.cs">
+      <DependentUpon>Page_TongjiBaobiao.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_FDKucunMX.aspx.cs">
       <DependentUpon>Page_FDKucunMX.aspx</DependentUpon>
@@ -216,6 +225,9 @@
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="imgs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
