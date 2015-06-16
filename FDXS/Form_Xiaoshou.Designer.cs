@@ -74,7 +74,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1116, 32);
+            this.panel6.Size = new System.Drawing.Size(1110, 32);
             this.panel6.TabIndex = 8;
             // 
             // btn_shangbao
@@ -192,7 +192,7 @@
             this.grid_xs.RowHeadersVisible = false;
             this.grid_xs.RowTemplate.Height = 23;
             this.grid_xs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid_xs.Size = new System.Drawing.Size(1116, 452);
+            this.grid_xs.Size = new System.Drawing.Size(1110, 452);
             this.grid_xs.TabIndex = 11;
             this.grid_xs.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xs_UserDeletingRow);
             // 
@@ -291,7 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 484);
+            this.ClientSize = new System.Drawing.Size(1110, 484);
             this.Controls.Add(this.grid_xs);
             this.Controls.Add(this.panel6);
             this.Name = "Form_Xiaoshou";

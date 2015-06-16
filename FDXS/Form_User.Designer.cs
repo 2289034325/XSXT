@@ -38,14 +38,15 @@
             this.col_zt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmn_hy = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_hy_update = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_hy_edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_yh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_yh_pass = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txb_mm = new System.Windows.Forms.TextBox();
+            this.btn_editpass = new System.Windows.Forms.Button();
             this.btn_edit = new System.Windows.Forms.Button();
             this.btn_add = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_user)).BeginInit();
-            this.cmn_hy.SuspendLayout();
+            this.cmn_yh.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,28 +123,23 @@
             this.col_xgsj.Name = "col_xgsj";
             this.col_xgsj.ReadOnly = true;
             // 
-            // cmn_hy
+            // cmn_yh
             // 
-            this.cmn_hy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_hy_update,
-            this.cmn_hy_edit});
-            this.cmn_hy.Name = "cmn_hy";
-            this.cmn_hy.Size = new System.Drawing.Size(101, 48);
+            this.cmn_yh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_yh_pass});
+            this.cmn_yh.Name = "cmn_hy";
+            this.cmn_yh.Size = new System.Drawing.Size(125, 26);
             // 
-            // cmn_hy_update
+            // cmn_yh_pass
             // 
-            this.cmn_hy_update.Name = "cmn_hy_update";
-            this.cmn_hy_update.Size = new System.Drawing.Size(100, 22);
-            this.cmn_hy_update.Text = "更新";
-            // 
-            // cmn_hy_edit
-            // 
-            this.cmn_hy_edit.Name = "cmn_hy_edit";
-            this.cmn_hy_edit.Size = new System.Drawing.Size(100, 22);
-            this.cmn_hy_edit.Text = "修改";
+            this.cmn_yh_pass.Name = "cmn_yh_pass";
+            this.cmn_yh_pass.Size = new System.Drawing.Size(124, 22);
+            this.cmn_yh_pass.Text = "修改密码";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txb_mm);
+            this.panel1.Controls.Add(this.btn_editpass);
             this.panel1.Controls.Add(this.btn_edit);
             this.panel1.Controls.Add(this.btn_add);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -152,13 +148,31 @@
             this.panel1.Size = new System.Drawing.Size(1013, 38);
             this.panel1.TabIndex = 12;
             // 
+            // txb_mm
+            // 
+            this.txb_mm.Location = new System.Drawing.Point(255, 11);
+            this.txb_mm.Name = "txb_mm";
+            this.txb_mm.PasswordChar = '*';
+            this.txb_mm.Size = new System.Drawing.Size(100, 21);
+            this.txb_mm.TabIndex = 5;
+            // 
+            // btn_editpass
+            // 
+            this.btn_editpass.Location = new System.Drawing.Point(174, 9);
+            this.btn_editpass.Name = "btn_editpass";
+            this.btn_editpass.Size = new System.Drawing.Size(75, 23);
+            this.btn_editpass.TabIndex = 4;
+            this.btn_editpass.Text = "更改密码";
+            this.btn_editpass.UseVisualStyleBackColor = true;
+            this.btn_editpass.Click += new System.EventHandler(this.btn_editpass_Click);
+            // 
             // btn_edit
             // 
             this.btn_edit.Location = new System.Drawing.Point(93, 9);
             this.btn_edit.Name = "btn_edit";
             this.btn_edit.Size = new System.Drawing.Size(75, 23);
             this.btn_edit.TabIndex = 3;
-            this.btn_edit.Text = "修改";
+            this.btn_edit.Text = "修改信息";
             this.btn_edit.UseVisualStyleBackColor = true;
             this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
             // 
@@ -183,8 +197,9 @@
             this.Text = "系统用户";
             this.Load += new System.EventHandler(this.Form_KucunYilan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid_user)).EndInit();
-            this.cmn_hy.ResumeLayout(false);
+            this.cmn_yh.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -192,9 +207,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView grid_user;
-        private System.Windows.Forms.ContextMenuStrip cmn_hy;
-        private System.Windows.Forms.ToolStripMenuItem cmn_hy_update;
-        private System.Windows.Forms.ToolStripMenuItem cmn_hy_edit;
+        private System.Windows.Forms.ContextMenuStrip cmn_yh;
+        private System.Windows.Forms.ToolStripMenuItem cmn_yh_pass;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dlm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_yhm;
@@ -206,5 +220,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.Button btn_editpass;
+        private System.Windows.Forms.TextBox txb_mm;
     }
 }

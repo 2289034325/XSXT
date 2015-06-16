@@ -334,7 +334,7 @@ namespace FDXS
                 TXiaoshou x = new TXiaoshou
                 {
                     xiaoshoushijian = dp_xssj.Value,
-                    xiaoshouyuan = cmb_xsy.SelectedText,
+                    xiaoshouyuan = cmb_xsy.Text,
                     huiyuanid = Huiyuan == null ? null : (int?)Huiyuan.id,
                     tiaomaid = tmid,
                     danjia = danjia,

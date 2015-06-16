@@ -94,6 +94,7 @@
             this.Controls.Add(this.grid_zk);
             this.Controls.Add(this.panel6);
             this.Name = "Form_JifenZhekou";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "积分折扣";
             this.Load += new System.EventHandler(this.Form_KucunYilan_Load);
             this.panel6.ResumeLayout(false);

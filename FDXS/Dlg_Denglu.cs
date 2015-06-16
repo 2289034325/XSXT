@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,32 +31,63 @@ namespace FDXS
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            try
+            if (string.IsNullOrEmpty(dlm))
             {
-                DBContext db = new DBContext();
-                TUser User = db.GetUser(dlm,  Tool.CommonFunc.MD5_16(mm));
-                if (User != null)
+                MessageBox.Show("请输入用户名");
+                return;
+            }
+
+            login(dlm, Tool.CommonFunc.MD5_16(mm));
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Dlg_Denglu_Load(object sender, EventArgs e)
+        {
+            string dlm = Settings.Default.AutoLoginDlm;
+            string mm = Settings.Default.AutoLoginMm;
+
+            //自动登陆
+            if (!string.IsNullOrEmpty(dlm))
+            {
+                login(dlm, mm);
+            }
+        }
+
+        /// <summary>
+        /// 登陆
+        /// </summary>
+        /// <param name="dlm"></param>
+        /// <param name="mm"></param>
+        private void login(string dlm, string mm)
+        {
+            DBContext db = new DBContext();
+            TUser User = db.GetUser(dlm, mm);
+            if (User != null)
+            {
+                if (User.zhuangtai == (byte)Tool.FD.DBCONSTS.USER_ZT.停用)
                 {
-                    if (User.zhuangtai == (byte)Tool.FD.DBCONSTS.USER_ZT.停用)
-                    {
-                        MessageBox.Show("账号已被停用");
-                        return;
-                    }
-                    else
-                    {
-                        LoginInfo.User = User;
-                        this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                    }
+                    MessageBox.Show("账号已被停用");
+                    return;
                 }
                 else
                 {
-                    MessageBox.Show("登录名密码错误");
+                    LoginInfo.User = User;
+                    if (chk_auto.Checked)
+                    {
+                        Settings.Default.AutoLoginDlm = dlm;
+                        Settings.Default.AutoLoginMm = mm;
+                        Settings.Default.Save();
+                    }
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 }
-                
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("登录名密码错误");
             }
         }
     }

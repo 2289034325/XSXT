@@ -33,11 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ok = new System.Windows.Forms.Button();
+            this.chk_auto = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txb_mm
             // 
-            this.txb_mm.Location = new System.Drawing.Point(59, 39);
+            this.txb_mm.Location = new System.Drawing.Point(212, 6);
             this.txb_mm.Name = "txb_mm";
             this.txb_mm.PasswordChar = '*';
             this.txb_mm.Size = new System.Drawing.Size(100, 21);
@@ -53,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 42);
+            this.label2.Location = new System.Drawing.Point(165, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 9;
@@ -70,7 +71,7 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(232, 37);
+            this.btn_ok.Location = new System.Drawing.Point(237, 44);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 12;
@@ -78,11 +79,22 @@
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
+            // chk_auto
+            // 
+            this.chk_auto.AutoSize = true;
+            this.chk_auto.Location = new System.Drawing.Point(59, 48);
+            this.chk_auto.Name = "chk_auto";
+            this.chk_auto.Size = new System.Drawing.Size(72, 16);
+            this.chk_auto.TabIndex = 13;
+            this.chk_auto.Text = "自动登陆";
+            this.chk_auto.UseVisualStyleBackColor = true;
+            // 
             // Dlg_Denglu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 79);
+            this.ClientSize = new System.Drawing.Size(319, 82);
+            this.Controls.Add(this.chk_auto);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_mm);
             this.Controls.Add(this.txb_dlm);
@@ -91,7 +103,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Denglu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登陆";
+            this.Load += new System.EventHandler(this.Dlg_Denglu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,5 +118,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.CheckBox chk_auto;
     }
 }

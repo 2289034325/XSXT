@@ -43,7 +43,7 @@ namespace FDXS
                 User = new TUser
                 {
                     dengluming = dlm,
-                    mima = mm,
+                    mima = Tool.CommonFunc.MD5_16(mm),
                     juese = js,
                     yonghuming = yhm,
                     beizhu = bz,
@@ -57,7 +57,7 @@ namespace FDXS
             else
             {
                 User.dengluming = dlm;
-                User.mima = mm;
+                //User.mima = mm;
                 User.juese = js;
                 User.yonghuming = yhm;
                 User.beizhu = bz;

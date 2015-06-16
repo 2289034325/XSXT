@@ -175,6 +175,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_UserEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "系统用户信息";
             this.Load += new System.EventHandler(this.Dlg_UserEdit_Load);
             this.ResumeLayout(false);

@@ -175,10 +175,10 @@ namespace FDXS
             }
 
             //合計行
-            int index = grid_xs.Rows.Add();
-            grid_xs.Rows[index].Cells[col_tm.Name].Value = "合計";
-            grid_xs.Rows[index].Cells[col_sl.Name].Value = tsl;
-            grid_xs.Rows[index].DefaultCellStyle.ForeColor = Color.Red;
+            //int index = grid_xs.Rows.Add();
+            //grid_xs.Rows[index].Cells[col_tm.Name].Value = "合計";
+            //grid_xs.Rows[index].Cells[col_sl.Name].Value = tsl;
+            //grid_xs.Rows[index].DefaultCellStyle.ForeColor = Color.Red;
         }
 
         /// <summary>
@@ -232,6 +232,31 @@ namespace FDXS
                 x.xiaoshoushijian,
                 x.shangbaoshijian
             });
+
+            refreshTotal();
+        }
+
+        /// <summary>
+        /// 刷新总数
+        /// </summary>
+        private void refreshTotal()
+        {
+            decimal tjg = 0;
+            decimal tsl = 0;
+            decimal tml = 0;
+            foreach (DataGridViewRow dr in grid_xs.Rows)
+            {
+                decimal jg = decimal.Parse(dr.Cells[col_jg.Name].Value.ToString());
+                decimal sl = decimal.Parse(dr.Cells[col_sl.Name].Value.ToString());
+                decimal ml = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
+                tjg += jg;
+                tsl += sl;
+                tml += ml;
+            }
+
+            col_jg.HeaderText = "价格(" + tjg + ")";
+            col_sl.HeaderText = "数量(" + tsl + ")";
+            col_ml.HeaderText = "抹零(" + tml + ")";
         }
 
         /// <summary>

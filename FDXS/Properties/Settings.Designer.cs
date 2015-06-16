@@ -70,5 +70,29 @@ namespace FDXS.Properties {
                 this["GDZK"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AutoLoginDlm {
+            get {
+                return ((string)(this["AutoLoginDlm"]));
+            }
+            set {
+                this["AutoLoginDlm"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AutoLoginMm {
+            get {
+                return ((string)(this["AutoLoginMm"]));
+            }
+            set {
+                this["AutoLoginMm"] = value;
+            }
+        }
     }
 }

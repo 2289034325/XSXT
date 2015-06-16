@@ -80,13 +80,14 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            LoginInfo.User = new TUser
-            {
-                id = 1,
-                juese = 1,
-                dengluming = "2",
-                yonghuming = "2"
-            };
+            //LoginInfo.User = new TUser
+            //{
+            //    id = 1,
+            //    juese = 1,
+            //    dengluming = "2",
+            //    yonghuming = "2"
+            //};
+
 
             //登陆检查
             if (LoginInfo.User == null)
@@ -302,8 +303,42 @@ namespace FDXS
         /// <param name="e"></param>
         private void mn_main_folder_Click(object sender, EventArgs e)
         {
-            string path = System.Environment.CurrentDirectory;
-            System.Diagnostics.Process.Start("explorer.exe", path);
+            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                string path = System.Environment.CurrentDirectory;
+                System.Diagnostics.Process.Start("explorer.exe", path);
+            }
+            else
+            {
+                MessageBox.Show("没有权限");
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 修改当前用户的密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_editpsw_Click(object sender, EventArgs e)
+        {
+            Dlg_MimaEdit dg = new Dlg_MimaEdit();
+            dg.ShowDialog();
+        }
+
+        /// <summary>
+        /// 更改登陆用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_userchange_Click(object sender, EventArgs e)
+        {
+            //清除配置记录，并关闭当前进程
+            Settings.Default.AutoLoginDlm = "";
+            Settings.Default.AutoLoginMm = "";
+            Settings.Default.Save();
+
+            System.Windows.Forms.Application.Restart();
         }
     }
 }

@@ -167,12 +167,25 @@ namespace DB_FD
             var ou = _db.TUser.Single(r => r.id == u.id);
 
             ou.dengluming = u.dengluming;
-            ou.mima = u.mima;
+            //ou.mima = u.mima;
             ou.yonghuming = u.yonghuming;
             ou.juese = u.juese;
             ou.zhuangtai = u.zhuangtai;
             ou.beizhu = u.beizhu;
             ou.xiuggaishijian = u.xiuggaishijian;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="psw"></param>
+        public void UpdateUserPsw(int id,string psw)
+        {
+            TUser u = _db.TUser.Single(r => r.id == id);
+            u.mima = psw;
 
             _db.SaveChanges();
         }

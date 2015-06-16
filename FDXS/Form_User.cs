@@ -115,5 +115,32 @@ namespace FDXS
                 });
             }
         }
+
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_editpass_Click(object sender, EventArgs e)
+        {
+            if (grid_user.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("请选中要修改的一行");
+                return;
+            }
+
+            string mm = txb_mm.Text;
+            if (!string.IsNullOrEmpty(mm))
+            {
+                MessageBox.Show("请输入密码");
+                return;
+            }
+
+            int id = (int)grid_user.SelectedRows[0].Cells[col_id.Name].Value;
+            DBContext db = new DBContext();
+            db.UpdateUserPsw(id, Tool.CommonFunc.MD5_16(mm));
+
+            MessageBox.Show("修改成功");
+        }
     }
 }
