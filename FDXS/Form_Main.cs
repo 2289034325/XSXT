@@ -98,6 +98,8 @@ namespace FDXS
                     this.Close();
                 }
             }
+
+            this.Text += "【当前登陆：" + LoginInfo.User.yonghuming + "】";
         }
 
         /// <summary>
@@ -283,7 +285,7 @@ namespace FDXS
         {
             Settings.Default.ScanName = "";
             Settings.Default.Save();
-            MessageBox.Show("重置完毕，请关闭程序然后再次打开，校准新的扫描枪");
+            System.Windows.Forms.Application.Restart();
         }
 
         /// <summary>
@@ -339,6 +341,28 @@ namespace FDXS
             Settings.Default.Save();
 
             System.Windows.Forms.Application.Restart();
+        }
+
+        /// <summary>
+        /// 报表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_baobiao_Click(object sender, EventArgs e)
+        {
+            Form_Tubiao fm = (Form_Tubiao)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Tubiao)));
+            if (fm == null)
+            {
+                fm = new Form_Tubiao();
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
         }
     }
 }

@@ -33,29 +33,8 @@ namespace FDXS
             string sjh = txb_sjh.Text.Trim();
             string xm = txb_xm.Text.Trim();
             byte xb = byte.Parse(cmb_xb.SelectedValue.ToString());
-            DateTime sr = dp_sr.Value.Date;
-           
-            JCSJData.THuiyuan jh = new JCSJData.THuiyuan
-            {
-                id = _id,
-                shoujihao = sjh,
-                xingming = xm,
-                xingbie = xb,
-                shengri = sr,
-                xiugaishijian = DateTime.Now
-            };
+            DateTime sr = dp_sr.Value.Date;           
 
-            try
-            {
-                JCSJWCF.UpdateHuiyuan(jh);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
-            //更新本地信息
             THuiyuan fh = new THuiyuan 
             {
                 id=_id,
@@ -68,6 +47,23 @@ namespace FDXS
             db.UpdateHuiyuanInfo(fh);
 
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Dlg_HuiyuanEdit_Load(object sender, EventArgs e)
+        {
+            Tool.CommonFunc.InitCombbox(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
+            DBContext db = new DBContext();
+            THuiyuan h = db.GetHuiyuanById(_id);
+
+            txb_sjh.Text = h.shoujihao;
+            txb_xm.Text = h.xingming;
+            cmb_xb.SelectedValue = h.xingbie;
+            dp_sr.Value = h.shengri;
         }
     }
 }

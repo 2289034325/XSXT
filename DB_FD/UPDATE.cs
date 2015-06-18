@@ -47,11 +47,11 @@ namespace DB_FD
         /// 修改进出货明细的数量
         /// </summary>
         /// <param name="mx"></param>
-        public void UpdateChurukuMx(TJinchuMX mx)
+        public void UpdateChurukuMx(int id,short sl)
         {
-            TJinchuMX om = _db.TJinchuMX.Single(r => r.id == mx.id);
+            TJinchuMX om = _db.TJinchuMX.Single(r => r.id == id);
             //只允许修改数量
-            om.shuliang = mx.shuliang;
+            om.shuliang = sl;
 
             _db.SaveChanges();
         }
@@ -115,6 +115,8 @@ namespace DB_FD
             oh.xingbie = h.xingbie;
             oh.xingming = h.xingming;
             oh.xxgxshijian = h.xxgxshijian;
+
+            _db.SaveChanges();
         }
         public void UpdateHuiyuanAll(THuiyuan h)
         {
@@ -124,6 +126,10 @@ namespace DB_FD
             oh.xingbie = h.xingbie;
             oh.xingming = h.xingming;
             oh.xxgxshijian = h.xxgxshijian;
+            oh.jifen = h.jifen;
+            oh.jfgxshijian = h.jfgxshijian;
+
+            _db.SaveChanges();
         }
 
         /// <summary>

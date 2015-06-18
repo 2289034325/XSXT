@@ -23,7 +23,7 @@ namespace JCSJGL
                 TFendian[] fs = db.GetFendians();
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
-                Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
+                //Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
             }
             else
             {
@@ -84,7 +84,7 @@ namespace JCSJGL
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.fendianid + "','" + r.shoujihao + "','" + r.xingming + "','" + r.xingbie + "','" + r.shengri.ToString("yyyy-MM-dd") + "','" +
+                editParams = r.id + ",'" + r.shoujihao + "','" + r.xingming + "','" + r.xingbie + "','" + r.shengri.ToString("yyyy-MM-dd") + "','" +
                              r.beizhu + "'"
             });
 
@@ -128,7 +128,7 @@ namespace JCSJGL
         /// <returns></returns>
         private THuiyuan getEditInfo()
         {
-            int fendianid = int.Parse(cmb_fd.SelectedValue);
+            //int fendianid = int.Parse(cmb_fd.SelectedValue);
             string shoujihao = txb_sjh.Text.Trim();
             string xingming = txb_xm.Text.Trim();
             byte xingbie = byte.Parse(cmb_xb.SelectedValue);
@@ -137,7 +137,7 @@ namespace JCSJGL
 
             THuiyuan f = new THuiyuan
             {
-                fendianid = fendianid,
+                //fendianid = fendianid,
                 shoujihao = shoujihao,
                 xingming = xingming,
                 xingbie = xingbie,

@@ -317,11 +317,11 @@ namespace FDXS
                     return;
                 }
 
-                if (yingshou < 0)
-                {
-                    MessageBox.Show(pm + "应收金额不应当小于0");
-                    return;
-                }
+                //if (yingshou < 0)
+                //{
+                //    MessageBox.Show(pm + "应收金额不应当小于0");
+                //    return;
+                //}
 
                 //检查库存数量是否足够
                 VKucun vx = db.GetKucunByTiaomaId(tmid);
@@ -372,31 +372,30 @@ namespace FDXS
                 MessageBox.Show("输入的不是正常的手机号，请检查");
                 return;
             }
-
-
-            //先从数据中心查找会员信息
-            JCSJData.THuiyuan jh = null;
-            try
-            {
-                jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
             
-            if (jh == null)
-            {
-                MessageBox.Show("会员不存在，请先注册");
-                return;
-            }
-
             //在本地查找该会员信息，如果存在，更新其积分，如果不存在就添加该会员信息到本地
             DBContext db = new DBContext();
             THuiyuan h = db.GetHuiyuanByShoujihao(sjh);
             if (h == null)
             {
+                //从数据中心查找会员信息
+                JCSJData.THuiyuan jh = null;
+                try
+                {
+                    jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
+                if (jh == null)
+                {
+                    MessageBox.Show("会员不存在，请先注册");
+                    return;
+                }
+
                 h = new THuiyuan
                 {
                     id = jh.id,
@@ -412,12 +411,7 @@ namespace FDXS
 
                 //保存到本地
                 db.InsertHuiyuan(h);
-            }
-            else
-            {
-                db.UpdateHuiyuanJF(h.id, jh.jifen);
-                h.jifen = jh.jifen;
-            }
+            }          
            
             Huiyuan = h;
             //按照积分折扣表给该会员应有的折扣
@@ -437,7 +431,7 @@ namespace FDXS
             //}
 
             //刷新总价
-            refreshZongjia();
+            //refreshZongjia();
         }
 
         /// <summary>

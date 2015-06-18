@@ -565,8 +565,15 @@ namespace JCSJWCF
         /// <param name="h"></param>
         public void UpdateHuiyuan(THuiyuan h)
         {
+            //检查是否可以修改
             DBContext db = new DBContext();
-            db.UpdateHuiyuan(h);
+            THuiyuan oh = db.GetHuiyuanById(h.id);
+            if (oh.caozuorenid != _user.id)
+            {
+                throw new FaultException("不允许修改其他分店的会员信息");
+            }
+
+            db.UpdateHuiyuan_FendianOPT(h);
         }
 
         /// <summary>

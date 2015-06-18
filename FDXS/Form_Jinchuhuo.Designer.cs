@@ -290,9 +290,7 @@
             this.grid_jcmx.Location = new System.Drawing.Point(0, 0);
             this.grid_jcmx.MultiSelect = false;
             this.grid_jcmx.Name = "grid_jcmx";
-            this.grid_jcmx.RowHeadersVisible = false;
             this.grid_jcmx.RowTemplate.Height = 23;
-            this.grid_jcmx.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_jcmx.Size = new System.Drawing.Size(905, 280);
             this.grid_jcmx.TabIndex = 4;
             this.grid_jcmx.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_crkmx_CellBeginEdit);

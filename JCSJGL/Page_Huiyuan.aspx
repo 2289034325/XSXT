@@ -3,9 +3,8 @@
     <title>会员管理</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,fd,sjh,xm,xb,sr,bz) {
+        function EditInfo(id,sjh,xm,xb,sr,bz) {
             $("#hid_id").val(id);
-            $("#cmb_fd").val(fd);
             $("#txb_sjh").val(sjh);
             $("#txb_xm").val(xm);
             $("#cmb_xb").val(xb);
@@ -52,7 +51,6 @@
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <asp:Label runat="server" Text="分店"></asp:Label><asp:DropDownList runat="server" ID="cmb_fd" ClientIDMode="Static"></asp:DropDownList>
     <asp:Label runat="server" Text="手机号"></asp:Label><asp:TextBox runat="server" ID="txb_sjh" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="姓名"></asp:Label><asp:TextBox runat="server" ID="txb_xm" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList>

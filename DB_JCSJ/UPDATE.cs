@@ -111,7 +111,7 @@ namespace DB_JCSJ
             {
                 THuiyuan oh = _db.THuiyuan.Single(r => r.id == h.id);
 
-                oh.fendianid = h.fendianid;
+                //oh.fendianid = h.fendianid;
                 oh.shoujihao = h.shoujihao;
                 oh.xingming = h.xingming;
                 oh.xingbie = h.xingbie;
@@ -120,7 +120,6 @@ namespace DB_JCSJ
                 oh.xiugaishijian = h.xiugaishijian;
 
                 _db.SaveChanges();
-
             }
             /// <summary>
             /// 分店客户端修改会员信息

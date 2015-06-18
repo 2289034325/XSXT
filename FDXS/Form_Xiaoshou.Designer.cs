@@ -189,11 +189,10 @@
             this.grid_xs.Location = new System.Drawing.Point(0, 32);
             this.grid_xs.Name = "grid_xs";
             this.grid_xs.ReadOnly = true;
-            this.grid_xs.RowHeadersVisible = false;
             this.grid_xs.RowTemplate.Height = 23;
-            this.grid_xs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_xs.Size = new System.Drawing.Size(1110, 452);
             this.grid_xs.TabIndex = 11;
+            this.grid_xs.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_xs_UserDeletedRow);
             this.grid_xs.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xs_UserDeletingRow);
             // 
             // col_id

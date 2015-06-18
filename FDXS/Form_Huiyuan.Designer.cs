@@ -42,8 +42,9 @@
             this.col_jf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_jfsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmn_hy = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_hy_update = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_hy_edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_hy_shangchuan = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_hy_xiazai = new System.Windows.Forms.ToolStripMenuItem();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_hy)).BeginInit();
             this.cmn_hy.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             this.grid_hy.AllowUserToAddRows = false;
             this.grid_hy.AllowUserToDeleteRows = false;
+            this.grid_hy.AllowUserToResizeRows = false;
             this.grid_hy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_hy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
@@ -99,12 +101,14 @@
             this.col_nl,
             this.col_jf,
             this.col_jfsj});
+            this.grid_hy.ContextMenuStrip = this.cmn_hy;
             this.grid_hy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_hy.Location = new System.Drawing.Point(0, 32);
             this.grid_hy.Name = "grid_hy";
             this.grid_hy.ReadOnly = true;
             this.grid_hy.RowHeadersVisible = false;
             this.grid_hy.RowTemplate.Height = 23;
+            this.grid_hy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_hy.Size = new System.Drawing.Size(1013, 452);
             this.grid_hy.TabIndex = 11;
             // 
@@ -153,24 +157,32 @@
             // cmn_hy
             // 
             this.cmn_hy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_hy_update,
-            this.cmn_hy_edit});
+            this.cmn_hy_edit,
+            this.cmn_hy_shangchuan,
+            this.cmn_hy_xiazai});
             this.cmn_hy.Name = "cmn_hy";
-            this.cmn_hy.Size = new System.Drawing.Size(101, 48);
-            // 
-            // cmn_hy_update
-            // 
-            this.cmn_hy_update.Name = "cmn_hy_update";
-            this.cmn_hy_update.Size = new System.Drawing.Size(100, 22);
-            this.cmn_hy_update.Text = "更新";
-            this.cmn_hy_update.Click += new System.EventHandler(this.cmn_hy_gxxx_Click);
+            this.cmn_hy.Size = new System.Drawing.Size(149, 70);
             // 
             // cmn_hy_edit
             // 
             this.cmn_hy_edit.Name = "cmn_hy_edit";
-            this.cmn_hy_edit.Size = new System.Drawing.Size(100, 22);
+            this.cmn_hy_edit.Size = new System.Drawing.Size(148, 22);
             this.cmn_hy_edit.Text = "修改";
             this.cmn_hy_edit.Click += new System.EventHandler(this.cmn_hy_edit_Click);
+            // 
+            // cmn_hy_shangchuan
+            // 
+            this.cmn_hy_shangchuan.Name = "cmn_hy_shangchuan";
+            this.cmn_hy_shangchuan.Size = new System.Drawing.Size(148, 22);
+            this.cmn_hy_shangchuan.Text = "上传会员信息";
+            this.cmn_hy_shangchuan.Click += new System.EventHandler(this.cmn_hy_shangchuan_Click);
+            // 
+            // cmn_hy_xiazai
+            // 
+            this.cmn_hy_xiazai.Name = "cmn_hy_xiazai";
+            this.cmn_hy_xiazai.Size = new System.Drawing.Size(148, 22);
+            this.cmn_hy_xiazai.Text = "下载会员信息";
+            this.cmn_hy_xiazai.Click += new System.EventHandler(this.cmn_hy_gxxx_Click);
             // 
             // Form_Huiyuan
             // 
@@ -206,7 +218,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jf;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jfsj;
         private System.Windows.Forms.ContextMenuStrip cmn_hy;
-        private System.Windows.Forms.ToolStripMenuItem cmn_hy_update;
+        private System.Windows.Forms.ToolStripMenuItem cmn_hy_xiazai;
         private System.Windows.Forms.ToolStripMenuItem cmn_hy_edit;
+        private System.Windows.Forms.ToolStripMenuItem cmn_hy_shangchuan;
     }
 }

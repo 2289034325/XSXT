@@ -75,7 +75,7 @@ namespace FDXS
         private void btn_sbkc_Click(object sender, EventArgs e)
         {
             DBContext db = new DBContext();
-            VKucun[] ks = db.GetKucuns();
+            VKucun[] ks = db.GetKucunsByCond(1,null);
 
             JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX 
             {

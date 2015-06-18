@@ -21,6 +21,73 @@ namespace FDXS
         }
 
         /// <summary>
+        /// 扫描枪事件
+        /// </summary>
+        /// <param name="tm"></param>
+        public override void OnScan(string tmh)
+        {
+            int jcid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+            
+
+            //检查该出入库记录是否已经上报
+            if (!checkAllow())
+            {
+                MessageBox.Show("该记录已经上报到服务器，不能再修改");
+                return;
+            }
+
+            DBContext db = new DBContext();
+            TTiaoma tm = db.GetTiaomaByTmh(tmh);
+            if (tm == null)
+            {
+                MessageBox.Show("该条码不存在，或者打开条码信息页面，从服务器下载该条码信息");
+                return;
+            }
+
+            //如果是出货，检查是否会引起库存负数
+            if (DBCONSTS.JCH_FX.出.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
+            {
+                VKucun kc = db.GetKucunByTiaomaId(tm.id);
+                if (kc.shuliang == 0)
+                {
+                    MessageBox.Show("该条码库存为0，无法再出货，请核实数据");
+                    return;
+                }
+            }
+
+            TJinchuMX mx = getMx(jcid,tm.id);
+            if (mx != null)
+            {
+                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang+1));
+            }
+            else
+            {
+                TJinchuMX nmx = new TJinchuMX
+                {
+                    jinchuid = jcid,
+                    tiaomaid = tm.id,
+                    shuliang = 1
+                };
+                TJinchuMX[] mxs = new TJinchuMX[] { nmx };
+                db.InsertJinchuMxs(mxs);
+            }
+
+            refreshMx();
+        }
+
+        /// <summary>
+        /// 检查某个出入库明细是否已经存在
+        /// </summary>
+        /// <param name="jcid"></param>
+        /// <param name="tmid"></param>
+        /// <returns></returns>
+        private TJinchuMX getMx(int jcid, int tmid)
+        {
+            DBContext db = new DBContext();
+            return db.GetJinchuhuoMX(jcid, tmid);
+        }
+
+        /// <summary>
         /// 查询进出货记录
         /// </summary>
         /// <param name="sender"></param>
@@ -318,8 +385,12 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_crk_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            DataGridViewRow dr = grid_jch.Rows[e.RowIndex];
-            if (dr.Cells[col_jc_sbsj.Name].Value != null)
+            //DataGridViewRow dr = grid_jch.Rows[e.RowIndex];
+            //if (dr.Cells[col_jc_sbsj.Name].Value != null)
+            //{
+            //    e.Cancel = true;
+            //}
+            if (!checkAllow())
             {
                 e.Cancel = true;
             }
@@ -338,25 +409,17 @@ namespace FDXS
             }
 
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
-            if (!checkAllow())
+            DBContext db = new DBContext();
+            byte lyqx = byte.Parse(grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value.ToString());
+            string bz = (string)grid_jch.SelectedRows[0].Cells[col_jc_bz.Name].Value ?? "";
+            TJinchuhuo nc = new TJinchuhuo
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再修改");
-                return;
-            }
-            else
-            {
-                DBContext db = new DBContext();
-                byte lyqx = byte.Parse(grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value.ToString());
-                string bz = (string)grid_jch.SelectedRows[0].Cells[col_jc_bz.Name].Value ?? "";
-                TJinchuhuo nc = new TJinchuhuo 
-                {
-                    id=crkid,
-                    laiyuanquxiang = lyqx,
-                    beizhu = bz,
-                    xiugaishijian = DateTime.Now               
-                };
-                db.UpdateChuruku(nc);
-            }
+                id = crkid,
+                laiyuanquxiang = lyqx,
+                beizhu = bz,
+                xiugaishijian = DateTime.Now
+            };
+            db.UpdateChuruku(nc);
         }
 
         /// <summary>
@@ -366,12 +429,15 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_crkmx_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            DataGridViewRow dr = grid_jch.Rows[e.RowIndex];
-            if (dr.Cells[col_jc_sbsj.Name].Value != null)
+            //DataGridViewRow dr = grid_jch.Rows[e.RowIndex];
+            //if (dr.Cells[col_jc_sbsj.Name].Value != null)
+            //{
+            //    e.Cancel = true;
+            //}
+            if (!checkAllow())
             {
                 e.Cancel = true;
             }
-
         }
 
         /// <summary>
@@ -387,20 +453,50 @@ namespace FDXS
                 return;
             }
 
-            short sl;
-            if (!short.TryParse(e.FormattedValue.ToString(), out sl))
+            if (e.ColumnIndex == col_mx_sl.Index)
             {
-                MessageBox.Show("只允许输入数字");
-                e.Cancel = true;
-                return;
-            }
-            else
-            {
-                if (sl <= 0)
+                short sl;
+                if (!short.TryParse(e.FormattedValue.ToString(), out sl))
                 {
-                    MessageBox.Show("只允许输入大于0的数字");
+                    MessageBox.Show("只允许输入数字");
                     e.Cancel = true;
                     return;
+                }
+                else
+                {
+                    if (sl <= 0)
+                    {
+                        MessageBox.Show("只允许输入大于0的数字");
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
+                //检查变动是否会引起库存为负数
+                DBContext db = new DBContext();
+                int id = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
+                TJinchuMX mx = db.GetJinchuhuoMX(id);
+                VKucun kc = db.GetKucunByTiaomaId(mx.tiaomaid);
+                //进货
+                if (DBCONSTS.JCH_FX.进.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
+                {
+                    if (kc.shuliang - mx.shuliang + sl < 0)
+                    {
+                        MessageBox.Show("修改后会导致库存数量为负数，请核实数据");
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
+                //出货
+                else
+                {
+                    if (kc.shuliang + mx.shuliang - sl < 0)
+                    {
+                        MessageBox.Show("修改后会导致库存数量为负数，请核实数据");
+                        e.Cancel = true;
+                        return;
+                    }
                 }
             }
         }
@@ -417,22 +513,17 @@ namespace FDXS
                 return;
             }
 
-            if (!checkAllow())
+            if (e.ColumnIndex == col_mx_sl.Index)
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再修改");
-                return;
-            }
-            else
-            {
-                int mxid = (int)grid_jcmx.SelectedRows[0].Cells[col_mx_id.Name].Value; 
-                short sl = short.Parse(grid_jcmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
+                int mxid = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
+                short sl = short.Parse(grid_jcmx.Rows[e.RowIndex].Cells[col_mx_sl.Name].Value.ToString());
                 DBContext db = new DBContext();
-                TJinchuMX mx = new TJinchuMX 
-                {
-                    id = mxid,
-                    shuliang = sl                    
-                };
-                db.UpdateChurukuMx(mx);
+                //TJinchuMX mx = new TJinchuMX 
+                //{
+                //    id = mxid,
+                //    shuliang = sl                    
+                //};
+                db.UpdateChurukuMx(mxid, sl);
             }
         }
 

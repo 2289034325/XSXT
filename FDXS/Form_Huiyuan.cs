@@ -63,12 +63,18 @@ namespace FDXS
         }
 
         /// <summary>
-        /// 更新会员信息
+        /// 下载会员信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cmn_hy_gxxx_Click(object sender, EventArgs e)
         {
+            if (grid_hy.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请先选中一行");
+                return;
+            }
+
             //取得被选中的会员ID
             int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
 
@@ -101,12 +107,56 @@ namespace FDXS
         }
 
         /// <summary>
+        /// 上传会员信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_hy_shangchuan_Click(object sender, EventArgs e)
+        {
+            if (grid_hy.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请先选中一行");
+                return;
+            }
+
+            int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
+            DBContext db = new DBContext();
+            THuiyuan h = db.GetHuiyuanById(id);
+
+            JCSJData.THuiyuan jh = new JCSJData.THuiyuan
+            {
+                id = h.id,
+                shengri = h.shengri,
+                shoujihao = h.shoujihao,
+                xingbie = h.xingbie,
+                xingming = h.xingming
+            };
+
+            try
+            {
+                JCSJWCF.UpdateHuiyuan(jh);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+        }
+
+        /// <summary>
         /// 修改会员信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cmn_hy_edit_Click(object sender, EventArgs e)
         {
+            if (grid_hy.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请先选中一行");
+                return;
+            }
+
             //取得被选中的会员ID
             int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
             Dlg_HuiyuanEdit dh = new Dlg_HuiyuanEdit( id);

@@ -40,6 +40,8 @@
             this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gxsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dp_end = new System.Windows.Forms.DateTimePicker();
+            this.dp_start = new System.Windows.Forms.DateTimePicker();
             this.cmb_lx = new System.Windows.Forms.ComboBox();
             this.btn_xzzdtm = new System.Windows.Forms.Button();
             this.btn_xzzxtm = new System.Windows.Forms.Button();
@@ -49,8 +51,6 @@
             this.txb_tm = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dp_end = new System.Windows.Forms.DateTimePicker();
-            this.dp_start = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tm)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -74,12 +74,9 @@
             this.col_gxsj});
             this.grid_tm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_tm.Location = new System.Drawing.Point(0, 32);
-            this.grid_tm.MultiSelect = false;
             this.grid_tm.Name = "grid_tm";
             this.grid_tm.ReadOnly = true;
-            this.grid_tm.RowHeadersVisible = false;
             this.grid_tm.RowTemplate.Height = 23;
-            this.grid_tm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_tm.Size = new System.Drawing.Size(1005, 466);
             this.grid_tm.TabIndex = 14;
             // 
@@ -162,6 +159,20 @@
             this.panel3.Size = new System.Drawing.Size(1005, 32);
             this.panel3.TabIndex = 13;
             // 
+            // dp_end
+            // 
+            this.dp_end.Location = new System.Drawing.Point(794, 6);
+            this.dp_end.Name = "dp_end";
+            this.dp_end.Size = new System.Drawing.Size(106, 21);
+            this.dp_end.TabIndex = 30;
+            // 
+            // dp_start
+            // 
+            this.dp_start.Location = new System.Drawing.Point(682, 4);
+            this.dp_start.Name = "dp_start";
+            this.dp_start.Size = new System.Drawing.Size(106, 21);
+            this.dp_start.TabIndex = 29;
+            // 
             // cmb_lx
             // 
             this.cmb_lx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -241,20 +252,6 @@
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 0;
             this.label5.Text = "条码";
-            // 
-            // dp_end
-            // 
-            this.dp_end.Location = new System.Drawing.Point(794, 6);
-            this.dp_end.Name = "dp_end";
-            this.dp_end.Size = new System.Drawing.Size(106, 21);
-            this.dp_end.TabIndex = 30;
-            // 
-            // dp_start
-            // 
-            this.dp_start.Location = new System.Drawing.Point(682, 4);
-            this.dp_start.Name = "dp_start";
-            this.dp_start.Size = new System.Drawing.Size(106, 21);
-            this.dp_start.TabIndex = 29;
             // 
             // Form_Tiaomaxinxi
             // 

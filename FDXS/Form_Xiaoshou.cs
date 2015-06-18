@@ -288,6 +288,26 @@ namespace FDXS
         }
 
         /// <summary>
+        /// 删除一个销售记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_xs_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            int id = (int)e.Row.Cells[col_id.Name].Value;
+            DBContext db = new DBContext();
+            db.DeleteXiaoshou(id);
+
+            //把会员积分减掉
+            TXiaoshou x = db.GetXiaoshouById(id);
+            if (x.huiyuanid != null)
+            {
+                decimal jf = 0 - decimal.Round(x.shuliang * x.danjia * x.zhekou / 10 - x.moliing, 2);
+                db.UpdateHuiyuanJF(id, jf);
+            }
+        }
+
+        /// <summary>
         /// 上报销售数据
         /// </summary>
         /// <param name="sender"></param>

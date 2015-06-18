@@ -43,7 +43,7 @@
             this.mn_main_xs = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtyh = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tiaoma = new System.Windows.Forms.ToolStripMenuItem();
-            this.报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_baobiao = new System.Windows.Forms.ToolStripMenuItem();
             this.会员ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_hyyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_jfzk = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +60,7 @@
             this.mn_main_xs,
             this.mn_main_xtyh,
             this.mn_main_tiaoma,
-            this.报表ToolStripMenuItem,
+            this.mn_main_baobiao,
             this.会员ToolStripMenuItem});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
             this.mn_main.Name = "mn_main";
@@ -85,48 +85,48 @@
             // mn_main_xtzc
             // 
             this.mn_main_xtzc.Name = "mn_main_xtzc";
-            this.mn_main_xtzc.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_xtzc.Size = new System.Drawing.Size(148, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_xtzc_Click);
             // 
             // 设置默认折扣ToolStripMenuItem
             // 
             this.设置默认折扣ToolStripMenuItem.Name = "设置默认折扣ToolStripMenuItem";
-            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.设置默认折扣ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.设置默认折扣ToolStripMenuItem.Text = "设置默认折扣";
             // 
             // mn_main_czsmq
             // 
             this.mn_main_czsmq.Name = "mn_main_czsmq";
-            this.mn_main_czsmq.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_czsmq.Size = new System.Drawing.Size(148, 22);
             this.mn_main_czsmq.Text = "重置扫描枪";
             this.mn_main_czsmq.Click += new System.EventHandler(this.mn_main_czsmq_Click);
             // 
             // mn_main_version
             // 
             this.mn_main_version.Name = "mn_main_version";
-            this.mn_main_version.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_version.Size = new System.Drawing.Size(148, 22);
             this.mn_main_version.Text = "版本";
             this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
             // 
             // mn_main_folder
             // 
             this.mn_main_folder.Name = "mn_main_folder";
-            this.mn_main_folder.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_folder.Size = new System.Drawing.Size(148, 22);
             this.mn_main_folder.Text = "文件夹";
             this.mn_main_folder.Click += new System.EventHandler(this.mn_main_folder_Click);
             // 
             // mn_main_editpsw
             // 
             this.mn_main_editpsw.Name = "mn_main_editpsw";
-            this.mn_main_editpsw.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_editpsw.Size = new System.Drawing.Size(148, 22);
             this.mn_main_editpsw.Text = "修改密码";
             this.mn_main_editpsw.Click += new System.EventHandler(this.mn_main_editpsw_Click);
             // 
             // mn_main_userchange
             // 
             this.mn_main_userchange.Name = "mn_main_userchange";
-            this.mn_main_userchange.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_userchange.Size = new System.Drawing.Size(148, 22);
             this.mn_main_userchange.Text = "更换用户";
             this.mn_main_userchange.Click += new System.EventHandler(this.mn_main_userchange_Click);
             // 
@@ -172,11 +172,12 @@
             this.mn_main_tiaoma.Text = "条码信息";
             this.mn_main_tiaoma.Click += new System.EventHandler(this.mn_main_tiaoma_Click);
             // 
-            // 报表ToolStripMenuItem
+            // mn_main_baobiao
             // 
-            this.报表ToolStripMenuItem.Name = "报表ToolStripMenuItem";
-            this.报表ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.报表ToolStripMenuItem.Text = "报表";
+            this.mn_main_baobiao.Name = "mn_main_baobiao";
+            this.mn_main_baobiao.Size = new System.Drawing.Size(44, 21);
+            this.mn_main_baobiao.Text = "报表";
+            this.mn_main_baobiao.Click += new System.EventHandler(this.mn_main_baobiao_Click);
             // 
             // 会员ToolStripMenuItem
             // 
@@ -231,7 +232,7 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcgl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xtyh;
-        private System.Windows.Forms.ToolStripMenuItem 报表ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_baobiao;
         private System.Windows.Forms.ToolStripMenuItem mn_main_tiaoma;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xs;
         private System.Windows.Forms.ToolStripMenuItem 会员ToolStripMenuItem;

@@ -66,6 +66,19 @@ namespace DB_FD
         }
 
         /// <summary>
+        /// 删除一个销售记录
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteXiaoshou(int id)
+        {
+            TXiaoshou x = _db.TXiaoshou.Single(r => r.id == id);
+
+            _db.TXiaoshou.Remove(x);
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
         /// 删除所有会员折扣记录
         /// </summary>
         public void DeleteHuiyuanZK()

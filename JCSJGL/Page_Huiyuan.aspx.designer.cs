@@ -7,8 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JCSJGL
-{
+namespace JCSJGL {
     
     
     public partial class Page_Huiyuan {
@@ -39,15 +38,6 @@ namespace JCSJGL
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hid_id;
-        
-        /// <summary>
-        /// cmb_fd 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_fd;
         
         /// <summary>
         /// txb_sjh 控件。

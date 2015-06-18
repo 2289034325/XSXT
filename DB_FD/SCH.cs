@@ -38,7 +38,7 @@ namespace DB_FD
         public TTiaoma GetTiaomaByTmh(string tmh)
         {
             return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == tmh);
-        }       
+        }
 
         /// <summary>
         /// 根据登录名和密码取得用户信息
@@ -152,9 +152,19 @@ namespace DB_FD
         /// 查出所有的库存信息
         /// </summary>
         /// <returns></returns>
-        public VKucun[] GetKucuns()
+        public VKucun[] GetKucunsByCond(short? sl_start, short? sl_end)
         {
-            return _db.VKucun.ToArray();
+            var ks = _db.VKucun.AsQueryable();
+            if (sl_start != null)
+            {
+                ks = ks.Where(r => r.shuliang >= sl_start.Value);
+            }
+            if (sl_end != null)
+            {
+                ks = ks.Where(r => r.shuliang <= sl_end.Value);
+            }
+
+            return ks.ToArray();
         }
         /// <summary>
         /// 查询一批条码的库存
@@ -328,12 +338,33 @@ namespace DB_FD
         public THuiyuan[] GetHuiyuanByCond(string sjh)
         {
             var hys = _db.THuiyuan.AsQueryable();
-            if (string.IsNullOrEmpty(sjh))
+            if (!string.IsNullOrEmpty(sjh))
             {
                 hys = hys.Where(r => r.shoujihao == sjh);
             }
 
             return hys.ToArray();
+        }
+
+
+        /// <summary>
+        /// 取得某个进出货明细记录
+        /// </summary>
+        /// <param name="jcid"></param>
+        /// <param name="tmid"></param>
+        /// <returns></returns>
+        public TJinchuMX GetJinchuhuoMX(int jcid, int tmid)
+        {
+            return _db.TJinchuMX.SingleOrDefault(r => r.jinchuid == jcid && r.tiaomaid == tmid);
+        }
+        /// <summary>
+        /// 取得某个进出货明细记录
+        /// </summary>
+        /// <param name="mxid">明细记录ID</param>
+        /// <returns></returns>
+        public TJinchuMX GetJinchuhuoMX(int mxid)
+        {
+            return _db.TJinchuMX.Single(r => r.id == mxid);
         }
     }
 }

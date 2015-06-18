@@ -134,6 +134,7 @@
             this.Name = "Dlg_HuiyuanEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "会员信息";
+            this.Load += new System.EventHandler(this.Dlg_HuiyuanEdit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
