@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_xzjinhuo = new System.Windows.Forms.Button();
             this.btn_shangbao = new System.Windows.Forms.Button();
             this.dp_end = new System.Windows.Forms.DateTimePicker();
             this.dp_start = new System.Windows.Forms.DateTimePicker();
@@ -73,6 +74,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_xzjinhuo);
             this.panel1.Controls.Add(this.btn_shangbao);
             this.panel1.Controls.Add(this.dp_end);
             this.panel1.Controls.Add(this.dp_start);
@@ -88,13 +90,23 @@
             this.panel1.Size = new System.Drawing.Size(905, 32);
             this.panel1.TabIndex = 3;
             // 
+            // btn_xzjinhuo
+            // 
+            this.btn_xzjinhuo.Location = new System.Drawing.Point(717, 2);
+            this.btn_xzjinhuo.Name = "btn_xzjinhuo";
+            this.btn_xzjinhuo.Size = new System.Drawing.Size(88, 23);
+            this.btn_xzjinhuo.TabIndex = 27;
+            this.btn_xzjinhuo.Text = "下载进货数据";
+            this.btn_xzjinhuo.UseVisualStyleBackColor = true;
+            this.btn_xzjinhuo.Click += new System.EventHandler(this.btn_xzjinhuo_Click);
+            // 
             // btn_shangbao
             // 
             this.btn_shangbao.Location = new System.Drawing.Point(612, 3);
             this.btn_shangbao.Name = "btn_shangbao";
-            this.btn_shangbao.Size = new System.Drawing.Size(75, 23);
+            this.btn_shangbao.Size = new System.Drawing.Size(99, 23);
             this.btn_shangbao.TabIndex = 26;
-            this.btn_shangbao.Text = "上报数据";
+            this.btn_shangbao.Text = "上报进出货数据";
             this.btn_shangbao.UseVisualStyleBackColor = true;
             this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
             // 
@@ -417,5 +429,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_djsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_xgsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sbsj;
+        private System.Windows.Forms.Button btn_xzjinhuo;
     }
 }

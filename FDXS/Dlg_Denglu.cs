@@ -64,7 +64,7 @@ namespace FDXS
         /// <param name="mm"></param>
         private void login(string dlm, string mm)
         {
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TUser User = db.GetUser(dlm, mm);
             if (User != null)
             {
@@ -89,6 +89,17 @@ namespace FDXS
             {
                 MessageBox.Show("登录名密码错误");
             }
+        }
+
+        /// <summary>
+        /// 设置配置文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_setting_Click(object sender, EventArgs e)
+        {
+            Dlg_AppSettings dl = new Dlg_AppSettings();
+            dl.ShowDialog();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CKGL
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TUser user = db.GetUser(dlm, Tool.CommonFunc.MD5_16(mm));
             if (user != null)
             {
@@ -49,6 +49,17 @@ namespace CKGL
             {
                 MessageBox.Show("登录名密码错误");
             }
+        }
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_setting_Click(object sender, EventArgs e)
+        {
+            Dlg_AppSettings dl = new Dlg_AppSettings();
+            dl.ShowDialog();
         }
     }
 }

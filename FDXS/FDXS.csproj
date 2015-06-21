@@ -28,7 +28,7 @@
     <SuiteName>XS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -66,6 +66,16 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -91,6 +101,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dlg_AppSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_AppSettings.Designer.cs">
+      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg_MimaEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,7 +119,8 @@
     <Compile Include="Form_Tubiao.Designer.cs">
       <DependentUpon>Form_Tubiao.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginUser.cs" />
+    <Compile Include="IDB.cs" />
+    <Compile Include="LoginInfo.cs" />
     <Compile Include="Service References\JCSJData\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,6 +248,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dlg_AppSettings.resx">
+      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg_UserEdit.resx">
       <DependentUpon>Dlg_UserEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,6 +325,7 @@
     </Compile>
     <None Include="FDXS_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuan1.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuanZK.datasource" />
@@ -332,6 +353,12 @@
     </None>
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangkuJinchuhuo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TFendian.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TGongyingshang.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -429,6 +456,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

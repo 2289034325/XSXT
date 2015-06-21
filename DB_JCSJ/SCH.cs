@@ -370,6 +370,27 @@ namespace DB_JCSJ
             }
 
             /// <summary>
+            /// 取得仓库进出货记录
+            /// </summary>
+            /// <param name="ckid">仓库ID</param>
+            /// <param name="oid">仓库系统的本地ID</param>
+            /// <returns></returns>
+            public TCangkuJinchuhuo GetCKJinchuhuo(int ckid, int oid)
+            {
+                return _db.TCangkuJinchuhuo.SingleOrDefault(r => r.cangkuid == ckid && r.oid == oid);
+            }
+            /// <summary>
+            /// 取得仓库发货给某分店的数据
+            /// </summary>
+            /// <param name="jcid">仓库进出货记录ID</param>
+            /// <param name="fdid">分店ID</param>
+            /// <returns></returns>
+            public TCangkuFahuoFendian GetCangkuFahuoFendian(int jcid, int fdid)
+            {
+                return _db.TCangkuFahuoFendian.SingleOrDefault(r => r.ckjinchuid == jcid && r.fendianid == fdid);
+            }
+
+            /// <summary>
             /// 取得某分店的库存记录
             /// </summary>
             /// <param name="fdid"></param>
@@ -398,6 +419,17 @@ namespace DB_JCSJ
             public TFendianKucunMX[] GetFDKucunMXsByKcId(int kcid)
             {
                 return _db.TFendianKucunMX.Include("TTiaoma").Include("TTiaoma.TKuanhao").Where(r => r.kucunid == kcid).ToArray();
+            }
+
+            /// <summary>
+            /// 取得某个分店的进货数据
+            /// </summary>
+            /// <param name="fdid"></param>
+            /// <returns></returns>
+            public TCangkuFahuoFendian[] GetFDJinhuoshuju(int fdid)
+            {
+                return _db.TCangkuFahuoFendian.Include("TCangkuJinchuhuo").Include("TCangkuJinchuhuo.TCangkuJinchuhuoMX").
+                    Where(r => r.fendianid == fdid && r.xzshijian == null).ToArray();
             }
         }
  

@@ -28,7 +28,7 @@ namespace FDXS
         private void btn_shuaxin_Click(object sender, EventArgs e)
         {
             //取数据
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TXiaoshou[] xss = db.GetXiaoshousByCond(null,null,null,null);
             var ddata_s = xss.GroupBy(r => r.charushijian.Date).
                 Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();

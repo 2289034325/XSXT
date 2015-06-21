@@ -39,8 +39,8 @@ namespace FDXS
         /// </summary>
         /// <param name="tm">条码号</param>
         public override void OnScan(string tm)
-        {            
-                DBContext db = new DBContext();
+        {
+            DBContext db = IDB.GetDB();
                 TTiaoma t = db.GetTiaomaByTmh(tm);
                 if (t == null)
                 {
@@ -132,7 +132,7 @@ namespace FDXS
         private void Dlg_xiaoshou_Load(object sender, EventArgs e)
         {
             //销售下拉框
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
            
                 TUser[] xss = db.GetUsersByJss(new byte[] { (byte)Tool.FD.DBCONSTS.USER_XTJS.店员, (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 });
                 Tool.CommonFunc.InitCombbox(cmb_xsy, xss, "yonghuming", "id");
@@ -290,7 +290,7 @@ namespace FDXS
             }
 
             //将表格数据组装成实例
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             //int[] kids = XSS.Select(r => r.tiaomaid).ToArray();
             //VKucun[] vs = db.GetKucunsByTiaomaIds(kids);
 
@@ -374,7 +374,7 @@ namespace FDXS
             }
             
             //在本地查找该会员信息，如果存在，更新其积分，如果不存在就添加该会员信息到本地
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuan h = db.GetHuiyuanByShoujihao(sjh);
             if (h == null)
             {
@@ -487,7 +487,7 @@ namespace FDXS
             }
 
             string tmh = txb_tiaoma.Text.Trim();
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
 
             TTiaoma t = db.GetTiaomaByTmh(tmh);
             if (t == null)

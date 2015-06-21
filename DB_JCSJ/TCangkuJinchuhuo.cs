@@ -17,6 +17,7 @@ namespace DB_JCSJ
         public TCangkuJinchuhuo()
         {
             this.TCangkuJinchuhuoMX = new HashSet<TCangkuJinchuhuoMX>();
+            this.TCangkuFahuoFendian = new HashSet<TCangkuFahuoFendian>();
         }
     
         public int id { get; set; }
@@ -30,5 +31,6 @@ namespace DB_JCSJ
     
         public virtual TCangku TCangku { get; set; }
         public virtual ICollection<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
+        public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendian { get; set; }
     }
 }

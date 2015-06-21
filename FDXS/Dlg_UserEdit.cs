@@ -37,7 +37,7 @@ namespace FDXS
             string bz = txb_bz.Text.Trim();
             byte zt = byte.Parse(cmb_zt.SelectedValue.ToString());
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             if (User == null)
             {
                 User = new TUser

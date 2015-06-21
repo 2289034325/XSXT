@@ -107,12 +107,14 @@ namespace Tool.JCSJ
             /// </summary>
             public enum KUANHAO_LX : byte
             {
-                衣服 = 1,
+                上衣 = 1,
                 裙子 = 2,
                 裤子 = 3,
-                鞋子 = 4,
-                包 = 5,
-                配件 = 6
+                套装 = 4,
+                鞋子 = 5,
+                包 = 6,
+                配件 = 7,
+                其他 = 99
             }
 
             /// <summary>
@@ -123,6 +125,28 @@ namespace Tool.JCSJ
                 女 = 0,
                 男 = 1,
                 通用 = 2
+            }
+
+            /// <summary>
+            /// 进出方向
+            /// </summary>
+            public enum JCH_FX : byte
+            {
+                进 = 1,
+                出 = 2
+            }
+
+            /// <summary>
+            /// 进出货的来源去向
+            /// </summary>
+            public enum JCH_LYQX : byte
+            {
+                新货 = 1,
+                分店 = 2,
+                仓库 = 3,
+                退货 = 4,
+                丢弃 = 5,
+                其他 = 99
             }
         }
 

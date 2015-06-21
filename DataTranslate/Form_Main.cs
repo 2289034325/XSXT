@@ -118,8 +118,8 @@ namespace DataTranslate
             //新作一个进货记录
             DB_FD.TJinchuhuo jc = new DB_FD.TJinchuhuo
             {
-                fangxiang = (byte)Tool.FD.DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)Tool.FD.DBCONSTS.JCH_LYQX.内部,
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
                 beizhu = "旧系统数据迁移",
                 caozuorenid = _fduserid,
                 charushijian = DateTime.Now,
@@ -146,7 +146,7 @@ namespace DataTranslate
                 TKuanhao = new DB_JCSJ.TKuanhao
                 {
                     kuanhao = "K" + r.id,
-                    leixing = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.衣服,
+                    leixing = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.上衣,
                     xingbie = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_XB.女,
                     pinming = r.pinming,
                     beizhu = "",

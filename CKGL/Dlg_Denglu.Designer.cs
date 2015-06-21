@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ok = new System.Windows.Forms.Button();
+            this.btn_setting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txb_mm
@@ -78,11 +79,22 @@
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
+            // btn_setting
+            // 
+            this.btn_setting.Location = new System.Drawing.Point(232, 92);
+            this.btn_setting.Name = "btn_setting";
+            this.btn_setting.Size = new System.Drawing.Size(75, 23);
+            this.btn_setting.TabIndex = 15;
+            this.btn_setting.Text = "设置";
+            this.btn_setting.UseVisualStyleBackColor = true;
+            this.btn_setting.Click += new System.EventHandler(this.btn_setting_Click);
+            // 
             // Dlg_Denglu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 79);
+            this.ClientSize = new System.Drawing.Size(319, 127);
+            this.Controls.Add(this.btn_setting);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_mm);
             this.Controls.Add(this.txb_dlm);
@@ -91,6 +103,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Denglu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登陆";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -104,5 +117,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.Button btn_setting;
     }
 }

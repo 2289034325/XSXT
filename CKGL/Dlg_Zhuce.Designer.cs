@@ -110,6 +110,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Zhuce";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "注册";
             this.Load += new System.EventHandler(this.Dlg_Zhuce_Load);
             this.ResumeLayout(false);

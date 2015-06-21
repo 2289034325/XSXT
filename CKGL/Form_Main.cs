@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tool;
 
 namespace CKGL
 {
@@ -19,6 +20,34 @@ namespace CKGL
         public Form_Main()
         {
             InitializeComponent();
+
+            //校准扫描枪
+            if (string.IsNullOrEmpty(Settings.Default.ScanName))
+            {
+                Dlg_ScanSet ds = new Dlg_ScanSet();
+                ds.ShowDialog();
+            }
+
+            RawInputAddIn _rad = new RawInputAddIn(Settings.Default.ScanName, Handle, HandleScan);
+        }
+
+        /// <summary>
+        /// 处理扫描枪事件
+        /// </summary>
+        /// <param name="tm"></param>
+        private void HandleScan(string tm)
+        {
+            //通知当前子窗口
+            MyForm f = (MyForm)this.ActiveMdiChild;
+
+            if (f != null)
+            {
+                f.OnScan(tm);
+            }
+            else
+            {
+                MessageBox.Show(tm);
+            }
         }
 
         /// <summary>
@@ -155,7 +184,7 @@ namespace CKGL
                 Dlg_Denglu df = new Dlg_Denglu();
                 if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    this.Close();
+                    Application.Exit();
                 }
             }
         }

@@ -21,6 +21,7 @@ namespace DB_JCSJ
             this.TUser_Fendian = new HashSet<TUser_Fendian>();
             this.TXiaoshou = new HashSet<TXiaoshou>();
             this.TFendianKucun = new HashSet<TFendianKucun>();
+            this.TCangkuFahuoFendian = new HashSet<TCangkuFahuoFendian>();
         }
     
         public int id { get; set; }
@@ -49,5 +50,6 @@ namespace DB_JCSJ
         public virtual ICollection<TUser_Fendian> TUser_Fendian { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
         public virtual ICollection<TFendianKucun> TFendianKucun { get; set; }
+        public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendian { get; set; }
     }
 }

@@ -71,6 +71,9 @@
     <Compile Include="TCangku.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="TCangkuFahuoFendian.cs">
+      <DependentUpon>JCSJEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="TCangkuJinchuhuo.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>

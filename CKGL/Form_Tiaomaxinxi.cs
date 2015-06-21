@@ -30,7 +30,9 @@ namespace CKGL
             JCSJData.TTiaoma[] jtms;
             try
             {
-                jtms  = JCSJWCF.GetTiaomasByUpdTime();
+                DateTime start = dp_start.Value;
+                DateTime end = dp_end.Value;
+                jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
             }
             catch (Exception ex)
             {
@@ -94,7 +96,7 @@ namespace CKGL
             }
 
             //找出已经在本地存在的条码
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
             int[] oids = otms.Select(r => r.id).ToArray();
             //需要更新的条码和需要新插入的条码
@@ -119,6 +121,10 @@ namespace CKGL
             dt.Rows.InsertAt(dt.NewRow(), 0);
             cmb_lx.SelectedIndex = 0;
 
+            //日期
+            dp_start.Value = DateTime.Now.AddDays(-15);
+            dp_end.Value = DateTime.Now;
+
         }
 
         /// <summary>
@@ -132,7 +138,7 @@ namespace CKGL
             string kh = txb_kh.Text.Trim();
             string lx = cmb_lx.SelectedValue.ToString();
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma[] tms = db.GetTiaomasByCond(tm, kh, lx);
 
             grid_tm.Rows.Clear();

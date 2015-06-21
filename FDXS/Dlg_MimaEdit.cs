@@ -34,7 +34,7 @@ namespace FDXS
             string xmm2 = txb_xmm2.Text;
 
             //检测新密码是否正确
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TUser u = db.GetUserById(LoginInfo.User.id);
             if (Tool.CommonFunc.MD5_16(jmm) != u.mima)
             {

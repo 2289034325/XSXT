@@ -52,6 +52,9 @@
         <AssociationConnector Association="JCSJModel.FK_TFendianKucun_TFendian" />
         <AssociationConnector Association="JCSJModel.FK_TFendianKucunMX_TFendianKucun" />
         <AssociationConnector Association="JCSJModel.FK_TFendianKucunMX_TTiaoma" />
+        <EntityTypeShape EntityType="JCSJModel.TCangkuFahuoFendian" Width="1.5" PointX="10.5" PointY="11.75" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuFahuoFendian_TCangkuJinchuhuo" />
+        <AssociationConnector Association="JCSJModel.FK_TCangkuFahuoFendian_TFendian" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

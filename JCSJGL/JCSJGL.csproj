@@ -84,6 +84,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
+    <Content Include="Page_Jinribaobiao.aspx" />
     <Content Include="Page_TongjiBaobiao.aspx" />
     <Content Include="Page_FDKucunMX.aspx" />
     <Content Include="Page_FDKucun.aspx" />
@@ -126,6 +127,13 @@
     </Compile>
     <Compile Include="Page_Error.aspx.designer.cs">
       <DependentUpon>Page_Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Jinribaobiao.aspx.cs">
+      <DependentUpon>Page_Jinribaobiao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Jinribaobiao.aspx.designer.cs">
+      <DependentUpon>Page_Jinribaobiao.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_TongjiBaobiao.aspx.cs">
       <DependentUpon>Page_TongjiBaobiao.aspx</DependentUpon>

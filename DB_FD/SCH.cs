@@ -9,9 +9,9 @@ namespace DB_FD
     public partial class DBContext
     {
         private FDEntities _db;
-        public DBContext()
+        public DBContext(string Server,string User,string Psw)
         {
-            _db = new FDEntities();
+            _db = new FDEntities(Server,User,Psw);
             //此项会引起entity无法序列化的错误
             _db.Configuration.ProxyCreationEnabled = false;
         }

@@ -223,6 +223,24 @@
   <wsdl:message name="IDataService_ShangbaoJinchuhuo_CK_OutputMessage">
     <wsdl:part name="parameters" element="tns:ShangbaoJinchuhuo_CKResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_CangkufahuoFendian_InputMessage">
+    <wsdl:part name="parameters" element="tns:CangkufahuoFendian" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CangkufahuoFendian_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CangkufahuoFendianResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetFendians_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFendians" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetFendians_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFendiansResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShuju_InputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShuju" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShuju_OutputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
@@ -351,6 +369,18 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ShangbaoJinchuhuo_CK">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK" message="tns:IDataService_ShangbaoJinchuhuo_CK_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CKResponse" message="tns:IDataService_ShangbaoJinchuhuo_CK_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="CangkufahuoFendian">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CangkufahuoFendian" message="tns:IDataService_CangkufahuoFendian_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/CangkufahuoFendianResponse" message="tns:IDataService_CangkufahuoFendian_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetFendians">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetFendians" message="tns:IDataService_GetFendians_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetFendiansResponse" message="tns:IDataService_GetFendians_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShuju">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju" message="tns:IDataService_XiazaiJinhuoShuju_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse" message="tns:IDataService_XiazaiJinhuoShuju_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -644,6 +674,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CangkufahuoFendian">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CangkufahuoFendian" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFendians">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetFendians" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XiazaiJinhuoShuju">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShuju" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IDataService" type="tns:IDataService">
     <wsp:PolicyReference URI="#NetTcpBinding_IDataService_policy" />
@@ -929,6 +986,33 @@
     </wsdl:operation>
     <wsdl:operation name="ShangbaoJinchuhuo_CK">
       <soap12:operation soapAction="http://tempuri.org/IDataService/ShangbaoJinchuhuo_CK" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CangkufahuoFendian">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/CangkufahuoFendian" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFendians">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetFendians" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XiazaiJinhuoShuju">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShuju" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

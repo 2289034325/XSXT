@@ -32,7 +32,7 @@ namespace FDXS
             string lx = cmb_leixing.SelectedValue.ToString();
 
             //入-出+库存修正
-            DBContext db= new DBContext();
+            DBContext db = IDB.GetDB();
             Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
 
             grid_kc.Rows.Clear();
@@ -74,7 +74,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sbkc_Click(object sender, EventArgs e)
         {
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             VKucun[] ks = db.GetKucunsByCond(1,null);
 
             JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX 

@@ -41,7 +41,7 @@ namespace FDXS
             }
 
             //检查该条码号是否存在
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma tm = db.GetTiaomaByTmh(tmh);
             if (tm == null)
             {

@@ -24,26 +24,6 @@ namespace Tool.FD
                 可用 = 1
             }
 
-            /// <summary>
-            /// 进出方向
-            /// </summary>
-            public enum JCH_FX : byte
-            {
-                进=1,
-                出=2
-            }
-
-            /// <summary>
-            /// 进出货的来源去向
-            /// </summary>
-            public enum JCH_LYQX : byte
-            {
-                新货 = 1,
-                内部 = 2,
-                退货 = 3,
-                丢弃 = 4,
-                其他 = 99
-            }
         }
 
 }

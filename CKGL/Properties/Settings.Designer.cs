@@ -46,5 +46,77 @@ namespace CKGL.Properties {
                 this["CKMC"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBSERVER {
+            get {
+                return ((string)(this["DBSERVER"]));
+            }
+            set {
+                this["DBSERVER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBUSER {
+            get {
+                return ((string)(this["DBUSER"]));
+            }
+            set {
+                this["DBUSER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBPSW {
+            get {
+                return ((string)(this["DBPSW"]));
+            }
+            set {
+                this["DBPSW"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WCFValidADD {
+            get {
+                return ((string)(this["WCFValidADD"]));
+            }
+            set {
+                this["WCFValidADD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WCFDataADD {
+            get {
+                return ((string)(this["WCFDataADD"]));
+            }
+            set {
+                this["WCFDataADD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ScanName {
+            get {
+                return ((string)(this["ScanName"]));
+            }
+            set {
+                this["ScanName"] = value;
+            }
+        }
     }
 }

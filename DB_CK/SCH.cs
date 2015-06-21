@@ -9,9 +9,9 @@ namespace DB_CK
     public partial class DBContext
     {
         private Entities _db;
-        public DBContext()
+        public DBContext(string Server, string User, string Psw)
         {
-            _db = new Entities();
+            _db = new Entities(Server,User,Psw);
             //此项会引起entity无法序列化的错误
             _db.Configuration.ProxyCreationEnabled = false;
         }
@@ -34,6 +34,10 @@ namespace DB_CK
         public TTiaoma[] GetTiaomasByTmhs(string[] tmhs)
         {
             return _db.TTiaoma.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+        }
+        public TTiaoma GetTiaomaByTmh(string tmh)
+        {
+            return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == tmh);
         }
 
         /// <summary>
@@ -88,7 +92,7 @@ namespace DB_CK
         /// <returns></returns>
         public TChuruku GetChurukuById(int id)
         {
-            return _db.TChuruku.SingleOrDefault(r => r.id == id);
+            return _db.TChuruku.Include("TChurukuMX").SingleOrDefault(r => r.id == id);
         }
 
         /// <summary>
@@ -99,6 +103,10 @@ namespace DB_CK
         public TChurukuMX[] GetChurukuMxsByCrkId(int crkid)
         {
             return _db.TChurukuMX.Include("TTiaoma").Where(r => r.churukuid == crkid).ToArray();
+        }
+        public TChurukuMX GetChurukuMxByCrkIdTmid(int crkid, int tmid)
+        {
+            return _db.TChurukuMX.SingleOrDefault(r => r.churukuid == crkid && r.tiaomaid == tmid);
         }
 
         /// <summary>
@@ -130,9 +138,30 @@ namespace DB_CK
             }
             return ks.ToDictionary(k => k.t, v => v.shuliang.Value);
         }
-        public VKucun[] GetKucunView()
+
+        /// <summary>
+        /// 取得指定数量的库存信息
+        /// </summary>
+        /// <param name="sl_start"></param>
+        /// <param name="sl_end"></param>
+        /// <returns></returns>
+        public VKucun[] GetKucunsByCond(short? sl_start, short? sl_end)
         {
-            return _db.VKucun.ToArray();
+            var ks = _db.VKucun.AsQueryable();
+            if (sl_start != null)
+            {
+                ks = ks.Where(r => r.shuliang >= sl_start.Value);
+            }
+            if (sl_end != null)
+            {
+                ks = ks.Where(r => r.shuliang <= sl_end.Value);
+            }
+
+            return ks.ToArray();
+        }
+        public VKucun GetKucunByTmid(int tmid)
+        {
+            return _db.VKucun.Single(r => r.id == tmid);
         }
 
 

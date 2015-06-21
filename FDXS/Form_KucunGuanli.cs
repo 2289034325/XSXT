@@ -30,7 +30,7 @@ namespace FDXS
             if (tb_gl.SelectedTab.Equals(tbp_pd))
             {
                 //检查条码
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 TTiaoma t = db.GetTiaomaByTmh(tm);
                 if (t == null)
                 {
@@ -120,7 +120,7 @@ namespace FDXS
         private void btn_pd_hd_Click(object sender, EventArgs e)
         {
             //查询出当前库存
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             Dictionary<TTiaoma, short> kc = db.GetKucunView("", "", "");
 
             //并入grid
@@ -179,7 +179,7 @@ namespace FDXS
         private void Form_KucunGuanli_Load(object sender, EventArgs e)
         {
             //加载盘点记录
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TPandian[] ps = db.GetPandians();
 
             foreach (TPandian p in ps)
@@ -208,7 +208,7 @@ namespace FDXS
                 return;
             }
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             if (e.KeyCode == Keys.Add)
             {
                 //已有的盘点记录数量加1
@@ -234,7 +234,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_pd_qk_Click(object sender, EventArgs e)
         {
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.DeletePandianAll();
 
             grid_pd.Rows.Clear();
@@ -283,7 +283,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xz_cx_Click(object sender, EventArgs e)
         {
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TKucunXZ[] xzs = db.GetKucunXZs();
 
             grid_xz.Rows.Clear();
@@ -320,7 +320,7 @@ namespace FDXS
             }
 
             //检查该记录是否允许被修改
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TKucunXZ xz = db.GetKucunXZById(id);
             //1天前的记录不允许修改
             if ((DateTime.Now - xz.charushijian).TotalDays > 1)
@@ -368,7 +368,7 @@ namespace FDXS
             int id = (int)dr.Cells[col_xz_id.Name].Value;
             short sl = short.Parse(dr.Cells[col_xz_sl.Name].Value.ToString());
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.UpdateKucunXZ(new TKucunXZ 
             {
                 id = id,
@@ -387,7 +387,7 @@ namespace FDXS
         {
             int id = (int)e.Row.Cells[col_xz_id.Name].Value;
             int tmid = (int)e.Row.Cells[col_xz_tmid.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TKucunXZ x = db.GetKucunXZById(id);
             //1天前的记录不允许删除
             if ((DateTime.Now - x.charushijian).TotalDays > 1)
@@ -415,7 +415,7 @@ namespace FDXS
         private void grid_xz_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             int id = (int)e.Row.Cells[col_xz_id.Index].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.DeleteKucunXZ(id);
         }
 
@@ -437,7 +437,7 @@ namespace FDXS
         private void grid_pd_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             int id = (int)e.Row.Cells[col_pd_id.Index].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.DeletePandianById(id);
         }
     }

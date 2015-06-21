@@ -208,6 +208,17 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 插入仓库发货数据，让分店直接下载
+            /// </summary>
+            /// <param name="fh"></param>
+            public void InsertCangkuFahuoFendian(TCangkuFahuoFendian ff)
+            {
+                _db.TCangkuFahuoFendian.Add(ff);
+
+                _db.SaveChanges();
+            }
             
         }
     }

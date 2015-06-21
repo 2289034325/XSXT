@@ -47,11 +47,11 @@ namespace DB_CK
         /// 修改出入库明细的数量
         /// </summary>
         /// <param name="mx"></param>
-        public void UpdateChurukuMx(TChurukuMX mx)
+        public void UpdateChurukuMx(int id,short sl)
         {
-            TChurukuMX om = _db.TChurukuMX.Single(r => r.id == mx.id);
+            TChurukuMX om = _db.TChurukuMX.Single(r => r.id == id);
             //只允许修改数量
-            om.shuliang = mx.shuliang;
+            om.shuliang = sl;
 
             _db.SaveChanges();
         }

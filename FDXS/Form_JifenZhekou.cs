@@ -38,7 +38,7 @@ namespace FDXS
                 return;
             }
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK 
             {
                 jifen = r.jifen,
@@ -67,7 +67,7 @@ namespace FDXS
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
             //加载积分折扣规则
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuanZK[] zks = db.GetHuiyuanZKs();
             zks = zks.OrderBy(z => z.jifen).ToArray();
 

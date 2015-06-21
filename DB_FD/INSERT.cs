@@ -25,6 +25,8 @@ namespace DB_FD
         /// <param name="c"></param>
         public TJinchuhuo InsertJinchuhuo(TJinchuhuo c)
         {
+            c.charushijian = DateTime.Now;
+            c.xiugaishijian = DateTime.Now;
             TJinchuhuo nc = _db.TJinchuhuo.Add(c);
             _db.SaveChanges();
 

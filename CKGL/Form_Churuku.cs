@@ -8,14 +8,75 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tool;
 
 namespace CKGL
 {
-    public partial class Form_Churuku : Form
+    public partial class Form_Churuku : MyForm
     {
         public Form_Churuku()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 扫描条码
+        /// </summary>
+        /// <param name="tmh"></param>
+        public override void OnScan(string tmh)
+        {
+            int jcid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+
+            //检查该出入库记录是否已经上报
+            if (!checkAllow())
+            {
+                MessageBox.Show("该记录已经上报到服务器，不能再修改");
+                return;
+            }
+
+            DBContext db = IDB.GetDB();
+            TTiaoma tm = db.GetTiaomaByTmh(tmh);
+            if (tm == null)
+            {
+                MessageBox.Show("该条码不存在，或者打开条码信息页面，从服务器下载该条码信息");
+                return;
+            }
+
+            //如果是出货，检查是否会引起库存负数
+            if (Tool.JCSJ.DBCONSTS.JCH_FX.出.ToString().Equals(grid_crk.SelectedRows[0].Cells[col_crk_fx.Name].Value))
+            {
+                VKucun kc = db.GetKucunByTmid(tm.id);
+                if (kc.shuliang == 0)
+                {
+                    MessageBox.Show("该条码库存为0，无法再出货，请核实数据");
+                    return;
+                }
+            }
+
+            TChurukuMX mx = getMx(jcid, tm.id);
+            if (mx != null)
+            {
+                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang + 1));
+            }
+            else
+            {
+                TChurukuMX nmx = new TChurukuMX
+                {
+                    churukuid = jcid,
+                    tiaomaid = tm.id,
+                    shuliang = 1
+                };
+                TChurukuMX[] mxs = new TChurukuMX[] { nmx };
+                db.InsertChurukuMxs(mxs);
+            }
+
+            refreshMx();
+        }
+        private TChurukuMX getMx(int jcid, int tmid)
+        {
+            DBContext db = IDB.GetDB();
+            return db.GetChurukuMxByCrkIdTmid(jcid, tmid);
         }
 
         /// <summary>
@@ -47,7 +108,7 @@ namespace CKGL
             DateTime dstart = dp_start.Value.Date;
             DateTime dend = dp_end.Value.Date;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TChuruku[] cs = db.GetChurukus(id, dstart, dend);
 
             grid_crk.Rows.Clear();
@@ -63,8 +124,8 @@ namespace CKGL
             grid_crk.Rows.Insert(0,new object[] 
                 {
                     c.id,
-                    ((Tool.CK.DBCONSTS.CRK_FX)c.fangxiang).ToString(),
-                    ((Tool.CK.DBCONSTS.CRK_LYQX)c.laiyuanquxiang).ToString(),
+                    ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
+                    c.laiyuanquxiang.ToString(),
                     c.TChurukuMX.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
@@ -98,7 +159,7 @@ namespace CKGL
         {
             int id = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TChurukuMX[] mxs = db.GetChurukuMxsByCrkId(id);
 
             grid_crkmx.Rows.Clear();
@@ -136,8 +197,8 @@ namespace CKGL
         {
             TChuruku c = new TChuruku 
             {
-                fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.入,
-                laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.新货,
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.新货,
                 beizhu = "",
                 caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
@@ -145,7 +206,7 @@ namespace CKGL
                 shangbaoshijian = null
             };
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TChuruku nc = db.InsertChuruku(c);
 
             addChuruku(nc);
@@ -160,8 +221,8 @@ namespace CKGL
         {
             TChuruku c = new TChuruku
             {
-                fangxiang = (byte)Tool.CK.DBCONSTS.CRK_FX.出,
-                laiyuanquxiang = (byte)Tool.CK.DBCONSTS.CRK_LYQX.内部,
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店,
                 beizhu = "",
                 caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
@@ -169,7 +230,7 @@ namespace CKGL
                 shangbaoshijian = null
             };
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TChuruku nc = db.InsertChuruku(c);
 
             addChuruku(nc);
@@ -191,7 +252,7 @@ namespace CKGL
                 return;
             }
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -240,7 +301,7 @@ namespace CKGL
             }
             else
             {
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 int crkid = (int)e.Row.Cells[col_crk_id.Name].Value;
                 db.DeleteChuruku(crkid);
             }
@@ -261,7 +322,7 @@ namespace CKGL
             else
             {
                 int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 db.DeleteChurukuMx(mxid);
             }
         }
@@ -282,36 +343,30 @@ namespace CKGL
             //如果是来源去向列
             if (e.ColumnIndex == col_crk_lyqx.Index)
             {
-                string text = e.FormattedValue.ToString();
-                Tool.CK.DBCONSTS.CRK_LYQX lyfx;
-                if (!Enum.TryParse<Tool.CK.DBCONSTS.CRK_LYQX>(text, out lyfx))
+                //如果是来源去向列
+                if (e.ColumnIndex == col_crk_lyqx.Index)
                 {
-                    e.Cancel = true;
-                    MessageBox.Show("来源去向只能输入[" + Enum.GetNames(typeof(Tool.CK.DBCONSTS.CRK_LYQX)).Aggregate((a, b) => { return a + "," + b; }) + "]");
-                }
-                else
-                {
+                    Tool.JCSJ.DBCONSTS.JCH_LYQX lyfx = (Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), e.FormattedValue.ToString());
+
                     //来源只能是新货和内部，去向只能是退货，丢弃，其他
                     string sfx = (string)grid_crk.SelectedRows[0].Cells[col_crk_fx.Name].Value;
-                    Tool.CK.DBCONSTS.CRK_FX fx = (Tool.CK.DBCONSTS.CRK_FX)Enum.Parse(typeof(Tool.CK.DBCONSTS.CRK_FX), sfx);
-                    if (fx == Tool.CK.DBCONSTS.CRK_FX.入)
+                    Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), sfx);
+                    if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.进)
                     {
-                        if (!(lyfx == Tool.CK.DBCONSTS.CRK_LYQX.新货 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.内部))
+                        if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.新货 &&
+                            lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库)
                         {
                             e.Cancel = true;
-                            MessageBox.Show("入库的来源只能是[" + Tool.CK.DBCONSTS.CRK_LYQX.新货.ToString() +
-                                "]和[" + Tool.CK.DBCONSTS.CRK_LYQX.内部.ToString() + "]");
+                            MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]或者["
+                                + Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]或者[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]");
                         }
                     }
                     else
                     {
-                        if (!(lyfx == Tool.CK.DBCONSTS.CRK_LYQX.退货 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.内部 ||
-                            lyfx == Tool.CK.DBCONSTS.CRK_LYQX.其他 || lyfx == Tool.CK.DBCONSTS.CRK_LYQX.丢弃))
+                        if (lyfx == Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
                         {
                             e.Cancel = true;
-                            MessageBox.Show("出库的去向只能是[" + Tool.CK.DBCONSTS.CRK_LYQX.退货.ToString() +
-                                "]或[" + Tool.CK.DBCONSTS.CRK_LYQX.内部.ToString() + "]" +
-                                "或[" + Tool.CK.DBCONSTS.CRK_LYQX.丢弃.ToString() + "]");
+                            MessageBox.Show("出货的去向不能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]");
                         }
                     }
                 }
@@ -352,8 +407,8 @@ namespace CKGL
             }
             else
             {
-                DBContext db = new DBContext();
-                byte lyqx = (byte)(Tool.CK.DBCONSTS.CRK_LYQX)Enum.Parse(typeof(Tool.CK.DBCONSTS.CRK_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
+                DBContext db = IDB.GetDB();
+                byte lyqx = (byte)(Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
                 string bz = (string)grid_crk.SelectedRows[0].Cells[col_crk_bz.Name].Value ?? "";
                 TChuruku nc = new TChuruku 
                 {
@@ -433,13 +488,13 @@ namespace CKGL
             {
                 int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value; 
                 short sl = short.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
-                DBContext db = new DBContext();
-                TChurukuMX mx = new TChurukuMX 
-                {
-                    id = mxid,
-                    shuliang = sl                    
-                };
-                db.UpdateChurukuMx(mx);
+                DBContext db = IDB.GetDB();
+                //TChurukuMX mx = new TChurukuMX 
+                //{
+                //    id = mxid,
+                //    shuliang = sl                    
+                //};
+                db.UpdateChurukuMx(mxid, sl);
             }
         }
 
@@ -449,8 +504,8 @@ namespace CKGL
         /// <returns></returns>
         private bool checkAllow()
         {
-            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;            
-            DBContext db = new DBContext();
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+            DBContext db = IDB.GetDB();
             TChuruku c = db.GetChurukuById(crkid);
             if (c.shangbaoshijian != null)
             {
@@ -486,7 +541,7 @@ namespace CKGL
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
             //取得所有未上报的数据
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TChuruku[] jcs = db.GetChurukuWeishangbao();
             if (jcs.Count() == 0)
             {
@@ -525,6 +580,64 @@ namespace CKGL
 
             MessageBox.Show("完成");
 
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form_Churuku_Load(object sender, EventArgs e)
+        {
+            //来源去向列的下拉框值
+            col_crk_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
+            col_crk_lyqx.DisplayMember = "Text";
+            col_crk_lyqx.ValueMember = "Value";
+        }
+
+        /// <summary>
+        /// 上传到中央服务器给分店下载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_uplazy_Click(object sender, EventArgs e)
+        {
+            if (grid_crk.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请先选择一行数据");
+                return;
+            }
+
+            int id = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+            DBContext db = IDB.GetDB();
+            //取得数据
+            TChuruku crk = db.GetChurukuById(id);
+            if (crk.shangbaoshijian == null)
+            {
+                MessageBox.Show("请先上报进出货数据");
+                return;
+            }
+            else if (crk.fangxiang != (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进 && crk.laiyuanquxiang != (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
+            {
+                MessageBox.Show("只能上传出货到分店的数据");
+                return;
+            }
+
+            Dlg_Fendian dl = new Dlg_Fendian();
+            if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                int fdid = int.Parse(dl.cmb_fd.SelectedValue.ToString());
+                try
+                {
+                    JCSJWCF.CangkuFahuoFendian(id, fdid);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+            
         }
     }
 }

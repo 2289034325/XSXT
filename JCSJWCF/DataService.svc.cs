@@ -674,5 +674,81 @@ namespace JCSJWCF
             DBContext db = new DBContext();
             db.InsertCangkuJinchuhuo(_cangku.id, cjcs);
         }
+
+        /// <summary>
+        /// 上传仓库的发货数据，让分店直接下载，不用扫描
+        /// </summary>
+        /// <param name="fhs"></param>
+        public void CangkufahuoFendian(int oid,int fdid)
+        {
+            //检测是否已经存在
+            DBContext db = new DBContext();
+            TCangkuJinchuhuo jc = db.GetCKJinchuhuo(_cangku.id, oid);
+            if (jc == null)
+            {
+                throw new FaultException("请先上报进出货记录");
+            }
+            else
+            {
+              TCangkuFahuoFendian ff = db.GetCangkuFahuoFendian(jc.id, fdid);
+              if (ff != null)
+              {
+                  throw new FaultException("请不要重复上传");
+              }
+              else
+              {
+                  db.InsertCangkuFahuoFendian(new TCangkuFahuoFendian
+                  {
+                      ckjinchuid = jc.id,
+                      fendianid = fdid,
+                      scshijian = DateTime.Now,
+                      xzshijian = null
+                  });
+              }
+
+            }
+
+        }
+
+        /// <summary>
+        /// 取得所有分店信息
+        /// </summary>
+        /// <returns></returns>
+        public TFendian[] GetFendians()
+        {
+            DBContext db = new DBContext();
+            TFendian[] fds = db.GetFendians();
+            foreach (TFendian f in fds)
+            {
+                f.TUser = null;
+            }
+
+            return fds;
+        }
+
+        /// <summary>
+        /// 分店直接从中央系统下载进货的明细数据
+        /// </summary>
+        /// <returns></returns>
+        public TCangkuJinchuhuo[] XiazaiJinhuoShuju()
+        {
+            DBContext db = new DBContext();
+            TCangkuFahuoFendian[] fhs = db.GetFDJinhuoshuju(_fendian.id);
+            //更新下载时间
+            db.UpdateCangkuFahuoFendianXzsj(fhs.Select(r => r.id).ToArray());           
+
+            TCangkuJinchuhuo[] jchs = fhs.Select(r=>r.TCangkuJinchuhuo).ToArray();
+
+            //去除循环引用
+            foreach (var f in jchs)
+            {
+                f.TCangkuFahuoFendian = null;
+                foreach (var mx in f.TCangkuJinchuhuoMX)
+                {
+                    mx.TCangkuJinchuhuo = null;
+                }
+            }
+            return jchs;
+        }
     }
 }

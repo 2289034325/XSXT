@@ -94,7 +94,7 @@ namespace FDXS
             }
 
             //找出已经在本地存在的条码
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
             int[] oids = otms.Select(r => r.id).ToArray();
             //需要更新的条码和需要新插入的条码
@@ -135,7 +135,7 @@ namespace FDXS
             string kh = txb_kh.Text.Trim();
             string lx = cmb_lx.SelectedValue.ToString();
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma[] tms = db.GetTiaomasByCond(tm, kh, lx);
 
             grid_tm.Rows.Clear();

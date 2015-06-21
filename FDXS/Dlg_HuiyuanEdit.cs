@@ -43,7 +43,7 @@ namespace FDXS
                 xingbie = xb,
                 shengri = sr
             };
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.UpdateHuiyuanInfo(fh);
 
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -57,7 +57,7 @@ namespace FDXS
         private void Dlg_HuiyuanEdit_Load(object sender, EventArgs e)
         {
             Tool.CommonFunc.InitCombbox(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuan h = db.GetHuiyuanById(_id);
 
             txb_sjh.Text = h.shoujihao;

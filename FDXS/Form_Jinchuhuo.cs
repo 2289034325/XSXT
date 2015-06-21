@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
-using Tool.FD;
 
 namespace FDXS
 {
@@ -36,7 +35,7 @@ namespace FDXS
                 return;
             }
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TTiaoma tm = db.GetTiaomaByTmh(tmh);
             if (tm == null)
             {
@@ -45,7 +44,7 @@ namespace FDXS
             }
 
             //如果是出货，检查是否会引起库存负数
-            if (DBCONSTS.JCH_FX.出.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
+            if (Tool.JCSJ.DBCONSTS.JCH_FX.出.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
             {
                 VKucun kc = db.GetKucunByTiaomaId(tm.id);
                 if (kc.shuliang == 0)
@@ -83,7 +82,7 @@ namespace FDXS
         /// <returns></returns>
         private TJinchuMX getMx(int jcid, int tmid)
         {
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             return db.GetJinchuhuoMX(jcid, tmid);
         }
 
@@ -116,7 +115,7 @@ namespace FDXS
             DateTime dstart = dp_start.Value.Date;
             DateTime dend = dp_end.Value.Date;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TJinchuhuo[] cs = db.GetJinchuhuos(id, dstart, dend);
 
             grid_jch.Rows.Clear();
@@ -132,7 +131,7 @@ namespace FDXS
             grid_jch.Rows.Insert(0,new object[] 
                 {
                     c.id,
-                    ((Tool.FD.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
+                    ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
                     c.laiyuanquxiang.ToString(),
                     c.TJinchuMX.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
@@ -167,7 +166,7 @@ namespace FDXS
         {
             int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TJinchuMX[] mxs = db.GetJinchuhuoMxsByJchId(id);
 
             grid_jcmx.Rows.Clear();
@@ -205,8 +204,8 @@ namespace FDXS
         {
             TJinchuhuo c = new TJinchuhuo 
             {
-                fangxiang = (byte)DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)DBCONSTS.JCH_LYQX.内部,
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
                 beizhu = "",
                 caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
@@ -214,7 +213,7 @@ namespace FDXS
                 shangbaoshijian = null
             };
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TJinchuhuo nc = db.InsertJinchuhuo(c);
 
             addJinchuhuo(nc);
@@ -229,8 +228,8 @@ namespace FDXS
         {
             TJinchuhuo c = new TJinchuhuo
             {
-                fangxiang = (byte)DBCONSTS.JCH_FX.出,
-                laiyuanquxiang = (byte)DBCONSTS.JCH_LYQX.内部,
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.退货,
                 beizhu = "",
                 caozuorenid = LoginInfo.User.id,
                 charushijian = DateTime.Now,
@@ -238,7 +237,7 @@ namespace FDXS
                 shangbaoshijian = null
             };
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TJinchuhuo nc = db.InsertJinchuhuo(c);
 
             addJinchuhuo(nc);
@@ -260,7 +259,7 @@ namespace FDXS
                 return;
             }
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -309,7 +308,7 @@ namespace FDXS
             }
             else
             {
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 int crkid = (int)e.Row.Cells[col_jc_id.Name].Value;
                 db.DeleteJinchuhuo(crkid);
             }
@@ -330,7 +329,7 @@ namespace FDXS
             else
             {
                 int mxid = (int)grid_jcmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 db.DeleteJinchuMx(mxid);
             }
         }
@@ -351,28 +350,26 @@ namespace FDXS
             //如果是来源去向列
             if (e.ColumnIndex == col_jc_lyqx.Index)
             {
-                DBCONSTS.JCH_LYQX lyfx = (DBCONSTS.JCH_LYQX)Enum.Parse(typeof(DBCONSTS.JCH_LYQX),e.FormattedValue.ToString());
+                Tool.JCSJ.DBCONSTS.JCH_LYQX lyfx = (Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), e.FormattedValue.ToString());
 
                 //来源只能是新货和内部，去向只能是退货，丢弃，其他
                 string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;
-                Tool.FD.DBCONSTS.JCH_FX fx = (Tool.FD.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.FD.DBCONSTS.JCH_FX), sfx);
-                if (fx == Tool.FD.DBCONSTS.JCH_FX.进)
+                Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), sfx);
+                if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.进)
                 {
-                    if (lyfx != Tool.FD.DBCONSTS.JCH_LYQX.内部 && lyfx != Tool.FD.DBCONSTS.JCH_LYQX.新货)
+                    if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
                     {
                         e.Cancel = true;
-                        MessageBox.Show("进货的来源只能是[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]或[" + DBCONSTS.JCH_LYQX.新货.ToString() + "]");
+                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" + 
+                            Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]");
                     }
                 }
                 else
                 {
-                    if (!(lyfx == DBCONSTS.JCH_LYQX.退货 || lyfx == DBCONSTS.JCH_LYQX.内部 ||
-                        lyfx == DBCONSTS.JCH_LYQX.其他 || lyfx == DBCONSTS.JCH_LYQX.丢弃))
+                    if (lyfx == Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
                     {
                         e.Cancel = true;
-                        MessageBox.Show("出货的去向只能是[" + DBCONSTS.JCH_LYQX.退货.ToString() +
-                            "]或[" + DBCONSTS.JCH_LYQX.内部.ToString() + "]" +
-                            "或[" + DBCONSTS.JCH_LYQX.丢弃.ToString() + "]");
+                        MessageBox.Show("出货的去向不能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]");
                     }
                 }
             }
@@ -409,7 +406,7 @@ namespace FDXS
             }
 
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             byte lyqx = byte.Parse(grid_jch.SelectedRows[0].Cells[col_jc_lyqx.Name].Value.ToString());
             string bz = (string)grid_jch.SelectedRows[0].Cells[col_jc_bz.Name].Value ?? "";
             TJinchuhuo nc = new TJinchuhuo
@@ -473,12 +470,12 @@ namespace FDXS
                 }
 
                 //检查变动是否会引起库存为负数
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 int id = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
                 TJinchuMX mx = db.GetJinchuhuoMX(id);
                 VKucun kc = db.GetKucunByTiaomaId(mx.tiaomaid);
                 //进货
-                if (DBCONSTS.JCH_FX.进.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
+                if (Tool.JCSJ.DBCONSTS.JCH_FX.进.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
                 {
                     if (kc.shuliang - mx.shuliang + sl < 0)
                     {
@@ -517,7 +514,7 @@ namespace FDXS
             {
                 int mxid = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
                 short sl = short.Parse(grid_jcmx.Rows[e.RowIndex].Cells[col_mx_sl.Name].Value.ToString());
-                DBContext db = new DBContext();
+                DBContext db = IDB.GetDB();
                 //TJinchuMX mx = new TJinchuMX 
                 //{
                 //    id = mxid,
@@ -533,8 +530,8 @@ namespace FDXS
         /// <returns></returns>
         private bool checkAllow()
         {
-            int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;            
-            DBContext db = new DBContext();
+            int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+            DBContext db = IDB.GetDB();
             TJinchuhuo c = db.GetJinchuhuoById(crkid);
             if (c.shangbaoshijian != null)
             {
@@ -570,7 +567,7 @@ namespace FDXS
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
             //取得所有未上报的数据
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
             if (jcs.Count() == 0)
             {
@@ -617,9 +614,58 @@ namespace FDXS
         private void Form_Jinchuhuo_Load(object sender, EventArgs e)
         {
             //来源去向列的下拉框值
-            col_jc_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(DBCONSTS.JCH_LYQX));
+            col_jc_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
             col_jc_lyqx.DisplayMember = "Text";
             col_jc_lyqx.ValueMember = "Value";
+        }
+
+        /// <summary>
+        /// 下载进货数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_xzjinhuo_Click(object sender, EventArgs e)
+        {
+            JCSJData.TCangkuJinchuhuo[] jhs;
+            try
+            {
+                jhs = JCSJWCF.XiazaiJinhuoShuju();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            if (jhs.Length == 0)
+            {
+                MessageBox.Show("没有数据可下载");
+                return;
+            }
+
+            TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
+            {
+                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
+                beizhu = "从服务器下载",
+                caozuorenid = LoginInfo.User.id,
+                TJinchuMX = r.TCangkuJinchuhuoMX.Select(xr => new TJinchuMX 
+                {
+                    tiaomaid = xr.tiaomaid,
+                    shuliang = xr.shuliang
+                }).ToArray(),
+                
+            }).ToArray();
+
+            DBContext db = IDB.GetDB();
+            foreach(TJinchuhuo jc in jchs)
+            {
+                TJinchuhuo nj = db.InsertJinchuhuo(jc);
+                addJinchuhuo(nj);
+            }
+
+            int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMX).Sum(r => r.shuliang);
+            MessageBox.Show("进货" + total + "件");
         }
     }
 }

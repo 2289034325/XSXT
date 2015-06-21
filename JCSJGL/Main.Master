@@ -31,7 +31,10 @@
                     <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="统计报表" Value="统计报表" NavigateUrl="~/Page_TongjiBaobiao.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="报表" Value="报表">
+                        <asp:MenuItem Text="统计报表" Value="统计报表" NavigateUrl="~/Page_TongjiBaobiao.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="今日报表" Value="今日报表" NavigateUrl="~/Page_JinriBaobiao.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
                 </Items>
                 <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
 

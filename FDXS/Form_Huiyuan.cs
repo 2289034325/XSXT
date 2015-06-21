@@ -30,7 +30,7 @@ namespace FDXS
         {
             //查询条件
             string sjh = txb_sjh.Text.Trim();
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuan[] hys = db.GetHuiyuanByCond(sjh);
 
             foreach (THuiyuan h in hys)
@@ -91,7 +91,7 @@ namespace FDXS
             }
 
             //更新到本地
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuan fh = db.GetHuiyuanById(id);
 
             fh.shoujihao = jh.shoujihao;
@@ -120,7 +120,7 @@ namespace FDXS
             }
 
             int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             THuiyuan h = db.GetHuiyuanById(id);
 
             JCSJData.THuiyuan jh = new JCSJData.THuiyuan

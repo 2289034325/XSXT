@@ -28,7 +28,7 @@ namespace FDXS
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
             //加载所有系统用户
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TUser[] us = db.GetUsersExceptAdmin((byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员);
 
             foreach (TUser u in us)
@@ -78,7 +78,7 @@ namespace FDXS
         private void grid_user_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             int id = (int)e.Row.Cells[col_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.DeleteUser(id);
         }
 
@@ -96,7 +96,7 @@ namespace FDXS
             }
 
             int id = (int)grid_user.SelectedRows[0].Cells[col_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TUser u = db.GetUserById(id);
 
             Dlg_UserEdit du = new Dlg_UserEdit(u);
@@ -137,7 +137,7 @@ namespace FDXS
             }
 
             int id = (int)grid_user.SelectedRows[0].Cells[col_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.UpdateUserPsw(id, Tool.CommonFunc.MD5_16(mm));
 
             MessageBox.Show("修改成功");

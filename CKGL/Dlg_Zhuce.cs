@@ -42,7 +42,7 @@ namespace CKGL
 
             try
             {
-                JCSJWCF.CKZHZhuce(ckid, ckm, zcm);
+                JCSJWCF.CKZHZhuce(ckid, ckm,Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
             }
             catch (Exception ex)
             {

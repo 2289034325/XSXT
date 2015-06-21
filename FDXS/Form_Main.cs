@@ -95,7 +95,7 @@ namespace FDXS
                 Dlg_Denglu df = new Dlg_Denglu();
                 if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
-                    this.Close();
+                    Application.Exit();
                 }
             }
 
@@ -340,7 +340,7 @@ namespace FDXS
             Settings.Default.AutoLoginMm = "";
             Settings.Default.Save();
 
-            System.Windows.Forms.Application.Restart();
+            Application.Restart();
         }
 
         /// <summary>

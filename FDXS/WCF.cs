@@ -22,7 +22,7 @@ namespace FDXS
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFDataADD);
                 //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
                 _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
@@ -30,7 +30,7 @@ namespace FDXS
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
                     //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
                     _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
@@ -62,7 +62,7 @@ namespace FDXS
 
         internal static void FDZHZhuce(int ckid, string ckm, string jqm, string zcm)
         {
-            ValidServiceClient vdc = new ValidServiceClient();
+            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);
             vdc.FDZHZhuce(ckid, ckm, jqm, zcm);
         }
 
@@ -106,6 +106,12 @@ namespace FDXS
         {
             Login();
             _jdc.ShangbaoXiaoshou(jxss);
+        }
+
+        internal static TCangkuJinchuhuo[] XiazaiJinhuoShuju()
+        {
+            Login();
+            return _jdc.XiazaiJinhuoShuju();
         }
     }
 }

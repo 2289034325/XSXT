@@ -59,7 +59,7 @@ namespace FDXS
         private void xiaoshouDlgOK(List<TXiaoshou> xss, THuiyuan hy)
         {
             //保存到数据库
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TXiaoshou[] nxss = db.InsertXiaoshous(xss.ToArray());
             foreach (TXiaoshou x in nxss)
             {
@@ -164,7 +164,7 @@ namespace FDXS
             DateTime? dend = dp_end.Checked ? (DateTime?)dp_end.Value.Date : null;
 
             //查询数据
-            DBContext db= new DBContext();
+            DBContext db = IDB.GetDB();
             grid_xs.Rows.Clear();
             TXiaoshou[] xss = db.GetXiaoshousByCond(tmh, kh, dstart, dend);
             int tsl = 0;
@@ -268,7 +268,7 @@ namespace FDXS
         {
             int id = (int)e.Row.Cells[col_id.Name].Value;
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             TXiaoshou x = db.GetXiaoshouById(id);
             if (x.shangbaoshijian != null)
             {
@@ -295,7 +295,7 @@ namespace FDXS
         private void grid_xs_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
             int id = (int)e.Row.Cells[col_id.Name].Value;
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             db.DeleteXiaoshou(id);
 
             //把会员积分减掉
@@ -315,7 +315,7 @@ namespace FDXS
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
 
-            DBContext db = new DBContext();
+            DBContext db = IDB.GetDB();
             //取得未上报的销售记录
             TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
             if (xs.Count() == 0)

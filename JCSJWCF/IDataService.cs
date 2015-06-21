@@ -120,5 +120,27 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         void ShangbaoJinchuhuo_CK(TCangkuJinchuhuo[] cjcs);
+
+        /// <summary>
+        /// 将仓库发货到分店的出货数据上传到服务器，让分店不用扫描入库，就能直接下载
+        /// </summary>
+        /// <param name="cjcs"></param>
+        [OperationContract(IsInitiating = false)]
+        void CangkufahuoFendian(int oid,int fdid);
+
+
+        /// <summary>
+        /// 取得所有分店信息
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract(IsInitiating = false)]
+        TFendian[] GetFendians();
+
+        /// <summary>
+        /// 分店看到进货后，直接从中央系统下载这批货的详细数据
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract(IsInitiating = false)]
+        TCangkuJinchuhuo[] XiazaiJinhuoShuju();
     }
 }

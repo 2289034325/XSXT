@@ -63,8 +63,8 @@
         <xs:element minOccurs="0" name="Userid" type="xs:int" />
         <xs:element minOccurs="0" name="Kuanhao" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Tiaoma" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
-        <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="End" nillable="true" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -277,7 +277,10 @@
   </xs:element>
   <xs:element name="GetTiaomasByUpdTime">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="upt_start" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="upt_end" type="xs:dateTime" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTiaomasByUpdTimeResponse">
@@ -425,6 +428,31 @@
   <xs:element name="ShangbaoJinchuhuo_CKResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CangkufahuoFendian">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oid" type="xs:int" />
+        <xs:element minOccurs="0" name="fdid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CangkufahuoFendianResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFendians">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFendiansResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="GetFendiansResult" nillable="true" type="q36:ArrayOfTFendian" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>
