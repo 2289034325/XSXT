@@ -77,8 +77,8 @@ namespace JCSJGL
             {
                 id = r.id,
                 fendian = r.TFendian.dianming,
-                fangxiang = ((Tool.FD.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
-                lyqx = ((Tool.FD.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
+                fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
+                lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
                 jianshu = r.TFendianJinchuhuoMX.Sum(mr=>mr.shuliang),
                 r.beizhu,
                 r.fashengshijian,

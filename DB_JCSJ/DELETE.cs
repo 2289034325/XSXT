@@ -14,8 +14,10 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteUser(int id)
             {
-                TUser u = _db.TUser.Single(r => r.id == id);
+                TUser u = _db.TUser.Include("TUser_Cangku").Include("TUser_Fendian").Single(r => r.id == id);
 
+                _db.TUser_Cangku.RemoveRange(u.TUser_Cangku);
+                _db.TUser_Fendian.RemoveRange(u.TUser_Fendian);
                 _db.TUser.Remove(u);
 
                 _db.SaveChanges();
@@ -27,8 +29,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteFendian(int id)
             {
-                TFendian f = _db.TFendian.Single(r => r.id == id);
+                TFendian f = _db.TFendian.Include("TUser_Fendian").Single(r => r.id == id);
 
+                _db.TUser_Fendian.RemoveRange(f.TUser_Fendian);
                 _db.TFendian.Remove(f);
 
                 _db.SaveChanges();
@@ -40,8 +43,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteCangku(int id)
             {
-                TCangku f = _db.TCangku.Single(r => r.id == id);
+                TCangku f = _db.TCangku.Include("TUser_Cangku").Single(r => r.id == id);
 
+                _db.TUser_Cangku.RemoveRange(f.TUser_Cangku);
                 _db.TCangku.Remove(f);
 
                 _db.SaveChanges();

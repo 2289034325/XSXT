@@ -12,7 +12,7 @@ namespace DataTranslate
 {
     public partial class Form_Main : Form
     {
-        private int _jcid;
+        //private int _jcid;
         private DB_FD.FDEntities _fdb;
         private FD_BetaEntities _db_beta;
         private DB_JCSJ.JCSJEntities _jdb;
@@ -32,36 +32,42 @@ namespace DataTranslate
 
 
         /// <summary>
-        /// 将销售的数量加到进货数量上去
+        /// 将销售的数量加到修正数量上去
         /// </summary>
         private void AddXiaoshou_FD()
         {
-            var xss = _fdb.TXiaoshou.Select(r=>new{r.tiaomaid,r.shuliang}).GroupBy(r=>r.tiaomaid).Select(r=>new {tmid = r.Key,sl = (short)r.Sum(rr=>rr.shuliang)});
-            List<DB_FD.TJinchuMX> nmxs = new List<DB_FD.TJinchuMX>();
+            var xss = _fdb.TXiaoshou.Select(r => new { r.tiaomaid, r.shuliang }).GroupBy(r => r.tiaomaid).
+                Select(r => new { tmid = r.Key, sl = (short)r.Sum(rr => rr.shuliang) });
+            List<DB_FD.TKucunXZ> nmxs = new List<DB_FD.TKucunXZ>();
             foreach (var xs in xss)
             {
-                if (!_fdb.TJinchuMX.Any(r => r.tiaomaid == xs.tmid))
+                if (!_fdb.TKucunXZ.Any(r => r.tiaomaid == xs.tmid))
                 {
                     nmxs.Add(
-                    new DB_FD.TJinchuMX
+                    new DB_FD.TKucunXZ
                     {
-                        jinchuid = _jcid,
                         tiaomaid = xs.tmid,
-                        shuliang = xs.sl
+                        shuliang = xs.sl,
+                        caozuorenid = _fduserid,
+                        charushijian = DateTime.Now,
+                        xiugaishijian = DateTime.Now
+
                     });
                 }
                 else
                 {
-                    DB_FD.TJinchuMX mx = _fdb.TJinchuMX.Single(r => r.tiaomaid == xs.tmid);
+                    DB_FD.TKucunXZ mx = _fdb.TKucunXZ.Single(r => r.tiaomaid == xs.tmid);
                     mx.shuliang += xs.sl;
-                    
                 }
             }
 
             _fdb.SaveChanges();
-            _fdb = new DB_FD.FDEntities("FDEntities");
-            _fdb.TJinchuMX.AddRange(nmxs);
-            _fdb.SaveChanges();
+            if (nmxs.Count != 0)
+            {
+                _fdb = new DB_FD.FDEntities("FDEntities");
+                _fdb.TKucunXZ.AddRange(nmxs);
+                _fdb.SaveChanges();
+            }
         }
 
 
@@ -109,28 +115,32 @@ namespace DataTranslate
             Dictionary<string, short> kcs = _db_beta.TJintuihuo.Single(r => r.id == _kcid).TJintuimingxi.ToArray().ToDictionary(r => r.tiaoma.ToString(), r => r.shuliang);
             //将条码号，转换成新的ID
             Dictionary<string, int> idtms = _fdb.TTiaoma.ToDictionary(r => r.tiaoma, r => r.id);
-            DB_FD.TJinchuMX[] mxs = kcs.Select(r => new DB_FD.TJinchuMX
+            DB_FD.TKucunXZ[] mxs = kcs.Select(r => new DB_FD.TKucunXZ
             {
                 tiaomaid = idtms[r.Key],
-                shuliang = kcs[r.Key]
+                shuliang = kcs[r.Key],
+                caozuorenid = _fduserid,
+                charushijian = DateTime.Now,
+                xiugaishijian = DateTime.Now
             }).ToArray();
 
             //新作一个进货记录
-            DB_FD.TJinchuhuo jc = new DB_FD.TJinchuhuo
-            {
-                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
-                beizhu = "旧系统数据迁移",
-                caozuorenid = _fduserid,
-                charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now,
-                shangbaoshijian = null
-            };
-            jc.TJinchuMX = mxs;
+            //DB_FD.TJinchuhuo jc = new DB_FD.TJinchuhuo
+            //{
+            //    fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+            //    laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
+            //    beizhu = "旧系统数据迁移",
+            //    caozuorenid = _fduserid,
+            //    charushijian = DateTime.Now,
+            //    xiugaishijian = DateTime.Now,
+            //    shangbaoshijian = null
+            //};
+            //jc.TJinchuMX = mxs;
 
-            DB_FD.TJinchuhuo njc = _fdb.TJinchuhuo.Add(jc);
+            //DB_FD.TJinchuhuo njc = _fdb.TJinchuhuo.Add(jc);
+            _fdb.TKucunXZ.AddRange(mxs);
             _fdb.SaveChanges();
-            _jcid = njc.id;
+            //_jcid = njc.id;
         }
 
         /// <summary>
@@ -178,7 +188,7 @@ namespace DataTranslate
 
         private void btn_kc_Click(object sender, EventArgs e)
         {
-            //将库存信息算作进货信息
+            //将库存信息算作库存修正
             Jinhuo_FD();
         }
 
