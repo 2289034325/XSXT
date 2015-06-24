@@ -51,6 +51,8 @@ namespace FDXS
                     p.Value
                 });
             }
+
+            col_sl.HeaderText = "数量(" + ks.Sum(r => r.Value) + ")";
         }
 
         /// <summary>

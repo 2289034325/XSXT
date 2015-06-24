@@ -58,11 +58,14 @@ namespace Tool
                 //将输入放入缓存
                 else
                 {
-                    if (_kps.Count == 13)
+                    if (e.KeyPressEvent.VKeyName.Length == 1)
                     {
-                        _kps.RemoveAt(0);
+                        if (_kps.Count == 13)
+                        {
+                            _kps.RemoveAt(0);
+                        }
+                        _kps.Add(e.KeyPressEvent.VKeyName);
                     }
-                    _kps.Add(e.KeyPressEvent.VKeyName);
                 }
             }
             else

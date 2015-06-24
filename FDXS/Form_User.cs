@@ -130,7 +130,7 @@ namespace FDXS
             }
 
             string mm = txb_mm.Text;
-            if (!string.IsNullOrEmpty(mm))
+            if (string.IsNullOrEmpty(mm))
             {
                 MessageBox.Show("请输入密码");
                 return;

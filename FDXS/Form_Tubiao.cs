@@ -30,16 +30,16 @@ namespace FDXS
             //取数据
             DBContext db = IDB.GetDB();
             TXiaoshou[] xss = db.GetXiaoshousByCond(null,null,null,null);
-            var ddata_s = xss.GroupBy(r => r.charushijian.Date).
+            var ddata_s = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
-            var ddata_j = xss.GroupBy(r => r.charushijian.Date).
+            var ddata_j = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
                 {
                     X = r.Key,
                     Y = r.Sum(rx => decimal.Round(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moliing, 2))
                 }).OrderBy(r => r.X).ToList();
 
-            var xdata_s = xss.GroupBy(r => new { date = r.charushijian.Date, hour = r.charushijian.Hour }).
+            var xdata_s = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
                     Xd = r.Key.date,
@@ -48,7 +48,7 @@ namespace FDXS
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.X).ToList();
-            var xdata_j = xss.GroupBy(r => new { date = r.charushijian.Date, hour = r.charushijian.Hour }).
+            var xdata_j = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
                     Xd = r.Key.date,
@@ -58,7 +58,7 @@ namespace FDXS
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.X).ToList();
 
-            var wdata_s = xss.GroupBy(r => r.charushijian.Date).
+            var wdata_s = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
                 {
                     wn = r.Key.DayOfWeek.ToString(),
@@ -67,7 +67,7 @@ namespace FDXS
                 }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.xn).ToList();
-            var wdata_j = xss.GroupBy(r => r.charushijian.Date).
+            var wdata_j = xss.GroupBy(r => r.xiaoshoushijian.Date).
                  Select(r => new
                  {
                      wn = r.Key.DayOfWeek.ToString(),

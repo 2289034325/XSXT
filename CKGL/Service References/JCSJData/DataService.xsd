@@ -455,4 +455,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="XiazaiJinhuoShuju">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/DB_JCSJ" minOccurs="0" name="XiazaiJinhuoShujuResult" nillable="true" type="q37:ArrayOfTCangkuJinchuhuo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

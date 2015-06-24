@@ -30,8 +30,8 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            string dlm = txb_mm.Text.Trim();
-            string mm = txb_dlm.Text.Trim();
+            string dlm = txb_dlm.Text.Trim();
+            string mm = txb_mm.Text.Trim();
             byte js = byte.Parse(cmb_js.SelectedValue.ToString());
             string yhm = txb_yhm.Text.Trim();
             string bz = txb_bz.Text.Trim();

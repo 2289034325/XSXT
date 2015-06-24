@@ -361,7 +361,7 @@ namespace BIANMA
                 {
                     kuanhao = "",
                     xingbie = (byte)DBCONSTS.KUANHAO_XB.女,
-                    leixing = (byte)DBCONSTS.KUANHAO_LX.衣服,
+                    leixing = (byte)DBCONSTS.KUANHAO_LX.上衣,
                     pinming = "",
                     beizhu = "",
                     caozuorenid = LoginInfo.User.id,
@@ -2560,6 +2560,30 @@ namespace BIANMA
                     return;
                 }
                 
+            }
+        }
+
+        /// <summary>
+        /// 仓库导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_fddr_Click(object sender, EventArgs e)
+        {
+            string bq = "";            
+            foreach (TKuanhaoExtend tk in _khs)
+            {
+                foreach (TTiaomaExtend tex in tk.tms)
+                {
+                    bq += tex.tiaoma.tiaoma + ",";
+                    bq += tex.shuliang + "\r\n";
+                }
+            }
+
+            SaveFileDialog sdlg = new SaveFileDialog();
+            if (sdlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                File.WriteAllText(sdlg.FileName, bq, Encoding.Default);
             }
         }
     }

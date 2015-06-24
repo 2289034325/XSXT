@@ -252,6 +252,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TCangkuJinchuhuo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TFendian.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

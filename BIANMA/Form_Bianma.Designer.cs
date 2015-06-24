@@ -53,8 +53,6 @@
             this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grid_all = new System.Windows.Forms.DataGridView();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,12 +76,6 @@
             this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
             this.SuspendLayout();
@@ -276,33 +268,7 @@
             this.mni_fddr.Name = "mni_fddr";
             this.mni_fddr.Size = new System.Drawing.Size(124, 22);
             this.mni_fddr.Text = "分店导入";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(1170, 136);
-            this.splitContainer1.SplitterDistance = 425;
-            this.splitContainer1.TabIndex = 11;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 25);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.grid_all);
-            this.splitContainer2.Size = new System.Drawing.Size(1170, 501);
-            this.splitContainer2.SplitterDistance = 136;
-            this.splitContainer2.TabIndex = 12;
+            this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
             // grid_all
             // 
@@ -329,10 +295,10 @@
             this.col_all_xgsj});
             this.grid_all.ContextMenuStrip = this.cmn_all;
             this.grid_all.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grid_all.Location = new System.Drawing.Point(0, 0);
+            this.grid_all.Location = new System.Drawing.Point(0, 25);
             this.grid_all.Name = "grid_all";
             this.grid_all.RowTemplate.Height = 23;
-            this.grid_all.Size = new System.Drawing.Size(1170, 361);
+            this.grid_all.Size = new System.Drawing.Size(1170, 501);
             this.grid_all.TabIndex = 9;
             this.grid_all.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_all_CellBeginEdit);
             this.grid_all.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellEndEdit);
@@ -499,7 +465,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 526);
-            this.Controls.Add(this.splitContainer2);
+            this.Controls.Add(this.grid_all);
             this.Controls.Add(this.mn_main);
             this.KeyPreview = true;
             this.Name = "Form_Bianma";
@@ -509,12 +475,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_Bianma_KeyDown);
             this.mn_main.ResumeLayout(false);
             this.mn_main.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).EndInit();
             this.cmn_all.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -530,8 +490,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_addsm;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai;
         private System.Windows.Forms.ToolStripMenuItem mni_qingkong;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView grid_all;
         private System.Windows.Forms.ToolStripMenuItem mni_gysxx;
         private System.Windows.Forms.ToolStripMenuItem mni_addjkh;

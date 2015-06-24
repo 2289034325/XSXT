@@ -428,12 +428,10 @@ namespace CKGL
         /// <param name="e"></param>
         private void grid_crkmx_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            DataGridViewRow dr = grid_crk.Rows[e.RowIndex];
-            if (dr.Cells[col_crk_sbsj.Name].Value != null)
+            if (!checkAllow())
             {
                 e.Cancel = true;
             }
-
         }
 
         /// <summary>

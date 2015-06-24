@@ -28,10 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_kaidan = new System.Windows.Forms.DataGridView();
+            this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ml = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_yingshou = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_zongjia = new System.Windows.Forms.Label();
@@ -65,18 +77,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txb_sjh = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ml = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_yingshou = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kaidan)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -92,14 +92,14 @@
             this.grid_kaidan.AllowUserToResizeRows = false;
             this.grid_kaidan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kaidan.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.grid_kaidan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kaidan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tmid,
@@ -114,398 +114,28 @@
             this.col_ml,
             this.col_yingshou,
             this.col_bz});
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle5;
             this.grid_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.grid_kaidan.Location = new System.Drawing.Point(0, 0);
             this.grid_kaidan.MultiSelect = false;
             this.grid_kaidan.Name = "grid_kaidan";
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.grid_kaidan.RowTemplate.Height = 23;
-            this.grid_kaidan.Size = new System.Drawing.Size(808, 203);
+            this.grid_kaidan.Size = new System.Drawing.Size(644, 203);
             this.grid_kaidan.TabIndex = 0;
             this.grid_kaidan.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_kaidan_CellBeginEdit);
             this.grid_kaidan.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_kaidan_CellValueChanged);
             this.grid_kaidan.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.grid_kaidan_RowsAdded);
             this.grid_kaidan.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_kaidan_UserDeletedRow);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.lbl_zongjia);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.btn_ok);
-            this.panel1.Controls.Add(this.lbl_zhaoling);
-            this.panel1.Controls.Add(this.txb_shishou);
-            this.panel1.Controls.Add(this.label14);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 306);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1127, 156);
-            this.panel1.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(664, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 27);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "找零￥";
-            // 
-            // lbl_zongjia
-            // 
-            this.lbl_zongjia.AutoSize = true;
-            this.lbl_zongjia.Font = new System.Drawing.Font("宋体", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_zongjia.ForeColor = System.Drawing.Color.Red;
-            this.lbl_zongjia.Location = new System.Drawing.Point(3, 35);
-            this.lbl_zongjia.Name = "lbl_zongjia";
-            this.lbl_zongjia.Size = new System.Drawing.Size(261, 107);
-            this.lbl_zongjia.TabIndex = 6;
-            this.lbl_zongjia.Text = "总价";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(411, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 27);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "实收";
-            // 
-            // btn_ok
-            // 
-            this.btn_ok.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_ok.Location = new System.Drawing.Point(936, 6);
-            this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(188, 147);
-            this.btn_ok.TabIndex = 4;
-            this.btn_ok.Text = "确定";
-            this.btn_ok.UseVisualStyleBackColor = true;
-            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
-            // 
-            // lbl_zhaoling
-            // 
-            this.lbl_zhaoling.AutoSize = true;
-            this.lbl_zhaoling.Font = new System.Drawing.Font("宋体", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_zhaoling.ForeColor = System.Drawing.Color.Red;
-            this.lbl_zhaoling.Location = new System.Drawing.Point(573, 35);
-            this.lbl_zhaoling.Name = "lbl_zhaoling";
-            this.lbl_zhaoling.Size = new System.Drawing.Size(261, 107);
-            this.lbl_zhaoling.TabIndex = 3;
-            this.lbl_zhaoling.Text = "找零";
-            // 
-            // txb_shishou
-            // 
-            this.txb_shishou.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_shishou.Location = new System.Drawing.Point(483, 73);
-            this.txb_shishou.Name = "txb_shishou";
-            this.txb_shishou.Size = new System.Drawing.Size(84, 30);
-            this.txb_shishou.TabIndex = 1;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label14.Location = new System.Drawing.Point(55, 3);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(93, 27);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "总价￥";
-            // 
-            // chk_gwml
-            // 
-            this.chk_gwml.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chk_gwml.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold);
-            this.chk_gwml.Location = new System.Drawing.Point(979, 4);
-            this.chk_gwml.Name = "chk_gwml";
-            this.chk_gwml.Size = new System.Drawing.Size(136, 96);
-            this.chk_gwml.TabIndex = 12;
-            this.chk_gwml.Text = "个位抹零";
-            this.chk_gwml.UseVisualStyleBackColor = true;
-            this.chk_gwml.CheckedChanged += new System.EventHandler(this.chk_gwml_CheckedChanged);
-            // 
-            // txb_tiaoma
-            // 
-            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_tiaoma.Location = new System.Drawing.Point(138, 9);
-            this.txb_tiaoma.Name = "txb_tiaoma";
-            this.txb_tiaoma.Size = new System.Drawing.Size(147, 30);
-            this.txb_tiaoma.TabIndex = 8;
-            this.txb_tiaoma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_tiaoma_KeyDown);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.chk_gwml);
-            this.panel2.Controls.Add(this.btn_9z);
-            this.panel2.Controls.Add(this.btn_85z);
-            this.panel2.Controls.Add(this.btn_8z);
-            this.panel2.Controls.Add(this.btn_75z);
-            this.panel2.Controls.Add(this.btn_7z);
-            this.panel2.Controls.Add(this.cmb_xsy);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.btn_hdzk);
-            this.panel2.Controls.Add(this.dp_xssj);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.txb_tiaoma);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1127, 103);
-            this.panel2.TabIndex = 2;
-            // 
-            // btn_9z
-            // 
-            this.btn_9z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_9z.Location = new System.Drawing.Point(774, 3);
-            this.btn_9z.Name = "btn_9z";
-            this.btn_9z.Size = new System.Drawing.Size(57, 96);
-            this.btn_9z.TabIndex = 23;
-            this.btn_9z.Text = "9折";
-            this.btn_9z.UseVisualStyleBackColor = true;
-            this.btn_9z.Click += new System.EventHandler(this.btn_9z_Click);
-            // 
-            // btn_85z
-            // 
-            this.btn_85z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_85z.Location = new System.Drawing.Point(712, 3);
-            this.btn_85z.Name = "btn_85z";
-            this.btn_85z.Size = new System.Drawing.Size(57, 96);
-            this.btn_85z.TabIndex = 22;
-            this.btn_85z.Text = "85折";
-            this.btn_85z.UseVisualStyleBackColor = true;
-            this.btn_85z.Click += new System.EventHandler(this.btn_85z_Click);
-            // 
-            // btn_8z
-            // 
-            this.btn_8z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_8z.Location = new System.Drawing.Point(649, 3);
-            this.btn_8z.Name = "btn_8z";
-            this.btn_8z.Size = new System.Drawing.Size(57, 96);
-            this.btn_8z.TabIndex = 21;
-            this.btn_8z.Text = "8折";
-            this.btn_8z.UseVisualStyleBackColor = true;
-            this.btn_8z.Click += new System.EventHandler(this.btn_8z_Click);
-            // 
-            // btn_75z
-            // 
-            this.btn_75z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_75z.Location = new System.Drawing.Point(586, 4);
-            this.btn_75z.Name = "btn_75z";
-            this.btn_75z.Size = new System.Drawing.Size(57, 96);
-            this.btn_75z.TabIndex = 20;
-            this.btn_75z.Text = "75折";
-            this.btn_75z.UseVisualStyleBackColor = true;
-            this.btn_75z.Click += new System.EventHandler(this.btn_75z_Click);
-            // 
-            // btn_7z
-            // 
-            this.btn_7z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_7z.Location = new System.Drawing.Point(523, 3);
-            this.btn_7z.Name = "btn_7z";
-            this.btn_7z.Size = new System.Drawing.Size(57, 96);
-            this.btn_7z.TabIndex = 19;
-            this.btn_7z.Text = "7折";
-            this.btn_7z.UseVisualStyleBackColor = true;
-            this.btn_7z.Click += new System.EventHandler(this.btn_7z_Click);
-            // 
-            // cmb_xsy
-            // 
-            this.cmb_xsy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_xsy.FormattingEnabled = true;
-            this.cmb_xsy.Location = new System.Drawing.Point(363, 16);
-            this.cmb_xsy.Name = "cmb_xsy";
-            this.cmb_xsy.Size = new System.Drawing.Size(154, 20);
-            this.cmb_xsy.TabIndex = 18;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(291, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 27);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "销售";
-            // 
-            // btn_hdzk
-            // 
-            this.btn_hdzk.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_hdzk.Location = new System.Drawing.Point(837, 4);
-            this.btn_hdzk.Name = "btn_hdzk";
-            this.btn_hdzk.Size = new System.Drawing.Size(136, 96);
-            this.btn_hdzk.TabIndex = 15;
-            this.btn_hdzk.Text = "活动折扣";
-            this.btn_hdzk.UseVisualStyleBackColor = true;
-            this.btn_hdzk.Click += new System.EventHandler(this.btn_hdzk_Click);
-            // 
-            // dp_xssj
-            // 
-            this.dp_xssj.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dp_xssj.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dp_xssj.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_xssj.Location = new System.Drawing.Point(138, 58);
-            this.dp_xssj.Name = "dp_xssj";
-            this.dp_xssj.Size = new System.Drawing.Size(379, 30);
-            this.dp_xssj.TabIndex = 13;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(12, 59);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 27);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "销售时间";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 27);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "输入条码";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 103);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.grid_kaidan);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyxm);
-            this.splitContainer1.Panel2.Controls.Add(this.label12);
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_jfzk);
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyzk);
-            this.splitContainer1.Panel2.Controls.Add(this.label10);
-            this.splitContainer1.Panel2.Controls.Add(this.btn_zchy);
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyjf);
-            this.splitContainer1.Panel2.Controls.Add(this.label7);
-            this.splitContainer1.Panel2.Controls.Add(this.txb_sjh);
-            this.splitContainer1.Panel2.Controls.Add(this.label6);
-            this.splitContainer1.Size = new System.Drawing.Size(1127, 203);
-            this.splitContainer1.SplitterDistance = 808;
-            this.splitContainer1.TabIndex = 3;
-            // 
-            // lbl_hyxm
-            // 
-            this.lbl_hyxm.AutoSize = true;
-            this.lbl_hyxm.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_hyxm.Location = new System.Drawing.Point(156, 48);
-            this.lbl_hyxm.Name = "lbl_hyxm";
-            this.lbl_hyxm.Size = new System.Drawing.Size(66, 27);
-            this.lbl_hyxm.TabIndex = 19;
-            this.lbl_hyxm.Text = "姓名";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label12.Location = new System.Drawing.Point(10, 48);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(66, 27);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "姓名";
-            // 
-            // lbl_jfzk
-            // 
-            this.lbl_jfzk.AutoSize = true;
-            this.lbl_jfzk.Location = new System.Drawing.Point(13, 177);
-            this.lbl_jfzk.Name = "lbl_jfzk";
-            this.lbl_jfzk.Size = new System.Drawing.Size(77, 12);
-            this.lbl_jfzk.TabIndex = 17;
-            this.lbl_jfzk.TabStop = true;
-            this.lbl_jfzk.Text = "积分折扣规则";
-            this.lbl_jfzk.Click += new System.EventHandler(this.lbl_jfzk_Click);
-            // 
-            // lbl_hyzk
-            // 
-            this.lbl_hyzk.AutoSize = true;
-            this.lbl_hyzk.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_hyzk.Location = new System.Drawing.Point(156, 121);
-            this.lbl_hyzk.Name = "lbl_hyzk";
-            this.lbl_hyzk.Size = new System.Drawing.Size(66, 27);
-            this.lbl_hyzk.TabIndex = 16;
-            this.lbl_hyzk.Text = "折扣";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(10, 121);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 27);
-            this.label10.TabIndex = 15;
-            this.label10.Text = "折扣";
-            // 
-            // btn_zchy
-            // 
-            this.btn_zchy.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zchy.Location = new System.Drawing.Point(124, 157);
-            this.btn_zchy.Name = "btn_zchy";
-            this.btn_zchy.Size = new System.Drawing.Size(188, 40);
-            this.btn_zchy.TabIndex = 14;
-            this.btn_zchy.Text = "注册会员";
-            this.btn_zchy.UseVisualStyleBackColor = true;
-            this.btn_zchy.Click += new System.EventHandler(this.btn_zchy_Click);
-            // 
-            // lbl_hyjf
-            // 
-            this.lbl_hyjf.AutoSize = true;
-            this.lbl_hyjf.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl_hyjf.Location = new System.Drawing.Point(156, 83);
-            this.lbl_hyjf.Name = "lbl_hyjf";
-            this.lbl_hyjf.Size = new System.Drawing.Size(66, 27);
-            this.lbl_hyjf.TabIndex = 13;
-            this.lbl_hyjf.Text = "积分";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(10, 83);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 27);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "积分";
-            // 
-            // txb_sjh
-            // 
-            this.txb_sjh.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_sjh.Location = new System.Drawing.Point(156, 7);
-            this.txb_sjh.Name = "txb_sjh";
-            this.txb_sjh.Size = new System.Drawing.Size(147, 30);
-            this.txb_sjh.TabIndex = 10;
-            this.txb_sjh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_sjh_KeyDown);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(5, 5);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(147, 27);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "会员手机号";
             // 
             // col_tmid
             // 
@@ -597,11 +227,382 @@
             this.col_bz.Name = "col_bz";
             this.col_bz.Width = 60;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.lbl_zongjia);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btn_ok);
+            this.panel1.Controls.Add(this.lbl_zhaoling);
+            this.panel1.Controls.Add(this.txb_shishou);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 306);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(894, 156);
+            this.panel1.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(561, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 27);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "找零￥";
+            // 
+            // lbl_zongjia
+            // 
+            this.lbl_zongjia.AutoSize = true;
+            this.lbl_zongjia.Font = new System.Drawing.Font("宋体", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_zongjia.ForeColor = System.Drawing.Color.Red;
+            this.lbl_zongjia.Location = new System.Drawing.Point(3, 35);
+            this.lbl_zongjia.Name = "lbl_zongjia";
+            this.lbl_zongjia.Size = new System.Drawing.Size(196, 80);
+            this.lbl_zongjia.TabIndex = 6;
+            this.lbl_zongjia.Text = "总价";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(297, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 27);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "实收";
+            // 
+            // btn_ok
+            // 
+            this.btn_ok.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_ok.Location = new System.Drawing.Point(738, 3);
+            this.btn_ok.Name = "btn_ok";
+            this.btn_ok.Size = new System.Drawing.Size(150, 147);
+            this.btn_ok.TabIndex = 4;
+            this.btn_ok.Text = "确定";
+            this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
+            // 
+            // lbl_zhaoling
+            // 
+            this.lbl_zhaoling.AutoSize = true;
+            this.lbl_zhaoling.Font = new System.Drawing.Font("宋体", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_zhaoling.ForeColor = System.Drawing.Color.Red;
+            this.lbl_zhaoling.Location = new System.Drawing.Point(470, 35);
+            this.lbl_zhaoling.Name = "lbl_zhaoling";
+            this.lbl_zhaoling.Size = new System.Drawing.Size(196, 80);
+            this.lbl_zhaoling.TabIndex = 3;
+            this.lbl_zhaoling.Text = "找零";
+            // 
+            // txb_shishou
+            // 
+            this.txb_shishou.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_shishou.Location = new System.Drawing.Point(369, 73);
+            this.txb_shishou.Name = "txb_shishou";
+            this.txb_shishou.Size = new System.Drawing.Size(84, 30);
+            this.txb_shishou.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Location = new System.Drawing.Point(55, 3);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(93, 27);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "总价￥";
+            // 
+            // chk_gwml
+            // 
+            this.chk_gwml.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chk_gwml.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold);
+            this.chk_gwml.Location = new System.Drawing.Point(738, 3);
+            this.chk_gwml.Name = "chk_gwml";
+            this.chk_gwml.Size = new System.Drawing.Size(136, 96);
+            this.chk_gwml.TabIndex = 12;
+            this.chk_gwml.Text = "个位抹零";
+            this.chk_gwml.UseVisualStyleBackColor = true;
+            this.chk_gwml.CheckedChanged += new System.EventHandler(this.chk_gwml_CheckedChanged);
+            // 
+            // txb_tiaoma
+            // 
+            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_tiaoma.Location = new System.Drawing.Point(138, 9);
+            this.txb_tiaoma.Name = "txb_tiaoma";
+            this.txb_tiaoma.Size = new System.Drawing.Size(147, 30);
+            this.txb_tiaoma.TabIndex = 8;
+            this.txb_tiaoma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_tiaoma_KeyDown);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.chk_gwml);
+            this.panel2.Controls.Add(this.btn_9z);
+            this.panel2.Controls.Add(this.btn_85z);
+            this.panel2.Controls.Add(this.btn_8z);
+            this.panel2.Controls.Add(this.btn_75z);
+            this.panel2.Controls.Add(this.btn_7z);
+            this.panel2.Controls.Add(this.cmb_xsy);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.btn_hdzk);
+            this.panel2.Controls.Add(this.dp_xssj);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.txb_tiaoma);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(894, 103);
+            this.panel2.TabIndex = 2;
+            // 
+            // btn_9z
+            // 
+            this.btn_9z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_9z.Location = new System.Drawing.Point(681, 3);
+            this.btn_9z.Name = "btn_9z";
+            this.btn_9z.Size = new System.Drawing.Size(57, 96);
+            this.btn_9z.TabIndex = 23;
+            this.btn_9z.Text = "9折";
+            this.btn_9z.UseVisualStyleBackColor = true;
+            this.btn_9z.Click += new System.EventHandler(this.btn_9z_Click);
+            // 
+            // btn_85z
+            // 
+            this.btn_85z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_85z.Location = new System.Drawing.Point(624, 3);
+            this.btn_85z.Name = "btn_85z";
+            this.btn_85z.Size = new System.Drawing.Size(57, 96);
+            this.btn_85z.TabIndex = 22;
+            this.btn_85z.Text = "85折";
+            this.btn_85z.UseVisualStyleBackColor = true;
+            this.btn_85z.Click += new System.EventHandler(this.btn_85z_Click);
+            // 
+            // btn_8z
+            // 
+            this.btn_8z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_8z.Location = new System.Drawing.Point(567, 3);
+            this.btn_8z.Name = "btn_8z";
+            this.btn_8z.Size = new System.Drawing.Size(57, 96);
+            this.btn_8z.TabIndex = 21;
+            this.btn_8z.Text = "8折";
+            this.btn_8z.UseVisualStyleBackColor = true;
+            this.btn_8z.Click += new System.EventHandler(this.btn_8z_Click);
+            // 
+            // btn_75z
+            // 
+            this.btn_75z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_75z.Location = new System.Drawing.Point(510, 3);
+            this.btn_75z.Name = "btn_75z";
+            this.btn_75z.Size = new System.Drawing.Size(57, 96);
+            this.btn_75z.TabIndex = 20;
+            this.btn_75z.Text = "75折";
+            this.btn_75z.UseVisualStyleBackColor = true;
+            this.btn_75z.Click += new System.EventHandler(this.btn_75z_Click);
+            // 
+            // btn_7z
+            // 
+            this.btn_7z.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_7z.Location = new System.Drawing.Point(453, 3);
+            this.btn_7z.Name = "btn_7z";
+            this.btn_7z.Size = new System.Drawing.Size(57, 96);
+            this.btn_7z.TabIndex = 19;
+            this.btn_7z.Text = "7折";
+            this.btn_7z.UseVisualStyleBackColor = true;
+            this.btn_7z.Click += new System.EventHandler(this.btn_7z_Click);
+            // 
+            // cmb_xsy
+            // 
+            this.cmb_xsy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_xsy.FormattingEnabled = true;
+            this.cmb_xsy.Location = new System.Drawing.Point(363, 16);
+            this.cmb_xsy.Name = "cmb_xsy";
+            this.cmb_xsy.Size = new System.Drawing.Size(84, 20);
+            this.cmb_xsy.TabIndex = 18;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(291, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 27);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "销售";
+            // 
+            // btn_hdzk
+            // 
+            this.btn_hdzk.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_hdzk.Location = new System.Drawing.Point(874, 2);
+            this.btn_hdzk.Name = "btn_hdzk";
+            this.btn_hdzk.Size = new System.Drawing.Size(136, 96);
+            this.btn_hdzk.TabIndex = 15;
+            this.btn_hdzk.Text = "活动折扣";
+            this.btn_hdzk.UseVisualStyleBackColor = true;
+            this.btn_hdzk.Visible = false;
+            this.btn_hdzk.Click += new System.EventHandler(this.btn_hdzk_Click);
+            // 
+            // dp_xssj
+            // 
+            this.dp_xssj.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dp_xssj.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dp_xssj.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dp_xssj.Location = new System.Drawing.Point(138, 58);
+            this.dp_xssj.Name = "dp_xssj";
+            this.dp_xssj.Size = new System.Drawing.Size(309, 30);
+            this.dp_xssj.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(12, 59);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 27);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "销售时间";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 27);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "输入条码";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 103);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.grid_kaidan);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyxm);
+            this.splitContainer1.Panel2.Controls.Add(this.label12);
+            this.splitContainer1.Panel2.Controls.Add(this.lbl_jfzk);
+            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyzk);
+            this.splitContainer1.Panel2.Controls.Add(this.label10);
+            this.splitContainer1.Panel2.Controls.Add(this.btn_zchy);
+            this.splitContainer1.Panel2.Controls.Add(this.lbl_hyjf);
+            this.splitContainer1.Panel2.Controls.Add(this.label7);
+            this.splitContainer1.Panel2.Controls.Add(this.txb_sjh);
+            this.splitContainer1.Panel2.Controls.Add(this.label6);
+            this.splitContainer1.Size = new System.Drawing.Size(894, 203);
+            this.splitContainer1.SplitterDistance = 644;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // lbl_hyxm
+            // 
+            this.lbl_hyxm.AutoSize = true;
+            this.lbl_hyxm.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_hyxm.Location = new System.Drawing.Point(95, 48);
+            this.lbl_hyxm.Name = "lbl_hyxm";
+            this.lbl_hyxm.Size = new System.Drawing.Size(66, 27);
+            this.lbl_hyxm.TabIndex = 19;
+            this.lbl_hyxm.Text = "姓名";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Location = new System.Drawing.Point(10, 48);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(66, 27);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "姓名";
+            // 
+            // lbl_jfzk
+            // 
+            this.lbl_jfzk.AutoSize = true;
+            this.lbl_jfzk.Location = new System.Drawing.Point(13, 177);
+            this.lbl_jfzk.Name = "lbl_jfzk";
+            this.lbl_jfzk.Size = new System.Drawing.Size(77, 12);
+            this.lbl_jfzk.TabIndex = 17;
+            this.lbl_jfzk.TabStop = true;
+            this.lbl_jfzk.Text = "积分折扣规则";
+            this.lbl_jfzk.Click += new System.EventHandler(this.lbl_jfzk_Click);
+            // 
+            // lbl_hyzk
+            // 
+            this.lbl_hyzk.AutoSize = true;
+            this.lbl_hyzk.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_hyzk.Location = new System.Drawing.Point(95, 121);
+            this.lbl_hyzk.Name = "lbl_hyzk";
+            this.lbl_hyzk.Size = new System.Drawing.Size(66, 27);
+            this.lbl_hyzk.TabIndex = 16;
+            this.lbl_hyzk.Text = "折扣";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(10, 121);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 27);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "折扣";
+            // 
+            // btn_zchy
+            // 
+            this.btn_zchy.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zchy.Location = new System.Drawing.Point(93, 157);
+            this.btn_zchy.Name = "btn_zchy";
+            this.btn_zchy.Size = new System.Drawing.Size(147, 40);
+            this.btn_zchy.TabIndex = 14;
+            this.btn_zchy.Text = "注册会员";
+            this.btn_zchy.UseVisualStyleBackColor = true;
+            this.btn_zchy.Click += new System.EventHandler(this.btn_zchy_Click);
+            // 
+            // lbl_hyjf
+            // 
+            this.lbl_hyjf.AutoSize = true;
+            this.lbl_hyjf.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_hyjf.Location = new System.Drawing.Point(95, 83);
+            this.lbl_hyjf.Name = "lbl_hyjf";
+            this.lbl_hyjf.Size = new System.Drawing.Size(66, 27);
+            this.lbl_hyjf.TabIndex = 13;
+            this.lbl_hyjf.Text = "积分";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(10, 83);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 27);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "积分";
+            // 
+            // txb_sjh
+            // 
+            this.txb_sjh.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_sjh.Location = new System.Drawing.Point(93, 4);
+            this.txb_sjh.Name = "txb_sjh";
+            this.txb_sjh.Size = new System.Drawing.Size(147, 30);
+            this.txb_sjh.TabIndex = 10;
+            this.txb_sjh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_sjh_KeyDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(5, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(93, 27);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "手机号";
+            // 
             // Dlg_xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1127, 462);
+            this.ClientSize = new System.Drawing.Size(894, 462);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);

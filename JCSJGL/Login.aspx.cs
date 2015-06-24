@@ -33,7 +33,12 @@ namespace JCSJGL
                     else
                     {
                         Session["USER"] = u;
-                        Response.Redirect("Page_Tiaoma.aspx");
+                        string page = Request["despage"];
+                        if (string.IsNullOrEmpty(page))
+                        {
+                            page = "Page_Tiaoma.aspx";
+                        }
+                        Response.Redirect(page);
                     }
                 }
             }

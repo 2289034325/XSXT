@@ -4016,6 +4016,12 @@ namespace CKGL.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetFendians", ReplyAction="http://tempuri.org/IDataService/GetFendiansResponse")]
         System.Threading.Tasks.Task<CKGL.JCSJData.TFendian[]> GetFendiansAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse")]
+        CKGL.JCSJData.TCangkuJinchuhuo[] XiazaiJinhuoShuju();
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse")]
+        System.Threading.Tasks.Task<CKGL.JCSJData.TCangkuJinchuhuo[]> XiazaiJinhuoShujuAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4315,6 +4321,14 @@ namespace CKGL.JCSJData {
         
         public System.Threading.Tasks.Task<CKGL.JCSJData.TFendian[]> GetFendiansAsync() {
             return base.Channel.GetFendiansAsync();
+        }
+        
+        public CKGL.JCSJData.TCangkuJinchuhuo[] XiazaiJinhuoShuju() {
+            return base.Channel.XiazaiJinhuoShuju();
+        }
+        
+        public System.Threading.Tasks.Task<CKGL.JCSJData.TCangkuJinchuhuo[]> XiazaiJinhuoShujuAsync() {
+            return base.Channel.XiazaiJinhuoShujuAsync();
         }
     }
 }

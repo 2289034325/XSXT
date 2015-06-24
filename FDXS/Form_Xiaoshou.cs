@@ -188,6 +188,13 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
+            //隐藏折扣列
+            if (LoginInfo.User.juese != (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                col_zk.Visible = false;
+                col_ml.Visible = false;
+                col_jg.Visible = false;
+            }
         }
 
         /// <summary>
@@ -294,9 +301,8 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_xs_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
-            int id = (int)e.Row.Cells[col_id.Name].Value;
+            int id = (int)e.Row.Cells[col_id.Index].Value;
             DBContext db = IDB.GetDB();
-            db.DeleteXiaoshou(id);
 
             //把会员积分减掉
             TXiaoshou x = db.GetXiaoshouById(id);
@@ -305,6 +311,9 @@ namespace FDXS
                 decimal jf = 0 - decimal.Round(x.shuliang * x.danjia * x.zhekou / 10 - x.moliing, 2);
                 db.UpdateHuiyuanJF(id, jf);
             }
+
+            db.DeleteXiaoshou(id);
+
         }
 
         /// <summary>

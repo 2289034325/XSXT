@@ -470,7 +470,10 @@ namespace FDXS
                 return;
             }
 
+            MessageBox.Show("注册成功");
+
             txb_sjh_KeyDown(null, new KeyEventArgs(Keys.Enter));
+
         }
 
         /// <summary>

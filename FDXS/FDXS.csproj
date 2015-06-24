@@ -28,7 +28,7 @@
     <SuiteName>XS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -325,7 +325,9 @@
     </Compile>
     <None Include="FDXS_TemporaryKey.pfx" />
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuan1.datasource" />
     <None Include="Properties\DataSources\Tool.DB.JCSJ.THuiyuanZK.datasource" />

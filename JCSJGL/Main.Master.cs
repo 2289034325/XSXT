@@ -16,7 +16,7 @@ namespace JCSJGL
             TUser u = (TUser)Session["USER"];
             if (u == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Login.aspx?despage=" + Request.RawUrl.Replace("/",""));
             }
             //权限检查
             else
