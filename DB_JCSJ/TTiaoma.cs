@@ -17,10 +17,10 @@ namespace DB_JCSJ
         public TTiaoma()
         {
             this.TCangkuJinchuhuoMX = new HashSet<TCangkuJinchuhuoMX>();
-            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
-            this.TXiaoshou = new HashSet<TXiaoshou>();
             this.TCangkuKucunMX = new HashSet<TCangkuKucunMX>();
+            this.TFendianJinchuhuoMX = new HashSet<TFendianJinchuhuoMX>();
             this.TFendianKucunMX = new HashSet<TFendianKucunMX>();
+            this.TXiaoshou = new HashSet<TXiaoshou>();
         }
     
         public int id { get; set; }
@@ -36,11 +36,11 @@ namespace DB_JCSJ
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual ICollection<TCangkuJinchuhuoMX> TCangkuJinchuhuoMX { get; set; }
+        public virtual ICollection<TCangkuKucunMX> TCangkuKucunMX { get; set; }
         public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
+        public virtual ICollection<TFendianKucunMX> TFendianKucunMX { get; set; }
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
-        public virtual ICollection<TCangkuKucunMX> TCangkuKucunMX { get; set; }
-        public virtual ICollection<TFendianKucunMX> TFendianKucunMX { get; set; }
     }
 }

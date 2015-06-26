@@ -22,7 +22,8 @@ namespace DB_FD
         public short shuliang { get; set; }
         public decimal danjia { get; set; }
         public decimal zhekou { get; set; }
-        public decimal moliing { get; set; }
+        public decimal moling { get; set; }
+        public Nullable<decimal> jine { get; set; }
         public string beizhu { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }

@@ -94,7 +94,7 @@ namespace DB_FD
         /// </summary>
         /// <param name="id"></param>
         /// <param name="jf"></param>
-        public void UpdateHuiyuanJF(int id, decimal jf)
+        public void UpdateAddHuiyuanJF(int id, decimal jf)
         {
             THuiyuan h = _db.THuiyuan.Single(r => r.id == id);
 

@@ -95,7 +95,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuhuo GetJinchuhuoById(int id)
         {
-            return _db.TJinchuhuo.SingleOrDefault(r => r.id == id);
+            return _db.TJinchuhuo.Include("TJinchuMX").SingleOrDefault(r => r.id == id);
         }
 
         /// <summary>
@@ -362,9 +362,9 @@ namespace DB_FD
         /// </summary>
         /// <param name="mxid">明细记录ID</param>
         /// <returns></returns>
-        public TJinchuMX GetJinchuhuoMX(int mxid)
+        public TJinchuMX GetJinchuhuoMXById(int mxid)
         {
-            return _db.TJinchuMX.Single(r => r.id == mxid);
+            return _db.TJinchuMX.Include("TJinchuhuo").Single(r => r.id == mxid);
         }
     }
 }

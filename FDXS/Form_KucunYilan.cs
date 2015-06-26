@@ -76,26 +76,37 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sbkc_Click(object sender, EventArgs e)
         {
-            DBContext db = IDB.GetDB();
-            VKucun[] ks = db.GetKucunsByCond(1,null);
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_sbkc_Click_sync(dp);
+            dp.ShowDialog();      
+        }
 
-            JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX 
+        private async void btn_sbkc_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                tiaomaid = r.id,
-                shuliang = r.shuliang
-            }).ToArray();
+                DBContext db = IDB.GetDB();
+                VKucun[] ks = db.GetKucunsByCond(1, null);
 
-            try
-            {
-                JCSJWCF.ShangbaoKucun_FD(fks);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX
+                {
+                    tiaomaid = r.id,
+                    shuliang = r.shuliang
+                }).ToArray();
 
-            MessageBox.Show("完成");
+                try
+                {
+                    JCSJWCF.ShangbaoKucun_FD(fks);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
+
+                dp.lbl_msg.Text = "完成";
+            });
+            dp.ControlBox = true;
         }
     }
 }

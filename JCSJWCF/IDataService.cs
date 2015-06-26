@@ -12,7 +12,7 @@ using Tool;
 namespace JCSJWCF
 {
     [ServiceContract(SessionMode = SessionMode.Required)]
-    public interface IDataService
+    public interface IDataService 
     {
         [OperationContract(IsInitiating = true)]
         TUser BMZHLogin(string dlm, string mm, string tzm);

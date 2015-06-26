@@ -13,6 +13,7 @@ using Tool;
 
 namespace JCSJWCF
 {
+    [MyExceptionBehavior(typeof(MyGlobalExceptionHandler))]
     public class ValidService : IValidService
     {
         //动态密码

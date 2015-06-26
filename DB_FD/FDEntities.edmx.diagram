@@ -13,17 +13,17 @@
         <EntityTypeShape EntityType="FDModel.TPandian" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FDModel.TTiaoma" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FDModel.TUser" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FDModel.TXiaoshou" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="FDModel.VKucun" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="FDModel.FK_TXiaoshou_THuiyuan" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TJinchuhuo_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TJinchuMX_TJinchuhuo" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TJinchuMX_TTiaoma" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TKucunXZ_TTiaoma" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TKucunXZ_TUser" ManuallyRouted="false" />
         <AssociationConnector Association="FDModel.FK_TPandian_TTiaoma" ManuallyRouted="false" />
-        <AssociationConnector Association="FDModel.FK_TXiaoshou_TTiaoma" ManuallyRouted="false" />
-        <AssociationConnector Association="FDModel.FK_TXiaoshou_TUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FDModel.TXiaoshou" Width="1.5" PointX="6.375" PointY="10.25" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_THuiyuan" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_TTiaoma" />
+        <AssociationConnector Association="FDModel.FK_TXiaoshou_TUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

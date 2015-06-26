@@ -69,8 +69,8 @@ namespace FDXS
             //将积分加给会员
             if (hy != null)
             {
-                decimal zj = decimal.Round(xss.Sum(r => r.danjia * r.shuliang * r.zhekou / 10 - r.moliing), 0);
-                db.UpdateHuiyuanJF(hy.id, zj);
+                decimal zj = xss.Sum(r => r.jine) ?? 0;
+                db.UpdateAddHuiyuanJF(hy.id, zj);
             }
 
             _XSS = xss;
@@ -124,7 +124,7 @@ namespace FDXS
                 string pinming = x.TTiaoma.pinming;
                 short shuliang = x.shuliang;
                 decimal danjia = x.danjia;
-                decimal jine = decimal.Round(x.danjia * x.shuliang * x.zhekou / 10 - x.moliing, 2);
+                decimal jine = x.jine ?? 0;
                 printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
                 printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
                 printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
@@ -139,10 +139,10 @@ namespace FDXS
             printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("优惠", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moliing).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * x.zhekou / 10 - x.moliing).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            printG.DrawString((_XSS.Sum(x => x.jine) ?? 0).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("交易时间", printFont, myBrush, leftMargin, yPosition, new StringFormat());
             printG.DrawString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), printFont, myBrush, leftMargin + 65, yPosition, new StringFormat());
@@ -231,9 +231,9 @@ namespace FDXS
                 x.danjia,
                 x.shuliang,
                 x.zhekou,
-                x.moliing,
+                x.moling,
                 //价格
-                (x.danjia*x.shuliang*(x.zhekou/10)-x.moliing).ToString("##.##"),
+                (x.jine??0).ToString("##.##"),
                 //销售员
                 x.xiaoshouyuan,
                 x.xiaoshoushijian,
@@ -286,7 +286,7 @@ namespace FDXS
 
             //检查是否会导致库存数量为负，因为有可能删除的是退货记录，销售数量为负数
             VKucun kc = db.GetKucunByTiaomaId(x.tiaomaid);
-            if (kc.shuliang - x.shuliang < 0)
+            if (kc.shuliang + x.shuliang < 0)
             {
                 e.Cancel = true;
                 MessageBox.Show("删除后会导致库存数量为负数");
@@ -308,8 +308,8 @@ namespace FDXS
             TXiaoshou x = db.GetXiaoshouById(id);
             if (x.huiyuanid != null)
             {
-                decimal jf = 0 - decimal.Round(x.shuliang * x.danjia * x.zhekou / 10 - x.moliing, 2);
-                db.UpdateHuiyuanJF(id, jf);
+                decimal jf = 0 - (x.jine ?? 0);
+                db.UpdateAddHuiyuanJF(x.huiyuanid.Value, jf);
             }
 
             db.DeleteXiaoshou(id);
@@ -323,44 +323,58 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_shangbao_Click_sync(dp);
+            dp.ShowDialog();  
 
-            DBContext db = IDB.GetDB();
-            //取得未上报的销售记录
-            TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
-            if (xs.Count() == 0)
-            {
-                MessageBox.Show("没有需要上报的数据");
-                return;
-            }
 
-            JCSJData.TXiaoshou[] jxss = xs.Select(r=>new JCSJData.TXiaoshou
-            {
-                oid = r.id,
-                xiaoshoushijian = r.xiaoshoushijian,
-                xiaoshouyuan = r.xiaoshouyuan,
-                tiaomaid = r.tiaomaid,
-                huiyuanid = r.huiyuanid,
-                shuliang = r.shuliang,
-                danjia = r.danjia,
-                zhekou = r.zhekou,
-                moling = r.moliing                
-            }).ToArray();
+            
+        }
 
-            try
-            {
-                JCSJWCF.ShangbaoXiaoshou(jxss);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+        private async  void btn_shangbao_Click_sync(Dlg_Progress dp)
+        {
+           await Task.Run(()=>
+           {
+               DBContext db = IDB.GetDB();
+               //取得未上报的销售记录
+               TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
+               if (xs.Count() == 0)
+               {
+                   dp.lbl_msg.Text = "没有需要上报的数据";
+                   return;
+               }
 
-            //更新本地上报时间
-            int[] ids = xs.Select(r=>r.id).ToArray();
-            db.UpdateXiaoshouShangbaoshijian(ids, DateTime.Now);
+               JCSJData.TXiaoshou[] jxss = xs.Select(r => new JCSJData.TXiaoshou
+               {
+                   oid = r.id,
+                   xiaoshoushijian = r.xiaoshoushijian,
+                   xiaoshouyuan = r.xiaoshouyuan,
+                   tiaomaid = r.tiaomaid,
+                   huiyuanid = r.huiyuanid,
+                   shuliang = r.shuliang,
+                   danjia = r.danjia,
+                   zhekou = r.zhekou,
+                   moling = r.moling,
+                   jine = r.jine.Value
+               }).ToArray();
 
-            MessageBox.Show("完成");
+               try
+               {
+                   JCSJWCF.ShangbaoXiaoshou(jxss);
+                   //更新本地上报时间
+                   int[] ids = xs.Select(r => r.id).ToArray();
+                   db.UpdateXiaoshouShangbaoshijian(ids, DateTime.Now);
+               }
+               catch (Exception ex)
+               {
+                   dp.lbl_msg.Text = ex.Message;
+                   return;
+               }
+
+
+               dp.lbl_msg.Text = "完成";
+           });
+           dp.ControlBox = true;
         }
     }
 }

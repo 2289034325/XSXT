@@ -36,7 +36,7 @@ namespace FDXS
                 Select(r => new
                 {
                     X = r.Key,
-                    Y = r.Sum(rx => decimal.Round(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moliing, 2))
+                    Y = r.Sum(rx => rx.jine)??0
                 }).OrderBy(r => r.X).ToList();
 
             var xdata_s = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
@@ -53,7 +53,7 @@ namespace FDXS
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => decimal.Round(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moliing, 2))
+                    Y = r.Sum(rx => rx.jine)??0
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.X).ToList();
@@ -72,7 +72,7 @@ namespace FDXS
                  {
                      wn = r.Key.DayOfWeek.ToString(),
                      ws = (int)r.Key.DayOfWeek,
-                     Y = r.Sum(rx => decimal.Round(rx.danjia * rx.shuliang * rx.zhekou / 10 - rx.moliing, 2))
+                     Y = r.Sum(rx => rx.jine)??0
                  }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.xn).ToList();

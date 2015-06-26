@@ -287,6 +287,7 @@
       <xs:element minOccurs="0" name="fendianid" type="xs:int" />
       <xs:element minOccurs="0" name="huiyuanid" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jine" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="moling" type="xs:decimal" />
       <xs:element minOccurs="0" name="oid" type="xs:int" />
       <xs:element minOccurs="0" name="shangbaoshijian" type="xs:dateTime" />

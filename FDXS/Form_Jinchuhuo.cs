@@ -303,13 +303,21 @@ namespace FDXS
         {
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
                 e.Cancel = true;
+                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
+                return;
             }
             else
             {
                 DBContext db = IDB.GetDB();
                 int crkid = (int)e.Row.Cells[col_jc_id.Name].Value;
+                TJinchuhuo jc = db.GetJinchuhuoById(crkid);
+                if (jc.TJinchuMX.Count != 0)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("请先删除下方的明细数据，在删除该记录");
+                    return;
+                }
                 db.DeleteJinchuhuo(crkid);
             }
         }
@@ -328,8 +336,21 @@ namespace FDXS
             }
             else
             {
-                int mxid = (int)grid_jcmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
+                //删除后是否会导致库存数量为负
                 DBContext db = IDB.GetDB();
+                int mxid = (int)grid_jcmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
+                TJinchuMX mx = db.GetJinchuhuoMXById(mxid);
+                if (mx.TJinchuhuo.fangxiang == (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进)
+                {
+                    VKucun k = db.GetKucunByTiaomaId(mx.tiaomaid);
+                    if (k.shuliang - mx.shuliang < 0)
+                    {
+                        e.Cancel = true;
+                        MessageBox.Show("删除该记录会导致库存数量为负数");
+                        return;
+                    }
+                }
+
                 db.DeleteJinchuMx(mxid);
             }
         }
@@ -472,7 +493,7 @@ namespace FDXS
                 //检查变动是否会引起库存为负数
                 DBContext db = IDB.GetDB();
                 int id = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
-                TJinchuMX mx = db.GetJinchuhuoMX(id);
+                TJinchuMX mx = db.GetJinchuhuoMXById(id);
                 VKucun kc = db.GetKucunByTiaomaId(mx.tiaomaid);
                 //进货
                 if (Tool.JCSJ.DBCONSTS.JCH_FX.进.ToString().Equals(grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value))
@@ -566,44 +587,55 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-            //取得所有未上报的数据
-            DBContext db = IDB.GetDB();
-            TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
-            if (jcs.Count() == 0)
-            {
-                MessageBox.Show("没有需要上报的数据");
-                return;
-            }
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_shangbao_Click_sync(dp);
+            dp.ShowDialog();         
+        }
 
-            JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
+        private async void btn_shangbao_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                oid = r.id,
-                fangxiang = r.fangxiang,
-                laiyuanquxiang = r.laiyuanquxiang,
-                beizhu = r.beizhu,
-                fashengshijian = r.charushijian,
-                TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX 
+                //取得所有未上报的数据
+                DBContext db = IDB.GetDB();
+                TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
+                if (jcs.Count() == 0)
                 {
-                    tiaomaid = mr.tiaomaid,
-                    shuliang = mr.shuliang
-                }).ToArray()
-            }).ToArray();
+                    dp.lbl_msg.Text = "没有需要上报的数据";
+                    return;
+                }
 
-            try
-            {
-                JCSJWCF.ShangbaoJinchuhuo_FD(jcjcs);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
+                {
+                    oid = r.id,
+                    fangxiang = r.fangxiang,
+                    laiyuanquxiang = r.laiyuanquxiang,
+                    beizhu = r.beizhu,
+                    fashengshijian = r.charushijian,
+                    TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX
+                    {
+                        tiaomaid = mr.tiaomaid,
+                        shuliang = mr.shuliang
+                    }).ToArray()
+                }).ToArray();
 
-            //更新本地上报时间
-            int[] ids = jcs.Select(r => r.id).ToArray();
-            db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
+                try
+                {
+                    JCSJWCF.ShangbaoJinchuhuo_FD(jcjcs);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
 
-            MessageBox.Show("完成");
+                //更新本地上报时间
+                int[] ids = jcs.Select(r => r.id).ToArray();
+                db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
+
+                dp.lbl_msg.Text = "完成";
+            });
+            dp.ControlBox = true;
         }
 
         /// <summary>
@@ -626,46 +658,57 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzjinhuo_Click(object sender, EventArgs e)
         {
-            JCSJData.TCangkuJinchuhuo[] jhs;
-            try
-            {
-                jhs = JCSJWCF.XiazaiJinhuoShuju();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_xzjinhuo_Click_sync(dp);
+            dp.ShowDialog();      
+        }
 
-            if (jhs.Length == 0)
+        private async void btn_xzjinhuo_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                MessageBox.Show("没有数据可下载");
-                return;
-            }
-
-            TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
-            {
-                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
-                beizhu = "从服务器下载",
-                caozuorenid = LoginInfo.User.id,
-                TJinchuMX = r.TCangkuJinchuhuoMX.Select(xr => new TJinchuMX 
+                JCSJData.TCangkuJinchuhuo[] jhs;
+                try
                 {
-                    tiaomaid = xr.tiaomaid,
-                    shuliang = xr.shuliang
-                }).ToArray(),
-                
-            }).ToArray();
+                    jhs = JCSJWCF.XiazaiJinhuoShuju();
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
 
-            DBContext db = IDB.GetDB();
-            foreach(TJinchuhuo jc in jchs)
-            {
-                TJinchuhuo nj = db.InsertJinchuhuo(jc);
-                addJinchuhuo(nj);
-            }
+                if (jhs.Length == 0)
+                {
+                    dp.lbl_msg.Text = "没有数据可下载";
+                    return;
+                }
 
-            int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMX).Sum(r => r.shuliang);
-            MessageBox.Show("进货" + total + "件");
+                TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
+                {
+                    fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                    laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
+                    beizhu = "从服务器下载",
+                    caozuorenid = LoginInfo.User.id,
+                    TJinchuMX = r.TCangkuJinchuhuoMX.Select(xr => new TJinchuMX
+                    {
+                        tiaomaid = xr.tiaomaid,
+                        shuliang = xr.shuliang
+                    }).ToArray(),
+
+                }).ToArray();
+
+                DBContext db = IDB.GetDB();
+                foreach (TJinchuhuo jc in jchs)
+                {
+                    TJinchuhuo nj = db.InsertJinchuhuo(jc);
+                    addJinchuhuo(nj);
+                }
+
+                int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMX).Sum(r => r.shuliang);
+                dp.lbl_msg.Text = "进货" + total + "件";
+            });
+            dp.ControlBox = true;
         }
     }
 }

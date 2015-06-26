@@ -93,7 +93,7 @@ namespace DataTranslate
                 shuliang = r.shuliang,
                 danjia = r.danjia,
                 zhekou = r.zhekou,
-                moliing = r.moling,
+                moling = r.moling,
                 beizhu = "",
                 caozuorenid = _fduserid,
                 charushijian = DateTime.Now,

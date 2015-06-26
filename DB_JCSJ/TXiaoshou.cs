@@ -25,6 +25,7 @@ namespace DB_JCSJ
         public decimal danjia { get; set; }
         public decimal zhekou { get; set; }
         public decimal moling { get; set; }
+        public Nullable<decimal> jine { get; set; }
         public System.DateTime shangbaoshijian { get; set; }
     
         public virtual TFendian TFendian { get; set; }

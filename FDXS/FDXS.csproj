@@ -28,7 +28,7 @@
     <SuiteName>XS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>16</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -112,6 +112,12 @@
     </Compile>
     <Compile Include="Dlg_MimaEdit.Designer.cs">
       <DependentUpon>Dlg_MimaEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Progress.Designer.cs">
+      <DependentUpon>Dlg_Progress.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Tubiao.cs">
       <SubType>Form</SubType>
@@ -250,6 +256,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Dlg_AppSettings.resx">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Progress.resx">
+      <DependentUpon>Dlg_Progress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_UserEdit.resx">
       <DependentUpon>Dlg_UserEdit.cs</DependentUpon>

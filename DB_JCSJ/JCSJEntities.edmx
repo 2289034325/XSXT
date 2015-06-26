@@ -184,13 +184,6 @@
           <Property Name="charushijian" Type="datetime" Nullable="false" />
           <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="TMaishou">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="xingming" Type="nvarchar" MaxLength="5" Nullable="false" />
-        </EntityType>
         <EntityType Name="TTiaoma">
           <Key>
             <PropertyRef Name="id" />
@@ -253,6 +246,7 @@
           <Property Name="danjia" Type="decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="zhekou" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="moling" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="jine" Type="decimal" Precision="21" Scale="7" StoreGeneratedPattern="Computed" />
           <Property Name="shangbaoshijian" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_TCangku_TUser">
@@ -619,7 +613,6 @@
           <EntitySet Name="THuiyuan" EntityType="Self.THuiyuan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="THuiyuanZK" EntityType="Self.THuiyuanZK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TKuanhao" EntityType="Self.TKuanhao" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TMaishou" EntityType="Self.TMaishou" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUser" EntityType="Self.TUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUser_Cangku" EntityType="Self.TUser_Cangku" Schema="dbo" store:Type="Tables" />
@@ -789,7 +782,7 @@
           <Property Name="tiaomaid" Type="Int32" Nullable="false" />
           <Property Name="shuliang" Type="Int16" Nullable="false" />
           <NavigationProperty Name="TCangkuJinchuhuo" Relationship="Self.FK_TCangkuJinchuhuoMX_TCangkuJinchuhuo" FromRole="TCangkuJinchuhuoMX" ToRole="TCangkuJinchuhuo" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TCangkuJinchuhuoMX_TTiaoma" FromRole="TCangkuJinchuhuoMX" ToRole="TTiaoma" />
+          <NavigationProperty Name="TTiaoma" Relationship="JCSJModel.FK_TCangkuJinchuhuoMX_TTiaoma" FromRole="TCangkuJinchuhuoMX" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TFendian">
           <Key>
@@ -818,9 +811,9 @@
           <NavigationProperty Name="TFendianJinchuhuo" Relationship="Self.FK_TFendianJinchuhuo_TFendian" FromRole="TFendian" ToRole="TFendianJinchuhuo" />
           <NavigationProperty Name="THuiyuan" Relationship="Self.FK_THuiyuan_TFendian" FromRole="TFendian" ToRole="THuiyuan" />
           <NavigationProperty Name="TUser_Fendian" Relationship="Self.FK_TUser_Fendian_TFendian" FromRole="TFendian" ToRole="TUser_Fendian" />
-          <NavigationProperty Name="TXiaoshou" Relationship="Self.FK_TXiaoshou_TFendian" FromRole="TFendian" ToRole="TXiaoshou" />
           <NavigationProperty Name="TFendianKucun" Relationship="JCSJModel.FK_TFendianKucun_TFendian" FromRole="TFendian" ToRole="TFendianKucun" />
           <NavigationProperty Name="TCangkuFahuoFendian" Relationship="JCSJModel.FK_TCangkuFahuoFendian_TFendian" FromRole="TFendian" ToRole="TCangkuFahuoFendian" />
+          <NavigationProperty Name="TXiaoshou" Relationship="JCSJModel.FK_TXiaoshou_TFendian" FromRole="TFendian" ToRole="TXiaoshou" />
         </EntityType>
         <EntityType Name="TFendianJinchuhuo">
           <Key>
@@ -846,7 +839,7 @@
           <Property Name="tiaomaid" Type="Int32" Nullable="false" />
           <Property Name="shuliang" Type="Int16" Nullable="false" />
           <NavigationProperty Name="TFendianJinchuhuo" Relationship="Self.FK_TFendianJinchuhuoMX_TFendianJinchuhuo" FromRole="TFendianJinchuhuoMX" ToRole="TFendianJinchuhuo" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TFendianJinchuhuoMX_TTiaoma" FromRole="TFendianJinchuhuoMX" ToRole="TTiaoma" />
+          <NavigationProperty Name="TTiaoma" Relationship="JCSJModel.FK_TFendianJinchuhuoMX_TTiaoma" FromRole="TFendianJinchuhuoMX" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TGongyingshang">
           <Key>
@@ -881,7 +874,7 @@
           <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TFendian" Relationship="Self.FK_THuiyuan_TFendian" FromRole="THuiyuan" ToRole="TFendian" />
           <NavigationProperty Name="TUser" Relationship="Self.FK_THuiyuan_TUser" FromRole="THuiyuan" ToRole="TUser" />
-          <NavigationProperty Name="TXiaoshou" Relationship="Self.FK_TXiaoshou_THuiyuan" FromRole="THuiyuan" ToRole="TXiaoshou" />
+          <NavigationProperty Name="TXiaoshou" Relationship="JCSJModel.FK_TXiaoshou_THuiyuan" FromRole="THuiyuan" ToRole="TXiaoshou" />
         </EntityType>
         <EntityType Name="THuiyuanZK">
           <Key>
@@ -905,37 +898,7 @@
           <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TUser" Relationship="Self.FK_TKuanhao_TUser" FromRole="TKuanhao" ToRole="TUser" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TTiaoma_TKuanhao" FromRole="TKuanhao" ToRole="TTiaoma" />
-        </EntityType>
-        <EntityType Name="TMaishou">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="xingming" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TTiaoma">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="kuanhaoid" Type="Int32" Nullable="false" />
-          <Property Name="gyskuanhao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="tiaoma" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="yanse" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="chima" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="jinjia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="shoujia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="caozuorenid" Type="Int32" Nullable="false" />
-          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TCangkuJinchuhuoMX" Relationship="Self.FK_TCangkuJinchuhuoMX_TTiaoma" FromRole="TTiaoma" ToRole="TCangkuJinchuhuoMX" />
-          <NavigationProperty Name="TFendianJinchuhuoMX" Relationship="Self.FK_TFendianJinchuhuoMX_TTiaoma" FromRole="TTiaoma" ToRole="TFendianJinchuhuoMX" />
-          <NavigationProperty Name="TKuanhao" Relationship="Self.FK_TTiaoma_TKuanhao" FromRole="TTiaoma" ToRole="TKuanhao" />
-          <NavigationProperty Name="TUser" Relationship="Self.FK_TTiaoma_TUser" FromRole="TTiaoma" ToRole="TUser" />
-          <NavigationProperty Name="TXiaoshou" Relationship="Self.FK_TXiaoshou_TTiaoma" FromRole="TTiaoma" ToRole="TXiaoshou" />
-          <NavigationProperty Name="TCangkuKucunMX" Relationship="JCSJModel.FK_TCangkuKucunMX_TTiaoma" FromRole="TTiaoma" ToRole="TCangkuKucunMX" />
-          <NavigationProperty Name="TFendianKucunMX" Relationship="JCSJModel.FK_TFendianKucunMX_TTiaoma" FromRole="TTiaoma" ToRole="TFendianKucunMX" />
+          <NavigationProperty Name="TTiaoma" Relationship="JCSJModel.FK_TTiaoma_TKuanhao" FromRole="TKuanhao" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TUser">
           <Key>
@@ -956,9 +919,9 @@
           <NavigationProperty Name="TGongyingshang" Relationship="Self.FK_TGongyingshang_TUser" FromRole="TUser" ToRole="TGongyingshang" />
           <NavigationProperty Name="THuiyuan" Relationship="Self.FK_THuiyuan_TUser" FromRole="TUser" ToRole="THuiyuan" />
           <NavigationProperty Name="TKuanhao" Relationship="Self.FK_TKuanhao_TUser" FromRole="TUser" ToRole="TKuanhao" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TTiaoma_TUser" FromRole="TUser" ToRole="TTiaoma" />
           <NavigationProperty Name="TUser_Cangku" Relationship="Self.FK_TUser_Cangku_TUser" FromRole="TUser" ToRole="TUser_Cangku" />
           <NavigationProperty Name="TUser_Fendian" Relationship="Self.FK_TUser_Fendian_TUser" FromRole="TUser" ToRole="TUser_Fendian" />
+          <NavigationProperty Name="TTiaoma" Relationship="JCSJModel.FK_TTiaoma_TUser" FromRole="TUser" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TUser_Cangku">
           <Key>
@@ -979,26 +942,6 @@
           <Property Name="fendianid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TFendian" Relationship="Self.FK_TUser_Fendian_TFendian" FromRole="TUser_Fendian" ToRole="TFendian" />
           <NavigationProperty Name="TUser" Relationship="Self.FK_TUser_Fendian_TUser" FromRole="TUser_Fendian" ToRole="TUser" />
-        </EntityType>
-        <EntityType Name="TXiaoshou">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fendianid" Type="Int32" Nullable="false" />
-          <Property Name="oid" Type="Int32" Nullable="false" />
-          <Property Name="xiaoshoushijian" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xiaoshouyuan" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="tiaomaid" Type="Int32" Nullable="false" />
-          <Property Name="huiyuanid" Type="Int32" />
-          <Property Name="shuliang" Type="Int16" Nullable="false" />
-          <Property Name="danjia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="zhekou" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
-          <Property Name="moling" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="shangbaoshijian" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TFendian" Relationship="Self.FK_TXiaoshou_TFendian" FromRole="TXiaoshou" ToRole="TFendian" />
-          <NavigationProperty Name="THuiyuan" Relationship="Self.FK_TXiaoshou_THuiyuan" FromRole="TXiaoshou" ToRole="THuiyuan" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TXiaoshou_TTiaoma" FromRole="TXiaoshou" ToRole="TTiaoma" />
         </EntityType>
         <Association Name="FK_TCangku_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
@@ -1045,18 +988,6 @@
             </Principal>
             <Dependent Role="TCangkuJinchuhuoMX">
               <PropertyRef Name="jinchuhuoid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TCangkuJinchuhuoMX_TTiaoma">
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="1" />
-          <End Role="TCangkuJinchuhuoMX" Type="Self.TCangkuJinchuhuoMX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TCangkuJinchuhuoMX">
-              <PropertyRef Name="tiaomaid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1108,18 +1039,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TXiaoshou_TFendian">
-          <End Role="TFendian" Type="Self.TFendian" Multiplicity="1" />
-          <End Role="TXiaoshou" Type="Self.TXiaoshou" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TFendian">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TXiaoshou">
-              <PropertyRef Name="fendianid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TFendianJinchuhuoMX_TFendianJinchuhuo">
           <End Role="TFendianJinchuhuo" Type="Self.TFendianJinchuhuo" Multiplicity="1" />
           <End Role="TFendianJinchuhuoMX" Type="Self.TFendianJinchuhuoMX" Multiplicity="*" />
@@ -1129,18 +1048,6 @@
             </Principal>
             <Dependent Role="TFendianJinchuhuoMX">
               <PropertyRef Name="jinchuhuoid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TFendianJinchuhuoMX_TTiaoma">
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="1" />
-          <End Role="TFendianJinchuhuoMX" Type="Self.TFendianJinchuhuoMX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TFendianJinchuhuoMX">
-              <PropertyRef Name="tiaomaid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1168,18 +1075,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TXiaoshou_THuiyuan">
-          <End Role="THuiyuan" Type="Self.THuiyuan" Multiplicity="0..1" />
-          <End Role="TXiaoshou" Type="Self.TXiaoshou" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THuiyuan">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TXiaoshou">
-              <PropertyRef Name="huiyuanid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TKuanhao_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
           <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="*" />
@@ -1189,42 +1084,6 @@
             </Principal>
             <Dependent Role="TKuanhao">
               <PropertyRef Name="caozuorenid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TTiaoma_TKuanhao">
-          <End Role="TKuanhao" Type="Self.TKuanhao" Multiplicity="1" />
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TKuanhao">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TTiaoma">
-              <PropertyRef Name="kuanhaoid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TTiaoma_TUser">
-          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TUser">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TTiaoma">
-              <PropertyRef Name="caozuorenid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TXiaoshou_TTiaoma">
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="1" />
-          <End Role="TXiaoshou" Type="Self.TXiaoshou" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TXiaoshou">
-              <PropertyRef Name="tiaomaid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1263,12 +1122,9 @@
           <EntitySet Name="THuiyuan" EntityType="Self.THuiyuan" />
           <EntitySet Name="THuiyuanZK" EntityType="Self.THuiyuanZK" />
           <EntitySet Name="TKuanhao" EntityType="Self.TKuanhao" />
-          <EntitySet Name="TMaishou" EntityType="Self.TMaishou" />
-          <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" />
           <EntitySet Name="TUser" EntityType="Self.TUser" />
           <EntitySet Name="TUser_Cangku" EntityType="Self.TUser_Cangku" />
           <EntitySet Name="TUser_Fendian" EntityType="Self.TUser_Fendian" />
-          <EntitySet Name="TXiaoshou" EntityType="Self.TXiaoshou" />
           <AssociationSet Name="FK_TCangku_TUser" Association="Self.FK_TCangku_TUser">
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TCangku" EntitySet="TCangku" />
@@ -1283,10 +1139,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_TCangkuJinchuhuoMX_TCangkuJinchuhuo" Association="Self.FK_TCangkuJinchuhuoMX_TCangkuJinchuhuo">
             <End Role="TCangkuJinchuhuo" EntitySet="TCangkuJinchuhuo" />
-            <End Role="TCangkuJinchuhuoMX" EntitySet="TCangkuJinchuhuoMX" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCangkuJinchuhuoMX_TTiaoma" Association="Self.FK_TCangkuJinchuhuoMX_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
             <End Role="TCangkuJinchuhuoMX" EntitySet="TCangkuJinchuhuoMX" />
           </AssociationSet>
           <AssociationSet Name="FK_TFendian_TUser" Association="Self.FK_TFendian_TUser">
@@ -1305,16 +1157,8 @@
             <End Role="TFendian" EntitySet="TFendian" />
             <End Role="TUser_Fendian" EntitySet="TUser_Fendian" />
           </AssociationSet>
-          <AssociationSet Name="FK_TXiaoshou_TFendian" Association="Self.FK_TXiaoshou_TFendian">
-            <End Role="TFendian" EntitySet="TFendian" />
-            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
-          </AssociationSet>
           <AssociationSet Name="FK_TFendianJinchuhuoMX_TFendianJinchuhuo" Association="Self.FK_TFendianJinchuhuoMX_TFendianJinchuhuo">
             <End Role="TFendianJinchuhuo" EntitySet="TFendianJinchuhuo" />
-            <End Role="TFendianJinchuhuoMX" EntitySet="TFendianJinchuhuoMX" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TFendianJinchuhuoMX_TTiaoma" Association="Self.FK_TFendianJinchuhuoMX_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
             <End Role="TFendianJinchuhuoMX" EntitySet="TFendianJinchuhuoMX" />
           </AssociationSet>
           <AssociationSet Name="FK_TGongyingshang_TUser" Association="Self.FK_TGongyingshang_TUser">
@@ -1325,25 +1169,9 @@
             <End Role="TUser" EntitySet="TUser" />
             <End Role="THuiyuan" EntitySet="THuiyuan" />
           </AssociationSet>
-          <AssociationSet Name="FK_TXiaoshou_THuiyuan" Association="Self.FK_TXiaoshou_THuiyuan">
-            <End Role="THuiyuan" EntitySet="THuiyuan" />
-            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
-          </AssociationSet>
           <AssociationSet Name="FK_TKuanhao_TUser" Association="Self.FK_TKuanhao_TUser">
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TKuanhao" EntitySet="TKuanhao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TTiaoma_TKuanhao" Association="Self.FK_TTiaoma_TKuanhao">
-            <End Role="TKuanhao" EntitySet="TKuanhao" />
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TTiaoma_TUser" Association="Self.FK_TTiaoma_TUser">
-            <End Role="TUser" EntitySet="TUser" />
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TXiaoshou_TTiaoma" Association="Self.FK_TXiaoshou_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
           </AssociationSet>
           <AssociationSet Name="FK_TUser_Cangku_TUser" Association="Self.FK_TUser_Cangku_TUser">
             <End Role="TUser" EntitySet="TUser" />
@@ -1365,20 +1193,12 @@
             <End Role="TCangkuKucun" EntitySet="TCangkuKucun" />
             <End Role="TCangkuKucunMX" EntitySet="TCangkuKucunMX" />
           </AssociationSet>
-          <AssociationSet Name="FK_TCangkuKucunMX_TTiaoma" Association="JCSJModel.FK_TCangkuKucunMX_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-            <End Role="TCangkuKucunMX" EntitySet="TCangkuKucunMX" />
-          </AssociationSet>
           <AssociationSet Name="FK_TFendianKucun_TFendian" Association="JCSJModel.FK_TFendianKucun_TFendian">
             <End Role="TFendian" EntitySet="TFendian" />
             <End Role="TFendianKucun" EntitySet="TFendianKucun" />
           </AssociationSet>
           <AssociationSet Name="FK_TFendianKucunMX_TFendianKucun" Association="JCSJModel.FK_TFendianKucunMX_TFendianKucun">
             <End Role="TFendianKucun" EntitySet="TFendianKucun" />
-            <End Role="TFendianKucunMX" EntitySet="TFendianKucunMX" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TFendianKucunMX_TTiaoma" Association="JCSJModel.FK_TFendianKucunMX_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
             <End Role="TFendianKucunMX" EntitySet="TFendianKucunMX" />
           </AssociationSet>
           <EntitySet Name="TCangkuFahuoFendian" EntityType="JCSJModel.TCangkuFahuoFendian" />
@@ -1389,6 +1209,44 @@
           <AssociationSet Name="FK_TCangkuFahuoFendian_TFendian" Association="JCSJModel.FK_TCangkuFahuoFendian_TFendian">
             <End Role="TFendian" EntitySet="TFendian" />
             <End Role="TCangkuFahuoFendian" EntitySet="TCangkuFahuoFendian" />
+          </AssociationSet>
+          <EntitySet Name="TXiaoshou" EntityType="JCSJModel.TXiaoshou" />
+          <AssociationSet Name="FK_TXiaoshou_TFendian" Association="JCSJModel.FK_TXiaoshou_TFendian">
+            <End Role="TFendian" EntitySet="TFendian" />
+            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TXiaoshou_THuiyuan" Association="JCSJModel.FK_TXiaoshou_THuiyuan">
+            <End Role="THuiyuan" EntitySet="THuiyuan" />
+            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
+          </AssociationSet>
+          <EntitySet Name="TTiaoma" EntityType="JCSJModel.TTiaoma" />
+          <AssociationSet Name="FK_TCangkuJinchuhuoMX_TTiaoma" Association="JCSJModel.FK_TCangkuJinchuhuoMX_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TCangkuJinchuhuoMX" EntitySet="TCangkuJinchuhuoMX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCangkuKucunMX_TTiaoma" Association="JCSJModel.FK_TCangkuKucunMX_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TCangkuKucunMX" EntitySet="TCangkuKucunMX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFendianJinchuhuoMX_TTiaoma" Association="JCSJModel.FK_TFendianJinchuhuoMX_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TFendianJinchuhuoMX" EntitySet="TFendianJinchuhuoMX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFendianKucunMX_TTiaoma" Association="JCSJModel.FK_TFendianKucunMX_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TFendianKucunMX" EntitySet="TFendianKucunMX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TKuanhao" Association="JCSJModel.FK_TTiaoma_TKuanhao">
+            <End Role="TKuanhao" EntitySet="TKuanhao" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TTiaoma_TUser" Association="JCSJModel.FK_TTiaoma_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TXiaoshou_TTiaoma" Association="JCSJModel.FK_TXiaoshou_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TXiaoshou" EntitySet="TXiaoshou" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="TCangkuKucun">
@@ -1457,18 +1315,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TCangkuKucunMX_TTiaoma">
-          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
-          <End Type="JCSJModel.TCangkuKucunMX" Role="TCangkuKucunMX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TCangkuKucunMX">
-              <PropertyRef Name="tiaomaid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TFendianKucun_TFendian">
           <End Type="JCSJModel.TFendian" Role="TFendian" Multiplicity="1" />
           <End Type="JCSJModel.TFendianKucun" Role="TFendianKucun" Multiplicity="*" />
@@ -1490,18 +1336,6 @@
             </Principal>
             <Dependent Role="TFendianKucunMX">
               <PropertyRef Name="kucunid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TFendianKucunMX_TTiaoma">
-          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
-          <End Type="JCSJModel.TFendianKucunMX" Role="TFendianKucunMX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TFendianKucunMX">
-              <PropertyRef Name="tiaomaid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1538,6 +1372,158 @@
             </Principal>
             <Dependent Role="TCangkuFahuoFendian">
               <PropertyRef Name="fendianid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TXiaoshou">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fendianid" Type="Int32" Nullable="false" />
+          <Property Name="oid" Type="Int32" Nullable="false" />
+          <Property Name="xiaoshoushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiaoshouyuan" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="tiaomaid" Type="Int32" Nullable="false" />
+          <Property Name="huiyuanid" Type="Int32" />
+          <Property Name="shuliang" Type="Int16" Nullable="false" />
+          <Property Name="danjia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="zhekou" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="moling" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="jine" Type="Decimal" Precision="21" Scale="7" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="shangbaoshijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TFendian" Relationship="JCSJModel.FK_TXiaoshou_TFendian" FromRole="TXiaoshou" ToRole="TFendian" />
+          <NavigationProperty Name="THuiyuan" Relationship="JCSJModel.FK_TXiaoshou_THuiyuan" FromRole="TXiaoshou" ToRole="THuiyuan" />
+          <NavigationProperty Name="TTiaoma" Relationship="JCSJModel.FK_TXiaoshou_TTiaoma" FromRole="TXiaoshou" ToRole="TTiaoma" />
+        </EntityType>
+        <Association Name="FK_TXiaoshou_TFendian">
+          <End Type="JCSJModel.TFendian" Role="TFendian" Multiplicity="1" />
+          <End Type="JCSJModel.TXiaoshou" Role="TXiaoshou" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFendian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TXiaoshou">
+              <PropertyRef Name="fendianid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TXiaoshou_THuiyuan">
+          <End Type="JCSJModel.THuiyuan" Role="THuiyuan" Multiplicity="0..1" />
+          <End Type="JCSJModel.TXiaoshou" Role="TXiaoshou" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THuiyuan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TXiaoshou">
+              <PropertyRef Name="huiyuanid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TTiaoma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuanhaoid" Type="Int32" Nullable="false" />
+          <Property Name="gyskuanhao" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tiaoma" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="yanse" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="chima" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="jinjia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="shoujia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="caozuorenid" Type="Int32" Nullable="false" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TCangkuJinchuhuoMX" Relationship="JCSJModel.FK_TCangkuJinchuhuoMX_TTiaoma" FromRole="TTiaoma" ToRole="TCangkuJinchuhuoMX" />
+          <NavigationProperty Name="TCangkuKucunMX" Relationship="JCSJModel.FK_TCangkuKucunMX_TTiaoma" FromRole="TTiaoma" ToRole="TCangkuKucunMX" />
+          <NavigationProperty Name="TFendianJinchuhuoMX" Relationship="JCSJModel.FK_TFendianJinchuhuoMX_TTiaoma" FromRole="TTiaoma" ToRole="TFendianJinchuhuoMX" />
+          <NavigationProperty Name="TFendianKucunMX" Relationship="JCSJModel.FK_TFendianKucunMX_TTiaoma" FromRole="TTiaoma" ToRole="TFendianKucunMX" />
+          <NavigationProperty Name="TKuanhao" Relationship="JCSJModel.FK_TTiaoma_TKuanhao" FromRole="TTiaoma" ToRole="TKuanhao" />
+          <NavigationProperty Name="TUser" Relationship="JCSJModel.FK_TTiaoma_TUser" FromRole="TTiaoma" ToRole="TUser" />
+          <NavigationProperty Name="TXiaoshou" Relationship="JCSJModel.FK_TXiaoshou_TTiaoma" FromRole="TTiaoma" ToRole="TXiaoshou" />
+        </EntityType>
+        <Association Name="FK_TCangkuJinchuhuoMX_TTiaoma">
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="JCSJModel.TCangkuJinchuhuoMX" Role="TCangkuJinchuhuoMX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TCangkuJinchuhuoMX">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCangkuKucunMX_TTiaoma">
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="JCSJModel.TCangkuKucunMX" Role="TCangkuKucunMX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TCangkuKucunMX">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TFendianJinchuhuoMX_TTiaoma">
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="JCSJModel.TFendianJinchuhuoMX" Role="TFendianJinchuhuoMX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TFendianJinchuhuoMX">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TFendianKucunMX_TTiaoma">
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="JCSJModel.TFendianKucunMX" Role="TFendianKucunMX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TFendianKucunMX">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TKuanhao">
+          <End Type="JCSJModel.TKuanhao" Role="TKuanhao" Multiplicity="1" />
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TKuanhao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="kuanhaoid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TTiaoma_TUser">
+          <End Type="JCSJModel.TUser" Role="TUser" Multiplicity="1" />
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTiaoma">
+              <PropertyRef Name="caozuorenid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TXiaoshou_TTiaoma">
+          <End Type="JCSJModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="JCSJModel.TXiaoshou" Role="TXiaoshou" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TXiaoshou">
+              <PropertyRef Name="tiaomaid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1692,31 +1678,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TMaishou">
-            <EntityTypeMapping TypeName="JCSJModel.TMaishou">
-              <MappingFragment StoreEntitySet="TMaishou">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="xingming" ColumnName="xingming" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TTiaoma">
-            <EntityTypeMapping TypeName="JCSJModel.TTiaoma">
-              <MappingFragment StoreEntitySet="TTiaoma">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="kuanhaoid" ColumnName="kuanhaoid" />
-                <ScalarProperty Name="gyskuanhao" ColumnName="gyskuanhao" />
-                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
-                <ScalarProperty Name="yanse" ColumnName="yanse" />
-                <ScalarProperty Name="chima" ColumnName="chima" />
-                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
-                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
-                <ScalarProperty Name="caozuorenid" ColumnName="caozuorenid" />
-                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
-                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TUser">
             <EntityTypeMapping TypeName="JCSJModel.TUser">
               <MappingFragment StoreEntitySet="TUser">
@@ -1748,24 +1709,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="yonghuid" ColumnName="yonghuid" />
                 <ScalarProperty Name="fendianid" ColumnName="fendianid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TXiaoshou">
-            <EntityTypeMapping TypeName="JCSJModel.TXiaoshou">
-              <MappingFragment StoreEntitySet="TXiaoshou">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="fendianid" ColumnName="fendianid" />
-                <ScalarProperty Name="oid" ColumnName="oid" />
-                <ScalarProperty Name="xiaoshoushijian" ColumnName="xiaoshoushijian" />
-                <ScalarProperty Name="xiaoshouyuan" ColumnName="xiaoshouyuan" />
-                <ScalarProperty Name="tiaomaid" ColumnName="tiaomaid" />
-                <ScalarProperty Name="huiyuanid" ColumnName="huiyuanid" />
-                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
-                <ScalarProperty Name="danjia" ColumnName="danjia" />
-                <ScalarProperty Name="zhekou" ColumnName="zhekou" />
-                <ScalarProperty Name="moling" ColumnName="moling" />
-                <ScalarProperty Name="shangbaoshijian" ColumnName="shangbaoshijian" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1814,6 +1757,42 @@
                 <ScalarProperty Name="scshijian" ColumnName="scshijian" />
                 <ScalarProperty Name="fendianid" ColumnName="fendianid" />
                 <ScalarProperty Name="ckjinchuid" ColumnName="ckjinchuid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TXiaoshou">
+            <EntityTypeMapping TypeName="JCSJModel.TXiaoshou">
+              <MappingFragment StoreEntitySet="TXiaoshou">
+                <ScalarProperty Name="shangbaoshijian" ColumnName="shangbaoshijian" />
+                <ScalarProperty Name="jine" ColumnName="jine" />
+                <ScalarProperty Name="moling" ColumnName="moling" />
+                <ScalarProperty Name="zhekou" ColumnName="zhekou" />
+                <ScalarProperty Name="danjia" ColumnName="danjia" />
+                <ScalarProperty Name="shuliang" ColumnName="shuliang" />
+                <ScalarProperty Name="huiyuanid" ColumnName="huiyuanid" />
+                <ScalarProperty Name="tiaomaid" ColumnName="tiaomaid" />
+                <ScalarProperty Name="xiaoshouyuan" ColumnName="xiaoshouyuan" />
+                <ScalarProperty Name="xiaoshoushijian" ColumnName="xiaoshoushijian" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="fendianid" ColumnName="fendianid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTiaoma">
+            <EntityTypeMapping TypeName="JCSJModel.TTiaoma">
+              <MappingFragment StoreEntitySet="TTiaoma">
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="caozuorenid" ColumnName="caozuorenid" />
+                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
+                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
+                <ScalarProperty Name="chima" ColumnName="chima" />
+                <ScalarProperty Name="yanse" ColumnName="yanse" />
+                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
+                <ScalarProperty Name="gyskuanhao" ColumnName="gyskuanhao" />
+                <ScalarProperty Name="kuanhaoid" ColumnName="kuanhaoid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

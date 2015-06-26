@@ -15,6 +15,7 @@ using Tool;
 
 namespace JCSJWCF
 {
+    [MyExceptionBehavior(typeof(MyGlobalExceptionHandler))]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class DataService : IDataService
     {
@@ -523,6 +524,12 @@ namespace JCSJWCF
         {
             DBContext db = new DBContext();
 
+            THuiyuan oh = db.GetHuiyuanByShoujihao(h.shoujihao);
+            if (oh != null)
+            {
+                throw new Exception("该手机号已经注册会员");
+            }
+
             h.fendianid = _fendian.id;
             h.caozuorenid = _user.id;
             h.jifen = 0;
@@ -565,6 +572,7 @@ namespace JCSJWCF
         /// <param name="h"></param>
         public void UpdateHuiyuan(THuiyuan h)
         {
+            h.xiugaishijian = DateTime.Now;
             //检查是否可以修改
             DBContext db = new DBContext();
             THuiyuan oh = db.GetHuiyuanById(h.id);
@@ -592,7 +600,7 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="xss"></param>
         public void ShangbaoXiaoshou(TXiaoshou[] xss)
-        {
+        {            
             DBContext db = new DBContext();
             foreach (TXiaoshou xs in xss)
             {

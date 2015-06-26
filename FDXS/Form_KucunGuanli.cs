@@ -70,7 +70,7 @@ namespace FDXS
         /// <param name="pd"></param>
         private void addPandian(TPandian pd)
         {
-            grid_pd.Rows.Add(new object[] 
+            grid_pd.Rows.Insert(0,new object[] 
             {
                 pd.id,
                 pd.TTiaoma.id,
@@ -83,6 +83,10 @@ namespace FDXS
                 pd.kcshuliang,
                 pd.charushijian
             });
+
+            grid_pd.ClearSelection();
+            grid_pd.Rows[0].Selected = true;
+            grid_pd.FirstDisplayedScrollingRowIndex = 0;
         }
 
         /// <summary>
@@ -108,6 +112,9 @@ namespace FDXS
                             dr.Cells[col_pd_pdsl.Name].Value = (short)((short)dr.Cells[col_pd_pdsl.Name].Value - 1);
                         }
                     }
+                    grid_pd.ClearSelection();
+                    dr.Selected = true;
+                    grid_pd.FirstDisplayedScrollingRowIndex = dr.Index;
                 }
             }
         }

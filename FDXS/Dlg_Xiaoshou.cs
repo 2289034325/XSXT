@@ -73,7 +73,7 @@ namespace FDXS
                     danjia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
-                    moliing = 0,
+                    moling = 0,
                     beizhu = ""
                 };
 
@@ -98,8 +98,8 @@ namespace FDXS
                 xs.shuliang,
                 xs.danjia,
                 xs.zhekou,
-                xs.moliing,
-                decimal.Round(xs.danjia*xs.shuliang*xs.zhekou/10-xs.moliing,2),
+                xs.moling,
+                decimal.Round(xs.danjia*xs.shuliang*xs.zhekou/10-xs.moling,2),
                 xs.beizhu
             });
         }
@@ -166,7 +166,7 @@ namespace FDXS
                     danjia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
-                    moliing = 0,
+                    moling = 0,
                     beizhu = ""
                 };
 
@@ -340,7 +340,7 @@ namespace FDXS
                     danjia = danjia,
                     shuliang = sl,
                     zhekou = zk,
-                    moliing = ml,
+                    moling = ml,
                     beizhu = bz,
                     caozuorenid = LoginInfo.User.id,
                     charushijian = DateTime.Now,
@@ -365,73 +365,78 @@ namespace FDXS
                 return;
             }
 
-            string sjh = txb_sjh.Text.Trim();
-            //检查是否是规则的手机号
-            if (!Tool.CommonFunc.IsTelNum(sjh))
+            Dlg_Progress dp = new Dlg_Progress();
+            txb_sjh_KeyDown_sync(e, dp);
+            dp.ShowDialog();
+        }
+
+        private async void txb_sjh_KeyDown_sync(KeyEventArgs e,Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                MessageBox.Show("输入的不是正常的手机号，请检查");
-                return;
-            }
-            
-            //在本地查找该会员信息，如果存在，更新其积分，如果不存在就添加该会员信息到本地
-            DBContext db = IDB.GetDB();
-            THuiyuan h = db.GetHuiyuanByShoujihao(sjh);
-            if (h == null)
-            {
-                //从数据中心查找会员信息
-                JCSJData.THuiyuan jh = null;
-                try
+                string sjh = txb_sjh.Text.Trim();
+                //检查是否是规则的手机号
+                if (!Tool.CommonFunc.IsTelNum(sjh))
                 {
-                    jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    dp.lbl_msg.Text = "输入的不是正常的手机号，请检查";
                     return;
                 }
 
-                if (jh == null)
+                //在本地查找该会员信息，如果存在，更新其积分，如果不存在就添加该会员信息到本地
+                DBContext db = IDB.GetDB();
+                THuiyuan h = db.GetHuiyuanByShoujihao(sjh);
+                if (h == null)
                 {
-                    MessageBox.Show("会员不存在，请先注册");
-                    return;
+                    //从数据中心查找会员信息
+                    JCSJData.THuiyuan jh = null;
+                    try
+                    {
+                        jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
+                    }
+                    catch (Exception ex)
+                    {
+                        dp.lbl_msg.Text = ex.Message;
+                        return;
+                    }
+
+                    if (jh == null)
+                    {
+                        dp.lbl_msg.Text = "会员不存在，请先注册";
+                        return;
+                    }
+
+                    h = new THuiyuan
+                    {
+                        id = jh.id,
+                        fendianid = jh.fendianid,
+                        shoujihao = jh.shoujihao,
+                        xingming = jh.xingming,
+                        xingbie = jh.xingbie,
+                        shengri = jh.shengri,
+                        jifen = jh.jifen,
+                        jfgxshijian = jh.jfjsshijian,
+                        xxgxshijian = DateTime.Now
+                    };
+
+                    //保存到本地
+                    db.InsertHuiyuan(h);
                 }
 
-                h = new THuiyuan
-                {
-                    id = jh.id,
-                    fendianid = jh.fendianid,
-                    shoujihao = jh.shoujihao,
-                    xingming = jh.xingming,
-                    xingbie = jh.xingbie,
-                    shengri = jh.shengri,
-                    jifen = jh.jifen,
-                    jfgxshijian = jh.jfjsshijian,
-                    xxgxshijian = DateTime.Now
-                };
+                Huiyuan = h;
+                //按照积分折扣表给该会员应有的折扣
+                THuiyuanZK[] zks = db.GetHuiyuanZKs();
+                decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
 
-                //保存到本地
-                db.InsertHuiyuan(h);
-            }          
-           
-            Huiyuan = h;
-            //按照积分折扣表给该会员应有的折扣
-            THuiyuanZK[] zks = db.GetHuiyuanZKs();
-            decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
+                //设置页面显示
+                lbl_hyxm.Text = h.xingming;
+                lbl_hyjf.Text = h.jifen.ToString();
+                lbl_hyzk.Text = hyzk.ToString();
 
-            //设置页面显示
-            lbl_hyxm.Text = h.xingming;
-            lbl_hyjf.Text = h.jifen.ToString();
-            lbl_hyzk.Text = hyzk.ToString();
 
-            //在现有折扣基础上，乘以会员折扣
-            //foreach (DataGridViewRow dr in grid_kaidan.Rows)
-            //{
-            //    decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-            //    dr.Cells[col_zk.Name].Value = decimal.Round(zk * hyzk / 10, 2);
-            //}
+                dp.DialogResult = System.Windows.Forms.DialogResult.OK;
+            });
 
-            //刷新总价
-            //refreshZongjia();
+            dp.ControlBox = true;
         }
 
         /// <summary>
@@ -441,39 +446,48 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_zchy_Click(object sender, EventArgs e)
         {
-            //检查手机号是否正常
-            string sjh = txb_sjh.Text.Trim();
-            //检查是否是规则的手机号
-            if (!Tool.CommonFunc.IsTelNum(sjh))
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_zchy_Click_sync(dp);
+            dp.ShowDialog();
+        }
+
+        private async void btn_zchy_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                MessageBox.Show("输入的不是正常的手机号，请检查");
-                return;
-            }
+                //检查手机号是否正常
+                string sjh = txb_sjh.Text.Trim();
+                //检查是否是规则的手机号
+                if (!Tool.CommonFunc.IsTelNum(sjh))
+                {
+                    dp.lbl_msg.Text = "输入的不是正常的手机号，请检查";
+                    return;
+                }
 
-            JCSJData.THuiyuan h = new JCSJData.THuiyuan 
-            {
-                shoujihao = sjh,
-                xingming = "",
-                xingbie = (byte)Tool.JCSJ.DBCONSTS.HUIYUAN_XB.女,
-                shengri = DateTime.Now,
-                beizhu = ""
-            };
+                JCSJData.THuiyuan h = new JCSJData.THuiyuan
+                {
+                    shoujihao = sjh,
+                    xingming = "",
+                    xingbie = (byte)Tool.JCSJ.DBCONSTS.HUIYUAN_XB.女,
+                    shengri = DateTime.Now,
+                    beizhu = ""
+                };
 
-            //注册会员
-            try
-            {
-                JCSJWCF.HuiyuanZhuce(h);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                //注册会员
+                try
+                {
+                    JCSJWCF.HuiyuanZhuce(h);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
 
-            MessageBox.Show("注册成功");
+                dp.lbl_msg.Text = "注册成功，请重新输入手机号，然后按下回车键";
+            });
 
-            txb_sjh_KeyDown(null, new KeyEventArgs(Keys.Enter));
-
+            dp.ControlBox = true;
         }
 
         /// <summary>
@@ -524,7 +538,7 @@ namespace FDXS
                     danjia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
-                    moliing = 0,
+                    moling = 0,
                     beizhu = ""
                 };
 

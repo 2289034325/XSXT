@@ -154,7 +154,22 @@ namespace DB_JCSJ
             /// <param name="xss"></param>
             public void InsertXiaoshous(TXiaoshou[] xss)
             {
+                var jfs = xss.Where(r => r.huiyuanid != null).Select(r => new { r.huiyuanid, r.jine }).GroupBy(r => r.huiyuanid).Select(r => new
+                {
+                    hid = r.Key.Value,
+                    jf = r.Sum(gr => gr.jine) ?? 0
+                }).ToDictionary(k => k.hid, v => v.jf);
+
                 _db.TXiaoshou.AddRange(xss);
+
+                //更新会员积分
+                int[] hids = jfs.Select(r=>r.Key).ToArray();
+                var hys = _db.THuiyuan.Where(r => hids.Contains(r.id));
+                foreach (var h in hys)
+                {
+                    h.jifen += jfs[h.id];
+                    h.jfjsshijian = DateTime.Now;
+                }
 
                 _db.SaveChanges();
             }

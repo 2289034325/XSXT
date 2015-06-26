@@ -35,16 +35,15 @@ namespace DB_JCSJ
         public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<THuiyuanZK> THuiyuanZK { get; set; }
         public virtual DbSet<TKuanhao> TKuanhao { get; set; }
-        public virtual DbSet<TMaishou> TMaishou { get; set; }
-        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
         public virtual DbSet<TUser_Cangku> TUser_Cangku { get; set; }
         public virtual DbSet<TUser_Fendian> TUser_Fendian { get; set; }
-        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
         public virtual DbSet<TCangkuKucun> TCangkuKucun { get; set; }
         public virtual DbSet<TCangkuKucunMX> TCangkuKucunMX { get; set; }
         public virtual DbSet<TFendianKucun> TFendianKucun { get; set; }
         public virtual DbSet<TFendianKucunMX> TFendianKucunMX { get; set; }
         public virtual DbSet<TCangkuFahuoFendian> TCangkuFahuoFendian { get; set; }
+        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
+        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
     }
 }

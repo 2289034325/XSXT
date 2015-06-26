@@ -3119,6 +3119,9 @@ namespace FDXS.JCSJData {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> jineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal molingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3239,6 +3242,19 @@ namespace FDXS.JCSJData {
                 if ((this.idField.Equals(value) != true)) {
                     this.idField = value;
                     this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> jine {
+            get {
+                return this.jineField;
+            }
+            set {
+                if ((this.jineField.Equals(value) != true)) {
+                    this.jineField = value;
+                    this.RaisePropertyChanged("jine");
                 }
             }
         }

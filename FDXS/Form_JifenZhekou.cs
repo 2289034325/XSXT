@@ -27,36 +27,47 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
-            JCSJData.THuiyuanZK[] zks;
-            try
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_sch_Click_sync(dp);
+            dp.ShowDialog();            
+        }
+        private async void btn_sch_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                zks = JCSJWCF.GetHuiyuanZhekous();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
-            DBContext db = IDB.GetDB();
-            THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK 
-            {
-                jifen = r.jifen,
-                zhekou = r.zhekou,
-                gengxinshijian = DateTime.Now
-            }).ToArray();
-            db.DeleteHuiyuanZK();
-            db.InsertHuiyuanZKs(fzks);
-
-            grid_zk.Rows.Clear();
-            foreach (THuiyuanZK zk in fzks)
-            {
-                grid_zk.Rows.Add(new object[] 
+                JCSJData.THuiyuanZK[] zks;
+                try
                 {
-                    zk.jifen,
-                    zk.zhekou
-                });
-            }
+                    zks = JCSJWCF.GetHuiyuanZhekous();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
+                DBContext db = IDB.GetDB();
+                THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK
+                {
+                    jifen = r.jifen,
+                    zhekou = r.zhekou,
+                    gengxinshijian = DateTime.Now
+                }).ToArray();
+                db.DeleteHuiyuanZK();
+                db.InsertHuiyuanZKs(fzks);
+
+                grid_zk.Rows.Clear();
+                foreach (THuiyuanZK zk in fzks)
+                {
+                    grid_zk.Rows.Add(new object[] 
+                    {
+                        zk.jifen,
+                        zk.zhekou
+                    });
+                }
+                dp.lbl_msg.Text = "更新成功";
+            });
+            dp.ControlBox = true;
         }
 
         /// <summary>

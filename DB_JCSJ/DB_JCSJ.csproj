@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnExtend.cs" />
+    <Compile Include="FuncExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
     <Compile Include="JCSJEntities.Context.cs">
@@ -111,9 +111,6 @@
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TKuanhao.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TMaishou.cs">
       <DependentUpon>JCSJEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TTiaoma.cs">

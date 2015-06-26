@@ -75,35 +75,49 @@ namespace FDXS
                 return;
             }
 
-            //取得被选中的会员ID
-            int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
 
-            //调用接口
-            JCSJData.THuiyuan jh = null;
-            try
+            Dlg_Progress dp = new Dlg_Progress();
+            cmn_hy_gxxx_Click_sync(dp);
+            dp.ShowDialog();
+        }
+        private async void cmn_hy_gxxx_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                jh = JCSJWCF.GetHuiyuanById(id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                //取得被选中的会员ID
+                int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
 
-            //更新到本地
-            DBContext db = IDB.GetDB();
-            THuiyuan fh = db.GetHuiyuanById(id);
+                //调用接口
+                JCSJData.THuiyuan jh = null;
+                try
+                {
+                    jh = JCSJWCF.GetHuiyuanById(id);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text =  ex.Message;
+                    return;
+                }
 
-            fh.shoujihao = jh.shoujihao;
-            fh.xingming = jh.xingming;
-            fh.xingbie = jh.xingbie;
-            fh.shengri = jh.shengri;
-            fh.xxgxshijian = DateTime.Now;
+                //更新到本地
+                DBContext db = IDB.GetDB();
+                THuiyuan fh = db.GetHuiyuanById(id);
 
-            fh.jifen = jh.jifen;
-            fh.jfgxshijian = jh.jfjsshijian;
+                fh.shoujihao = jh.shoujihao;
+                fh.xingming = jh.xingming;
+                fh.xingbie = jh.xingbie;
+                fh.shengri = jh.shengri;
+                fh.xxgxshijian = DateTime.Now;
 
-            db.UpdateHuiyuanAll(fh);
+                fh.jifen = jh.jifen;
+                fh.jfgxshijian = jh.jfjsshijian;
+
+                db.UpdateHuiyuanAll(fh);
+
+                dp.lbl_msg.Text = "下载成功";
+            });
+
+            dp.ControlBox = true;
         }
 
         /// <summary>
@@ -119,29 +133,39 @@ namespace FDXS
                 return;
             }
 
-            int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
-            DBContext db = IDB.GetDB();
-            THuiyuan h = db.GetHuiyuanById(id);
-
-            JCSJData.THuiyuan jh = new JCSJData.THuiyuan
+            Dlg_Progress dp = new Dlg_Progress();
+            cmn_hy_shangchuan_Click_sync(dp);
+            dp.ShowDialog();          
+        }
+        private async void cmn_hy_shangchuan_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
             {
-                id = h.id,
-                shengri = h.shengri,
-                shoujihao = h.shoujihao,
-                xingbie = h.xingbie,
-                xingming = h.xingming
-            };
+                int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
+                DBContext db = IDB.GetDB();
+                THuiyuan h = db.GetHuiyuanById(id);
 
-            try
-            {
-                JCSJWCF.UpdateHuiyuan(jh);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+                JCSJData.THuiyuan jh = new JCSJData.THuiyuan
+                {
+                    id = h.id,
+                    shengri = h.shengri,
+                    shoujihao = h.shoujihao,
+                    xingbie = h.xingbie,
+                    xingming = h.xingming
+                };
 
+                try
+                {
+                    JCSJWCF.UpdateHuiyuan(jh);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
+                dp.lbl_msg.Text = "上传成功";
+            });
+            dp.ControlBox = true;
         }
 
         /// <summary>

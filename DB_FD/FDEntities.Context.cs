@@ -33,7 +33,7 @@ namespace DB_FD
         public virtual DbSet<TPandian> TPandian { get; set; }
         public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
-        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
         public virtual DbSet<VKucun> VKucun { get; set; }
+        public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
     }
 }

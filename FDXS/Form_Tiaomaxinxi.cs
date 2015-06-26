@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
@@ -27,18 +28,30 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            JCSJData.TTiaoma[] jtms;
-            try
-            {
-                jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            Dlg_Progress dp = new Dlg_Progress();
+            btn_xzzxtm_Click_sync(dp);
+            dp.ShowDialog();   
+        }
 
-            saveToLocal(jtms);
+        private async void btn_xzzxtm_Click_sync(Dlg_Progress dp)
+        {
+            await Task.Run(() => 
+            {
+                JCSJData.TTiaoma[] jtms;
+                try
+                {
+                    jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
+                    saveToLocal(jtms);
+                }
+                catch (Exception ex)
+                {
+                    dp.lbl_msg.Text = ex.Message;
+                    return;
+                }
+
+                dp.lbl_msg.Text = "下载完毕，共下载" + jtms.Count() + "个条码信息";
+            });
+            dp.ControlBox = true;
         }
 
         /// <summary>
@@ -52,11 +65,23 @@ namespace FDXS
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                Dlg_Progress dp = new Dlg_Progress();
+                btn_xzzdtm_Click_sync(dp, tmhs);
+                dp.ShowDialog();   
+            }
+            
+        }
+
+        private async void btn_xzzdtm_Click_sync(Dlg_Progress dp, string[] tmhs)
+        {
+            await Task.Run(() =>
+            {
                 JCSJData.TTiaoma[] jtms;
 
                 try
                 {
                     jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
+                    saveToLocal(jtms);
                 }
                 catch (Exception ex)
                 {
@@ -64,8 +89,10 @@ namespace FDXS
                     return;
                 }
 
-                saveToLocal(jtms);
-            }
+                dp.lbl_msg.Text = "下载完毕，共下载" + jtms.Count() + "个条码信息";
+            });
+
+            dp.ControlBox = true;
         }
 
         /// <summary>
