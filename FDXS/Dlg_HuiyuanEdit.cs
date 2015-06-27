@@ -41,7 +41,8 @@ namespace FDXS
                 shoujihao = sjh,
                 xingming = xm,
                 xingbie = xb,
-                shengri = sr
+                shengri = sr,
+                xxgxshijian = DateTime.Now
             };
             DBContext db = IDB.GetDB();
             db.UpdateHuiyuanInfo(fh);

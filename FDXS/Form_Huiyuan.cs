@@ -33,6 +33,7 @@ namespace FDXS
             DBContext db = IDB.GetDB();
             THuiyuan[] hys = db.GetHuiyuanByCond(sjh);
 
+            grid_hy.Rows.Clear();
             foreach (THuiyuan h in hys)
             {
                 grid_hy.Rows.Add(new object[] 

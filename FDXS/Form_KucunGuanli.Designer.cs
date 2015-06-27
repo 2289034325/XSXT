@@ -28,32 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tb_gl = new System.Windows.Forms.TabControl();
             this.tbp_pd = new System.Windows.Forms.TabPage();
             this.grid_pd = new System.Windows.Forms.DataGridView();
-            this.col_pd_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_pdsl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_kcsl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pd_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btn_pd_hd = new System.Windows.Forms.Button();
             this.btn_pd_qk = new System.Windows.Forms.Button();
             this.tbp_xz = new System.Windows.Forms.TabPage();
             this.grid_xz = new System.Windows.Forms.DataGridView();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button30 = new System.Windows.Forms.Button();
-            this.button31 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.btn_xz_zj = new System.Windows.Forms.Button();
-            this.btn_xz_cx = new System.Windows.Forms.Button();
             this.col_xz_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xz_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xz_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,6 +48,28 @@
             this.col_xz_czr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xz_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xz_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.button19 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btn_xz_zj = new System.Windows.Forms.Button();
+            this.btn_xz_cx = new System.Windows.Forms.Button();
+            this.btn_wfsm = new System.Windows.Forms.Button();
+            this.txb_tm = new System.Windows.Forms.TextBox();
+            this.cmn = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_xzkc = new System.Windows.Forms.ToolStripMenuItem();
+            this.col_pd_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_pdsl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_kcsl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pd_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_gl.SuspendLayout();
             this.tbp_pd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_pd)).BeginInit();
@@ -73,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grid_xz)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
+            this.cmn.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_gl
@@ -118,79 +124,19 @@
             this.grid_pd.MultiSelect = false;
             this.grid_pd.Name = "grid_pd";
             this.grid_pd.ReadOnly = true;
-            this.grid_pd.RowHeadersVisible = false;
             this.grid_pd.RowTemplate.Height = 23;
-            this.grid_pd.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_pd.Size = new System.Drawing.Size(1083, 483);
             this.grid_pd.TabIndex = 11;
+            this.grid_pd.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_pd_CellValueChanged);
+            this.grid_pd.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.grid_pd_RowStateChanged);
             this.grid_pd.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_pd_UserDeletedRow);
             this.grid_pd.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_pd_UserDeletingRow);
             this.grid_pd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_pd_KeyDown);
             // 
-            // col_pd_id
-            // 
-            this.col_pd_id.HeaderText = "ID";
-            this.col_pd_id.Name = "col_pd_id";
-            this.col_pd_id.ReadOnly = true;
-            this.col_pd_id.Visible = false;
-            // 
-            // col_pd_tmid
-            // 
-            this.col_pd_tmid.HeaderText = "条码ID";
-            this.col_pd_tmid.Name = "col_pd_tmid";
-            this.col_pd_tmid.ReadOnly = true;
-            this.col_pd_tmid.Visible = false;
-            // 
-            // col_pd_tm
-            // 
-            this.col_pd_tm.HeaderText = "条码";
-            this.col_pd_tm.Name = "col_pd_tm";
-            this.col_pd_tm.ReadOnly = true;
-            // 
-            // col_pd_kh
-            // 
-            this.col_pd_kh.HeaderText = "款号";
-            this.col_pd_kh.Name = "col_pd_kh";
-            this.col_pd_kh.ReadOnly = true;
-            // 
-            // col_pd_pm
-            // 
-            this.col_pd_pm.HeaderText = "品名";
-            this.col_pd_pm.Name = "col_pd_pm";
-            this.col_pd_pm.ReadOnly = true;
-            // 
-            // col_pd_ys
-            // 
-            this.col_pd_ys.HeaderText = "颜色";
-            this.col_pd_ys.Name = "col_pd_ys";
-            this.col_pd_ys.ReadOnly = true;
-            // 
-            // col_pd_cm
-            // 
-            this.col_pd_cm.HeaderText = "尺码";
-            this.col_pd_cm.Name = "col_pd_cm";
-            this.col_pd_cm.ReadOnly = true;
-            // 
-            // col_pd_pdsl
-            // 
-            this.col_pd_pdsl.HeaderText = "盘点数量";
-            this.col_pd_pdsl.Name = "col_pd_pdsl";
-            this.col_pd_pdsl.ReadOnly = true;
-            // 
-            // col_pd_kcsl
-            // 
-            this.col_pd_kcsl.HeaderText = "库存数量";
-            this.col_pd_kcsl.Name = "col_pd_kcsl";
-            this.col_pd_kcsl.ReadOnly = true;
-            // 
-            // col_pd_sj
-            // 
-            this.col_pd_sj.HeaderText = "盘点时间";
-            this.col_pd_sj.Name = "col_pd_sj";
-            this.col_pd_sj.ReadOnly = true;
-            // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.txb_tm);
+            this.panel7.Controls.Add(this.btn_wfsm);
             this.panel7.Controls.Add(this.btn_pd_hd);
             this.panel7.Controls.Add(this.btn_pd_qk);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
@@ -253,15 +199,79 @@
             this.grid_xz.Location = new System.Drawing.Point(3, 35);
             this.grid_xz.MultiSelect = false;
             this.grid_xz.Name = "grid_xz";
-            this.grid_xz.RowHeadersVisible = false;
             this.grid_xz.RowTemplate.Height = 23;
-            this.grid_xz.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_xz.Size = new System.Drawing.Size(1077, 448);
             this.grid_xz.TabIndex = 12;
             this.grid_xz.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_xz_CellValidating);
             this.grid_xz.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_xz_CellValueChanged);
             this.grid_xz.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_xz_UserDeletedRow);
             this.grid_xz.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xz_UserDeletingRow);
+            // 
+            // col_xz_id
+            // 
+            this.col_xz_id.HeaderText = "ID";
+            this.col_xz_id.Name = "col_xz_id";
+            this.col_xz_id.ReadOnly = true;
+            this.col_xz_id.Visible = false;
+            // 
+            // col_xz_tmid
+            // 
+            this.col_xz_tmid.HeaderText = "条码ID";
+            this.col_xz_tmid.Name = "col_xz_tmid";
+            this.col_xz_tmid.Visible = false;
+            // 
+            // col_xz_tm
+            // 
+            this.col_xz_tm.HeaderText = "条码";
+            this.col_xz_tm.Name = "col_xz_tm";
+            this.col_xz_tm.ReadOnly = true;
+            // 
+            // col_xz_kh
+            // 
+            this.col_xz_kh.HeaderText = "款号";
+            this.col_xz_kh.Name = "col_xz_kh";
+            this.col_xz_kh.ReadOnly = true;
+            // 
+            // col_xz_pm
+            // 
+            this.col_xz_pm.HeaderText = "品名";
+            this.col_xz_pm.Name = "col_xz_pm";
+            this.col_xz_pm.ReadOnly = true;
+            // 
+            // col_xz_ys
+            // 
+            this.col_xz_ys.HeaderText = "颜色";
+            this.col_xz_ys.Name = "col_xz_ys";
+            this.col_xz_ys.ReadOnly = true;
+            // 
+            // col_xz_cm
+            // 
+            this.col_xz_cm.HeaderText = "尺码";
+            this.col_xz_cm.Name = "col_xz_cm";
+            this.col_xz_cm.ReadOnly = true;
+            // 
+            // col_xz_sl
+            // 
+            this.col_xz_sl.HeaderText = "数量";
+            this.col_xz_sl.Name = "col_xz_sl";
+            // 
+            // col_xz_czr
+            // 
+            this.col_xz_czr.HeaderText = "操作人";
+            this.col_xz_czr.Name = "col_xz_czr";
+            this.col_xz_czr.ReadOnly = true;
+            // 
+            // col_xz_crsj
+            // 
+            this.col_xz_crsj.HeaderText = "插入时间";
+            this.col_xz_crsj.Name = "col_xz_crsj";
+            this.col_xz_crsj.ReadOnly = true;
+            // 
+            // col_xz_xgsj
+            // 
+            this.col_xz_xgsj.HeaderText = "修改时间";
+            this.col_xz_xgsj.Name = "col_xz_xgsj";
+            this.col_xz_xgsj.ReadOnly = true;
             // 
             // panel9
             // 
@@ -345,71 +355,99 @@
             this.btn_xz_cx.UseVisualStyleBackColor = true;
             this.btn_xz_cx.Click += new System.EventHandler(this.btn_xz_cx_Click);
             // 
-            // col_xz_id
+            // btn_wfsm
             // 
-            this.col_xz_id.HeaderText = "ID";
-            this.col_xz_id.Name = "col_xz_id";
-            this.col_xz_id.ReadOnly = true;
-            this.col_xz_id.Visible = false;
+            this.btn_wfsm.Location = new System.Drawing.Point(447, 4);
+            this.btn_wfsm.Name = "btn_wfsm";
+            this.btn_wfsm.Size = new System.Drawing.Size(132, 23);
+            this.btn_wfsm.TabIndex = 8;
+            this.btn_wfsm.Text = "输入无法扫描的条码";
+            this.btn_wfsm.UseVisualStyleBackColor = true;
+            this.btn_wfsm.Click += new System.EventHandler(this.btn_wfsm_Click);
             // 
-            // col_xz_tmid
+            // txb_tm
             // 
-            this.col_xz_tmid.HeaderText = "条码ID";
-            this.col_xz_tmid.Name = "col_xz_tmid";
-            this.col_xz_tmid.Visible = false;
+            this.txb_tm.Location = new System.Drawing.Point(585, 5);
+            this.txb_tm.Name = "txb_tm";
+            this.txb_tm.Size = new System.Drawing.Size(166, 21);
+            this.txb_tm.TabIndex = 9;
             // 
-            // col_xz_tm
+            // cmn
             // 
-            this.col_xz_tm.HeaderText = "条码";
-            this.col_xz_tm.Name = "col_xz_tm";
-            this.col_xz_tm.ReadOnly = true;
+            this.cmn.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_xzkc});
+            this.cmn.Name = "cmn";
+            this.cmn.Size = new System.Drawing.Size(125, 26);
             // 
-            // col_xz_kh
+            // cmn_xzkc
             // 
-            this.col_xz_kh.HeaderText = "款号";
-            this.col_xz_kh.Name = "col_xz_kh";
-            this.col_xz_kh.ReadOnly = true;
+            this.cmn_xzkc.Name = "cmn_xzkc";
+            this.cmn_xzkc.Size = new System.Drawing.Size(152, 22);
+            this.cmn_xzkc.Text = "修正库存";
+            this.cmn_xzkc.Click += new System.EventHandler(this.cmn_xzkc_Click);
             // 
-            // col_xz_pm
+            // col_pd_id
             // 
-            this.col_xz_pm.HeaderText = "品名";
-            this.col_xz_pm.Name = "col_xz_pm";
-            this.col_xz_pm.ReadOnly = true;
+            this.col_pd_id.HeaderText = "ID";
+            this.col_pd_id.Name = "col_pd_id";
+            this.col_pd_id.ReadOnly = true;
+            this.col_pd_id.Visible = false;
             // 
-            // col_xz_ys
+            // col_pd_tmid
             // 
-            this.col_xz_ys.HeaderText = "颜色";
-            this.col_xz_ys.Name = "col_xz_ys";
-            this.col_xz_ys.ReadOnly = true;
+            this.col_pd_tmid.HeaderText = "条码ID";
+            this.col_pd_tmid.Name = "col_pd_tmid";
+            this.col_pd_tmid.ReadOnly = true;
+            this.col_pd_tmid.Visible = false;
             // 
-            // col_xz_cm
+            // col_pd_tm
             // 
-            this.col_xz_cm.HeaderText = "尺码";
-            this.col_xz_cm.Name = "col_xz_cm";
-            this.col_xz_cm.ReadOnly = true;
+            this.col_pd_tm.HeaderText = "条码";
+            this.col_pd_tm.Name = "col_pd_tm";
+            this.col_pd_tm.ReadOnly = true;
             // 
-            // col_xz_sl
+            // col_pd_kh
             // 
-            this.col_xz_sl.HeaderText = "数量";
-            this.col_xz_sl.Name = "col_xz_sl";
+            this.col_pd_kh.HeaderText = "款号";
+            this.col_pd_kh.Name = "col_pd_kh";
+            this.col_pd_kh.ReadOnly = true;
             // 
-            // col_xz_czr
+            // col_pd_pm
             // 
-            this.col_xz_czr.HeaderText = "操作人";
-            this.col_xz_czr.Name = "col_xz_czr";
-            this.col_xz_czr.ReadOnly = true;
+            this.col_pd_pm.HeaderText = "品名";
+            this.col_pd_pm.Name = "col_pd_pm";
+            this.col_pd_pm.ReadOnly = true;
             // 
-            // col_xz_crsj
+            // col_pd_ys
             // 
-            this.col_xz_crsj.HeaderText = "插入时间";
-            this.col_xz_crsj.Name = "col_xz_crsj";
-            this.col_xz_crsj.ReadOnly = true;
+            this.col_pd_ys.HeaderText = "颜色";
+            this.col_pd_ys.Name = "col_pd_ys";
+            this.col_pd_ys.ReadOnly = true;
             // 
-            // col_xz_xgsj
+            // col_pd_cm
             // 
-            this.col_xz_xgsj.HeaderText = "修改时间";
-            this.col_xz_xgsj.Name = "col_xz_xgsj";
-            this.col_xz_xgsj.ReadOnly = true;
+            this.col_pd_cm.HeaderText = "尺码";
+            this.col_pd_cm.Name = "col_pd_cm";
+            this.col_pd_cm.ReadOnly = true;
+            // 
+            // col_pd_pdsl
+            // 
+            this.col_pd_pdsl.HeaderText = "盘点数量";
+            this.col_pd_pdsl.Name = "col_pd_pdsl";
+            this.col_pd_pdsl.ReadOnly = true;
+            // 
+            // col_pd_kcsl
+            // 
+            this.col_pd_kcsl.HeaderText = "库存数量";
+            this.col_pd_kcsl.Name = "col_pd_kcsl";
+            this.col_pd_kcsl.ReadOnly = true;
+            // 
+            // col_pd_sj
+            // 
+            this.col_pd_sj.HeaderText = "盘点时间";
+            this.col_pd_sj.Name = "col_pd_sj";
+            this.col_pd_sj.ReadOnly = true;
+            this.col_pd_sj.Width = 130;
             // 
             // Form_KucunGuanli
             // 
@@ -424,10 +462,12 @@
             this.tbp_pd.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid_pd)).EndInit();
             this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.tbp_xz.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid_xz)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
+            this.cmn.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -450,16 +490,6 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button btn_xz_zj;
         private System.Windows.Forms.Button btn_xz_cx;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_tmid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_tm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_kh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_pm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_ys;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_cm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_pdsl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_kcsl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_tmid;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_tm;
@@ -471,5 +501,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_czr;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xz_xgsj;
+        private System.Windows.Forms.TextBox txb_tm;
+        private System.Windows.Forms.Button btn_wfsm;
+        private System.Windows.Forms.ContextMenuStrip cmn;
+        private System.Windows.Forms.ToolStripMenuItem cmn_xzkc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_tmid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_tm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_pm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_ys;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_cm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_pdsl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_kcsl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pd_sj;
     }
 }

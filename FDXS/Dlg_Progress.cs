@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +16,11 @@ namespace FDXS
         public Dlg_Progress()
         {
             InitializeComponent();
+
+            lbl_msg.Text = "正在处理，请稍等";
+            pgb.Maximum = 100;
+            pgb.Value = 0;
+            ControlBox = false;
         }
 
         /// <summary>
@@ -24,10 +30,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void Dlg_Progress_Load(object sender, EventArgs e)
         {
-            lbl_msg.Text = "";
-            pgb.Maximum = 100;
-            pgb.Value = 0;
-            ControlBox = false;
         }
     }
 }

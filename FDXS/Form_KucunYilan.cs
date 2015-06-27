@@ -29,11 +29,15 @@ namespace FDXS
             //查询条件
             string tmh = txb_tiaoma.Text.Trim();
             string kh = txb_kuanhao.Text.Trim();
-            string lx = cmb_leixing.SelectedValue.ToString();
-
+            string slx = cmb_leixing.SelectedValue.ToString();
+            byte? lx = null;
+            if (!string.IsNullOrEmpty(slx))
+            {
+                lx = byte.Parse(slx);
+            }
             //入-出+库存修正
             DBContext db = IDB.GetDB();
-            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx,null,null);
 
             grid_kc.Rows.Clear();
             foreach (KeyValuePair<TTiaoma, short> p in ks)

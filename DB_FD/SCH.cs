@@ -123,7 +123,7 @@ namespace DB_FD
         /// 取得当前库存信息
         /// </summary>
         /// <returns></returns>
-        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, string lx)
+        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, byte? lx,short?sl_start,short?sl_end)
         {
             var ks = from k in _db.VKucun
                      join t in _db.TTiaoma
@@ -141,10 +141,17 @@ namespace DB_FD
             {
                 ks = ks.Where(r => r.t.kuanhao == kh);
             }
-            if (!string.IsNullOrEmpty(lx))
+            if (lx != null)
             {
-                byte blx = byte.Parse(lx);
-                ks = ks.Where(r => r.t.leixing == blx);
+                ks = ks.Where(r => r.t.leixing == lx);
+            }
+            if (sl_start != null)
+            {
+                ks = ks.Where(r => r.shuliang >= sl_start.Value);
+            }
+            if (sl_end != null)
+            {
+                ks = ks.Where(r => r.shuliang <= sl_end.Value);
             }
             return ks.ToDictionary(k => k.t, v => (short)v.shuliang);
         }
