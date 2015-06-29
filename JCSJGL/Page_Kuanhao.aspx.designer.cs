@@ -7,11 +7,46 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JCSJGL
-{
+namespace JCSJGL {
     
     
     public partial class Page_Kuanhao {
+        
+        /// <summary>
+        /// cmb_lx_sch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmb_lx_sch;
+        
+        /// <summary>
+        /// txb_kh_sch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_kh_sch;
+        
+        /// <summary>
+        /// txb_pm_sch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_pm_sch;
+        
+        /// <summary>
+        /// btn_sch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_sch;
         
         /// <summary>
         /// grid_kuanhao 控件。

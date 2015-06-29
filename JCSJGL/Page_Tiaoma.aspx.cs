@@ -42,6 +42,7 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_sch_Click(object sender, EventArgs e)
         {
+            grid_tiaoma.PageIndex = 0;
             search();
         }
 

@@ -22,7 +22,14 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False">
+    <div id="div_sch">
+        <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx_sch"></asp:DropDownList>
+        <label>款号</label><asp:TextBox runat="server" ID="txb_kh_sch"></asp:TextBox>
+        <label>品名</label><asp:TextBox runat="server" ID="txb_pm_sch"></asp:TextBox>        
+        <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+    </div>
+    <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False" BackColor="White"    BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px"
+         CellPadding="4"  AllowCustomPaging="true" AllowPaging="true" PageSize="20"  OnPageIndexChanging="grid_kuanhao_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
@@ -40,6 +47,24 @@
             </asp:TemplateField>
 
         </Columns>
+        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
+
+        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
+
+        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
+
+        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
+
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
+
+        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
+
+        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
+
+        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
+
+        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
+        <PagerSettings Mode="Numeric" Visible="true" />
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />

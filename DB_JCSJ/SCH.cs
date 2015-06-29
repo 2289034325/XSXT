@@ -133,9 +133,24 @@ namespace DB_JCSJ
             /// 取得所有款号信息
             /// </summary>
             /// <returns></returns>
-            public TKuanhao[] GetKuanhaos()
+            public TKuanhao[] GetKuanhaosByCond(byte? lx, string kh, string pm, int pageSize, int pageIndex, out int recordCount)
             {
-                var Kuanhaos = _db.TKuanhao.Include("TUser");
+                var Kuanhaos = _db.TKuanhao.Include("TUser").AsQueryable();
+                if (lx != null)
+                {
+                    Kuanhaos = Kuanhaos.Where(r => r.leixing == lx.Value);
+                }
+                if (!string.IsNullOrEmpty(kh))
+                {
+                    Kuanhaos = Kuanhaos.Where(r => r.kuanhao == kh);
+                }
+                if (!string.IsNullOrEmpty(pm))
+                {
+                    Kuanhaos = Kuanhaos.Where(r => r.pinming == pm);
+                }
+
+                recordCount = Kuanhaos.Count();
+                Kuanhaos = Kuanhaos.OrderByDescending(r => r.xiugaishijian).Skip(pageSize * pageIndex);
 
                 return Kuanhaos.ToArray();
             }

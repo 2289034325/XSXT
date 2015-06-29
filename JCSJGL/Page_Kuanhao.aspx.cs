@@ -16,9 +16,11 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 //加载所有款号信息
-                loadKuanhaos();
+                //loadKuanhaos();
 
                 //初始化下拉框
+                Tool.CommonFunc.InitDropDownList(cmb_lx_sch, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
+                cmb_lx_sch.Items.Insert(0, "");
                 Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB));
             }
@@ -53,8 +55,18 @@ namespace JCSJGL
         /// </summary>
         private void loadKuanhaos()
         {
+            //取查询条件
+            byte? lx = null;
+            if (!string.IsNullOrEmpty(cmb_lx_sch.SelectedValue))
+            {
+                lx = byte.Parse(cmb_lx_sch.SelectedValue);
+            }
+            string kh = txb_kh_sch.Text.Trim();
+            string pm = txb_pm_sch.Text.Trim();
+            int recordCount = 0;
+
             DBContext db = new DBContext();
-            TKuanhao[] fs = db.GetKuanhaos();
+            TKuanhao[] fs = db.GetKuanhaosByCond(lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
@@ -69,6 +81,7 @@ namespace JCSJGL
                 editParams = r.id + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.xingbie + "','" + r.pinming + "','" + r.beizhu + "'"
             });
 
+            grid_kuanhao.VirtualItemCount = recordCount;
             grid_kuanhao.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
             grid_kuanhao.DataBind();
         }
@@ -130,6 +143,18 @@ namespace JCSJGL
             DBContext db = new DBContext();
             db.InsertKuanhao(f);
 
+            loadKuanhaos();
+        }
+
+        protected void grid_kuanhao_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            grid_kuanhao.PageIndex = e.NewPageIndex;
+            loadKuanhaos();
+        }
+
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
+            grid_kuanhao.PageIndex = 0;
             loadKuanhaos();
         }
     }

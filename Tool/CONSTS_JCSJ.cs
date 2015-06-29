@@ -107,7 +107,7 @@ namespace Tool.JCSJ
             /// </summary>
             public enum KUANHAO_LX : byte
             {
-                上衣 = 1,
+                上装 = 1,
                 裙子 = 2,
                 裤子 = 3,
                 套装 = 4,
