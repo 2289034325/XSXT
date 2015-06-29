@@ -45,110 +45,14 @@ namespace FDXS
                 _dlgKaidan = dx; 
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    xiaoshouDlgOK(dx.XSS,dx.Huiyuan);
+                    //xiaoshouDlgOK(dx.XSS,dx.Huiyuan);
+                    btn_sch_Click(null, null);
                 }
                 _dlgKaidan = null;
             }
         }
 
-        /// <summary>
-        /// 销售对话框OK
-        /// </summary>
-        /// <param name="xss"></param>
-        /// <param name="hy"></param>
-        private void xiaoshouDlgOK(List<TXiaoshou> xss, THuiyuan hy)
-        {
-            //保存到数据库
-            DBContext db = IDB.GetDB();
-            TXiaoshou[] nxss = db.InsertXiaoshous(xss.ToArray());
-            foreach (TXiaoshou x in nxss)
-            {
-                addXiaoshou(x);
-            }
-
-            //将积分加给会员
-            if (hy != null)
-            {
-                decimal zj = xss.Sum(r => r.jine) ?? 0;
-                db.UpdateAddHuiyuanJF(hy.id, zj);
-            }
-
-            _XSS = xss;
-
-            //打印小票
-            xiaopiao();
-        }
-
-        private void xiaopiao()
-        {
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += new PrintPageEventHandler(this.printDocument_PrintPage);
-
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.Document = printDocument;
-
-            try
-            {
-                printDocument.Print();
-            }
-            catch (Exception excep)
-            {
-                MessageBox.Show(excep.Message, "打印出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                printDocument.PrintController.OnEndPrint(printDocument, new PrintEventArgs());
-            }
-        }
-        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            Graphics printG = e.Graphics; //获得绘图对象 
-            Font printFont = new System.Drawing.Font("宋体", 9);
-            float yPosition = 0;
-            float leftMargin = 0;
-            float cH = printFont.GetHeight(printG);
-            SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
-
-            printG.DrawString("      ", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("   Miss名店", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            yPosition += cH;
-            yPosition += cH;
-            printG.DrawString("**********欢迎光临**********", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("品名", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString("数量", printFont, myBrush, leftMargin + 80, yPosition, new StringFormat());
-            printG.DrawString("单价", printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
-            printG.DrawString("金额", printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
-            yPosition += cH;
-            foreach (TXiaoshou x in _XSS)
-            {
-                string tiaoma = x.TTiaoma.tiaoma;
-                string pinming = x.TTiaoma.pinming;
-                short shuliang = x.shuliang;
-                decimal danjia = x.danjia;
-                decimal jine = x.jine ?? 0;
-                printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
-                printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
-                printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
-                printG.DrawString(jine.ToString(), printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
-                yPosition += cH;
-                printG.DrawString(pinming, printFont, myBrush, leftMargin, yPosition, new StringFormat());
-                yPosition += cH;
-            }
-            printG.DrawString("_______________________________", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("小计", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("优惠", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString((_XSS.Sum(x => x.jine) ?? 0).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
-            yPosition += cH;
-            printG.DrawString("交易时间", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), printFont, myBrush, leftMargin + 65, yPosition, new StringFormat());
-
-            e.HasMorePages = false;
-        }
+        
 
         /// <summary>
         /// 查询销售
@@ -189,12 +93,15 @@ namespace FDXS
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
             //隐藏折扣列
-            if (LoginInfo.User.juese != (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
+            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
             {
                 col_zk.Visible = false;
                 col_ml.Visible = false;
                 col_jg.Visible = false;
             }
+
+            //显示开单
+            btn_kd_Click(null, null);
         }
 
         /// <summary>
@@ -208,7 +115,8 @@ namespace FDXS
                 _dlgKaidan = dx;
                 if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    xiaoshouDlgOK(dx.XSS, dx.Huiyuan);
+                    //xiaoshouDlgOK(dx.XSS, dx.Huiyuan);
+                    btn_sch_Click(null, null);
                 }
                 _dlgKaidan = null;
         }

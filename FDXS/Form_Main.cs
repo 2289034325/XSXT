@@ -100,6 +100,9 @@ namespace FDXS
             }
 
             this.Text += "【当前登陆：" + LoginInfo.User.yonghuming + "】";
+
+            //默认显示销售页面的开单
+            mn_main_xs_Click(null, null);
         }
 
         /// <summary>

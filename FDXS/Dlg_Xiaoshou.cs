@@ -19,19 +19,27 @@ namespace FDXS
     public partial class Dlg_xiaoshou : MyForm
     {
         private string _startTM;
-        public List<TXiaoshou> XSS;
-        public THuiyuan Huiyuan;
-        private decimal _huiyuanZK;
+        private List<TXiaoshou> _XSS;
+        private THuiyuan _Huiyuan;
+        //private decimal _huiyuanZK;
         private bool _mlAuto;
 
         public Dlg_xiaoshou(string tm)
         {
             InitializeComponent();
             _startTM = tm;
-            XSS = new List<TXiaoshou>();
-            Huiyuan = null;
-            _huiyuanZK = 10;
+            _XSS = new List<TXiaoshou>();
+            _Huiyuan = null;
+            //_huiyuanZK = 10;
             _mlAuto = true;
+
+            this.Text = "开单[当前登陆:" + LoginInfo.User.yonghuming + "]";
+            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            {
+                //店员不允许关闭窗口
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.ShowInTaskbar = false;
+            }
         }
 
         /// <summary>
@@ -133,12 +141,12 @@ namespace FDXS
         {
             //销售下拉框
             DBContext db = IDB.GetDB();
-           
-                TUser[] xss = db.GetUsersByJss(new byte[] { (byte)Tool.FD.DBCONSTS.USER_XTJS.店员, (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 });
-                Tool.CommonFunc.InitCombbox(cmb_xsy, xss, "yonghuming", "id");
-            
+
+            TUser[] xss = db.GetUsersByJss(new byte[] { (byte)Tool.FD.DBCONSTS.USER_XTJS.店员, (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 });
+            Tool.CommonFunc.InitCombbox(cmb_xsy, xss, "yonghuming", "id");
+
             //默认为当前登陆的用户
-                cmb_xsy.SelectedValue = LoginInfo.User.id;
+            cmb_xsy.SelectedValue = LoginInfo.User.id;
 
             //如果是传入了条码的构造
             if (!string.IsNullOrEmpty(_startTM))
@@ -333,9 +341,9 @@ namespace FDXS
 
                 TXiaoshou x = new TXiaoshou
                 {
-                    xiaoshoushijian = dp_xssj.Value,
+                    xiaoshoushijian = dp_xssj.Checked ? dp_xssj.Value : DateTime.Now,
                     xiaoshouyuan = cmb_xsy.Text,
-                    huiyuanid = Huiyuan == null ? null : (int?)Huiyuan.id,
+                    huiyuanid = _Huiyuan == null ? null : (int?)_Huiyuan.id,
                     tiaomaid = tmid,
                     danjia = danjia,
                     shuliang = sl,
@@ -348,9 +356,115 @@ namespace FDXS
                     shangbaoshijian = null
                 };
 
-                XSS.Add(x);
+                _XSS.Add(x);
             }
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+
+            //保存到数据库
+            TXiaoshou[] nxss = db.InsertXiaoshous(_XSS.ToArray());
+            //将积分加给会员
+            if (_Huiyuan != null)
+            {
+                decimal zj = _XSS.Sum(r => r.jine) ?? 0;
+                db.UpdateAddHuiyuanJF(_Huiyuan.id, zj);
+            }
+
+            //打印小票
+            xiaopiao();
+
+            MessageBox.Show("开单成功");
+
+            //this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            //清理变量，为下次开单做准备
+            grid_kaidan.Rows.Clear();
+            _XSS = new List<TXiaoshou>();
+            txb_tiaoma.Text = "";
+            lbl_zongjia.Text = "总价";
+            lbl_zhaoling.Text = "找零";
+            dp_xssj.Checked = false;
+            _Huiyuan = null;
+            _mlAuto = true;
+            chk_gwml.Checked = false;
+            txb_sjh.Text = "";
+            lbl_hyjf.Text = "";
+            lbl_hyxm.Text = "";
+            lbl_hyzk.Text = "";
+            txb_shishou.Text = "";
+        }
+
+        /// <summary>
+        /// 打印小票
+        /// </summary>
+        private void xiaopiao()
+        {
+            PrintController printController = new StandardPrintController();
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintController = printController;
+            printDocument.PrintPage += new PrintPageEventHandler(this.printDocument_PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+
+            try
+            {
+                printDocument.Print();
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(excep.Message, "打印出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                printDocument.PrintController.OnEndPrint(printDocument, new PrintEventArgs());
+            }
+        }
+        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Graphics printG = e.Graphics; //获得绘图对象 
+            Font printFont = new System.Drawing.Font("宋体", 9);
+            float yPosition = 0;
+            float leftMargin = 0;
+            float cH = printFont.GetHeight(printG);
+            SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
+
+            printG.DrawString("      ", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("   Miss名店", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            yPosition += cH;
+            printG.DrawString("**********欢迎光临**********", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("品名", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString("数量", printFont, myBrush, leftMargin + 80, yPosition, new StringFormat());
+            printG.DrawString("单价", printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
+            printG.DrawString("金额", printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
+            yPosition += cH;
+            foreach (TXiaoshou x in _XSS)
+            {
+                string tiaoma = x.TTiaoma.tiaoma;
+                string pinming = x.TTiaoma.pinming;
+                short shuliang = x.shuliang;
+                decimal danjia = x.danjia;
+                decimal jine = x.jine ?? 0;
+                printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
+                printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
+                printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
+                printG.DrawString(jine.ToString(), printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
+                yPosition += cH;
+                printG.DrawString(pinming, printFont, myBrush, leftMargin, yPosition, new StringFormat());
+                yPosition += cH;
+            }
+            printG.DrawString("_______________________________", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("小计", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("优惠", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString((_XSS.Sum(x => x.jine) ?? 0).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("交易时间", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), printFont, myBrush, leftMargin + 65, yPosition, new StringFormat());
+
+            e.HasMorePages = false;
         }
 
         /// <summary>
@@ -422,7 +536,7 @@ namespace FDXS
                     db.InsertHuiyuan(h);
                 }
 
-                Huiyuan = h;
+                _Huiyuan = h;
                 //按照积分折扣表给该会员应有的折扣
                 THuiyuanZK[] zks = db.GetHuiyuanZKs();
                 decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
@@ -586,7 +700,6 @@ namespace FDXS
             //抹零
             if (chk_gwml.Checked)
             {
-
                 ml = gw + ml - decimal.Truncate(ml);
             }
             //取消抹零
@@ -675,6 +788,51 @@ namespace FDXS
             {
                 dr.Cells[col_zk.Name].Value = 9;
             }
+        }
+
+        /// <summary>
+        /// 填写实收金额，计算找零
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb_shishou_TextChanged(object sender, EventArgs e)
+        {
+            decimal ys, ss;
+            if (decimal.TryParse(lbl_zongjia.Text, out ys))
+            {
+                if (decimal.TryParse(txb_shishou.Text.Trim(), out ss))
+                {
+                    lbl_zhaoling.Text = (ss - ys).ToString();
+                    return;
+                }
+            }
+
+            lbl_zhaoling.Text = "找零";
+        }
+
+        /// <summary>
+        /// 关闭的时候检查权限
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Dlg_xiaoshou_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 更改登陆用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_userchange_Click(object sender, EventArgs e)
+        {
+            //清除配置记录，并关闭当前进程
+            Settings.Default.AutoLoginDlm = "";
+            Settings.Default.AutoLoginMm = "";
+            Settings.Default.Save();
+
+            Application.Restart();
         }
     }
 }
