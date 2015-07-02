@@ -1,5 +1,6 @@
 ﻿using BIANMA.JCSJData;
 using BIANMA.JCSJValid;
+using BIANMA.Properties;
 using DB_JCSJ;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,13 @@ namespace BIANMA
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
                 }
             }
 
@@ -46,14 +47,14 @@ namespace BIANMA
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
                 _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient("WsHttpBinding_IDataService");
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCF_DATAADD);
                     _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
                 }
             }
@@ -61,7 +62,7 @@ namespace BIANMA
 
         internal static void BMZHBangding(string dlm, string mm, string zcm)
         {
-            ValidServiceClient vdc = new ValidServiceClient();
+            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService",Settings.Default.WCF_VALIDADD);
             vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
@@ -121,7 +122,7 @@ namespace BIANMA
 
         internal static void BMZHZhuce(string dlm, string mm, string xm, string zcm)
         {
-            ValidServiceClient vdc = new ValidServiceClient();
+            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCF_VALIDADD);
             vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 

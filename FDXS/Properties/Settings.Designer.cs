@@ -154,5 +154,29 @@ namespace FDXS.Properties {
                 this["DBSERVER"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("23:00:00")]
+        public string DayTaskTime {
+            get {
+                return ((string)(this["DayTaskTime"]));
+            }
+            set {
+                this["DayTaskTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int XsTaskInterval {
+            get {
+                return ((int)(this["XsTaskInterval"]));
+            }
+            set {
+                this["XsTaskInterval"] = value;
+            }
+        }
     }
 }

@@ -49,6 +49,8 @@ namespace FDXS
             Settings.Default.WCFDataADD = dataadd;
 
             Settings.Default.Save();
+
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         /// <summary>

@@ -102,7 +102,16 @@ namespace FDXS
             this.Text += "【当前登陆：" + LoginInfo.User.yonghuming + "】";
 
             //默认显示销售页面的开单
-            mn_main_xs_Click(null, null);
+            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                Dlg_xiaoshou fm = new Dlg_xiaoshou("");
+                fm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.MdiParent = this;
+                fm.Show();
+                mn_main.Visible = false;
+            }
         }
 
         /// <summary>
@@ -366,6 +375,17 @@ namespace FDXS
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Activate();
             }
+        }
+
+        /// <summary>
+        /// 系统设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_xtsz_Click(object sender, EventArgs e)
+        {
+            Dlg_AppSettings dl = new Dlg_AppSettings();
+            dl.ShowDialog();
         }
     }
 }

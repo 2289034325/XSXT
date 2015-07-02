@@ -361,7 +361,7 @@ namespace BIANMA
                 {
                     kuanhao = "",
                     xingbie = (byte)DBCONSTS.KUANHAO_XB.女,
-                    leixing = (byte)DBCONSTS.KUANHAO_LX.上衣,
+                    leixing = (byte)DBCONSTS.KUANHAO_LX.上装,
                     pinming = "",
                     beizhu = "",
                     caozuorenid = LoginInfo.User.id,

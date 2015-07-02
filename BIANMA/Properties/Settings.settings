@@ -17,5 +17,11 @@
     <Setting Name="TM_START_CHAR" Type="System.String" Scope="Application">
       <Value Profile="(Default)">10000</Value>
     </Setting>
+    <Setting Name="WCF_VALIDADD" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WCF_DATAADD" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

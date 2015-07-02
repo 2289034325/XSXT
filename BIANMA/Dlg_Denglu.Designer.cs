@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ok = new System.Windows.Forms.Button();
+            this.btn_set = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txb_mm
@@ -78,11 +79,22 @@
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
+            // btn_set
+            // 
+            this.btn_set.Location = new System.Drawing.Point(232, 101);
+            this.btn_set.Name = "btn_set";
+            this.btn_set.Size = new System.Drawing.Size(75, 23);
+            this.btn_set.TabIndex = 13;
+            this.btn_set.Text = "设置";
+            this.btn_set.UseVisualStyleBackColor = true;
+            this.btn_set.Click += new System.EventHandler(this.btn_set_Click);
+            // 
             // Dlg_Denglu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 79);
+            this.ClientSize = new System.Drawing.Size(319, 81);
+            this.Controls.Add(this.btn_set);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_mm);
             this.Controls.Add(this.txb_dlm);
@@ -104,5 +116,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.Button btn_set;
     }
 }

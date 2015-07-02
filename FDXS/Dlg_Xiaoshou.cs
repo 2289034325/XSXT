@@ -37,8 +37,8 @@ namespace FDXS
             if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
             {
                 //店员不允许关闭窗口
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                this.ShowInTaskbar = false;
+                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                //this.ShowInTaskbar = false;
             }
         }
 

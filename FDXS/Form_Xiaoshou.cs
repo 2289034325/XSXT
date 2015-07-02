@@ -101,7 +101,7 @@ namespace FDXS
             }
 
             //显示开单
-            btn_kd_Click(null, null);
+            //btn_kd_Click(null, null);
         }
 
         /// <summary>

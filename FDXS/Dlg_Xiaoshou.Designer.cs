@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_kaidan = new System.Windows.Forms.DataGridView();
             this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,14 +94,14 @@
             this.grid_kaidan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kaidan.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_kaidan.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.grid_kaidan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kaidan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tmid,
@@ -116,21 +116,21 @@
             this.col_ml,
             this.col_yingshou,
             this.col_bz});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle17;
             this.grid_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.grid_kaidan.Location = new System.Drawing.Point(0, 0);
             this.grid_kaidan.MultiSelect = false;
             this.grid_kaidan.Name = "grid_kaidan";
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle18;
             this.grid_kaidan.RowTemplate.Height = 23;
             this.grid_kaidan.Size = new System.Drawing.Size(662, 121);
             this.grid_kaidan.TabIndex = 0;
@@ -332,7 +332,7 @@
             // 
             this.chk_gwml.Appearance = System.Windows.Forms.Appearance.Button;
             this.chk_gwml.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold);
-            this.chk_gwml.Location = new System.Drawing.Point(453, 3);
+            this.chk_gwml.Location = new System.Drawing.Point(741, 2);
             this.chk_gwml.Name = "chk_gwml";
             this.chk_gwml.Size = new System.Drawing.Size(136, 96);
             this.chk_gwml.TabIndex = 12;
@@ -374,10 +374,10 @@
             // btn_userchange
             // 
             this.btn_userchange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_userchange.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_userchange.Location = new System.Drawing.Point(686, 3);
+            this.btn_userchange.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_userchange.Location = new System.Drawing.Point(741, 3);
             this.btn_userchange.Name = "btn_userchange";
-            this.btn_userchange.Size = new System.Drawing.Size(205, 36);
+            this.btn_userchange.Size = new System.Drawing.Size(150, 36);
             this.btn_userchange.TabIndex = 24;
             this.btn_userchange.Text = "更换登陆账号";
             this.btn_userchange.UseVisualStyleBackColor = true;
@@ -392,7 +392,6 @@
             this.btn_9z.TabIndex = 23;
             this.btn_9z.Text = "9折";
             this.btn_9z.UseVisualStyleBackColor = true;
-            this.btn_9z.Visible = false;
             this.btn_9z.Click += new System.EventHandler(this.btn_9z_Click);
             // 
             // btn_85z
@@ -404,7 +403,6 @@
             this.btn_85z.TabIndex = 22;
             this.btn_85z.Text = "85折";
             this.btn_85z.UseVisualStyleBackColor = true;
-            this.btn_85z.Visible = false;
             this.btn_85z.Click += new System.EventHandler(this.btn_85z_Click);
             // 
             // btn_8z
@@ -416,7 +414,6 @@
             this.btn_8z.TabIndex = 21;
             this.btn_8z.Text = "8折";
             this.btn_8z.UseVisualStyleBackColor = true;
-            this.btn_8z.Visible = false;
             this.btn_8z.Click += new System.EventHandler(this.btn_8z_Click);
             // 
             // btn_75z
@@ -428,7 +425,6 @@
             this.btn_75z.TabIndex = 20;
             this.btn_75z.Text = "75折";
             this.btn_75z.UseVisualStyleBackColor = true;
-            this.btn_75z.Visible = false;
             this.btn_75z.Click += new System.EventHandler(this.btn_75z_Click);
             // 
             // btn_7z
@@ -440,7 +436,6 @@
             this.btn_7z.TabIndex = 19;
             this.btn_7z.Text = "7折";
             this.btn_7z.UseVisualStyleBackColor = true;
-            this.btn_7z.Visible = false;
             this.btn_7z.Click += new System.EventHandler(this.btn_7z_Click);
             // 
             // cmb_xsy
@@ -642,12 +637,9 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Dlg_xiaoshou";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "开单";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Dlg_xiaoshou_FormClosing);
             this.Load += new System.EventHandler(this.Dlg_xiaoshou_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid_kaidan)).EndInit();

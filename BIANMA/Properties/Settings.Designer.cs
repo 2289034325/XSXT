@@ -67,5 +67,29 @@ namespace BIANMA.Properties {
                 return ((string)(this["TM_START_CHAR"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WCF_VALIDADD {
+            get {
+                return ((string)(this["WCF_VALIDADD"]));
+            }
+            set {
+                this["WCF_VALIDADD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WCF_DATAADD {
+            get {
+                return ((string)(this["WCF_DATAADD"]));
+            }
+            set {
+                this["WCF_DATAADD"] = value;
+            }
+        }
     }
 }

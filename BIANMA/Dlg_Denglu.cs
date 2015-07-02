@@ -39,5 +39,16 @@ namespace BIANMA
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 设置wcf地址
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_set_Click(object sender, EventArgs e)
+        {
+            Dlg_AppSettings dl = new Dlg_AppSettings();
+            dl.ShowDialog();
+        }
     }
 }
