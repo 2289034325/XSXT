@@ -21,25 +21,31 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DBUSER" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">sa</Value>
     </Setting>
     <Setting Name="DBPSW" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WCFValidADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://120.25.246.150:8000/ValidService.svc/ValidService</Value>
     </Setting>
     <Setting Name="WCFDataADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://120.25.246.150:8000/DataService.svc/wsDataService</Value>
     </Setting>
     <Setting Name="DBSERVER" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">localhost</Value>
     </Setting>
-    <Setting Name="DayTaskTime" Type="System.String" Scope="User">
+    <Setting Name="DayTaskTime" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">23:00:00</Value>
     </Setting>
-    <Setting Name="XsTaskInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="XsTaskInterval" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="LogFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">D:\Log\</Value>
+    </Setting>
+    <Setting Name="TaskLogFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tasklog.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DB_FD;
+using FDXS.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,45 +9,199 @@ using System.Timers;
 
 namespace FDXS
 {
-    public class Task
-    {       
+    public static class MyTask
+    {
         /// <summary>
         /// 每天做一次的任务
         /// </summary>
-        public void DayTask()
+        public static void DayTask()
         {
             Timer t = new Timer();
-            //1分钟检查一次
-            t.Interval = 60000;
+            //10分钟检查一次
+            t.Interval = 600000;
             t.AutoReset = true;
             t.Elapsed += new ElapsedEventHandler(DoDayTask);
             t.Start();
         }
-        public void DoDayTask(object obj, ElapsedEventArgs args)
-        {
-            try
-            {
-                
-                //上报进出货
-                //上报销售
-                //上报库存
-                //备份数据库 
-            }
-            catch (Exception ex)
-            {
- 
-            }
-        }
-
 
         /// <summary>
         /// 每天做多次的任务
         /// </summary>
-        public void DoTasks()
+        public static void Tasks()
         {
             //上报销售
-            Timer xt = new Timer();
-            xt.Interval = 60000;
+            TimeSpan it = Settings.Default.XsTaskInterval;
+            if (it.TotalSeconds == 0)
+            {
+                //间隔为0，表示不自动上报销售数据
+                return;
+            }
+            Timer t = new Timer();
+            t.Interval = it.TotalMilliseconds;
+            t.AutoReset = true;
+            t.Elapsed += new ElapsedEventHandler(DoTasks);
+            t.Start();
+        }
+        private static void DoTasks(object obj, ElapsedEventArgs args)
+        {
+            try
+            {
+                Timer t = (Timer)obj;
+                t.Stop();           
+                string file = Settings.Default.LogFilePath + DateTime.Now.ToString("yyyyMMdd") + Settings.Default.TaskLogFileName;
+                Tool.CommonFunc.Log(file, "销售开始");
+                System.Threading.Thread.Sleep(5000);
+                SBXiaoshou();
+                Tool.CommonFunc.Log(file, "销售结束");
+                t.Start();
+            }
+            catch (Exception ex)
+            {
+                //执行多次，不打log
+            }
+        }
+
+        private static void DoDayTask(object obj, ElapsedEventArgs args)
+        {
+            string file = null;
+            try
+            {
+                file = Settings.Default.LogFilePath + DateTime.Now.ToString("yyyyMMdd") + Settings.Default.TaskLogFileName;
+
+                //检查当前时间是否跟设定的任务时间一致
+                TimeSpan ttime = Settings.Default.DayTaskTime;
+                TimeSpan tnow = DateTime.Now.TimeOfDay;
+                if (tnow < ttime)
+                {
+                    return;
+                }
+
+                //停止timer，防止重复触发
+                Timer t = (Timer)obj;
+                t.Stop();           
+
+                //上报进出货
+                Tool.CommonFunc.Log(file, "进货开始");
+                SBJinchuhuo();
+                Tool.CommonFunc.Log(file, "进货结束");
+                //上报销售
+                Tool.CommonFunc.Log(file, "销售开始");
+                SBXiaoshou();
+                Tool.CommonFunc.Log(file, "销售结束");
+                //上报库存
+                Tool.CommonFunc.Log(file, "库存开始");
+                SBKucun();
+                Tool.CommonFunc.Log(file, "库存结束");
+                //备份数据库 
+                BackUpDB();     
+
+                //关机
+                //System.Diagnostics.Process.Start("cmd.exe", "shutdown -f -s -t 1");
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.Log(file, ex.Message + "\r\n" + ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// 备份数据库
+        /// </summary>
+        public static void BackUpDB()
+        {
+            
+        }
+
+        /// <summary>
+        /// 上报库存
+        /// </summary>
+        public static void SBKucun()
+        {
+            DBContext db = IDB.GetDB();
+            //取不为0的库存
+            VKucun[] ks = db.GetKucunsByCond(1, null);
+
+            //做服务接口参数
+            JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX
+            {
+                tiaomaid = r.id,
+                shuliang = r.shuliang
+            }).ToArray();
+
+            //调用服务接口
+            JCSJWCF.ShangbaoKucun_FD(fks);
+        }
+
+        /// <summary>
+        /// 上报销售数据
+        /// </summary>
+        public static void SBXiaoshou()
+        {
+            DBContext db = IDB.GetDB();
+            //取得未上报的销售记录
+            TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
+            if (xs.Count() == 0)
+            {
+                return;
+            }
+
+            //做借口参数
+            JCSJData.TXiaoshou[] jxss = xs.Select(r => new JCSJData.TXiaoshou
+            {
+                oid = r.id,
+                xiaoshoushijian = r.xiaoshoushijian,
+                xiaoshouyuan = r.xiaoshouyuan,
+                tiaomaid = r.tiaomaid,
+                huiyuanid = r.huiyuanid,
+                shuliang = r.shuliang,
+                danjia = r.danjia,
+                zhekou = r.zhekou,
+                moling = r.moling,
+                jine = r.jine.Value
+            }).ToArray();
+
+            //调用服务接口
+            JCSJWCF.ShangbaoXiaoshou(jxss);
+
+            //更新本地上报时间
+            int[] ids = xs.Select(r => r.id).ToArray();
+            db.UpdateXiaoshouShangbaoshijian(ids, DateTime.Now);
+        }
+
+        /// <summary>
+        /// 上报进出货
+        /// </summary>
+        public static void SBJinchuhuo()
+        {
+            //取得所有未上报的数据
+            DBContext db = IDB.GetDB();
+            TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
+            if (jcs.Count() == 0)
+            {
+                return;
+            }
+
+            //做接口参数
+            JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
+            {
+                oid = r.id,
+                fangxiang = r.fangxiang,
+                laiyuanquxiang = r.laiyuanquxiang,
+                beizhu = r.beizhu,
+                fashengshijian = r.charushijian,
+                TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX
+                {
+                    tiaomaid = mr.tiaomaid,
+                    shuliang = mr.shuliang
+                }).ToArray()
+            }).ToArray();
+
+            //调用服务接口
+            JCSJWCF.ShangbaoJinchuhuo_FD(jcjcs);
+
+            //更新本地上报时间
+            int[] ids = jcs.Select(r => r.id).ToArray();
+            db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
         }
     }
 }

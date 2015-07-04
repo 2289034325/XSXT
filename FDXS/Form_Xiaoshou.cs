@@ -234,54 +234,23 @@ namespace FDXS
             Dlg_Progress dp = new Dlg_Progress();
             btn_shangbao_Click_sync(dp);
             dp.ShowDialog();  
-
-
-            
         }
 
         private async  void btn_shangbao_Click_sync(Dlg_Progress dp)
         {
            await Task.Run(()=>
-           {
-               DBContext db = IDB.GetDB();
-               //取得未上报的销售记录
-               TXiaoshou[] xs = db.GetXiaoshousWeishangbao();
-               if (xs.Count() == 0)
-               {
-                   dp.lbl_msg.Text = "没有需要上报的数据";
-                   return;
-               }
-
-               JCSJData.TXiaoshou[] jxss = xs.Select(r => new JCSJData.TXiaoshou
-               {
-                   oid = r.id,
-                   xiaoshoushijian = r.xiaoshoushijian,
-                   xiaoshouyuan = r.xiaoshouyuan,
-                   tiaomaid = r.tiaomaid,
-                   huiyuanid = r.huiyuanid,
-                   shuliang = r.shuliang,
-                   danjia = r.danjia,
-                   zhekou = r.zhekou,
-                   moling = r.moling,
-                   jine = r.jine.Value
-               }).ToArray();
-
+           {              
                try
                {
-                   JCSJWCF.ShangbaoXiaoshou(jxss);
-                   //更新本地上报时间
-                   int[] ids = xs.Select(r => r.id).ToArray();
-                   db.UpdateXiaoshouShangbaoshijian(ids, DateTime.Now);
+                   MyTask.SBXiaoshou();
+                   dp.lbl_msg.Text = "完成";
                }
                catch (Exception ex)
                {
                    dp.lbl_msg.Text = ex.Message;
-                   return;
                }
-
-
-               dp.lbl_msg.Text = "完成";
            });
+
            dp.ControlBox = true;
         }
     }

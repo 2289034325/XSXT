@@ -89,26 +89,15 @@ namespace FDXS
         {
             await Task.Run(() => 
             {
-                DBContext db = IDB.GetDB();
-                VKucun[] ks = db.GetKucunsByCond(1, null);
-
-                JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX
-                {
-                    tiaomaid = r.id,
-                    shuliang = r.shuliang
-                }).ToArray();
-
                 try
                 {
-                    JCSJWCF.ShangbaoKucun_FD(fks);
+                    MyTask.SBKucun();
+                    dp.lbl_msg.Text = "完成";
                 }
                 catch (Exception ex)
                 {
                     dp.lbl_msg.Text = ex.Message;
-                    return;
                 }
-
-                dp.lbl_msg.Text = "完成";
             });
             dp.ControlBox = true;
         }

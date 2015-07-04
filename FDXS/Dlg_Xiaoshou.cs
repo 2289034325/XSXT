@@ -148,6 +148,9 @@ namespace FDXS
             //默认为当前登陆的用户
             cmb_xsy.SelectedValue = LoginInfo.User.id;
 
+            //今日销售
+            refreshJinriXS();
+
             //如果是传入了条码的构造
             if (!string.IsNullOrEmpty(_startTM))
             {
@@ -180,6 +183,19 @@ namespace FDXS
 
                 addKaidan(xs);
             }
+        }
+
+        /// <summary>
+        /// 今日销售
+        /// </summary>
+        private void refreshJinriXS()
+        {
+            DBContext db = IDB.GetDB();
+            TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date);
+            int xsl = jrxss.Sum(r => r.shuliang);
+            decimal xse = jrxss.Sum(r => r.jine) ?? 0;
+            lbl_jrxl.Text = xsl.ToString();
+            lbl_jrxse.Text = xse.ToString();
         }
 
         /// <summary>
@@ -389,6 +405,7 @@ namespace FDXS
             lbl_hyxm.Text = "";
             lbl_hyzk.Text = "";
             txb_shishou.Text = "";
+            refreshJinriXS();
         }
 
         /// <summary>

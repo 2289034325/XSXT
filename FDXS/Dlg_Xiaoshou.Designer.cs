@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_kaidan = new System.Windows.Forms.DataGridView();
             this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +55,11 @@
             this.chk_gwml = new System.Windows.Forms.CheckBox();
             this.txb_tiaoma = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_jrxse = new System.Windows.Forms.Label();
+            this.lbl_jrxl = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.btn_userchange = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.btn_9z = new System.Windows.Forms.Button();
             this.btn_85z = new System.Windows.Forms.Button();
             this.btn_8z = new System.Windows.Forms.Button();
@@ -94,14 +98,14 @@
             this.grid_kaidan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kaidan.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_kaidan.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grid_kaidan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kaidan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tmid,
@@ -116,21 +120,21 @@
             this.col_ml,
             this.col_yingshou,
             this.col_bz});
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.grid_kaidan.Location = new System.Drawing.Point(0, 0);
             this.grid_kaidan.MultiSelect = false;
             this.grid_kaidan.Name = "grid_kaidan";
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grid_kaidan.RowTemplate.Height = 23;
             this.grid_kaidan.Size = new System.Drawing.Size(662, 121);
             this.grid_kaidan.TabIndex = 0;
@@ -343,7 +347,7 @@
             // txb_tiaoma
             // 
             this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_tiaoma.Location = new System.Drawing.Point(138, 9);
+            this.txb_tiaoma.Location = new System.Drawing.Point(138, 25);
             this.txb_tiaoma.Name = "txb_tiaoma";
             this.txb_tiaoma.Size = new System.Drawing.Size(147, 30);
             this.txb_tiaoma.TabIndex = 8;
@@ -351,7 +355,11 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lbl_jrxse);
+            this.panel2.Controls.Add(this.lbl_jrxl);
+            this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.btn_userchange);
+            this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.chk_gwml);
             this.panel2.Controls.Add(this.btn_9z);
             this.panel2.Controls.Add(this.btn_85z);
@@ -371,17 +379,57 @@
             this.panel2.Size = new System.Drawing.Size(894, 103);
             this.panel2.TabIndex = 2;
             // 
+            // lbl_jrxse
+            // 
+            this.lbl_jrxse.AutoSize = true;
+            this.lbl_jrxse.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_jrxse.Location = new System.Drawing.Point(225, 5);
+            this.lbl_jrxse.Name = "lbl_jrxse";
+            this.lbl_jrxse.Size = new System.Drawing.Size(49, 14);
+            this.lbl_jrxse.TabIndex = 15;
+            this.lbl_jrxse.Text = "销售额";
+            // 
+            // lbl_jrxl
+            // 
+            this.lbl_jrxl.AutoSize = true;
+            this.lbl_jrxl.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_jrxl.Location = new System.Drawing.Point(91, 6);
+            this.lbl_jrxl.Name = "lbl_jrxl";
+            this.lbl_jrxl.Size = new System.Drawing.Size(35, 14);
+            this.lbl_jrxl.TabIndex = 13;
+            this.lbl_jrxl.Text = "销量";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(135, 5);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(84, 14);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "今日销售额:";
+            // 
             // btn_userchange
             // 
             this.btn_userchange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_userchange.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_userchange.Location = new System.Drawing.Point(741, 3);
+            this.btn_userchange.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_userchange.Location = new System.Drawing.Point(806, 3);
             this.btn_userchange.Name = "btn_userchange";
-            this.btn_userchange.Size = new System.Drawing.Size(150, 36);
+            this.btn_userchange.Size = new System.Drawing.Size(85, 24);
             this.btn_userchange.TabIndex = 24;
             this.btn_userchange.Text = "更换登陆账号";
             this.btn_userchange.UseVisualStyleBackColor = true;
             this.btn_userchange.Click += new System.EventHandler(this.btn_userchange_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(15, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 14);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "今日销量:";
             // 
             // btn_9z
             // 
@@ -442,7 +490,7 @@
             // 
             this.cmb_xsy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_xsy.FormattingEnabled = true;
-            this.cmb_xsy.Location = new System.Drawing.Point(363, 16);
+            this.cmb_xsy.Location = new System.Drawing.Point(363, 32);
             this.cmb_xsy.Name = "cmb_xsy";
             this.cmb_xsy.Size = new System.Drawing.Size(84, 20);
             this.cmb_xsy.TabIndex = 18;
@@ -451,7 +499,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(291, 12);
+            this.label4.Location = new System.Drawing.Point(291, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(66, 27);
             this.label4.TabIndex = 17;
@@ -495,7 +543,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Location = new System.Drawing.Point(12, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 27);
             this.label3.TabIndex = 9;
@@ -705,5 +753,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_yingshou;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_bz;
         private System.Windows.Forms.Button btn_userchange;
+        private System.Windows.Forms.Label lbl_jrxse;
+        private System.Windows.Forms.Label lbl_jrxl;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label8;
     }
 }

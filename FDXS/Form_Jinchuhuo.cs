@@ -596,44 +596,15 @@ namespace FDXS
         {
             await Task.Run(() => 
             {
-                //取得所有未上报的数据
-                DBContext db = IDB.GetDB();
-                TJinchuhuo[] jcs = db.GetJinchuhuosWeishangbao();
-                if (jcs.Count() == 0)
+                try 
                 {
-                    dp.lbl_msg.Text = "没有需要上报的数据";
-                    return;
+                    MyTask.SBJinchuhuo();
+                    dp.lbl_msg.Text = "完成";
                 }
-
-                JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
-                {
-                    oid = r.id,
-                    fangxiang = r.fangxiang,
-                    laiyuanquxiang = r.laiyuanquxiang,
-                    beizhu = r.beizhu,
-                    fashengshijian = r.charushijian,
-                    TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX
-                    {
-                        tiaomaid = mr.tiaomaid,
-                        shuliang = mr.shuliang
-                    }).ToArray()
-                }).ToArray();
-
-                try
-                {
-                    JCSJWCF.ShangbaoJinchuhuo_FD(jcjcs);
-                }
-                catch (Exception ex)
+                catch ( Exception ex)
                 {
                     dp.lbl_msg.Text = ex.Message;
-                    return;
                 }
-
-                //更新本地上报时间
-                int[] ids = jcs.Select(r => r.id).ToArray();
-                db.UpdateJinchuhuoShangbaoshijian(ids, DateTime.Now);
-
-                dp.lbl_msg.Text = "完成";
             });
             dp.ControlBox = true;
         }

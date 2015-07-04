@@ -97,7 +97,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
         public string DBUSER {
             get {
                 return ((string)(this["DBUSER"]));
@@ -121,7 +121,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://120.25.246.150:8000/ValidService.svc/ValidService")]
         public string WCFValidADD {
             get {
                 return ((string)(this["WCFValidADD"]));
@@ -133,7 +133,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://120.25.246.150:8000/DataService.svc/wsDataService")]
         public string WCFDataADD {
             get {
                 return ((string)(this["WCFDataADD"]));
@@ -145,7 +145,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string DBSERVER {
             get {
                 return ((string)(this["DBSERVER"]));
@@ -158,9 +158,9 @@ namespace FDXS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("23:00:00")]
-        public string DayTaskTime {
+        public global::System.TimeSpan DayTaskTime {
             get {
-                return ((string)(this["DayTaskTime"]));
+                return ((global::System.TimeSpan)(this["DayTaskTime"]));
             }
             set {
                 this["DayTaskTime"] = value;
@@ -169,13 +169,31 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int XsTaskInterval {
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00")]
+        public global::System.TimeSpan XsTaskInterval {
             get {
-                return ((int)(this["XsTaskInterval"]));
+                return ((global::System.TimeSpan)(this["XsTaskInterval"]));
             }
             set {
                 this["XsTaskInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Log\\")]
+        public string LogFilePath {
+            get {
+                return ((string)(this["LogFilePath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("tasklog.txt")]
+        public string TaskLogFileName {
+            get {
+                return ((string)(this["TaskLogFileName"]));
             }
         }
     }

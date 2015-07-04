@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.Serialization;
@@ -341,6 +342,23 @@ namespace Tool
                 {
                     yield return element;
                 }
+            }
+        }
+
+        /// <summary>
+        /// log工具
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="msg"></param>
+        public static void Log(string file, string msg)
+        {
+            try
+            {
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + msg + "\r\n");
+            }
+            finally
+            {
+ 
             }
         }
     }

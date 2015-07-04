@@ -34,6 +34,7 @@ namespace FDXS
             string validadd = txb_validadd.Text.Trim();
             string dataadd = txb_dataadd.Text.Trim();
 
+
             if (string.IsNullOrEmpty(dbname) || string.IsNullOrEmpty(dbuser) ||
                 string.IsNullOrEmpty(dbpsw) || string.IsNullOrEmpty(validadd) ||
                 string.IsNullOrEmpty(dataadd))
@@ -47,6 +48,8 @@ namespace FDXS
             Settings.Default.DBPSW = dbpsw;
             Settings.Default.WCFValidADD = validadd;
             Settings.Default.WCFDataADD = dataadd;
+            Settings.Default.DayTaskTime = dp_daytasktime.Value.TimeOfDay;
+            Settings.Default.XsTaskInterval = dp_xsinterval.Value.TimeOfDay;
 
             Settings.Default.Save();
 
@@ -65,6 +68,8 @@ namespace FDXS
             txb_dbpsw.Text = Settings.Default.DBPSW;
             txb_validadd.Text = Settings.Default.WCFValidADD;
             txb_dataadd.Text = Settings.Default.WCFDataADD.ToString();
+            dp_daytasktime.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.DayTaskTime);
+            dp_xsinterval.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.XsTaskInterval);
         }
     }
 }

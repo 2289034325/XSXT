@@ -80,15 +80,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            //LoginInfo.User = new TUser
-            //{
-            //    id = 1,
-            //    juese = 1,
-            //    dengluming = "2",
-            //    yonghuming = "2"
-            //};
-
-
             //登陆检查
             if (LoginInfo.User == null)
             {
@@ -112,6 +103,10 @@ namespace FDXS
                 fm.Show();
                 mn_main.Visible = false;
             }
+
+            //启动任务
+            MyTask.DayTask();
+            MyTask.Tasks();
         }
 
         /// <summary>
