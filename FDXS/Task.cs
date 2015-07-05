@@ -44,21 +44,22 @@ namespace FDXS
         }
         private static void DoTasks(object obj, ElapsedEventArgs args)
         {
+            Timer t = (Timer)obj;
+            t.Stop();           
             try
             {
-                Timer t = (Timer)obj;
-                t.Stop();           
                 string file = Settings.Default.LogFilePath + DateTime.Now.ToString("yyyyMMdd") + Settings.Default.TaskLogFileName;
                 Tool.CommonFunc.Log(file, "销售开始");
                 System.Threading.Thread.Sleep(5000);
                 SBXiaoshou();
                 Tool.CommonFunc.Log(file, "销售结束");
-                t.Start();
             }
             catch (Exception ex)
             {
                 //执行多次，不打log
             }
+
+            t.Start();
         }
 
         private static void DoDayTask(object obj, ElapsedEventArgs args)
@@ -96,7 +97,7 @@ namespace FDXS
                 BackUpDB();     
 
                 //关机
-                //System.Diagnostics.Process.Start("cmd.exe", "shutdown -f -s -t 1");
+                System.Diagnostics.Process.Start("shutdown.exe", "-f -s -t 1");
             }
             catch (Exception ex)
             {

@@ -14,15 +14,22 @@ namespace JCSJGL
         {
             //登陆验证
             TUser u = (TUser)Session["USER"];
+            string uid = Request["uid"];
+            string psw = Request["psw"];
+            string pms = "";
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(psw))
+            {
+                pms = "uid=" + uid + "&psw=" + psw + "&";
+            }
             if (u == null)
             {
-                Response.Redirect("Login.aspx?despage=" + Request.RawUrl.Replace("/",""));
+                Response.Redirect("Login.aspx?" + pms + "despage=" + Request.FilePath.Replace("/", ""));
             }
             //权限检查
             else
             {
                 //用户界面只有系统管理员有权限
-                if (Request.RawUrl == "/Page_User.aspx")
+                if (Request.FilePath == "/Page_User.aspx")
                 {
                     if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                     {

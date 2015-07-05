@@ -139,6 +139,13 @@ namespace FDXS
         /// <param name="e"></param>
         private void Dlg_xiaoshou_Load(object sender, EventArgs e)
         {
+            //折扣按钮
+            btn_7z.Visible = false;
+            btn_75z.Visible = false;
+            btn_8z.Visible = false;
+            btn_85z.Visible = false;
+            btn_9z.Visible = false;
+
             //销售下拉框
             DBContext db = IDB.GetDB();
 
@@ -850,6 +857,31 @@ namespace FDXS
             Settings.Default.Save();
 
             Application.Restart();
+        }
+
+        /// <summary>
+        /// 显示折扣按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_zkview_Click(object sender, EventArgs e)
+        {
+            if (btn_7z.Visible)
+            {
+                btn_7z.Visible = false;
+                btn_75z.Visible = false;
+                btn_8z.Visible = false;
+                btn_85z.Visible = false;
+                btn_9z.Visible = false;
+            }
+            else
+            {
+                btn_7z.Visible = true;
+                btn_75z.Visible = true;
+                btn_8z.Visible = true;
+                btn_85z.Visible = true;
+                btn_9z.Visible = true;
+            }
         }
     }
 }

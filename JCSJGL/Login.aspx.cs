@@ -16,30 +16,45 @@ namespace JCSJGL
             {
                 string dlm = Request["txb_dlm"];
                 string mm = Request["txb_mm"];
-                string md5mm = Tool.CommonFunc.MD5_16(mm);
-
-                DBContext db = new DBContext();
-                TUser u = db.GetUser(dlm, md5mm);
-                if (u == null)
+                doLogin(dlm,mm);
+            }
+            else
+            {
+                string uid = Request["uid"];
+                string psw = Request["psw"];
+                
+                if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(psw))
                 {
-                    Response.Redirect("Page_Error.aspx?ErrorMsg=用户名或密码不正确");
+                    doLogin(uid, psw);
+                }
+            }
+        }
+
+        private void doLogin(string dlm, string mm)
+        {
+            string md5mm = Tool.CommonFunc.MD5_16(mm);
+
+            DBContext db = new DBContext();
+            TUser u = db.GetUser(dlm, md5mm);
+            if (u == null)
+            {
+                Response.Redirect("Page_Error.aspx?ErrorMsg=用户名或密码不正确");
+            }
+            else
+            {
+                if (u.zhuangtai == (byte)Tool.JCSJ.DBCONSTS.USER_ZT.停用)
+                {
+                    Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
                 }
                 else
                 {
-                    if (u.zhuangtai == (byte)Tool.JCSJ.DBCONSTS.USER_ZT.停用)
+                    Session["USER"] = u;
+                    string page = Request["despage"];
+                    if (string.IsNullOrEmpty(page))
                     {
-                        Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
+                        page = "Page_Tiaoma.aspx";
                     }
-                    else
-                    {
-                        Session["USER"] = u;
-                        string page = Request["despage"];
-                        if (string.IsNullOrEmpty(page))
-                        {
-                            page = "Page_Tiaoma.aspx";
-                        }
-                        Response.Redirect(page);
-                    }
+                    Response.Redirect(page);
                 }
             }
         }
