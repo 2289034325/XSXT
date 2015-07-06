@@ -37,12 +37,6 @@
             this.btn_edit = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grid_gys = new System.Windows.Forms.DataGridView();
-            this.btn_refresh = new System.Windows.Forms.Button();
-            this.btn_add = new System.Windows.Forms.Button();
-            this.txb_dz = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txb_dh = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_lxr = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +45,12 @@
             this.col_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_refresh = new System.Windows.Forms.Button();
+            this.btn_add = new System.Windows.Forms.Button();
+            this.txb_dz = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txb_dh = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -173,58 +173,6 @@
             this.grid_gys.SelectionChanged += new System.EventHandler(this.grid_gys_SelectionChanged);
             this.grid_gys.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_gys_UserDeletingRow);
             // 
-            // btn_refresh
-            // 
-            this.btn_refresh.Location = new System.Drawing.Point(717, 18);
-            this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.Size = new System.Drawing.Size(75, 23);
-            this.btn_refresh.TabIndex = 14;
-            this.btn_refresh.Text = "刷新";
-            this.btn_refresh.UseVisualStyleBackColor = true;
-            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
-            // 
-            // btn_add
-            // 
-            this.btn_add.Location = new System.Drawing.Point(717, 51);
-            this.btn_add.Name = "btn_add";
-            this.btn_add.Size = new System.Drawing.Size(75, 23);
-            this.btn_add.TabIndex = 13;
-            this.btn_add.Text = "增加";
-            this.btn_add.UseVisualStyleBackColor = true;
-            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
-            // 
-            // txb_dz
-            // 
-            this.txb_dz.Location = new System.Drawing.Point(59, 51);
-            this.txb_dz.Name = "txb_dz";
-            this.txb_dz.Size = new System.Drawing.Size(409, 21);
-            this.txb_dz.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 12);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "地址";
-            // 
-            // txb_dh
-            // 
-            this.txb_dh.Location = new System.Drawing.Point(368, 16);
-            this.txb_dh.Name = "txb_dh";
-            this.txb_dh.Size = new System.Drawing.Size(100, 21);
-            this.txb_dh.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(321, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "电话";
-            // 
             // col_id
             // 
             this.col_id.DataPropertyName = "id";
@@ -282,6 +230,58 @@
             this.col_xgsj.Name = "col_xgsj";
             this.col_xgsj.ReadOnly = true;
             // 
+            // btn_refresh
+            // 
+            this.btn_refresh.Location = new System.Drawing.Point(717, 18);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(75, 23);
+            this.btn_refresh.TabIndex = 14;
+            this.btn_refresh.Text = "刷新";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+            // 
+            // btn_add
+            // 
+            this.btn_add.Location = new System.Drawing.Point(717, 51);
+            this.btn_add.Name = "btn_add";
+            this.btn_add.Size = new System.Drawing.Size(75, 23);
+            this.btn_add.TabIndex = 13;
+            this.btn_add.Text = "增加";
+            this.btn_add.UseVisualStyleBackColor = true;
+            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
+            // 
+            // txb_dz
+            // 
+            this.txb_dz.Location = new System.Drawing.Point(59, 51);
+            this.txb_dz.Name = "txb_dz";
+            this.txb_dz.Size = new System.Drawing.Size(409, 21);
+            this.txb_dz.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 54);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "地址";
+            // 
+            // txb_dh
+            // 
+            this.txb_dh.Location = new System.Drawing.Point(368, 16);
+            this.txb_dh.Name = "txb_dh";
+            this.txb_dh.Size = new System.Drawing.Size(100, 21);
+            this.txb_dh.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(321, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "电话";
+            // 
             // Dlg_Gongyingshang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -291,6 +291,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Gongyingshang";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "供应商信息";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

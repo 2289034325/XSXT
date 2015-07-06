@@ -18,10 +18,10 @@
       <Value Profile="(Default)">10000</Value>
     </Setting>
     <Setting Name="WCF_VALIDADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://localhost/JCSJWCF/ValidService.svc/ValidService</Value>
     </Setting>
     <Setting Name="WCF_DATAADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://localhost/JCSJWCF/DataService.svc/wsDataService</Value>
     </Setting>
   </Settings>
 </SettingsFile>

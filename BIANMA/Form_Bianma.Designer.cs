@@ -86,8 +86,8 @@
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mni_khxx,
             this.mni_gysxx,
-            this.mni_addxkh,
             this.mni_addjkh,
+            this.mni_addxkh,
             this.mni_addsm,
             this.计算售价ToolStripMenuItem,
             this.生成款号ToolStripMenuItem,
@@ -132,8 +132,8 @@
             // mni_addsm
             // 
             this.mni_addsm.Name = "mni_addsm";
-            this.mni_addsm.Size = new System.Drawing.Size(68, 21);
-            this.mni_addsm.Text = "新增色码";
+            this.mni_addsm.Size = new System.Drawing.Size(56, 21);
+            this.mni_addsm.Text = "新色码";
             this.mni_addsm.Click += new System.EventHandler(this.mni_addsm_Click);
             // 
             // 计算售价ToolStripMenuItem
@@ -259,15 +259,15 @@
             // mni_bqdy
             // 
             this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(124, 22);
+            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
             this.mni_bqdy.Text = "标签打印";
             this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
             // mni_fddr
             // 
             this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(124, 22);
-            this.mni_fddr.Text = "分店导入";
+            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
+            this.mni_fddr.Text = "条码数量清单";
             this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
             // grid_all

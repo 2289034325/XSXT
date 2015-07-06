@@ -43,6 +43,7 @@
             this.txb_mm.PasswordChar = '*';
             this.txb_mm.Size = new System.Drawing.Size(100, 21);
             this.txb_mm.TabIndex = 11;
+            this.txb_mm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_mm_KeyDown);
             // 
             // txb_dlm
             // 
@@ -103,6 +104,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Denglu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登陆";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -121,6 +121,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Jiazai";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "从服务器加载条码信息";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -70,7 +70,7 @@ namespace BIANMA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/JCSJWCF/ValidService.svc/ValidService")]
         public string WCF_VALIDADD {
             get {
                 return ((string)(this["WCF_VALIDADD"]));
@@ -82,7 +82,7 @@ namespace BIANMA.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/JCSJWCF/DataService.svc/wsDataService")]
         public string WCF_DATAADD {
             get {
                 return ((string)(this["WCF_DATAADD"]));

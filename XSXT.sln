@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIANMA", "BIANMA\BIANMA.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTranslate", "DataTranslate\DataTranslate.csproj", "{F2405033-2511-4365-8F07-7989FB98FBE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBBackTool", "DBBackTool\DBBackTool.csproj", "{489040ED-4797-41EB-930D-7DBC7659CECC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,14 @@ Global
 		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|x64.ActiveCfg = Release|Any CPU
 		{F2405033-2511-4365-8F07-7989FB98FBE6}.Release|x86.ActiveCfg = Release|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Release|x64.ActiveCfg = Release|Any CPU
+		{489040ED-4797-41EB-930D-7DBC7659CECC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

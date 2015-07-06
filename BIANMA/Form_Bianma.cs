@@ -178,8 +178,13 @@ namespace BIANMA
             //新款，隔款改变行背景色
             if (index == null)
             {
-                int ni = grid_all.Rows.Add(item);                
+                //删除最后一行的操作会导致_rowColor不准确。在这里将其纠正为最后一行的颜色
+                if (grid_all.Rows.Count > 0)
+                {
+                    _rowColor = grid_all.Rows[grid_all.Rows.Count - 1].DefaultCellStyle.BackColor;
+                }
 
+                int ni = grid_all.Rows.Add(item);
                 if (_rowColor == _color1)
                 {
                     grid_all.Rows[ni].DefaultCellStyle.BackColor = _color2;
@@ -321,7 +326,6 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addkh_Click(object sender, EventArgs e)
         {
-            grid_all.ClearSelection();
             addKuanhao(true);            
         }
 
@@ -332,27 +336,13 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addjkh_Click(object sender, EventArgs e)
         {
-            //addKuanhao(new TKuanhaoExtend
-            //{
-            //    idex = getClientId(),
-            //    xj = XTCONSTS.KUANHAO_XINJIU.旧款,
-            //    kuanhao = new TKuanhao
-            //    {
-            //        kuanhao = "",
-            //        xingbie = (byte)DBCONSTS.KUANHAO_XB.女,
-            //        leixing = (byte)DBCONSTS.KUANHAO_LX.衣服,
-            //        pinming = "",
-            //        beizhu = "",
-            //        caozuorenid = LoginInfo.User.id
-            //    },
-            //    tms = new List<TTiaomaExtend>()
-            //});
-            grid_all.ClearSelection();
             addKuanhao(false);
         }
 
         private void addKuanhao(bool isNew)
         {
+            grid_all.ClearSelection();
+
             TKuanhaoExtend tk = new TKuanhaoExtend
             {
                 idex = getClientId(),
@@ -637,63 +627,11 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_addsm_Click(object sender, EventArgs e)
         {
-            //DataGridViewRow kdr = null;
-            //if (grid_kuanhao.SelectedRows.Count != 0 )
-            //{
-            //    kdr = grid_kuanhao.SelectedRows[0];
-            //}
-            //else if(grid_kuanhao.SelectedCells.Count != 0)
-            //{
-            //    kdr = grid_kuanhao.SelectedCells[0].OwningRow;
-            //}
+            addSema();
+        }
 
-            //if (kdr == null)
-            //{
-            //    MessageBox.Show("请先选中一行款号");
-            //    return;
-            //}
-
-            //TTiaomaExtend tx;
-            //TKuanhaoExtend kx = (TKuanhaoExtend)kdr.Cells[col_kh_khex.Name].Value;
-            //List<TTiaomaExtend> ts = kx.tms;
-
-            //if (ts.Count != 0)
-            //{
-            //    tx = (TTiaomaExtend)ts[ts.Count() - 1].Clone();
-            //    tx.xj = XTCONSTS.TIAOMA_XINJIU.新条码;
-            //    tx.idex = getClientId();
-            //    tx.tiaoma.tiaoma = "";
-            //    tx.tiaoma.caozuorenid = LoginInfo.User.id;
-            //    tx.tiaoma.charushijian = DateTime.Now;
-            //    tx.tiaoma.xiugaishijian = DateTime.Now;
-            //}
-            //else
-            //{
-            //    tx = new TTiaomaExtend()
-            //    {
-            //        idex = getClientId(),
-            //        //khidex = kx.idex,
-            //        xj = XTCONSTS.TIAOMA_XINJIU.新条码,
-            //        tiaoma = new TTiaoma
-            //        {
-            //            kuanhaoid = kx.kuanhao.id,
-            //            tiaoma = "",
-            //            gyskuanhao = "",
-            //            yanse = "",
-            //            chima = "",
-            //            jinjia = 0,
-            //            shoujia = 0,
-            //            caozuorenid = LoginInfo.User.id,
-            //            charushijian = DateTime.Now,
-            //            xiugaishijian = DateTime.Now
-            //        },
-            //        shuliang = 1
-            //    };
-            //}
-
-            //ts.Add(tx);
-            //addTiaoma(tx);
-
+        private void addSema()
+        {
             if (_khs.Count() == 0)
             {
                 MessageBox.Show("请先增加一个款号");
@@ -2003,6 +1941,16 @@ namespace BIANMA
             if (e.Control && e.KeyCode == Keys.S)
             {
                 localSave();
+            }
+            //增加一个款号
+            else if (e.Control && !e.Alt && e.KeyCode == Keys.Add)
+            {
+                addKuanhao(true);   
+            }
+            //增加一个色码
+            else if (e.Control && e.Alt && e.KeyCode == Keys.Add)
+            {
+                addSema();
             }
         }
 

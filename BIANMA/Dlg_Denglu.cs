@@ -50,5 +50,13 @@ namespace BIANMA
             Dlg_AppSettings dl = new Dlg_AppSettings();
             dl.ShowDialog();
         }
+
+        private void txb_mm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_ok_Click(null, null);
+            }
+        }
     }
 }

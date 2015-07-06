@@ -295,6 +295,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Dlg_Kuanhao";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "款号信息";
             this.Load += new System.EventHandler(this.Dlg_Kuanhao_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
