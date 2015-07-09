@@ -20,14 +20,14 @@ namespace DB_CK
         /// <param name="Server"></param>
         /// <param name="User"></param>
         /// <param name="Psw"></param>
-        public Entities(string Server, string User, string Psw)
+        public Entities(string Server,string DBName, string User, string Psw)
             : base(new System.Data.EntityClient.EntityConnectionStringBuilder
             {
                 Metadata = "res://*",
                 Provider = "System.Data.SqlClient",
                 ProviderConnectionString = new System.Data.SqlClient.SqlConnectionStringBuilder
                 {
-                    InitialCatalog = "CK",
+                    InitialCatalog = DBName,
                     DataSource = Server,
                     IntegratedSecurity = false,
                     UserID = User,                

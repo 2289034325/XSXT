@@ -610,6 +610,11 @@ namespace CKGL
             DBContext db = IDB.GetDB();
             //取得数据
             TChuruku crk = db.GetChurukuById(id);
+            if (crk.fangxiang != (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出)
+            {
+                MessageBox.Show("只有出货清单可以直接给分店下载");
+                return;
+            }
             if (crk.shangbaoshijian == null)
             {
                 MessageBox.Show("请先上报进出货数据");

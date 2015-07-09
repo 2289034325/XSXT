@@ -12,7 +12,7 @@ namespace FDXS
     {
         public static DBContext GetDB()
         {
-            return new DBContext(Settings.Default.DBSERVER, Settings.Default.DBUSER, Settings.Default.DBPSW);
+            return new DBContext(Settings.Default.DBSERVER, Settings.Default.DBName,Settings.Default.DBUSER, Settings.Default.DBPSW);
         }
     }
 }

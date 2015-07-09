@@ -24,14 +24,14 @@ namespace DB_FD
         /// <param name="Server"></param>
         /// <param name="User"></param>
         /// <param name="Psw"></param>
-        public FDEntities(string Server,string User,string Psw)
+        public FDEntities(string Server,string DBName,string User,string Psw)
             : base(new System.Data.EntityClient.EntityConnectionStringBuilder
             {
                 Metadata = "res://*",
                 Provider = "System.Data.SqlClient",
                 ProviderConnectionString = new System.Data.SqlClient.SqlConnectionStringBuilder
                 {
-                    InitialCatalog = "FD",
+                    InitialCatalog = DBName,
                     DataSource = Server,
                     IntegratedSecurity = false,
                     UserID = User,                

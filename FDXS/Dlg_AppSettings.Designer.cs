@@ -43,18 +43,20 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dp_daytasktime = new System.Windows.Forms.DateTimePicker();
             this.dp_xsinterval = new System.Windows.Forms.DateTimePicker();
+            this.txb_dbserver = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txb_dbuser
             // 
-            this.txb_dbuser.Location = new System.Drawing.Point(89, 33);
+            this.txb_dbuser.Location = new System.Drawing.Point(89, 66);
             this.txb_dbuser.Name = "txb_dbuser";
             this.txb_dbuser.Size = new System.Drawing.Size(163, 21);
             this.txb_dbuser.TabIndex = 11;
             // 
             // txb_dbname
             // 
-            this.txb_dbname.Location = new System.Drawing.Point(89, 6);
+            this.txb_dbname.Location = new System.Drawing.Point(89, 39);
             this.txb_dbname.Name = "txb_dbname";
             this.txb_dbname.Size = new System.Drawing.Size(163, 21);
             this.txb_dbname.TabIndex = 10;
@@ -62,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 36);
+            this.label2.Location = new System.Drawing.Point(12, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 9;
@@ -71,7 +73,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 8;
@@ -79,7 +81,7 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(177, 204);
+            this.btn_ok.Location = new System.Drawing.Point(177, 237);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 12;
@@ -89,7 +91,7 @@
             // 
             // txb_dbpsw
             // 
-            this.txb_dbpsw.Location = new System.Drawing.Point(89, 60);
+            this.txb_dbpsw.Location = new System.Drawing.Point(89, 93);
             this.txb_dbpsw.Name = "txb_dbpsw";
             this.txb_dbpsw.PasswordChar = '*';
             this.txb_dbpsw.Size = new System.Drawing.Size(163, 21);
@@ -98,7 +100,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 63);
+            this.label3.Location = new System.Drawing.Point(12, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 13;
@@ -106,7 +108,7 @@
             // 
             // txb_validadd
             // 
-            this.txb_validadd.Location = new System.Drawing.Point(89, 87);
+            this.txb_validadd.Location = new System.Drawing.Point(89, 120);
             this.txb_validadd.Name = "txb_validadd";
             this.txb_validadd.Size = new System.Drawing.Size(163, 21);
             this.txb_validadd.TabIndex = 16;
@@ -114,7 +116,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 90);
+            this.label4.Location = new System.Drawing.Point(12, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 15;
@@ -122,7 +124,7 @@
             // 
             // txb_dataadd
             // 
-            this.txb_dataadd.Location = new System.Drawing.Point(89, 114);
+            this.txb_dataadd.Location = new System.Drawing.Point(89, 147);
             this.txb_dataadd.Name = "txb_dataadd";
             this.txb_dataadd.Size = new System.Drawing.Size(163, 21);
             this.txb_dataadd.TabIndex = 18;
@@ -130,7 +132,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 117);
+            this.label5.Location = new System.Drawing.Point(12, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 17;
@@ -139,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 156);
+            this.label6.Location = new System.Drawing.Point(12, 189);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 12);
             this.label6.TabIndex = 19;
@@ -148,7 +150,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 183);
+            this.label7.Location = new System.Drawing.Point(12, 216);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 12);
             this.label7.TabIndex = 20;
@@ -158,7 +160,7 @@
             // 
             this.dp_daytasktime.CustomFormat = "HH:mm:ss";
             this.dp_daytasktime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_daytasktime.Location = new System.Drawing.Point(119, 150);
+            this.dp_daytasktime.Location = new System.Drawing.Point(119, 183);
             this.dp_daytasktime.Name = "dp_daytasktime";
             this.dp_daytasktime.Size = new System.Drawing.Size(133, 21);
             this.dp_daytasktime.TabIndex = 21;
@@ -167,16 +169,34 @@
             // 
             this.dp_xsinterval.CustomFormat = "HH:mm:ss";
             this.dp_xsinterval.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_xsinterval.Location = new System.Drawing.Point(119, 177);
+            this.dp_xsinterval.Location = new System.Drawing.Point(119, 210);
             this.dp_xsinterval.Name = "dp_xsinterval";
             this.dp_xsinterval.Size = new System.Drawing.Size(133, 21);
             this.dp_xsinterval.TabIndex = 22;
+            // 
+            // txb_dbserver
+            // 
+            this.txb_dbserver.Location = new System.Drawing.Point(89, 12);
+            this.txb_dbserver.Name = "txb_dbserver";
+            this.txb_dbserver.Size = new System.Drawing.Size(163, 21);
+            this.txb_dbserver.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 15);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "DBServer";
             // 
             // Dlg_AppSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 239);
+            this.ClientSize = new System.Drawing.Size(264, 271);
+            this.Controls.Add(this.txb_dbserver);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.dp_xsinterval);
             this.Controls.Add(this.dp_daytasktime);
             this.Controls.Add(this.label7);
@@ -220,5 +240,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dp_daytasktime;
         private System.Windows.Forms.DateTimePicker dp_xsinterval;
+        private System.Windows.Forms.TextBox txb_dbserver;
+        private System.Windows.Forms.Label label8;
     }
 }

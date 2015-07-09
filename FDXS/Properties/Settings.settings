@@ -47,5 +47,8 @@
     <Setting Name="TaskLogFileName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tasklog.txt</Value>
     </Setting>
+    <Setting Name="DBName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FD</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

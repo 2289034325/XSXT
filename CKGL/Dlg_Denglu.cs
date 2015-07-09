@@ -61,5 +61,18 @@ namespace CKGL
             Dlg_AppSettings dl = new Dlg_AppSettings();
             dl.ShowDialog();
         }
+
+        /// <summary>
+        /// 回车登陆
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb_mm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_ok_Click(null, null);
+            }
+        }
     }
 }
