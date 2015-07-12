@@ -7,9 +7,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch">
-        <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
-        <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+    <div id="div_sch" class="div_sch">
+        <div><label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
+        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
     </div>
     <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20" 
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_kc_PageIndexChanging">

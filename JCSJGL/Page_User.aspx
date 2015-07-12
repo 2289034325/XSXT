@@ -48,12 +48,12 @@
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <asp:Label runat="server" Text="登录名"></asp:Label><asp:TextBox runat="server" ID="txb_dlm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="密码"></asp:Label><asp:TextBox runat="server" ID="txb_mm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="用户名"></asp:Label><asp:TextBox runat="server" ID="txb_yhm" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="登录名"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_dlm" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="密码"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_mm" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="用户名"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_yhm" ClientIDMode="Static"></asp:TextBox>
     <asp:Label runat="server" Text="角色"></asp:Label><asp:DropDownList runat="server" ID="cmb_js" ClientIDMode="Static"></asp:DropDownList>
     <asp:Label runat="server" Text="状态"></asp:Label><asp:DropDownList runat="server" ID="cmb_zt" ClientIDMode="Static"></asp:DropDownList>
-    <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
     <asp:Button runat="server" ID="btn_editxx" Text="修改" OnClick="btn_editxx_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
 
 </asp:Content>

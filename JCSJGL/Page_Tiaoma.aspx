@@ -23,11 +23,11 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-     <div id="div_sch">
-        <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx"></asp:DropDownList>
-        <label>款号</label><asp:TextBox runat="server" ID="txb_kh_sch"></asp:TextBox>
-        <label>条码号</label><asp:TextBox runat="server" ID="txb_tmh_sch"></asp:TextBox>        
-        <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+     <div id="div_sch" class="div_sch">
+        <div><label>类型</label><asp:DropDownList runat="server" ID="cmb_lx"></asp:DropDownList></div>
+        <div><label>款号</label><asp:TextBox CssClass="short" runat="server" ID="txb_kh_sch"></asp:TextBox></div>
+        <div><label>条码号</label><asp:TextBox CssClass="middle" runat="server" ID="txb_tmh_sch"></asp:TextBox>   </div>     
+        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
     </div>
     <asp:GridView ID="grid_tiaoma" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20" 
          BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_tiaoma_PageIndexChanging">
@@ -73,13 +73,13 @@
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox runat="server" ID="txb_tm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
+    <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
     <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
 
 </asp:Content>

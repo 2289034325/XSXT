@@ -86,7 +86,7 @@ namespace JCSJGL
                     X = r.Key.hour,
                     Y = r.Sum(rx => rx.shuliang)
                 }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = r.Average(rr => rr.Y) }).
+                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.X).ToList();
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
@@ -95,7 +95,7 @@ namespace JCSJGL
                     ws = (int)r.Key.DayOfWeek,
                     Y = r.Sum(rx => rx.shuliang)
                 }).GroupBy(r => new { r.wn, r.ws }).
-                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
+                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.xn).ToList();
 
                 dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
@@ -113,7 +113,7 @@ namespace JCSJGL
                     X = r.Key.hour,
                     Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling, 2))
                 }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = r.Average(rr => rr.Y) }).
+                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),2) }).
                 OrderBy(r => r.X).ToList();
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
@@ -122,7 +122,7 @@ namespace JCSJGL
                     ws = (int)r.Key.DayOfWeek,
                     Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling, 2))
                 }).GroupBy(r => new { r.wn, r.ws }).
-                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
+                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.xn).ToList();
 
                 dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
@@ -140,7 +140,7 @@ namespace JCSJGL
                     X = r.Key.hour,
                     Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling - rx.TTiaoma.jinjia, 2))
                 }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = r.Average(rr => rr.Y) }).
+                Select(r => new { X = r.Key, Y =  Math.Round(r.Average(rr => rr.Y),2) }).
                 OrderBy(r => r.X).ToList();
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
@@ -159,7 +159,7 @@ namespace JCSJGL
 
             //设置图表属性
             int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht_date.Width = Convert.ToInt32(wndWidth * 0.97);
+            cht_date.Width = Convert.ToInt32(wndWidth);
             cht_date.Series.Clear();
             cht_date.ChartAreas.Clear();
             cht_date.ChartAreas.Add("A1");
@@ -172,7 +172,7 @@ namespace JCSJGL
             js.ChartType = SeriesChartType.Column;
             js.Points.DataBind(dt_date.AsEnumerable(), "X", "Y", "");
 
-            cht_hour.Width = Convert.ToInt32(wndWidth * 0.6);
+            cht_hour.Width = Convert.ToInt32(wndWidth);
             cht_hour.Series.Clear();
             cht_hour.ChartAreas.Clear();
             cht_hour.ChartAreas.Add("A1");
@@ -183,7 +183,7 @@ namespace JCSJGL
             cht_hour.ChartAreas[0].AxisX.Interval = 1;
             xs.Points.DataBind(dt_hour.AsEnumerable(), "X", "Y", "");
 
-            cht_week.Width = Convert.ToInt32(wndWidth * 0.37);
+            cht_week.Width = Convert.ToInt32(wndWidth);
             cht_week.Series.Clear();
             cht_week.ChartAreas.Clear();
             cht_week.ChartAreas.Add("A1");

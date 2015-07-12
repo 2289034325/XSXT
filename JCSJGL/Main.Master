@@ -6,13 +6,15 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    
     <script type="text/javascript" src="jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="MobileAdapter.js"></script>
+    <link rel="stylesheet" type="text/css" href="MyStyle.css"/>
     <asp:ContentPlaceHolder ID="cph_head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
         <div id="div_head">
-            <asp:Menu ID="mn_main" runat="server" BackColor="#FFFBD6" DynamicHorizontalOffset="2" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#990000" StaticSubMenuIndent="10px" Orientation="Horizontal">
+            <asp:Menu ID="mn_main" runat="server" BackColor="#FFFBD6" DynamicHorizontalOffset="0" Font-Names="Verdana" ForeColor="#990000" StaticSubMenuIndent="10px" Orientation="Horizontal">
                 <DynamicHoverStyle BackColor="#990000" ForeColor="White"></DynamicHoverStyle>
 
                 <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></DynamicMenuItemStyle>
@@ -21,6 +23,7 @@
 
                 <DynamicSelectedStyle BackColor="#FFCC66"></DynamicSelectedStyle>
                 <Items>
+                    <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
                     <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>

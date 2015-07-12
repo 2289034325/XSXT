@@ -22,11 +22,11 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch">
-        <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx_sch"></asp:DropDownList>
-        <label>款号</label><asp:TextBox runat="server" ID="txb_kh_sch"></asp:TextBox>
-        <label>品名</label><asp:TextBox runat="server" ID="txb_pm_sch"></asp:TextBox>        
-        <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+    <div id="div_sch" class="div_sch">
+        <div><label>类型</label><asp:DropDownList runat="server" ID="cmb_lx_sch"></asp:DropDownList></div>
+        <div><label>款号</label><asp:TextBox CssClass="middle" runat="server" ID="txb_kh_sch"></asp:TextBox></div>
+        <div><label>品名</label><asp:TextBox CssClass="middle" runat="server" ID="txb_pm_sch"></asp:TextBox></div>        
+        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
     </div>
     <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False" BackColor="White"    BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px"
          CellPadding="4"  AllowCustomPaging="true" AllowPaging="true" PageSize="20"  OnPageIndexChanging="grid_kuanhao_PageIndexChanging">
@@ -68,12 +68,13 @@
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="类型"></asp:Label><asp:DropDownList runat="server" ID="cmb_lx" ClientIDMode="Static"></asp:DropDownList>
-    <asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList>
-    <asp:Label runat="server" Text="品名"></asp:Label><asp:TextBox runat="server" ID="txb_pm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
-    <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
-
+    <div id="div_edit" class="div_edit">
+         <div><asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox></div>
+         <div><asp:Label runat="server" Text="类型"></asp:Label><asp:DropDownList runat="server" ID="cmb_lx" ClientIDMode="Static"></asp:DropDownList></div>
+         <div><asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList></div>
+         <div><asp:Label runat="server" Text="品名"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_pm" ClientIDMode="Static"></asp:TextBox></div>
+         <div><asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox></div>
+         <div><asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" /></div>
+    </div>
 </asp:Content>
 

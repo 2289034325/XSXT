@@ -7,19 +7,45 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JCSJGL
-{
+namespace JCSJGL {
     
     
     public partial class Login {
         
         /// <summary>
-        /// form1 控件。
+        /// form 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form;
+        
+        /// <summary>
+        /// txb_dlm 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txb_dlm;
+        
+        /// <summary>
+        /// txb_mm 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txb_mm;
+        
+        /// <summary>
+        /// chk_auto 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chk_auto;
     }
 }

@@ -14,16 +14,17 @@ namespace JCSJGL
         {
             //登陆验证
             TUser u = (TUser)Session["USER"];
-            string uid = Request["uid"];
-            string psw = Request["psw"];
-            string pms = "";
-            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(psw))
-            {
-                pms = "uid=" + uid + "&psw=" + psw + "&";
-            }
+            //string uid = Request["uid"];
+            //string psw = Request["psw"];
+            //string pms = "";
+            //if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(psw))
+            //{
+            //    pms = "uid=" + uid + "&psw=" + psw + "&";
+            //}
             if (u == null)
             {
-                Response.Redirect("Login.aspx?" + pms + "despage=" + Request.FilePath.Replace("/", ""));
+                Response.Redirect("Login.aspx?" + "despage=" + Request.Url.AbsoluteUri);
+                //Response.Redirect("Login.aspx");
             }
             //权限检查
             else
