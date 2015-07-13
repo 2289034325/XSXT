@@ -74,11 +74,13 @@ namespace JCSJGL
             DataTable dt_date = new DataTable();
             DataTable dt_hour = new DataTable();
             DataTable dt_week = new DataTable();
+            DataTable dt_type = new DataTable();
 
             if (cmb_ctype.SelectedValue == "销售量")
             {
                 var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
                     Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
+
                 var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
@@ -88,6 +90,7 @@ namespace JCSJGL
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.X).ToList();
+
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
                 {
@@ -98,14 +101,23 @@ namespace JCSJGL
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.xn).ToList();
 
+                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                Select(r => new 
+                { 
+                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                    Y = r.Sum(rx=>rx.shuliang)
+                });
+
                 dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
                 dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
                 dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
+                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
             }
             else if (cmb_ctype.SelectedValue == "销售额")
             {
                 var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
                     Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine)??0,2) }).OrderBy(r => r.X).ToList();
+
                 var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
@@ -115,6 +127,7 @@ namespace JCSJGL
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),2) }).
                 OrderBy(r => r.X).ToList();
+
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
                 {
@@ -125,36 +138,55 @@ namespace JCSJGL
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.xn).ToList();
 
+                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                Select(r => new 
+                {
+                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                    Y = r.Sum(rx => rx.jine) ?? 0
+                });
+
                 dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
                 dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
                 dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
+                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
             }
             else if (cmb_ctype.SelectedValue == "利润")
             {
                 var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0,2) }).OrderBy(r => r.X).ToList();
+                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0, 2) }).OrderBy(r => r.X).ToList();
+
                 var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
                 }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y =  Math.Round(r.Average(rr => rr.Y),2) }).
+                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.X).ToList();
+
                 var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new
                 {
                     wn = r.Key.DayOfWeek.ToString(),
                     ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
                 }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
                 OrderBy(r => r.xn).ToList();
 
+                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                Select(r => new
+                {
+                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
+                });
+
+
                 dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
                 dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
                 dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
+                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
             }
 
             //设置图表属性
@@ -192,6 +224,19 @@ namespace JCSJGL
             ws.ToolTip = "#VAL";
             ws.ChartType = SeriesChartType.Column;
             ws.Points.DataBind(dt_week.AsEnumerable(), "X", "Y", "");
+
+            cht_pie_type.Width = Convert.ToInt32(wndWidth);
+            cht_pie_type.Series.Clear();
+            cht_pie_type.ChartAreas.Clear();
+            cht_pie_type.ChartAreas.Add("A1");
+            Series pts = cht_pie_type.Series.Add("S1");
+            //pts.IsVisibleInLegend = false;
+            Legend ptl = cht_pie_type.Legends.Add("L1");
+            pts.ToolTip = "#VAL";
+            pts.Label = "#PERCENT";
+            pts.LegendText = "#VALX";
+            pts.ChartType = SeriesChartType.Pie;
+            pts.Points.DataBind(dt_type.AsEnumerable(), "X", "Y", "");
         }
 
     }

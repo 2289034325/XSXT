@@ -33,11 +33,11 @@
         </asp:Chart>
     </div>
     <div>
-        <asp:Chart ID="cht_fds_today" runat="server">        
+        <asp:Chart ID="cht_pie_type" runat="server">        
         </asp:Chart>
     </div>
     <div>
-        <asp:Chart ID="cht_fds_period" runat="server">        
+        <asp:Chart ID="cht_pie_price" runat="server">        
         </asp:Chart>
     </div>
 </asp:Content>

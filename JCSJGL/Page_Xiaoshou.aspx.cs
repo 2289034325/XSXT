@@ -24,8 +24,8 @@ namespace JCSJGL
                 //日期下拉框
                 txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txb_xsrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txb_sbrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txb_sbrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                //txb_sbrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                //txb_sbrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
         

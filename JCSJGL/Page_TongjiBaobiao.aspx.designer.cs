@@ -94,21 +94,21 @@ namespace JCSJGL {
         protected global::System.Web.UI.DataVisualization.Charting.Chart cht_week;
         
         /// <summary>
-        /// cht_fds_today 控件。
+        /// cht_pie_type 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_fds_today;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_pie_type;
         
         /// <summary>
-        /// cht_fds_period 控件。
+        /// cht_pie_price 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_fds_period;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_pie_price;
     }
 }
