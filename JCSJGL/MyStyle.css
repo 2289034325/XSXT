@@ -13,7 +13,9 @@
 .div_edit 
 {
     display:flex;
+    display:-webkit-flex;
     flex-wrap:wrap;
+    -webkit-flex-wrap:wrap;
 }
 
 input[type="text"].short

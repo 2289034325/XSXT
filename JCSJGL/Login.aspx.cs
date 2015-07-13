@@ -57,14 +57,16 @@ namespace JCSJGL
             if (u == null)
             {
                 setCookie(false);
-                Response.Redirect("Page_Error.aspx?ErrorMsg=用户名或密码不正确");
+                //Response.Redirect("Page_Error.aspx?ErrorMsg=用户名或密码不正确");
+                throw new MyException("用户名或密码不正确");
             }
             else
             {
                 if (u.zhuangtai == (byte)Tool.JCSJ.DBCONSTS.USER_ZT.停用)
                 {
                     setCookie(false);
-                    Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
+                    //Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
+                    throw new MyException("该账号已经被停用");
                 }
                 else
                 {

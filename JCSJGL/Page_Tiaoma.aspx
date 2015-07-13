@@ -73,13 +73,15 @@
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
-    <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
-    <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
+    <div id="div_edit" class="div_edit">
+        <div><asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" /></div>
+    </div>
 
 </asp:Content>

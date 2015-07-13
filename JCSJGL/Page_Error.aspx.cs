@@ -11,8 +11,20 @@ namespace JCSJGL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Exception ex = (Exception)Application["Error"];
+            if (ex.InnerException != null)
+            {
+                ex = ex.InnerException;
+            }
             //显示错误信息
-            lbl_errorMsg.Text = Request["ErrorMsg"];
+            if (ex is MyException)
+            {
+                lbl_errorMsg.Text = ex.Message;
+            }
+            else
+            {
+                lbl_errorMsg.Text = "系统发生未知错误";
+            }
         }
     }
 }

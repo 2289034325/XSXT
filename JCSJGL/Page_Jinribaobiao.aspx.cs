@@ -21,21 +21,23 @@ namespace JCSJGL
             TXiaoshou[] xss = db.GetXiaoshousByCond(null, DateTime.Now.Date, DateTime.Now.Date, null, null, null, null, out recordCount);
             var data = xss.GroupBy(r => r.TFendian.dianming).Select(r => new
             {
-                fd = r.Key,
-                xsl = r.Sum(g => g.shuliang),
-                xse = r.Sum(g => decimal.Round(g.danjia * g.shuliang * g.zhekou / 10 - g.moling, 2)),
-                lr = r.Sum(g => decimal.Round(g.danjia * g.shuliang * g.zhekou / 10 - g.moling - g.TTiaoma.jinjia * g.shuliang, 2))
+                dianming = r.Key,
+                xiaoshouliang = r.Sum(g => g.shuliang),
+                xiaoshoue = r.Sum(g => decimal.Round(g.danjia * g.shuliang * g.zhekou / 10 - g.moling, 2)),
+                lirun = r.Sum(g => decimal.Round(g.danjia * g.shuliang * g.zhekou / 10 - g.moling - g.TTiaoma.jinjia * g.shuliang, 2))
             });
 
-            foreach (var d in data)
-            {
-                Trs += "<div>"
-                    + "<label class='lbl_dm'>" + d.fd + "</label><br/>"
-                    + "<label>销售量：" + d.xsl + "</label><br/>"
-                    + "<label>销售额：" + d.xse + "</label><br/>"
-                    + "<label>**利润：" + d.lr + "</label><br/>" 
-                    +"<hr/></div>";
-            }
+            grid_jrxs.DataSource = data;
+            grid_jrxs.DataBind();
+            //foreach (var d in data)
+            //{
+            //    Trs += "<div>"
+            //        + "<label class='lbl_dm'>" + d.fd + "</label><br/>"
+            //        + "<label>销售量：" + d.xsl + "</label><br/>"
+            //        + "<label>销售额：" + d.xse + "</label><br/>"
+            //        + "<label>**利润：" + d.lr + "</label><br/>" 
+            //        +"<hr/></div>";
+            //}
         }
     }
 }

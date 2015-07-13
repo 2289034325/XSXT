@@ -105,13 +105,13 @@ namespace JCSJGL
             else if (cmb_ctype.SelectedValue == "销售额")
             {
                 var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling, 2)) }).OrderBy(r => r.X).ToList();
+                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine)??0,2) }).OrderBy(r => r.X).ToList();
                 var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling, 2))
+                    Y = r.Sum(rx => rx.jine)??0
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),2) }).
                 OrderBy(r => r.X).ToList();
@@ -120,7 +120,7 @@ namespace JCSJGL
                 {
                     wn = r.Key.DayOfWeek.ToString(),
                     ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling, 2))
+                    Y = r.Sum(rx => rx.jine)??0
                 }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
                 OrderBy(r => r.xn).ToList();
@@ -132,13 +132,13 @@ namespace JCSJGL
             else if (cmb_ctype.SelectedValue == "利润")
             {
                 var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling - rx.TTiaoma.jinjia, 2)) }).OrderBy(r => r.X).ToList();
+                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0,2) }).OrderBy(r => r.X).ToList();
                 var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
                 Select(r => new
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling - rx.TTiaoma.jinjia, 2))
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y =  Math.Round(r.Average(rr => rr.Y),2) }).
                 OrderBy(r => r.X).ToList();
@@ -147,7 +147,7 @@ namespace JCSJGL
                 {
                     wn = r.Key.DayOfWeek.ToString(),
                     ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => decimal.Round(rx.shuliang * rx.danjia * rx.zhekou / 10 - rx.moling - rx.TTiaoma.jinjia, 2))
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia)??0
                 }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
                 OrderBy(r => r.xn).ToList();
