@@ -49,13 +49,22 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_xsrq_end;
         
         /// <summary>
-        /// cmb_ctype 控件。
+        /// cmb_y 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_ctype;
+        protected global::System.Web.UI.WebControls.DropDownList cmb_y;
+        
+        /// <summary>
+        /// chk_x 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chk_x;
         
         /// <summary>
         /// btn_sch 控件。
@@ -67,48 +76,12 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.Button btn_sch;
         
         /// <summary>
-        /// cht_date 控件。
+        /// div_charts 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_date;
-        
-        /// <summary>
-        /// cht_hour 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_hour;
-        
-        /// <summary>
-        /// cht_week 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_week;
-        
-        /// <summary>
-        /// cht_pie_type 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_pie_type;
-        
-        /// <summary>
-        /// cht_pie_price 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart cht_pie_price;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_charts;
     }
 }

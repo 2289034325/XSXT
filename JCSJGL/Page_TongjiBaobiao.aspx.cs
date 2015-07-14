@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Tool;
 
@@ -14,6 +15,22 @@ namespace JCSJGL
 {
     public partial class Page_TongjiBaobiao : System.Web.UI.Page
     {
+        private enum CHART_Y_TYPE:byte
+        {
+            销售量 = 1,
+            销售额 = 2,
+            利润 = 3
+        }
+        private enum CHART_X_TYPE:byte
+        {
+            日期=1,
+            小时=2,
+            星期=3,
+            类型=4,
+            颜色=5,
+            价格=6
+        }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,9 +47,16 @@ namespace JCSJGL
 
                 //图表类型下拉框
                 //cmb_ctype.DataSource = new string[] { "销售量", "销售额", "利润" };
-                cmb_ctype.Items.Add(new ListItem("销售量", "销售量"));
-                cmb_ctype.Items.Add(new ListItem("销售额", "销售额"));
-                cmb_ctype.Items.Add(new ListItem("利润", "利润"));
+                cmb_y.Items.Add(new ListItem(CHART_Y_TYPE.销售量.ToString(), ((byte)CHART_Y_TYPE.销售量).ToString()));
+                cmb_y.Items.Add(new ListItem(CHART_Y_TYPE.销售额.ToString(), ((byte)CHART_Y_TYPE.销售额).ToString()));
+                cmb_y.Items.Add(new ListItem(CHART_Y_TYPE.利润.ToString(), ((byte)CHART_Y_TYPE.利润).ToString()));
+
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.日期.ToString(), ((byte)CHART_X_TYPE.日期).ToString()));
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.小时.ToString(), ((byte)CHART_X_TYPE.小时).ToString()));
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.星期.ToString(), ((byte)CHART_X_TYPE.星期).ToString()));
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.类型.ToString(), ((byte)CHART_X_TYPE.类型).ToString()));
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.颜色.ToString(), ((byte)CHART_X_TYPE.颜色).ToString()));
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.价格.ToString(), ((byte)CHART_X_TYPE.价格).ToString()));
             }
         }
         
@@ -48,6 +72,410 @@ namespace JCSJGL
         }
 
         private void search()
+        {
+            //取数据
+            TXiaoshou[] xss = getXiaoshouData();
+            List<byte> xTypes = getXTypes();
+            if (xTypes.Contains((byte)CHART_X_TYPE.日期))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeDateChart(xss));
+                div_charts.Controls.Add(div);                
+            }
+            if (xTypes.Contains((byte)CHART_X_TYPE.小时))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeHourChart(xss));
+                div_charts.Controls.Add(div);
+            }
+            if (xTypes.Contains((byte)CHART_X_TYPE.星期))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeWeekChart(xss));
+                div_charts.Controls.Add(div);
+            }
+            if (xTypes.Contains((byte)CHART_X_TYPE.类型))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeTypeChart(xss));
+                div_charts.Controls.Add(div);
+            }
+            if (xTypes.Contains((byte)CHART_X_TYPE.颜色))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeColorChart(xss));
+                div_charts.Controls.Add(div);
+            }
+            if (xTypes.Contains((byte)CHART_X_TYPE.价格))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makePriceChart(xss));
+                div_charts.Controls.Add(div);
+            }
+        }
+
+        private Chart makePriceChart(TXiaoshou[] xss)
+        {
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                //退货的不统计
+                var data = xss.Where(r => r.shuliang > 0).
+                    Select(r => new { danjia = getJiageStr(50, 500, r.jine ?? 0 / r.shuliang), r.shuliang }).
+                    GroupBy(r => r.danjia).Select(r => new
+                    {
+                        X = r.Key,
+                        Y = r.Sum(rx => rx.shuliang)
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                //退货的不统计
+                var data = xss.Where(r => r.shuliang > 0).
+                Select(r => new { danjia = getJiageStr(50, 500, r.jine ?? 0 / r.shuliang), r.shuliang, r.jine }).
+                GroupBy(r => r.danjia).Select(r => new
+                {
+                    X = r.Key,
+                    Y = r.Sum(rx => rx.jine) ?? 0
+                }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                //退货的不统计
+                var data = xss.Where(r => r.shuliang > 0).
+                    Select(r => new { danjia = getJiageStr(50, 500, r.jine ?? 0 / r.shuliang), r.shuliang, r.jine, r.TTiaoma.jinjia }).
+                    GroupBy(r => r.danjia).Select(r => new
+                    {
+                        X = r.Key,
+                        Y = r.Sum(rx => rx.jine - rx.jinjia * rx.shuliang) ?? 0
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = Convert.ToInt32(wndWidth);
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            Series ps = cht.Series.Add("S1");
+            Legend pl = cht.Legends.Add("L1");
+            pl.Docking = Docking.Bottom;
+            pl.Alignment = System.Drawing.StringAlignment.Center;
+            ps.ToolTip = "#VAL";
+            ps.Label = "#PERCENT";
+            ps.LegendText = "#VALX";
+            ps["CollectedThreshold"] = "10";
+            ps["CollectedLabel"] = "其他";
+            ps["CollectedLegendText"] = "其他";
+            ps.ChartType = SeriesChartType.Pie;
+            ps.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+        }
+
+        private Chart makeColorChart(TXiaoshou[] xss)
+        {
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                    Select(r => new
+                    {
+                        X = r.Key,
+                        Y = r.Sum(rx => rx.shuliang)
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                    Select(r => new
+                    {
+                        X = r.Key,
+                        Y = r.Sum(rx => rx.jine) ?? 0
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                    Select(r => new
+                    {
+                        X = r.Key,
+                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = Convert.ToInt32(wndWidth);
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            Series cs = cht.Series.Add("S1");
+            Legend cl = cht.Legends.Add("L1");
+            cl.Docking = Docking.Bottom;
+            cl.Alignment = System.Drawing.StringAlignment.Center;
+            cs.ToolTip = "#VAL";
+            cs.Label = "#PERCENT";
+            cs.LegendText = "#VALX";
+            cs["CollectedThreshold"] = "10";
+            cs["CollectedLabel"] = "其他";
+            cs["CollectedLegendText"] = "其他";
+            cs.ChartType = SeriesChartType.Pie;
+            cs.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+        }
+
+        private Chart makeTypeChart(TXiaoshou[] xss)
+        {
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                    Select(r => new
+                    {
+                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                        Y = r.Sum(rx => rx.shuliang)
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                    Select(r => new
+                    {
+                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                        Y = r.Sum(rx => rx.jine) ?? 0
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                    Select(r => new
+                    {
+                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
+                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
+                    }).OrderByDescending(r => r.Y);
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = Convert.ToInt32(wndWidth);
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            Series pts = cht.Series.Add("S1");
+            Legend ptl = cht.Legends.Add("L1");
+            ptl.Docking = Docking.Bottom;
+            ptl.Alignment = System.Drawing.StringAlignment.Center;
+            pts.ToolTip = "#VAL";
+            pts.Label = "#PERCENT";
+            pts.LegendText = "#VALX";
+            pts.ChartType = SeriesChartType.Pie;
+            pts.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+        }
+
+        private Chart makeWeekChart(TXiaoshou[] xss)
+        {
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                    Select(r => new
+                    {
+                        wn = r.Key.DayOfWeek.ToString(),
+                        ws = (int)r.Key.DayOfWeek,
+                        Y = r.Sum(rx => rx.shuliang)
+                    }).GroupBy(r => new { r.wn, r.ws }).
+                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
+                    OrderBy(r => r.xn).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                    Select(r => new
+                    {
+                        wn = r.Key.DayOfWeek.ToString(),
+                        ws = (int)r.Key.DayOfWeek,
+                        Y = r.Sum(rx => rx.jine) ?? 0
+                    }).GroupBy(r => new { r.wn, r.ws }).
+                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
+                    OrderBy(r => r.xn).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                    Select(r => new
+                    {
+                        wn = r.Key.DayOfWeek.ToString(),
+                        ws = (int)r.Key.DayOfWeek,
+                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
+                    }).GroupBy(r => new { r.wn, r.ws }).
+                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
+                    OrderBy(r => r.xn).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = Convert.ToInt32(wndWidth);
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            Series ws = cht.Series.Add("S1");
+            ws.IsVisibleInLegend = false;
+            ws.ToolTip = "#VAL";
+            ws.ChartType = SeriesChartType.Column;
+            ws.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+        }
+
+        private Chart makeHourChart(TXiaoshou[] xss)
+        {
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var data = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
+                   Select(r => new
+                   {
+                       Xd = r.Key.date,
+                       X = r.Key.hour,
+                       Y = r.Sum(rx => rx.shuliang)
+                   }).GroupBy(r => r.X).
+                   Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
+                   OrderBy(r => r.X).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var data = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
+                   Select(r => new
+                   {
+                       Xd = r.Key.date,
+                       X = r.Key.hour,
+                       Y = r.Sum(rx => rx.jine) ?? 0
+                   }).GroupBy(r => r.X).
+                   Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
+                   OrderBy(r => r.X).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var data = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
+                Select(r => new
+                {
+                    Xd = r.Key.date,
+                    X = r.Key.hour,
+                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
+                }).GroupBy(r => r.X).
+                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
+                OrderBy(r => r.X).ToList();
+
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = wndWidth;
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            Series xs = cht.Series.Add("S1");
+            xs.IsVisibleInLegend = false;
+            xs.ToolTip = "#VAL";
+            xs.ChartType = SeriesChartType.Column;
+            cht.ChartAreas[0].AxisX.Interval = 1;
+            xs.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+        }
+
+        private Chart makeDateChart(TXiaoshou[] xss)
+        {
+            //取得要统计的图表Y类型
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                           Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(d_date);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine) ?? 0, 2) }).OrderBy(r => r.X).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(d_date);
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0, 2) }).OrderBy(r => r.X).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(d_date); 
+            }
+
+            Chart cht = new Chart();
+            
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = wndWidth;
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            cht.ChartAreas.Add("A1");
+            cht.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Days;
+            cht.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
+            cht.ChartAreas[0].AxisX.LabelStyle.Format = "MM-dd";
+            Series js = cht.Series.Add("S1");
+            js.IsVisibleInLegend = false;
+            js.ToolTip = "#VAL";
+            js.ChartType = SeriesChartType.Column;
+            js.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
+
+            return cht;
+
+        }
+
+        /// <summary>
+        /// 查询符合条件的销售数据
+        /// </summary>
+        /// <returns></returns>
+        private TXiaoshou[] getXiaoshouData()
         {
             //取查询条件
             int? fdid = null;
@@ -70,173 +498,68 @@ namespace JCSJGL
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(fdid, xsrq_start, xsrq_end, null, null, null, null, out recordCount);
 
-            //图表类型
-            DataTable dt_date = new DataTable();
-            DataTable dt_hour = new DataTable();
-            DataTable dt_week = new DataTable();
-            DataTable dt_type = new DataTable();
+            return xss;
+        }
 
-            if (cmb_ctype.SelectedValue == "销售量")
+        /// <summary>
+        /// 以50为一个档次，将销售单价分为几个区间
+        /// </summary>
+        /// <param name="danjia"></param>
+        /// <returns></returns>
+        private string getJiageStr(decimal interval, decimal max, decimal danjia)
+        {
+            string ret = "";
+
+            if (interval < 0 || max < 0 || danjia < 0 || interval >= max)
             {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
-
-                var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
-                Select(r => new
-                {
-                    Xd = r.Key.date,
-                    X = r.Key.hour,
-                    Y = r.Sum(rx => rx.shuliang)
-                }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                OrderBy(r => r.X).ToList();
-
-                var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                Select(r => new
-                {
-                    wn = r.Key.DayOfWeek.ToString(),
-                    ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => rx.shuliang)
-                }).GroupBy(r => new { r.wn, r.ws }).
-                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                OrderBy(r => r.xn).ToList();
-
-                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
-                Select(r => new 
-                { 
-                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                    Y = r.Sum(rx=>rx.shuliang)
-                });
-
-                dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
-                dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
-                dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
-                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
-            }
-            else if (cmb_ctype.SelectedValue == "销售额")
-            {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine)??0,2) }).OrderBy(r => r.X).ToList();
-
-                var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
-                Select(r => new
-                {
-                    Xd = r.Key.date,
-                    X = r.Key.hour,
-                    Y = r.Sum(rx => rx.jine)??0
-                }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),2) }).
-                OrderBy(r => r.X).ToList();
-
-                var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                Select(r => new
-                {
-                    wn = r.Key.DayOfWeek.ToString(),
-                    ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => rx.jine)??0
-                }).GroupBy(r => new { r.wn, r.ws }).
-                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                OrderBy(r => r.xn).ToList();
-
-                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
-                Select(r => new 
-                {
-                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                    Y = r.Sum(rx => rx.jine) ?? 0
-                });
-
-                dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
-                dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
-                dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
-                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
-            }
-            else if (cmb_ctype.SelectedValue == "利润")
-            {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0, 2) }).OrderBy(r => r.X).ToList();
-
-                var d_hour = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
-                Select(r => new
-                {
-                    Xd = r.Key.date,
-                    X = r.Key.hour,
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
-                }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                OrderBy(r => r.X).ToList();
-
-                var d_week = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                Select(r => new
-                {
-                    wn = r.Key.DayOfWeek.ToString(),
-                    ws = (int)r.Key.DayOfWeek,
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
-                }).GroupBy(r => new { r.wn, r.ws }).
-                Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
-                OrderBy(r => r.xn).ToList();
-
-                var d_type = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
-                Select(r => new
-                {
-                    X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0
-                });
-
-
-                dt_date = Tool.CommonFunc.LINQToDataTable(d_date);
-                dt_hour = Tool.CommonFunc.LINQToDataTable(d_hour);
-                dt_week = Tool.CommonFunc.LINQToDataTable(d_week);
-                dt_type = Tool.CommonFunc.LINQToDataTable(d_type);
+                throw new MyException("参数异常。价格不得为负数，价格区间不得大于等于最大价格。");
             }
 
-            //设置图表属性
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht_date.Width = Convert.ToInt32(wndWidth);
-            cht_date.Series.Clear();
-            cht_date.ChartAreas.Clear();
-            cht_date.ChartAreas.Add("A1");
-            cht_date.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Days;
-            cht_date.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
-            cht_date.ChartAreas[0].AxisX.LabelStyle.Format = "MM-dd";
-            Series js = cht_date.Series.Add("S1");
-            js.IsVisibleInLegend = false;
-            js.ToolTip = "#VAL";
-            js.ChartType = SeriesChartType.Column;
-            js.Points.DataBind(dt_date.AsEnumerable(), "X", "Y", "");
+            if (danjia < interval)
+            {
+                ret = "＜" + interval;
+            }
+            else if (danjia >= interval && danjia < max)
+            {
+                int i = 1;
+                decimal iStart, iEnd;
+                while (ret == "")
+                {
+                    iStart = interval * i;
+                    iEnd = interval * (i + 1);
+                    if (danjia >= iStart && danjia < iEnd)
+                    {
+                        ret = iStart + "-" + iEnd;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                ret = "≥" + max;
+            }
 
-            cht_hour.Width = Convert.ToInt32(wndWidth);
-            cht_hour.Series.Clear();
-            cht_hour.ChartAreas.Clear();
-            cht_hour.ChartAreas.Add("A1");
-            Series xs = cht_hour.Series.Add("S1");
-            xs.IsVisibleInLegend = false;
-            xs.ToolTip = "#VAL";
-            xs.ChartType = SeriesChartType.Column;
-            cht_hour.ChartAreas[0].AxisX.Interval = 1;
-            xs.Points.DataBind(dt_hour.AsEnumerable(), "X", "Y", "");
+            return ret;
+        }
 
-            cht_week.Width = Convert.ToInt32(wndWidth);
-            cht_week.Series.Clear();
-            cht_week.ChartAreas.Clear();
-            cht_week.ChartAreas.Add("A1");
-            Series ws = cht_week.Series.Add("S1");
-            ws.IsVisibleInLegend = false;
-            ws.ToolTip = "#VAL";
-            ws.ChartType = SeriesChartType.Column;
-            ws.Points.DataBind(dt_week.AsEnumerable(), "X", "Y", "");
 
-            cht_pie_type.Width = Convert.ToInt32(wndWidth);
-            cht_pie_type.Series.Clear();
-            cht_pie_type.ChartAreas.Clear();
-            cht_pie_type.ChartAreas.Add("A1");
-            Series pts = cht_pie_type.Series.Add("S1");
-            //pts.IsVisibleInLegend = false;
-            Legend ptl = cht_pie_type.Legends.Add("L1");
-            pts.ToolTip = "#VAL";
-            pts.Label = "#PERCENT";
-            pts.LegendText = "#VALX";
-            pts.ChartType = SeriesChartType.Pie;
-            pts.Points.DataBind(dt_type.AsEnumerable(), "X", "Y", "");
+        /// <summary>
+        /// 取得选中的X类型
+        /// </summary>
+        /// <returns></returns>
+        private List<byte> getXTypes()
+        {
+            List<byte> ret = new List<byte>();
+            for (int i = 0; i < chk_x.Items.Count; i++)
+            {
+                if (chk_x.Items[i].Selected == true)
+                    ret.Add(byte.Parse(chk_x.Items[i].Value));
+            }
+
+            return ret;
         }
 
     }

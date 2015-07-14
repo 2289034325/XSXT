@@ -16,28 +16,12 @@
     <div id="div_sch" class="div_sch">
         <div><label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
         <div><label>销售日期</label><asp:TextBox CssClass="middle"  runat="server" ID="txb_xsrq_start"></asp:TextBox><asp:TextBox CssClass="middle"  runat="server" ID="txb_xsrq_end"></asp:TextBox></div>
-        <div><label>图表类型</label><asp:DropDownList runat="server" ID="cmb_ctype"></asp:DropDownList></div>
+        <div><label>Y轴</label><asp:DropDownList runat="server" ID="cmb_y"></asp:DropDownList></div>
+        <div><asp:CheckBoxList runat="server" ID="chk_x" RepeatDirection="Horizontal"></asp:CheckBoxList></div>
         <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" OnClientClick="Search()" /></div>
     </div>
 
-    <div>
-        <asp:Chart ID="cht_date" runat="server">        
-        </asp:Chart>
+    <div runat="server" id="div_charts">
+        
     </div>    
-    <div>
-        <asp:Chart ID="cht_hour" runat="server">        
-        </asp:Chart>
-    </div>
-    <div>
-        <asp:Chart ID="cht_week" runat="server">        
-        </asp:Chart>
-    </div>
-    <div>
-        <asp:Chart ID="cht_pie_type" runat="server">        
-        </asp:Chart>
-    </div>
-    <div>
-        <asp:Chart ID="cht_pie_price" runat="server">        
-        </asp:Chart>
-    </div>
 </asp:Content>

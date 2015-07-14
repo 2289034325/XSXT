@@ -305,6 +305,11 @@ namespace Tool
         /// <returns></returns>
         public static bool CheckFormat_KH(string kh)
         {
+            if (kh.Length != 20)
+            {
+                return false;
+            }
+
             Regex reg = new Regex(@"^[A-Za-z0-9]+$");
             return reg.IsMatch(kh);
         }

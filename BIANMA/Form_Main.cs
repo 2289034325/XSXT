@@ -25,6 +25,12 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_bianma_Click(object sender, EventArgs e)
         {
+            if (LoginInfo.User == null)
+            {
+                MessageBox.Show("未登录");
+                return;
+            }
+
             Form_Bianma fm = (Form_Bianma)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Bianma)));
             if (fm == null)
             {
@@ -48,17 +54,17 @@ namespace BIANMA
         private void Form_Main_Load(object sender, EventArgs e)
         {
             //登陆检查
-            if (LoginInfo.User == null)
-            {
-                Dlg_Denglu df = new Dlg_Denglu();
-                if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                {
-                    Application.Exit();
-                }
-            }
+            //if (LoginInfo.User == null)
+            //{
+            //    Dlg_Denglu df = new Dlg_Denglu();
+            //    if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        Application.Exit();
+            //    }
+            //}
 
             //显示编码页面
-            mni_bianma_Click(null, null);
+            //mni_bianma_Click(null, null);
         }
 
         private void mni_fenlei_Click(object sender, EventArgs e)

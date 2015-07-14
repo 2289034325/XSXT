@@ -92,31 +92,49 @@ namespace BIANMA
 
                 ks = ts.Select(r => r.TKuanhao).DistinctBy(r=>r.id).ToArray();
 
-                //显示款号
-                List<TKuanhaoExtend> khexs = new List<TKuanhaoExtend>();
+                //加入集合，显示款号条码
                 foreach (TKuanhao k in ks)
                 {
                     List<TTiaomaExtend> tsex = ts.Where(r => r.kuanhaoid == k.id).Select(r => new TTiaomaExtend
-                     {
-                         idex = getClientId(),
-                         tiaoma = r,
-                         shuliang = 0,
-                         xj = XTCONSTS.TIAOMA_XINJIU.旧条码
-                     }).ToList();
-                    TKuanhaoExtend khex = new TKuanhaoExtend
                     {
                         idex = getClientId(),
-                        xj = XTCONSTS.KUANHAO_XINJIU.旧款,
-                        kuanhao = k,
-                        tms = tsex
-                    };
+                        tiaoma = r,
+                        shuliang = 0,
+                        xj = XTCONSTS.TIAOMA_XINJIU.旧条码
+                    }).ToList();
 
-                    _khs.Add(khex);
-
-                    //刷新表格显示
-                    foreach (TTiaomaExtend tt in khex.tms)
+                    //检查是否已经有同名的款号被加载到了本地
+                    TKuanhaoExtend ekt = _khs.SingleOrDefault(r => r.kuanhao.kuanhao == k.kuanhao && r.xj == XTCONSTS.KUANHAO_XINJIU.旧款);
+                    if (ekt == null)
                     {
-                        addTiaomaAllMsg(khex, tt);
+                        //将该款号加入集合
+                        TKuanhaoExtend khex = new TKuanhaoExtend
+                        {
+                            idex = getClientId(),
+                            xj = XTCONSTS.KUANHAO_XINJIU.旧款,
+                            kuanhao = k,
+                            tms = tsex
+                        };
+
+                        _khs.Add(khex);
+
+                        //刷新表格显示
+                        foreach (TTiaomaExtend tt in khex.tms)
+                        {
+                            addTiaomaAllMsg(khex, tt);
+                        }
+                    }
+                    else
+                    {
+                        //将条码加入该款号的条码集合
+                        foreach (var t in tsex)
+                        {
+                            if (!ekt.tms.Any(r => r.tiaoma.tiaoma == t.tiaoma.tiaoma))
+                            {
+                                ekt.tms.Add(t);
+                                addTiaomaAllMsg(ekt, t);
+                            }
+                        }
                     }
                 }
             }
@@ -163,7 +181,9 @@ namespace BIANMA
                     index = dr.Index;
                 }
             }
-            else
+
+            //如果当前行的款号不相同，则遍历，看看是否其他有相同的款号
+            if(index == null)
             {
                 foreach (DataGridViewRow dr in grid_all.Rows)
                 {
