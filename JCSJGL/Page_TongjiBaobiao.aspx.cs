@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -23,6 +25,7 @@ namespace JCSJGL
         }
         private enum CHART_X_TYPE:byte
         {
+            月份=7,
             日期=1,
             小时=2,
             星期=3,
@@ -51,6 +54,7 @@ namespace JCSJGL
                 cmb_y.Items.Add(new ListItem(CHART_Y_TYPE.销售额.ToString(), ((byte)CHART_Y_TYPE.销售额).ToString()));
                 cmb_y.Items.Add(new ListItem(CHART_Y_TYPE.利润.ToString(), ((byte)CHART_Y_TYPE.利润).ToString()));
 
+                chk_x.Items.Add(new ListItem(CHART_X_TYPE.月份.ToString(), ((byte)CHART_X_TYPE.月份).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.日期.ToString(), ((byte)CHART_X_TYPE.日期).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.小时.ToString(), ((byte)CHART_X_TYPE.小时).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.星期.ToString(), ((byte)CHART_X_TYPE.星期).ToString()));
@@ -76,6 +80,14 @@ namespace JCSJGL
             //取数据
             TXiaoshou[] xss = getXiaoshouData();
             List<byte> xTypes = getXTypes();
+
+            if (xTypes.Contains((byte)CHART_X_TYPE.月份))
+            {
+                HtmlGenericControl div = new HtmlGenericControl("div");
+                div.Controls.Add(makeMonthChart(xss));
+                div_charts.Controls.Add(div);
+            }
+
             if (xTypes.Contains((byte)CHART_X_TYPE.日期))
             {
                 HtmlGenericControl div = new HtmlGenericControl("div");
@@ -434,21 +446,21 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
                            Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
-                dt = Tool.CommonFunc.LINQToDataTable(d_date);
+                dt = Tool.CommonFunc.LINQToDataTable(data);
             }
             else if (yType == (byte)CHART_Y_TYPE.销售额)
             {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
                     Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine) ?? 0, 2) }).OrderBy(r => r.X).ToList();
-                dt = Tool.CommonFunc.LINQToDataTable(d_date);
+                dt = Tool.CommonFunc.LINQToDataTable(data);
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var d_date = xss.GroupBy(r => r.xiaoshoushijian.Date).
+                var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
                     Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang) ?? 0, 2) }).OrderBy(r => r.X).ToList();
-                dt = Tool.CommonFunc.LINQToDataTable(d_date); 
+                dt = Tool.CommonFunc.LINQToDataTable(data); 
             }
 
             Chart cht = new Chart();
@@ -458,17 +470,123 @@ namespace JCSJGL
             cht.Series.Clear();
             cht.ChartAreas.Clear();
             cht.ChartAreas.Add("A1");
-            cht.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Days;
-            cht.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
             cht.ChartAreas[0].AxisX.LabelStyle.Format = "MM-dd";
+            Legend ptl = cht.Legends.Add("L1");
+            ptl.Docking = Docking.Bottom;
+            ptl.Alignment = System.Drawing.StringAlignment.Center;
             Series js = cht.Series.Add("S1");
-            js.IsVisibleInLegend = false;
+            //js.IsVisibleInLegend = false;
             js.ToolTip = "#VAL";
             js.ChartType = SeriesChartType.Column;
+
+            LegendCellColumn totalColumn = new LegendCellColumn();
+            totalColumn.Text = "#TOTAL";
+            totalColumn.HeaderText = "总计";
+            totalColumn.Name = "TotalColumn";
+            ptl.CellColumns.Add(totalColumn);
+            LegendCellColumn avgColumn = new LegendCellColumn();
+            avgColumn.Text = "#AVG{N2}";
+            avgColumn.HeaderText = "平均";
+            avgColumn.Name = "AvgColumn";
+            ptl.CellColumns.Add(avgColumn);
+
             js.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
 
             return cht;
+        }
 
+        private Chart makeMonthChart(TXiaoshou[] xss)
+        {
+            //取得要统计的图表Y类型
+            byte yType = byte.Parse(cmb_y.SelectedValue);
+            DataTable dt = new DataTable();
+            DataTable dt_s = new DataTable();
+            DataTable dt_z = new DataTable();
+            DataTable dt_x = new DataTable();
+            if (yType == (byte)CHART_Y_TYPE.销售量)
+            {
+                var data = xss.Select(r => new { r.shuliang, month = new DateTime(r.xiaoshoushijian.Year,r.xiaoshoushijian.Month,1), xun = getXun(r.xiaoshoushijian) }).
+                    GroupBy(r => new { r.month, r.xun }).Select(r => new { X = r.Key.month, r.Key.xun, Y = r.Sum(rx => rx.shuliang) }).
+                    OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+                dt_s = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "上旬"));
+                dt_z = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "中旬"));
+                dt_x = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "下旬"));
+            }
+            else if (yType == (byte)CHART_Y_TYPE.销售额)
+            {
+                var data = xss.Select(r => new { r.shuliang, r.jine, month = new DateTime(r.xiaoshoushijian.Year, r.xiaoshoushijian.Month, 1), xun = getXun(r.xiaoshoushijian) }).
+                    GroupBy(r => new { r.month, r.xun }).Select(r => new { X = r.Key.month, r.Key.xun, Y = Math.Round(r.Sum(rx => rx.jine) ?? 0, 2) }).
+                    OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+                dt_s = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "上旬"));
+                dt_z = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "中旬"));
+                dt_x = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "下旬"));
+            }
+            else if (yType == (byte)CHART_Y_TYPE.利润)
+            {
+                var data = xss.Select(r => new { lirun = (r.jine - r.TTiaoma.jinjia * r.shuliang) ?? 0, month = new DateTime(r.xiaoshoushijian.Year, r.xiaoshoushijian.Month, 1), xun = getXun(r.xiaoshoushijian) }).
+                    GroupBy(r => new { r.month, r.xun }).Select(r => new { X = r.Key.month, r.Key.xun, Y = Math.Round(r.Sum(rx => rx.lirun), 2) }).
+                    OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
+                dt = Tool.CommonFunc.LINQToDataTable(data);
+                dt_s = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "上旬"));
+                dt_z = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "中旬"));
+                dt_x = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "下旬"));
+            }
+
+            Chart cht = new Chart();
+
+            int wndWidth = int.Parse(hid_windowWidth.Value);
+            cht.Width = wndWidth;
+            cht.Series.Clear();
+            cht.ChartAreas.Clear();
+            ChartArea ca = cht.ChartAreas.Add("A1");
+            ca.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Months;
+            ca.AxisX.LabelStyle.Interval = 1;
+            ca.AxisX.LabelStyle.Format = "yyyy-MM";
+            Legend ptl = cht.Legends.Add("L1");
+            ptl.Docking = Docking.Bottom;
+            ptl.Alignment = System.Drawing.StringAlignment.Center;
+            Series jsx = cht.Series.Add("下旬");
+            Series jsz = cht.Series.Add("中旬");
+            Series jss = cht.Series.Add("上旬");
+            jsx.ToolTip = "#VAL";
+            jsx.ChartType = SeriesChartType.StackedColumn;
+            jsx.Points.DataBind(dt_x.AsEnumerable(), "X", "Y", "");
+            jsz.ToolTip = "#VAL";
+            jsz.ChartType = SeriesChartType.StackedColumn;
+            jsz.Points.DataBind(dt_z.AsEnumerable(), "X", "Y", "");
+            jss.ToolTip = "#VAL";
+            jss.ChartType = SeriesChartType.StackedColumn;
+            jss.Points.DataBind(dt_s.AsEnumerable(), "X", "Y", "");
+            cht.DataManipulator.InsertEmptyPoints(1, IntervalType.Months, "下旬, 中旬, 上旬");
+
+            return cht;
+        }
+
+        /// <summary>
+        /// 算出某个日期属于上中下询
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        private string getXun(DateTime dateTime)
+        {
+            string ret = "";
+            int i = dateTime.Day;
+            if (i < 11)
+            {
+                ret = "上旬";
+            }
+            else if (i >= 11 && i < 20)
+            {
+                ret = "中旬";
+            }
+            else
+            {
+                ret = "下旬";
+            }
+
+            return ret;
         }
 
         /// <summary>
