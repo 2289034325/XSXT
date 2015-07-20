@@ -305,7 +305,7 @@ namespace Tool
         /// <returns></returns>
         public static bool CheckFormat_KH(string kh)
         {
-            if (kh.Length != 20)
+            if (kh.Length > 20)
             {
                 return false;
             }

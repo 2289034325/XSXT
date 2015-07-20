@@ -1022,6 +1022,9 @@ namespace FDXS.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TTiaoma[] TTiaomaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private FDXS.JCSJData.TUser TUserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1043,6 +1046,9 @@ namespace FDXS.JCSJData {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string jianchengField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string lianxirenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1058,6 +1064,19 @@ namespace FDXS.JCSJData {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TTiaoma[] TTiaoma {
+            get {
+                return this.TTiaomaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
+                    this.TTiaomaField = value;
+                    this.RaisePropertyChanged("TTiaoma");
+                }
             }
         }
         
@@ -1148,6 +1167,19 @@ namespace FDXS.JCSJData {
                 if ((this.idField.Equals(value) != true)) {
                     this.idField = value;
                     this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string jiancheng {
+            get {
+                return this.jianchengField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.jianchengField, value) != true)) {
+                    this.jianchengField = value;
+                    this.RaisePropertyChanged("jiancheng");
                 }
             }
         }
@@ -1697,6 +1729,9 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TFendianKucunMX[] TFendianKucunMXField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FDXS.JCSJData.TGongyingshang TGongyingshangField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private FDXS.JCSJData.TKuanhao TKuanhaoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1713,6 +1748,9 @@ namespace FDXS.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string chimaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int gysidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string gyskuanhaoField;
@@ -1801,6 +1839,19 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public FDXS.JCSJData.TGongyingshang TGongyingshang {
+            get {
+                return this.TGongyingshangField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TGongyingshangField, value) != true)) {
+                    this.TGongyingshangField = value;
+                    this.RaisePropertyChanged("TGongyingshang");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public FDXS.JCSJData.TKuanhao TKuanhao {
             get {
                 return this.TKuanhaoField;
@@ -1874,6 +1925,19 @@ namespace FDXS.JCSJData {
                 if ((object.ReferenceEquals(this.chimaField, value) != true)) {
                     this.chimaField = value;
                     this.RaisePropertyChanged("chima");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int gysid {
+            get {
+                return this.gysidField;
+            }
+            set {
+                if ((this.gysidField.Equals(value) != true)) {
+                    this.gysidField = value;
+                    this.RaisePropertyChanged("gysid");
                 }
             }
         }

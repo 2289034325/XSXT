@@ -25,6 +25,7 @@ namespace DB_JCSJ
     
         public int id { get; set; }
         public int kuanhaoid { get; set; }
+        public int gysid { get; set; }
         public string gyskuanhao { get; set; }
         public string tiaoma { get; set; }
         public string yanse { get; set; }
@@ -42,5 +43,6 @@ namespace DB_JCSJ
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshou { get; set; }
+        public virtual TGongyingshang TGongyingshang { get; set; }
     }
 }

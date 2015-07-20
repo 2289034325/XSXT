@@ -32,6 +32,7 @@
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_gys = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +41,8 @@
             this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gxsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dp_end = new System.Windows.Forms.DateTimePicker();
+            this.dp_start = new System.Windows.Forms.DateTimePicker();
             this.cmb_lx = new System.Windows.Forms.ComboBox();
             this.btn_xzzdtm = new System.Windows.Forms.Button();
             this.btn_xzzxtm = new System.Windows.Forms.Button();
@@ -49,8 +52,6 @@
             this.txb_tm = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dp_end = new System.Windows.Forms.DateTimePicker();
-            this.dp_start = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tm)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +66,7 @@
             this.col_id,
             this.col_tm,
             this.col_kh,
+            this.col_gys,
             this.col_gyskh,
             this.col_lx,
             this.col_pm,
@@ -74,12 +76,9 @@
             this.col_gxsj});
             this.grid_tm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_tm.Location = new System.Drawing.Point(0, 32);
-            this.grid_tm.MultiSelect = false;
             this.grid_tm.Name = "grid_tm";
             this.grid_tm.ReadOnly = true;
-            this.grid_tm.RowHeadersVisible = false;
             this.grid_tm.RowTemplate.Height = 23;
-            this.grid_tm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_tm.Size = new System.Drawing.Size(1005, 466);
             this.grid_tm.TabIndex = 14;
             // 
@@ -100,6 +99,12 @@
             this.col_kh.HeaderText = "款号";
             this.col_kh.Name = "col_kh";
             this.col_kh.ReadOnly = true;
+            // 
+            // col_gys
+            // 
+            this.col_gys.HeaderText = "供应商";
+            this.col_gys.Name = "col_gys";
+            this.col_gys.ReadOnly = true;
             // 
             // col_gyskh
             // 
@@ -161,6 +166,20 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1005, 32);
             this.panel3.TabIndex = 13;
+            // 
+            // dp_end
+            // 
+            this.dp_end.Location = new System.Drawing.Point(774, 4);
+            this.dp_end.Name = "dp_end";
+            this.dp_end.Size = new System.Drawing.Size(106, 21);
+            this.dp_end.TabIndex = 32;
+            // 
+            // dp_start
+            // 
+            this.dp_start.Location = new System.Drawing.Point(662, 4);
+            this.dp_start.Name = "dp_start";
+            this.dp_start.Size = new System.Drawing.Size(106, 21);
+            this.dp_start.TabIndex = 31;
             // 
             // cmb_lx
             // 
@@ -242,20 +261,6 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "条码";
             // 
-            // dp_end
-            // 
-            this.dp_end.Location = new System.Drawing.Point(774, 4);
-            this.dp_end.Name = "dp_end";
-            this.dp_end.Size = new System.Drawing.Size(106, 21);
-            this.dp_end.TabIndex = 32;
-            // 
-            // dp_start
-            // 
-            this.dp_start.Location = new System.Drawing.Point(662, 4);
-            this.dp_start.Name = "dp_start";
-            this.dp_start.Size = new System.Drawing.Size(106, 21);
-            this.dp_start.TabIndex = 31;
-            // 
             // Form_Tiaomaxinxi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -286,9 +291,12 @@
         private System.Windows.Forms.Button btn_xzzdtm;
         private System.Windows.Forms.Button btn_xzzxtm;
         private System.Windows.Forms.ComboBox cmb_lx;
+        private System.Windows.Forms.DateTimePicker dp_end;
+        private System.Windows.Forms.DateTimePicker dp_start;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_gys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gyskh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_lx;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_pm;
@@ -296,7 +304,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gxsj;
-        private System.Windows.Forms.DateTimePicker dp_end;
-        private System.Windows.Forms.DateTimePicker dp_start;
     }
 }

@@ -25,6 +25,7 @@ namespace DB_FD
         public int id { get; set; }
         public string tiaoma { get; set; }
         public string kuanhao { get; set; }
+        public string gongyingshang { get; set; }
         public string gyskuanhao { get; set; }
         public byte leixing { get; set; }
         public string pinming { get; set; }

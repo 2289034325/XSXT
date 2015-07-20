@@ -31,13 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.mni_khxx = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_gysxx = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addjkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.计算售价ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txb_sjxs = new System.Windows.Forms.ToolStripTextBox();
-            this.mni_jssj = new System.Windows.Forms.ToolStripMenuItem();
             this.生成款号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_sckh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_sctm = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +59,7 @@
             this.col_all_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_tmxj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_all_gys = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.col_all_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,9 +72,15 @@
             this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_szgys = new System.Windows.Forms.Button();
+            this.cmb_gys = new System.Windows.Forms.ComboBox();
+            this.btn_jssj = new System.Windows.Forms.Button();
+            this.txb_sjxs = new System.Windows.Forms.TextBox();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
@@ -85,11 +88,9 @@
             this.mn_main.AllowMerge = false;
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mni_khxx,
-            this.mni_gysxx,
             this.mni_addjkh,
             this.mni_addxkh,
             this.mni_addsm,
-            this.计算售价ToolStripMenuItem,
             this.生成款号ToolStripMenuItem,
             this.mni_jiazai,
             this.mni_qingkong,
@@ -108,12 +109,12 @@
             this.mni_khxx.Text = "款号信息";
             this.mni_khxx.Click += new System.EventHandler(this.mni_khxx_Click);
             // 
-            // mni_gysxx
+            // mni_addjkh
             // 
-            this.mni_gysxx.Name = "mni_gysxx";
-            this.mni_gysxx.Size = new System.Drawing.Size(80, 21);
-            this.mni_gysxx.Text = "供应商信息";
-            this.mni_gysxx.Click += new System.EventHandler(this.mni_gysxx_Click);
+            this.mni_addjkh.Name = "mni_addjkh";
+            this.mni_addjkh.Size = new System.Drawing.Size(56, 21);
+            this.mni_addjkh.Text = "旧款号";
+            this.mni_addjkh.Click += new System.EventHandler(this.mni_addjkh_Click);
             // 
             // mni_addxkh
             // 
@@ -122,40 +123,12 @@
             this.mni_addxkh.Text = "新款号";
             this.mni_addxkh.Click += new System.EventHandler(this.mni_addkh_Click);
             // 
-            // mni_addjkh
-            // 
-            this.mni_addjkh.Name = "mni_addjkh";
-            this.mni_addjkh.Size = new System.Drawing.Size(56, 21);
-            this.mni_addjkh.Text = "旧款号";
-            this.mni_addjkh.Click += new System.EventHandler(this.mni_addjkh_Click);
-            // 
             // mni_addsm
             // 
             this.mni_addsm.Name = "mni_addsm";
             this.mni_addsm.Size = new System.Drawing.Size(56, 21);
             this.mni_addsm.Text = "新色码";
             this.mni_addsm.Click += new System.EventHandler(this.mni_addsm_Click);
-            // 
-            // 计算售价ToolStripMenuItem
-            // 
-            this.计算售价ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txb_sjxs,
-            this.mni_jssj});
-            this.计算售价ToolStripMenuItem.Name = "计算售价ToolStripMenuItem";
-            this.计算售价ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.计算售价ToolStripMenuItem.Text = "计算售价";
-            // 
-            // txb_sjxs
-            // 
-            this.txb_sjxs.Name = "txb_sjxs";
-            this.txb_sjxs.Size = new System.Drawing.Size(100, 23);
-            // 
-            // mni_jssj
-            // 
-            this.mni_jssj.Name = "mni_jssj";
-            this.mni_jssj.Size = new System.Drawing.Size(160, 22);
-            this.mni_jssj.Text = "计算";
-            this.mni_jssj.Click += new System.EventHandler(this.mni_jssj_Click);
             // 
             // 生成款号ToolStripMenuItem
             // 
@@ -259,14 +232,14 @@
             // mni_bqdy
             // 
             this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
+            this.mni_bqdy.Size = new System.Drawing.Size(148, 22);
             this.mni_bqdy.Text = "标签打印";
             this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
             // mni_fddr
             // 
             this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
+            this.mni_fddr.Size = new System.Drawing.Size(148, 22);
             this.mni_fddr.Text = "条码数量清单";
             this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
@@ -285,6 +258,7 @@
             this.col_all_pm,
             this.col_all_tm,
             this.col_all_tmxj,
+            this.col_all_gys,
             this.col_all_gyskh,
             this.col_all_ys,
             this.col_all_cm,
@@ -295,10 +269,10 @@
             this.col_all_xgsj});
             this.grid_all.ContextMenuStrip = this.cmn_all;
             this.grid_all.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grid_all.Location = new System.Drawing.Point(0, 25);
+            this.grid_all.Location = new System.Drawing.Point(0, 60);
             this.grid_all.Name = "grid_all";
             this.grid_all.RowTemplate.Height = 23;
-            this.grid_all.Size = new System.Drawing.Size(1170, 501);
+            this.grid_all.Size = new System.Drawing.Size(1170, 466);
             this.grid_all.TabIndex = 9;
             this.grid_all.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_all_CellBeginEdit);
             this.grid_all.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellEndEdit);
@@ -372,6 +346,15 @@
             this.col_all_tmxj.Name = "col_all_tmxj";
             this.col_all_tmxj.ReadOnly = true;
             this.col_all_tmxj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_gys
+            // 
+            this.col_all_gys.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.col_all_gys.HeaderText = "供应商";
+            this.col_all_gys.Name = "col_all_gys";
+            this.col_all_gys.ReadOnly = true;
+            this.col_all_gys.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_all_gys.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // col_all_gyskh
             // 
@@ -460,12 +443,61 @@
             this.cmn_all_jzkh.Text = "加载款号";
             this.cmn_all_jzkh.Click += new System.EventHandler(this.cmn_all_jzkh_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btn_szgys);
+            this.panel1.Controls.Add(this.cmb_gys);
+            this.panel1.Controls.Add(this.btn_jssj);
+            this.panel1.Controls.Add(this.txb_sjxs);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1170, 35);
+            this.panel1.TabIndex = 11;
+            // 
+            // btn_szgys
+            // 
+            this.btn_szgys.Location = new System.Drawing.Point(326, 6);
+            this.btn_szgys.Name = "btn_szgys";
+            this.btn_szgys.Size = new System.Drawing.Size(75, 23);
+            this.btn_szgys.TabIndex = 3;
+            this.btn_szgys.Text = "设置供应商";
+            this.btn_szgys.UseVisualStyleBackColor = true;
+            this.btn_szgys.Click += new System.EventHandler(this.btn_szgys_Click);
+            // 
+            // cmb_gys
+            // 
+            this.cmb_gys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_gys.FormattingEnabled = true;
+            this.cmb_gys.Location = new System.Drawing.Point(199, 8);
+            this.cmb_gys.Name = "cmb_gys";
+            this.cmb_gys.Size = new System.Drawing.Size(121, 20);
+            this.cmb_gys.TabIndex = 2;
+            // 
+            // btn_jssj
+            // 
+            this.btn_jssj.Location = new System.Drawing.Point(118, 6);
+            this.btn_jssj.Name = "btn_jssj";
+            this.btn_jssj.Size = new System.Drawing.Size(75, 23);
+            this.btn_jssj.TabIndex = 1;
+            this.btn_jssj.Text = "计算售价";
+            this.btn_jssj.UseVisualStyleBackColor = true;
+            this.btn_jssj.Click += new System.EventHandler(this.btn_jssj_Click);
+            // 
+            // txb_sjxs
+            // 
+            this.txb_sjxs.Location = new System.Drawing.Point(12, 7);
+            this.txb_sjxs.Name = "txb_sjxs";
+            this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
+            this.txb_sjxs.TabIndex = 0;
+            // 
             // Form_Bianma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1170, 526);
             this.Controls.Add(this.grid_all);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.mn_main);
             this.KeyPreview = true;
             this.Name = "Form_Bianma";
@@ -477,6 +509,8 @@
             this.mn_main.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).EndInit();
             this.cmn_all.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -491,7 +525,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai;
         private System.Windows.Forms.ToolStripMenuItem mni_qingkong;
         private System.Windows.Forms.DataGridView grid_all;
-        private System.Windows.Forms.ToolStripMenuItem mni_gysxx;
         private System.Windows.Forms.ToolStripMenuItem mni_addjkh;
         private System.Windows.Forms.ContextMenuStrip cmn_all;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_shuaxin;
@@ -500,9 +533,6 @@
         private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mni_saveServer;
         private System.Windows.Forms.ToolStripMenuItem mni_saveLoacal;
-        private System.Windows.Forms.ToolStripMenuItem 计算售价ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox txb_sjxs;
-        private System.Windows.Forms.ToolStripMenuItem mni_jssj;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_fuwuqi;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_bendi;
         private System.Windows.Forms.ToolStripMenuItem 导出ToolStripMenuItem;
@@ -511,6 +541,13 @@
         private System.Windows.Forms.ToolStripMenuItem cmn_all_saveTm;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_jzkh;
         private System.Windows.Forms.ToolStripMenuItem mni_sctm;
+        private System.Windows.Forms.ToolStripMenuItem 清空gridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空本地缓存ToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btn_jssj;
+        private System.Windows.Forms.TextBox txb_sjxs;
+        private System.Windows.Forms.Button btn_szgys;
+        private System.Windows.Forms.ComboBox cmb_gys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
@@ -520,6 +557,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_pm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmxj;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_all_gys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_gyskh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_ys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_cm;
@@ -528,8 +566,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
-        private System.Windows.Forms.ToolStripMenuItem 清空gridToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空本地缓存ToolStripMenuItem;
     }
 }
 

@@ -15,6 +15,8 @@ namespace DB_CK
                 TTiaoma ot = _db.TTiaoma.Single(r => r.id == tm.id);
 
                 ot.kuanhao = tm.kuanhao;
+                ot.tiaoma = tm.tiaoma;
+                ot.gongyingshang = tm.gongyingshang;
                 ot.gyskuanhao = tm.gyskuanhao;
                 ot.leixing = tm.leixing;
                 ot.pinming = tm.pinming;

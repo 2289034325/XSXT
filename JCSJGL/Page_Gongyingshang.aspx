@@ -3,8 +3,9 @@
     <title>供应商管理</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,mc,lxr,dh,dz,bz) {
+        function EditInfo(id,jc,mc,lxr,dh,dz,bz) {
             $("#hid_id").val(id);
+            $("#txb_jc").val(jc);
             $("#txb_mc").val(mc);
             $("#txb_lxr").val(lxr);
             $("#txb_dh").val(dh);
@@ -24,6 +25,7 @@
     <asp:GridView ID="grid_gys" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
+            <asp:BoundField DataField="jiancheng" HeaderText="简称"></asp:BoundField>
             <asp:BoundField DataField="mingcheng" HeaderText="名称"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="电话"></asp:BoundField>
@@ -34,7 +36,7 @@
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input><input type="submit" onclick="    EditPsw(<%# Eval("id")%>)" value="修改密码"></input><input type="submit" onclick="    Delete(<%# Eval("id")%>)" value="删除"></input>
+                    <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input><input type="submit" onclick="    Delete(<%# Eval("id")%>)" value="删除"></input>
                 </ItemTemplate>
             </asp:TemplateField>
 
@@ -60,6 +62,7 @@
     <asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
+        <div><asp:Label runat="server" Text="简称"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_jc" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="名称"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_mc" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="联系人"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_lxr" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="电话"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_dh" ClientIDMode="Static"></asp:TextBox></div>

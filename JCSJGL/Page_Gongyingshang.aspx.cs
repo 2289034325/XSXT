@@ -54,6 +54,7 @@ namespace JCSJGL
             var dfs = cs.Select(r => new
             {
                 id = r.id,
+                jiancheng = r.jiancheng,
                 mingcheng = r.mingcheng,
                 lianxiren = r.lianxiren,
                 dianhua = r.dianhua,
@@ -62,7 +63,7 @@ namespace JCSJGL
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.mingcheng + "','" + r.lianxiren + "','" + r.dianhua + "','" + r.dizhi + "','" + r.beizhu + "'"
+                editParams = r.id + ",'" + r.jiancheng + "','" + r.mingcheng + "','" + r.lianxiren + "','" + r.dianhua + "','" + r.dizhi + "','" + r.beizhu + "'"
             });
 
             grid_gys.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -93,6 +94,7 @@ namespace JCSJGL
         /// <returns></returns>
         private TGongyingshang getEditInfo()
         {
+            string jc = txb_jc.Text.Trim();
             string mc = txb_mc.Text.Trim();
             string dz = txb_dz.Text.Trim();
             string lxr = txb_lxr.Text.Trim();
@@ -101,6 +103,7 @@ namespace JCSJGL
 
             TGongyingshang f = new TGongyingshang
             {
+                jiancheng = jc,
                 mingcheng = mc,
                 dizhi = dz,
                 lianxiren = lxr,

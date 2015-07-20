@@ -136,7 +136,7 @@ namespace DB_CK
                 byte blx = byte.Parse(lx);
                 ks = ks.Where(r => r.t.leixing == blx);
             }
-            return ks.ToDictionary(k => k.t, v => v.shuliang.Value);
+            return ks.ToDictionary(k => k.t, v => v.shuliang);
         }
 
         /// <summary>

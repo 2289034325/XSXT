@@ -22,7 +22,7 @@ namespace DB_CK
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiuggaishijian { get; set; }
     
-        public virtual TTiaoma TTiaoma { get; set; }
         public virtual TUser TUser { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

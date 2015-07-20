@@ -3,7 +3,7 @@
     <title>条码信息</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,tm,ys,cm,jj,sj,kh,gyskh) {
+        function EditInfo(id,tm,ys,cm,jj,sj,kh,gysid,gyskh) {
             $("#hid_id").val(id);
             $("#txb_tm").val(tm);
             $("#txb_ys").val(ys);
@@ -11,6 +11,7 @@
             $("#txb_jj").val(jj);
             $("#txb_sj").val(sj);
             $("#txb_kh").val(kh);
+            $("#cmb_gys").val(gysid);
             $("#txb_gyskh").val(gyskh);
         }
 
@@ -35,6 +36,7 @@
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
+            <asp:BoundField DataField="gongyingshang" HeaderText="供应商"></asp:BoundField>
             <asp:BoundField DataField="gyskuanhao" HeaderText="供应商款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>
             <asp:BoundField DataField="pinming" HeaderText="品名"></asp:BoundField>
@@ -76,6 +78,7 @@
     <div id="div_edit" class="div_edit">
         <div><asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="供应商"></asp:Label><asp:DropDownList runat="server" ID="cmb_gys" ClientIDMode="Static"></asp:DropDownList></div>
         <div><asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox CssClass="short"  runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox></div>

@@ -28,8 +28,8 @@ namespace DB_CK
         public virtual DbSet<TChuruku> TChuruku { get; set; }
         public virtual DbSet<TChurukuMX> TChurukuMX { get; set; }
         public virtual DbSet<TKucunXZ> TKucunXZ { get; set; }
-        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
         public virtual DbSet<VKucun> VKucun { get; set; }
+        public virtual DbSet<TTiaoma> TTiaoma { get; set; }
     }
 }

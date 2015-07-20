@@ -18,12 +18,12 @@ namespace DB_JCSJ
         {
             this.TCangku = new HashSet<TCangku>();
             this.TFendian = new HashSet<TFendian>();
-            this.TGongyingshang = new HashSet<TGongyingshang>();
             this.THuiyuan = new HashSet<THuiyuan>();
             this.TKuanhao = new HashSet<TKuanhao>();
             this.TUser_Cangku = new HashSet<TUser_Cangku>();
             this.TUser_Fendian = new HashSet<TUser_Fendian>();
             this.TTiaoma = new HashSet<TTiaoma>();
+            this.TGongyingshang = new HashSet<TGongyingshang>();
         }
     
         public int id { get; set; }
@@ -39,11 +39,11 @@ namespace DB_JCSJ
     
         public virtual ICollection<TCangku> TCangku { get; set; }
         public virtual ICollection<TFendian> TFendian { get; set; }
-        public virtual ICollection<TGongyingshang> TGongyingshang { get; set; }
         public virtual ICollection<THuiyuan> THuiyuan { get; set; }
         public virtual ICollection<TKuanhao> TKuanhao { get; set; }
         public virtual ICollection<TUser_Cangku> TUser_Cangku { get; set; }
         public virtual ICollection<TUser_Fendian> TUser_Fendian { get; set; }
         public virtual ICollection<TTiaoma> TTiaoma { get; set; }
+        public virtual ICollection<TGongyingshang> TGongyingshang { get; set; }
     }
 }

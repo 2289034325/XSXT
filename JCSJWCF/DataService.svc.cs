@@ -183,6 +183,9 @@ namespace JCSJWCF
                 t.TKuanhao.TTiaoma.Clear();
                 t.TUser.TTiaoma.Clear();
                 t.TUser.TKuanhao.Clear();
+                t.TUser.TGongyingshang.Clear();
+                t.TGongyingshang.TTiaoma.Clear();
+                t.TGongyingshang.TUser = null;
             }
             return ts;
         }
@@ -492,6 +495,8 @@ namespace JCSJWCF
                 tm.TUser = null;
                 tm.TKuanhao.TTiaoma.Clear();
                 tm.TKuanhao.TUser = null;
+                tm.TGongyingshang.TTiaoma.Clear();    
+                tm.TGongyingshang.TUser = null;
             }
             
             return tms;
@@ -510,6 +515,7 @@ namespace JCSJWCF
             foreach (TTiaoma t in ts)
             {
                 t.TKuanhao.TTiaoma.Clear();
+                t.TGongyingshang.TTiaoma.Clear();
             }
 
             return ts;

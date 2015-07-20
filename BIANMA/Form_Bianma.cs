@@ -62,6 +62,22 @@ namespace BIANMA
             col_all_xb.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_XB));
             //类型下拉框
             col_all_lx.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_LX));
+            //供应商下拉框
+            TGongyingshang[] gyss;
+            try
+            {
+                gyss = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            Tool.CommonFunc.InitCombbox(cmb_gys, gyss, "jiancheng", "id");
+
+            col_all_gys.DataSource = gyss;
+            col_all_gys.ValueMember = "id";
+            col_all_gys.DisplayMember = "jiancheng";
         }       
 
         /// <summary>
@@ -157,6 +173,7 @@ namespace BIANMA
                             k.kuanhao.pinming,
                             t.tiaoma.tiaoma,
                             t.xj.ToString(),
+                            t.tiaoma.gysid,
                             t.tiaoma.gyskuanhao,
                             t.tiaoma.yanse,
                             t.tiaoma.chima,
@@ -228,78 +245,7 @@ namespace BIANMA
             //刷新合计行
             refreshTotalRow();
         }
-
-        /// <summary>
-        /// 在grid的中增加一个款号
-        /// </summary>
-        /// <param name="tKuanhao"></param>
-        private void addKuanhao(TKuanhaoExtend k)
-        {
-            ////合并标志
-            //bool hb = false;
-            ////如果已存在，就合并
-            //TKuanhaoExtend exk = null;
-            //List<TTiaomaExtend> otms = null;
-            ////如果是空白，说明是点击菜单【新款】【旧款】添加的，否则是点击【加载】添加的旧款号
-            //if (k.kuanhao.kuanhao == "")
-            //{
-            //    hb = false;
-            //}
-            ////如果款号不是空白，说明是加载的旧款号
-            //else
-            //{
-            //    //遍历检查是否已经存在相同的旧款号
-            //    foreach (DataGridViewRow dr in grid_kuanhao.Rows)
-            //    {
-            //        exk = (TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value;
-            //        otms = exk.tms;
-            //        //如果款号相同
-            //        if (exk.kuanhao.kuanhao == k.kuanhao.kuanhao)
-            //        {
-            //            hb = true;
-
-            //            //被标为新款，报错
-            //            if (exk.xj == XTCONSTS.KUANHAO_XINJIU.新款)
-            //            {
-            //                MessageBox.Show("款号" + exk.kuanhao.kuanhao + "被标为新款号，无法加载");
-            //                return;
-            //            }
-            //            //标为旧款，则合并条码信息
-            //            else
-            //            {
-            //                //更新row显示
-            //                dr.Cells[col_kh_khex.Name].Value = k;
-
-            //                //合并条码列表
-            //                //检查是否已经存在list里了
-            //                foreach (TTiaomaExtend t in k.tms)
-            //                {
-            //                    if (!otms.Exists(r => r.tiaoma.tiaoma == t.tiaoma.tiaoma))
-            //                    {
-            //                        otms.Add(t);
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            ////没有进行合并，就直接增加一行
-            //if (!hb)
-            //{
-            //    grid_kuanhao.Rows.Add(new object[] 
-            //            {
-            //                k.idex,
-            //                k.xj.ToString(),
-            //                k.kuanhao.kuanhao,
-            //                ((DBCONSTS.KUANHAO_XB)k.kuanhao.xingbie).ToString(),
-            //                ((DBCONSTS.KUANHAO_LX)k.kuanhao.leixing).ToString(),
-            //                k.kuanhao.pinming,
-            //                k.kuanhao.caozuorenid,
-            //                k
-            //            });
-            //}
-        }
+        
 
         /// <summary>
         /// 根据每行绑定的款号对象刷新款号grid显示
@@ -391,6 +337,7 @@ namespace BIANMA
                     charushijian = DateTime.Now,
                     chima = "",
                     gyskuanhao = "",
+                    gysid = int.Parse(cmb_gys.SelectedValue.ToString()),
                     jinjia = 0,
                     shoujia = 0,
                     tiaoma = "",
@@ -675,6 +622,7 @@ namespace BIANMA
             tt.tiaoma.tiaoma = "";
             tt.tiaoma.yanse = "";
             tt.tiaoma.chima = "";
+            tt.tiaoma.gysid = int.Parse(cmb_gys.SelectedValue.ToString());
             tt.tiaoma.caozuorenid = LoginInfo.User.id;
             tt.tiaoma.charushijian = DateTime.Now;
             tt.tiaoma.xiugaishijian = DateTime.Now;
@@ -1645,233 +1593,7 @@ namespace BIANMA
                 dr.Cells[col_all_khxj.Name].Value = XTCONSTS.KUANHAO_XINJIU.旧款.ToString();
                 dr.Cells[col_all_tmxj.Name].Value = XTCONSTS.TIAOMA_XINJIU.旧条码.ToString();
             }
-        }
-
-        /// <summary>
-        /// 保存旧条码的修改
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void cmn_tm_xg_Click(object sender, EventArgs e)
-        //{
-        //    DataGridViewRow dr = grid_tiaoma.SelectedRows[0];
-        //    if (dr.Cells[col_tm_xj.Name].Value.Equals(XTCONSTS.TIAOMA_XINJIU.新条码.ToString()))
-        //    {
-        //        MessageBox.Show("对新条码无效");
-        //        return;
-        //    }
-        //    int idex = (int)dr.Cells[col_tm_idex.Name].Value;
-
-        //    DataGridViewRow kdr = null;
-        //    if (grid_kuanhao.SelectedRows.Count != 0)
-        //    {
-        //        kdr = grid_kuanhao.SelectedRows[0];
-        //    }
-        //    else if (grid_kuanhao.SelectedCells.Count != 0)
-        //    {
-        //        kdr = grid_kuanhao.SelectedCells[0].OwningRow;
-        //    }
-
-        //    TKuanhaoExtend kex = (TKuanhaoExtend)kdr.Cells[col_kh_khex.Name].Value;
-        //    TTiaoma t = null;
-        //    foreach (TTiaomaExtend tex in kex.tms)
-        //    {
-        //        if (tex.idex == idex)
-        //        {
-        //            t = tex.tiaoma;
-        //            break;
-        //        }
-        //    }
-        //    try
-        //    {
-        //        JCSJWCF.EditTiaoma(t);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        return;
-        //    }
-
-        //    MessageBox.Show("修改成功");
-        //}
-
-        /// <summary>
-        /// 款号的键盘事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void grid_kuanhao_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    //在整行选中的情况下才触发
-        //    if (grid_kuanhao.SelectedRows.Count == 1)
-        //    {
-        //        //粘贴剪切的条码
-        //        if (e.Control && e.KeyCode == Keys.V)
-        //        {
-        //            //找到该条码的实例
-        //            TTiaomaExtend ot = null;
-        //            foreach (DataGridViewRow dr in grid_kuanhao.Rows)
-        //            {
-        //                TKuanhaoExtend kex = (TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value;
-        //                List<TTiaomaExtend> tms = kex.tms;
-        //                foreach (TTiaomaExtend tex in tms)
-        //                {
-        //                    //if (tex.idex == _tmidex)
-        //                    //{
-        //                    //    ot = tex;
-        //                    //    break;
-        //                    //}
-        //                }
-        //                if (ot != null)
-        //                {
-        //                    TKuanhaoExtend nkex = (TKuanhaoExtend)grid_kuanhao.SelectedRows[0].Cells[col_kh_khex.Name].Value;
-        //                    ot.tiaoma.kuanhaoid = nkex.kuanhao.id;
-        //                    nkex.tms.Add(ot);
-        //                    tms.Remove(ot);
-        //                    //_tmidex = 0;
-        //                    break;
-        //                }
-        //            }
-        //            refreshTiaoma();
-        //        }
-        //    }
-        //    //方向键事件
-        //    else
-        //    {
-        //        //如果到了最右边
-        //        if (e.KeyCode == Keys.Right)
-        //        {
-        //            if (grid_kuanhao.SelectedCells.Count == 1)
-        //            {
-        //                if (grid_kuanhao.SelectedCells[0].ColumnIndex == col_kh_pm.Index)
-        //                {
-        //                    if (grid_tiaoma.Rows.Count > 0)
-        //                    {
-        //                        grid_tiaoma.Focus();
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //}
-
-        /// <summary>
-        /// 条码grid键盘事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void grid_tiaoma_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    //在整行选中的情况下才触发
-        //    if (grid_tiaoma.SelectedRows.Count == 1)
-        //    {
-        //        //剪切条码
-        //        if (e.Control && e.KeyCode == Keys.X)
-        //        {
-        //            //旧条码不允许剪切，因为剪切会修改款号
-        //            if (XTCONSTS.TIAOMA_XINJIU.旧条码.ToString().Equals(grid_tiaoma.SelectedRows[0].Cells[col_tm_idex.Name].Value))
-        //            {
-        //                //_tmidex = (int)grid_tiaoma.SelectedRows[0].Cells[col_tm_idex.Name].Value;
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("旧条码不允许剪切");
-        //            }
-        //        }
-        //    }
-        //    //在单元格选择模式下触发
-        //    else
-        //    {
-        //        //粘贴
-        //        if (e.Control && e.KeyCode == Keys.V)
-        //        {
-        //            foreach (DataGridViewCell dc in grid_tiaoma.SelectedCells)
-        //            {
-        //                //只读和条码列不允许粘贴
-        //                if (!dc.ReadOnly && dc.ColumnIndex != col_tm_tm.Index)
-        //                {
-        //                    dc.Value = Clipboard.GetData(DataFormats.Text);
-        //                }
-        //            }
-        //        }
-        //        //向左，跨到款号grid
-        //        else if (e.KeyCode == Keys.Left)
-        //        {
-        //            //如果到了最左边
-        //            if (grid_tiaoma.SelectedCells.Count == 1)
-        //            {
-        //                if (grid_tiaoma.SelectedCells[0].ColumnIndex == col_tm_xj.Index)
-        //                {
-        //                    grid_kuanhao.Focus();
-        //                    //将焦点行移动到最上面
-        //                    //grid_kuanhao.FirstDisplayedScrollingRowIndex = grid_kuanhao.SelectedCells[0].RowIndex;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-    
-
-        /// <summary>
-        /// 设置右键菜单
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void grid_tiaoma_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
-        //{
-        //    if (e.Row.Selected)
-        //    {
-        //        e.Row.ContextMenuStrip = cmn_tm;
-        //    }
-        //    else
-        //    {
-        //        e.Row.ContextMenuStrip = null;
-        //    }
-        //}
-
-        /// <summary>
-        /// 根据进价乘以系数，将结果小数去掉，位数改成9
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_jssj_Click(object sender, EventArgs e)
-        {
-            decimal x;
-            if (!decimal.TryParse(txb_sjxs.Text.Trim(), out x))
-            {
-                MessageBox.Show("系数必须是数字");
-                return;
-            }
-
-            //foreach (DataGridViewRow dr in grid_kuanhao.Rows)
-            //{
-            //    TKuanhaoExtend kex = (TKuanhaoExtend)dr.Cells[col_kh_khex.Name].Value;
-            //    foreach (TTiaomaExtend tex in kex.tms)
-            //    {
-            //        if (tex.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
-            //        {
-            //            decimal sj = tex.tiaoma.jinjia * x;
-            //            tex.tiaoma.shoujia = sj;
-            //        }
-            //    }
-            //}
-
-            foreach (TKuanhaoExtend tk in _khs)
-            {
-                foreach (TTiaomaExtend tt in tk.tms)
-                {
-                    if (tt.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
-                    {
-                        tt.tiaoma.shoujia = tt.tiaoma.jinjia * x;
-                    }
-                }
-            }
-
-            //refreshTiaoma();
-
-            refreshShoujia();
-        }
+        }               
 
         /// <summary>
         /// 刷新售价
@@ -2552,6 +2274,60 @@ namespace BIANMA
             if (sdlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 File.WriteAllText(sdlg.FileName, bq, Encoding.Default);
+            }
+        }
+
+        /// <summary>
+        /// 按照系数计算售价
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_jssj_Click(object sender, EventArgs e)
+        {
+            decimal x;
+            if (!decimal.TryParse(txb_sjxs.Text.Trim(), out x))
+            {
+                MessageBox.Show("系数必须是数字");
+                return;
+            }
+
+            foreach (TKuanhaoExtend tk in _khs)
+            {
+                foreach (TTiaomaExtend tt in tk.tms)
+                {
+                    if (tt.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
+                    {
+                        tt.tiaoma.shoujia = tt.tiaoma.jinjia * x;
+                    }
+                }
+            }
+
+            refreshShoujia();
+        }
+
+        /// <summary>
+        /// 设置供应商
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_szgys_Click(object sender, EventArgs e)
+        {
+            if (grid_all.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            foreach (DataGridViewRow dr in grid_all.SelectedRows)
+            {
+                int gysid = int.Parse(cmb_gys.SelectedValue.ToString());
+                dr.Cells[col_all_gys.Name].Value = gysid;
+
+                int khidex = (int)dr.Cells[col_all_khidex.Name].Value;
+                int tmidex = (int)dr.Cells[col_all_tmidex.Name].Value;
+
+                TKuanhaoExtend ke = _khs.Single(r => r.idex == khidex);
+                TTiaomaExtend te = ke.tms.Single(r => r.idex == tmidex);
+                te.tiaoma.gysid = gysid;
             }
         }
     }

@@ -29,16 +29,6 @@
         private void InitializeComponent()
         {
             this.grid_tm = new System.Windows.Forms.DataGridView();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_gxsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dp_end = new System.Windows.Forms.DateTimePicker();
             this.dp_start = new System.Windows.Forms.DateTimePicker();
@@ -51,6 +41,17 @@
             this.txb_tm = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_gys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_gxsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid_tm)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +66,7 @@
             this.col_id,
             this.col_tm,
             this.col_kh,
+            this.col_gys,
             this.col_gyskh,
             this.col_lx,
             this.col_pm,
@@ -79,66 +81,6 @@
             this.grid_tm.RowTemplate.Height = 23;
             this.grid_tm.Size = new System.Drawing.Size(1005, 466);
             this.grid_tm.TabIndex = 14;
-            // 
-            // col_id
-            // 
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            // 
-            // col_tm
-            // 
-            this.col_tm.HeaderText = "条码";
-            this.col_tm.Name = "col_tm";
-            this.col_tm.ReadOnly = true;
-            // 
-            // col_kh
-            // 
-            this.col_kh.HeaderText = "款号";
-            this.col_kh.Name = "col_kh";
-            this.col_kh.ReadOnly = true;
-            // 
-            // col_gyskh
-            // 
-            this.col_gyskh.HeaderText = "供应商款号";
-            this.col_gyskh.Name = "col_gyskh";
-            this.col_gyskh.ReadOnly = true;
-            // 
-            // col_lx
-            // 
-            this.col_lx.HeaderText = "类型";
-            this.col_lx.Name = "col_lx";
-            this.col_lx.ReadOnly = true;
-            // 
-            // col_pm
-            // 
-            this.col_pm.HeaderText = "品名";
-            this.col_pm.Name = "col_pm";
-            this.col_pm.ReadOnly = true;
-            // 
-            // col_ys
-            // 
-            this.col_ys.HeaderText = "颜色";
-            this.col_ys.Name = "col_ys";
-            this.col_ys.ReadOnly = true;
-            // 
-            // col_cm
-            // 
-            this.col_cm.HeaderText = "尺码";
-            this.col_cm.Name = "col_cm";
-            this.col_cm.ReadOnly = true;
-            // 
-            // col_sj
-            // 
-            this.col_sj.HeaderText = "售价";
-            this.col_sj.Name = "col_sj";
-            this.col_sj.ReadOnly = true;
-            // 
-            // col_gxsj
-            // 
-            this.col_gxsj.HeaderText = "更新时间";
-            this.col_gxsj.Name = "col_gxsj";
-            this.col_gxsj.ReadOnly = true;
             // 
             // panel3
             // 
@@ -253,6 +195,72 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "条码";
             // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            // 
+            // col_tm
+            // 
+            this.col_tm.HeaderText = "条码";
+            this.col_tm.Name = "col_tm";
+            this.col_tm.ReadOnly = true;
+            // 
+            // col_kh
+            // 
+            this.col_kh.HeaderText = "款号";
+            this.col_kh.Name = "col_kh";
+            this.col_kh.ReadOnly = true;
+            // 
+            // col_gys
+            // 
+            this.col_gys.HeaderText = "供应商";
+            this.col_gys.Name = "col_gys";
+            this.col_gys.ReadOnly = true;
+            // 
+            // col_gyskh
+            // 
+            this.col_gyskh.HeaderText = "供应商款号";
+            this.col_gyskh.Name = "col_gyskh";
+            this.col_gyskh.ReadOnly = true;
+            // 
+            // col_lx
+            // 
+            this.col_lx.HeaderText = "类型";
+            this.col_lx.Name = "col_lx";
+            this.col_lx.ReadOnly = true;
+            // 
+            // col_pm
+            // 
+            this.col_pm.HeaderText = "品名";
+            this.col_pm.Name = "col_pm";
+            this.col_pm.ReadOnly = true;
+            // 
+            // col_ys
+            // 
+            this.col_ys.HeaderText = "颜色";
+            this.col_ys.Name = "col_ys";
+            this.col_ys.ReadOnly = true;
+            // 
+            // col_cm
+            // 
+            this.col_cm.HeaderText = "尺码";
+            this.col_cm.Name = "col_cm";
+            this.col_cm.ReadOnly = true;
+            // 
+            // col_sj
+            // 
+            this.col_sj.HeaderText = "售价";
+            this.col_sj.Name = "col_sj";
+            this.col_sj.ReadOnly = true;
+            // 
+            // col_gxsj
+            // 
+            this.col_gxsj.HeaderText = "更新时间";
+            this.col_gxsj.Name = "col_gxsj";
+            this.col_gxsj.ReadOnly = true;
+            // 
             // Form_Tiaomaxinxi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -283,9 +291,12 @@
         private System.Windows.Forms.Button btn_xzzdtm;
         private System.Windows.Forms.Button btn_xzzxtm;
         private System.Windows.Forms.ComboBox cmb_lx;
+        private System.Windows.Forms.DateTimePicker dp_end;
+        private System.Windows.Forms.DateTimePicker dp_start;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_gys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gyskh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_lx;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_pm;
@@ -293,7 +304,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gxsj;
-        private System.Windows.Forms.DateTimePicker dp_end;
-        private System.Windows.Forms.DateTimePicker dp_start;
     }
 }

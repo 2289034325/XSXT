@@ -132,12 +132,6 @@ namespace BIANMA
             return _jdc.GetTiaomas(userid, kuanhao, tiaoma, start, end);
         }
 
-        internal static TTiaoma[] GetTiaomasByKuanhaoMc(string kh)
-        {
-            AutoLogin();
-            return _jdc.GetTiaomasByKuanhaoMc(kh);
-        }
-
         internal static TKuanhao GetKuanhaoByMc(string kh)
         {
             AutoLogin();

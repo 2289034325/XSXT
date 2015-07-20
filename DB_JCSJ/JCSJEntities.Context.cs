@@ -31,7 +31,6 @@ namespace DB_JCSJ
         public virtual DbSet<TFendian> TFendian { get; set; }
         public virtual DbSet<TFendianJinchuhuo> TFendianJinchuhuo { get; set; }
         public virtual DbSet<TFendianJinchuhuoMX> TFendianJinchuhuoMX { get; set; }
-        public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
         public virtual DbSet<THuiyuan> THuiyuan { get; set; }
         public virtual DbSet<THuiyuanZK> THuiyuanZK { get; set; }
         public virtual DbSet<TKuanhao> TKuanhao { get; set; }
@@ -45,5 +44,6 @@ namespace DB_JCSJ
         public virtual DbSet<TCangkuFahuoFendian> TCangkuFahuoFendian { get; set; }
         public virtual DbSet<TXiaoshou> TXiaoshou { get; set; }
         public virtual DbSet<TTiaoma> TTiaoma { get; set; }
+        public virtual DbSet<TGongyingshang> TGongyingshang { get; set; }
     }
 }

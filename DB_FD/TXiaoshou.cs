@@ -31,7 +31,7 @@ namespace DB_FD
         public Nullable<System.DateTime> shangbaoshijian { get; set; }
     
         public virtual THuiyuan THuiyuan { get; set; }
-        public virtual TTiaoma TTiaoma { get; set; }
         public virtual TUser TUser { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

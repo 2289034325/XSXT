@@ -156,7 +156,7 @@ namespace DataTranslate
                 TKuanhao = new DB_JCSJ.TKuanhao
                 {
                     kuanhao = "K" + r.id,
-                    leixing = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.上衣,
+                    leixing = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.上装,
                     xingbie = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_XB.女,
                     pinming = r.pinming,
                     beizhu = "",

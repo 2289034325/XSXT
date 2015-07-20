@@ -187,7 +187,7 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TTiaoma[] GetTiaomasByCond(int? userid,byte? lx, string kh, string tmh,DateTime? xgsj_start,DateTime? xgsj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var tms = _db.TTiaoma.Include("TUser").Include("TKuanhao").AsQueryable();
+                var tms = _db.TTiaoma.Include("TUser").Include("TKuanhao").Include("TGongyingshang").AsQueryable();
                 if (lx != null)
                 {
                     tms = tms.Where(r => r.TKuanhao.leixing == lx.Value);
@@ -244,7 +244,7 @@ namespace DB_JCSJ
             }
             public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
             {
-                return _db.TTiaoma.Include("TKuanhao").Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+                return _db.TTiaoma.Include("TKuanhao").Include("TGongyingshang").Where(r => tmhs.Contains(r.tiaoma)).ToArray();
             }
 
 

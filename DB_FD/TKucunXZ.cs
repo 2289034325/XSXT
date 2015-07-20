@@ -21,7 +21,7 @@ namespace DB_FD
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
     
-        public virtual TTiaoma TTiaoma { get; set; }
         public virtual TUser TUser { get; set; }
+        public virtual TTiaoma TTiaoma { get; set; }
     }
 }

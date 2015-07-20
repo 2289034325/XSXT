@@ -19,6 +19,11 @@ namespace JCSJGL
                 //初始化类型下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
                 cmb_lx.Items.Insert(0, "");
+
+                //供应商下拉框
+                DBContext db = new DBContext();
+                TGongyingshang[] gs = db.GetGongyingshangs();
+                Tool.CommonFunc.InitDropDownList(cmb_gys, gs, "mingcheng", "id");
             }
             else
             {
@@ -86,12 +91,14 @@ namespace JCSJGL
                 kuanhao = r.TKuanhao.kuanhao,
                 leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
                 pinming = r.TKuanhao.pinming,
+                gongyingshang = r.TGongyingshang.mingcheng,
+                gysid = r.gysid,
                 gyskuanhao = r.gyskuanhao,
                 caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.tiaoma + "','" + r.yanse + "','" + r.chima + "','" + r.jinjia + "','" + r.shoujia + "','" +
-                             r.TKuanhao.kuanhao + "','" + r.gyskuanhao + "'"
+                             r.TKuanhao.kuanhao + "','" + r.gysid + "','" + r.gyskuanhao + "'"
             });
 
             grid_tiaoma.VirtualItemCount = recordCount;
@@ -136,6 +143,7 @@ namespace JCSJGL
                 throw new MyException("该款号不存在");
             }
 
+            int gysid = int.Parse(cmb_gys.SelectedValue);
             string gyskuanhao = txb_gyskh.Text.Trim();
 
             TTiaoma f = new TTiaoma
@@ -146,6 +154,7 @@ namespace JCSJGL
                 jinjia = jinjia,
                 shoujia = shoujia,
                 kuanhaoid = k.id,
+                gysid = gysid,
                 gyskuanhao = gyskuanhao,
             };
 

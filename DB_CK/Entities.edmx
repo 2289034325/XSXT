@@ -46,6 +46,7 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="tiaoma" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="kuanhao" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="gongyingshang" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="gyskuanhao" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="leixing" Type="tinyint" Nullable="false" />
           <Property Name="pinming" Type="nvarchar" MaxLength="6" Nullable="false" />
@@ -71,13 +72,14 @@
           <Property Name="xiugaishijian" Type="datetime" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图“CK.dbo.VKucun”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“CK_TEST.dbo.VKucun”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="VKucun">
           <Key>
             <PropertyRef Name="id" />
+            
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="shuliang" Type="smallint" />
+          <Property Name="shuliang" Type="smallint" Nullable="false" />
         </EntityType>
         <Association Name="FK_TChuruku_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
@@ -200,7 +202,7 @@
           <Property Name="tiaomaid" Type="Int32" Nullable="false" />
           <Property Name="shuliang" Type="Int16" Nullable="false" />
           <NavigationProperty Name="TChuruku" Relationship="Self.FK_TChurukuMX_TChuruku" FromRole="TChurukuMX" ToRole="TChuruku" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TChurukuMX_TTiaoma" FromRole="TChurukuMX" ToRole="TTiaoma" />
+          <NavigationProperty Name="TTiaoma" Relationship="CKModel.FK_TChurukuMX_TTiaoma" FromRole="TChurukuMX" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TKucunXZ">
           <Key>
@@ -213,27 +215,8 @@
           <Property Name="caozuorenid" Type="Int32" Nullable="false" />
           <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="xiuggaishijian" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TTiaoma" Relationship="Self.FK_TKucunXZ_TTiaoma" FromRole="TKucunXZ" ToRole="TTiaoma" />
           <NavigationProperty Name="TUser" Relationship="Self.FK_TKucunXZ_TUser" FromRole="TKucunXZ" ToRole="TUser" />
-        </EntityType>
-        <EntityType Name="TTiaoma">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="tiaoma" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="kuanhao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="gyskuanhao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="leixing" Type="Byte" Nullable="false" />
-          <Property Name="pinming" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="yanse" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="chima" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="jinjia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="shoujia" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TChurukuMX" Relationship="Self.FK_TChurukuMX_TTiaoma" FromRole="TTiaoma" ToRole="TChurukuMX" />
-          <NavigationProperty Name="TKucunXZ" Relationship="Self.FK_TKucunXZ_TTiaoma" FromRole="TTiaoma" ToRole="TKucunXZ" />
+          <NavigationProperty Name="TTiaoma" Relationship="CKModel.FK_TKucunXZ_TTiaoma" FromRole="TKucunXZ" ToRole="TTiaoma" />
         </EntityType>
         <EntityType Name="TUser">
           <Key>
@@ -275,30 +258,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TChurukuMX_TTiaoma">
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="1" />
-          <End Role="TChurukuMX" Type="Self.TChurukuMX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TChurukuMX">
-              <PropertyRef Name="tiaomaid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TKucunXZ_TTiaoma">
-          <End Role="TTiaoma" Type="Self.TTiaoma" Multiplicity="1" />
-          <End Role="TKucunXZ" Type="Self.TKucunXZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TTiaoma">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TKucunXZ">
-              <PropertyRef Name="tiaomaid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TKucunXZ_TUser">
           <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
           <End Role="TKucunXZ" Type="Self.TKucunXZ" Multiplicity="*" />
@@ -315,7 +274,6 @@
           <EntitySet Name="TChuruku" EntityType="Self.TChuruku" />
           <EntitySet Name="TChurukuMX" EntityType="Self.TChurukuMX" />
           <EntitySet Name="TKucunXZ" EntityType="Self.TKucunXZ" />
-          <EntitySet Name="TTiaoma" EntityType="Self.TTiaoma" />
           <EntitySet Name="TUser" EntityType="Self.TUser" />
           <AssociationSet Name="FK_TChuruku_TUser" Association="Self.FK_TChuruku_TUser">
             <End Role="TUser" EntitySet="TUser" />
@@ -325,28 +283,73 @@
             <End Role="TChuruku" EntitySet="TChuruku" />
             <End Role="TChurukuMX" EntitySet="TChurukuMX" />
           </AssociationSet>
-          <AssociationSet Name="FK_TChurukuMX_TTiaoma" Association="Self.FK_TChurukuMX_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-            <End Role="TChurukuMX" EntitySet="TChurukuMX" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TKucunXZ_TTiaoma" Association="Self.FK_TKucunXZ_TTiaoma">
-            <End Role="TTiaoma" EntitySet="TTiaoma" />
-            <End Role="TKucunXZ" EntitySet="TKucunXZ" />
-          </AssociationSet>
           <AssociationSet Name="FK_TKucunXZ_TUser" Association="Self.FK_TKucunXZ_TUser">
             <End Role="TUser" EntitySet="TUser" />
             <End Role="TKucunXZ" EntitySet="TKucunXZ" />
           </AssociationSet>
           <EntitySet Name="VKucun" EntityType="CKModel.VKucun" />
-        </EntityContainer>
+          <EntitySet Name="TTiaoma" EntityType="CKModel.TTiaoma" />
+          <AssociationSet Name="FK_TChurukuMX_TTiaoma" Association="CKModel.FK_TChurukuMX_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TChurukuMX" EntitySet="TChurukuMX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TKucunXZ_TTiaoma" Association="CKModel.FK_TKucunXZ_TTiaoma">
+            <End Role="TTiaoma" EntitySet="TTiaoma" />
+            <End Role="TKucunXZ" EntitySet="TKucunXZ" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="VKucun">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="shuliang" Type="Int16" />
+          <Property Name="shuliang" Type="Int16" Nullable="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="TTiaoma">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tiaoma" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="kuanhao" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="gongyingshang" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="gyskuanhao" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="leixing" Type="Byte" Nullable="false" />
+          <Property Name="pinming" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="yanse" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="chima" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="jinjia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="shoujia" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="charushijian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="xiugaishijian" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TChurukuMX" Relationship="CKModel.FK_TChurukuMX_TTiaoma" FromRole="TTiaoma" ToRole="TChurukuMX" />
+          <NavigationProperty Name="TKucunXZ" Relationship="CKModel.FK_TKucunXZ_TTiaoma" FromRole="TTiaoma" ToRole="TKucunXZ" />
+        </EntityType>
+        <Association Name="FK_TChurukuMX_TTiaoma">
+          <End Type="CKModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="CKModel.TChurukuMX" Role="TChurukuMX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TChurukuMX">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TKucunXZ_TTiaoma">
+          <End Type="CKModel.TTiaoma" Role="TTiaoma" Multiplicity="1" />
+          <End Type="CKModel.TKucunXZ" Role="TKucunXZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTiaoma">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TKucunXZ">
+              <PropertyRef Name="tiaomaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -389,24 +392,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TTiaoma">
-            <EntityTypeMapping TypeName="CKModel.TTiaoma">
-              <MappingFragment StoreEntitySet="TTiaoma">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
-                <ScalarProperty Name="kuanhao" ColumnName="kuanhao" />
-                <ScalarProperty Name="gyskuanhao" ColumnName="gyskuanhao" />
-                <ScalarProperty Name="leixing" ColumnName="leixing" />
-                <ScalarProperty Name="pinming" ColumnName="pinming" />
-                <ScalarProperty Name="yanse" ColumnName="yanse" />
-                <ScalarProperty Name="chima" ColumnName="chima" />
-                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
-                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
-                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
-                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TUser">
             <EntityTypeMapping TypeName="CKModel.TUser">
               <MappingFragment StoreEntitySet="TUser">
@@ -426,6 +411,25 @@
             <EntityTypeMapping TypeName="CKModel.VKucun">
               <MappingFragment StoreEntitySet="VKucun">
                 <ScalarProperty Name="shuliang" ColumnName="shuliang" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTiaoma">
+            <EntityTypeMapping TypeName="CKModel.TTiaoma">
+              <MappingFragment StoreEntitySet="TTiaoma">
+                <ScalarProperty Name="xiugaishijian" ColumnName="xiugaishijian" />
+                <ScalarProperty Name="charushijian" ColumnName="charushijian" />
+                <ScalarProperty Name="shoujia" ColumnName="shoujia" />
+                <ScalarProperty Name="jinjia" ColumnName="jinjia" />
+                <ScalarProperty Name="chima" ColumnName="chima" />
+                <ScalarProperty Name="yanse" ColumnName="yanse" />
+                <ScalarProperty Name="pinming" ColumnName="pinming" />
+                <ScalarProperty Name="leixing" ColumnName="leixing" />
+                <ScalarProperty Name="gyskuanhao" ColumnName="gyskuanhao" />
+                <ScalarProperty Name="gongyingshang" ColumnName="gongyingshang" />
+                <ScalarProperty Name="kuanhao" ColumnName="kuanhao" />
+                <ScalarProperty Name="tiaoma" ColumnName="tiaoma" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

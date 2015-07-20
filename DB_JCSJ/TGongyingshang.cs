@@ -14,7 +14,13 @@ namespace DB_JCSJ
     
     public partial class TGongyingshang
     {
+        public TGongyingshang()
+        {
+            this.TTiaoma = new HashSet<TTiaoma>();
+        }
+    
         public int id { get; set; }
+        public string jiancheng { get; set; }
         public string mingcheng { get; set; }
         public string lianxiren { get; set; }
         public string dianhua { get; set; }
@@ -25,5 +31,6 @@ namespace DB_JCSJ
         public System.DateTime xiugaishijian { get; set; }
     
         public virtual TUser TUser { get; set; }
+        public virtual ICollection<TTiaoma> TTiaoma { get; set; }
     }
 }

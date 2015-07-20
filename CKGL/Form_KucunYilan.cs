@@ -80,7 +80,7 @@ namespace CKGL
             JCSJData.TCangkuKucunMX[] fks = ks.Select(r => new JCSJData.TCangkuKucunMX
             {
                 tiaomaid = r.id,
-                shuliang = r.shuliang.Value
+                shuliang = r.shuliang
             }).ToArray();
 
             try

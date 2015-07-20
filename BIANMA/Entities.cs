@@ -54,6 +54,7 @@ namespace BIANMA
             XElement Ntiaoma = new XElement("tiaoma");
             Ntiaoma.Add(new XElement("id") { Value = tiaoma.id.ToString() });
             Ntiaoma.Add(new XElement("tiaoma") { Value = tiaoma.tiaoma });
+            Ntiaoma.Add(new XElement("gysid") { Value = tiaoma.gysid.ToString() });
             Ntiaoma.Add(new XElement("gyskuanhao") { Value = tiaoma.gyskuanhao });
             Ntiaoma.Add(new XElement("yanse") { Value = tiaoma.yanse });
             Ntiaoma.Add(new XElement("chima") { Value = tiaoma.chima });
@@ -78,6 +79,7 @@ namespace BIANMA
             {
                 id = int.Parse(xml.Element("tiaoma").Element("id").Value),
                 tiaoma = xml.Element("tiaoma").Element("tiaoma").Value,
+                gysid = int.Parse(xml.Element("tiaoma").Element("gysid").Value),
                 gyskuanhao = xml.Element("tiaoma").Element("gyskuanhao").Value,
                 yanse = xml.Element("tiaoma").Element("yanse").Value,
                 chima = xml.Element("tiaoma").Element("chima").Value,

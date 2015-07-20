@@ -147,6 +147,7 @@ namespace DB_JCSJ
             {
                 TGongyingshang og = _db.TGongyingshang.Single(r => r.id == g.id);
 
+                og.jiancheng = g.jiancheng;
                 og.mingcheng = g.mingcheng;
                 og.lianxiren = g.lianxiren;
                 og.dianhua = g.dianhua;
@@ -194,6 +195,7 @@ namespace DB_JCSJ
                 ot.jinjia = t.jinjia;
                 ot.shoujia = t.shoujia;
                 ot.kuanhaoid = t.kuanhaoid;
+                ot.gysid = t.gysid;
                 ot.gyskuanhao = t.gyskuanhao;
                 ot.xiugaishijian = t.xiugaishijian;
 
