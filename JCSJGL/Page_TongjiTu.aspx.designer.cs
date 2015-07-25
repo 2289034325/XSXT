@@ -10,7 +10,7 @@
 namespace JCSJGL {
     
     
-    public partial class Page_TongjiBaobiao {
+    public partial class Page_TongjiTu {
         
         /// <summary>
         /// hid_windowWidth 控件。

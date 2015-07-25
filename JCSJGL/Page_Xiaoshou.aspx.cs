@@ -24,8 +24,22 @@ namespace JCSJGL
                 //日期下拉框
                 txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txb_xsrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                //txb_sbrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                //txb_sbrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+                //取得get参数
+                if (Request["fdid"]!= null)
+                {
+                    cmb_fd.SelectedValue = Request["fdid"];
+                } 
+                if (Request["xsrqstart"] != null)
+                {
+                    txb_xsrq_start.Text = Request["xsrqstart"];
+                } 
+                if (Request["xsrqend"] != null)
+                {
+                    txb_xsrq_end.Text = Request["xsrqend"];
+                }
+
+                searchXiaoshou();    
             }
         }
         
@@ -41,7 +55,8 @@ namespace JCSJGL
         }
 
         private void searchXiaoshou()
-        { //取查询条件
+        { 
+            //取查询条件
             int? fdid = null;
             if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
             {

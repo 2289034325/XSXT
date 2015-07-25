@@ -3,31 +3,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>销售记录</title>
     <script type="text/javascript">
-        //编辑
-        function EditInfo(id, tm, ys, cm, jj, sj, kh, gys, gyskh, ms) {
-            $("#hid_id").val(id);
-            $("#txb_tm").val(tm);
-            $("#txb_ys").val(ys);
-            $("#txb_cm").val(cm);
-            $("#txb_jj").val(jj);
-            $("#txb_sj").val(sj);
-            $("#txb_kh").val(kh);
-            $("#txb_gyskh").val(gyskh);
-        }
-
-        //删除
-        function Delete(id) {
-            $("#hid_opt").val("DELETE");
-            $("#hid_id").val(id);
-        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
-        <div><label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
-        <div><label>销售日期</label><asp:TextBox CssClass="middle"  runat="server" ID="txb_xsrq_start"></asp:TextBox><asp:TextBox CssClass="middle"  runat="server" ID="txb_xsrq_end"></asp:TextBox></div>
-        <div><label>上报日期</label><asp:TextBox CssClass="middle"  runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle"  runat="server" ID="txb_sbrq_end"></asp:TextBox></div>
-        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
+        <div>
+            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
+        <div>
+            <label>销售日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_end"></asp:TextBox></div>
+        <div>
+            <label>上报日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_end"></asp:TextBox></div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
     </div>
     <asp:GridView ID="grid_xiaoshou" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_xiaoshou_PageIndexChanging">

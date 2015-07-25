@@ -15,7 +15,7 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_TongjiBaobiao : System.Web.UI.Page
+    public partial class Page_TongjiTu : System.Web.UI.Page
     {
         private enum CHART_Y_TYPE:byte
         {

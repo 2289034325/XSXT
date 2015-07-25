@@ -72,7 +72,7 @@
         <div><asp:Label runat="server" Text="手机号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sjh" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="姓名"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_xm" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList></div>
-        <div><asp:Label runat="server" Text="生日"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_sr" ClientIDMode="Static"></asp:TextBox></div>    
+        <div><asp:Label runat="server" Text="生日"></asp:Label><asp:TextBox CssClass="middle"  TextMode="Date" runat="server" ID="txb_sr" ClientIDMode="Static"></asp:TextBox></div>    
         <div><asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" /></div>
     </div>

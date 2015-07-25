@@ -92,7 +92,7 @@
         <div><asp:Label runat="server" Text="地址"></asp:Label><asp:TextBox CssClass="long" runat="server" ID="txb_dz" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="联系人"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_lxr" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="电话"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_dh" ClientIDMode="Static"></asp:TextBox></div>
-        <div><asp:Label runat="server" Text="开店日期"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_kdrq" ClientIDMode="Static"></asp:TextBox></div>
+        <div><asp:Label runat="server" Text="开店日期"></asp:Label><asp:TextBox CssClass="middle" TextMode="Date"  runat="server" ID="txb_kdrq" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Label runat="server" Text="状态"></asp:Label><asp:DropDownList runat="server" ID="cmb_zt" ClientIDMode="Static"></asp:DropDownList></div>
         <div><asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox></div>
         <div><asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" /></div>
