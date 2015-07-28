@@ -30,15 +30,7 @@ namespace BIANMA
             string om = txb_om.Text;
             string nm = txb_nm.Text;
 
-            try
-            {
-                JCSJWCF.BMZHEditPsw(om, nm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.BMZHEditPsw(om, nm);
 
             MessageBox.Show("修改成功");
             this.DialogResult = System.Windows.Forms.DialogResult.OK;

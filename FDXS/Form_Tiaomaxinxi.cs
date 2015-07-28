@@ -28,30 +28,23 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_xzzxtm_Click_sync(dp);
-            dp.ShowDialog();   
+            new Tool.ActionMessageTool(btn_xzzxtm_Click_sync, false).Start();    
         }
 
-        private async void btn_xzzxtm_Click_sync(Dlg_Progress dp)
+        private void btn_xzzxtm_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
-                JCSJData.TTiaoma[] jtms;
-                try
-                {
-                    jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
-                    saveToLocal(jtms);
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                    return;
-                }
+                JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
+                saveToLocal(jtms);
 
-                dp.lbl_msg.Text = "下载完毕，共下载" + jtms.Count() + "个条码信息";
-            });
-            dp.ControlBox = true;
+                ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }  
         }
 
         /// <summary>
@@ -62,37 +55,26 @@ namespace FDXS
         private void btn_xzzdtm_Click(object sender, EventArgs e)
         {
             Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
+
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Dlg_Progress dp = new Dlg_Progress();
-                btn_xzzdtm_Click_sync(dp, tmhs);
-                dp.ShowDialog();   
+                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                    {
+                        try
+                        {
+                            JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
+                            saveToLocal(jtms);
+
+                            ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+                        }
+                        catch (Exception ex)
+                        {
+                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                            ShowMsg(ex.Message, true);
+                        }
+                    }, false).Start();
             }
-            
-        }
-
-        private async void btn_xzzdtm_Click_sync(Dlg_Progress dp, string[] tmhs)
-        {
-            await Task.Run(() =>
-            {
-                JCSJData.TTiaoma[] jtms;
-
-                try
-                {
-                    jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
-                    saveToLocal(jtms);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
-
-                dp.lbl_msg.Text = "下载完毕，共下载" + jtms.Count() + "个条码信息";
-            });
-
-            dp.ControlBox = true;
         }
 
         /// <summary>

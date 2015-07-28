@@ -48,7 +48,7 @@ namespace FDXS
             t.Stop();           
             try
             {
-                string file = Settings.Default.LogFilePath + DateTime.Now.ToString("yyyyMMdd") + Settings.Default.TaskLogFileName;
+                string file = Settings.Default.LogFile;
                 Tool.CommonFunc.Log(file, "销售开始");
                 System.Threading.Thread.Sleep(5000);
                 SBXiaoshou();
@@ -67,7 +67,7 @@ namespace FDXS
             string file = null;
             try
             {
-                file = Settings.Default.LogFilePath + DateTime.Now.ToString("yyyyMMdd") + Settings.Default.TaskLogFileName;
+                file = Settings.Default.LogFile;
 
                 //检查当前时间是否跟设定的任务时间一致
                 TimeSpan ttime = Settings.Default.DayTaskTime;
@@ -101,7 +101,7 @@ namespace FDXS
             }
             catch (Exception ex)
             {
-                Tool.CommonFunc.Log(file, ex.Message + "\r\n" + ex.StackTrace);
+                Tool.CommonFunc.LogEx(file, ex);
             }
         }
 

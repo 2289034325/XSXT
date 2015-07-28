@@ -91,5 +91,14 @@ namespace BIANMA.Properties {
                 this["WCF_DATAADD"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Log\\bmlog.txt")]
+        public string LogFile {
+            get {
+                return ((string)(this["LogFile"]));
+            }
+        }
     }
 }

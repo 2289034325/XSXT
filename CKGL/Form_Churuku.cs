@@ -1,4 +1,5 @@
-﻿using DB_CK;
+﻿using CKGL.Properties;
+using DB_CK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,6 +74,7 @@ namespace CKGL
 
             refreshMx();
         }
+
         private TChurukuMX getMx(int jcid, int tmid)
         {
             DBContext db = IDB.GetDB();
@@ -195,7 +197,8 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_crk_rk_Click(object sender, EventArgs e)
         {
-            TChuruku c = new TChuruku 
+
+            TChuruku c = new TChuruku
             {
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.新货,
@@ -219,6 +222,7 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_crk_ck_Click(object sender, EventArgs e)
         {
+
             TChuruku c = new TChuruku
             {
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
@@ -257,20 +261,20 @@ namespace CKGL
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Dictionary<string,short> tmsls = tmhs.ToDictionary(k=>k.Split(new char[]{','})[0],v=>short.Parse(v.Split(new char[]{','})[1]));
-                
-                TTiaoma[] tms = db.GetTiaomasByTmhs(tmsls.Select(r=>r.Key).ToArray());
-                Dictionary<int,short> tss = tms.ToDictionary(k=>k.id,v=>tmsls[v.tiaoma]);
+                Dictionary<string, short> tmsls = tmhs.ToDictionary(k => k.Split(new char[] { ',' })[0], v => short.Parse(v.Split(new char[] { ',' })[1]));
+
+                TTiaoma[] tms = db.GetTiaomasByTmhs(tmsls.Select(r => r.Key).ToArray());
+                Dictionary<int, short> tss = tms.ToDictionary(k => k.id, v => tmsls[v.tiaoma]);
                 if (tms.Length != tmhs.Length)
                 {
                     MessageBox.Show("有条码信息不存在，请先下载条码信息");
                 }
                 else
                 {
-                    List<TChurukuMX> mxs= new List<TChurukuMX>();
+                    List<TChurukuMX> mxs = new List<TChurukuMX>();
                     foreach (KeyValuePair<int, short> p in tss)
                     {
-                        TChurukuMX mx = new TChurukuMX 
+                        TChurukuMX mx = new TChurukuMX
                         {
                             churukuid = crkid,
                             tiaomaid = p.Key,
@@ -314,6 +318,7 @@ namespace CKGL
         /// <param name="e"></param>
         private void grid_crkmx_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+
             if (!checkAllow())
             {
                 MessageBox.Show("该记录已经上报到服务器，不允许再删除");
@@ -410,12 +415,12 @@ namespace CKGL
                 DBContext db = IDB.GetDB();
                 byte lyqx = (byte)(Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
                 string bz = (string)grid_crk.SelectedRows[0].Cells[col_crk_bz.Name].Value ?? "";
-                TChuruku nc = new TChuruku 
+                TChuruku nc = new TChuruku
                 {
-                    id=crkid,
+                    id = crkid,
                     laiyuanquxiang = lyqx,
                     beizhu = bz,
-                    xiugaishijian = DateTime.Now               
+                    xiugaishijian = DateTime.Now
                 };
                 db.UpdateChuruku(nc);
             }
@@ -484,7 +489,7 @@ namespace CKGL
             }
             else
             {
-                int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value; 
+                int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
                 short sl = short.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
                 DBContext db = IDB.GetDB();
                 //TChurukuMX mx = new TChurukuMX 
@@ -520,7 +525,6 @@ namespace CKGL
         /// <param name="e"></param>
         private void grid_crk_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-
             if (e.Row.Selected)
             {
                 e.Row.ContextMenuStrip = cmn_crk;
@@ -561,23 +565,14 @@ namespace CKGL
                 }).ToArray()
             }).ToArray();
 
-            //数据中心处理
-            try
-            {
-                JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            //数据中心处理                
+            JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
 
             //更新本地上报时间
             int[] ids = jcs.Select(r => r.id).ToArray();
             db.UpdateChurukuShangbaoshijian(ids, DateTime.Now);
 
             MessageBox.Show("完成");
-
         }
 
         /// <summary>
@@ -630,17 +625,8 @@ namespace CKGL
             if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 int fdid = int.Parse(dl.cmb_fd.SelectedValue.ToString());
-                try
-                {
-                    JCSJWCF.CangkuFahuoFendian(id, fdid);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
+                JCSJWCF.CangkuFahuoFendian(id, fdid);
             }
-            
         }
     }
 }

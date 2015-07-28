@@ -29,46 +29,38 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_ok_Click_sync(dp);
-            dp.ShowDialog();            
+            new Tool.ActionMessageTool(btn_ok_Click_sync, false).Start();           
         }
 
-        private async void btn_ok_Click_sync(Dlg_Progress dp)
+        private void btn_ok_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
                 string sfdid = txb_fdid.Text.Trim();
                 int fdid;
                 if (!int.TryParse(sfdid, out fdid))
                 {
-                    dp.lbl_msg.Text = "分店ID必须是整数";
+                    ShowMsg("分店ID必须是整数", true);
                     return;
                 }
                 string fdm = txb_fdm.Text.Trim();
                 string zcm = txb_zcm.Text.Trim();
                 string jqm = Tool.CommonFunc.GetJQM();
 
-                try
-                {
-                    JCSJWCF.FDZHZhuce(fdid, fdm, Tool.CommonFunc.MD5_16(jqm), zcm);
+                JCSJWCF.FDZHZhuce(fdid, fdm, Tool.CommonFunc.MD5_16(jqm), zcm);
 
-                    //把仓库ID，库名，写入本地配置文件
-                    Settings.Default.FDID = fdid;
-                    Settings.Default.FDMC = fdm;
-                    Settings.Default.Save();
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = "注册失败\r\n" + ex.Message;
-                    return;
-                }
+                //把仓库ID，库名，写入本地配置文件
+                Settings.Default.FDID = fdid;
+                Settings.Default.FDMC = fdm;
+                Settings.Default.Save();
 
-                dp.lbl_msg.Text = "注册成功";
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-            });
-
-            dp.ControlBox = true;
+                ShowMsg("注册成功", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
         }
 
         /// <summary>
@@ -80,8 +72,6 @@ namespace FDXS
         {
             txb_fdid.Text = Settings.Default.FDID.ToString();
             txb_fdm.Text = Settings.Default.FDMC;
-        }
-
-        
+        }        
     }
 }

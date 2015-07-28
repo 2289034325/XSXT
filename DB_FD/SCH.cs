@@ -39,6 +39,10 @@ namespace DB_FD
         {
             return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == tmh);
         }
+        public TTiaoma[] GetTiaomaByTmhEndsWith(string tmh)
+        {
+            return _db.TTiaoma.Where(r => r.tiaoma.EndsWith(tmh)).ToArray();
+        }
 
         /// <summary>
         /// 根据登录名和密码取得用户信息

@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,7 @@ namespace FDXS
         public override void OnScan(string tmh)
         {
             int jcid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
-            
+
 
             //检查该出入库记录是否已经上报
             if (!checkAllow())
@@ -54,10 +55,10 @@ namespace FDXS
                 }
             }
 
-            TJinchuMX mx = getMx(jcid,tm.id);
+            TJinchuMX mx = getMx(jcid, tm.id);
             if (mx != null)
             {
-                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang+1));
+                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang + 1));
             }
             else
             {
@@ -202,7 +203,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_jh_Click(object sender, EventArgs e)
         {
-            TJinchuhuo c = new TJinchuhuo 
+            TJinchuhuo c = new TJinchuhuo
             {
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
@@ -264,10 +265,10 @@ namespace FDXS
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Dictionary<string,short> tmsls = tmhs.ToDictionary(k=>k.Split(new char[]{','})[0],v=>short.Parse(v.Split(new char[]{','})[1]));
-                
-                TTiaoma[] tms = db.GetTiaomasByTmhs(tmsls.Select(r=>r.Key).ToArray());
-                Dictionary<int,short> tss = tms.ToDictionary(k=>k.id,v=>tmsls[v.tiaoma]);
+                Dictionary<string, short> tmsls = tmhs.ToDictionary(k => k.Split(new char[] { ',' })[0], v => short.Parse(v.Split(new char[] { ',' })[1]));
+
+                TTiaoma[] tms = db.GetTiaomasByTmhs(tmsls.Select(r => r.Key).ToArray());
+                Dictionary<int, short> tss = tms.ToDictionary(k => k.id, v => tmsls[v.tiaoma]);
                 if (tms.Length != tmhs.Length)
                 {
                     MessageBox.Show("有条码信息不存在，请先下载条码信息");
@@ -277,7 +278,7 @@ namespace FDXS
                     List<TJinchuMX> mxs = new List<TJinchuMX>();
                     foreach (KeyValuePair<int, short> p in tss)
                     {
-                        TJinchuMX mx = new TJinchuMX 
+                        TJinchuMX mx = new TJinchuMX
                         {
                             jinchuid = crkid,
                             tiaomaid = p.Key,
@@ -381,7 +382,7 @@ namespace FDXS
                     if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
                     {
                         e.Cancel = true;
-                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" + 
+                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" +
                             Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]");
                     }
                 }
@@ -569,7 +570,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_crk_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-
             if (e.Row.Selected)
             {
                 e.Row.ContextMenuStrip = cmn_crk;
@@ -587,26 +587,21 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_shangbao_Click_sync(dp);
-            dp.ShowDialog();         
+            new Tool.ActionMessageTool(btn_shangbao_Click_sync, false).Start();    
         }
 
-        private async void btn_shangbao_Click_sync(Dlg_Progress dp)
+        private void btn_shangbao_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
-                try 
-                {
-                    MyTask.SBJinchuhuo();
-                    dp.lbl_msg.Text = "完成";
-                }
-                catch ( Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                }
-            });
-            dp.ControlBox = true;
+                MyTask.SBJinchuhuo();
+                ShowMsg("完成", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }               
         }
 
         /// <summary>
@@ -629,29 +624,18 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzjinhuo_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_xzjinhuo_Click_sync(dp);
-            dp.ShowDialog();      
+            new Tool.ActionMessageTool(btn_xzjinhuo_Click_sync, false).Start();  
         }
 
-        private async void btn_xzjinhuo_Click_sync(Dlg_Progress dp)
+        private void btn_xzjinhuo_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
-                JCSJData.TCangkuJinchuhuo[] jhs;
-                try
-                {
-                    jhs = JCSJWCF.XiazaiJinhuoShuju();
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                    return;
-                }
+                JCSJData.TCangkuJinchuhuo[] jhs = JCSJWCF.XiazaiJinhuoShuju();
 
                 if (jhs.Length == 0)
                 {
-                    dp.lbl_msg.Text = "没有数据可下载";
+                    ShowMsg("没有数据可下载", true);
                     return;
                 }
 
@@ -677,9 +661,13 @@ namespace FDXS
                 }
 
                 int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMX).Sum(r => r.shuliang);
-                dp.lbl_msg.Text = "进货" + total + "件";
-            });
-            dp.ControlBox = true;
+                ShowMsg("进货" + total + "件", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
         }
     }
 }

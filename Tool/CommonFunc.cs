@@ -359,11 +359,24 @@ namespace Tool
         {
             try
             {
-                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + msg + "\r\n");
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--" + msg 
+                    + "\r\n------------------------------------------------------\r\n");
             }
-            finally
+            catch(Exception ex)
             {
- 
+                MessageBox.Show("log消息出错，请配置好log文件" + ex.Message);
+            }
+        }
+        public static void LogEx(string file, Exception e)
+        {
+            try
+            {
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + e.Message + "\r\n" + e.StackTrace
+                      + "\r\n------------------------------------------------------\r\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("log消息出错，请配置好log文件" + ex.Message);
             }
         }
     }
@@ -372,5 +385,94 @@ namespace Tool
     {
         public MyException(string Msg):base(Msg)
         {}
+    }
+
+    /// <summary>
+    /// 异步调用费时的处理，并向用户显示处理过程中的信息
+    /// </summary>
+    public class ActionMessageTool
+    {
+        //显示msg
+        public delegate void ShowMsg(string msg,bool err);
+        //费时的处理函数
+        public delegate void Action(ShowMsg msg);
+        private event Action _action;
+        //用来显示信息的对话框
+        private  Dlg_Progress _dlg;
+        //超时倒计时
+        private System.Timers.Timer _timer;
+        //处理过程是否出错
+        private bool _err;
+        //处理完是否自动关闭对话框
+        private bool _auto;
+
+        //鉴于一般操作不会超过60秒,进度条设为60秒满格
+        private const int _TIMEOUT = 60;
+
+
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="action">费时的处理操作</param>
+        /// <param name="timeOut">超时时间，用于显示进度条</param>
+        public ActionMessageTool(Action action,bool autoClose)
+        {
+            _action = action;
+
+            _dlg = new Dlg_Progress();
+            _dlg.ControlBox = false;
+            _dlg.pgb.Maximum = _TIMEOUT;
+            _dlg.StartPosition = FormStartPosition.CenterScreen;
+            
+            _timer = new System.Timers.Timer(1000);
+            _timer.AutoReset = true;
+            _timer.Elapsed += delegate 
+            {
+                _dlg.pgb.Value ++;
+            };
+            _err = false;
+            _auto = autoClose;
+        }
+
+        /// <summary>
+        /// 开始处理
+        /// </summary>
+        public void Start()
+        {
+            _action.BeginInvoke(ShowMessage, Finish, null);
+            _timer.Start();
+            _dlg.Runing = true;
+            _dlg.ShowDialog();            
+        }
+
+        /// <summary>
+        /// 显示消息给用户
+        /// </summary>
+        /// <param name="msg"></param>
+        public void ShowMessage(string msg,bool err)
+        {
+            _dlg.lbl_msg.Text = msg;
+            _err = err;
+        }
+
+        /// <summary>
+        /// 处理结束
+        /// </summary>
+        /// <param name="asyncResult"></param>
+        private void Finish(IAsyncResult asyncResult)
+        {
+            _timer.Stop();
+            _dlg.Runing = false;
+            _dlg.pgb.Value = _dlg.pgb.Maximum;
+            if (_auto && !_err)
+            {
+                _dlg.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                //不自动关闭，就要给关闭按钮让用户自己关闭
+                _dlg.ControlBox = true;
+            }
+        }
     }
 }

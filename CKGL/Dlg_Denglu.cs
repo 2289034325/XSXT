@@ -1,4 +1,5 @@
-﻿using DB_CK;
+﻿using CKGL.Properties;
+using DB_CK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

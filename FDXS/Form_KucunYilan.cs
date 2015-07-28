@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,23 +38,23 @@ namespace FDXS
             }
             //入-出+库存修正
             DBContext db = IDB.GetDB();
-            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx,null,null);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh, kh, lx, null, null);
 
             grid_kc.Rows.Clear();
             foreach (KeyValuePair<TTiaoma, short> p in ks)
             {
                 grid_kc.Rows.Add(new object[] 
-                {
-                    p.Key.tiaoma,
-                    p.Key.kuanhao,
-                    p.Key.gyskuanhao,
-                    ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
-                    p.Key.pinming,
-                    p.Key.yanse,
-                    p.Key.chima,
-                    p.Key.shoujia,
-                    p.Value
-                });
+                    {
+                        p.Key.tiaoma,
+                        p.Key.kuanhao,
+                        p.Key.gyskuanhao,
+                        ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
+                        p.Key.pinming,
+                        p.Key.yanse,
+                        p.Key.chima,
+                        p.Key.shoujia,
+                        p.Value
+                    });
             }
 
             col_sl.HeaderText = "数量(" + ks.Sum(r => r.Value) + ")";
@@ -80,26 +81,21 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sbkc_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_sbkc_Click_sync(dp);
-            dp.ShowDialog();      
+            new Tool.ActionMessageTool(btn_sbkc_Click_sync, false).Start();    
         }
 
-        private async void btn_sbkc_Click_sync(Dlg_Progress dp)
+        private void btn_sbkc_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
-                try
-                {
-                    MyTask.SBKucun();
-                    dp.lbl_msg.Text = "完成";
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                }
-            });
-            dp.ControlBox = true;
+                MyTask.SBKucun();
+                ShowMsg("完成", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }  
         }
     }
 }

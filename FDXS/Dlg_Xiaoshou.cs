@@ -49,16 +49,16 @@ namespace FDXS
         public override void OnScan(string tm)
         {
             DBContext db = IDB.GetDB();
-                TTiaoma t = db.GetTiaomaByTmh(tm);
-                if (t == null)
-                {
-                    MessageBox.Show("该条码不存在");
-                    return;
-                }
+            TTiaoma t = db.GetTiaomaByTmh(tm);
+            if (t == null)
+            {
+                MessageBox.Show("该条码不存在");
+                return;
+            }
 
             //检查是否已经在开单表格中
             int index = 0;
-            if (existsTM(tm,out index))
+            if (existsTM(tm, out index))
             {
                 //在原有的行上数量加1
                 short sl = short.Parse(grid_kaidan.Rows[index].Cells[col_sl.Name].Value.ToString());
@@ -68,9 +68,9 @@ namespace FDXS
             {
                 TXiaoshou xs = new TXiaoshou
                 {
-                    TTiaoma = new TTiaoma 
+                    TTiaoma = new TTiaoma
                     {
-                        id=t.id,
+                        id = t.id,
                         tiaoma = t.tiaoma,
                         kuanhao = t.kuanhao,
                         pinming = t.pinming,
@@ -322,9 +322,6 @@ namespace FDXS
 
             //将表格数据组装成实例
             DBContext db = IDB.GetDB();
-            //int[] kids = XSS.Select(r => r.tiaomaid).ToArray();
-            //VKucun[] vs = db.GetKucunsByTiaomaIds(kids);
-
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
                 int tmid = (int)dr.Cells[col_tmid.Name].Value;
@@ -393,10 +390,8 @@ namespace FDXS
 
             //打印小票
             xiaopiao();
-
             MessageBox.Show("开单成功");
 
-            //this.DialogResult = System.Windows.Forms.DialogResult.OK;
             //清理变量，为下次开单做准备
             grid_kaidan.Rows.Clear();
             _XSS = new List<TXiaoshou>();
@@ -412,6 +407,8 @@ namespace FDXS
             lbl_hyxm.Text = "";
             lbl_hyzk.Text = "";
             txb_shishou.Text = "";
+
+
             refreshJinriXS();
         }
 
@@ -432,10 +429,10 @@ namespace FDXS
             {
                 printDocument.Print();
             }
-            catch (Exception excep)
+            catch (Exception ex)
             {
-                MessageBox.Show(excep.Message, "打印出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 printDocument.PrintController.OnEndPrint(printDocument, new PrintEventArgs());
+                throw ex;
             }
         }
         private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
@@ -503,20 +500,18 @@ namespace FDXS
                 return;
             }
 
-            Dlg_Progress dp = new Dlg_Progress();
-            txb_sjh_KeyDown_sync(e, dp);
-            dp.ShowDialog();
+            new Tool.ActionMessageTool(txb_sjh_KeyDown_sync, true).Start();
         }
 
-        private async void txb_sjh_KeyDown_sync(KeyEventArgs e,Dlg_Progress dp)
+        private void txb_sjh_KeyDown_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
                 string sjh = txb_sjh.Text.Trim();
                 //检查是否是规则的手机号
                 if (!Tool.CommonFunc.IsTelNum(sjh))
                 {
-                    dp.lbl_msg.Text = "输入的不是正常的手机号，请检查";
+                    ShowMsg("输入的不是正常的手机号，请检查", true);
                     return;
                 }
 
@@ -526,20 +521,11 @@ namespace FDXS
                 if (h == null)
                 {
                     //从数据中心查找会员信息
-                    JCSJData.THuiyuan jh = null;
-                    try
-                    {
-                        jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
-                    }
-                    catch (Exception ex)
-                    {
-                        dp.lbl_msg.Text = ex.Message;
-                        return;
-                    }
+                    JCSJData.THuiyuan jh = JCSJWCF.GetHuiyuanByShoujihao(sjh);
 
                     if (jh == null)
                     {
-                        dp.lbl_msg.Text = "会员不存在，请先注册";
+                        ShowMsg("会员不存在，请先注册", true);
                         return;
                     }
 
@@ -569,12 +555,12 @@ namespace FDXS
                 lbl_hyxm.Text = h.xingming;
                 lbl_hyjf.Text = h.jifen.ToString();
                 lbl_hyzk.Text = hyzk.ToString();
-
-
-                dp.DialogResult = System.Windows.Forms.DialogResult.OK;
-            });
-
-            dp.ControlBox = true;
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
         }
 
         /// <summary>
@@ -584,21 +570,19 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_zchy_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_zchy_Click_sync(dp);
-            dp.ShowDialog();
+            new Tool.ActionMessageTool(btn_zchy_Click_sync, false).Start();
         }
 
-        private async void btn_zchy_Click_sync(Dlg_Progress dp)
+        private void btn_zchy_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
                 //检查手机号是否正常
                 string sjh = txb_sjh.Text.Trim();
                 //检查是否是规则的手机号
                 if (!Tool.CommonFunc.IsTelNum(sjh))
                 {
-                    dp.lbl_msg.Text = "输入的不是正常的手机号，请检查";
+                    ShowMsg("输入的不是正常的手机号，请检查", true);
                     return;
                 }
 
@@ -612,20 +596,18 @@ namespace FDXS
                 };
 
                 //注册会员
-                try
-                {
-                    JCSJWCF.HuiyuanZhuce(h);
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                    return;
-                }
+                JCSJWCF.HuiyuanZhuce(h);
 
-                dp.lbl_msg.Text = "注册成功，请重新输入手机号，然后按下回车键";
-            });
+                ShowMsg("注册成功", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
 
-            dp.ControlBox = true;
+            //刷新出新会员信息
+            txb_sjh_KeyDown_sync(ShowMsg);
         }
 
         /// <summary>
@@ -642,15 +624,26 @@ namespace FDXS
             }
 
             string tmh = txb_tiaoma.Text.Trim();
-            DBContext db = IDB.GetDB();
+            //如果输入不够6位，不做处理
+            if (tmh.Length < 6)
+            {
+                return;
+            }
 
-            TTiaoma t = db.GetTiaomaByTmh(tmh);
-            if (t == null)
+            DBContext db = IDB.GetDB();
+            TTiaoma[] tms = db.GetTiaomaByTmhEndsWith(tmh);
+            if (tms.Length > 1)
+            {
+                MessageBox.Show("检测到相似的条码不止一个，请输入完整的条码");
+                return;
+            }
+            if (tms.Length < 1)
             {
                 MessageBox.Show("该条码不存在");
                 return;
             }
 
+            TTiaoma t = tms[0];
             //检查是否已经在开单表格中
             int index = 0;
             if (existsTM(tmh, out index))

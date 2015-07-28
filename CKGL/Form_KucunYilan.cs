@@ -1,4 +1,5 @@
-﻿using DB_CK;
+﻿using CKGL.Properties;
+using DB_CK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,23 +33,23 @@ namespace CKGL
 
             //入-出+库存修正
             DBContext db = IDB.GetDB();
-            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh,kh,lx);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh, kh, lx);
 
             grid_kc.Rows.Clear();
             foreach (KeyValuePair<TTiaoma, short> p in ks)
             {
                 grid_kc.Rows.Add(new object[] 
-                {
-                    p.Key.tiaoma,
-                    p.Key.kuanhao,
-                    p.Key.gyskuanhao,
-                    ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
-                    p.Key.pinming,
-                    p.Key.yanse,
-                    p.Key.chima,
-                    p.Key.shoujia,
-                    p.Value
-                });
+                    {
+                        p.Key.tiaoma,
+                        p.Key.kuanhao,
+                        p.Key.gyskuanhao,
+                        ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)p.Key.leixing).ToString(),
+                        p.Key.pinming,
+                        p.Key.yanse,
+                        p.Key.chima,
+                        p.Key.shoujia,
+                        p.Value
+                    });
             }
         }
 
@@ -73,9 +74,8 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-
             DBContext db = IDB.GetDB();
-            VKucun[] ks = db.GetKucunsByCond(1,null);
+            VKucun[] ks = db.GetKucunsByCond(1, null);
 
             JCSJData.TCangkuKucunMX[] fks = ks.Select(r => new JCSJData.TCangkuKucunMX
             {
@@ -83,15 +83,7 @@ namespace CKGL
                 shuliang = r.shuliang
             }).ToArray();
 
-            try
-            {
-                JCSJWCF.ShangbaoKucun_CK(fks);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.ShangbaoKucun_CK(fks);
 
             MessageBox.Show("完成");
         }

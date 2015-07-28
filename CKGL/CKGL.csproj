@@ -94,7 +94,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonFunc.cs" />
     <Compile Include="Dlg_AppSettings.cs">
       <SubType>Form</SubType>
     </Compile>

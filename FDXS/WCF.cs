@@ -12,7 +12,6 @@ namespace FDXS
     public static class JCSJWCF
     {
         private static DataServiceClient _jdc = null;
-        private static Dlg_Progress _dp = new Dlg_Progress();
         /// <summary>
         /// 检查到数据中心的连接状态
         /// </summary>
@@ -24,6 +23,7 @@ namespace FDXS
             {
                 _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFDataADD);
                 _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                
             }
             else
             {

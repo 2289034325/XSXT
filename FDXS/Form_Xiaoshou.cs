@@ -231,27 +231,19 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_shangbao_Click_sync(dp);
-            dp.ShowDialog();  
-        }
-
-        private async  void btn_shangbao_Click_sync(Dlg_Progress dp)
-        {
-           await Task.Run(()=>
-           {              
-               try
-               {
-                   MyTask.SBXiaoshou();
-                   dp.lbl_msg.Text = "完成";
-               }
-               catch (Exception ex)
-               {
-                   dp.lbl_msg.Text = ex.Message;
-               }
-           });
-
-           dp.ControlBox = true;
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    MyTask.SBXiaoshou();
+                    ShowMsg("完成", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
         }
     }
 }

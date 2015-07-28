@@ -40,15 +40,7 @@ namespace CKGL
             string zcm = txb_zcm.Text.Trim();
             string jqm = Tool.CommonFunc.GetJQM();
 
-            try
-            {
-                JCSJWCF.CKZHZhuce(ckid, ckm,Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("注册失败\r\n" + ex.Message);
-                return;
-            }
+            JCSJWCF.CKZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
 
             //把仓库ID，库名，写入本地配置文件
             Settings.Default.CKID = ckid;

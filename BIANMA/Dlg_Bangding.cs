@@ -32,16 +32,9 @@ namespace BIANMA
             string zcm = txb_zcm.Text.Trim();
             string tzm = Tool.CommonFunc.GetJQM();
 
-            try
-            {
-                JCSJWCF.BMZHBangding(dlm, mm, zcm);
-                
-                MessageBox.Show("绑定成功");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message); 
-            }
-        }       
+            JCSJWCF.BMZHBangding(dlm, mm, zcm);
+
+            MessageBox.Show("绑定成功");
+        }
     }
 }

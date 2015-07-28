@@ -76,29 +76,17 @@ namespace FDXS
                 return;
             }
 
-
-            Dlg_Progress dp = new Dlg_Progress();
-            cmn_hy_gxxx_Click_sync(dp);
-            dp.ShowDialog();
+            new Tool.ActionMessageTool(cmn_hy_gxxx_Click_sync, false).Start();        
         }
-        private async void cmn_hy_gxxx_Click_sync(Dlg_Progress dp)
+        private void cmn_hy_gxxx_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
                 //取得被选中的会员ID
                 int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
 
                 //调用接口
-                JCSJData.THuiyuan jh = null;
-                try
-                {
-                    jh = JCSJWCF.GetHuiyuanById(id);
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text =  ex.Message;
-                    return;
-                }
+                JCSJData.THuiyuan jh =  JCSJWCF.GetHuiyuanById(id);                
 
                 //更新到本地
                 DBContext db = IDB.GetDB();
@@ -115,10 +103,14 @@ namespace FDXS
 
                 db.UpdateHuiyuanAll(fh);
 
-                dp.lbl_msg.Text = "下载成功";
-            });
-
-            dp.ControlBox = true;
+                ShowMsg("下载成功", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
+            
         }
 
         /// <summary>
@@ -134,13 +126,11 @@ namespace FDXS
                 return;
             }
 
-            Dlg_Progress dp = new Dlg_Progress();
-            cmn_hy_shangchuan_Click_sync(dp);
-            dp.ShowDialog();          
+            new Tool.ActionMessageTool(cmn_hy_shangchuan_Click_sync, false).Start();              
         }
-        private async void cmn_hy_shangchuan_Click_sync(Dlg_Progress dp)
+        private void cmn_hy_shangchuan_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
                 int id = (int)grid_hy.SelectedRows[0].Cells[col_id.Name].Value;
                 DBContext db = IDB.GetDB();
@@ -155,18 +145,14 @@ namespace FDXS
                     xingming = h.xingming
                 };
 
-                try
-                {
-                    JCSJWCF.UpdateHuiyuan(jh);
-                }
-                catch (Exception ex)
-                {
-                    dp.lbl_msg.Text = ex.Message;
-                    return;
-                }
-                dp.lbl_msg.Text = "上传成功";
-            });
-            dp.ControlBox = true;
+                JCSJWCF.UpdateHuiyuan(jh);
+                ShowMsg("上传成功", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }       
         }
 
         /// <summary>

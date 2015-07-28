@@ -27,24 +27,13 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
-            Dlg_Progress dp = new Dlg_Progress();
-            btn_sch_Click_sync(dp);
-            dp.ShowDialog();            
+            new Tool.ActionMessageTool(btn_sch_Click_sync, false).Start();      
         }
-        private async void btn_sch_Click_sync(Dlg_Progress dp)
+        private void btn_sch_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
         {
-            await Task.Run(() => 
+            try
             {
-                JCSJData.THuiyuanZK[] zks;
-                try
-                {
-                    zks = JCSJWCF.GetHuiyuanZhekous();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
+                JCSJData.THuiyuanZK[] zks = JCSJWCF.GetHuiyuanZhekous();
 
                 DBContext db = IDB.GetDB();
                 THuiyuanZK[] fzks = zks.Select(r => new THuiyuanZK
@@ -65,9 +54,14 @@ namespace FDXS
                         zk.zhekou
                     });
                 }
-                dp.lbl_msg.Text = "更新成功";
-            });
-            dp.ControlBox = true;
+
+                ShowMsg("更新成功", false);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                ShowMsg(ex.Message, true);
+            }
         }
 
         /// <summary>

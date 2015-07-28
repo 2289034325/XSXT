@@ -40,17 +40,8 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            TKuanhao[] ks;
-            try
-            {
-                ks = JCSJWCF.GetKuanhaosByUserId(LoginInfo.User.id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
+            TKuanhao[] ks = JCSJWCF.GetKuanhaosByUserId(LoginInfo.User.id);
+            
             grid_kh.Rows.Clear();
             foreach (TKuanhao k in ks)
             {
@@ -68,15 +59,7 @@ namespace BIANMA
             TKuanhao k = getEditInfo();
             TKuanhao nk;
 
-            try
-            {
-                nk = JCSJWCF.InsertKuanhao(k);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            nk = JCSJWCF.InsertKuanhao(k);
 
             addKuanhao(nk);
         }
@@ -187,15 +170,7 @@ namespace BIANMA
             TKuanhao ok = getEditInfo();
             ok.id = (int)grid_kh.SelectedRows[0].Cells[col_id.Name].Value;
 
-            try
-            {
-                JCSJWCF.EditKuanhao(ok);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.EditKuanhao(ok);
 
             editKuanhao(ok);
         }
@@ -209,15 +184,7 @@ namespace BIANMA
         {
             int id = int.Parse(e.Row.Cells["col_id"].Value.ToString());
 
-            try
-            {
-                JCSJWCF.DeleteKuanhao(id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-        }     
+            JCSJWCF.DeleteKuanhao(id);
+        }
     }
 }

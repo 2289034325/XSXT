@@ -47,20 +47,8 @@ namespace CKGL
         /// <param name="e"></param>
         private void Dlg_Fendian_Load(object sender, EventArgs e)
         {
-            JCSJData.TFendian[] fds;
-            try
-            {
-                fds = JCSJWCF.GetAllFendians();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
+            JCSJData.TFendian[] fds = JCSJWCF.GetAllFendians();
             Tool.CommonFunc.InitCombbox(cmb_fd, fds, "dianming", "id");
-        }
-
-        
+        }        
     }
 }

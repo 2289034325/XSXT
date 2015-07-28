@@ -28,17 +28,9 @@ namespace CKGL
         {
             //先登陆基础数据中心
             JCSJData.TTiaoma[] jtms;
-            try
-            {
-                DateTime start = dp_start.Value;
-                DateTime end = dp_end.Value;
-                jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            DateTime start = dp_start.Value;
+            DateTime end = dp_end.Value;
+            jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
 
             saveToLocal(jtms);
         }
@@ -56,15 +48,7 @@ namespace CKGL
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 JCSJData.TTiaoma[] jtms = null;
 
-                try
-                {
-                   jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
+                jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
 
                 saveToLocal(jtms);
             }
@@ -75,7 +59,7 @@ namespace CKGL
         /// </summary>
         /// <param name="jtms"></param>
         private void saveToLocal(JCSJData.TTiaoma[] jtms)
-        {
+        {            
             List<TTiaoma> tms = new List<TTiaoma>();
             foreach (JCSJData.TTiaoma jtm in jtms)
             {
@@ -146,19 +130,19 @@ namespace CKGL
             foreach (TTiaoma t in tms)
             {
                 grid_tm.Rows.Add(new object[] 
-                {
-                    t.id,
-                    t.tiaoma,
-                    t.kuanhao,
-                    t.gongyingshang,
-                    t.gyskuanhao,
-                    ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)t.leixing).ToString(),
-                    t.pinming,
-                    t.yanse,
-                    t.chima,
-                    t.shoujia,
-                    t.xiugaishijian
-                });
+                    {
+                        t.id,
+                        t.tiaoma,
+                        t.kuanhao,
+                        t.gongyingshang,
+                        t.gyskuanhao,
+                        ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)t.leixing).ToString(),
+                        t.pinming,
+                        t.yanse,
+                        t.chima,
+                        t.shoujia,
+                        t.xiugaishijian
+                    });
             }
         }
     }

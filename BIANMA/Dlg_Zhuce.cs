@@ -33,19 +33,9 @@ namespace BIANMA
             string zcm = txb_zcm.Text.Trim();
             string tzm = Tool.CommonFunc.GetJQM();
 
-            try
-            {
-                JCSJWCF.BMZHZhuce(dlm, mm, xm, zcm);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.BMZHZhuce(dlm, mm, xm, zcm);
             MessageBox.Show("注册成功");
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
-
-        
     }
 }

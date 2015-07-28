@@ -181,19 +181,10 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Log\\")]
-        public string LogFilePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Log\\fdlog.txt")]
+        public string LogFile {
             get {
-                return ((string)(this["LogFilePath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tasklog.txt")]
-        public string TaskLogFileName {
-            get {
-                return ((string)(this["TaskLogFileName"]));
+                return ((string)(this["LogFile"]));
             }
         }
         

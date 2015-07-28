@@ -27,20 +27,10 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            TGongyingshang[] gs;
-            try
-            {
-                gs = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
+            TGongyingshang[] gs = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
 
             grid_gys.Rows.Clear();
-            for (int i = 0; i < gs.Length;i++ )
+            for (int i = 0; i < gs.Length; i++)
             {
                 grid_gys.Rows.Add(new object[] 
                 {
@@ -65,15 +55,9 @@ namespace BIANMA
         {
             TGongyingshang g = getEditInfo();
             TGongyingshang ng = null;
-            try
-            {
-                ng = JCSJWCF.InsertGongyingshang(g);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+
+            ng = JCSJWCF.InsertGongyingshang(g);
+
             addGongyingshang(ng);
         }
 
@@ -128,15 +112,7 @@ namespace BIANMA
             TGongyingshang og = getEditInfo();
             og.id = (int)grid_gys.SelectedRows[0].Cells[col_id.Name].Value;
 
-            try
-            {
-                JCSJWCF.EditGongyingshang(og);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.EditGongyingshang(og);
 
             editGongyingshang(og);
         }
@@ -170,15 +146,7 @@ namespace BIANMA
         {
             int id = int.Parse(e.Row.Cells[col_id.Name].Value.ToString());
 
-            try
-            {
-                JCSJWCF.DeleteGongyingshang(id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            JCSJWCF.DeleteGongyingshang(id);
         }
 
         /// <summary>

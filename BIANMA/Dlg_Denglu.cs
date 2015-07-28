@@ -29,15 +29,8 @@ namespace BIANMA
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            try
-            {
-                LoginInfo.User = JCSJWCF.Login(dlm, mm);
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            LoginInfo.User = JCSJWCF.Login(dlm, mm);
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         /// <summary>

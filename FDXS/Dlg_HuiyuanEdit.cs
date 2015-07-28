@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using FDXS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,11 +34,11 @@ namespace FDXS
             string sjh = txb_sjh.Text.Trim();
             string xm = txb_xm.Text.Trim();
             byte xb = byte.Parse(cmb_xb.SelectedValue.ToString());
-            DateTime sr = dp_sr.Value.Date;           
+            DateTime sr = dp_sr.Value.Date;
 
-            THuiyuan fh = new THuiyuan 
+            THuiyuan fh = new THuiyuan
             {
-                id=_id,
+                id = _id,
                 shoujihao = sjh,
                 xingming = xm,
                 xingbie = xb,
