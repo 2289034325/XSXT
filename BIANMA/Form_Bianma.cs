@@ -799,13 +799,13 @@ namespace BIANMA
                 }
 
                 //同一个款号内，不能有同色同码的
-                setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, null);
-                if (tk.tms.DistinctBy(r => new { r.tiaoma.yanse, r.tiaoma.chima }).Count() != tk.tms.Count())
-                {
-                    MessageBox.Show("同一个款号内，不能有同色同码的");
-                    setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, Color.Red);
-                    return false;
-                }
+                //setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, null);
+                //if (tk.tms.DistinctBy(r => new { r.tiaoma.yanse, r.tiaoma.chima }).Count() != tk.tms.Count())
+                //{
+                //    MessageBox.Show("同一个款号内，不能有同色同码的");
+                //    setCellColorByKh(tk.kuanhao.kuanhao, col_all_kh.Index, Color.Red);
+                //    return false;
+                //}
             }
 
             //不能有相同的条码
@@ -1588,6 +1588,107 @@ namespace BIANMA
                 TTiaomaExtend te = ke.tms.Single(r => r.idex == tmidex);
                 te.tiaoma.gysid = gysid;
             }
+        }
+
+        /// <summary>
+        /// 从文件加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_jiazai_wenjian_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = fd.FileName;
+                StreamReader fs = null;
+                string content = "";
+                try
+                {
+                    fs = new StreamReader(file, Encoding.Default);
+                    content = fs.ReadToEnd();
+                }
+                finally
+                {
+                    if (fs != null)
+                    {
+                        fs.Close();
+                    }
+                }
+
+                string[] lines = content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                //检查格式
+                if (lines.Count() < 2)
+                {
+                    throw new MyException("连同表头，一共不得少于两行", null);
+                }
+
+                string head = lines[0];
+                string standHead = Enum.GetNames(typeof(XTCONSTS.FILE_COLUMN)).Aggregate((a, b) => { return a + "," + b; });
+                if (head != standHead)
+                {
+                    throw new MyException("正确的表头应当是："+standHead, null);
+                }
+
+                var tsEE = lines.Skip(1).Select(r => new
+                {
+                    lx = r.Split(new char[] { ',' })[(byte)XTCONSTS.FILE_COLUMN.类型],
+                    pm = r.Split(new char[] { ',' })[(byte)XTCONSTS.FILE_COLUMN.品名],
+                    te = createTTiaomaExtendFromString(r)
+                }).ToArray();
+
+                _khs = tsEE.GroupBy(r => new { r.te.tiaoma.gyskuanhao, r.pm, r.lx }).Select(r => new TKuanhaoExtend
+                {
+                    idex = getClientId(),
+                    kuanhao = new TKuanhao
+                    {
+                        beizhu = "",
+                        kuanhao = "",
+                        leixing = (byte)(DBCONSTS.KUANHAO_LX)Enum.Parse(typeof(DBCONSTS.KUANHAO_LX), r.Key.lx),
+                        pinming = r.Key.pm,
+                        xingbie = (byte)DBCONSTS.KUANHAO_XB.女,
+                        charushijian = DateTime.Now,
+                        xiugaishijian = DateTime.Now
+                    },
+                    tms = r.Select(gr=>gr.te).ToList(),
+                    xj = XTCONSTS.KUANHAO_XINJIU.新款
+                }).ToList();
+
+                cmn_all_shuaxin_Click(null, null);
+            }
+        }
+
+        private TTiaomaExtend createTTiaomaExtendFromString(string line)
+        {
+            string[] ss = line.Split(new char[] { ',' });
+            string tm = ss[(byte)XTCONSTS.FILE_COLUMN.条码];
+            string gyskh = ss[(byte)XTCONSTS.FILE_COLUMN.款号];
+            string pm = ss[(byte)XTCONSTS.FILE_COLUMN.品名];
+            string ys = ss[(byte)XTCONSTS.FILE_COLUMN.颜色];
+            string cm = ss[(byte)XTCONSTS.FILE_COLUMN.尺码];
+            string sl = ss[(byte)XTCONSTS.FILE_COLUMN.数量];
+            string jj = ss[(byte)XTCONSTS.FILE_COLUMN.进价];
+            string sj = ss[(byte)XTCONSTS.FILE_COLUMN.售价];
+            TTiaomaExtend te = new TTiaomaExtend
+            {
+                idex = getClientId(),
+                xj = XTCONSTS.TIAOMA_XINJIU.新条码,
+                shuliang = short.Parse(sl),
+                tiaoma = new TTiaoma
+                {
+                    tiaoma = tm,
+                    gysid = int.Parse(cmb_gys.SelectedValue.ToString()),
+                    gyskuanhao = gyskh,
+                    yanse = ys,
+                    chima = cm,
+                    jinjia = decimal.Parse(jj),
+                    shoujia = decimal.Parse(sj),
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now
+                }
+            };
+
+            return te;
         }
     }
 }

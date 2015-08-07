@@ -327,7 +327,7 @@ namespace Tool
         /// <returns></returns>
         public static bool CheckFormat_TM(string tm)
         {
-            if (tm.Length != 13)
+            if (tm.Length < 9)
             {
                 return false;
             }

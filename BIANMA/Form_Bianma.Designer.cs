@@ -40,6 +40,7 @@
             this.mni_jiazai = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_jiazai_wenjian = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_qingkong = new System.Windows.Forms.ToolStripMenuItem();
             this.清空gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清空本地缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,7 +158,8 @@
             // 
             this.mni_jiazai.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mni_jiazai_fuwuqi,
-            this.mni_jiazai_bendi});
+            this.mni_jiazai_bendi,
+            this.mni_jiazai_wenjian});
             this.mni_jiazai.Name = "mni_jiazai";
             this.mni_jiazai.Size = new System.Drawing.Size(92, 21);
             this.mni_jiazai.Text = "加载条码信息";
@@ -175,6 +177,13 @@
             this.mni_jiazai_bendi.Size = new System.Drawing.Size(162, 22);
             this.mni_jiazai_bendi.Text = "从本地XML加载";
             this.mni_jiazai_bendi.Click += new System.EventHandler(this.mni_jiazai_bendi_Click);
+            // 
+            // mni_jiazai_wenjian
+            // 
+            this.mni_jiazai_wenjian.Name = "mni_jiazai_wenjian";
+            this.mni_jiazai_wenjian.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_wenjian.Text = "从文件加载";
+            this.mni_jiazai_wenjian.Click += new System.EventHandler(this.mni_jiazai_wenjian_Click);
             // 
             // mni_qingkong
             // 
@@ -566,6 +575,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_wenjian;
     }
 }
 

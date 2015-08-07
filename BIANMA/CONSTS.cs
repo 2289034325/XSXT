@@ -21,5 +21,21 @@ namespace BIANMA
             新条码 = 1,
             旧条码 = 2
         }
+
+        /// <summary>
+        /// 从文件导入条码的列顺序
+        /// </summary>
+        public enum FILE_COLUMN : byte
+        {
+            条码 = 0,
+            款号 = 1,
+            类型 = 2,
+            品名 = 3,
+            颜色 = 4,
+            尺码 = 5,
+            数量 = 6,
+            进价 = 7,
+            售价 = 8
+        }
     }
 }
