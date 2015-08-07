@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_FD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DB_FD
         {
             foreach (TTiaoma tm in tms)
             {
-                TTiaoma ot = _db.TTiaoma.Single(r => r.id == tm.id);
+                TTiaoma ot = _db.TTiaomas.Single(r => r.id == tm.id);
 
                 ot.kuanhao = tm.kuanhao;
                 ot.gongyingshang = tm.gongyingshang;
@@ -35,7 +36,7 @@ namespace DB_FD
         /// <param name="c"></param>
         public void UpdateChuruku(TJinchuhuo c)
         {
-            TJinchuhuo oc = _db.TJinchuhuo.Single(r => r.id == c.id);
+            TJinchuhuo oc = _db.TJinchuhuos.Single(r => r.id == c.id);
             //方向不允许修改
             oc.laiyuanquxiang = c.laiyuanquxiang;
             oc.beizhu = c.beizhu;
@@ -50,7 +51,7 @@ namespace DB_FD
         /// <param name="mx"></param>
         public void UpdateChurukuMx(int id,short sl)
         {
-            TJinchuMX om = _db.TJinchuMX.Single(r => r.id == id);
+            TJinchuMX om = _db.TJinchuMXes.Single(r => r.id == id);
             //只允许修改数量
             om.shuliang = sl;
 
@@ -64,7 +65,7 @@ namespace DB_FD
         /// <param name="jiajian"></param>
         public void UpdatePandian(int id, bool jiajian)
         {
-            TPandian op = _db.TPandian.Single(r => r.id == id);
+            TPandian op = _db.TPandians.Single(r => r.id == id);
             if (jiajian)
             {
                 op.pdshuliang = (short)(op.pdshuliang + 1);
@@ -83,7 +84,7 @@ namespace DB_FD
         /// <param name="x"></param>
         public void UpdateKucunXZ(TKucunXZ x)
         {
-            TKucunXZ ox = _db.TKucunXZ.Single(r => r.id == x.id);
+            TKucunXZ ox = _db.TKucunXZs.Single(r => r.id == x.id);
             ox.shuliang = x.shuliang;
             ox.xiugaishijian = x.xiugaishijian;
 
@@ -97,7 +98,7 @@ namespace DB_FD
         /// <param name="jf"></param>
         public void UpdateAddHuiyuanJF(int id, decimal jf)
         {
-            THuiyuan h = _db.THuiyuan.Single(r => r.id == id);
+            THuiyuan h = _db.THuiyuans.Single(r => r.id == id);
 
             h.jifen += jf;
 
@@ -110,18 +111,19 @@ namespace DB_FD
         /// <param name="h"></param>
         public void UpdateHuiyuanInfo(THuiyuan h)
         {
-            THuiyuan oh = _db.THuiyuan.Single(r => r.id == h.id);
+            THuiyuan oh = _db.THuiyuans.Single(r => r.id == h.id);
 
             oh.shoujihao = h.shoujihao;
             oh.xingbie = h.xingbie;
             oh.xingming = h.xingming;
+            oh.shengri = h.shengri;
             oh.xxgxshijian = h.xxgxshijian;
 
             _db.SaveChanges();
         }
         public void UpdateHuiyuanAll(THuiyuan h)
         {
-            THuiyuan oh = _db.THuiyuan.Single(r => r.id == h.id);
+            THuiyuan oh = _db.THuiyuans.Single(r => r.id == h.id);
 
             oh.shoujihao = h.shoujihao;
             oh.xingbie = h.xingbie;
@@ -140,7 +142,7 @@ namespace DB_FD
         /// <param name="sbsj"></param>
         public void UpdateXiaoshouShangbaoshijian(int[] ids, DateTime sbsj)
         {
-            var xss = _db.TXiaoshou.Where(r => ids.Contains(r.id));
+            var xss = _db.TXiaoshous.Where(r => ids.Contains(r.id));
             foreach (TXiaoshou x in xss)
             {
                 x.shangbaoshijian = sbsj;
@@ -156,7 +158,7 @@ namespace DB_FD
         /// <param name="sbsj"></param>
         public void UpdateJinchuhuoShangbaoshijian(int[] ids, DateTime sbsj)
         {
-            var jcs = _db.TJinchuhuo.Where(r => ids.Contains(r.id));
+            var jcs = _db.TJinchuhuos.Where(r => ids.Contains(r.id));
             foreach (TJinchuhuo jc in jcs)
             {
                 jc.shangbaoshijian = sbsj;
@@ -171,7 +173,7 @@ namespace DB_FD
         /// <param name="u"></param>
         public void UpdateUser(TUser u)
         {
-            var ou = _db.TUser.Single(r => r.id == u.id);
+            var ou = _db.TUsers.Single(r => r.id == u.id);
 
             ou.dengluming = u.dengluming;
             //ou.mima = u.mima;
@@ -191,7 +193,7 @@ namespace DB_FD
         /// <param name="psw"></param>
         public void UpdateUserPsw(int id,string psw)
         {
-            TUser u = _db.TUser.Single(r => r.id == id);
+            TUser u = _db.TUsers.Single(r => r.id == id);
             u.mima = psw;
 
             _db.SaveChanges();

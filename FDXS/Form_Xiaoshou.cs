@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,13 @@ namespace FDXS
         //开单对话框
         private Dlg_xiaoshou _dlgKaidan;
         //开单数据
-        private List<TXiaoshou> _XSS;
+        //private List<TXiaoshou> _XSS;
 
         public Form_Xiaoshou()
         {
             InitializeComponent();
             _dlgKaidan = null;
-            _XSS = null;
+            //_XSS = null;
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace FDXS
         private void Form_KucunYilan_Load(object sender, EventArgs e)
         {
             //隐藏折扣列
-            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
             {
                 col_zk.Visible = false;
                 col_ml.Visible = false;
@@ -141,7 +142,7 @@ namespace FDXS
                 x.zhekou,
                 x.moling,
                 //价格
-                (x.jine??0).ToString("##.##"),
+                x.jine.ToString("##.##"),
                 //销售员
                 x.xiaoshouyuan,
                 x.xiaoshoushijian,
@@ -216,7 +217,7 @@ namespace FDXS
             TXiaoshou x = db.GetXiaoshouById(id);
             if (x.huiyuanid != null)
             {
-                decimal jf = 0 - (x.jine ?? 0);
+                decimal jf = 0 - x.jine;
                 db.UpdateAddHuiyuanJF(x.huiyuanid.Value, jf);
             }
 

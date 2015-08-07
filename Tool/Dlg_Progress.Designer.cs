@@ -37,9 +37,9 @@
             this.lbl_msg.AutoSize = true;
             this.lbl_msg.Location = new System.Drawing.Point(12, 9);
             this.lbl_msg.Name = "lbl_msg";
-            this.lbl_msg.Size = new System.Drawing.Size(29, 12);
+            this.lbl_msg.Size = new System.Drawing.Size(101, 12);
             this.lbl_msg.TabIndex = 0;
-            this.lbl_msg.Text = "消息";
+            this.lbl_msg.Text = "正在处理，请稍等";
             // 
             // pgb
             // 

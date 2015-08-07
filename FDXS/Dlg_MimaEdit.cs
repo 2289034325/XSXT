@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace FDXS
 
             //检测新密码是否正确
             DBContext db = IDB.GetDB();
-            TUser u = db.GetUserById(LoginInfo.User.id);
+            TUser u = db.GetUserById(RuntimeInfo.LoginUser.id);
             if (Tool.CommonFunc.MD5_16(jmm) != u.mima)
             {
                 MessageBox.Show("旧密码不正确");
@@ -54,7 +55,7 @@ namespace FDXS
                 return;
             }
 
-            db.UpdateUserPsw(LoginInfo.User.id, Tool.CommonFunc.MD5_16(xmm1));
+            db.UpdateUserPsw(RuntimeInfo.LoginUser.id, Tool.CommonFunc.MD5_16(xmm1));
 
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_CK.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DB_CK
         {
             foreach (TTiaoma tm in tms)
             {
-                TTiaoma ot = _db.TTiaoma.Single(r => r.id == tm.id);
+                TTiaoma ot = _db.TTiaomas.Single(r => r.id == tm.id);
 
                 ot.kuanhao = tm.kuanhao;
                 ot.tiaoma = tm.tiaoma;
@@ -36,7 +37,7 @@ namespace DB_CK
         /// <param name="c"></param>
         public void UpdateChuruku(TChuruku c)
         {
-            TChuruku oc = _db.TChuruku.Single(r => r.id == c.id);
+            TChuruku oc = _db.TChurukus.Single(r => r.id == c.id);
             //方向不允许修改
             oc.laiyuanquxiang = c.laiyuanquxiang;
             oc.beizhu = c.beizhu;
@@ -51,7 +52,7 @@ namespace DB_CK
         /// <param name="mx"></param>
         public void UpdateChurukuMx(int id,short sl)
         {
-            TChurukuMX om = _db.TChurukuMX.Single(r => r.id == id);
+            TChurukuMX om = _db.TChurukuMXes.Single(r => r.id == id);
             //只允许修改数量
             om.shuliang = sl;
 
@@ -65,7 +66,7 @@ namespace DB_CK
         /// <param name="sj"></param>
         public void UpdateChurukuShangbaoshijian(int[] ids, DateTime sj)
         {
-            var crs = _db.TChuruku.Where(r => ids.Contains(r.id));
+            var crs = _db.TChurukus.Where(r => ids.Contains(r.id));
             foreach (TChuruku cr in crs)
             {
                 cr.shangbaoshijian = sj;

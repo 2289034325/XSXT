@@ -148,6 +148,16 @@ namespace Tool.JCSJ
                 丢弃 = 5,
                 其他 = 99
             }
+
+            /// <summary>
+            /// 客户端类型
+            /// </summary>
+            public enum SYS_CLIENT_TYPE : byte
+            {
+                分店 = 1,
+                仓库 = 2,
+                编码 = 3
+            }
         }
 
 }

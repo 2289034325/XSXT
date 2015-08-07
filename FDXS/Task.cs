@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -158,7 +159,7 @@ namespace FDXS
                 danjia = r.danjia,
                 zhekou = r.zhekou,
                 moling = r.moling,
-                jine = r.jine.Value
+                jine = r.jine
             }).ToArray();
 
             //调用服务接口
@@ -190,7 +191,7 @@ namespace FDXS
                 laiyuanquxiang = r.laiyuanquxiang,
                 beizhu = r.beizhu,
                 fashengshijian = r.charushijian,
-                TFendianJinchuhuoMX = r.TJinchuMX.Select(mr => new JCSJData.TFendianJinchuhuoMX
+                TFendianJinchuhuoMXes = r.TJinchuMXes.Select(mr => new JCSJData.TFendianJinchuhuoMX
                 {
                     tiaomaid = mr.tiaomaid,
                     shuliang = mr.shuliang

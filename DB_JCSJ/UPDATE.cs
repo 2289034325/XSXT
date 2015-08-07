@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_JCSJ.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace DB_JCSJ
             /// <param name="u"></param>
             public void UpdateUserInfo(TUser u)
             {
-                TUser ou = _db.TUser.Single(r => r.id == u.id);
+                TUser ou = _db.TUsers.Single(r => r.id == u.id);
 
                 ou.dengluming = u.dengluming;
                 ou.yonghuming = u.yonghuming;
@@ -33,7 +34,7 @@ namespace DB_JCSJ
             /// <param name="psw"></param>
             public void UpdateUserPsw(int id, string psw)
             {
-                TUser ou = _db.TUser.Single(r => r.id == id);
+                TUser ou = _db.TUsers.Single(r => r.id == id);
 
                 ou.mima = psw;
 
@@ -49,7 +50,7 @@ namespace DB_JCSJ
             /// <param name="jqm"></param>
             public void UpdateUserJQM(int id, string jqm)
             {
-                TUser ou = _db.TUser.Single(r => r.id == id);
+                TUser ou = _db.TUsers.Single(r => r.id == id);
 
                 ou.jiqima = jqm;
 
@@ -64,7 +65,7 @@ namespace DB_JCSJ
             /// <param name="f"></param>
             public void UpdateFendian(TFendian f)
             {
-                TFendian of = _db.TFendian.Single(r => r.id == f.id);
+                TFendian of = _db.TFendians.Single(r => r.id == f.id);
                 of.fzxingbie = f.fzxingbie;
                 of.fzleixing = f.fzleixing;
                 of.dianming = f.dianming;
@@ -91,7 +92,7 @@ namespace DB_JCSJ
             /// <param name="c"></param>
             public void UpdateCangku(TCangku c)
             {
-                TCangku of = _db.TCangku.Single(r => r.id == c.id);
+                TCangku of = _db.TCangkus.Single(r => r.id == c.id);
 
                 of.mingcheng = c.mingcheng;
                 of.dizhi = c.dizhi;
@@ -109,7 +110,7 @@ namespace DB_JCSJ
             /// <param name="h"></param>
             public void UpdateHuiyuan(THuiyuan h)
             {
-                THuiyuan oh = _db.THuiyuan.Single(r => r.id == h.id);
+                THuiyuan oh = _db.THuiyuans.Single(r => r.id == h.id);
 
                 //oh.fendianid = h.fendianid;
                 oh.shoujihao = h.shoujihao;
@@ -127,7 +128,7 @@ namespace DB_JCSJ
             /// <param name="h"></param>
             public void UpdateHuiyuan_FendianOPT(THuiyuan h)
             {
-                THuiyuan oh = _db.THuiyuan.Single(r => r.id == h.id);
+                THuiyuan oh = _db.THuiyuans.Single(r => r.id == h.id);
 
                 oh.shoujihao = h.shoujihao;
                 oh.xingming = h.xingming;
@@ -145,7 +146,7 @@ namespace DB_JCSJ
             /// <param name="g"></param>
             public void UpdateGongyingshang(TGongyingshang g)
             {
-                TGongyingshang og = _db.TGongyingshang.Single(r => r.id == g.id);
+                TGongyingshang og = _db.TGongyingshangs.Single(r => r.id == g.id);
 
                 og.jiancheng = g.jiancheng;
                 og.mingcheng = g.mingcheng;
@@ -164,7 +165,7 @@ namespace DB_JCSJ
             /// <param name="k"></param>
             public void UpdateKuanhao(TKuanhao k)
             {
-                TKuanhao ok = _db.TKuanhao.Single(r => r.id == k.id);
+                TKuanhao ok = _db.TKuanhaos.Single(r => r.id == k.id);
 
                 ok.kuanhao = k.kuanhao;
                 ok.leixing = k.leixing;
@@ -173,7 +174,7 @@ namespace DB_JCSJ
                 ok.beizhu = k.beizhu;
                 ok.xiugaishijian = k.xiugaishijian;
                 //该款号所有的条码信息也标为被修改
-                foreach (TTiaoma t in ok.TTiaoma)
+                foreach (TTiaoma t in ok.TTiaomas)
                 {
                     t.xiugaishijian = k.xiugaishijian;
                 }
@@ -187,7 +188,7 @@ namespace DB_JCSJ
             /// <param name="t"></param>
             public void UpdateTiaoma(TTiaoma t)
             {
-                TTiaoma ot = _db.TTiaoma.Single(r => r.id == t.id);
+                TTiaoma ot = _db.TTiaomas.Single(r => r.id == t.id);
 
                 //条码号，不允许编辑
                 ot.yanse = t.yanse;
@@ -208,7 +209,7 @@ namespace DB_JCSJ
             /// <param name="jcids"></param>
             public void UpdateCangkuFahuoFendianXzsj(int[] ids)
             {
-                var ds = _db.TCangkuFahuoFendian.Where(r => ids.Contains(r.id));
+                var ds = _db.TCangkuFahuoFendians.Where(r => ids.Contains(r.id));
                 foreach (var d in ds)
                 {
                     d.xzshijian = DateTime.Now;

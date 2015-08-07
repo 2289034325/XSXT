@@ -1,8 +1,10 @@
-﻿using System;
+﻿using DB_FD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DB_FD
 {
@@ -14,7 +16,7 @@ namespace DB_FD
         /// <param name="tms"></param>
         public void InsertTiaomas(TTiaoma[] tms)
         {
-            _db.TTiaoma.AddRange(tms);
+            _db.TTiaomas.AddRange(tms);
 
             _db.SaveChanges();
         }
@@ -27,10 +29,10 @@ namespace DB_FD
         {
             c.charushijian = DateTime.Now;
             c.xiugaishijian = DateTime.Now;
-            TJinchuhuo nc = _db.TJinchuhuo.Add(c);
+            TJinchuhuo nc = _db.TJinchuhuos.Add(c);
             _db.SaveChanges();
 
-            nc.TUser = _db.TUser.Single(r => r.id == nc.caozuorenid);
+            nc.TUser = _db.TUsers.Single(r => r.id == nc.caozuorenid);
 
             return nc;
         }
@@ -41,7 +43,7 @@ namespace DB_FD
         /// <param name="mxs"></param>
         public void InsertJinchuMxs(TJinchuMX[] mxs)
         {
-            _db.TJinchuMX.AddRange(mxs);
+            _db.TJinchuMXes.AddRange(mxs);
 
             _db.SaveChanges();
         }
@@ -53,8 +55,8 @@ namespace DB_FD
         /// <returns></returns>
         public TPandian InsertPandian(TPandian pd)
         {
-            TPandian npd = _db.TPandian.Add(pd);
-            npd.TTiaoma = _db.TTiaoma.Single(r => r.id == npd.tiaomaid);
+            TPandian npd = _db.TPandians.Add(pd);
+            npd.TTiaoma = _db.TTiaomas.Single(r => r.id == npd.tiaomaid);
 
             _db.SaveChanges();
 
@@ -68,11 +70,11 @@ namespace DB_FD
         /// <returns></returns>
         public TKucunXZ InsertKucunXZ(TKucunXZ xz)
         {
-            TKucunXZ nxz = _db.TKucunXZ.Add(xz);
+            TKucunXZ nxz = _db.TKucunXZs.Add(xz);
             _db.SaveChanges();
 
-            nxz.TTiaoma = _db.TTiaoma.Single(r => r.id == nxz.tiaomaid);
-            nxz.TUser = _db.TUser.Single(r => r.id == nxz.caozuorenid);
+            nxz.TTiaoma = _db.TTiaomas.Single(r => r.id == nxz.tiaomaid);
+            nxz.TUser = _db.TUsers.Single(r => r.id == nxz.caozuorenid);
 
             return nxz;
         }
@@ -84,10 +86,10 @@ namespace DB_FD
         /// <returns></returns>
         public TXiaoshou[] InsertXiaoshous(TXiaoshou[] xss)
         {
-            TXiaoshou[] nxss = _db.TXiaoshou.AddRange(xss).ToArray();
+            TXiaoshou[] nxss = _db.TXiaoshous.AddRange(xss).ToArray();
             _db.SaveChanges();
             int[] ids = nxss.Select(r => r.id).ToArray();
-            TXiaoshou[] nx = _db.TXiaoshou.Include("TTiaoma").Where(r => ids.Contains(r.id)).ToArray();
+            TXiaoshou[] nx = _db.TXiaoshous.Include(r=>r.TTiaoma).Where(r => ids.Contains(r.id)).ToArray();
 
             return nx;
         }
@@ -98,7 +100,7 @@ namespace DB_FD
         /// <param name="h"></param>
         public void InsertHuiyuan(THuiyuan h)
         {
-            _db.THuiyuan.Add(h);
+            _db.THuiyuans.Add(h);
 
             _db.SaveChanges();
         }
@@ -109,7 +111,7 @@ namespace DB_FD
         /// <param name="zks"></param>
         public void InsertHuiyuanZKs(THuiyuanZK[] zks)
         {
-            _db.THuiyuanZK.AddRange(zks);
+            _db.THuiyuanZKs.AddRange(zks);
 
             _db.SaveChanges();
         }
@@ -121,7 +123,7 @@ namespace DB_FD
         /// <returns></returns>
         public TUser InsertUser(TUser user)
         {
-            TUser nu = _db.TUser.Add(user);
+            TUser nu = _db.TUsers.Add(user);
 
             _db.SaveChanges();
 

@@ -111,5 +111,11 @@ namespace FDXS
             Login();
             return _jdc.XiazaiJinhuoShuju();
         }
+
+        //internal static string GetLatestVersion()
+        //{
+        //    ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);
+        //    return vdc.GetLatestVersion(Tool.JCSJ.DBCONSTS.SYS_CLIENT_TYPE.分店);
+        //}
     }
 }

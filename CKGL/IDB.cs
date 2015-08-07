@@ -14,5 +14,9 @@ namespace CKGL
         {
             return new DBContext(Settings.Default.DBSERVER,Settings.Default.DBName, Settings.Default.DBUSER, Settings.Default.DBPSW);
         }
+        public static string GetConn()
+        {
+            return string.Format("Data Source={0};Initial Catalog={1};User Id={2};Password={3};MultipleActiveResultSets=True", Settings.Default.DBSERVER, Settings.Default.DBName, Settings.Default.DBUSER, Settings.Default.DBPSW);
+        }
     }
 }

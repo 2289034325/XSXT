@@ -30,16 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -51,69 +52,46 @@
   <ItemGroup>
     <Compile Include="ConnExtend.cs" />
     <Compile Include="DELETE.cs" />
-    <Compile Include="Entities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="INSERT.cs" />
+    <Compile Include="Migrations\201508050000001_InitialCreate.cs" />
+    <Compile Include="Migrations\201508050000001_InitialCreate.Designer.cs">
+      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CKContext.cs" />
+    <Compile Include="Models\Mapping\TChurukuMap.cs" />
+    <Compile Include="Models\Mapping\TChurukuMXMap.cs" />
+    <Compile Include="Models\Mapping\TKucunXZMap.cs" />
+    <Compile Include="Models\Mapping\TTiaomaMap.cs" />
+    <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\VKucunMap.cs" />
+    <Compile Include="Models\TChuruku.cs" />
+    <Compile Include="Models\TChurukuMX.cs" />
+    <Compile Include="Models\TKucunXZ.cs" />
+    <Compile Include="Models\TTiaoma.cs" />
+    <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\VKucun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
-    <Compile Include="TChuruku.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TChurukuMX.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TKucunXZ.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TTiaoma.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TUser.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="UPDATE.cs" />
-    <Compile Include="VKucun.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Entities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Entities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </None>
-    <None Include="Entities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
+      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tool\Tool.csproj">
+      <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
+      <Name>Tool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

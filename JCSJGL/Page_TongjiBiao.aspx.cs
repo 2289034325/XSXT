@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -195,8 +196,8 @@ namespace JCSJGL
                     r.Key.fdid,
                     r.Key.fd,
                     xl = r.Sum(xr=>xr.xl),
-                    xse = decimal.Round(r.Sum(xr=>xr.xse)??0,2),
-                    lr = decimal.Round(r.Sum(xr=>xr.lr)??0,2)
+                    xse = decimal.Round(r.Sum(xr=>xr.xse),2),
+                    lr = decimal.Round(r.Sum(xr=>xr.lr),2)
                 });
                 dt = Tool.CommonFunc.LINQToDataTable(data);
 
@@ -210,8 +211,8 @@ namespace JCSJGL
                 {
                     r.Key.rq,
                     xl = r.Sum(xr => xr.xl),
-                    xse = decimal.Round(r.Sum(xr => xr.xse) ?? 0, 2),
-                    lr = decimal.Round(r.Sum(xr => xr.lr) ?? 0, 2)
+                    xse = decimal.Round(r.Sum(xr => xr.xse), 2),
+                    lr = decimal.Round(r.Sum(xr => xr.lr), 2)
                 });
                 dt = Tool.CommonFunc.LINQToDataTable(data);
 
@@ -224,8 +225,8 @@ namespace JCSJGL
                     r.Key.fdid,
                     r.Key.fd,
                     xl = r.Sum(xr => xr.xl),
-                    xse = decimal.Round(r.Sum(xr => xr.xse) ?? 0, 2),
-                    lr = decimal.Round(r.Sum(xr => xr.lr) ?? 0, 2)
+                    xse = decimal.Round(r.Sum(xr => xr.xse), 2),
+                    lr = decimal.Round(r.Sum(xr => xr.lr), 2)
                 });
                 dt = Tool.CommonFunc.LINQToDataTable(data);
 
@@ -237,8 +238,8 @@ namespace JCSJGL
                 var data = new int[] { 0 }.Select(r => new
                 {
                     xl = xs.Sum(xr => xr.xl),
-                    xse = decimal.Round(xs.Sum(xr => xr.xse) ?? 0, 2),
-                    lr = decimal.Round(xs.Sum(xr => xr.lr) ?? 0, 2)
+                    xse = decimal.Round(xs.Sum(xr => xr.xse), 2),
+                    lr = decimal.Round(xs.Sum(xr => xr.lr), 2)
                 });
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }

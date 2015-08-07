@@ -159,10 +159,8 @@ namespace BIANMA
             }
 
             Dlg_Denglu dl = new Dlg_Denglu();
-            if (dl.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-            {
-                this.Close();
-            }
+            dl.ShowDialog();
+            
         }
     }
 }

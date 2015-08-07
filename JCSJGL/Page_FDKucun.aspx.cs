@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,9 @@ namespace JCSJGL
             {
                 id = r.id,
                 fendian = r.TFendian.dianming,
-                kucunshuliang = r.TFendianKucunMX.Sum(mr=>mr.shuliang),
-                chengbenjine = r.TFendianKucunMX.Sum(mr=>mr.TTiaoma.jinjia*mr.shuliang),
-                shoujiajine = r.TFendianKucunMX.Sum(mr=>mr.TTiaoma.shoujia*mr.shuliang),
+                kucunshuliang = r.TFendianKucunMXes.Sum(mr=>mr.shuliang),
+                chengbenjine = r.TFendianKucunMXes.Sum(mr=>mr.TTiaoma.jinjia*mr.shuliang),
+                shoujiajine = r.TFendianKucunMXes.Sum(mr=>mr.TTiaoma.shoujia*mr.shuliang),
                 r.shangbaoshijian
             });
 

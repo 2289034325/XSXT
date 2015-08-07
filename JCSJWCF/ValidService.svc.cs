@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -221,50 +222,6 @@ namespace JCSJWCF
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// 生成新的动态密码
-        /// </summary>
-        /// <returns></returns>
-        //private string makeNewDTMM()
-        //{
-        //    Random r = new Random();
-        //    string nm = "";
-        //    string[] sources = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-        //    for (int i = 0; i < 5; i++)
-        //    {
-        //        nm += sources[r.Next(0, sources.Length - 1)];
-        //    }
-
-        //    return nm;
-        //}
-
-        /// <summary>
-        /// 生成新动态密码
-        /// </summary>
-        /// <param name="nm"></param>
-        //private void setNewDTMM(string nm)
-        //{
-            //XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-            //XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
-            //dmnode.Value = nm;
-
-            //xe.Save(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-        //}
-
-        /// <summary>
-        /// 取得动态密码
-        /// </summary>
-        /// <returns></returns>
-        //private string getDTMM()
-        //{
-            //XElement xe = XElement.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/Settings.xml"));
-            //XElement dmnode = xe.Elements().Single(r => r.Name == "DTMM");
-
-            //return dmnode.Value;
-        //}
-
-       
+        }   
     }
 }

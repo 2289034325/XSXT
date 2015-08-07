@@ -211,16 +211,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="BIANMA_TemporaryKey.pfx" />
-    <None Include="Properties\DataSources\DB_JCSJ.TGongyingshang.datasource" />
-    <None Include="Properties\DataSources\DB_JCSJ.THuiyuan.datasource" />
-    <None Include="Properties\DataSources\DB_JCSJ.THuiyuanZK.datasource" />
-    <None Include="Properties\DataSources\DB_JCSJ.TKuanhao.datasource" />
-    <None Include="Properties\DataSources\DB_JCSJ.TTiaoma.datasource" />
-    <None Include="Properties\DataSources\DB_JCSJ.TUser.datasource" />
-    <None Include="Properties\DataSources\Tool.DB.JCSJ.TGongyingshang.datasource" />
-    <None Include="Properties\DataSources\Tool.DB.JCSJ.TKuanhao.datasource" />
-    <None Include="Properties\DataSources\Tool.DB.JCSJ.TTiaoma.datasource" />
-    <None Include="Properties\DataSources\Tool.DB.JCSJ.TUser.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

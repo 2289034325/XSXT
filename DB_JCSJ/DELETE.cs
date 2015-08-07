@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_JCSJ.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,11 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteUser(int id)
             {
-                TUser u = _db.TUser.Include("TUser_Cangku").Include("TUser_Fendian").Single(r => r.id == id);
+                TUser u = _db.TUsers.Include("TUser_Cangku").Include("TUser_Fendian").Single(r => r.id == id);
 
                 _db.TUser_Cangku.RemoveRange(u.TUser_Cangku);
                 _db.TUser_Fendian.RemoveRange(u.TUser_Fendian);
-                _db.TUser.Remove(u);
+                _db.TUsers.Remove(u);
 
                 _db.SaveChanges();
             }
@@ -29,10 +30,10 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteFendian(int id)
             {
-                TFendian f = _db.TFendian.Include("TUser_Fendian").Single(r => r.id == id);
+                TFendian f = _db.TFendians.Include("TUser_Fendian").Single(r => r.id == id);
 
                 _db.TUser_Fendian.RemoveRange(f.TUser_Fendian);
-                _db.TFendian.Remove(f);
+                _db.TFendians.Remove(f);
 
                 _db.SaveChanges();
             }
@@ -43,10 +44,10 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteCangku(int id)
             {
-                TCangku f = _db.TCangku.Include("TUser_Cangku").Single(r => r.id == id);
+                TCangku f = _db.TCangkus.Include("TUser_Cangku").Single(r => r.id == id);
 
                 _db.TUser_Cangku.RemoveRange(f.TUser_Cangku);
-                _db.TCangku.Remove(f);
+                _db.TCangkus.Remove(f);
 
                 _db.SaveChanges();
             }
@@ -57,17 +58,17 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteHuiyuan(int id)
             {
-                THuiyuan h = _db.THuiyuan.Single(r => r.id == id);
+                THuiyuan h = _db.THuiyuans.Single(r => r.id == id);
 
-                _db.THuiyuan.Remove(h);
+                _db.THuiyuans.Remove(h);
 
                 _db.SaveChanges();
             }
             public void DeleteHuiyuanZK(int id)
             {
-                THuiyuanZK z = _db.THuiyuanZK.Single(r => r.id == id);
+                THuiyuanZK z = _db.THuiyuanZKs.Single(r => r.id == id);
 
-                _db.THuiyuanZK.Remove(z);
+                _db.THuiyuanZKs.Remove(z);
 
                 _db.SaveChanges();
             }
@@ -78,9 +79,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteGongyingshang(int id)
             {
-                TGongyingshang g = _db.TGongyingshang.Single(r => r.id == id);
+                TGongyingshang g = _db.TGongyingshangs.Single(r => r.id == id);
 
-                _db.TGongyingshang.Remove(g);
+                _db.TGongyingshangs.Remove(g);
 
                 _db.SaveChanges();
             }
@@ -91,9 +92,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteKuanhao(int id)
             {
-                TKuanhao k = _db.TKuanhao.Single(r => r.id == id);
+                TKuanhao k = _db.TKuanhaos.Single(r => r.id == id);
 
-                _db.TKuanhao.Remove(k);
+                _db.TKuanhaos.Remove(k);
 
                 _db.SaveChanges();
             }
@@ -104,9 +105,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteTiaoma(int id)
             {
-                TTiaoma t = _db.TTiaoma.Single(r => r.id == id);
+                TTiaoma t = _db.TTiaomas.Single(r => r.id == id);
 
-                _db.TTiaoma.Remove(t);
+                _db.TTiaomas.Remove(t);
 
                 _db.SaveChanges();
             }

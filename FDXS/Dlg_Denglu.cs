@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
+            //初始化数据库
+            DBContext.InitializeDatabase(IDB.GetConn());
+
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
@@ -65,6 +69,7 @@ namespace FDXS
         private void login(string dlm, string mm)
         {
             DBContext db = IDB.GetDB();
+
             TUser User = db.GetUser(dlm, mm);
             if (User != null)
             {
@@ -75,7 +80,7 @@ namespace FDXS
                 }
                 else
                 {
-                    LoginInfo.User = User;
+                    RuntimeInfo.LoginUser = User;
                     if (chk_auto.Checked)
                     {
                         Settings.Default.AutoLoginDlm = dlm;

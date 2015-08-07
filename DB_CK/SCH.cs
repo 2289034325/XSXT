@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using DB_CK.Models;
 
 namespace DB_CK
 {
     public partial class DBContext
     {
-        private Entities _db;
-        public DBContext(string Server,string DBName, string User, string Psw)
-        {
-            _db = new Entities(Server,DBName,User,Psw);
-            //此项会引起entity无法序列化的错误
-            _db.Configuration.ProxyCreationEnabled = false;
-        }
-
         /// <summary>
         /// 取得一组ID的条码信息
         /// </summary>
@@ -23,7 +17,7 @@ namespace DB_CK
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByIds(int[] ids)
         {
-            return _db.TTiaoma.Where(r => ids.Contains(r.id)).ToArray();
+            return _db.TTiaomas.Where(r => ids.Contains(r.id)).ToArray();
         }
 
         /// <summary>
@@ -33,11 +27,11 @@ namespace DB_CK
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByTmhs(string[] tmhs)
         {
-            return _db.TTiaoma.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+            return _db.TTiaomas.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
         }
         public TTiaoma GetTiaomaByTmh(string tmh)
         {
-            return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == tmh);
+            return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == tmh);
         }
 
         /// <summary>
@@ -48,7 +42,7 @@ namespace DB_CK
         /// <returns></returns>
         public TUser GetUser(string dlm, string mm)
         {
-            TUser u = _db.TUser.SingleOrDefault(r => r.dengluming == dlm && r.mima == mm);
+            TUser u = _db.TUsers.SingleOrDefault(r => r.dengluming == dlm && r.mima == mm);
 
             return u;
         }
@@ -66,11 +60,11 @@ namespace DB_CK
             if (id == null)
             {
                 DateTime dend = end.AddDays(1);
-                cs = _db.TChuruku.Include("TChurukuMX").Include("TUser").Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
+                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
             }
             else
             {
-                cs = _db.TChuruku.Include("TChurukuMX").Include("TUser").Where(r => r.id == id.Value).ToArray();
+                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TUser).Where(r => r.id == id.Value).ToArray();
             }
 
             return cs;
@@ -82,7 +76,7 @@ namespace DB_CK
         /// <returns></returns>
         public TChuruku[] GetChurukuWeishangbao()
         {
-            return _db.TChuruku.Include("TChurukuMX").Where(r => r.shangbaoshijian == null && r.TChurukuMX.Any()).ToArray();
+            return _db.TChurukus.Include(r=>r.TChurukuMXes).Where(r => r.shangbaoshijian == null && r.TChurukuMXes.Any()).ToArray();
         }
 
         /// <summary>
@@ -92,7 +86,7 @@ namespace DB_CK
         /// <returns></returns>
         public TChuruku GetChurukuById(int id)
         {
-            return _db.TChuruku.Include("TChurukuMX").SingleOrDefault(r => r.id == id);
+            return _db.TChurukus.Include(r=>r.TChurukuMXes).SingleOrDefault(r => r.id == id);
         }
 
         /// <summary>
@@ -102,11 +96,11 @@ namespace DB_CK
         /// <returns></returns>
         public TChurukuMX[] GetChurukuMxsByCrkId(int crkid)
         {
-            return _db.TChurukuMX.Include("TTiaoma").Where(r => r.churukuid == crkid).ToArray();
+            return _db.TChurukuMXes.Include(r=>r.TTiaoma).Where(r => r.churukuid == crkid).ToArray();
         }
         public TChurukuMX GetChurukuMxByCrkIdTmid(int crkid, int tmid)
         {
-            return _db.TChurukuMX.SingleOrDefault(r => r.churukuid == crkid && r.tiaomaid == tmid);
+            return _db.TChurukuMXes.SingleOrDefault(r => r.churukuid == crkid && r.tiaomaid == tmid);
         }
 
         /// <summary>
@@ -115,8 +109,8 @@ namespace DB_CK
         /// <returns></returns>
         public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, string lx)
         {
-            var ks = from k in _db.VKucun
-                     join t in _db.TTiaoma
+            var ks = from k in _db.VKucuns
+                     join t in _db.TTiaomas
                      on k.id equals t.id
                      select new
                      {
@@ -147,7 +141,7 @@ namespace DB_CK
         /// <returns></returns>
         public VKucun[] GetKucunsByCond(short? sl_start, short? sl_end)
         {
-            var ks = _db.VKucun.AsQueryable();
+            var ks = _db.VKucuns.AsQueryable();
             if (sl_start != null)
             {
                 ks = ks.Where(r => r.shuliang >= sl_start.Value);
@@ -161,7 +155,7 @@ namespace DB_CK
         }
         public VKucun GetKucunByTmid(int tmid)
         {
-            return _db.VKucun.Single(r => r.id == tmid);
+            return _db.VKucuns.Single(r => r.id == tmid);
         }
 
 
@@ -174,7 +168,7 @@ namespace DB_CK
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByCond(string tmh, string kh, string lx)
         {
-            var tms = _db.TTiaoma.AsQueryable();
+            var tms = _db.TTiaomas.AsQueryable();
             if (!string.IsNullOrEmpty(tmh))
             {
                 tms = tms.Where(r => r.tiaoma == tmh);

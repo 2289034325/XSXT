@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DB_JCSJ;
+using DB_JCSJ.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +15,9 @@ namespace DataTranslate
     public partial class Form_Main : Form
     {
         //private int _jcid;
-        private DB_FD.FDEntities _fdb;
+        private DB_FD.Entities _fdb;
         private FD_BetaEntities _db_beta;
-        private DB_JCSJ.JCSJEntities _jdb;
+        private JCSJContext _jdb;
 
 
         private int _jcuserid;
@@ -64,7 +66,7 @@ namespace DataTranslate
             _fdb.SaveChanges();
             if (nmxs.Count != 0)
             {
-                _fdb = new DB_FD.FDEntities("FDEntities");
+                _fdb = new DB_FD.Entities("FDEntities");
                 _fdb.TKucunXZ.AddRange(nmxs);
                 _fdb.SaveChanges();
             }
@@ -151,9 +153,9 @@ namespace DataTranslate
             //取所有旧条码
             TJintuimingxi[] ots = _db_beta.TJintuimingxi.Where(r=>r.TJintuihuo.jintui).ToArray();
             //做成新条码记录
-            DB_JCSJ.TTiaoma[] jts = ots.Select(r => new DB_JCSJ.TTiaoma
+            TTiaoma[] jts = ots.Select(r => new TTiaoma
             {
-                TKuanhao = new DB_JCSJ.TKuanhao
+                TKuanhao = new TKuanhao
                 {
                     kuanhao = "K" + r.id,
                     leixing = (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.上装,
@@ -176,7 +178,7 @@ namespace DataTranslate
             }).ToArray();
 
             //插入基础数据库
-            _jdb.TTiaoma.AddRange(jts);
+            _jdb.TTiaomas.AddRange(jts);
             _jdb.SaveChanges();
         }
 
@@ -210,8 +212,8 @@ namespace DataTranslate
             _jcuserid = int.Parse(txb_jcsj.Text.Trim());
             if (_db_beta == null)
             { _db_beta = new FD_BetaEntities("FD_BetaEntities"); }
-            if (_jdb == null)
-            { _jdb = new DB_JCSJ.JCSJEntities("JCSJEntities"); }
+            //if (_jdb == null)
+            //{ _jdb = new JCSJContext("JCSJEntities"); }
 
         }
 
@@ -223,7 +225,7 @@ namespace DataTranslate
             { _db_beta = new FD_BetaEntities("FD_BetaEntities"); }
             if (_fdb == null)
             {
-                _fdb = new DB_FD.FDEntities("FDEntities");
+                _fdb = new DB_FD.Entities("FDEntities");
                 _fdb.Configuration.ProxyCreationEnabled = false;
             }
         }

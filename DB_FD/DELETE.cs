@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_FD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,9 @@ namespace DB_FD
         /// <param name="id"></param>
         public void DeleteJinchuhuo(int id)
         {
-            TJinchuhuo c = _db.TJinchuhuo.Single(r => r.id == id);
+            TJinchuhuo c = _db.TJinchuhuos.Single(r => r.id == id);
 
-            _db.TJinchuhuo.Remove(c);
+            _db.TJinchuhuos.Remove(c);
 
             _db.SaveChanges();
         }
@@ -27,9 +28,9 @@ namespace DB_FD
         /// <param name="id"></param>
         public void DeleteJinchuMx(int id)
         {
-            TJinchuMX c = _db.TJinchuMX.Single(r => r.id == id);
+            TJinchuMX c = _db.TJinchuMXes.Single(r => r.id == id);
 
-            _db.TJinchuMX.Remove(c);
+            _db.TJinchuMXes.Remove(c);
 
             _db.SaveChanges();
         }
@@ -39,15 +40,15 @@ namespace DB_FD
         /// </summary>
         public void DeletePandianAll()
         {
-            var pds = _db.TPandian;
-            _db.TPandian.RemoveRange(pds);
+            var pds = _db.TPandians;
+            _db.TPandians.RemoveRange(pds);
 
             _db.SaveChanges();
         }
         public void DeletePandianById(int id)
         {
-            TPandian p = _db.TPandian.Single(r => r.id == id);
-            _db.TPandian.Remove(p);
+            TPandian p = _db.TPandians.Single(r => r.id == id);
+            _db.TPandians.Remove(p);
 
             _db.SaveChanges();
         }
@@ -58,9 +59,9 @@ namespace DB_FD
         /// <param name="id"></param>
         public void DeleteKucunXZ(int id)
         {
-            TKucunXZ k = _db.TKucunXZ.Single(r => r.id == id);
+            TKucunXZ k = _db.TKucunXZs.Single(r => r.id == id);
 
-            _db.TKucunXZ.Remove(k);
+            _db.TKucunXZs.Remove(k);
 
             _db.SaveChanges();
         }
@@ -71,9 +72,9 @@ namespace DB_FD
         /// <param name="id"></param>
         public void DeleteXiaoshou(int id)
         {
-            TXiaoshou x = _db.TXiaoshou.Single(r => r.id == id);
+            TXiaoshou x = _db.TXiaoshous.Single(r => r.id == id);
 
-            _db.TXiaoshou.Remove(x);
+            _db.TXiaoshous.Remove(x);
 
             _db.SaveChanges();
         }
@@ -83,8 +84,8 @@ namespace DB_FD
         /// </summary>
         public void DeleteHuiyuanZK()
         {
-            var zks = _db.THuiyuanZK;
-            _db.THuiyuanZK.RemoveRange(zks);
+            var zks = _db.THuiyuanZKs;
+            _db.THuiyuanZKs.RemoveRange(zks);
 
             _db.SaveChanges();
         }
@@ -95,8 +96,8 @@ namespace DB_FD
         /// <param name="id"></param>
         public void DeleteUser(int id)
         {
-            var u = _db.TUser.Single(r => r.id == id);
-            _db.TUser.Remove(u);
+            var u = _db.TUsers.Single(r => r.id == id);
+            _db.TUsers.Remove(u);
 
             _db.SaveChanges();
         }

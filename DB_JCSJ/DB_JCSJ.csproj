@@ -48,107 +48,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FuncExtend.cs" />
+    <Compile Include="DbContext.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
-    <Compile Include="JCSJEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="JCSJEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="JCSJEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JCSJEntities.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\JCSJContext.cs" />
+    <Compile Include="Models\Mapping\TCangkuFahuoFendianMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuJinchuhuoMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuJinchuhuoMXMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuKucunMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuKucunMXMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuMap.cs" />
+    <Compile Include="Models\Mapping\TFendianJinchuhuoMap.cs" />
+    <Compile Include="Models\Mapping\TFendianJinchuhuoMXMap.cs" />
+    <Compile Include="Models\Mapping\TFendianKucunMap.cs" />
+    <Compile Include="Models\Mapping\TFendianKucunMXMap.cs" />
+    <Compile Include="Models\Mapping\TFendianMap.cs" />
+    <Compile Include="Models\Mapping\TGongyingshangMap.cs" />
+    <Compile Include="Models\Mapping\THuiyuanMap.cs" />
+    <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
+    <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
+    <Compile Include="Models\Mapping\TTiaomaMap.cs" />
+    <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\TUser_CangkuMap.cs" />
+    <Compile Include="Models\Mapping\TUser_FendianMap.cs" />
+    <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
+    <Compile Include="Models\TCangku.cs" />
+    <Compile Include="Models\TCangkuFahuoFendian.cs" />
+    <Compile Include="Models\TCangkuJinchuhuo.cs" />
+    <Compile Include="Models\TCangkuJinchuhuoMX.cs" />
+    <Compile Include="Models\TCangkuKucun.cs" />
+    <Compile Include="Models\TCangkuKucunMX.cs" />
+    <Compile Include="Models\TFendian.cs" />
+    <Compile Include="Models\TFendianJinchuhuo.cs" />
+    <Compile Include="Models\TFendianJinchuhuoMX.cs" />
+    <Compile Include="Models\TFendianKucun.cs" />
+    <Compile Include="Models\TFendianKucunMX.cs" />
+    <Compile Include="Models\TGongyingshang.cs" />
+    <Compile Include="Models\THuiyuan.cs" />
+    <Compile Include="Models\THuiyuanZK.cs" />
+    <Compile Include="Models\TKuanhao.cs" />
+    <Compile Include="Models\TTiaoma.cs" />
+    <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TUser_Cangku.cs" />
+    <Compile Include="Models\TUser_Fendian.cs" />
+    <Compile Include="Models\TXiaoshou.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
-    <Compile Include="TCangku.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TCangkuFahuoFendian.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TCangkuJinchuhuo.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TCangkuJinchuhuoMX.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TCangkuKucun.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TCangkuKucunMX.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TFendian.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TFendianJinchuhuo.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TFendianJinchuhuoMX.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TFendianKucun.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TFendianKucunMX.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TGongyingshang.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="THuiyuan.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="THuiyuanZK.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TKuanhao.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TTiaoma.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TUser.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TUser_Cangku.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TUser_Fendian.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TXiaoshou.cs">
-      <DependentUpon>JCSJEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="UPDATE.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <EntityDeploy Include="JCSJEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>JCSJEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="JCSJEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JCSJEntities.edmx</DependentUpon>
-      <LastGenOutput>JCSJEntities.Context.cs</LastGenOutput>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="JCSJEntities.edmx.diagram">
-      <DependentUpon>JCSJEntities.edmx</DependentUpon>
-    </None>
-    <None Include="JCSJEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>JCSJEntities.edmx</DependentUpon>
-      <LastGenOutput>JCSJEntities.cs</LastGenOutput>
-    </None>
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Context.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Entity.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Mapping.tt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

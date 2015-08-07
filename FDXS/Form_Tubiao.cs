@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +37,7 @@ namespace FDXS
                 Select(r => new
                 {
                     X = r.Key,
-                    Y = r.Sum(rx => rx.jine)??0
+                    Y = r.Sum(rx => rx.jine)
                 }).OrderBy(r => r.X).ToList();
 
             var xdata_s = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
@@ -53,7 +54,7 @@ namespace FDXS
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => rx.jine)??0
+                    Y = r.Sum(rx => rx.jine)
                 }).GroupBy(r => r.X).
                 Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.X).ToList();
@@ -72,7 +73,7 @@ namespace FDXS
                  {
                      wn = r.Key.DayOfWeek.ToString(),
                      ws = (int)r.Key.DayOfWeek,
-                     Y = r.Sum(rx => rx.jine)??0
+                     Y = r.Sum(rx => rx.jine)
                  }).GroupBy(r => new { r.wn, r.ws }).
                 Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y),1) }).
                 OrderBy(r => r.xn).ToList();

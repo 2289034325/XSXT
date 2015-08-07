@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Tool.JCSJ;
 using Tool;
+using DB_JCSJ.Models;
 
 namespace BIANMA
 {
@@ -64,7 +65,12 @@ namespace BIANMA
             col_all_lx.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_LX));
             //供应商下拉框
             TGongyingshang[] gyss = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
-            
+            if (gyss.Count() == 0)
+            {
+                throw new MyException("请先登陆管理系统增加至少一个供应商信息", null);
+            }
+
+
             Tool.CommonFunc.InitCombbox(cmb_gys, gyss, "jiancheng", "id");
 
             col_all_gys.DataSource = gyss;

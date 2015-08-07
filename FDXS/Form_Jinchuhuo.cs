@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,7 @@ namespace FDXS
                     c.id,
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
                     c.laiyuanquxiang.ToString(),
-                    c.TJinchuMX.Sum(r=>(short?)r.shuliang)??0,
+                    c.TJinchuMXes.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,
@@ -208,7 +209,7 @@ namespace FDXS
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
                 beizhu = "",
-                caozuorenid = LoginInfo.User.id,
+                caozuorenid = RuntimeInfo.LoginUser.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -232,7 +233,7 @@ namespace FDXS
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.退货,
                 beizhu = "",
-                caozuorenid = LoginInfo.User.id,
+                caozuorenid = RuntimeInfo.LoginUser.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -313,7 +314,7 @@ namespace FDXS
                 DBContext db = IDB.GetDB();
                 int crkid = (int)e.Row.Cells[col_jc_id.Name].Value;
                 TJinchuhuo jc = db.GetJinchuhuoById(crkid);
-                if (jc.TJinchuMX.Count != 0)
+                if (jc.TJinchuMXes.Count != 0)
                 {
                     e.Cancel = true;
                     MessageBox.Show("请先删除下方的明细数据，在删除该记录");
@@ -644,8 +645,8 @@ namespace FDXS
                     fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                     laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
                     beizhu = "从服务器下载",
-                    caozuorenid = LoginInfo.User.id,
-                    TJinchuMX = r.TCangkuJinchuhuoMX.Select(xr => new TJinchuMX
+                    caozuorenid = RuntimeInfo.LoginUser.id,
+                    TJinchuMXes = r.TCangkuJinchuhuoMXes.Select(xr => new TJinchuMX
                     {
                         tiaomaid = xr.tiaomaid,
                         shuliang = xr.shuliang
@@ -660,7 +661,7 @@ namespace FDXS
                     addJinchuhuo(nj);
                 }
 
-                int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMX).Sum(r => r.shuliang);
+                int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
                 ShowMsg("进货" + total + "件", false);
             }
             catch (Exception ex)

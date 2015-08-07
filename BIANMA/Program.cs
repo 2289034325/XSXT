@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,8 +31,19 @@ namespace BIANMA
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            Tool.CommonFunc.LogEx(Settings.Default.LogFile, e.Exception);
-            MessageBox.Show("发生未知的系统错误", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (e.Exception is Tool.MyException || e.Exception is FaultException)
+            {
+                MessageBox.Show(e.Exception.Message, "一般错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (e.Exception.InnerException != null)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, e.Exception.InnerException);
+                }
+            }
+            else
+            {
+                MessageBox.Show("发生未知的系统错误", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, e.Exception);
+            }
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

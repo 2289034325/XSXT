@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -33,8 +34,8 @@ namespace FDXS
             //_huiyuanZK = 10;
             _mlAuto = true;
 
-            this.Text = "开单[当前登陆:" + LoginInfo.User.yonghuming + "]";
-            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            this.Text = "开单[当前登陆:" + RuntimeInfo.LoginUser.yonghuming + "]";
+            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
             {
                 //店员不允许关闭窗口
                 //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -153,7 +154,7 @@ namespace FDXS
             Tool.CommonFunc.InitCombbox(cmb_xsy, xss, "yonghuming", "id");
 
             //默认为当前登陆的用户
-            cmb_xsy.SelectedValue = LoginInfo.User.id;
+            cmb_xsy.SelectedValue = RuntimeInfo.LoginUser.id;
 
             //今日销售
             refreshJinriXS();
@@ -200,7 +201,7 @@ namespace FDXS
             DBContext db = IDB.GetDB();
             TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date);
             int xsl = jrxss.Sum(r => r.shuliang);
-            decimal xse = jrxss.Sum(r => r.jine) ?? 0;
+            decimal xse = jrxss.Sum(r => r.jine);
             lbl_jrxl.Text = xsl.ToString();
             lbl_jrxse.Text = xse.ToString();
         }
@@ -370,7 +371,7 @@ namespace FDXS
                     zhekou = zk,
                     moling = ml,
                     beizhu = bz,
-                    caozuorenid = LoginInfo.User.id,
+                    caozuorenid = RuntimeInfo.LoginUser.id,
                     charushijian = DateTime.Now,
                     xiugaishijian = DateTime.Now,
                     shangbaoshijian = null
@@ -384,7 +385,7 @@ namespace FDXS
             //将积分加给会员
             if (_Huiyuan != null)
             {
-                decimal zj = _XSS.Sum(r => r.jine) ?? 0;
+                decimal zj = _XSS.Sum(r => r.jine);
                 db.UpdateAddHuiyuanJF(_Huiyuan.id, zj);
             }
 
@@ -462,7 +463,7 @@ namespace FDXS
                 string pinming = x.TTiaoma.pinming;
                 short shuliang = x.shuliang;
                 decimal danjia = x.danjia;
-                decimal jine = x.jine ?? 0;
+                decimal jine = x.jine;
                 printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
                 printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
                 printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
@@ -480,7 +481,7 @@ namespace FDXS
             printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString((_XSS.Sum(x => x.jine) ?? 0).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            printG.DrawString((_XSS.Sum(x => x.jine)).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("交易时间", printFont, myBrush, leftMargin, yPosition, new StringFormat());
             printG.DrawString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), printFont, myBrush, leftMargin + 65, yPosition, new StringFormat());

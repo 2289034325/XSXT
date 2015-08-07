@@ -1,5 +1,6 @@
 ﻿using DB_FD;
 using FDXS.Properties;
+using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Form_Main : Form
+    public partial class Form_Main: Form
     {
         public Form_Main()
         {
@@ -81,19 +82,20 @@ namespace FDXS
         private void Form_Main_Load(object sender, EventArgs e)
         {
             //登陆检查
-            if (LoginInfo.User == null)
+            if (RuntimeInfo.LoginUser == null)
             {
                 Dlg_Denglu df = new Dlg_Denglu();
                 if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
                     Application.Exit();
+                    return;
                 }
             }
 
-            this.Text += "【当前登陆：" + LoginInfo.User.yonghuming + "】";
+            this.Text += "【当前登陆：" + RuntimeInfo.LoginUser.yonghuming + "】";
 
             //默认显示销售页面的开单
-            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
             {
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 Dlg_xiaoshou fm = new Dlg_xiaoshou("");
@@ -261,8 +263,8 @@ namespace FDXS
         private void mn_main_xtyh_Click(object sender, EventArgs e)
         {
             //店长和系统管理员才有权限
-            if (!(LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 ||
-                LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员))
+            if (!(RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长 ||
+                RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员))
             {
                 MessageBox.Show("没有权限");
                 return;
@@ -312,7 +314,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void mn_main_folder_Click(object sender, EventArgs e)
         {
-            if (LoginInfo.User.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
+            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
             {
                 string path = System.Environment.CurrentDirectory;
                 System.Diagnostics.Process.Start("explorer.exe", path);

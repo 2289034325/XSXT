@@ -1,21 +1,15 @@
-﻿using System;
+﻿using DB_FD.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DB_FD
 {
     public partial class DBContext
     {
-        private FDEntities _db;
-        public DBContext(string Server,string DBName ,string User,string Psw)
-        {
-            _db = new FDEntities(Server,DBName,User,Psw);
-            //此项会引起entity无法序列化的错误
-            _db.Configuration.ProxyCreationEnabled = false;
-        }
-
         /// <summary>
         /// 取得一组ID的条码信息
         /// </summary>
@@ -23,7 +17,7 @@ namespace DB_FD
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByIds(int[] ids)
         {
-            return _db.TTiaoma.Where(r => ids.Contains(r.id)).ToArray();
+            return _db.TTiaomas.Where(r => ids.Contains(r.id)).ToArray();
         }
 
         /// <summary>
@@ -33,15 +27,15 @@ namespace DB_FD
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByTmhs(string[] tmhs)
         {
-            return _db.TTiaoma.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+            return _db.TTiaomas.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
         }
         public TTiaoma GetTiaomaByTmh(string tmh)
         {
-            return _db.TTiaoma.SingleOrDefault(r => r.tiaoma == tmh);
+            return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == tmh);
         }
         public TTiaoma[] GetTiaomaByTmhEndsWith(string tmh)
         {
-            return _db.TTiaoma.Where(r => r.tiaoma.EndsWith(tmh)).ToArray();
+            return _db.TTiaomas.Where(r => r.tiaoma.EndsWith(tmh)).ToArray();
         }
 
         /// <summary>
@@ -52,13 +46,13 @@ namespace DB_FD
         /// <returns></returns>
         public TUser GetUser(string dlm, string mm)
         {
-            TUser u = _db.TUser.SingleOrDefault(r => r.dengluming == dlm && r.mima == mm);
+            TUser u = _db.TUsers.SingleOrDefault(r => r.dengluming == dlm && r.mima == mm);
 
             return u;
         }
         public TUser GetUserById(int id)
         {
-            return _db.TUser.Single(r => r.id == id);
+            return _db.TUsers.Single(r => r.id == id);
         }
         /// <summary>
         /// 取所有系统用户，不包含系统管理员
@@ -66,7 +60,7 @@ namespace DB_FD
         /// <returns></returns>
         public TUser[] GetUsersExceptAdmin(byte excepJS)
         {
-            return _db.TUser.Where(r => r.juese != excepJS).ToArray();
+            return _db.TUsers.Where(r => r.juese != excepJS).ToArray();
         }
 
         /// <summary>
@@ -82,11 +76,11 @@ namespace DB_FD
             if (id == null)
             {
                 DateTime dend = end.AddDays(1);
-                cs = _db.TJinchuhuo.Include("TJinchuMX").Include("TUser").Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
+                cs = _db.TJinchuhuos.Include(r=>r.TJinchuMXes).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();                
             }
             else
             {
-                cs = _db.TJinchuhuo.Include("TJinchuMX").Include("TUser").Where(r => r.id == id.Value).ToArray();
+                cs = _db.TJinchuhuos.Include(r=>r.TJinchuMXes).Include(r=>r.TUser).Where(r => r.id == id.Value).ToArray();
             }
 
             return cs;
@@ -99,7 +93,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuhuo GetJinchuhuoById(int id)
         {
-            return _db.TJinchuhuo.Include("TJinchuMX").SingleOrDefault(r => r.id == id);
+            return _db.TJinchuhuos.Include(r=>r.TJinchuMXes).SingleOrDefault(r => r.id == id);
         }
 
         /// <summary>
@@ -109,7 +103,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuMX[] GetJinchuhuoMxsByJchId(int jcid)
         {
-            return _db.TJinchuMX.Include("TTiaoma").Where(r => r.jinchuid == jcid).ToArray();
+            return _db.TJinchuMXes.Include(r=>r.TTiaoma).Where(r => r.jinchuid == jcid).ToArray();
         }
 
         /// <summary>
@@ -118,9 +112,9 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuhuo[] GetJinchuhuosWeishangbao()
         {
-            return _db.TJinchuhuo.Include("TJinchuMX").
+            return _db.TJinchuhuos.Include(r=>r.TJinchuMXes).
                 //未上报，且有明细数据
-                Where(r => r.shangbaoshijian == null && r.TJinchuMX.Any()).ToArray();
+                Where(r => r.shangbaoshijian == null && r.TJinchuMXes.Any()).ToArray();
         }
 
         /// <summary>
@@ -129,8 +123,8 @@ namespace DB_FD
         /// <returns></returns>
         public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, byte? lx,short?sl_start,short?sl_end)
         {
-            var ks = from k in _db.VKucun
-                     join t in _db.TTiaoma
+            var ks = from k in _db.VKucuns
+                     join t in _db.TTiaomas
                      on k.id equals t.id
                      select new
                      {
@@ -165,7 +159,7 @@ namespace DB_FD
         /// <returns></returns>
         public VKucun[] GetKucunsByCond(short? sl_start, short? sl_end)
         {
-            var ks = _db.VKucun.AsQueryable();
+            var ks = _db.VKucuns.AsQueryable();
             if (sl_start != null)
             {
                 ks = ks.Where(r => r.shuliang >= sl_start.Value);
@@ -184,11 +178,11 @@ namespace DB_FD
         /// <returns></returns>
         public VKucun[] GetKucunsByTiaomaIds(int[] ids)
         {
-            return _db.VKucun.Where(r => ids.Contains(r.id)).ToArray();
+            return _db.VKucuns.Where(r => ids.Contains(r.id)).ToArray();
         }
         public VKucun GetKucunByTiaomaId(int id)
         {
-            return _db.VKucun.Single(r => r.id == id);
+            return _db.VKucuns.Single(r => r.id == id);
         }
 
         /// <summary>
@@ -200,7 +194,7 @@ namespace DB_FD
         /// <returns></returns>
         public TTiaoma[] GetTiaomasByCond(string tmh, string kh, string lx)
         {
-            var tms = _db.TTiaoma.AsQueryable();
+            var tms = _db.TTiaomas.AsQueryable();
             if (!string.IsNullOrEmpty(tmh))
             {
                 tms = tms.Where(r => r.tiaoma == tmh);
@@ -225,7 +219,7 @@ namespace DB_FD
         /// <returns></returns>
         public TPandian GetPandianByTmId(int tmid)
         {
-            return _db.TPandian.Include("TTiaoma").SingleOrDefault(r => r.tiaomaid == tmid);
+            return _db.TPandians.Include(r=>r.TTiaoma).SingleOrDefault(r => r.tiaomaid == tmid);
         }
 
         /// <summary>
@@ -234,7 +228,7 @@ namespace DB_FD
         /// <returns></returns>
         public TPandian[] GetPandians()
         {
-            return _db.TPandian.Include("TTiaoma").ToArray();
+            return _db.TPandians.Include(r => r.TTiaoma).ToArray();
         }
 
         /// <summary>
@@ -243,7 +237,7 @@ namespace DB_FD
         /// <returns></returns>
         public TKucunXZ[] GetKucunXZs()
         {
-            return _db.TKucunXZ.Include("TTiaoma").Include("TUser").ToArray();
+            return _db.TKucunXZs.Include(r => r.TTiaoma).Include(r=>r.TUser).ToArray();
         }
 
         /// <summary>
@@ -253,7 +247,7 @@ namespace DB_FD
         /// <returns></returns>
         public TKucunXZ GetKucunXZById(int id)
         {
-            return _db.TKucunXZ.Single(r => r.id == id);
+            return _db.TKucunXZs.Single(r => r.id == id);
         }
 
         /// <summary>
@@ -264,7 +258,7 @@ namespace DB_FD
         public TUser[] GetUsersByJss(byte[] jss)
         {
             List<byte> ljss = jss.ToList();
-            return _db.TUser.Where(r => ljss.Contains(r.juese)).ToArray();
+            return _db.TUsers.Where(r => ljss.Contains(r.juese)).ToArray();
         }
 
         /// <summary>
@@ -277,7 +271,7 @@ namespace DB_FD
         /// <returns></returns>
         public TXiaoshou[] GetXiaoshousByCond(string tmh, string kh, DateTime? start, DateTime? end)
         {
-            var xss = _db.TXiaoshou.Include("TTiaoma").Include("TUser").AsQueryable();
+            var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r=>r.TUser).AsQueryable();
             if (!string.IsNullOrEmpty(tmh))
             {
                 xss = xss.Where(r => r.TTiaoma.tiaoma == tmh);
@@ -300,7 +294,7 @@ namespace DB_FD
         }
         public TXiaoshou GetXiaoshouById(int id)
         {
-            return _db.TXiaoshou.Single(r => r.id == id);
+            return _db.TXiaoshous.Single(r => r.id == id);
         }
         /// <summary>
         /// 取未上报的销售信息
@@ -308,7 +302,7 @@ namespace DB_FD
         /// <returns></returns>
         public TXiaoshou[] GetXiaoshousWeishangbao()
         {
-            return _db.TXiaoshou.Include("TUser").Where(r => r.shangbaoshijian == null).ToArray();
+            return _db.TXiaoshous.Include(r=>r.TUser).Where(r => r.shangbaoshijian == null).ToArray();
         }
 
 
@@ -319,7 +313,7 @@ namespace DB_FD
         /// <returns></returns>
         public THuiyuan GetHuiyuanByShoujihao(string sjh)
         {
-            return _db.THuiyuan.SingleOrDefault(r => r.shoujihao == sjh);
+            return _db.THuiyuans.SingleOrDefault(r => r.shoujihao == sjh);
         }
 
         /// <summary>
@@ -328,7 +322,7 @@ namespace DB_FD
         /// <returns></returns>
         public THuiyuanZK[] GetHuiyuanZKs()
         {
-            return _db.THuiyuanZK.ToArray();
+            return _db.THuiyuanZKs.ToArray();
         }
 
         /// <summary>
@@ -338,7 +332,7 @@ namespace DB_FD
         /// <returns></returns>
         public THuiyuan GetHuiyuanById(int id)
         {
-            return _db.THuiyuan.Single(r => r.id == id);
+            return _db.THuiyuans.Single(r => r.id == id);
         }
 
         /// <summary>
@@ -348,7 +342,7 @@ namespace DB_FD
         /// <returns></returns>
         public THuiyuan[] GetHuiyuanByCond(string sjh)
         {
-            var hys = _db.THuiyuan.AsQueryable();
+            var hys = _db.THuiyuans.AsQueryable();
             if (!string.IsNullOrEmpty(sjh))
             {
                 hys = hys.Where(r => r.shoujihao == sjh);
@@ -366,7 +360,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuMX GetJinchuhuoMX(int jcid, int tmid)
         {
-            return _db.TJinchuMX.SingleOrDefault(r => r.jinchuid == jcid && r.tiaomaid == tmid);
+            return _db.TJinchuMXes.SingleOrDefault(r => r.jinchuid == jcid && r.tiaomaid == tmid);
         }
         /// <summary>
         /// 取得某个进出货明细记录
@@ -375,7 +369,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuMX GetJinchuhuoMXById(int mxid)
         {
-            return _db.TJinchuMX.Include("TJinchuhuo").Single(r => r.id == mxid);
+            return _db.TJinchuMXes.Include(r=>r.TJinchuhuo).Single(r => r.id == mxid);
         }
     }
 }

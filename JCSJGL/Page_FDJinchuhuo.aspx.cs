@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +80,7 @@ namespace JCSJGL
                 fendian = r.TFendian.dianming,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
                 lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
-                jianshu = r.TFendianJinchuhuoMX.Sum(mr=>mr.shuliang),
+                jianshu = r.TFendianJinchuhuoMXes.Sum(mr=>mr.shuliang),
                 r.beizhu,
                 r.fashengshijian,
                 r.shangbaoshijian

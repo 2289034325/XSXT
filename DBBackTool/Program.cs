@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tool;
 
 namespace DBBackTool
 {
@@ -78,14 +79,8 @@ namespace DBBackTool
                 Directory.CreateDirectory(filePath);
             }
 
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                string sqlStmt = String.Format("BACKUP DATABASE " + dbName + " TO DISK='{0}'", filePath + fileName);
-                SqlCommand cmd = new SqlCommand(sqlStmt, conn);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
+            DBTool dt = new DBTool(dbServer, dbName, dbUid, dbPsw, filePath + fileName, null);
+            dt.BackUp();
 
             return filePath + fileName;
         }

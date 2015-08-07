@@ -15,7 +15,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TUser", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TUser", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TUser : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -23,22 +23,22 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangku[] TCangkuField;
+        private CKGL.JCSJData.TCangku[] TCangkusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendian[] TFendianField;
+        private CKGL.JCSJData.TFendian[] TFendiansField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TGongyingshang[] TGongyingshangField;
+        private CKGL.JCSJData.TGongyingshang[] TGongyingshangsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.THuiyuan[] THuiyuanField;
+        private CKGL.JCSJData.THuiyuan[] THuiyuansField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TKuanhao[] TKuanhaoField;
+        private CKGL.JCSJData.TKuanhao[] TKuanhaosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TTiaoma[] TTiaomaField;
+        private CKGL.JCSJData.TTiaoma[] TTiaomasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser_Cangku[] TUser_CangkuField;
@@ -87,79 +87,79 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangku[] TCangku {
+        public CKGL.JCSJData.TCangku[] TCangkus {
             get {
-                return this.TCangkuField;
+                return this.TCangkusField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuField, value) != true)) {
-                    this.TCangkuField = value;
-                    this.RaisePropertyChanged("TCangku");
+                if ((object.ReferenceEquals(this.TCangkusField, value) != true)) {
+                    this.TCangkusField = value;
+                    this.RaisePropertyChanged("TCangkus");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendian[] TFendian {
+        public CKGL.JCSJData.TFendian[] TFendians {
             get {
-                return this.TFendianField;
+                return this.TFendiansField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianField, value) != true)) {
-                    this.TFendianField = value;
-                    this.RaisePropertyChanged("TFendian");
+                if ((object.ReferenceEquals(this.TFendiansField, value) != true)) {
+                    this.TFendiansField = value;
+                    this.RaisePropertyChanged("TFendians");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TGongyingshang[] TGongyingshang {
+        public CKGL.JCSJData.TGongyingshang[] TGongyingshangs {
             get {
-                return this.TGongyingshangField;
+                return this.TGongyingshangsField;
             }
             set {
-                if ((object.ReferenceEquals(this.TGongyingshangField, value) != true)) {
-                    this.TGongyingshangField = value;
-                    this.RaisePropertyChanged("TGongyingshang");
+                if ((object.ReferenceEquals(this.TGongyingshangsField, value) != true)) {
+                    this.TGongyingshangsField = value;
+                    this.RaisePropertyChanged("TGongyingshangs");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.THuiyuan[] THuiyuan {
+        public CKGL.JCSJData.THuiyuan[] THuiyuans {
             get {
-                return this.THuiyuanField;
+                return this.THuiyuansField;
             }
             set {
-                if ((object.ReferenceEquals(this.THuiyuanField, value) != true)) {
-                    this.THuiyuanField = value;
-                    this.RaisePropertyChanged("THuiyuan");
+                if ((object.ReferenceEquals(this.THuiyuansField, value) != true)) {
+                    this.THuiyuansField = value;
+                    this.RaisePropertyChanged("THuiyuans");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TKuanhao[] TKuanhao {
+        public CKGL.JCSJData.TKuanhao[] TKuanhaos {
             get {
-                return this.TKuanhaoField;
+                return this.TKuanhaosField;
             }
             set {
-                if ((object.ReferenceEquals(this.TKuanhaoField, value) != true)) {
-                    this.TKuanhaoField = value;
-                    this.RaisePropertyChanged("TKuanhao");
+                if ((object.ReferenceEquals(this.TKuanhaosField, value) != true)) {
+                    this.TKuanhaosField = value;
+                    this.RaisePropertyChanged("TKuanhaos");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TTiaoma[] TTiaoma {
+        public CKGL.JCSJData.TTiaoma[] TTiaomas {
             get {
-                return this.TTiaomaField;
+                return this.TTiaomasField;
             }
             set {
-                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
-                    this.TTiaomaField = value;
-                    this.RaisePropertyChanged("TTiaoma");
+                if ((object.ReferenceEquals(this.TTiaomasField, value) != true)) {
+                    this.TTiaomasField = value;
+                    this.RaisePropertyChanged("TTiaomas");
                 }
             }
         }
@@ -332,7 +332,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangku", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangku", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangku : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -340,10 +340,10 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuJinchuhuo[] TCangkuJinchuhuoField;
+        private CKGL.JCSJData.TCangkuJinchuhuo[] TCangkuJinchuhuosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuKucun[] TCangkuKucunField;
+        private CKGL.JCSJData.TCangkuKucun[] TCangkuKucunsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser TUserField;
@@ -389,27 +389,27 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuJinchuhuo[] TCangkuJinchuhuo {
+        public CKGL.JCSJData.TCangkuJinchuhuo[] TCangkuJinchuhuos {
             get {
-                return this.TCangkuJinchuhuoField;
+                return this.TCangkuJinchuhuosField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuJinchuhuoField, value) != true)) {
-                    this.TCangkuJinchuhuoField = value;
-                    this.RaisePropertyChanged("TCangkuJinchuhuo");
+                if ((object.ReferenceEquals(this.TCangkuJinchuhuosField, value) != true)) {
+                    this.TCangkuJinchuhuosField = value;
+                    this.RaisePropertyChanged("TCangkuJinchuhuos");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuKucun[] TCangkuKucun {
+        public CKGL.JCSJData.TCangkuKucun[] TCangkuKucuns {
             get {
-                return this.TCangkuKucunField;
+                return this.TCangkuKucunsField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuKucunField, value) != true)) {
-                    this.TCangkuKucunField = value;
-                    this.RaisePropertyChanged("TCangkuKucun");
+                if ((object.ReferenceEquals(this.TCangkuKucunsField, value) != true)) {
+                    this.TCangkuKucunsField = value;
+                    this.RaisePropertyChanged("TCangkuKucuns");
                 }
             }
         }
@@ -569,7 +569,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TFendian : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -577,16 +577,16 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendianField;
+        private CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendiansField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianJinchuhuo[] TFendianJinchuhuoField;
+        private CKGL.JCSJData.TFendianJinchuhuo[] TFendianJinchuhuosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianKucun[] TFendianKucunField;
+        private CKGL.JCSJData.TFendianKucun[] TFendianKucunsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.THuiyuan[] THuiyuanField;
+        private CKGL.JCSJData.THuiyuan[] THuiyuansField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser TUserField;
@@ -595,7 +595,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TUser_Fendian[] TUser_FendianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TXiaoshou[] TXiaoshouField;
+        private CKGL.JCSJData.TXiaoshou[] TXiaoshousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
@@ -665,53 +665,53 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendian {
+        public CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendians {
             get {
-                return this.TCangkuFahuoFendianField;
+                return this.TCangkuFahuoFendiansField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuFahuoFendianField, value) != true)) {
-                    this.TCangkuFahuoFendianField = value;
-                    this.RaisePropertyChanged("TCangkuFahuoFendian");
+                if ((object.ReferenceEquals(this.TCangkuFahuoFendiansField, value) != true)) {
+                    this.TCangkuFahuoFendiansField = value;
+                    this.RaisePropertyChanged("TCangkuFahuoFendians");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianJinchuhuo[] TFendianJinchuhuo {
+        public CKGL.JCSJData.TFendianJinchuhuo[] TFendianJinchuhuos {
             get {
-                return this.TFendianJinchuhuoField;
+                return this.TFendianJinchuhuosField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianJinchuhuoField, value) != true)) {
-                    this.TFendianJinchuhuoField = value;
-                    this.RaisePropertyChanged("TFendianJinchuhuo");
+                if ((object.ReferenceEquals(this.TFendianJinchuhuosField, value) != true)) {
+                    this.TFendianJinchuhuosField = value;
+                    this.RaisePropertyChanged("TFendianJinchuhuos");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianKucun[] TFendianKucun {
+        public CKGL.JCSJData.TFendianKucun[] TFendianKucuns {
             get {
-                return this.TFendianKucunField;
+                return this.TFendianKucunsField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianKucunField, value) != true)) {
-                    this.TFendianKucunField = value;
-                    this.RaisePropertyChanged("TFendianKucun");
+                if ((object.ReferenceEquals(this.TFendianKucunsField, value) != true)) {
+                    this.TFendianKucunsField = value;
+                    this.RaisePropertyChanged("TFendianKucuns");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.THuiyuan[] THuiyuan {
+        public CKGL.JCSJData.THuiyuan[] THuiyuans {
             get {
-                return this.THuiyuanField;
+                return this.THuiyuansField;
             }
             set {
-                if ((object.ReferenceEquals(this.THuiyuanField, value) != true)) {
-                    this.THuiyuanField = value;
-                    this.RaisePropertyChanged("THuiyuan");
+                if ((object.ReferenceEquals(this.THuiyuansField, value) != true)) {
+                    this.THuiyuansField = value;
+                    this.RaisePropertyChanged("THuiyuans");
                 }
             }
         }
@@ -743,14 +743,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TXiaoshou[] TXiaoshou {
+        public CKGL.JCSJData.TXiaoshou[] TXiaoshous {
             get {
-                return this.TXiaoshouField;
+                return this.TXiaoshousField;
             }
             set {
-                if ((object.ReferenceEquals(this.TXiaoshouField, value) != true)) {
-                    this.TXiaoshouField = value;
-                    this.RaisePropertyChanged("TXiaoshou");
+                if ((object.ReferenceEquals(this.TXiaoshousField, value) != true)) {
+                    this.TXiaoshousField = value;
+                    this.RaisePropertyChanged("TXiaoshous");
                 }
             }
         }
@@ -1014,7 +1014,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TGongyingshang", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TGongyingshang", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TGongyingshang : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1022,7 +1022,7 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TTiaoma[] TTiaomaField;
+        private CKGL.JCSJData.TTiaoma[] TTiaomasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser TUserField;
@@ -1068,14 +1068,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TTiaoma[] TTiaoma {
+        public CKGL.JCSJData.TTiaoma[] TTiaomas {
             get {
-                return this.TTiaomaField;
+                return this.TTiaomasField;
             }
             set {
-                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
-                    this.TTiaomaField = value;
-                    this.RaisePropertyChanged("TTiaoma");
+                if ((object.ReferenceEquals(this.TTiaomasField, value) != true)) {
+                    this.TTiaomasField = value;
+                    this.RaisePropertyChanged("TTiaomas");
                 }
             }
         }
@@ -1235,7 +1235,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="THuiyuan", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="THuiyuan", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class THuiyuan : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1249,7 +1249,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TUser TUserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TXiaoshou[] TXiaoshouField;
+        private CKGL.JCSJData.TXiaoshou[] TXiaoshousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
@@ -1324,14 +1324,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TXiaoshou[] TXiaoshou {
+        public CKGL.JCSJData.TXiaoshou[] TXiaoshous {
             get {
-                return this.TXiaoshouField;
+                return this.TXiaoshousField;
             }
             set {
-                if ((object.ReferenceEquals(this.TXiaoshouField, value) != true)) {
-                    this.TXiaoshouField = value;
-                    this.RaisePropertyChanged("TXiaoshou");
+                if ((object.ReferenceEquals(this.TXiaoshousField, value) != true)) {
+                    this.TXiaoshousField = value;
+                    this.RaisePropertyChanged("TXiaoshous");
                 }
             }
         }
@@ -1504,7 +1504,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TKuanhao", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TKuanhao", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TKuanhao : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1512,7 +1512,7 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TTiaoma[] TTiaomaField;
+        private CKGL.JCSJData.TTiaoma[] TTiaomasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser TUserField;
@@ -1555,14 +1555,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TTiaoma[] TTiaoma {
+        public CKGL.JCSJData.TTiaoma[] TTiaomas {
             get {
-                return this.TTiaomaField;
+                return this.TTiaomasField;
             }
             set {
-                if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
-                    this.TTiaomaField = value;
-                    this.RaisePropertyChanged("TTiaoma");
+                if ((object.ReferenceEquals(this.TTiaomasField, value) != true)) {
+                    this.TTiaomasField = value;
+                    this.RaisePropertyChanged("TTiaomas");
                 }
             }
         }
@@ -1709,7 +1709,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TTiaoma", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TTiaoma", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TTiaoma : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1717,16 +1717,16 @@ namespace CKGL.JCSJData {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXField;
+        private CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXField;
+        private CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXField;
+        private CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXField;
+        private CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TGongyingshang TGongyingshangField;
@@ -1738,7 +1738,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TUser TUserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TXiaoshou[] TXiaoshouField;
+        private CKGL.JCSJData.TXiaoshou[] TXiaoshousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int caozuorenidField;
@@ -1787,53 +1787,53 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMX {
+        public CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXes {
             get {
-                return this.TCangkuJinchuhuoMXField;
+                return this.TCangkuJinchuhuoMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuJinchuhuoMXField, value) != true)) {
-                    this.TCangkuJinchuhuoMXField = value;
-                    this.RaisePropertyChanged("TCangkuJinchuhuoMX");
+                if ((object.ReferenceEquals(this.TCangkuJinchuhuoMXesField, value) != true)) {
+                    this.TCangkuJinchuhuoMXesField = value;
+                    this.RaisePropertyChanged("TCangkuJinchuhuoMXes");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMX {
+        public CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXes {
             get {
-                return this.TCangkuKucunMXField;
+                return this.TCangkuKucunMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuKucunMXField, value) != true)) {
-                    this.TCangkuKucunMXField = value;
-                    this.RaisePropertyChanged("TCangkuKucunMX");
+                if ((object.ReferenceEquals(this.TCangkuKucunMXesField, value) != true)) {
+                    this.TCangkuKucunMXesField = value;
+                    this.RaisePropertyChanged("TCangkuKucunMXes");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMX {
+        public CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXes {
             get {
-                return this.TFendianJinchuhuoMXField;
+                return this.TFendianJinchuhuoMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianJinchuhuoMXField, value) != true)) {
-                    this.TFendianJinchuhuoMXField = value;
-                    this.RaisePropertyChanged("TFendianJinchuhuoMX");
+                if ((object.ReferenceEquals(this.TFendianJinchuhuoMXesField, value) != true)) {
+                    this.TFendianJinchuhuoMXesField = value;
+                    this.RaisePropertyChanged("TFendianJinchuhuoMXes");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMX {
+        public CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXes {
             get {
-                return this.TFendianKucunMXField;
+                return this.TFendianKucunMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianKucunMXField, value) != true)) {
-                    this.TFendianKucunMXField = value;
-                    this.RaisePropertyChanged("TFendianKucunMX");
+                if ((object.ReferenceEquals(this.TFendianKucunMXesField, value) != true)) {
+                    this.TFendianKucunMXesField = value;
+                    this.RaisePropertyChanged("TFendianKucunMXes");
                 }
             }
         }
@@ -1878,14 +1878,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TXiaoshou[] TXiaoshou {
+        public CKGL.JCSJData.TXiaoshou[] TXiaoshous {
             get {
-                return this.TXiaoshouField;
+                return this.TXiaoshousField;
             }
             set {
-                if ((object.ReferenceEquals(this.TXiaoshouField, value) != true)) {
-                    this.TXiaoshouField = value;
-                    this.RaisePropertyChanged("TXiaoshou");
+                if ((object.ReferenceEquals(this.TXiaoshousField, value) != true)) {
+                    this.TXiaoshousField = value;
+                    this.RaisePropertyChanged("TXiaoshous");
                 }
             }
         }
@@ -2058,7 +2058,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TUser_Cangku", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TUser_Cangku", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TUser_Cangku : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2167,7 +2167,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TUser_Fendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TUser_Fendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TUser_Fendian : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2276,7 +2276,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuJinchuhuo", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuJinchuhuo", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangkuJinchuhuo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2287,10 +2287,10 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TCangku TCangkuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendianField;
+        private CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendiansField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXField;
+        private CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
@@ -2340,27 +2340,27 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendian {
+        public CKGL.JCSJData.TCangkuFahuoFendian[] TCangkuFahuoFendians {
             get {
-                return this.TCangkuFahuoFendianField;
+                return this.TCangkuFahuoFendiansField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuFahuoFendianField, value) != true)) {
-                    this.TCangkuFahuoFendianField = value;
-                    this.RaisePropertyChanged("TCangkuFahuoFendian");
+                if ((object.ReferenceEquals(this.TCangkuFahuoFendiansField, value) != true)) {
+                    this.TCangkuFahuoFendiansField = value;
+                    this.RaisePropertyChanged("TCangkuFahuoFendians");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMX {
+        public CKGL.JCSJData.TCangkuJinchuhuoMX[] TCangkuJinchuhuoMXes {
             get {
-                return this.TCangkuJinchuhuoMXField;
+                return this.TCangkuJinchuhuoMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuJinchuhuoMXField, value) != true)) {
-                    this.TCangkuJinchuhuoMXField = value;
-                    this.RaisePropertyChanged("TCangkuJinchuhuoMX");
+                if ((object.ReferenceEquals(this.TCangkuJinchuhuoMXesField, value) != true)) {
+                    this.TCangkuJinchuhuoMXesField = value;
+                    this.RaisePropertyChanged("TCangkuJinchuhuoMXes");
                 }
             }
         }
@@ -2481,7 +2481,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangkuKucun : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2492,7 +2492,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TCangku TCangkuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXField;
+        private CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int cangkuidField;
@@ -2527,14 +2527,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMX {
+        public CKGL.JCSJData.TCangkuKucunMX[] TCangkuKucunMXes {
             get {
-                return this.TCangkuKucunMXField;
+                return this.TCangkuKucunMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TCangkuKucunMXField, value) != true)) {
-                    this.TCangkuKucunMXField = value;
-                    this.RaisePropertyChanged("TCangkuKucunMX");
+                if ((object.ReferenceEquals(this.TCangkuKucunMXesField, value) != true)) {
+                    this.TCangkuKucunMXesField = value;
+                    this.RaisePropertyChanged("TCangkuKucunMXes");
                 }
             }
         }
@@ -2590,7 +2590,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuFahuoFendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuFahuoFendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangkuFahuoFendian : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2731,7 +2731,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuJinchuhuoMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuJinchuhuoMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangkuJinchuhuoMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2856,7 +2856,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianJinchuhuo", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianJinchuhuo", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TFendianJinchuhuo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2867,7 +2867,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TFendian TFendianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXField;
+        private CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
@@ -2917,14 +2917,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMX {
+        public CKGL.JCSJData.TFendianJinchuhuoMX[] TFendianJinchuhuoMXes {
             get {
-                return this.TFendianJinchuhuoMXField;
+                return this.TFendianJinchuhuoMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianJinchuhuoMXField, value) != true)) {
-                    this.TFendianJinchuhuoMXField = value;
-                    this.RaisePropertyChanged("TFendianJinchuhuoMX");
+                if ((object.ReferenceEquals(this.TFendianJinchuhuoMXesField, value) != true)) {
+                    this.TFendianJinchuhuoMXesField = value;
+                    this.RaisePropertyChanged("TFendianJinchuhuoMXes");
                 }
             }
         }
@@ -3045,7 +3045,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucun", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TFendianKucun : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3056,7 +3056,7 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TFendian TFendianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXField;
+        private CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int fendianidField;
@@ -3091,14 +3091,14 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMX {
+        public CKGL.JCSJData.TFendianKucunMX[] TFendianKucunMXes {
             get {
-                return this.TFendianKucunMXField;
+                return this.TFendianKucunMXesField;
             }
             set {
-                if ((object.ReferenceEquals(this.TFendianKucunMXField, value) != true)) {
-                    this.TFendianKucunMXField = value;
-                    this.RaisePropertyChanged("TFendianKucunMX");
+                if ((object.ReferenceEquals(this.TFendianKucunMXesField, value) != true)) {
+                    this.TFendianKucunMXesField = value;
+                    this.RaisePropertyChanged("TFendianKucunMXes");
                 }
             }
         }
@@ -3154,7 +3154,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TXiaoshou", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TXiaoshou", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TXiaoshou : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3439,7 +3439,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianJinchuhuoMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianJinchuhuoMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TFendianJinchuhuoMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3564,7 +3564,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TCangkuKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TCangkuKucunMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3689,7 +3689,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TFendianKucunMX", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class TFendianKucunMX : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -3814,7 +3814,7 @@ namespace CKGL.JCSJData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="THuiyuanZK", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="THuiyuanZK", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
     [System.SerializableAttribute()]
     public partial class THuiyuanZK : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

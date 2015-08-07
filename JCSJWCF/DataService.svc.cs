@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -44,21 +45,20 @@ namespace JCSJWCF
                 //验证机器码
                 if (u.jiqima != tzm)
                 {
-                    throw new FaultException("此帐号不允许在该电脑上登录");
+                    throw new FaultException("此帐号不允许在该电脑上登录，请绑定该帐号到本电脑");
                 }
                 else
                 {
                     //验证角色
                     if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码员)
                     {
-                        throw new FaultException("此帐号不允许在该系统登录");
+                        throw new FaultException("此帐号不是编码账号，不能登陆");
                     }
 
                     //将用户放入Session
                     _user = u;
                 }
             }
-
             return u;
         }
 
@@ -180,11 +180,11 @@ namespace JCSJWCF
             //去除循环引用
             foreach (TTiaoma t in ts)
             {
-                t.TKuanhao.TTiaoma.Clear();
-                t.TUser.TTiaoma.Clear();
-                t.TUser.TKuanhao.Clear();
-                t.TUser.TGongyingshang.Clear();
-                t.TGongyingshang.TTiaoma.Clear();
+                t.TKuanhao.TTiaomas.Clear();
+                t.TUser.TTiaomas.Clear();
+                t.TUser.TKuanhaos.Clear();
+                t.TUser.TGongyingshangs.Clear();
+                t.TGongyingshang.TTiaomas.Clear();
                 t.TGongyingshang.TUser = null;
             }
             return ts;
@@ -349,7 +349,7 @@ namespace JCSJWCF
             if (k != null)
             {
                 //去除循环引用    
-                foreach (TTiaoma t in k.TTiaoma)
+                foreach (TTiaoma t in k.TTiaomas)
                 {
                     t.TKuanhao = null;
                 }
@@ -493,9 +493,9 @@ namespace JCSJWCF
             foreach (TTiaoma tm in tms)
             {
                 tm.TUser = null;
-                tm.TKuanhao.TTiaoma.Clear();
+                tm.TKuanhao.TTiaomas.Clear();
                 tm.TKuanhao.TUser = null;
-                tm.TGongyingshang.TTiaoma.Clear();    
+                tm.TGongyingshang.TTiaomas.Clear();    
                 tm.TGongyingshang.TUser = null;
             }
             
@@ -514,8 +514,8 @@ namespace JCSJWCF
             //去除循环引用
             foreach (TTiaoma t in ts)
             {
-                t.TKuanhao.TTiaoma.Clear();
-                t.TGongyingshang.TTiaoma.Clear();
+                t.TKuanhao.TTiaomas.Clear();
+                t.TGongyingshang.TTiaomas.Clear();
             }
 
             return ts;
@@ -631,7 +631,7 @@ namespace JCSJWCF
             };
             foreach (TFendianKucunMX kmx in fks)            
             {
-                fk.TFendianKucunMX.Add(kmx);
+                fk.TFendianKucunMXes.Add(kmx);
             }
 
             db.InsertFendianKucun(fk);
@@ -667,7 +667,7 @@ namespace JCSJWCF
             };
             foreach (TCangkuKucunMX cmx in cks)
             {
-                ck.TCangkuKucunMX.Add(cmx);
+                ck.TCangkuKucunMXes.Add(cmx);
             }
 
             db.InsertCangkuKucun(ck);
@@ -756,8 +756,8 @@ namespace JCSJWCF
             //去除循环引用
             foreach (var f in jchs)
             {
-                f.TCangkuFahuoFendian = null;
-                foreach (var mx in f.TCangkuJinchuhuoMX)
+                f.TCangkuFahuoFendians = null;
+                foreach (var mx in f.TCangkuJinchuhuoMXes)
                 {
                     mx.TCangkuJinchuhuo = null;
                 }

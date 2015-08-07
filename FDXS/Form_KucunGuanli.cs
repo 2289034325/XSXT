@@ -1,4 +1,5 @@
 ﻿using DB_FD;
+using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
@@ -550,7 +551,7 @@ namespace FDXS
                 {
                     tiaomaid = tmid,
                     shuliang = xzsl,
-                    caozuorenid = LoginInfo.User.id,
+                    caozuorenid = RuntimeInfo.LoginUser.id,
                     charushijian = DateTime.Now,
                     xiugaishijian = DateTime.Now
                 };

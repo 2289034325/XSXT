@@ -1,5 +1,6 @@
 ﻿using CKGL.Properties;
 using DB_CK;
+using DB_CK.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

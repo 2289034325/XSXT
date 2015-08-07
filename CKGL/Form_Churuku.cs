@@ -1,5 +1,6 @@
 ﻿using CKGL.Properties;
 using DB_CK;
+using DB_CK.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -128,7 +129,7 @@ namespace CKGL
                     c.id,
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
                     c.laiyuanquxiang.ToString(),
-                    c.TChurukuMX.Sum(r=>(short?)r.shuliang)??0,
+                    c.TChurukuMXes.Sum(r=>(short?)r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,
@@ -558,7 +559,7 @@ namespace CKGL
                 laiyuanquxiang = r.laiyuanquxiang,
                 beizhu = r.beizhu,
                 fashengshijian = r.charushijian,
-                TCangkuJinchuhuoMX = r.TChurukuMX.Select(mr => new JCSJData.TCangkuJinchuhuoMX
+                TCangkuJinchuhuoMXes = r.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
                 {
                     tiaomaid = mr.tiaomaid,
                     shuliang = mr.shuliang

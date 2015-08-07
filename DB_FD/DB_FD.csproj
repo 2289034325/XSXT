@@ -30,16 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -49,81 +51,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnExtend.cs" />
+    <Compile Include="Migrations\201508050000001_InitialCreate.cs" />
+    <Compile Include="Migrations\201508050000001_InitialCreate.Designer.cs">
+      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelExtend.cs" />
     <Compile Include="DELETE.cs" />
-    <Compile Include="FDEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FDEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FDEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FDEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FDEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="INSERT.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FDContext.cs" />
+    <Compile Include="Models\Mapping\THuiyuanMap.cs" />
+    <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
+    <Compile Include="Models\Mapping\TJinchuhuoMap.cs" />
+    <Compile Include="Models\Mapping\TJinchuMXMap.cs" />
+    <Compile Include="Models\Mapping\TKucunXZMap.cs" />
+    <Compile Include="Models\Mapping\TPandianMap.cs" />
+    <Compile Include="Models\Mapping\TTiaomaMap.cs" />
+    <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
+    <Compile Include="Models\Mapping\VKucunMap.cs" />
+    <Compile Include="Models\THuiyuan.cs" />
+    <Compile Include="Models\THuiyuanZK.cs" />
+    <Compile Include="Models\TJinchuhuo.cs" />
+    <Compile Include="Models\TJinchuMX.cs" />
+    <Compile Include="Models\TKucunXZ.cs" />
+    <Compile Include="Models\TPandian.cs" />
+    <Compile Include="Models\TTiaoma.cs" />
+    <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TXiaoshou.cs" />
+    <Compile Include="Models\VKucun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
-    <Compile Include="THuiyuan.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="THuiyuanZK.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TJinchuhuo.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TJinchuMX.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TKucunXZ.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TPandian.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TTiaoma.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TUser.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TXiaoshou.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="UPDATE.cs" />
-    <Compile Include="VKucun.cs">
-      <DependentUpon>FDEntities.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <EntityDeploy Include="FDEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FDEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="FDEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FDEntities.edmx</DependentUpon>
-      <LastGenOutput>FDEntities.Context.cs</LastGenOutput>
-    </None>
-    <None Include="FDEntities.edmx.diagram">
-      <DependentUpon>FDEntities.edmx</DependentUpon>
-    </None>
-    <None Include="FDEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FDEntities.edmx</DependentUpon>
-      <LastGenOutput>FDEntities.cs</LastGenOutput>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
+      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tool\Tool.csproj">
+      <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
+      <Name>Tool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

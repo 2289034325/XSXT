@@ -1,4 +1,5 @@
 ﻿using DB_JCSJ;
+using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +158,7 @@ namespace JCSJGL
         {
             THuiyuan f = getEditInfo();
             f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.jfjsshijian = DateTime.Now;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 

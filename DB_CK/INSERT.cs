@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_CK.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace DB_CK
         /// <param name="tms"></param>
         public void InsertTiaomas(TTiaoma[] tms)
         {
-            _db.TTiaoma.AddRange(tms);
+            _db.TTiaomas.AddRange(tms);
 
             _db.SaveChanges();
         }
@@ -25,10 +26,10 @@ namespace DB_CK
         /// <param name="c"></param>
         public TChuruku InsertChuruku(TChuruku c)
         {
-            TChuruku nc = _db.TChuruku.Add(c);
+            TChuruku nc = _db.TChurukus.Add(c);
             _db.SaveChanges();
 
-            nc.TUser = _db.TUser.Single(r => r.id == nc.caozuorenid);
+            nc.TUser = _db.TUsers.Single(r => r.id == nc.caozuorenid);
 
             return nc;
         }
@@ -39,7 +40,7 @@ namespace DB_CK
         /// <param name="mxs"></param>
         public void InsertChurukuMxs(TChurukuMX[] mxs)
         {
-            _db.TChurukuMX.AddRange(mxs);
+            _db.TChurukuMXes.AddRange(mxs);
 
             _db.SaveChanges();
         }
