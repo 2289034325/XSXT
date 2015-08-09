@@ -46,24 +46,24 @@ namespace Tool
                 //如果是回车键，就判断是否触发事件
                 if (e.KeyPressEvent.VKeyName == "ENTER")
                 {
-                    if (_kps.Count == 13)
-                    {
+                    //if (_kps.Count >= 9)
+                    //{
                         string tiaoma = _kps.Aggregate((a, b) => { return a + b; });
                         //清空缓存
                         _kps.Clear();
                         //_rawinput.RemoveMessageFilter();
                         OnScan(tiaoma);
-                    }
+                    //}
                 }
                 //将输入放入缓存
                 else
                 {
                     if (e.KeyPressEvent.VKeyName.Length == 1)
                     {
-                        if (_kps.Count == 13)
-                        {
-                            _kps.RemoveAt(0);
-                        }
+                        //if (_kps.Count >= 9)
+                        //{
+                        //    _kps.RemoveAt(0);
+                        //}
                         _kps.Add(e.KeyPressEvent.VKeyName);
                     }
                 }

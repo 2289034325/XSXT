@@ -447,7 +447,7 @@ namespace FDXS
 
             printG.DrawString("      ", printFont, myBrush, leftMargin, yPosition, new StringFormat());
             yPosition += cH;
-            printG.DrawString("   Miss名店", printFont, myBrush, leftMargin, yPosition, new StringFormat());
+            printG.DrawString(Settings.Default.FDMC, printFont, myBrush, leftMargin, yPosition, new StringFormat());
             yPosition += cH;
             yPosition += cH;
             printG.DrawString("**********欢迎光临**********", printFont, myBrush, leftMargin, yPosition, new StringFormat());
@@ -466,8 +466,8 @@ namespace FDXS
                 decimal jine = x.jine;
                 printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
                 printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
-                printG.DrawString(danjia.ToString(), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
-                printG.DrawString(jine.ToString(), printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
+                printG.DrawString(danjia.ToString("#"), printFont, myBrush, leftMargin + 110, yPosition, new StringFormat());
+                printG.DrawString(jine.ToString("#"), printFont, myBrush, leftMargin + 145, yPosition, new StringFormat());
                 yPosition += cH;
                 printG.DrawString(pinming, printFont, myBrush, leftMargin, yPosition, new StringFormat());
                 yPosition += cH;

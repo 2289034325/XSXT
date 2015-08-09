@@ -87,10 +87,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetroFramework\MetroFramework.csproj">
-      <Project>{bb41ac8b-cbed-4387-a7e0-4567edb3f57f}</Project>
-      <Name>MetroFramework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RawInput\RawInput.csproj">
       <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
       <Name>RawInput</Name>
