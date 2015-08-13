@@ -78,7 +78,8 @@ namespace JCSJWCF
             {
                 DBContext db = new DBContext();
                 //检查仓库ID和仓库名称是否匹配
-                if (db.GetCangkuByIdMc(ckid, ckmc) == null)
+                TCangku tc = db.GetCangkuByIdMc(ckid, ckmc);
+                if ( tc == null)
                 {
                     throw new FaultException("仓库ID和仓库名称不匹配");
                 }

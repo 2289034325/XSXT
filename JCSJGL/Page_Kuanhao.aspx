@@ -37,7 +37,6 @@
             <asp:BoundField DataField="xingbie" HeaderText="性别"></asp:BoundField>
             <asp:BoundField DataField="pinming" HeaderText="品名"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
-            <asp:BoundField DataField="caozuoren" HeaderText="编辑人"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">

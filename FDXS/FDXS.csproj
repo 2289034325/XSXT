@@ -117,6 +117,12 @@
     <Compile Include="Dlg_MimaEdit.Designer.cs">
       <DependentUpon>Dlg_MimaEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg_Wutiaoma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Wutiaoma.Designer.cs">
+      <DependentUpon>Dlg_Wutiaoma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Tubiao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,11 +185,11 @@
     <Compile Include="Dlg_Tiaomahao.Designer.cs">
       <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Xiaoshou.cs">
+    <Compile Include="Form_Kaidan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Xiaoshou.Designer.cs">
-      <DependentUpon>Dlg_Xiaoshou.cs</DependentUpon>
+    <Compile Include="Form_Kaidan.Designer.cs">
+      <DependentUpon>Form_Kaidan.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg_KucunXZ.cs">
       <SubType>Form</SubType>
@@ -277,8 +283,11 @@
     <EmbeddedResource Include="Dlg_Tiaomahao.resx">
       <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Xiaoshou.resx">
-      <DependentUpon>Dlg_Xiaoshou.cs</DependentUpon>
+    <EmbeddedResource Include="Dlg_Wutiaoma.resx">
+      <DependentUpon>Dlg_Wutiaoma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Kaidan.resx">
+      <DependentUpon>Form_Kaidan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_KucunXZ.resx">
       <DependentUpon>Dlg_KucunXZ.cs</DependentUpon>

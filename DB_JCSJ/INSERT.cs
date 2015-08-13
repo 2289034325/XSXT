@@ -235,6 +235,13 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            public void InsertJiamengshang(TJiamengshang j)
+            {
+                _db.TJiamengshangs.Add(j);
+
+                _db.SaveChanges();
+            }
             
         }
     }

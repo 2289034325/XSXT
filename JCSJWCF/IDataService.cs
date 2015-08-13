@@ -28,15 +28,15 @@ namespace JCSJWCF
         void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, DateTime? Start,DateTime? End);
+        TTiaoma[] GetTiaomasByCond(int Userid, string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
 
 
         [OperationContract(IsInitiating = false)]
-        TGongyingshang[] GetGongyingshangsByUserId(int UserId);
+        TGongyingshang[] GetGongyingshangsByJmsid(int JmsId);
 
 
         [OperationContract(IsInitiating = false)]
-        TKuanhao[] GetKuanhaosByUserId(int UserId);
+        TKuanhao[] GetKuanhaosByJmsId(int JmsId);
 
 
         [OperationContract(IsInitiating = false)]
@@ -50,14 +50,14 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = false)]
         void DeleteKuanhao(int id);
 
-        [OperationContract(IsInitiating = false)]
-        TGongyingshang InsertGongyingshang(TGongyingshang g);
+        //[OperationContract(IsInitiating = false)]
+        //TGongyingshang InsertGongyingshang(TGongyingshang g);
 
-        [OperationContract(IsInitiating = false)]
-        void EditGongyingshang(TGongyingshang g);
+        //[OperationContract(IsInitiating = false)]
+        //void EditGongyingshang(TGongyingshang g);
 
-        [OperationContract(IsInitiating = false)]
-        void DeleteGongyingshang(int id);
+        //[OperationContract(IsInitiating = false)]
+        //void DeleteGongyingshang(int id);
 
         [OperationContract(IsInitiating = false)]
         TKuanhao GetKuanhaoByMc(string kh);
@@ -81,8 +81,8 @@ namespace JCSJWCF
         void EditTiaoma(TTiaoma t);
 
 
-        [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end);
+        //[OperationContract(IsInitiating = false)]
+        //TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end);
 
         [OperationContract(IsInitiating = false)]
         TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
@@ -101,8 +101,8 @@ namespace JCSJWCF
         void UpdateHuiyuan(THuiyuan h);
 
 
-        [OperationContract(IsInitiating = false)]
-        THuiyuanZK[] GetHuiyuanZhekous();
+        //[OperationContract(IsInitiating = false)]
+        //THuiyuanZK[] GetHuiyuanZhekous();
 
 
         [OperationContract(IsInitiating = false)]

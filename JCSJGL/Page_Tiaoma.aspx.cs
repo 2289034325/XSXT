@@ -10,8 +10,13 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_Tiaoma : System.Web.UI.Page
+    public partial class Page_Tiaoma : MyPage
     {
+        public Page_Tiaoma()
+        {
+            _PageName = PageName.条码信息;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //初始化
@@ -79,11 +84,26 @@ namespace JCSJGL
             string tmh = txb_tmh_sch.Text.Trim();
             int recordCount = 0;
 
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                grid_tiaoma.Columns.Insert(1, new BoundField()
+                {
+                    HeaderText = "加盟商",
+                    DataField = "jiamengshang"
+                });
+            }
+            else
+            {
+                jmsid = _LoginUser.jmsid;   
+            }
+
             DBContext db = new DBContext();
-            TTiaoma[] fs = db.GetTiaomasByCond(null,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
+            TTiaoma[] fs = db.GetTiaomasByCond(jmsid,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
+                jiamengshang = r.TKuanhao.TJiamengshang.mingcheng,
                 tiaoma = r.tiaoma,
                 yanse = r.yanse,
                 chima = r.chima,
@@ -95,7 +115,6 @@ namespace JCSJGL
                 gongyingshang = r.TGongyingshang.mingcheng,
                 gysid = r.gysid,
                 gyskuanhao = r.gyskuanhao,
-                caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.tiaoma + "','" + r.yanse + "','" + r.chima + "','" + r.jinjia + "','" + r.shoujia + "','" +
@@ -114,14 +133,20 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             TTiaoma f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TTiaoma ot = db.GetTiaomaById(f.id);
             db.UpdateTiaoma(f);
-
+            if (ot.TKuanhao.jmsid != _LoginUser.jmsid)
+            {
+                throw new MyException("非法操作，无法修改该条码信息");
+            }
             search();
         }
 
@@ -169,12 +194,19 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             TTiaoma f = getEditInfo();
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            int cc = db.GetTiaomaCountByJmsid(_LoginUser.id);
+            if (cc >= _LoginUser.TJiamengshang.tiaomashu)
+            {
+                throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员");
+            }
             db.InsertTiaoma(f);
 
             search();

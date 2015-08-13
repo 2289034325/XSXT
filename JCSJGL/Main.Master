@@ -26,6 +26,7 @@
                 <Items>
                     <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
                     <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_Jiamengshang.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>

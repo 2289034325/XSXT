@@ -11,10 +11,6 @@ namespace DB_JCSJ.Models.Mapping
             this.HasKey(t => t.id);
 
             // Properties
-            this.Property(t => t.jiancheng)
-                .IsRequired()
-                .HasMaxLength(10);
-
             this.Property(t => t.mingcheng)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -38,7 +34,7 @@ namespace DB_JCSJ.Models.Mapping
             // Table & Column Mappings
             this.ToTable("TGongyingshang");
             this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.jiancheng).HasColumnName("jiancheng");
+            this.Property(t => t.jmsid).HasColumnName("jmsid");
             this.Property(t => t.mingcheng).HasColumnName("mingcheng");
             this.Property(t => t.lianxiren).HasColumnName("lianxiren");
             this.Property(t => t.dianhua).HasColumnName("dianhua");
@@ -49,6 +45,9 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.xiugaishijian).HasColumnName("xiugaishijian");
 
             // Relationships
+            this.HasRequired(t => t.TJiamengshang)
+                .WithMany(t => t.TGongyingshangs)
+                .HasForeignKey(d => d.jmsid);
             this.HasRequired(t => t.TUser)
                 .WithMany(t => t.TGongyingshangs)
                 .HasForeignKey(d => d.caozuorenid);

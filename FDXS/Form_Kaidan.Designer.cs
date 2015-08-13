@@ -1,6 +1,6 @@
 ﻿namespace FDXS
 {
-    partial class Dlg_xiaoshou
+    partial class Form_Kaidan
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_kaidan = new System.Windows.Forms.DataGridView();
             this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +55,7 @@
             this.chk_gwml = new System.Windows.Forms.CheckBox();
             this.txb_tiaoma = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_zkview = new System.Windows.Forms.Button();
             this.lbl_jrxse = new System.Windows.Forms.Label();
             this.lbl_jrxl = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -82,7 +83,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txb_sjh = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_zkview = new System.Windows.Forms.Button();
+            this.btn_wutiaoma = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kaidan)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -99,14 +100,14 @@
             this.grid_kaidan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kaidan.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_kaidan.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.grid_kaidan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kaidan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tmid,
@@ -121,21 +122,21 @@
             this.col_ml,
             this.col_yingshou,
             this.col_bz});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle5;
             this.grid_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.grid_kaidan.Location = new System.Drawing.Point(0, 0);
             this.grid_kaidan.MultiSelect = false;
             this.grid_kaidan.Name = "grid_kaidan";
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.grid_kaidan.RowTemplate.Height = 23;
             this.grid_kaidan.Size = new System.Drawing.Size(662, 121);
             this.grid_kaidan.TabIndex = 0;
@@ -347,15 +348,16 @@
             // 
             // txb_tiaoma
             // 
-            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txb_tiaoma.Location = new System.Drawing.Point(138, 25);
+            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txb_tiaoma.Location = new System.Drawing.Point(67, 35);
             this.txb_tiaoma.Name = "txb_tiaoma";
-            this.txb_tiaoma.Size = new System.Drawing.Size(147, 30);
+            this.txb_tiaoma.Size = new System.Drawing.Size(117, 26);
             this.txb_tiaoma.TabIndex = 8;
             this.txb_tiaoma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txb_tiaoma_KeyDown);
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btn_wutiaoma);
             this.panel2.Controls.Add(this.btn_zkview);
             this.panel2.Controls.Add(this.lbl_jrxse);
             this.panel2.Controls.Add(this.lbl_jrxl);
@@ -380,6 +382,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(894, 103);
             this.panel2.TabIndex = 2;
+            // 
+            // btn_zkview
+            // 
+            this.btn_zkview.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zkview.Location = new System.Drawing.Point(363, 4);
+            this.btn_zkview.Name = "btn_zkview";
+            this.btn_zkview.Size = new System.Drawing.Size(84, 23);
+            this.btn_zkview.TabIndex = 20;
+            this.btn_zkview.Text = "折扣";
+            this.btn_zkview.UseVisualStyleBackColor = true;
+            this.btn_zkview.Click += new System.EventHandler(this.btn_zkview_Click);
             // 
             // lbl_jrxse
             // 
@@ -492,7 +505,7 @@
             // 
             this.cmb_xsy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_xsy.FormattingEnabled = true;
-            this.cmb_xsy.Location = new System.Drawing.Point(363, 32);
+            this.cmb_xsy.Location = new System.Drawing.Point(363, 39);
             this.cmb_xsy.Name = "cmb_xsy";
             this.cmb_xsy.Size = new System.Drawing.Size(84, 20);
             this.cmb_xsy.TabIndex = 18;
@@ -500,12 +513,12 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(291, 28);
+            this.label4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(288, 38);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 27);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 17;
-            this.label4.Text = "销售";
+            this.label4.Text = "销售员";
             // 
             // btn_hdzk
             // 
@@ -525,7 +538,7 @@
             this.dp_xssj.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dp_xssj.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dp_xssj.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_xssj.Location = new System.Drawing.Point(138, 58);
+            this.dp_xssj.Location = new System.Drawing.Point(138, 67);
             this.dp_xssj.Name = "dp_xssj";
             this.dp_xssj.ShowCheckBox = true;
             this.dp_xssj.Size = new System.Drawing.Size(309, 30);
@@ -534,22 +547,22 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(12, 59);
+            this.label5.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(13, 68);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 27);
+            this.label5.Size = new System.Drawing.Size(89, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "销售时间";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(12, 25);
+            this.label3.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(14, 38);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 27);
+            this.label3.Size = new System.Drawing.Size(49, 20);
             this.label3.TabIndex = 9;
-            this.label3.Text = "输入条码";
+            this.label3.Text = "条码";
             // 
             // splitContainer1
             // 
@@ -678,18 +691,18 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "手机号";
             // 
-            // btn_zkview
+            // btn_wutiaoma
             // 
-            this.btn_zkview.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zkview.Location = new System.Drawing.Point(363, 4);
-            this.btn_zkview.Name = "btn_zkview";
-            this.btn_zkview.Size = new System.Drawing.Size(84, 23);
-            this.btn_zkview.TabIndex = 20;
-            this.btn_zkview.Text = "折扣";
-            this.btn_zkview.UseVisualStyleBackColor = true;
-            this.btn_zkview.Click += new System.EventHandler(this.btn_zkview_Click);
+            this.btn_wutiaoma.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_wutiaoma.Location = new System.Drawing.Point(190, 36);
+            this.btn_wutiaoma.Name = "btn_wutiaoma";
+            this.btn_wutiaoma.Size = new System.Drawing.Size(84, 23);
+            this.btn_wutiaoma.TabIndex = 25;
+            this.btn_wutiaoma.Text = "无条码";
+            this.btn_wutiaoma.UseVisualStyleBackColor = true;
+            this.btn_wutiaoma.Click += new System.EventHandler(this.btn_wutiaoma_Click);
             // 
-            // Dlg_xiaoshou
+            // Form_Kaidan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -698,7 +711,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.KeyPreview = true;
-            this.Name = "Dlg_xiaoshou";
+            this.Name = "Form_Kaidan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "开单";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Dlg_xiaoshou_FormClosing);
@@ -771,5 +784,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_zkview;
+        private System.Windows.Forms.Button btn_wutiaoma;
     }
 }

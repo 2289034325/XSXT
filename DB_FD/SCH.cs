@@ -271,7 +271,7 @@ namespace DB_FD
         /// <returns></returns>
         public TXiaoshou[] GetXiaoshousByCond(string tmh, string kh, DateTime? start, DateTime? end)
         {
-            var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r=>r.TUser).AsQueryable();
+            var xss = _db.TXiaoshous.Include(r => r.TUser).Include(r => r.THuiyuan).Include(r => r.TTiaoma).AsQueryable();
             if (!string.IsNullOrEmpty(tmh))
             {
                 xss = xss.Where(r => r.TTiaoma.tiaoma == tmh);

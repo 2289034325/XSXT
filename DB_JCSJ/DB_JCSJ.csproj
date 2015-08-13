@@ -67,6 +67,7 @@
     <Compile Include="Models\Mapping\TGongyingshangMap.cs" />
     <Compile Include="Models\Mapping\THuiyuanMap.cs" />
     <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
     <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Models\TGongyingshang.cs" />
     <Compile Include="Models\THuiyuan.cs" />
     <Compile Include="Models\THuiyuanZK.cs" />
+    <Compile Include="Models\TJiamengshang.cs" />
     <Compile Include="Models\TKuanhao.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />
@@ -101,9 +103,6 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Context.tt" />
-    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Entity.tt" />
-    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Mapping.tt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

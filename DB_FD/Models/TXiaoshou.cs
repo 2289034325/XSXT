@@ -8,7 +8,7 @@ namespace DB_FD.Models
         public int id { get; set; }
         public System.DateTime xiaoshoushijian { get; set; }
         public string xiaoshouyuan { get; set; }
-        public int tiaomaid { get; set; }
+        public Nullable<int> tiaomaid { get; set; }
         public Nullable<int> huiyuanid { get; set; }
         public short shuliang { get; set; }
         public decimal danjia { get; set; }

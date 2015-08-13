@@ -15,15 +15,6 @@ namespace DB_FD.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(5);
 
-            this.Property(t => t.danjia)
-                .HasPrecision(6,2);
-
-            this.Property(t => t.zhekou)
-                .HasPrecision(4,2);
-
-            this.Property(t => t.moling)
-                .HasPrecision(6,2);
-
             this.Property(t => t.beizhu)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -49,7 +40,7 @@ namespace DB_FD.Models.Mapping
             this.HasOptional(t => t.THuiyuan)
                 .WithMany(t => t.TXiaoshous)
                 .HasForeignKey(d => d.huiyuanid);
-            this.HasRequired(t => t.TTiaoma)
+            this.HasOptional(t => t.TTiaoma)
                 .WithMany(t => t.TXiaoshous)
                 .HasForeignKey(d => d.tiaomaid);
             this.HasRequired(t => t.TUser)

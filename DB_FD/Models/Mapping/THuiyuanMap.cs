@@ -22,9 +22,6 @@ namespace DB_FD.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(5);
 
-            this.Property(t => t.jifen)
-                .HasPrecision(10,2);
-
             // Table & Column Mappings
             this.ToTable("THuiyuan");
             this.Property(t => t.id).HasColumnName("id");

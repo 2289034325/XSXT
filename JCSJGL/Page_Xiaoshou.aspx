@@ -33,6 +33,7 @@
             <asp:BoundField DataField="jiage" HeaderText="价格"></asp:BoundField>
             <asp:BoundField DataField="huiyuan" HeaderText="会员"></asp:BoundField>
             <asp:BoundField DataField="xiaoshouyuan" HeaderText="销售员"></asp:BoundField>
+            <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="xiaoshoushijian" HeaderText="销售时间"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
         </Columns>

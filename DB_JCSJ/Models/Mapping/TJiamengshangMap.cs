@@ -3,9 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DB_JCSJ.Models.Mapping
 {
-    public class TCangkuMap : EntityTypeConfiguration<TCangku>
+    public class TJiamengshangMap : EntityTypeConfiguration<TJiamengshang>
     {
-        public TCangkuMap()
+        public TJiamengshangMap()
         {
             // Primary Key
             this.HasKey(t => t.id);
@@ -13,11 +13,7 @@ namespace DB_JCSJ.Models.Mapping
             // Properties
             this.Property(t => t.mingcheng)
                 .IsRequired()
-                .HasMaxLength(10);
-
-            this.Property(t => t.dizhi)
-                .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(20);
 
             this.Property(t => t.lianxiren)
                 .IsRequired()
@@ -29,14 +25,25 @@ namespace DB_JCSJ.Models.Mapping
 
             this.Property(t => t.beizhu)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100);
 
             // Table & Column Mappings
-            this.ToTable("TCangku");
+            this.ToTable("TJiamengshang");
             this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.jmsid).HasColumnName("jmsid");
             this.Property(t => t.mingcheng).HasColumnName("mingcheng");
-            this.Property(t => t.dizhi).HasColumnName("dizhi");
+            this.Property(t => t.zhanghaoshu).HasColumnName("zhanghaoshu");
+            this.Property(t => t.tiaomashu).HasColumnName("tiaomashu");
+            this.Property(t => t.huiyuanshu).HasColumnName("huiyuanshu");
+            this.Property(t => t.fendianshu).HasColumnName("fendianshu");
+            this.Property(t => t.kuanhaoshu).HasColumnName("kuanhaoshu");
+            this.Property(t => t.cangkushu).HasColumnName("cangkushu");
+            this.Property(t => t.gongyingshangshu).HasColumnName("gongyingshangshu");
+            this.Property(t => t.xsjilushu).HasColumnName("xsjilushu");
+            this.Property(t => t.jchjilushu).HasColumnName("jchjilushu");
+            this.Property(t => t.kcjilushu).HasColumnName("kcjilushu");
+            this.Property(t => t.shoucifufei).HasColumnName("shoucifufei");
+            this.Property(t => t.xufeidanjia).HasColumnName("xufeidanjia");
+            this.Property(t => t.jiezhiriqi).HasColumnName("jiezhiriqi");
             this.Property(t => t.lianxiren).HasColumnName("lianxiren");
             this.Property(t => t.dianhua).HasColumnName("dianhua");
             this.Property(t => t.beizhu).HasColumnName("beizhu");
@@ -45,11 +52,8 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.xiugaishijian).HasColumnName("xiugaishijian");
 
             // Relationships
-            this.HasRequired(t => t.TJiamengshang)
-                .WithMany(t => t.TCangkus)
-                .HasForeignKey(d => d.jmsid);
             this.HasRequired(t => t.TUser)
-                .WithMany(t => t.TCangkus)
+                .WithMany(t => t.TJiamengshangs)
                 .HasForeignKey(d => d.caozuorenid);
 
         }

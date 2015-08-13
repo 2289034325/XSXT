@@ -17,18 +17,18 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_xiaoshou : MyForm
+    public partial class Form_Kaidan : MyForm
     {
-        private string _startTM;
+        //private string _startTM;
         private List<TXiaoshou> _XSS;
         private THuiyuan _Huiyuan;
         //private decimal _huiyuanZK;
         private bool _mlAuto;
 
-        public Dlg_xiaoshou(string tm)
+        public Form_Kaidan()
         {
             InitializeComponent();
-            _startTM = tm;
+            //_startTM = tm;
             _XSS = new List<TXiaoshou>();
             _Huiyuan = null;
             //_huiyuanZK = 10;
@@ -98,17 +98,17 @@ namespace FDXS
         {
             grid_kaidan.Rows.Add(new object[] 
             {
-                xs.TTiaoma.id,
-                xs.TTiaoma.tiaoma,
-                xs.TTiaoma.kuanhao,
-                xs.TTiaoma.pinming,
-                xs.TTiaoma.yanse,
-                xs.TTiaoma.chima,
+                xs.TTiaoma == null?null:xs.tiaomaid,
+                xs.TTiaoma == null?"":xs.TTiaoma.tiaoma,
+                xs.TTiaoma == null?"":xs.TTiaoma.kuanhao,
+                xs.TTiaoma == null?"":xs.TTiaoma.pinming,
+                xs.TTiaoma == null?"":xs.TTiaoma.yanse,
+                xs.TTiaoma == null?"":xs.TTiaoma.chima,
                 xs.shuliang,
                 xs.danjia,
                 xs.zhekou,
                 xs.moling,
-                decimal.Round(xs.danjia*xs.shuliang*xs.zhekou/10-xs.moling,2),
+                xs.jine,
                 xs.beizhu
             });
         }
@@ -160,37 +160,37 @@ namespace FDXS
             refreshJinriXS();
 
             //如果是传入了条码的构造
-            if (!string.IsNullOrEmpty(_startTM))
-            {
-                //加入一行
-                TTiaoma t = db.GetTiaomaByTmh(_startTM);
-                if (t == null)
-                {
-                    MessageBox.Show("该条码不存在");
-                    return;
-                }
+            //if (!string.IsNullOrEmpty(_startTM))
+            //{
+            //    //加入一行
+            //    TTiaoma t = db.GetTiaomaByTmh(_startTM);
+            //    if (t == null)
+            //    {
+            //        MessageBox.Show("该条码不存在");
+            //        return;
+            //    }
 
-                TXiaoshou xs = new TXiaoshou
-                {
-                    TTiaoma = new TTiaoma
-                    {
-                        id = t.id,
-                        tiaoma = t.tiaoma,
-                        kuanhao = t.kuanhao,
-                        pinming = t.pinming,
-                        yanse = t.yanse,
-                        chima = t.chima
-                    },
-                    tiaomaid = t.id,
-                    danjia = t.shoujia,
-                    shuliang = 1,
-                    zhekou = Settings.Default.GDZK,
-                    moling = 0,
-                    beizhu = ""
-                };
+            //    TXiaoshou xs = new TXiaoshou
+            //    {
+            //        TTiaoma = new TTiaoma
+            //        {
+            //            id = t.id,
+            //            tiaoma = t.tiaoma,
+            //            kuanhao = t.kuanhao,
+            //            pinming = t.pinming,
+            //            yanse = t.yanse,
+            //            chima = t.chima
+            //        },
+            //        tiaomaid = t.id,
+            //        danjia = t.shoujia,
+            //        shuliang = 1,
+            //        zhekou = Settings.Default.GDZK,
+            //        moling = 0,
+            //        beizhu = ""
+            //    };
 
-                addKaidan(xs);
-            }
+            //    addKaidan(xs);
+            //}
         }
 
         /// <summary>
@@ -325,12 +325,19 @@ namespace FDXS
             DBContext db = IDB.GetDB();
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
-                int tmid = (int)dr.Cells[col_tmid.Name].Value;
+                int? tmid = null;
+                if (dr.Cells[col_tmid.Name].Value != null)
+                {
+                    if (!string.IsNullOrEmpty(dr.Cells[col_tmid.Name].Value.ToString().Trim()))
+                    {
+                        tmid = (int)dr.Cells[col_tmid.Name].Value;
+                    }
+                }
                 decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
                 short sl = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
                 decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
                 decimal ml = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
-                string bz = dr.Cells[col_zk.Name].Value.ToString();
+                string bz = dr.Cells[col_bz.Name].Value.ToString();
                 string pm = dr.Cells[col_pm.Name].Value.ToString();
                 decimal yingshou = decimal.Parse(dr.Cells[col_yingshou.Name].Value.ToString());
 
@@ -352,13 +359,18 @@ namespace FDXS
                 //    return;
                 //}
 
-                //检查库存数量是否足够
-                VKucun vx = db.GetKucunByTiaomaId(tmid);
-                if (vx.shuliang < sl)
+                //未知条码不检测库存
+                if (tmid != null)
                 {
-                    MessageBox.Show(pm + "库存不足");
-                    return;
+                    //检查库存数量是否足够
+                    VKucun vx = db.GetKucunByTiaomaId(tmid.Value);
+                    if (vx.shuliang < sl)
+                    {
+                        MessageBox.Show(pm + "库存不足");
+                        return;
+                    }
                 }
+
 
                 TXiaoshou x = new TXiaoshou
                 {
@@ -459,8 +471,8 @@ namespace FDXS
             yPosition += cH;
             foreach (TXiaoshou x in _XSS)
             {
-                string tiaoma = x.TTiaoma.tiaoma;
-                string pinming = x.TTiaoma.pinming;
+                string tiaoma = x.TTiaoma == null ? "" : x.TTiaoma.tiaoma;
+                string pinming = x.TTiaoma == null ? "" : x.TTiaoma.pinming;
                 short shuliang = x.shuliang;
                 decimal danjia = x.danjia;
                 decimal jine = x.jine;
@@ -875,6 +887,36 @@ namespace FDXS
                 btn_8z.Visible = true;
                 btn_85z.Visible = true;
                 btn_9z.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// 无条码商品开单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_wutiaoma_Click(object sender, EventArgs e)
+        {
+
+            Dlg_Wutiaoma dw = new Dlg_Wutiaoma();
+            if (dw.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string pm = dw.pm;
+                string ys = dw.ys;
+                string cm = dw.cm;
+                decimal dj = dw.dj;
+
+                TXiaoshou xs = new TXiaoshou
+                {
+                    tiaomaid = null,
+                    danjia = dj,
+                    shuliang = 1,
+                    zhekou = Settings.Default.GDZK,
+                    moling = 0,
+                    beizhu = string.Format("{0}-{1}-{2}", pm, ys, cm)
+                };
+
+                addKaidan(xs);
             }
         }
     }

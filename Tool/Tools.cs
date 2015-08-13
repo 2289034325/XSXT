@@ -74,6 +74,24 @@ namespace Tool
             return ret;
         }
 
+
+        /// <summary>
+        /// 将枚举转换成字典
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Dictionary<string, byte> GetDicFromEnum(Type t)
+        {
+            Dictionary<string, byte> dic = new Dictionary<string, byte>();
+            Array vs = Enum.GetValues(t);
+            foreach (Enum v in vs)
+            {
+                dic.Add(Enum.GetName(t, v), Convert.ToByte(v));
+            }
+
+            return dic;
+        }
+
         /// <summary>
         /// 将枚举类型做成一个DataTable
         /// </summary>
@@ -147,6 +165,25 @@ namespace Tool
             Cmb.DisplayMember = "Text";
             Cmb.ValueMember = "Value";
             Cmb.DataSource = dt;
+        }
+        public static void InitDropDownList(DropDownList Cmb, Dictionary<string,byte> dic)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Text", typeof(string));
+            dt.Columns.Add("Value", typeof(byte));
+            
+            foreach (KeyValuePair<string,byte> p in dic)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Text"] = p.Key;
+                dr["Value"] = p.Value;
+                dt.Rows.Add(dr);
+            }
+
+            Cmb.DataTextField = "Text";
+            Cmb.DataValueField = "Value";
+            Cmb.DataSource = dt;
+            Cmb.DataBind();
         }
         public static void InitDropDownList(DropDownList Cmb, Type type)
         {

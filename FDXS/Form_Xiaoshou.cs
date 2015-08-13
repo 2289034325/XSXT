@@ -18,14 +18,14 @@ namespace FDXS
     public partial class Form_Xiaoshou : MyForm
     {
         //开单对话框
-        private Dlg_xiaoshou _dlgKaidan;
+        //private Dlg_xiaoshou _dlgKaidan;
         //开单数据
         //private List<TXiaoshou> _XSS;
 
         public Form_Xiaoshou()
         {
             InitializeComponent();
-            _dlgKaidan = null;
+            //_dlgKaidan = null;
             //_XSS = null;
         }
 
@@ -35,22 +35,22 @@ namespace FDXS
         /// <param name="tm"></param>
         public override void OnScan(string tm)
         {
-            if (_dlgKaidan != null)
-            {
-                _dlgKaidan.OnScan(tm);
-            }
-            else
-            {
-                //打开开单对话框
-                Dlg_xiaoshou dx = new Dlg_xiaoshou(tm);
-                _dlgKaidan = dx; 
-                if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    //xiaoshouDlgOK(dx.XSS,dx.Huiyuan);
-                    btn_sch_Click(null, null);
-                }
-                _dlgKaidan = null;
-            }
+            //if (_dlgKaidan != null)
+            //{
+            //    _dlgKaidan.OnScan(tm);
+            //}
+            //else
+            //{
+            //    //打开开单对话框
+            //    Dlg_xiaoshou dx = new Dlg_xiaoshou(tm);
+            //    _dlgKaidan = dx; 
+            //    if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        //xiaoshouDlgOK(dx.XSS,dx.Huiyuan);
+            //        btn_sch_Click(null, null);
+            //    }
+            //    _dlgKaidan = null;
+            //}
         }
 
         
@@ -112,14 +112,14 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_kd_Click(object sender, EventArgs e)
         {
-                Dlg_xiaoshou dx = new Dlg_xiaoshou(null);
-                _dlgKaidan = dx;
-                if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    //xiaoshouDlgOK(dx.XSS, dx.Huiyuan);
-                    btn_sch_Click(null, null);
-                }
-                _dlgKaidan = null;
+                //Dlg_xiaoshou dx = new Dlg_xiaoshou(null);
+                //_dlgKaidan = dx;
+                //if (dx.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //{
+                //    //xiaoshouDlgOK(dx.XSS, dx.Huiyuan);
+                //    btn_sch_Click(null, null);
+                //}
+                //_dlgKaidan = null;
         }
 
         /// <summary>
@@ -131,12 +131,12 @@ namespace FDXS
             grid_xs.Rows.Insert(0,new object[] 
             {
                 x.id,
-                x.TTiaoma.tiaoma,
-                x.TTiaoma.kuanhao,
-                x.TTiaoma.gyskuanhao,
-                x.TTiaoma.pinming,
-                x.TTiaoma.yanse,
-                x.TTiaoma.chima,
+                x.TTiaoma== null?"":x.TTiaoma.tiaoma,
+                x.TTiaoma== null?"":x.TTiaoma.kuanhao,
+                x.TTiaoma== null?"":x.TTiaoma.gyskuanhao,
+                x.TTiaoma== null?"":x.TTiaoma.pinming,
+                x.TTiaoma== null?"":x.TTiaoma.yanse,
+                x.TTiaoma== null?"":x.TTiaoma.chima,
                 x.danjia,
                 x.shuliang,
                 x.zhekou,
@@ -146,7 +146,8 @@ namespace FDXS
                 //销售员
                 x.xiaoshouyuan,
                 x.xiaoshoushijian,
-                x.shangbaoshijian
+                x.shangbaoshijian,
+                x.beizhu
             });
 
             refreshTotal();
@@ -193,13 +194,16 @@ namespace FDXS
                 return;
             }
 
-            //检查是否会导致库存数量为负，因为有可能删除的是退货记录，销售数量为负数
-            VKucun kc = db.GetKucunByTiaomaId(x.tiaomaid);
-            if (kc.shuliang + x.shuliang < 0)
+            if (x.tiaomaid != null)
             {
-                e.Cancel = true;
-                MessageBox.Show("删除后会导致库存数量为负数");
-                return;
+                //检查是否会导致库存数量为负，因为有可能删除的是退货记录，销售数量为负数
+                VKucun kc = db.GetKucunByTiaomaId(x.tiaomaid.Value);
+                if (kc.shuliang + x.shuliang < 0)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("删除后会导致库存数量为负数");
+                    return;
+                }
             }
         }
 

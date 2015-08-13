@@ -16,9 +16,10 @@ namespace DB_JCSJ.Models
         }
 
         public int id { get; set; }
+        public int jmsid { get; set; }
+        public string dianming { get; set; }
         public byte fzxingbie { get; set; }
         public byte fzleixing { get; set; }
-        public string dianming { get; set; }
         public short mianji { get; set; }
         public short keliuliang { get; set; }
         public byte dangci { get; set; }
@@ -35,6 +36,7 @@ namespace DB_JCSJ.Models
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
+        public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TFendianJinchuhuo> TFendianJinchuhuos { get; set; }
         public virtual ICollection<TFendianKucun> TFendianKucuns { get; set; }

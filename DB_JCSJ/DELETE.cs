@@ -111,6 +111,19 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 删除一个加盟商信息
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteJiamengshang(int id)
+            {
+                TJiamengshang j = _db.TJiamengshangs.Single(r => r.id == id);
+
+                _db.TJiamengshangs.Remove(j);
+
+                _db.SaveChanges();
+            }
         }
     }
 

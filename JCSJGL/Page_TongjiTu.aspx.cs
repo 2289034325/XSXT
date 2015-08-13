@@ -41,7 +41,7 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendians();
+                TFendian[] fs = db.GetFendiansAsItems();
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0,"");
 
@@ -161,7 +161,13 @@ namespace JCSJGL
             {
                 //退货的不统计
                 var data = xss.Where(r => r.shuliang > 0).
-                    Select(r => new { danjia = getJiageStr(50, 500, r.jine / r.shuliang), r.shuliang, r.jine, r.TTiaoma.jinjia }).
+                    Select(r => new
+                    {
+                        danjia = getJiageStr(50, 500, r.jine / r.shuliang),
+                        r.shuliang,
+                        r.jine,
+                        jinjia = r.TTiaoma == null ? (r.jine / 2) : r.TTiaoma.jinjia
+                    }).
                     GroupBy(r => r.danjia).Select(r => new
                     {
                         X = r.Key,
@@ -200,7 +206,7 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? "" : r.TTiaoma.yanse).
                     Select(r => new
                     {
                         X = r.Key,
@@ -226,7 +232,7 @@ namespace JCSJGL
                     Select(r => new
                     {
                         X = r.Key,
-                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
                     }).OrderByDescending(r => r.Y);
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
@@ -261,7 +267,7 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
                     Select(r => new
                     {
                         X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
@@ -287,7 +293,7 @@ namespace JCSJGL
                     Select(r => new
                     {
                         X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
                     }).OrderByDescending(r => r.Y);
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
@@ -315,6 +321,9 @@ namespace JCSJGL
 
         private Chart makeWeekChart(TXiaoshou[] xss)
         {
+            DateTime startDate = xss.Min(r => r.xiaoshoushijian);
+            DateTime endDate = xss.Max(r => r.xiaoshoushijian);
+
             byte yType = byte.Parse(cmb_y.SelectedValue);
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
@@ -326,8 +335,13 @@ namespace JCSJGL
                         ws = (int)r.Key.DayOfWeek,
                         Y = r.Sum(rx => rx.shuliang)
                     }).GroupBy(r => new { r.wn, r.ws }).
-                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                    OrderBy(r => r.xn).ToList();
+                    Select(r => new
+                    {
+                        X = r.Key.wn,
+                        xn = r.Key.ws,
+                        //Y = Math.Round(r.Average(rr => rr.Y), 2)
+                        Y = decimal.Round(r.Sum(rr=>rr.Y)/getWCountInTimeSpan(startDate,endDate,r.Key.ws), 2)
+                    }).OrderBy(r => r.xn).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -340,8 +354,13 @@ namespace JCSJGL
                         ws = (int)r.Key.DayOfWeek,
                         Y = r.Sum(rx => rx.jine)
                     }).GroupBy(r => new { r.wn, r.ws }).
-                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                    OrderBy(r => r.xn).ToList();
+                    Select(r => new
+                    {
+                        X = r.Key.wn,
+                        xn = r.Key.ws,
+                        //Y = Math.Round(r.Average(rr => rr.Y), 2)
+                        Y = decimal.Round(r.Sum(rr => rr.Y) / getWCountInTimeSpan(startDate, endDate, r.Key.ws), 2)
+                    }).OrderBy(r => r.xn).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -352,10 +371,15 @@ namespace JCSJGL
                     {
                         wn = r.Key.DayOfWeek.ToString(),
                         ws = (int)r.Key.DayOfWeek,
-                        Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
                     }).GroupBy(r => new { r.wn, r.ws }).
-                    Select(r => new { X = r.Key.wn, xn = r.Key.ws, Y = Math.Round(r.Average(rr => rr.Y), 1) }).
-                    OrderBy(r => r.xn).ToList();
+                    Select(r => new
+                    {
+                        X = r.Key.wn,
+                        xn = r.Key.ws,
+                        //Y = Math.Round(r.Average(rr => rr.Y), 1)
+                        Y = decimal.Round(r.Sum(rr => rr.Y) / getWCountInTimeSpan(startDate, endDate, r.Key.ws), 2)
+                    }).OrderBy(r => r.xn).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -376,8 +400,33 @@ namespace JCSJGL
             return cht;
         }
 
+        /// <summary>
+        /// 计算一个时间段之内，有多少个星期几
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private int getWCountInTimeSpan(DateTime startDate, DateTime endDate, int w)
+        {
+            int c = 0;
+            for (DateTime dt = startDate.Date; dt <= endDate.Date; dt=dt.AddDays(1))
+            {
+                if ((int)dt.DayOfWeek == w)
+                {
+                    c++;
+                }
+            }
+
+            return c;
+        }
+
         private Chart makeHourChart(TXiaoshou[] xss)
         {
+            DateTime startDate = xss.Min(r => r.xiaoshoushijian);
+            DateTime endDate = xss.Max(r => r.xiaoshoushijian);
+            int div = (endDate - startDate).Days;
+
             byte yType = byte.Parse(cmb_y.SelectedValue);
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
@@ -389,8 +438,12 @@ namespace JCSJGL
                        X = r.Key.hour,
                        Y = r.Sum(rx => rx.shuliang)
                    }).GroupBy(r => r.X).
-                   Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                   OrderBy(r => r.X).ToList();
+                   Select(r => new
+                   {
+                       X = r.Key,
+                       //Y = Math.Round(r.Average(rr => rr.Y), 2)
+                       Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
+                   }).OrderBy(r => r.X).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -403,8 +456,12 @@ namespace JCSJGL
                        X = r.Key.hour,
                        Y = r.Sum(rx => rx.jine)
                    }).GroupBy(r => r.X).
-                   Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                   OrderBy(r => r.X).ToList();
+                   Select(r => new
+                   {
+                       X = r.Key,
+                       //Y = Math.Round(r.Average(rr => rr.Y), 2)                       
+                       Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
+                   }).OrderBy(r => r.X).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -415,10 +472,14 @@ namespace JCSJGL
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                    Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
                 }).GroupBy(r => r.X).
-                Select(r => new { X = r.Key, Y = Math.Round(r.Average(rr => rr.Y), 2) }).
-                OrderBy(r => r.X).ToList();
+                Select(r => new
+                {
+                    X = r.Key,
+                    //Y = Math.Round(r.Average(rr => rr.Y), 2)
+                    Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
+                }).OrderBy(r => r.X).ToList();
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
             }
@@ -460,7 +521,11 @@ namespace JCSJGL
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
                 var data = xss.GroupBy(r => r.xiaoshoushijian.Date).
-                    Select(r => new { X = r.Key, Y = Math.Round(r.Sum(rx => rx.jine - rx.TTiaoma.jinjia * rx.shuliang), 2) }).OrderBy(r => r.X).ToList();
+                    Select(r => new
+                    {
+                        X = r.Key,
+                        Y = Math.Round(r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang), 2)
+                    }).OrderBy(r => r.X).ToList();
                 dt = Tool.CommonFunc.LINQToDataTable(data); 
             }
 
@@ -526,8 +591,18 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var data = xss.Select(r => new { lirun = (r.jine - r.TTiaoma.jinjia * r.shuliang), month = new DateTime(r.xiaoshoushijian.Year, r.xiaoshoushijian.Month, 1), xun = getXun(r.xiaoshoushijian) }).
-                    GroupBy(r => new { r.month, r.xun }).Select(r => new { X = r.Key.month, r.Key.xun, Y = Math.Round(r.Sum(rx => rx.lirun), 2) }).
+                var data = xss.Select(r => new
+                {
+                    lirun = (r.TTiaoma == null ? (r.jine / 2) : r.jine - r.TTiaoma.jinjia * r.shuliang),
+                    month = new DateTime(r.xiaoshoushijian.Year, r.xiaoshoushijian.Month, 1),
+                    xun = getXun(r.xiaoshoushijian)
+                }).
+                    GroupBy(r => new { r.month, r.xun }).Select(r => new
+                    {
+                        X = r.Key.month,
+                        r.Key.xun,
+                        Y = Math.Round(r.Sum(rx => rx.lirun), 2)
+                    }).
                     OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
                 dt = Tool.CommonFunc.LINQToDataTable(data);
                 dt_s = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "上旬"));

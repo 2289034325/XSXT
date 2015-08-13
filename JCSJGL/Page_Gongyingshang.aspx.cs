@@ -9,14 +9,18 @@ using System.Web.UI.WebControls;
 
 namespace JCSJGL
 {
-    public partial class Page_Gongyingshang : System.Web.UI.Page
+    public partial class Page_Gongyingshang : MyPage
     {
+        public Page_Gongyingshang()
+        {
+            _PageName = PageName.供应商信息;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             //初始化
             if (!IsPostBack)
             {
-                //加载所有供应商信息
+                //加载供应商信息
                 loadGongyingshangs();
             }
             else
@@ -39,7 +43,14 @@ namespace JCSJGL
         /// <param name="id"></param>
         private void deleteGongyingshang(int id)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
             DBContext db = new DBContext();
+            TGongyingshang og = db.GetGongyingshangById(id);
+            if (og.jmsid != _LoginUser.jmsid)
+            {
+                throw new MyException("非法操作，无法删除该供应商");
+            }
             db.DeleteGongyingshang(id);
 
             loadGongyingshangs();
@@ -51,20 +62,33 @@ namespace JCSJGL
         private void loadGongyingshangs()
         {
             DBContext db = new DBContext();
-            TGongyingshang[] cs = db.GetGongyingshangs();
+            TGongyingshang[] cs =null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                cs = db.GetGongyingshangs();
+                grid_gys.Columns.Insert(1, new BoundField()
+                {
+                    HeaderText = "加盟商",
+                    DataField = "jiamengshang"
+                });
+            }
+            else
+            {
+                cs = db.GetGongyingshangsByJmsId(_LoginUser.jmsid);
+            }
+
             var dfs = cs.Select(r => new
             {
                 id = r.id,
-                jiancheng = r.jiancheng,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 mingcheng = r.mingcheng,
                 lianxiren = r.lianxiren,
                 dianhua = r.dianhua,
                 dizhi = r.dizhi,
                 beizhu = r.beizhu,
-                caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.jiancheng + "','" + r.mingcheng + "','" + r.lianxiren + "','" + r.dianhua + "','" + r.dizhi + "','" + r.beizhu + "'"
+                editParams = r.id + ",'" + r.mingcheng + "','" + r.lianxiren + "','" + r.dianhua + "','" + r.dizhi + "','" + r.beizhu + "'"
             });
 
             grid_gys.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -78,12 +102,19 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             TGongyingshang f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TGongyingshang og = db.GetGongyingshangById(f.id);
+            if (og.jmsid != _LoginUser.jmsid)
+            {
+                throw new MyException("非法操作，无法修改此供应商信息");
+            }
             db.UpdateGongyingshang(f);
 
             loadGongyingshangs();
@@ -95,7 +126,6 @@ namespace JCSJGL
         /// <returns></returns>
         private TGongyingshang getEditInfo()
         {
-            string jc = txb_jc.Text.Trim();
             string mc = txb_mc.Text.Trim();
             string dz = txb_dz.Text.Trim();
             string lxr = txb_lxr.Text.Trim();
@@ -104,7 +134,6 @@ namespace JCSJGL
 
             TGongyingshang f = new TGongyingshang
             {
-                jiancheng = jc,
                 mingcheng = mc,
                 dizhi = dz,
                 lianxiren = lxr,
@@ -122,12 +151,20 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             TGongyingshang f = getEditInfo();
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.jmsid = _LoginUser.jmsid;
+            f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TGongyingshang[] gs = db.GetGongyingshangsByJmsId(_LoginUser.jmsid);
+            if (gs.Count() >= _LoginUser.TJiamengshang.gongyingshangshu)
+            {
+                throw new MyException("拥有的供应商数量已到上限，如有需要增加更多供应商请联系系统管理员");
+            }
             db.InsertGongyingshang(f);
 
             loadGongyingshangs();

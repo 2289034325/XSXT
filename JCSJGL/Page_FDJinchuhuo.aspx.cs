@@ -18,7 +18,7 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendians();
+                TFendian[] fs = db.GetFendiansAsItems();
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0,"");
 

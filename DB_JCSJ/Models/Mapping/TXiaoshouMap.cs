@@ -15,6 +15,10 @@ namespace DB_JCSJ.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(5);
 
+            this.Property(t => t.beizhu)
+                .IsRequired()
+                .HasMaxLength(100);
+
             // Table & Column Mappings
             this.ToTable("TXiaoshou");
             this.Property(t => t.id).HasColumnName("id");
@@ -28,6 +32,7 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.danjia).HasColumnName("danjia");
             this.Property(t => t.zhekou).HasColumnName("zhekou");
             this.Property(t => t.moling).HasColumnName("moling");
+            this.Property(t => t.beizhu).HasColumnName("beizhu");
             this.Property(t => t.shangbaoshijian).HasColumnName("shangbaoshijian");
 
             // Relationships
@@ -37,7 +42,7 @@ namespace DB_JCSJ.Models.Mapping
             this.HasOptional(t => t.THuiyuan)
                 .WithMany(t => t.TXiaoshous)
                 .HasForeignKey(d => d.huiyuanid);
-            this.HasRequired(t => t.TTiaoma)
+            this.HasOptional(t => t.TTiaoma)
                 .WithMany(t => t.TXiaoshous)
                 .HasForeignKey(d => d.tiaomaid);
 

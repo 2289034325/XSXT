@@ -98,7 +98,7 @@ namespace FDXS
                 BackUpDB();     
 
                 //关机
-                System.Diagnostics.Process.Start("shutdown.exe", "-f -s -t 1");
+                //System.Diagnostics.Process.Start("shutdown.exe", "-f -s -t 1");
             }
             catch (Exception ex)
             {
@@ -127,7 +127,8 @@ namespace FDXS
             JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX
             {
                 tiaomaid = r.id,
-                shuliang = r.shuliang
+                shuliang = r.shuliang,
+                jinhuoriqi = r.jinhuoriqi.Value
             }).ToArray();
 
             //调用服务接口
@@ -159,7 +160,7 @@ namespace FDXS
                 danjia = r.danjia,
                 zhekou = r.zhekou,
                 moling = r.moling,
-                jine = r.jine
+                beizhu = r.beizhu
             }).ToArray();
 
             //调用服务接口

@@ -14,11 +14,11 @@
         }
 
         //修改密码
-        function EditPsw(id)
-        {
-            $("#hid_opt").val("EDITPSW");
-            $("#hid_id").val(id);
-        }
+        //function EditPsw(id)
+        //{
+        //    $("#hid_opt").val("EDITPSW");
+        //    $("#hid_id").val(id);
+        //}
         //删除
         function Delete(id)
         {
@@ -40,7 +40,7 @@
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改资料"></input><input type="submit" onclick="    EditPsw(<%# Eval("id")%>)" value="修改密码"></input><input type="submit" onclick="    Delete(<%# Eval("id")%>)" value="删除"></input>
+                    <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input><input type="submit" onclick="    Delete(<%# Eval("id")%>)" value="删除"></input>
                 </ItemTemplate>
             </asp:TemplateField>
 

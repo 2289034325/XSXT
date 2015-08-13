@@ -11,6 +11,7 @@ namespace DB_JCSJ.Models
         }
 
         public int id { get; set; }
+        public int jmsid { get; set; }
         public string kuanhao { get; set; }
         public byte leixing { get; set; }
         public byte xingbie { get; set; }
@@ -19,6 +20,7 @@ namespace DB_JCSJ.Models
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
+        public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
     }

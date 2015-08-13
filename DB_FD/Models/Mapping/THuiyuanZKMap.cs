@@ -11,12 +11,6 @@ namespace DB_FD.Models.Mapping
             this.HasKey(t => t.id);
 
             // Properties
-            this.Property(t => t.jifen)
-                .HasPrecision(10,2);
-
-            this.Property(t => t.zhekou)
-                .HasPrecision(4,2);
-
             // Table & Column Mappings
             this.ToTable("THuiyuanZK");
             this.Property(t => t.id).HasColumnName("id");

@@ -55,6 +55,7 @@
             this.col_xsy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xssj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_beizhu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_xs)).BeginInit();
             this.SuspendLayout();
@@ -184,7 +185,8 @@
             this.col_jg,
             this.col_xsy,
             this.col_xssj,
-            this.col_sbsj});
+            this.col_sbsj,
+            this.col_beizhu});
             this.grid_xs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_xs.Location = new System.Drawing.Point(0, 32);
             this.grid_xs.Name = "grid_xs";
@@ -286,6 +288,12 @@
             this.col_sbsj.Name = "col_sbsj";
             this.col_sbsj.ReadOnly = true;
             // 
+            // col_beizhu
+            // 
+            this.col_beizhu.HeaderText = "备注";
+            this.col_beizhu.Name = "col_beizhu";
+            this.col_beizhu.ReadOnly = true;
+            // 
             // Form_Xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -316,6 +324,7 @@
         private System.Windows.Forms.DateTimePicker dp_start;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btn_kd;
+        private System.Windows.Forms.Button btn_shangbao;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
@@ -331,6 +340,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xsy;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xssj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sbsj;
-        private System.Windows.Forms.Button btn_shangbao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_beizhu;
     }
 }

@@ -18,7 +18,7 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendians();
+                TFendian[] fs = db.GetFendiansAsItems();
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0,"");
 
@@ -92,21 +92,23 @@ namespace JCSJGL
             var xs = xss.Select(r => new
             {
                 fendian = r.TFendian.dianming,
-                r.TTiaoma.TKuanhao.kuanhao,
-                leixing = (Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing,
-                r.TTiaoma.TKuanhao.pinming,
-                r.TTiaoma.tiaoma,
-                r.TTiaoma.yanse,
-                r.TTiaoma.chima,
+                kuanhao = r.TTiaoma==null?"":r.TTiaoma.TKuanhao.kuanhao,
+                leixing = r.TTiaoma == null ? "" : ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing).ToString(),
+                pinming = r.TTiaoma == null ? "" : r.TTiaoma.TKuanhao.pinming,
+                tiaoma = r.TTiaoma == null ? "" : r.TTiaoma.tiaoma,
+                yanse = r.TTiaoma == null ? "" : r.TTiaoma.yanse,
+                chima = r.TTiaoma == null ? "" : r.TTiaoma.chima,
                 r.shuliang,
                 r.danjia,
                 r.zhekou,
                 r.moling,
-                jiage = decimal.Round(r.shuliang * r.danjia * r.zhekou / 10 - r.moling, 2),
-                huiyuan = r.THuiyuan == null ? "" : "√",
+                jiage = r.jine,
+                huiyuan = r.THuiyuan == null ? "" :r.THuiyuan.shoujihao,
                 r.xiaoshouyuan,
                 r.xiaoshoushijian,
-                r.shangbaoshijian
+                r.shangbaoshijian,
+                r.beizhu
+                
             });
 
             grid_xiaoshou.VirtualItemCount = recordCount;

@@ -9,8 +9,13 @@ using System.Web.UI.WebControls;
 
 namespace JCSJGL
 {
-    public partial class Page_Fendian : System.Web.UI.Page
+    public partial class Page_Fendian : MyPage
     {
+        public Page_Fendian()
+        {
+            _PageName = PageName.分店信息;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //初始化
@@ -46,7 +51,14 @@ namespace JCSJGL
         /// <param name="id"></param>
         private void deleteFendian(int id)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
             DBContext db = new DBContext();
+            TFendian of = db.GetFendianById(id);
+            if (of.jmsid != _LoginUser.jmsid)
+            {
+                throw new MyException("非法操作，无法删除该分店");
+            }
             db.DeleteFendian(id);
 
             loadFendians();
@@ -55,10 +67,25 @@ namespace JCSJGL
         private void loadFendians()
         {
             DBContext db = new DBContext();
-            TFendian[] fs = db.GetFendians();
+            TFendian[] fs = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                fs = db.GetAllFendians();
+                grid_fendian.Columns.Insert(1, new BoundField() 
+                { 
+                    HeaderText="加盟商",
+                    DataField = "jiamengshang"
+                });
+            }
+            else
+            {
+                fs = db.GetFendiansByJmsId(_LoginUser.jmsid);
+            }
+
             var dfs = fs.Select(r => new
             {
                 id = r.id,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 fzxingbie = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
                 fzleixing = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
                 dianming = r.dianming,
@@ -74,7 +101,6 @@ namespace JCSJGL
                 kaidianriqi = r.kaidianriqi.ToString("yyyy-MM-dd"),
                 zhuangtai = ((Tool.JCSJ.DBCONSTS.FENDIAN_ZT)r.zhuangtai).ToString(),
                 beizhu = r.beizhu,
-                caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.fzxingbie + "','" + r.fzleixing + "','" + r.dianming + "','" + r.mianji + "','" + r.keliuliang + "','"+
@@ -93,12 +119,19 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             TFendian f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TFendian of = db.GetFendianById(f.id);
+            if (of.jmsid != _LoginUser.jmsid)
+            {
+                throw new MyException("非法操作，无法修改此分店信息");
+            }
             db.UpdateFendian(f);
 
             loadFendians();
@@ -155,12 +188,21 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
             TFendian f = getEditInfo();
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.jmsid = _LoginUser.jmsid;
+            f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            //限制分店数
+            TFendian[] fs = db.GetFendiansByJmsId(_LoginUser.jmsid);
+            if (fs.Count() >= _LoginUser.TJiamengshang.fendianshu)
+            {
+                throw new MyException("拥有的分店数量已到上限，如有需要增加更多分店请联系系统管理员");
+            }
             db.InsertFendian(f);
 
             loadFendians();

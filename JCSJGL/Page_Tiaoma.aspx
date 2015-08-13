@@ -44,7 +44,6 @@
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
             <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
             <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
-            <asp:BoundField DataField="caozuoren" HeaderText="编辑人"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">

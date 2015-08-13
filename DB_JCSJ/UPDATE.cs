@@ -18,6 +18,10 @@ namespace DB_JCSJ
                 TUser ou = _db.TUsers.Single(r => r.id == u.id);
 
                 ou.dengluming = u.dengluming;
+                if (!string.IsNullOrEmpty(u.mima))
+                {
+                    ou.mima = u.mima;
+                }
                 ou.yonghuming = u.yonghuming;
                 ou.juese = u.juese;
                 ou.zhuangtai = u.zhuangtai;
@@ -148,7 +152,6 @@ namespace DB_JCSJ
             {
                 TGongyingshang og = _db.TGongyingshangs.Single(r => r.id == g.id);
 
-                og.jiancheng = g.jiancheng;
                 og.mingcheng = g.mingcheng;
                 og.lianxiren = g.lianxiren;
                 og.dianhua = g.dianhua;
@@ -214,6 +217,30 @@ namespace DB_JCSJ
                 {
                     d.xzshijian = DateTime.Now;
                 }
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 更新加盟商信息
+            /// </summary>
+            /// <param name="j"></param>
+            public void UpdateJiamengshang(TJiamengshang j)
+            {
+                var oj = _db.TJiamengshangs.Single(r => r.id == j.id);
+
+                oj.mingcheng = j.mingcheng;
+                oj.zhanghaoshu = j.zhanghaoshu;
+                oj.tiaomashu = j.tiaomashu;
+                oj.huiyuanshu = j.huiyuanshu;
+                oj.fendianshu = j.fendianshu;
+                oj.shoucifufei = j.shoucifufei;
+                oj.xufeidanjia = j.xufeidanjia;
+                oj.jiezhiriqi = j.jiezhiriqi;
+                oj.lianxiren = j.lianxiren;
+                oj.dianhua = j.dianhua;
+                oj.beizhu = j.beizhu;
+                oj.xiugaishijian = j.xiugaishijian;
 
                 _db.SaveChanges();
             }

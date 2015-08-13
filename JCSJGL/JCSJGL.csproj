@@ -308,6 +308,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
+    <Content Include="Page_Jiamengshang.aspx" />
     <Content Include="Page_TongjiBiao.aspx" />
     <Content Include="Page_TongjiTu.aspx" />
     <Content Include="Page_FDKucunMX.aspx" />
@@ -324,7 +325,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonCode.cs" />
+    <Compile Include="CommonCode.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -355,6 +358,13 @@
     </Compile>
     <Compile Include="Page_Error.aspx.designer.cs">
       <DependentUpon>Page_Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Jiamengshang.aspx.cs">
+      <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Jiamengshang.aspx.designer.cs">
+      <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_TongjiBiao.aspx.cs">
       <DependentUpon>Page_TongjiBiao.aspx</DependentUpon>

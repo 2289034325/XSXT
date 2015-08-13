@@ -42,12 +42,6 @@ namespace DB_FD.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(10);
 
-            this.Property(t => t.jinjia)
-                .HasPrecision(6,2);
-
-            this.Property(t => t.shoujia)
-                .HasPrecision(6,2);
-
             // Table & Column Mappings
             this.ToTable("TTiaoma");
             this.Property(t => t.id).HasColumnName("id");

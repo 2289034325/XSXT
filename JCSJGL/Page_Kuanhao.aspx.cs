@@ -9,16 +9,18 @@ using System.Web.UI.WebControls;
 
 namespace JCSJGL
 {
-    public partial class Page_Kuanhao : System.Web.UI.Page
+    public partial class Page_Kuanhao : MyPage
     {
+        public Page_Kuanhao()
+        {
+            _PageName = PageName.款号信息;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //初始化
             if (!IsPostBack)
             {
-                //加载所有款号信息
-                //loadKuanhaos();
-
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_lx_sch, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
                 cmb_lx_sch.Items.Insert(0, "");
@@ -45,14 +47,21 @@ namespace JCSJGL
         /// <param name="id"></param>
         private void deleteKuanhao(int id)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
             DBContext db = new DBContext();
+            TKuanhao ok = db.GetKuanhaoById(id);
+            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法删除该款号");
+            }
             db.DeleteKuanhao(id);
 
             loadKuanhaos();
         }
 
         /// <summary>
-        /// 加载所有款号
+        /// 加载款号
         /// </summary>
         private void loadKuanhaos()
         {
@@ -67,16 +76,30 @@ namespace JCSJGL
             int recordCount = 0;
 
             DBContext db = new DBContext();
-            TKuanhao[] fs = db.GetKuanhaosByCond(lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                jmsid = _LoginUser.jmsid; 
+                grid_kuanhao.Columns.Insert(1, new BoundField()
+                {
+                    HeaderText = "加盟商",
+                    DataField = "jiamengshang"
+                });
+            }
+            else
+            {
+                jmsid = _LoginUser.jmsid;
+            }
+            TKuanhao[] fs = db.GetKuanhaosByCond(jmsid, lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 kuanhao=r.kuanhao,
                 leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
                 xingbie = ((Tool.JCSJ.DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
                 pinming = r.pinming,
                 beizhu = r.beizhu,
-                caozuoren = r.TUser.yonghuming,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.xingbie + "','" + r.pinming + "','" + r.beizhu + "'"
@@ -94,12 +117,19 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             TKuanhao f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TKuanhao ok = db.GetKuanhaoById(f.id);
+            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法修改该款号");
+            }
             db.UpdateKuanhao(f);
 
             loadKuanhaos();
@@ -136,12 +166,20 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             TKuanhao f = getEditInfo();
-            f.caozuorenid = ((TUser)Session["USER"]).id;
+            f.jmsid = _LoginUser.jmsid;
+            f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
+            TKuanhao[] gs = db.GetKuanhaosByJmsId(_LoginUser.jmsid);
+            if (gs.Count() >= _LoginUser.TJiamengshang.kuanhaoshu)
+            {
+                throw new MyException("拥有的款号数量已到上限，如有需要增加更多款号请联系系统管理员");
+            }
             db.InsertKuanhao(f);
 
             loadKuanhaos();

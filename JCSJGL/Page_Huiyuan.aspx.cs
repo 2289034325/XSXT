@@ -21,7 +21,7 @@ namespace JCSJGL
                 loadHuiyuanZKs();
 
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendians();
+                TFendian[] fs = db.GetFendiansAsItems();
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
                 //Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
