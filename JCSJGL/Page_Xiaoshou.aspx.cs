@@ -35,7 +35,7 @@ namespace JCSJGL
                 TFendian[] fs = db.GetFendiansAsItems(jmsid);
 
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
-                cmb_fd.Items.Insert(0,"");
+                cmb_fd.Items.Insert(0,new ListItem("所有分店",""));
 
                 //日期下拉框
                 txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
