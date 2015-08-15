@@ -10,8 +10,12 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_FDKucunMX : System.Web.UI.Page
+    public partial class Page_FDKucunMX : MyPage
     {
+        public Page_FDKucunMX()
+        {
+            _PageName = PageName.分店库存明细;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,6 +29,17 @@ namespace JCSJGL
         private void getMX(int jcid)
         { 
             DBContext db = new DBContext();
+            if (_LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 &&
+             _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                //除了系统管理员和总经理，其他加盟商禁止查看其他加盟商的数据
+                TFendianKucun tf = db.GetFDKucunById(jcid);
+                if (tf.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                {
+                    throw new MyException("非法操作，无法显示数据");
+                }
+            }
+
             TFendianKucunMX[] amxs = db.GetFDKucunMXsByKcId(jcid);
 
             var mxs = amxs.Select(r => new 
@@ -38,7 +53,8 @@ namespace JCSJGL
                 r.TTiaoma.chima,
                 r.TTiaoma.jinjia,
                 r.TTiaoma.shoujia,
-                r.shuliang
+                r.shuliang,
+                r.jinhuoriqi
             });
 
             grid_mx.DataSource = Tool.CommonFunc.LINQToDataTable(mxs);

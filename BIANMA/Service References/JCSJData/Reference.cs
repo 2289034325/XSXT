@@ -39,23 +39,23 @@ namespace BIANMA.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
         System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
-        DB_JCSJ.Models.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
+        DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomas", ReplyAction="http://tempuri.org/IDataService/GetTiaomasResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
+        System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasByCondAsync(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangsByUserId", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsByUserIdResponse")]
-        DB_JCSJ.Models.TGongyingshang[] GetGongyingshangsByUserId(int UserId);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangs", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsResponse")]
+        DB_JCSJ.Models.TGongyingshang[] GetGongyingshangs();
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangsByUserId", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsByUserIdResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang[]> GetGongyingshangsByUserIdAsync(int UserId);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetGongyingshangs", ReplyAction="http://tempuri.org/IDataService/GetGongyingshangsResponse")]
+        System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang[]> GetGongyingshangsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaosByUserId", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosByUserIdResponse")]
-        DB_JCSJ.Models.TKuanhao[] GetKuanhaosByUserId(int UserId);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaos", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosResponse")]
+        DB_JCSJ.Models.TKuanhao[] GetKuanhaos();
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaosByUserId", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosByUserIdResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TKuanhao[]> GetKuanhaosByUserIdAsync(int UserId);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaos", ReplyAction="http://tempuri.org/IDataService/GetKuanhaosResponse")]
+        System.Threading.Tasks.Task<DB_JCSJ.Models.TKuanhao[]> GetKuanhaosAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertKuanhao", ReplyAction="http://tempuri.org/IDataService/InsertKuanhaoResponse")]
         DB_JCSJ.Models.TKuanhao InsertKuanhao(DB_JCSJ.Models.TKuanhao k);
@@ -74,24 +74,6 @@ namespace BIANMA.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteKuanhao", ReplyAction="http://tempuri.org/IDataService/DeleteKuanhaoResponse")]
         System.Threading.Tasks.Task DeleteKuanhaoAsync(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertGongyingshang", ReplyAction="http://tempuri.org/IDataService/InsertGongyingshangResponse")]
-        DB_JCSJ.Models.TGongyingshang InsertGongyingshang(DB_JCSJ.Models.TGongyingshang g);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/InsertGongyingshang", ReplyAction="http://tempuri.org/IDataService/InsertGongyingshangResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang> InsertGongyingshangAsync(DB_JCSJ.Models.TGongyingshang g);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditGongyingshang", ReplyAction="http://tempuri.org/IDataService/EditGongyingshangResponse")]
-        void EditGongyingshang(DB_JCSJ.Models.TGongyingshang g);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditGongyingshang", ReplyAction="http://tempuri.org/IDataService/EditGongyingshangResponse")]
-        System.Threading.Tasks.Task EditGongyingshangAsync(DB_JCSJ.Models.TGongyingshang g);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteGongyingshang", ReplyAction="http://tempuri.org/IDataService/DeleteGongyingshangResponse")]
-        void DeleteGongyingshang(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteGongyingshang", ReplyAction="http://tempuri.org/IDataService/DeleteGongyingshangResponse")]
-        System.Threading.Tasks.Task DeleteGongyingshangAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetKuanhaoByMc", ReplyAction="http://tempuri.org/IDataService/GetKuanhaoByMcResponse")]
         DB_JCSJ.Models.TKuanhao GetKuanhaoByMc(string kh);
@@ -135,12 +117,6 @@ namespace BIANMA.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/EditTiaoma", ReplyAction="http://tempuri.org/IDataService/EditTiaomaResponse")]
         System.Threading.Tasks.Task EditTiaomaAsync(DB_JCSJ.Models.TTiaoma t);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        DB_JCSJ.Models.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByUpdTime", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByUpdTimeResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end);
-        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse")]
         DB_JCSJ.Models.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
         
@@ -170,12 +146,6 @@ namespace BIANMA.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/UpdateHuiyuan", ReplyAction="http://tempuri.org/IDataService/UpdateHuiyuanResponse")]
         System.Threading.Tasks.Task UpdateHuiyuanAsync(DB_JCSJ.Models.THuiyuan h);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetHuiyuanZhekous", ReplyAction="http://tempuri.org/IDataService/GetHuiyuanZhekousResponse")]
-        DB_JCSJ.Models.THuiyuanZK[] GetHuiyuanZhekous();
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetHuiyuanZhekous", ReplyAction="http://tempuri.org/IDataService/GetHuiyuanZhekousResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.THuiyuanZK[]> GetHuiyuanZhekousAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/ShangbaoXiaoshou", ReplyAction="http://tempuri.org/IDataService/ShangbaoXiaoshouResponse")]
         void ShangbaoXiaoshou(DB_JCSJ.Models.TXiaoshou[] xss);
@@ -285,28 +255,28 @@ namespace BIANMA.JCSJData {
             return base.Channel.BMZHEditPswAsync(om, nm);
         }
         
-        public DB_JCSJ.Models.TTiaoma[] GetTiaomas(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
-            return base.Channel.GetTiaomas(Userid, Kuanhao, Tiaoma, Start, End);
+        public DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
+            return base.Channel.GetTiaomasByCond(Kuanhao, Tiaoma, Start, End);
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasAsync(int Userid, string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
-            return base.Channel.GetTiaomasAsync(Userid, Kuanhao, Tiaoma, Start, End);
+        public System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasByCondAsync(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
+            return base.Channel.GetTiaomasByCondAsync(Kuanhao, Tiaoma, Start, End);
         }
         
-        public DB_JCSJ.Models.TGongyingshang[] GetGongyingshangsByUserId(int UserId) {
-            return base.Channel.GetGongyingshangsByUserId(UserId);
+        public DB_JCSJ.Models.TGongyingshang[] GetGongyingshangs() {
+            return base.Channel.GetGongyingshangs();
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang[]> GetGongyingshangsByUserIdAsync(int UserId) {
-            return base.Channel.GetGongyingshangsByUserIdAsync(UserId);
+        public System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang[]> GetGongyingshangsAsync() {
+            return base.Channel.GetGongyingshangsAsync();
         }
         
-        public DB_JCSJ.Models.TKuanhao[] GetKuanhaosByUserId(int UserId) {
-            return base.Channel.GetKuanhaosByUserId(UserId);
+        public DB_JCSJ.Models.TKuanhao[] GetKuanhaos() {
+            return base.Channel.GetKuanhaos();
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TKuanhao[]> GetKuanhaosByUserIdAsync(int UserId) {
-            return base.Channel.GetKuanhaosByUserIdAsync(UserId);
+        public System.Threading.Tasks.Task<DB_JCSJ.Models.TKuanhao[]> GetKuanhaosAsync() {
+            return base.Channel.GetKuanhaosAsync();
         }
         
         public DB_JCSJ.Models.TKuanhao InsertKuanhao(DB_JCSJ.Models.TKuanhao k) {
@@ -331,30 +301,6 @@ namespace BIANMA.JCSJData {
         
         public System.Threading.Tasks.Task DeleteKuanhaoAsync(int id) {
             return base.Channel.DeleteKuanhaoAsync(id);
-        }
-        
-        public DB_JCSJ.Models.TGongyingshang InsertGongyingshang(DB_JCSJ.Models.TGongyingshang g) {
-            return base.Channel.InsertGongyingshang(g);
-        }
-        
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TGongyingshang> InsertGongyingshangAsync(DB_JCSJ.Models.TGongyingshang g) {
-            return base.Channel.InsertGongyingshangAsync(g);
-        }
-        
-        public void EditGongyingshang(DB_JCSJ.Models.TGongyingshang g) {
-            base.Channel.EditGongyingshang(g);
-        }
-        
-        public System.Threading.Tasks.Task EditGongyingshangAsync(DB_JCSJ.Models.TGongyingshang g) {
-            return base.Channel.EditGongyingshangAsync(g);
-        }
-        
-        public void DeleteGongyingshang(int id) {
-            base.Channel.DeleteGongyingshang(id);
-        }
-        
-        public System.Threading.Tasks.Task DeleteGongyingshangAsync(int id) {
-            return base.Channel.DeleteGongyingshangAsync(id);
         }
         
         public DB_JCSJ.Models.TKuanhao GetKuanhaoByMc(string kh) {
@@ -413,14 +359,6 @@ namespace BIANMA.JCSJData {
             return base.Channel.EditTiaomaAsync(t);
         }
         
-        public DB_JCSJ.Models.TTiaoma[] GetTiaomasByUpdTime(System.DateTime upt_start, System.DateTime upt_end) {
-            return base.Channel.GetTiaomasByUpdTime(upt_start, upt_end);
-        }
-        
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TTiaoma[]> GetTiaomasByUpdTimeAsync(System.DateTime upt_start, System.DateTime upt_end) {
-            return base.Channel.GetTiaomasByUpdTimeAsync(upt_start, upt_end);
-        }
-        
         public DB_JCSJ.Models.TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs) {
             return base.Channel.GetTiaomasByTiaomahaos(tmhs);
         }
@@ -459,14 +397,6 @@ namespace BIANMA.JCSJData {
         
         public System.Threading.Tasks.Task UpdateHuiyuanAsync(DB_JCSJ.Models.THuiyuan h) {
             return base.Channel.UpdateHuiyuanAsync(h);
-        }
-        
-        public DB_JCSJ.Models.THuiyuanZK[] GetHuiyuanZhekous() {
-            return base.Channel.GetHuiyuanZhekous();
-        }
-        
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.THuiyuanZK[]> GetHuiyuanZhekousAsync() {
-            return base.Channel.GetHuiyuanZhekousAsync();
         }
         
         public void ShangbaoXiaoshou(DB_JCSJ.Models.TXiaoshou[] xss) {

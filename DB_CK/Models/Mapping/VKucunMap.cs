@@ -21,6 +21,7 @@ namespace DB_CK.Models.Mapping
             this.ToTable("VKucun");
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.shuliang).HasColumnName("shuliang");
+            this.Property(t => t.jinhuoriqi).HasColumnName("jinhuoriqi");
         }
     }
 }

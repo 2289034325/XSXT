@@ -28,15 +28,15 @@ namespace JCSJWCF
         void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByCond(int Userid, string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
+        TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
 
 
         [OperationContract(IsInitiating = false)]
-        TGongyingshang[] GetGongyingshangsByJmsid(int JmsId);
+        TGongyingshang[] GetGongyingshangs();
 
 
         [OperationContract(IsInitiating = false)]
-        TKuanhao[] GetKuanhaosByJmsId(int JmsId);
+        TKuanhao[] GetKuanhaos();
 
 
         [OperationContract(IsInitiating = false)]

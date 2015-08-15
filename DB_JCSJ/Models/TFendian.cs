@@ -32,6 +32,7 @@ namespace DB_JCSJ.Models
         public System.DateTime kaidianriqi { get; set; }
         public byte zhuangtai { get; set; }
         public string beizhu { get; set; }
+        public string jiqima { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }

@@ -24,39 +24,6 @@ namespace JCSJGL
                 //加载所有仓库信息
                 loadCangkus();
             }
-            else
-            {
-                string opt = hid_opt.Value;
-                if (opt == "DELETE")
-                {
-                    int id = int.Parse(hid_id.Value);
-                    deleteCangku(id);
-                }
-
-                //操作后清除操作标志
-                hid_opt.Value = "";
-            }
-        }
-
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        private void deleteCangku(int id)
-        {
-            //检查权限
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-            DBContext db = new DBContext();
-            TCangku oc = db.GetCangkuById(id);
-            if (oc.jmsid != _LoginUser.jmsid)
-            {
-                throw new MyException("非法操作，无法删除此仓库");
-            }
-            db.DeleteCangku(id);
-
-            loadCangkus();
         }
 
         /// <summary>
@@ -65,21 +32,19 @@ namespace JCSJGL
         private void loadCangkus()
         {
             DBContext db = new DBContext();
-            TCangku[] cs =null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                cs = db.GetCangkus();
-                grid_cangku.Columns.Insert(1, new BoundField()
-                {
-                    HeaderText = "加盟商",
-                    DataField = "jiamengshang"
-                });
+                grid_cangku.Columns[0].Visible = true;
             }
             else
             {
-                cs = db.GetCangkusByJmcId(_LoginUser.jmsid);
+                grid_cangku.Columns[0].Visible = false;
+                jmsid = _LoginUser.jmsid;
             }
 
+            TCangku[] cs = db.GetCangkus(jmsid);
             var dfs = cs.Select(r => new
             {
                 id = r.id,
@@ -115,7 +80,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TCangku oc = db.GetCangkuById(f.id);
-            if (oc.jmsid != _LoginUser.jmsid)
+            if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该仓库的信息");
             }
@@ -159,18 +124,42 @@ namespace JCSJGL
 
             TCangku f = getEditInfo();
             f.jmsid = _LoginUser.jmsid;
+            f.jiqima = "";
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
             //限制可增加的仓库数量
-            TCangku[] cs = db.GetCangkusByJmcId(_LoginUser.jmsid);
-            if (cs.Count() >= _LoginUser.TJiamengshang.cangkushu)
+            int cc = db.GetCangkusCount(f.jmsid);
+            if (cc >= _LoginUser.TJiamengshang.cangkushu)
             {
                 throw new MyException("拥有的仓库数量已到上限，如有需要增加更多仓库请联系系统管理员");
             }
             db.InsertCangku(f);
+
+            loadCangkus();
+        }
+
+        /// <summary>
+        /// 删除一个仓库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void grid_cangku_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            //检查权限
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
+            int id = int.Parse(grid_cangku.DataKeys[e.RowIndex].Value.ToString()); 
+
+            DBContext db = new DBContext();
+            TCangku oc = db.GetCangkuById(id);
+            if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法删除此仓库");
+            }
+            db.DeleteCangku(id);
 
             loadCangkus();
         }

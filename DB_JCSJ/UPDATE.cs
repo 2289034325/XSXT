@@ -89,6 +89,14 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+            public void UpdateFendianJQM(int id, string jqm)
+            {
+                TFendian of = _db.TFendians.Single(r => r.id == id);
+
+                of.jiqima = jqm;
+
+                _db.SaveChanges();
+            }
 
             /// <summary>
             /// 更新仓库信息
@@ -107,6 +115,14 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+            public void UpdateCangkuJQM(int id,string jqm)
+            {
+                TCangku oc = _db.TCangkus.Single(r => r.id == id);
+
+                oc.jiqima = jqm;
+
+                _db.SaveChanges();
+            }
 
             /// <summary>
             /// 修改会员信息
@@ -116,6 +132,7 @@ namespace DB_JCSJ
             {
                 THuiyuan oh = _db.THuiyuans.Single(r => r.id == h.id);
 
+                //分店由注册的时候定，不需要被修改
                 //oh.fendianid = h.fendianid;
                 oh.shoujihao = h.shoujihao;
                 oh.xingming = h.xingming;
@@ -231,9 +248,15 @@ namespace DB_JCSJ
 
                 oj.mingcheng = j.mingcheng;
                 oj.zhanghaoshu = j.zhanghaoshu;
+                oj.kuanhaoshu = j.kuanhaoshu;
                 oj.tiaomashu = j.tiaomashu;
                 oj.huiyuanshu = j.huiyuanshu;
                 oj.fendianshu = j.fendianshu;
+                oj.cangkushu = j.cangkushu;
+                oj.gongyingshangshu = j.gongyingshangshu;
+                oj.xsjilushu = j.xsjilushu;
+                oj.jchjilushu = j.jchjilushu;
+                oj.kcjilushu = j.kcjilushu;
                 oj.shoucifufei = j.shoucifufei;
                 oj.xufeidanjia = j.xufeidanjia;
                 oj.jiezhiriqi = j.jiezhiriqi;

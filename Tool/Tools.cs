@@ -33,6 +33,11 @@ namespace Tool
         /// <returns></returns>
         public static string MD5_16(string str)
         {
+            if (string.IsNullOrEmpty(str))
+            {
+                return "";
+            }
+
             MD5 md5 = new MD5CryptoServiceProvider();
             string mmd5 = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(str))).Replace("-", "");
 

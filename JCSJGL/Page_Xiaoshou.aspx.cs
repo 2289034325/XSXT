@@ -10,15 +10,30 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_Xiaoshou : System.Web.UI.Page
+    public partial class Page_Xiaoshou : MyPage
     {
+        public Page_Xiaoshou()
+        {
+            _PageName = PageName.销售数据;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //初始化分店下拉框
+                int? jmsid = null;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+
+                }
+                else
+                {
+                    jmsid = _LoginUser.jmsid;
+                }
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendiansAsItems();
+                TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0,"");
 
@@ -56,7 +71,18 @@ namespace JCSJGL
         }
 
         private void searchXiaoshou()
-        { 
+        {
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                grid_xiaoshou.Columns[0].Visible = true;
+            }
+            else
+            {
+                grid_xiaoshou.Columns[0].Visible = false;
+                jmsid = _LoginUser.jmsid;
+            }
             //取查询条件
             int? fdid = null;
             if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
@@ -86,11 +112,12 @@ namespace JCSJGL
 
             int recordCount = 0;
             DBContext db = new DBContext();
-            TXiaoshou[] xss = db.GetXiaoshousByCond(fdid,
+            TXiaoshou[] xss = db.GetXiaoshousByCond(jmsid,fdid,
                 xsrq_start, xsrq_end, sbrq_start, sbrq_end,
                 grid_xiaoshou.PageSize, grid_xiaoshou.PageIndex, out recordCount);
             var xs = xss.Select(r => new
             {
+                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
                 fendian = r.TFendian.dianming,
                 kuanhao = r.TTiaoma==null?"":r.TTiaoma.TKuanhao.kuanhao,
                 leixing = r.TTiaoma == null ? "" : ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing).ToString(),
@@ -103,7 +130,7 @@ namespace JCSJGL
                 r.zhekou,
                 r.moling,
                 jiage = r.jine,
-                huiyuan = r.THuiyuan == null ? "" :r.THuiyuan.shoujihao,
+                huiyuan = r.THuiyuan == null ? "" :r.THuiyuan.xingming,
                 r.xiaoshouyuan,
                 r.xiaoshoushijian,
                 r.shangbaoshijian,

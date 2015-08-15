@@ -58,15 +58,6 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.GridView grid_tiaoma;
         
         /// <summary>
-        /// hid_opt 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hid_opt;
-        
-        /// <summary>
         /// hid_id 控件。
         /// </summary>
         /// <remarks>

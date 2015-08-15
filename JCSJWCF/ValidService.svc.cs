@@ -17,14 +17,6 @@ namespace JCSJWCF
     [MyExceptionBehavior(typeof(MyGlobalExceptionHandler))]
     public class ValidService : IValidService
     {
-        //动态密码
-        //private string _DTMM = null;
-
-        //public ValidService()
-        //{
-        //    _DTMM = Tool.CommonFunc.GetRandomNum(6);
-        //}
-
         /// <summary>
         /// 编码系统注册
         /// </summary>
@@ -49,7 +41,7 @@ namespace JCSJWCF
                 u.yonghuming = xm;
                 u.mima = mm;
                 u.jiqima = tzm;
-                u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码员;
+                u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码;
                 u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
                 u.beizhu = "";
                 u.charushijian = DateTime.Now;
@@ -67,7 +59,7 @@ namespace JCSJWCF
         /// <param name="ckmc">仓库名</param>
         /// <param name="tzm">机器特征码</param>
         /// <param name="zcm">注册码</param>
-        public void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm)
+        public void CKZHZhuce(int ckid, string ckmc, string jqm, string zcm)
         {
             //验证注册码
             if (!validateDTMM(zcm))
@@ -84,48 +76,51 @@ namespace JCSJWCF
                     throw new FaultException("仓库ID和仓库名称不匹配");
                 }
 
+                //更新机器码
+                db.UpdateCangkuJQM(ckid, jqm);
+
                 //检查账号是否已经存在
-                TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
-                if (u == null)
-                {
-                    u = new TUser();
-                    //登陆名由一个前缀加上仓库ID组成
-                    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid;
-                    u.yonghuming = ckmc;
-                    u.mima = Tool.CommonFunc.MD5_16(ckid.ToString());
-                    u.jiqima = tzm;
-                    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.仓库系统;
-                    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
-                    u.beizhu = "";
-                    u.charushijian = DateTime.Now;
-                    u.xiugaishijian = DateTime.Now;
+                //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
+                //if (u == null)
+                //{
+                //    u = new TUser();
+                //    //登陆名由一个前缀加上仓库ID组成
+                //    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid;
+                //    u.yonghuming = ckmc;
+                //    u.mima = Tool.CommonFunc.MD5_16(ckid.ToString());
+                //    u.jiqima = tzm;
+                //    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.仓库系统;
+                //    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
+                //    u.beizhu = "";
+                //    u.charushijian = DateTime.Now;
+                //    u.xiugaishijian = DateTime.Now;
 
-                    TUser nu = db.InsertUser(u);
+                //    TUser nu = db.InsertUser(u);
 
-                    //插入用户 仓库 关系表
-                    TUser_Cangku uc = new TUser_Cangku 
-                    {
-                        yonghuid = nu.id,
-                        cangkuid = ckid
-                    };
+                //    //插入用户 仓库 关系表
+                //    TUser_Cangku uc = new TUser_Cangku 
+                //    {
+                //        yonghuid = nu.id,
+                //        cangkuid = ckid
+                //    };
 
-                    db.InsertUser_Cangku(uc);
-                }
-                else
-                {
-                    db.UpdateUserJQM(u.id,tzm);
-                }
+                //    db.InsertUser_Cangku(uc);
+                //}
+                //else
+                //{
+                //    db.UpdateUserJQM(u.id,tzm);
+                //}
             }
         }
 
         /// <summary>
-        /// 分店账号注册
+        /// 分店系统注册
         /// </summary>
         /// <param name="fdid">分店ID</param>
         /// <param name="fdmc">分店名</param>
-        /// <param name="tzm">机器码</param>
+        /// <param name="jqm">机器码</param>
         /// <param name="zcm">注册码</param>
-        public void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm)
+        public void FDZHZhuce(int fdid, string fdmc, string jqm, string zcm)
         {
             //验证注册码
             if (!validateDTMM(zcm))
@@ -141,37 +136,39 @@ namespace JCSJWCF
                     throw new FaultException("分店ID和店名不匹配");
                 }
 
+                db.UpdateFendianJQM(fdid, jqm);
+
                 //检查账号是否已经存在
-                TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
-                if (u == null)
-                {
-                    u = new TUser();
-                    //登陆名由一个前缀加上分店ID组成
-                    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid;
-                    u.yonghuming = fdmc;
-                    u.mima = Tool.CommonFunc.MD5_16(fdid.ToString());
-                    u.jiqima = tzm;
-                    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.分店系统;
-                    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
-                    u.beizhu = "";
-                    u.charushijian = DateTime.Now;
-                    u.xiugaishijian = DateTime.Now;
+                //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
+                //if (u == null)
+                //{
+                //    u = new TUser();
+                //    //登陆名由一个前缀加上分店ID组成
+                //    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid;
+                //    u.yonghuming = fdmc;
+                //    u.mima = Tool.CommonFunc.MD5_16(fdid.ToString());
+                //    u.jiqima = tzm;
+                //    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.分店系统;
+                //    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
+                //    u.beizhu = "";
+                //    u.charushijian = DateTime.Now;
+                //    u.xiugaishijian = DateTime.Now;
 
-                    TUser nu = db.InsertUser(u);
+                //    TUser nu = db.InsertUser(u);
 
-                    //插入账号，分店关系表
-                    TUser_Fendian uf = new TUser_Fendian 
-                    {
-                        yonghuid = nu.id,
-                        fendianid = fdid
-                    };
+                //    //插入账号，分店关系表
+                //    TUser_Fendian uf = new TUser_Fendian 
+                //    {
+                //        yonghuid = nu.id,
+                //        fendianid = fdid
+                //    };
 
-                    db.InsertUser_Fendian(uf);
-                }
-                else
-                {
-                    db.UpdateUserJQM(u.id,tzm);
-                }
+                //    db.InsertUser_Fendian(uf);
+                //}
+                //else
+                //{
+                //    db.UpdateUserJQM(u.id,tzm);
+                //}
             }
         }
 

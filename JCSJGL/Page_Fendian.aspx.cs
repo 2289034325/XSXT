@@ -31,57 +31,55 @@ namespace JCSJGL
                 Tool.CommonFunc.InitDropDownList(cmb_dpxz, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ));
                 Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_ZT));
             }
-            else
-            {
-                string opt = hid_opt.Value;
-                if (opt == "DELETE")
-                {
-                    int id = int.Parse(hid_id.Value);
-                    deleteFendian(id);
-                }
+            //else
+            //{
+            //    string opt = hid_opt.Value;
+            //    if (opt == "DELETE")
+            //    {
+            //        //操作后清除操作标志
+            //        hid_opt.Value = "";
 
-                //操作后清除操作标志
-                hid_opt.Value = "";
-            }
+            //        int id = int.Parse(hid_id.Value);
+            //        deleteFendian(id);
+            //    }
+            //}
         }
 
         /// <summary>
         /// 删除分店
         /// </summary>
         /// <param name="id"></param>
-        private void deleteFendian(int id)
-        {
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+        //private void deleteFendian(int id)
+        //{
+        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-            DBContext db = new DBContext();
-            TFendian of = db.GetFendianById(id);
-            if (of.jmsid != _LoginUser.jmsid)
-            {
-                throw new MyException("非法操作，无法删除该分店");
-            }
-            db.DeleteFendian(id);
+        //    DBContext db = new DBContext();
+        //    TFendian of = db.GetFendianById(id);
+        //    if (of.jmsid != _LoginUser.jmsid)
+        //    {
+        //        throw new MyException("非法操作，无法删除该分店");
+        //    }
+        //    db.DeleteFendian(id);
 
-            loadFendians();
-        }
+        //    loadFendians();
+        //}
 
         private void loadFendians()
         {
             DBContext db = new DBContext();
-            TFendian[] fs = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                fs = db.GetAllFendians();
-                grid_fendian.Columns.Insert(1, new BoundField() 
-                { 
-                    HeaderText="加盟商",
-                    DataField = "jiamengshang"
-                });
+
+                grid_fendian.Columns[0].Visible = true;
             }
             else
             {
-                fs = db.GetFendiansByJmsId(_LoginUser.jmsid);
+                jmsid = _LoginUser.jmsid;
+                grid_fendian.Columns[0].Visible = false;
             }
-
+            TFendian[] fs = db.GetFendians(jmsid);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
@@ -128,7 +126,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TFendian of = db.GetFendianById(f.id);
-            if (of.jmsid != _LoginUser.jmsid)
+            if (of.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改此分店信息");
             }
@@ -159,6 +157,28 @@ namespace JCSJGL
             byte zt = byte.Parse(cmb_zt.SelectedValue);
             string bz = txb_bz.Text.Trim();
 
+            string errMsg = "非法操作，请刷新页面重新执行";
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_FZXB), fzxb))
+            {
+                throw new MyException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_FZLX), fzlx))
+            {
+                throw new MyException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DC), dc))
+            {
+                throw new MyException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ), dpxz))
+            {
+                throw new MyException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_ZT), zt))
+            {
+                throw new MyException(errMsg);
+            }
+
             TFendian f = new TFendian
             {
                 fzxingbie = fzxb,
@@ -188,22 +208,45 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TFendian f = getEditInfo();
             f.jmsid = _LoginUser.jmsid;
+            f.jiqima = "";
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
             //限制分店数
-            TFendian[] fs = db.GetFendiansByJmsId(_LoginUser.jmsid);
-            if (fs.Count() >= _LoginUser.TJiamengshang.fendianshu)
+            int cc = db.GetFendianCount(_LoginUser.jmsid);
+            if (cc >= _LoginUser.TJiamengshang.fendianshu)
             {
                 throw new MyException("拥有的分店数量已到上限，如有需要增加更多分店请联系系统管理员");
             }
             db.InsertFendian(f);
+
+            loadFendians();
+        }
+
+        /// <summary>
+        /// 删除分店
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void grid_fendian_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
+            int id = int.Parse(grid_fendian.DataKeys[e.RowIndex].Value.ToString());  
+
+            DBContext db = new DBContext();
+            TFendian of = db.GetFendianById(id);
+            if (of.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法删除该分店");
+            }
+            db.DeleteFendian(id);
 
             loadFendians();
         }

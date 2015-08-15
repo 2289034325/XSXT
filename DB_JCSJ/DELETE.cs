@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DB_JCSJ
     {
@@ -121,6 +122,27 @@ namespace DB_JCSJ
                 TJiamengshang j = _db.TJiamengshangs.Single(r => r.id == id);
 
                 _db.TJiamengshangs.Remove(j);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 删除一个分店历史库存记录
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteFDKucun(int id)
+            {
+                TFendianKucun ofk = _db.TFendianKucuns.Include(r=>r.TFendianKucunMXes).Single(r => r.id == id);
+
+                _db.TFendianKucuns.Remove(ofk);
+
+                _db.SaveChanges();
+            }
+            public void DeleteCKKucun(int id)
+            {
+                TCangkuKucun ofk = _db.TCangkuKucuns.Include(r=>r.TCangkuKucunMXes).Single(r => r.id == id);
+
+                _db.TCangkuKucuns.Remove(ofk);
 
                 _db.SaveChanges();
             }

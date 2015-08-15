@@ -64,18 +64,18 @@ namespace BIANMA
             //类型下拉框
             col_all_lx.DataSource = Enum.GetNames(typeof(DBCONSTS.KUANHAO_LX));
             //供应商下拉框
-            TGongyingshang[] gyss = JCSJWCF.GetGongyingshangsByUserId(LoginInfo.User.id);
+            TGongyingshang[] gyss = JCSJWCF.GetGongyingshangs();
             if (gyss.Count() == 0)
             {
                 throw new MyException("请先登陆管理系统增加至少一个供应商信息", null);
             }
 
 
-            Tool.CommonFunc.InitCombbox(cmb_gys, gyss, "jiancheng", "id");
+            Tool.CommonFunc.InitCombbox(cmb_gys, gyss, "mingcheng", "id");
 
             col_all_gys.DataSource = gyss;
             col_all_gys.ValueMember = "id";
-            col_all_gys.DisplayMember = "jiancheng";
+            col_all_gys.DisplayMember = "mingcheng";
         }       
 
         /// <summary>
@@ -91,9 +91,9 @@ namespace BIANMA
                 string kuanhao = dj.txb_kh.Text.Trim();
                 string tiaoma = dj.txb_tm.Text.Trim();
                 DateTime? start = dj.dp_start.Checked ? (DateTime?)dj.dp_start.Value.Date : null;
-                DateTime? end = dj.dp_end.Checked ? (DateTime?)dj.dp_end.Value.Date : null;
+                DateTime? end = dj.dp_end.Checked ? (DateTime?)dj.dp_end.Value.Date.AddDays(1) : null;
 
-                TTiaoma[] ts = JCSJWCF.GetTiaomas(LoginInfo.User.id, kuanhao, tiaoma, start, end); 
+                TTiaoma[] ts = JCSJWCF.GetTiaomas(kuanhao, tiaoma, start, end); 
                 TKuanhao[] ks =  ts.Select(r => r.TKuanhao).DistinctBy(r=>r.id).ToArray();
 
                 //加入集合，显示款号条码
@@ -250,17 +250,6 @@ namespace BIANMA
                 dr.Cells[col_all_lx.Name].Value = ((DBCONSTS.KUANHAO_LX)tk.kuanhao.leixing).ToString();
                 dr.Cells[col_all_pm.Name].Value = tk.kuanhao.pinming;
             }
-        }
-
-        /// <summary>
-        /// 管理供应商信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_gysxx_Click(object sender, EventArgs e)
-        {
-            Dlg_Gongyingshang dg = new Dlg_Gongyingshang();
-            dg.ShowDialog();
         }
 
         /// <summary>

@@ -41,7 +41,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            TKuanhao[] ks = JCSJWCF.GetKuanhaosByUserId(LoginInfo.User.id);
+            TKuanhao[] ks = JCSJWCF.GetKuanhaos();
             
             grid_kh.Rows.Clear();
             foreach (TKuanhao k in ks)

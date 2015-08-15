@@ -19,11 +19,9 @@ namespace DB_JCSJ.Models
         public string beizhu { get; set; }
         public decimal jifen { get; set; }
         public System.DateTime jfjsshijian { get; set; }
-        public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual TFendian TFendian { get; set; }
-        public virtual TUser TUser { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshous { get; set; }
     }
 }

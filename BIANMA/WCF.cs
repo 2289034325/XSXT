@@ -67,34 +67,34 @@ namespace BIANMA
             vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
-        internal static TGongyingshang[] GetGongyingshangsByUserId(int id)
+        internal static TGongyingshang[] GetGongyingshangs()
         {
             AutoLogin();
-            return _jdc.GetGongyingshangsByUserId(id);
+            return _jdc.GetGongyingshangs();
         }
 
-        internal static TGongyingshang InsertGongyingshang(TGongyingshang g)
-        {
-            AutoLogin();
-            return _jdc.InsertGongyingshang(g);
-        }
+        //internal static TGongyingshang InsertGongyingshang(TGongyingshang g)
+        //{
+        //    AutoLogin();
+        //    return _jdc.InsertGongyingshang(g);
+        //}
 
-        internal static void EditGongyingshang(TGongyingshang og)
-        {
-            AutoLogin();
-            _jdc.EditGongyingshang(og);
-        }
+        //internal static void EditGongyingshang(TGongyingshang og)
+        //{
+        //    AutoLogin();
+        //    _jdc.EditGongyingshang(og);
+        //}
 
-        internal static void DeleteGongyingshang(int id)
-        {
-            AutoLogin();
-            _jdc.DeleteGongyingshang(id);
-        }
+        //internal static void DeleteGongyingshang(int id)
+        //{
+        //    AutoLogin();
+        //    _jdc.DeleteGongyingshang(id);
+        //}
 
-        internal static TKuanhao[] GetKuanhaosByUserId(int id)
+        internal static TKuanhao[] GetKuanhaos()
         {
             AutoLogin();
-            return _jdc.GetKuanhaosByUserId(id);
+            return _jdc.GetKuanhaos();
         }
 
         internal static TKuanhao InsertKuanhao(TKuanhao k)
@@ -127,10 +127,10 @@ namespace BIANMA
             vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
         }
 
-        internal static TTiaoma[] GetTiaomas(int userid, string kuanhao, string tiaoma, DateTime? start, DateTime? end)
+        internal static TTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
         {
             AutoLogin();
-            return _jdc.GetTiaomas(userid, kuanhao, tiaoma, start, end);
+            return _jdc.GetTiaomasByCond(kuanhao, tiaoma, start, end);
         }
 
         internal static TKuanhao GetKuanhaoByMc(string kh)

@@ -81,7 +81,9 @@ namespace CKGL
             JCSJData.TCangkuKucunMX[] fks = ks.Select(r => new JCSJData.TCangkuKucunMX
             {
                 tiaomaid = r.id,
-                shuliang = r.shuliang
+                shuliang = r.shuliang,
+                jinhuoriqi = r.jinhuoriqi.Value
+                
             }).ToArray();
 
             JCSJWCF.ShangbaoKucun_CK(fks);

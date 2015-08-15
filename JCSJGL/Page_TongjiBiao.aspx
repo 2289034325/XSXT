@@ -27,21 +27,13 @@
             <asp:BoundField DataField="lr" HeaderText="利润"></asp:BoundField>--%>
         </Columns>
         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-
         <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-
         <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-
         <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-
         <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-
         <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-
         <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
         <PagerSettings Mode="Numeric" Visible="true" />
     </asp:GridView>

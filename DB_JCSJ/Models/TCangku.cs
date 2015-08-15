@@ -19,6 +19,7 @@ namespace DB_JCSJ.Models
         public string lianxiren { get; set; }
         public string dianhua { get; set; }
         public string beizhu { get; set; }
+        public string jiqima { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_kaidan = new System.Windows.Forms.DataGridView();
             this.col_tmid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +55,7 @@
             this.chk_gwml = new System.Windows.Forms.CheckBox();
             this.txb_tiaoma = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_wutiaoma = new System.Windows.Forms.Button();
             this.btn_zkview = new System.Windows.Forms.Button();
             this.lbl_jrxse = new System.Windows.Forms.Label();
             this.lbl_jrxl = new System.Windows.Forms.Label();
@@ -83,7 +84,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txb_sjh = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_wutiaoma = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kaidan)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -100,14 +100,14 @@
             this.grid_kaidan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kaidan.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grid_kaidan.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_kaidan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grid_kaidan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kaidan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_tmid,
@@ -122,22 +122,22 @@
             this.col_ml,
             this.col_yingshou,
             this.col_bz});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_kaidan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kaidan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.grid_kaidan.Location = new System.Drawing.Point(0, 0);
             this.grid_kaidan.MultiSelect = false;
             this.grid_kaidan.Name = "grid_kaidan";
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.grid_kaidan.RowTemplate.Height = 23;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.grid_kaidan.RowTemplate.Height = 40;
             this.grid_kaidan.Size = new System.Drawing.Size(662, 121);
             this.grid_kaidan.TabIndex = 0;
             this.grid_kaidan.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_kaidan_CellBeginEdit);
@@ -160,7 +160,7 @@
             this.col_tm.HeaderText = "条码";
             this.col_tm.Name = "col_tm";
             this.col_tm.ReadOnly = true;
-            this.col_tm.Width = 60;
+            this.col_tm.Width = 74;
             // 
             // col_kh
             // 
@@ -169,7 +169,7 @@
             this.col_kh.HeaderText = "款号";
             this.col_kh.Name = "col_kh";
             this.col_kh.ReadOnly = true;
-            this.col_kh.Width = 60;
+            this.col_kh.Width = 74;
             // 
             // col_pm
             // 
@@ -178,7 +178,7 @@
             this.col_pm.HeaderText = "品名";
             this.col_pm.Name = "col_pm";
             this.col_pm.ReadOnly = true;
-            this.col_pm.Width = 60;
+            this.col_pm.Width = 74;
             // 
             // col_ys
             // 
@@ -187,7 +187,7 @@
             this.col_ys.HeaderText = "颜色";
             this.col_ys.Name = "col_ys";
             this.col_ys.ReadOnly = true;
-            this.col_ys.Width = 60;
+            this.col_ys.Width = 74;
             // 
             // col_cm
             // 
@@ -196,7 +196,7 @@
             this.col_cm.HeaderText = "尺码";
             this.col_cm.Name = "col_cm";
             this.col_cm.ReadOnly = true;
-            this.col_cm.Width = 60;
+            this.col_cm.Width = 74;
             // 
             // col_sl
             // 
@@ -204,7 +204,7 @@
             this.col_sl.FillWeight = 93.24872F;
             this.col_sl.HeaderText = "数量";
             this.col_sl.Name = "col_sl";
-            this.col_sl.Width = 60;
+            this.col_sl.Width = 74;
             // 
             // col_dj
             // 
@@ -212,7 +212,7 @@
             this.col_dj.FillWeight = 93.24872F;
             this.col_dj.HeaderText = "单价";
             this.col_dj.Name = "col_dj";
-            this.col_dj.Width = 60;
+            this.col_dj.Width = 74;
             // 
             // col_zk
             // 
@@ -220,7 +220,7 @@
             this.col_zk.FillWeight = 93.24872F;
             this.col_zk.HeaderText = "折扣";
             this.col_zk.Name = "col_zk";
-            this.col_zk.Width = 60;
+            this.col_zk.Width = 74;
             // 
             // col_ml
             // 
@@ -228,7 +228,7 @@
             this.col_ml.FillWeight = 93.24872F;
             this.col_ml.HeaderText = "抹零";
             this.col_ml.Name = "col_ml";
-            this.col_ml.Width = 60;
+            this.col_ml.Width = 74;
             // 
             // col_yingshou
             // 
@@ -237,14 +237,14 @@
             this.col_yingshou.HeaderText = "应收";
             this.col_yingshou.Name = "col_yingshou";
             this.col_yingshou.ReadOnly = true;
-            this.col_yingshou.Width = 60;
+            this.col_yingshou.Width = 74;
             // 
             // col_bz
             // 
             this.col_bz.FillWeight = 93.24872F;
             this.col_bz.HeaderText = "备注";
             this.col_bz.Name = "col_bz";
-            this.col_bz.Width = 60;
+            this.col_bz.Width = 74;
             // 
             // panel1
             // 
@@ -342,7 +342,7 @@
             this.chk_gwml.Name = "chk_gwml";
             this.chk_gwml.Size = new System.Drawing.Size(136, 96);
             this.chk_gwml.TabIndex = 12;
-            this.chk_gwml.Text = "个位抹零";
+            this.chk_gwml.Text = "自动抹零";
             this.chk_gwml.UseVisualStyleBackColor = true;
             this.chk_gwml.CheckedChanged += new System.EventHandler(this.chk_gwml_CheckedChanged);
             // 
@@ -382,6 +382,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(894, 103);
             this.panel2.TabIndex = 2;
+            // 
+            // btn_wutiaoma
+            // 
+            this.btn_wutiaoma.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_wutiaoma.Location = new System.Drawing.Point(190, 36);
+            this.btn_wutiaoma.Name = "btn_wutiaoma";
+            this.btn_wutiaoma.Size = new System.Drawing.Size(84, 23);
+            this.btn_wutiaoma.TabIndex = 25;
+            this.btn_wutiaoma.Text = "无条码";
+            this.btn_wutiaoma.UseVisualStyleBackColor = true;
+            this.btn_wutiaoma.Click += new System.EventHandler(this.btn_wutiaoma_Click);
             // 
             // btn_zkview
             // 
@@ -630,6 +641,7 @@
             this.lbl_hyzk.Size = new System.Drawing.Size(66, 27);
             this.lbl_hyzk.TabIndex = 16;
             this.lbl_hyzk.Text = "折扣";
+            this.lbl_hyzk.Visible = false;
             // 
             // label10
             // 
@@ -640,6 +652,7 @@
             this.label10.Size = new System.Drawing.Size(66, 27);
             this.label10.TabIndex = 15;
             this.label10.Text = "折扣";
+            this.label10.Visible = false;
             // 
             // btn_zchy
             // 
@@ -690,17 +703,6 @@
             this.label6.Size = new System.Drawing.Size(93, 27);
             this.label6.TabIndex = 11;
             this.label6.Text = "手机号";
-            // 
-            // btn_wutiaoma
-            // 
-            this.btn_wutiaoma.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_wutiaoma.Location = new System.Drawing.Point(190, 36);
-            this.btn_wutiaoma.Name = "btn_wutiaoma";
-            this.btn_wutiaoma.Size = new System.Drawing.Size(84, 23);
-            this.btn_wutiaoma.TabIndex = 25;
-            this.btn_wutiaoma.Text = "无条码";
-            this.btn_wutiaoma.UseVisualStyleBackColor = true;
-            this.btn_wutiaoma.Click += new System.EventHandler(this.btn_wutiaoma_Click);
             // 
             // Form_Kaidan
             // 

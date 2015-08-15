@@ -16,8 +16,12 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_TongjiTu : System.Web.UI.Page
+    public partial class Page_TongjiTu : MyPage
     {
+        public Page_TongjiTu()
+        {
+            _PageName = PageName.统计图;
+        }
         private enum CHART_Y_TYPE:byte
         {
             销售量 = 1,
@@ -41,9 +45,19 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendiansAsItems();
+                int? jmsid = null;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+
+                }
+                else
+                {
+                    jmsid = _LoginUser.jmsid;
+                }
+                TFendian[] fs = db.GetFendiansAsItems(jmsid);
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
-                cmb_fd.Items.Insert(0,"");
+                cmb_fd.Items.Insert(0,new ListItem("所有分店",""));
 
                 //日期
                 txb_xsrq_start.Text = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
@@ -206,7 +220,7 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? "" : r.TTiaoma.yanse).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
                     Select(r => new
                     {
                         X = r.Key,
@@ -217,7 +231,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.销售额)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
                     Select(r => new
                     {
                         X = r.Key,
@@ -228,7 +242,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.yanse).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
                     Select(r => new
                     {
                         X = r.Key,
@@ -278,7 +292,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.销售额)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
                     Select(r => new
                     {
                         X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
@@ -289,7 +303,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var data = xss.GroupBy(r => r.TTiaoma.TKuanhao.leixing).
+                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
                     Select(r => new
                     {
                         X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
@@ -672,6 +686,16 @@ namespace JCSJGL
         private TXiaoshou[] getXiaoshouData()
         {
             //取查询条件
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+
+            }
+            else
+            {
+                jmsid = _LoginUser.jmsid;
+            }
+
             int? fdid = null;
             if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
             {
@@ -690,7 +714,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int recordCount = 0;
-            TXiaoshou[] xss = db.GetXiaoshousByCond(fdid, xsrq_start, xsrq_end, null, null, null, null, out recordCount);
+            TXiaoshou[] xss = db.GetXiaoshousByCond(jmsid,fdid, xsrq_start, xsrq_end, null, null, null, null, out recordCount);
 
             return xss;
         }

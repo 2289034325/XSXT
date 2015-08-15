@@ -19,6 +19,7 @@
     <asp:GridView ID="grid_xiaoshou" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_xiaoshou_PageIndexChanging">
         <Columns>
+            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>
@@ -38,21 +39,13 @@
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
         </Columns>
         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-
         <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-
         <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-
         <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-
         <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-
         <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-
         <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
         <PagerSettings Mode="Numeric" Visible="true" />
     </asp:GridView>

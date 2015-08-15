@@ -14,28 +14,27 @@ namespace Tool.JCSJ
             public enum USER_XTJS : byte
             {
                 系统管理员 = 1,
-                总经理 = 2,
-                经理=3,
-                店长= 4,
-                店员=5,
-                编码员=6,
-                仓库管理员= 7,
-                分店系统=8,
-                仓库系统=9
+                总经理 = 2,//具有全局数据可见权限，无数据操作权限
+                管理员 = 3,//加盟商管理员，具有加盟商所有的数据可见和操作权限
+                经理 = 4,//具有加盟商所有的数据可见权限
+                店长 = 5,
+                店员 = 6,
+                编码 = 7,
+                仓库 = 8
             }
 
             /// <summary>
             /// 仓库系统注册时的登录名前缀
             /// </summary>
-            public const string USER_DLM_PRE_CK = "CK";
+            //public const string USER_DLM_PRE_CK = "CK";
             /// <summary>
             /// 分店系统注册时的登录名前缀
             /// </summary>
-            public const string USER_DLM_PRE_FD = "FD";
+            //public const string USER_DLM_PRE_FD = "FD";
             /// <summary>
             /// 报表系统注册时的登录名前缀
             /// </summary>
-            public const string USER_DLM_PRE_BB = "BB";
+            //public const string USER_DLM_PRE_BB = "BB";
 
             /// <summary>
             /// 系统用户状态

@@ -36,6 +36,8 @@
                     <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="报表" Value="报表">
                         <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="统计表" Value="统计表" NavigateUrl="~/Page_TongjiBiao.aspx"></asp:MenuItem>

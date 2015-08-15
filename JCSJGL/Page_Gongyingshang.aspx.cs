@@ -23,38 +23,38 @@ namespace JCSJGL
                 //加载供应商信息
                 loadGongyingshangs();
             }
-            else
-            {
-                string opt = hid_opt.Value;
-                if (opt == "DELETE")
-                {
-                    int id = int.Parse(hid_id.Value);
-                    deleteGongyingshang(id);
-                }
+            //else
+            //{
+            //    string opt = hid_opt.Value;
+            //    if (opt == "DELETE")
+            //    {
+            //        //操作后清除操作标志
+            //        hid_opt.Value = "";
 
-                //操作后清除操作标志
-                hid_opt.Value = "";
-            }
+            //        int id = int.Parse(hid_id.Value);
+            //        deleteGongyingshang(id);
+            //    }
+            //}
         }
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id"></param>
-        private void deleteGongyingshang(int id)
-        {
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+        //private void deleteGongyingshang(int id)
+        //{
+        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-            DBContext db = new DBContext();
-            TGongyingshang og = db.GetGongyingshangById(id);
-            if (og.jmsid != _LoginUser.jmsid)
-            {
-                throw new MyException("非法操作，无法删除该供应商");
-            }
-            db.DeleteGongyingshang(id);
+        //    DBContext db = new DBContext();
+        //    TGongyingshang og = db.GetGongyingshangById(id);
+        //    if (og.jmsid != _LoginUser.jmsid)
+        //    {
+        //        throw new MyException("非法操作，无法删除该供应商");
+        //    }
+        //    db.DeleteGongyingshang(id);
 
-            loadGongyingshangs();
-        }
+        //    loadGongyingshangs();
+        //}
 
         /// <summary>
         /// 加载所有供应商信息
@@ -62,21 +62,19 @@ namespace JCSJGL
         private void loadGongyingshangs()
         {
             DBContext db = new DBContext();
-            TGongyingshang[] cs =null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                cs = db.GetGongyingshangs();
-                grid_gys.Columns.Insert(1, new BoundField()
-                {
-                    HeaderText = "加盟商",
-                    DataField = "jiamengshang"
-                });
+                grid_gys.Columns[1].Visible = true;
             }
             else
             {
-                cs = db.GetGongyingshangsByJmsId(_LoginUser.jmsid);
+                grid_gys.Columns[1].Visible = false;
+                jmsid = _LoginUser.jmsid;
             }
 
+            TGongyingshang[] cs = db.GetGongyingshangs(jmsid);
             var dfs = cs.Select(r => new
             {
                 id = r.id,
@@ -111,7 +109,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TGongyingshang og = db.GetGongyingshangById(f.id);
-            if (og.jmsid != _LoginUser.jmsid)
+            if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改此供应商信息");
             }
@@ -160,8 +158,8 @@ namespace JCSJGL
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
-            TGongyingshang[] gs = db.GetGongyingshangsByJmsId(_LoginUser.jmsid);
-            if (gs.Count() >= _LoginUser.TJiamengshang.gongyingshangshu)
+            int cc = db.GetGongyingshangCount(_LoginUser.jmsid);
+            if (cc >= _LoginUser.TJiamengshang.gongyingshangshu)
             {
                 throw new MyException("拥有的供应商数量已到上限，如有需要增加更多供应商请联系系统管理员");
             }
@@ -169,6 +167,28 @@ namespace JCSJGL
 
             loadGongyingshangs();
 
+        }
+
+        /// <summary>
+        /// 删除一个供应商
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void grid_gys_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
+            int id = int.Parse(grid_gys.DataKeys[e.RowIndex].Value.ToString()); 
+
+            DBContext db = new DBContext();
+            TGongyingshang og = db.GetGongyingshangById(id);
+            if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法删除该供应商");
+            }
+            db.DeleteGongyingshang(id);
+
+            loadGongyingshangs();
         }
     }
 }

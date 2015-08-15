@@ -71,7 +71,7 @@ namespace CKGL
         internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByUpdTime(upt_start, upt_end);
+            return _jdc.GetTiaomasByCond("","",upt_start, upt_end);
         }
 
         /// <summary>

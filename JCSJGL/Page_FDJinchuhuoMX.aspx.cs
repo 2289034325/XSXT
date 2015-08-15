@@ -10,8 +10,12 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_FDJinchuhuoMX : System.Web.UI.Page
+    public partial class Page_FDJinchuhuoMX : MyPage
     {
+        public Page_FDJinchuhuoMX()
+        {
+            _PageName = PageName.分店进出货明细;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,8 +27,20 @@ namespace JCSJGL
         }
 
         private void getMX(int jcid)
-        { 
+        {
             DBContext db = new DBContext();
+                        
+            if (_LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 &&
+             _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                //除了系统管理员和总经理，其他加盟商禁止查看其他加盟商的数据
+                TFendianJinchuhuo tf = db.GetFDJinchuhuoByJcId(jcid);
+                if (tf.TFendian.jmsid != _LoginUser.jmsid)
+                {
+                    throw new MyException("非法操作，无法显示数据");
+                }
+            }
+
             TFendianJinchuhuoMX[] amxs = db.GetFDJinchuhuoMXsByJcId(jcid);
 
             var mxs = amxs.Select(r => new 

@@ -7,5 +7,6 @@ namespace DB_CK.Models
     {
         public int id { get; set; }
         public short shuliang { get; set; }
+        public Nullable<System.DateTime> jinhuoriqi { get; set; }
     }
 }

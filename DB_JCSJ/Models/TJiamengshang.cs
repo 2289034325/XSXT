@@ -20,12 +20,12 @@ namespace DB_JCSJ.Models
         public int tiaomashu { get; set; }
         public int huiyuanshu { get; set; }
         public short fendianshu { get; set; }
-        public Nullable<int> kuanhaoshu { get; set; }
-        public Nullable<byte> cangkushu { get; set; }
-        public Nullable<short> gongyingshangshu { get; set; }
-        public Nullable<int> xsjilushu { get; set; }
-        public Nullable<int> jchjilushu { get; set; }
-        public Nullable<int> kcjilushu { get; set; }
+        public int kuanhaoshu { get; set; }
+        public byte cangkushu { get; set; }
+        public short gongyingshangshu { get; set; }
+        public int xsjilushu { get; set; }
+        public int jchjilushu { get; set; }
+        public int kcjilushu { get; set; }
         public decimal shoucifufei { get; set; }
         public decimal xufeidanjia { get; set; }
         public System.DateTime jiezhiriqi { get; set; }

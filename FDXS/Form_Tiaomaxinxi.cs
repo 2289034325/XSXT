@@ -92,7 +92,7 @@ namespace FDXS
                     id = jtm.id,
                     tiaoma = jtm.tiaoma,
                     kuanhao = jtm.TKuanhao.kuanhao,
-                    gongyingshang = jtm.TGongyingshang.jiancheng,
+                    gongyingshang = jtm.TGongyingshang.mingcheng,
                     gyskuanhao = jtm.gyskuanhao,
                     leixing = jtm.TKuanhao.leixing,
                     pinming = jtm.TKuanhao.pinming,

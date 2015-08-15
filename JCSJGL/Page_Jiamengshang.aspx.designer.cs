@@ -22,15 +22,6 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.GridView grid_jiamengshang;
         
         /// <summary>
-        /// hid_opt 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hid_opt;
-        
-        /// <summary>
         /// hid_id 控件。
         /// </summary>
         /// <remarks>
@@ -58,6 +49,15 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_zhs;
         
         /// <summary>
+        /// txb_khs 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_khs;
+        
+        /// <summary>
         /// txb_tms 控件。
         /// </summary>
         /// <remarks>
@@ -83,6 +83,51 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txb_fds;
+        
+        /// <summary>
+        /// txb_cks 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_cks;
+        
+        /// <summary>
+        /// txb_gyss 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_gyss;
+        
+        /// <summary>
+        /// txb_xsjls 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_xsjls;
+        
+        /// <summary>
+        /// txb_jchjls 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_jchjls;
+        
+        /// <summary>
+        /// txb_kcjls 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txb_kcjls;
         
         /// <summary>
         /// txb_scff 控件。

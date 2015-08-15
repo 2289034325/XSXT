@@ -308,6 +308,10 @@
     <Content Include="Login.aspx" />
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
+    <Content Include="Page_CKJinchuhuo.aspx" />
+    <Content Include="Page_CKJinchuhuoMX.aspx" />
+    <Content Include="Page_CKKucun.aspx" />
+    <Content Include="Page_CKKucunMX.aspx" />
     <Content Include="Page_Jiamengshang.aspx" />
     <Content Include="Page_TongjiBiao.aspx" />
     <Content Include="Page_TongjiTu.aspx" />
@@ -358,6 +362,34 @@
     </Compile>
     <Compile Include="Page_Error.aspx.designer.cs">
       <DependentUpon>Page_Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_CKJinchuhuo.aspx.cs">
+      <DependentUpon>Page_CKJinchuhuo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_CKJinchuhuo.aspx.designer.cs">
+      <DependentUpon>Page_CKJinchuhuo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_CKJinchuhuoMX.aspx.cs">
+      <DependentUpon>Page_CKJinchuhuoMX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_CKJinchuhuoMX.aspx.designer.cs">
+      <DependentUpon>Page_CKJinchuhuoMX.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_CKKucun.aspx.cs">
+      <DependentUpon>Page_CKKucun.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_CKKucun.aspx.designer.cs">
+      <DependentUpon>Page_CKKucun.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_CKKucunMX.aspx.cs">
+      <DependentUpon>Page_CKKucunMX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_CKKucunMX.aspx.designer.cs">
+      <DependentUpon>Page_CKKucunMX.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Jiamengshang.aspx.cs">
       <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>

@@ -137,7 +137,7 @@ namespace DB_FD
             }
             if (!string.IsNullOrEmpty(kh))
             {
-                ks = ks.Where(r => r.t.kuanhao == kh);
+                ks = ks.Where(r => r.t.kuanhao == kh || r.t.gyskuanhao == kh);
             }
             if (lx != null)
             {

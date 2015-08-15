@@ -11,17 +11,32 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_TongjiBiao : System.Web.UI.Page
+    public partial class Page_TongjiBiao : MyPage
     {
+        public Page_TongjiBiao()
+        {
+            _PageName = PageName.统计表;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //初始化分店下拉框
+                int? jmsid = null;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                        _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    grid_xiaoshou.Columns[0].Visible = true;
+                }
+                else
+                {
+                    grid_xiaoshou.Columns[0].Visible = false;
+                    jmsid = _LoginUser.jmsid;
+                }
                 DBContext db = new DBContext();
-                TFendian[] fs = db.GetFendiansAsItems();
+                TFendian[] fs = db.GetFendiansAsItems(jmsid);
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
-                cmb_fd.Items.Insert(0, "");
+                cmb_fd.Items.Insert(0, new ListItem("所有分店",""));
 
                 //日期下拉框
                 txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -90,7 +105,7 @@ namespace JCSJGL
                         fdid = null;
                     }
                 }
-                
+
                 searchXiaoshou(rq, xsrq_start, xsrq_end, fd, fdid);
             }
             //else
@@ -128,7 +143,7 @@ namespace JCSJGL
             //    searchXiaoshou(rq, xsrq_start, xsrq_end, fd, fdid);
             //}
         }
-        
+
 
         /// <summary>
         /// 查询
@@ -154,16 +169,26 @@ namespace JCSJGL
                 xsrq_end = DateTime.Parse(txb_xsrq_end.Text.Trim());
             }
 
-            searchXiaoshou(false, xsrq_start, xsrq_end, false, fdid);        
+            searchXiaoshou(false, xsrq_start, xsrq_end, false, fdid);
         }
 
         private void searchXiaoshou(bool rq, DateTime? xsrq_start, DateTime? xsrq_end, bool fd, int? fdid)
         {
             grid_xiaoshou.Columns.Clear();
 
+            int? jmsid = null;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+
+            }
+            else
+            {
+                jmsid = _LoginUser.jmsid;
+            }
+
             int recordCount = 0;
             DBContext db = new DBContext();
-            TXiaoshou[] xss = db.GetXiaoshousByCond(fdid,
+            TXiaoshou[] xss = db.GetXiaoshousByCond(jmsid,fdid,
                 xsrq_start, xsrq_end, null, null,
                 grid_xiaoshou.PageSize, grid_xiaoshou.PageIndex, out recordCount);
             DataTable dt = new DataTable();
@@ -190,14 +215,14 @@ namespace JCSJGL
 
             if (rq && fd)
             {
-                var data = xs.GroupBy(r => new { r.rq,r.fdid, r.fd }).Select(r => new 
+                var data = xs.GroupBy(r => new { r.rq, r.fdid, r.fd }).Select(r => new
                 {
                     r.Key.rq,
                     r.Key.fdid,
                     r.Key.fd,
-                    xl = r.Sum(xr=>xr.xl),
-                    xse = decimal.Round(r.Sum(xr=>xr.xse),2),
-                    lr = decimal.Round(r.Sum(xr=>xr.lr),2)
+                    xl = r.Sum(xr => xr.xl),
+                    xse = decimal.Round(r.Sum(xr => xr.xse), 2),
+                    lr = decimal.Round(r.Sum(xr => xr.lr), 2)
                 });
                 dt = Tool.CommonFunc.LINQToDataTable(data);
 
@@ -220,7 +245,7 @@ namespace JCSJGL
             }
             else if (!rq && fd)
             {
-                var data = xs.GroupBy(r => new { r.fdid,r.fd }).Select(r => new
+                var data = xs.GroupBy(r => new { r.fdid, r.fd }).Select(r => new
                 {
                     r.Key.fdid,
                     r.Key.fd,
@@ -272,7 +297,7 @@ namespace JCSJGL
             {
                 HyperLinkField hffd = new HyperLinkField();
                 hffd.DataNavigateUrlFields = new string[] { "rq" };
-                hffd.DataNavigateUrlFormatString = "Page_TongjiBiao.aspx?rq=True&fd=true&xsrqstart={0}&xsrqend={0}&fdid=" + 
+                hffd.DataNavigateUrlFormatString = "Page_TongjiBiao.aspx?rq=True&fd=true&xsrqstart={0}&xsrqend={0}&fdid=" +
                     cmb_fd.SelectedValue;
                 hffd.Text = "分店";
                 grid_xiaoshou.Columns.Add(hffd);
@@ -281,7 +306,7 @@ namespace JCSJGL
                 hfmx.DataNavigateUrlFields = new string[] { "rq" };
                 hfmx.DataNavigateUrlFormatString = "Page_Xiaoshou.aspx?fdid=" + cmb_fd.SelectedValue + "&xsrqstart={0}&xsrqend={0}";
                 hfmx.Text = "明细";
-                grid_xiaoshou.Columns.Add(hfmx);          
+                grid_xiaoshou.Columns.Add(hfmx);
             }
             else if (!rq && fd)
             {
@@ -297,7 +322,7 @@ namespace JCSJGL
                 hfmx.DataNavigateUrlFormatString = "Page_Xiaoshou.aspx?fdid={0}&xsrqstart=" + txb_xsrq_start.Text.Trim() +
                     "&xsrqend=" + txb_xsrq_end.Text.Trim();
                 hfmx.Text = "明细";
-                grid_xiaoshou.Columns.Add(hfmx);          
+                grid_xiaoshou.Columns.Add(hfmx);
             }
             else
             {
@@ -328,7 +353,7 @@ namespace JCSJGL
 
         protected void grid_xiaoshou_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            
+
         }
     }
 }

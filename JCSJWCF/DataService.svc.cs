@@ -50,7 +50,7 @@ namespace JCSJWCF
                 else
                 {
                     //验证角色
-                    if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码员)
+                    if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码)
                     {
                         throw new FaultException("此帐号不是编码账号，不能登陆");
                     }
@@ -59,6 +59,11 @@ namespace JCSJWCF
                     _LoginUser = u;
                 }
             }
+
+            //去除循环引用
+            u.TJiamengshang.TUsers.Clear();
+            u.TJiamengshangs.Clear();
+
             return u;
         }
 
@@ -68,7 +73,7 @@ namespace JCSJWCF
         /// <param name="ckid">仓库ID</param>
         /// <param name="tzm">机器码的MD5值</param>
         /// <returns></returns>
-        public void CKZHLogin(int ckid, string tzm)
+        public void CKZHLogin(int ckid, string jqm)
         {
             //验证Id是否存在
             DBContext db = new DBContext();
@@ -79,23 +84,31 @@ namespace JCSJWCF
             }
 
             //验证机器码
-            TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
-            if (u == null)
-            {
-                throw new FaultException("该仓库未注册，请先注册系统");
-            }
-            else
-            {
-                //检查机器码是否相符
-                if (u.jiqima != tzm)
-                {
-                    throw new FaultException("禁止在该电脑登与中央系统通信，请先注册系统");
-                }
-            }
+            //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
+            //if (u == null)
+            //{
+            //    throw new FaultException("该仓库未注册，请先注册系统");
+            //}
+            //else
+            //{
+            //检查机器码是否相符
+            //if (ck.jiqima != jqm)
+            //{
+            //    throw new FaultException("禁止在该电脑登与中央系统通信，请先注册系统");
+            //}
+            //}
 
             //取账号对应的仓库信息
-            _LoginCangku = db.GetUserCangkuByUserId(u.id).TCangku;
-            _LoginUser = u;
+            //_LoginCangku = db.GetUserCangkuByUserId(u.id).TCangku;
+            //_LoginUser = u;
+
+            //检查机器码是否相符
+            if (ck.jiqima != jqm)
+            {
+                throw new FaultException("禁止在该电脑与中央系统通信，请先注册系统");
+            }
+
+            _LoginCangku = ck;
         }
 
         /// <summary>
@@ -103,7 +116,7 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="fdid">分店ID</param>
         /// <param name="tzm"></param>
-        public void FDZHLogin(int fdid, string tzm)
+        public void FDZHLogin(int fdid, string jqm)
         {
             //验证Id是否存在
             DBContext db = new DBContext();
@@ -113,24 +126,32 @@ namespace JCSJWCF
                 throw new FaultException("错误的分店ID，请先注册系统");
             }
 
-            //验证机器码
-            TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
-            if (u == null)
+            //检查机器码是否相符
+            if (fd.jiqima != jqm)
             {
-                throw new FaultException("该分店未注册，请先注册系统");
-            }
-            else
-            {
-                //检查机器码是否相符
-                if (u.jiqima != tzm)
-                {
-                    throw new FaultException("禁止在该电脑登与中央系统通信，请先注册系统");
-                }
+                throw new FaultException("禁止在该电脑与中央系统通信，请先注册系统");
             }
 
-            //取得分店信息
-            _LoginUser = u;
-            _LoginFendian = db.GetUserFendianByUserid(u.id).TFendian;
+            _LoginFendian = fd;
+
+            //验证机器码
+            //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
+            //if (u == null)
+            //{
+            //    throw new FaultException("该分店未注册，请先注册系统");
+            //}
+            //else
+            //{
+            //    //检查机器码是否相符
+            //    if (u.jiqima != tzm)
+            //    {
+            //        throw new FaultException("禁止在该电脑登与中央系统通信，请先注册系统");
+            //    }
+            //}
+
+            ////取得分店信息
+            //_LoginUser = u;
+            //_LoginFendian = db.GetUserFendianByUserid(u.id).TFendian;
         }
 
         /// <summary>
@@ -161,19 +182,18 @@ namespace JCSJWCF
         /// <summary>
         /// 按条件取得条码信息
         /// </summary>
-        /// <param name="Jmsid">加盟商ID</param>
         /// <param name="Kuanhao"></param>
         /// <param name="Tiaoma"></param>
         /// <param name="Start">条码插入时间</param>
         /// <param name="End">条码插入时间</param>
         /// <returns></returns>
-        public TTiaoma[] GetTiaomasByCond(int Jmsid, string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End)
+        public TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End)
         {
             DBContext db = new DBContext();
             int recordCount = 0;
             int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
 
-            TTiaoma[] ts = db.GetTiaomasByCond(Jmsid,null, Kuanhao, Tiaoma, Start, End,dataLimit,0,out recordCount);
+            TTiaoma[] ts = db.GetTiaomasByCond(_LoginUser.jmsid,null, Kuanhao, Tiaoma, Start, End,dataLimit,0,out recordCount);
             if (recordCount > dataLimit)
             {
                 throw new FaultException("数据太多，请缩小时间区域");
@@ -185,7 +205,7 @@ namespace JCSJWCF
                 t.TKuanhao.TTiaomas.Clear();
                 t.TKuanhao.TJiamengshang = null;
                 t.TGongyingshang.TTiaomas.Clear();
-                t.TGongyingshang.TUser = null;
+                t.TGongyingshang.TJiamengshang = null;
             }
             return ts;
         }
@@ -195,16 +215,16 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        public TGongyingshang[] GetGongyingshangsByJmsid(int JmsId)
+        public TGongyingshang[] GetGongyingshangs()
         {
             DBContext db = new DBContext();
-            TGongyingshang[] gs = db.GetGongyingshangsByJmsId(JmsId);
+            TGongyingshang[] gs = db.GetGongyingshangsAsItems(_LoginUser.jmsid);
 
             //去除循环引用
-            //foreach (TGongyingshang g in gs)
-            //{
-            //    g.TJiamengshang = null;   
-            //}
+            foreach (TGongyingshang g in gs)
+            {
+                g.TJiamengshang = null;                
+            }
 
             return gs;
         }
@@ -214,10 +234,10 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        public TKuanhao[] GetKuanhaosByJmsId(int JmsId)
+        public TKuanhao[] GetKuanhaos()
         {
             DBContext db = new DBContext();
-            TKuanhao[] ks = db.GetKuanhaosByJmsId(JmsId);
+            TKuanhao[] ks = db.GetKuanhaos(_LoginUser.jmsid);
 
             return ks;
         }
@@ -230,7 +250,17 @@ namespace JCSJWCF
         public TKuanhao InsertKuanhao(TKuanhao k)
         {
             DBContext db = new DBContext();
-            int cc = db.GetKuanhaoCountByJmsId(_LoginUser.jmsid);
+            string errMsg = "非法操作，请刷新页面重新执行";
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX), k.leixing))
+            {
+                throw new FaultException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB), k.xingbie))
+            {
+                throw new FaultException(errMsg);
+            }
+
+            int cc = db.GetKuanhaoCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.kuanhaoshu)
             {
                 throw new FaultException("拥有的款号数已到上限，如要增加更多款号请联系系统管理员");
@@ -246,14 +276,24 @@ namespace JCSJWCF
         public void EditKuanhao(TKuanhao k)
         {
             DBContext db = new DBContext();
-            TKuanhao ok = db.GetKuanhaoById(k.id);
-            if (ok.caozuorenid != _LoginUser.id)
+            string errMsg = "非法操作，请刷新页面重新执行";
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX), k.leixing))
             {
-                throw new FaultException("不允许修改其他用户的款号");
+                throw new FaultException(errMsg);
+            }
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB), k.xingbie))
+            {
+                throw new FaultException(errMsg);
+            }
+
+            TKuanhao ok = db.GetKuanhaoById(k.id);
+            if (ok.jmsid != _LoginUser.jmsid)
+            {
+                throw new FaultException("非法操作，无法该款号信息");
             }
             k.xiugaishijian = DateTime.Now;
 
-            db.UpdateKuanhao(k); 
+            db.UpdateKuanhao(k);
         }
 
         /// <summary>
@@ -265,9 +305,9 @@ namespace JCSJWCF
             DBContext db = new DBContext();
             TKuanhao k = db.GetKuanhaoById(id);
 
-            if (k.caozuorenid != _LoginUser.id)
+            if (k.jmsid != _LoginUser.jmsid)
             {
-                throw new FaultException("不允许删除其他用户的款号");
+                throw new FaultException("非法操作，无法删除该款号");
             }
 
             db.DeleteKuanhao(id); 
@@ -316,16 +356,7 @@ namespace JCSJWCF
         public string[] CheckKuanhaosChongfu(string[] khs)
         {
             DBContext db = new DBContext();
-            List<string> eKhs = new List<string>();
-            foreach (string k in khs)
-            {
-                if (db.GetKuanhaoByMcWithJmsId(k,_LoginUser.jmsid) != null)
-                {
-                    eKhs.Add(k);
-                }
-            }
-
-            return eKhs.ToArray();
+            return db.GetKuanhaoExistByMcWithJmsId(khs, _LoginUser.jmsid);
         }
 
         /// <summary>
@@ -355,16 +386,26 @@ namespace JCSJWCF
         /// <returns></returns>
         public TKuanhao[] SaveKuanhaos(TKuanhao[] ks)
         {
+            string errMsg = "非法操作，请刷新页面重新执行";
             foreach (TKuanhao k in ks)
             {
                 k.caozuorenid = _LoginUser.id;
                 k.jmsid = _LoginUser.jmsid;
                 k.charushijian = DateTime.Now;
                 k.xiugaishijian = DateTime.Now;
+
+                if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX), k.leixing))
+                {
+                    throw new FaultException(errMsg);
+                }
+                if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB), k.xingbie))
+                {
+                    throw new FaultException(errMsg);
+                }
             }
 
             DBContext db = new DBContext();
-            int cc = db.GetKuanhaoCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetKuanhaoCount(_LoginUser.jmsid);
             if (cc + ks.Count() > _LoginUser.TJiamengshang.kuanhaoshu)
             {
                 throw new FaultException("拥有的款号数已到上限，如要增加更多款号请联系系统管理员");
@@ -396,7 +437,7 @@ namespace JCSJWCF
             {
                 throw new FaultException("非法操作，无法保存条码");
             }
-            int cc = db.GetTiaomaCountByJmsid(_LoginUser.jmsid);
+            int cc = db.GetTiaomaCount(_LoginUser.jmsid);
             if (cc + ts.Count() > _LoginUser.TJiamengshang.tiaomashu)
             {
                 throw new FaultException("拥有的条码数已到上限，如要增加更多条码请联系系统管理员");
@@ -489,7 +530,11 @@ namespace JCSJWCF
         public THuiyuan HuiyuanZhuce(THuiyuan h)
         {
             DBContext db = new DBContext();
-
+            int cc = db.GetHuiyuanCount(_LoginUser.jmsid);
+            if (cc >= _LoginUser.TJiamengshang.huiyuanshu)
+            {
+                throw new FaultException("拥有的会员数已到上限，如要增加更多会员请联系系统管理员");
+            }
             THuiyuan oh = db.GetHuiyuanByShoujihaoWithJmsId(h.shoujihao, _LoginUser.jmsid);
             if (oh != null)
             {
@@ -497,7 +542,7 @@ namespace JCSJWCF
             }
 
             h.fendianid = _LoginFendian.id;
-            h.caozuorenid = _LoginUser.id;
+            //h.caozuorenid = _LoginUser.id;
             h.jifen = 0;
             h.jfjsshijian = DateTime.Now;
             h.charushijian = DateTime.Now;
@@ -539,6 +584,12 @@ namespace JCSJWCF
         public void UpdateHuiyuan(THuiyuan h)
         {
             h.xiugaishijian = DateTime.Now;
+            string errMsg = "非法操作，请刷新页面重新执行";
+            if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB), h.xingbie))
+            {
+                throw new FaultException(errMsg);
+            }
+
             //检查是否可以修改
             DBContext db = new DBContext();
             THuiyuan oh = db.GetHuiyuanById(h.id);
@@ -568,7 +619,7 @@ namespace JCSJWCF
         public void ShangbaoXiaoshou(TXiaoshou[] xss)
         {            
             DBContext db = new DBContext();
-            int cc = db.GetXiaoshouCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetXiaoshouCount(_LoginUser.jmsid);
             if (cc + xss.Count() > _LoginUser.TJiamengshang.xsjilushu)
             {
                 throw new FaultException("上传的销售记录数已到上限，如要上传更多销售记录请联系系统管理员");
@@ -589,7 +640,7 @@ namespace JCSJWCF
         public void ShangbaoKucun_FD(TFendianKucunMX[] fks)
         {
             DBContext db = new DBContext();
-            int cc = db.GetFDKucunCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetFDKucunCount(_LoginUser.jmsid);
             if (cc + fks.Count() > _LoginUser.TJiamengshang.kcjilushu)
             {
                 throw new FaultException("上传的库存记录数已到上限，如要上传更多库存记录请联系系统管理员");
@@ -620,7 +671,7 @@ namespace JCSJWCF
             }
 
             DBContext db = new DBContext();
-            int cc = db.GetFDJinchuhuoCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetFDJinchuhuoCount(_LoginUser.jmsid);
             if (cc + fjcs.Count() > _LoginUser.TJiamengshang.jchjilushu)
             {
                 throw new FaultException("上传的进出货记录数已到上限，如要上传更多进出货记录请联系系统管理员");
@@ -635,7 +686,7 @@ namespace JCSJWCF
         public void ShangbaoKucun_CK(TCangkuKucunMX[] cks)
         {
             DBContext db = new DBContext();
-            int cc = db.GetCKKucunCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetCKKucunCount(_LoginUser.jmsid);
             if (cc + cks.Count() > _LoginUser.TJiamengshang.kcjilushu)
             {
                 throw new FaultException("上传的库存记录数已到上限，如要上传更多库存记录请联系系统管理员");
@@ -666,7 +717,7 @@ namespace JCSJWCF
             }
 
             DBContext db = new DBContext();
-            int cc = db.GetCKJinchuhuoCountByJmsId(_LoginUser.jmsid);
+            int cc = db.GetCKJinchuhuoCount(_LoginUser.jmsid);
             if (cc + cjcs.Count() > _LoginUser.TJiamengshang.jchjilushu)
             {
                 throw new FaultException("上传的进出货记录数已到上限，如要上传更多进出货记录请联系系统管理员");
@@ -714,7 +765,7 @@ namespace JCSJWCF
         public TFendian[] GetFendians()
         {
             DBContext db = new DBContext();
-            TFendian[] fds = db.GetFendiansAsItemsByJmsId(_LoginUser.jmsid);
+            TFendian[] fds = db.GetFendiansAsItems(_LoginUser.jmsid);
 
             foreach (TFendian f in fds)
             {

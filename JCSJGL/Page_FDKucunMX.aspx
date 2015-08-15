@@ -20,6 +20,7 @@
             <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
             <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
             <asp:BoundField DataField="shuliang" HeaderText="数量"></asp:BoundField>
+            <asp:BoundField DataField="jinhuoriqi" HeaderText="进货日期"></asp:BoundField>
         </Columns>
         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
 
