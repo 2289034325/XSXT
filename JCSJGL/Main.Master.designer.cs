@@ -31,13 +31,13 @@ namespace JCSJGL {
         protected global::System.Web.UI.HtmlControls.HtmlForm form_main;
         
         /// <summary>
-        /// mn_main 控件。
+        /// div_mn_main 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu mn_main;
+        protected global::System.Web.UI.WebControls.Menu div_mn_main;
         
         /// <summary>
         /// cph_body 控件。

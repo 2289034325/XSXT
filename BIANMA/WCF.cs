@@ -115,17 +115,17 @@ namespace BIANMA
             _jdc.DeleteKuanhao(id);
         }
 
-        internal static void BMZHEditPsw(string om, string nm)
-        {
-            AutoLogin();
-            _jdc.BMZHEditPsw(Tool.CommonFunc.MD5_16(om), Tool.CommonFunc.MD5_16(nm));
-        }
+        //internal static void BMZHEditPsw(string om, string nm)
+        //{
+        //    AutoLogin();
+        //    _jdc.BMZHEditPsw(Tool.CommonFunc.MD5_16(om), Tool.CommonFunc.MD5_16(nm));
+        //}
 
-        internal static void BMZHZhuce(string dlm, string mm, string xm, string zcm)
-        {
-            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCF_VALIDADD);
-            vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
-        }
+        //internal static void BMZHZhuce(string dlm, string mm, string xm, string zcm)
+        //{
+        //    ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCF_VALIDADD);
+        //    vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+        //}
 
         internal static TTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
         {

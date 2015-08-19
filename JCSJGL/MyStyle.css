@@ -2,6 +2,21 @@
 {
     margin:0;
 }
+.mainMenu
+{
+    font-size:25px;
+    width:100%;
+    overflow:scroll;
+}
+.mainMenu ul 
+{
+    display:flex;
+    display:-webkit-flex;
+}
+.mainMenuExpand
+{
+    font-size:25px;
+}
 .div_sch 
 {
     display:flex;

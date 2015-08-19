@@ -31,14 +31,15 @@
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重置扫描枪ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.数据中心URLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtzc = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_churuku = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_yhgl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tmyl = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_cxlj = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +51,8 @@
             this.mn_main_kcyl,
             this.mn_main_kcgl,
             this.mn_main_yhgl,
-            this.mn_main_tmyl});
+            this.mn_main_tmyl,
+            this.mn_main_cxlj});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
             this.mn_main.Name = "mn_main";
             this.mn_main.Size = new System.Drawing.Size(1126, 25);
@@ -61,7 +63,7 @@
             // 
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.重置扫描枪ToolStripMenuItem,
-            this.数据中心URLToolStripMenuItem,
+            this.mn_main_xtsz,
             this.mn_main_xtzc,
             this.mn_main_version});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
@@ -74,11 +76,12 @@
             this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.重置扫描枪ToolStripMenuItem.Text = "重置扫描枪";
             // 
-            // 数据中心URLToolStripMenuItem
+            // mn_main_xtsz
             // 
-            this.数据中心URLToolStripMenuItem.Name = "数据中心URLToolStripMenuItem";
-            this.数据中心URLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.数据中心URLToolStripMenuItem.Text = "数据中心地址";
+            this.mn_main_xtsz.Name = "mn_main_xtsz";
+            this.mn_main_xtsz.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_xtsz.Text = "系统设置";
+            this.mn_main_xtsz.Click += new System.EventHandler(this.mn_main_xtsz_Click);
             // 
             // mn_main_xtzc
             // 
@@ -86,6 +89,13 @@
             this.mn_main_xtzc.Size = new System.Drawing.Size(152, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_jcsj_zc_Click);
+            // 
+            // mn_main_version
+            // 
+            this.mn_main_version.Name = "mn_main_version";
+            this.mn_main_version.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_version.Text = "版本";
+            this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
             // 
             // mn_main_churuku
             // 
@@ -122,12 +132,12 @@
             this.mn_main_tmyl.Text = "条码一览";
             this.mn_main_tmyl.Click += new System.EventHandler(this.mn_main_tmyl_Click);
             // 
-            // mn_main_version
+            // mn_main_cxlj
             // 
-            this.mn_main_version.Name = "mn_main_version";
-            this.mn_main_version.Size = new System.Drawing.Size(152, 22);
-            this.mn_main_version.Text = "版本";
-            this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
+            this.mn_main_cxlj.Name = "mn_main_cxlj";
+            this.mn_main_cxlj.Size = new System.Drawing.Size(104, 21);
+            this.mn_main_cxlj.Text = "重新连接服务器";
+            this.mn_main_cxlj.Click += new System.EventHandler(this.mn_main_cxlj_Click);
             // 
             // Form_Main
             // 
@@ -152,7 +162,7 @@
         private System.Windows.Forms.MenuStrip mn_main;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重置扫描枪ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 数据中心URLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_xtsz;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xtzc;
         private System.Windows.Forms.ToolStripMenuItem mn_main_churuku;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcyl;
@@ -160,6 +170,7 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_yhgl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_tmyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_version;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_cxlj;
     }
 }
 

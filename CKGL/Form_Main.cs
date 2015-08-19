@@ -198,5 +198,26 @@ namespace CKGL
         {
             MessageBox.Show(ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
         }
+
+        /// <summary>
+        /// 设置系统参数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_xtsz_Click(object sender, EventArgs e)
+        {
+            Dlg_AppSettings dl = new Dlg_AppSettings();
+            dl.ShowDialog();
+        }
+
+        /// <summary>
+        /// 重新连接服务器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_cxlj_Click(object sender, EventArgs e)
+        {
+            JCSJWCF.Reconnect();
+        }
     }
 }

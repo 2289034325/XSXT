@@ -22,21 +22,31 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //初始化类型下拉框
-                Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
-                cmb_lx.Items.Insert(0, "");
-
-                //供应商下拉框
                 DBContext db = new DBContext();
-                int? jmsid = null;
-                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-                {
 
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                int? jmsid = null;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch_jms.Visible = true;
+
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
                 }
                 else
                 {
                     jmsid = _LoginUser.jmsid;
                 }
+
+                //初始化类型下拉框
+                Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
+                cmb_lx.Items.Insert(0, new ListItem("所有类型",""));
+               
                 TGongyingshang[] gs = db.GetGongyingshangs(jmsid);
                 Tool.CommonFunc.InitDropDownList(cmb_gys, gs, "mingcheng", "id");
             }
@@ -53,18 +63,6 @@ namespace JCSJGL
             grid_tiaoma.PageIndex = 0;
             search();
         }
-
-        /// <summary>
-        /// 删除一个条码
-        /// </summary>
-        /// <param name="id"></param>
-        //private void deleteTiaoma(int id)
-        //{
-        //    DBContext db = new DBContext();
-        //    db.DeleteTiaoma(id);
-
-        //    search();
-        //}
 
         /// <summary>
         /// 加载所有条码信息
@@ -85,11 +83,15 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                grid_tiaoma.Columns[1].Visible = true;
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                } 
+                grid_tiaoma.Columns[0].Visible = true;
             }
             else
             {
-                grid_tiaoma.Columns[1].Visible = false;
+                grid_tiaoma.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;   
             }
 
@@ -98,7 +100,7 @@ namespace JCSJGL
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TKuanhao.TJiamengshang.mingcheng,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 tiaoma = r.tiaoma,
                 yanse = r.yanse,
                 chima = r.chima,
@@ -138,11 +140,11 @@ namespace JCSJGL
             DBContext db = new DBContext();
             TTiaoma ot = db.GetTiaomaById(f.id);
             TGongyingshang og = db.GetGongyingshangById(f.gysid);
-            if (ot.TKuanhao.jmsid != og.jmsid)
+            if (ot.jmsid != og.jmsid)
             {
                 throw new MyException("非法操作，无法修改该条码信息");
             }
-            if (ot.TKuanhao.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ot.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该条码信息");
             }
@@ -165,7 +167,7 @@ namespace JCSJGL
             decimal shoujia = decimal.Parse(txb_sj.Text.Trim());
             string kuanhao = txb_kh.Text.Trim();
             DBContext db = new DBContext();
-            TKuanhao k = db.GetKuanhaoByMc(kuanhao);
+            TKuanhao k = db.GetKuanhaoByMcWithJmsId(kuanhao, _LoginUser.jmsid);
             if (k == null)
             {
                 throw new MyException("该款号不存在");
@@ -199,12 +201,13 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TTiaoma f = getEditInfo();
+            f.jmsid = _LoginUser.jmsid;
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
-            int cc = db.GetTiaomaCount(_LoginUser.id);
+            int cc = db.GetTiaomaCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.tiaomashu)
             {
                 throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员");
@@ -238,9 +241,9 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TTiaoma ok = db.GetTiaomaById(id);
-            if (ok.TKuanhao.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该款号");
+                throw new MyException("非法操作，无法删除该条码");
             }
 
             db.DeleteTiaoma(id);

@@ -5,7 +5,6 @@
       <xs:element minOccurs="0" name="TCangkus" nillable="true" type="tns:ArrayOfTCangku" />
       <xs:element minOccurs="0" name="TFendians" nillable="true" type="tns:ArrayOfTFendian" />
       <xs:element minOccurs="0" name="TGongyingshangs" nillable="true" type="tns:ArrayOfTGongyingshang" />
-      <xs:element minOccurs="0" name="THuiyuans" nillable="true" type="tns:ArrayOfTHuiyuan" />
       <xs:element minOccurs="0" name="TJiamengshang" nillable="true" type="tns:TJiamengshang" />
       <xs:element minOccurs="0" name="TJiamengshangs" nillable="true" type="tns:ArrayOfTJiamengshang" />
       <xs:element minOccurs="0" name="TKuanhaos" nillable="true" type="tns:ArrayOfTKuanhao" />
@@ -45,6 +44,7 @@
       <xs:element minOccurs="0" name="dianhua" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="dizhi" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jiqima" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="jmsid" type="xs:int" />
       <xs:element minOccurs="0" name="lianxiren" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="mingcheng" nillable="true" type="xs:string" />
@@ -113,6 +113,7 @@
       <xs:element minOccurs="0" name="fzleixing" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="fzxingbie" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jiqima" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="jmsid" type="xs:int" />
       <xs:element minOccurs="0" name="kaidianriqi" type="xs:dateTime" />
       <xs:element minOccurs="0" name="keliuliang" type="xs:short" />
@@ -170,6 +171,7 @@
       <xs:element minOccurs="0" name="TFendianJinchuhuoMXes" nillable="true" type="tns:ArrayOfTFendianJinchuhuoMX" />
       <xs:element minOccurs="0" name="TFendianKucunMXes" nillable="true" type="tns:ArrayOfTFendianKucunMX" />
       <xs:element minOccurs="0" name="TGongyingshang" nillable="true" type="tns:TGongyingshang" />
+      <xs:element minOccurs="0" name="TJiamengshang" nillable="true" type="tns:TJiamengshang" />
       <xs:element minOccurs="0" name="TKuanhao" nillable="true" type="tns:TKuanhao" />
       <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
       <xs:element minOccurs="0" name="TXiaoshous" nillable="true" type="tns:ArrayOfTXiaoshou" />
@@ -180,6 +182,7 @@
       <xs:element minOccurs="0" name="gyskuanhao" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
       <xs:element minOccurs="0" name="jinjia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="jmsid" type="xs:int" />
       <xs:element minOccurs="0" name="kuanhaoid" type="xs:int" />
       <xs:element minOccurs="0" name="shoujia" type="xs:decimal" />
       <xs:element minOccurs="0" name="tiaoma" nillable="true" type="xs:string" />
@@ -284,25 +287,31 @@
       <xs:element minOccurs="0" name="TCangkus" nillable="true" type="tns:ArrayOfTCangku" />
       <xs:element minOccurs="0" name="TFendians" nillable="true" type="tns:ArrayOfTFendian" />
       <xs:element minOccurs="0" name="TGongyingshangs" nillable="true" type="tns:ArrayOfTGongyingshang" />
+      <xs:element minOccurs="0" name="THuiyuans" nillable="true" type="tns:ArrayOfTHuiyuan" />
       <xs:element minOccurs="0" name="TKuanhaos" nillable="true" type="tns:ArrayOfTKuanhao" />
+      <xs:element minOccurs="0" name="TTiaomas" nillable="true" type="tns:ArrayOfTTiaoma" />
       <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
       <xs:element minOccurs="0" name="TUsers" nillable="true" type="tns:ArrayOfTUser" />
       <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="cangkushu" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="cangkushu" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="caozuorenid" type="xs:int" />
       <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
       <xs:element minOccurs="0" name="dianhua" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dtyzm" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="fendianshu" type="xs:short" />
-      <xs:element minOccurs="0" name="gongyingshangshu" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="gongyingshangshu" type="xs:short" />
       <xs:element minOccurs="0" name="huiyuanshu" type="xs:int" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jchjilushu" type="xs:int" />
       <xs:element minOccurs="0" name="jiezhiriqi" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="kuanhaoshu" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="kcjilushu" type="xs:int" />
+      <xs:element minOccurs="0" name="kuanhaoshu" type="xs:int" />
       <xs:element minOccurs="0" name="lianxiren" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="mingcheng" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="shoucifufei" type="xs:decimal" />
       <xs:element minOccurs="0" name="tiaomashu" type="xs:int" />
       <xs:element minOccurs="0" name="xiugaishijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="xsjilushu" type="xs:int" />
       <xs:element minOccurs="0" name="xufeidanjia" type="xs:decimal" />
       <xs:element minOccurs="0" name="zhanghaoshu" type="xs:unsignedByte" />
     </xs:sequence>
@@ -320,6 +329,60 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTGongyingshang" nillable="true" type="tns:ArrayOfTGongyingshang" />
+  <xs:complexType name="ArrayOfTHuiyuan">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="THuiyuan" nillable="true" type="tns:THuiyuan" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTHuiyuan" nillable="true" type="tns:ArrayOfTHuiyuan" />
+  <xs:complexType name="THuiyuan">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TFendian" nillable="true" type="tns:TFendian" />
+      <xs:element minOccurs="0" name="TJiamengshang" nillable="true" type="tns:TJiamengshang" />
+      <xs:element minOccurs="0" name="TXiaoshous" nillable="true" type="tns:ArrayOfTXiaoshou" />
+      <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fendianid" type="xs:int" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jfjsshijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="jifen" type="xs:decimal" />
+      <xs:element minOccurs="0" name="jmsid" type="xs:int" />
+      <xs:element minOccurs="0" name="shengri" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="shoujihao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="xingbie" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="xingming" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="xiugaishijian" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="THuiyuan" nillable="true" type="tns:THuiyuan" />
+  <xs:complexType name="ArrayOfTXiaoshou">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TXiaoshou" nillable="true" type="tns:TXiaoshou" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTXiaoshou" nillable="true" type="tns:ArrayOfTXiaoshou" />
+  <xs:complexType name="TXiaoshou">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TFendian" nillable="true" type="tns:TFendian" />
+      <xs:element minOccurs="0" name="THuiyuan" nillable="true" type="tns:THuiyuan" />
+      <xs:element minOccurs="0" name="TTiaoma" nillable="true" type="tns:TTiaoma" />
+      <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fendianid" type="xs:int" />
+      <xs:element minOccurs="0" name="huiyuanid" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="jinjia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="moling" type="xs:decimal" />
+      <xs:element minOccurs="0" name="oid" type="xs:int" />
+      <xs:element minOccurs="0" name="shangbaoshijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="shoujia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="shuliang" type="xs:short" />
+      <xs:element minOccurs="0" name="tiaomaid" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="xiaoshoushijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="xiaoshouyuan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="zhekou" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TXiaoshou" nillable="true" type="tns:TXiaoshou" />
   <xs:complexType name="ArrayOfTKuanhao">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TKuanhao" nillable="true" type="tns:TKuanhao" />
@@ -356,65 +419,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTUser" nillable="true" type="tns:ArrayOfTUser" />
-  <xs:complexType name="ArrayOfTXiaoshou">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TXiaoshou" nillable="true" type="tns:TXiaoshou" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTXiaoshou" nillable="true" type="tns:ArrayOfTXiaoshou" />
-  <xs:complexType name="TXiaoshou">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="TFendian" nillable="true" type="tns:TFendian" />
-      <xs:element minOccurs="0" name="THuiyuan" nillable="true" type="tns:THuiyuan" />
-      <xs:element minOccurs="0" name="TTiaoma" nillable="true" type="tns:TTiaoma" />
-      <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="danjia" type="xs:decimal" />
-      <xs:element minOccurs="0" name="fendianid" type="xs:int" />
-      <xs:element minOccurs="0" name="huiyuanid" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="moling" type="xs:decimal" />
-      <xs:element minOccurs="0" name="oid" type="xs:int" />
-      <xs:element minOccurs="0" name="shangbaoshijian" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="shuliang" type="xs:short" />
-      <xs:element minOccurs="0" name="tiaomaid" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="xiaoshoushijian" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="xiaoshouyuan" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="zhekou" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TXiaoshou" nillable="true" type="tns:TXiaoshou" />
-  <xs:complexType name="THuiyuan">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="TFendian" nillable="true" type="tns:TFendian" />
-      <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
-      <xs:element minOccurs="0" name="TXiaoshous" nillable="true" type="tns:ArrayOfTXiaoshou" />
-      <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="caozuorenid" type="xs:int" />
-      <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="fendianid" type="xs:int" />
-      <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="jfjsshijian" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="jifen" type="xs:decimal" />
-      <xs:element minOccurs="0" name="shengri" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="shoujihao" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="xingbie" type="xs:unsignedByte" />
-      <xs:element minOccurs="0" name="xingming" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="xiugaishijian" type="xs:dateTime" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="THuiyuan" nillable="true" type="tns:THuiyuan" />
   <xs:complexType name="ArrayOfTFendianKucun">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TFendianKucun" nillable="true" type="tns:TFendianKucun" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTFendianKucun" nillable="true" type="tns:ArrayOfTFendianKucun" />
-  <xs:complexType name="ArrayOfTHuiyuan">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="THuiyuan" nillable="true" type="tns:THuiyuan" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTHuiyuan" nillable="true" type="tns:ArrayOfTHuiyuan" />
   <xs:complexType name="ArrayOfTUser_Fendian">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TUser_Fendian" nillable="true" type="tns:TUser_Fendian" />
@@ -459,18 +469,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTJiamengshang" nillable="true" type="tns:ArrayOfTJiamengshang" />
-  <xs:complexType name="ArrayOfTHuiyuanZK">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="THuiyuanZK" nillable="true" type="tns:THuiyuanZK" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTHuiyuanZK" nillable="true" type="tns:ArrayOfTHuiyuanZK" />
-  <xs:complexType name="THuiyuanZK">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="jifen" type="xs:decimal" />
-      <xs:element minOccurs="0" name="zhekou" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="THuiyuanZK" nillable="true" type="tns:THuiyuanZK" />
 </xs:schema>

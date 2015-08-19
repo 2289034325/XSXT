@@ -15,13 +15,10 @@
 <body>
     <form id="form_main" runat="server">
         <div id="div_head">
-            <asp:Menu ID="mn_main" runat="server" BackColor="#FFFBD6" DynamicHorizontalOffset="0" Font-Names="Verdana" ForeColor="#990000" StaticSubMenuIndent="10px" Orientation="Horizontal">
+            <asp:Menu ID="div_mn_main" runat="server" BackColor="#FFFBD6" CssClass="mainMenu" OnLoad="mn_main_Load" DynamicHorizontalOffset="0" Font-Names="Verdana" ForeColor="#990000" StaticSubMenuIndent="10px" Orientation="Horizontal">
                 <DynamicHoverStyle BackColor="#990000" ForeColor="White"></DynamicHoverStyle>
-
-                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></DynamicMenuItemStyle>
-
+                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></DynamicMenuItemStyle>                
                 <DynamicMenuStyle BackColor="#FFFBD6"></DynamicMenuStyle>
-
                 <DynamicSelectedStyle BackColor="#FFCC66"></DynamicSelectedStyle>
                 <Items>
                     <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
@@ -38,15 +35,12 @@
                     <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="报表" Value="报表">
-                        <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="统计表" Value="统计表" NavigateUrl="~/Page_TongjiBiao.aspx"></asp:MenuItem>
-                    </asp:MenuItem>
+                    <asp:MenuItem Text="统计表" Value="统计表" NavigateUrl="~/Page_TongjiBiao.aspx"></asp:MenuItem>       
+                    <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>       
+                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>             
                 </Items>
                 <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
-
                 <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></StaticMenuItemStyle>
-
                 <StaticSelectedStyle BackColor="#FFCC66"></StaticSelectedStyle>
             </asp:Menu>
         </div>
@@ -55,7 +49,7 @@
         
         </asp:ContentPlaceHolder>
     </div>
-        <div id="div_foot"></div>
+        <div id="div_foot" style="position:fixed;bottom:0px;"></div>
     </form>
 </body>
 </html>

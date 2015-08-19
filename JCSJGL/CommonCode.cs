@@ -26,7 +26,8 @@ namespace JCSJGL
         仓库进出货,
         仓库进出货明细,
         仓库库存,
-        仓库库存明细
+        仓库库存明细,
+        动态验证码
     }
     public enum PageOpt
     {
@@ -186,6 +187,14 @@ namespace JCSJGL
                     LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理 ||
                     LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员 ||
                     LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理 ))
+                {
+                    throw new MyException("没有权限");
+                }
+            }
+            else if (Page == PageName.动态验证码)
+            {
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员))
                 {
                     throw new MyException("没有权限");
                 }
@@ -414,8 +423,8 @@ namespace JCSJGL
                 }
                 else if (OPT == PageOpt.删除)
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员))
+                    //删除会员会导致分店数据库的会员信息变为垃圾数据
+                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
                     {
                         throw new MyException("没有权限");
                     }

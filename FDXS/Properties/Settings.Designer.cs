@@ -121,7 +121,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://120.25.246.150:8000/ValidService.svc/ValidService")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://domain/ValidService.svc/ValidService")]
         public string WCFValidADD {
             get {
                 return ((string)(this["WCFValidADD"]));
@@ -133,7 +133,7 @@ namespace FDXS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://120.25.246.150:8000/DataService.svc/wsDataService")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://domain/DataService.svc/wsDataService")]
         public string WCFDataADD {
             get {
                 return ((string)(this["WCFDataADD"]));

@@ -8,12 +8,23 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
-        <div><label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
-        <div><label>发生日期</label><asp:TextBox CssClass="middle"  TextMode="Date" runat="server" ID="txb_fsrq_start"></asp:TextBox><asp:TextBox CssClass="middle"  TextMode="Date" runat="server" ID="txb_fsrq_end"></asp:TextBox></div>
-        <div><label>上报日期</label><asp:TextBox CssClass="middle"  TextMode="Date" runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle"  TextMode="Date" runat="server" ID="txb_sbrq_end"></asp:TextBox></div>
-        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
+        <div id="div_sch_jms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>
+        <div>
+            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
+        </div>
+        <div>
+            <label>发生日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_end"></asp:TextBox>
+        </div>
+        <div>
+            <label>上报日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_end"></asp:TextBox>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
     </div>
-    <asp:GridView ID="grid_jinchu" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20" 
+    <asp:GridView ID="grid_jinchu" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_jinchu_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>

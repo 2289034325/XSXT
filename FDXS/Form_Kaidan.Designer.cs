@@ -39,7 +39,8 @@
             this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_jj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_ml = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_yingshou = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +118,8 @@
             this.col_ys,
             this.col_cm,
             this.col_sl,
-            this.col_dj,
+            this.col_jj,
+            this.col_sj,
             this.col_zk,
             this.col_ml,
             this.col_yingshou,
@@ -151,7 +153,7 @@
             this.col_tmid.HeaderText = "条码ID";
             this.col_tmid.Name = "col_tmid";
             this.col_tmid.Visible = false;
-            this.col_tmid.Width = 74;
+            this.col_tmid.Width = 94;
             // 
             // col_tm
             // 
@@ -206,13 +208,20 @@
             this.col_sl.Name = "col_sl";
             this.col_sl.Width = 74;
             // 
-            // col_dj
+            // col_jj
             // 
-            this.col_dj.DataPropertyName = "danjia";
-            this.col_dj.FillWeight = 93.24872F;
-            this.col_dj.HeaderText = "单价";
-            this.col_dj.Name = "col_dj";
-            this.col_dj.Width = 74;
+            this.col_jj.HeaderText = "进价";
+            this.col_jj.Name = "col_jj";
+            this.col_jj.Visible = false;
+            this.col_jj.Width = 74;
+            // 
+            // col_sj
+            // 
+            this.col_sj.DataPropertyName = "danjia";
+            this.col_sj.FillWeight = 93.24872F;
+            this.col_sj.HeaderText = "单价";
+            this.col_sj.Name = "col_sj";
+            this.col_sj.Width = 74;
             // 
             // col_zk
             // 
@@ -630,6 +639,7 @@
             this.lbl_jfzk.TabIndex = 17;
             this.lbl_jfzk.TabStop = true;
             this.lbl_jfzk.Text = "积分折扣规则";
+            this.lbl_jfzk.Visible = false;
             this.lbl_jfzk.Click += new System.EventHandler(this.lbl_jfzk_Click);
             // 
             // lbl_hyzk
@@ -768,18 +778,6 @@
         private System.Windows.Forms.Button btn_75z;
         private System.Windows.Forms.Button btn_7z;
         private System.Windows.Forms.CheckBox chk_gwml;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tmid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_pm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ys;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_sl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_zk;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ml;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_yingshou;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_bz;
         private System.Windows.Forms.Button btn_userchange;
         private System.Windows.Forms.Label lbl_jrxse;
         private System.Windows.Forms.Label lbl_jrxl;
@@ -787,5 +785,18 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_zkview;
         private System.Windows.Forms.Button btn_wutiaoma;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tmid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ys;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_jj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_sj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_zk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ml;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_yingshou;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_bz;
     }
 }

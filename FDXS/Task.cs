@@ -157,7 +157,8 @@ namespace FDXS
                 tiaomaid = r.tiaomaid,
                 huiyuanid = r.huiyuanid,
                 shuliang = r.shuliang,
-                danjia = r.danjia,
+                jinjia = r.jinjia,
+                shoujia = r.shoujia,
                 zhekou = r.zhekou,
                 moling = r.moling,
                 beizhu = r.beizhu

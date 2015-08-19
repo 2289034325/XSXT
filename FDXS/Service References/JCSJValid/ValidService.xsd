@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="BMZHZhuce">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="dlm" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="mm" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="xm" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="zcm" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="BMZHZhuceResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="CKZHZhuce">
     <xs:complexType>
       <xs:sequence>

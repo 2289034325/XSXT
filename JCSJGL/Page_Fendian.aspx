@@ -22,16 +22,17 @@
             $("#cmb_zt").val(zt);
             $("#txb_bz").val(bz);
         }
-
-        //删除
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
+    <div id="div_sch" class="div_sch" runat="server">
+        <div>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
+    </div>
     <asp:GridView ID="grid_fendian" runat="server" AutoGenerateColumns="False" BackColor="White" DataKeyNames="id"
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnRowDeleting="grid_fendian_RowDeleting" >
         <Columns>

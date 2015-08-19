@@ -33,12 +33,6 @@ namespace BIANMA.JCSJData {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
         System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
-        void BMZHEditPsw(string om, string nm);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
-        System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
-        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
         DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
@@ -245,14 +239,6 @@ namespace BIANMA.JCSJData {
         
         public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm) {
             return base.Channel.FDZHLoginAsync(fdid, tzm);
-        }
-        
-        public void BMZHEditPsw(string om, string nm) {
-            base.Channel.BMZHEditPsw(om, nm);
-        }
-        
-        public System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm) {
-            return base.Channel.BMZHEditPswAsync(om, nm);
         }
         
         public DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {

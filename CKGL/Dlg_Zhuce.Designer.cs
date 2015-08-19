@@ -62,7 +62,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 3;
-            this.label4.Text = "注册码";
+            this.label4.Text = "验证码";
             // 
             // txb_ckid
             // 

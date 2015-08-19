@@ -34,8 +34,6 @@ namespace DB_JCSJ.Models
         public DbSet<TKuanhao> TKuanhaos { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
-        public DbSet<TUser_Cangku> TUser_Cangku { get; set; }
-        public DbSet<TUser_Fendian> TUser_Fendian { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -58,8 +56,6 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TKuanhaoMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
-            modelBuilder.Configurations.Add(new TUser_CangkuMap());
-            modelBuilder.Configurations.Add(new TUser_FendianMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());
         }
     }

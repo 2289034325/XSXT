@@ -24,10 +24,11 @@ namespace DB_FD.Models.Mapping
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.xiaoshoushijian).HasColumnName("xiaoshoushijian");
             this.Property(t => t.xiaoshouyuan).HasColumnName("xiaoshouyuan");
-            this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");
             this.Property(t => t.huiyuanid).HasColumnName("huiyuanid");
+            this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");
             this.Property(t => t.shuliang).HasColumnName("shuliang");
-            this.Property(t => t.danjia).HasColumnName("danjia");
+            this.Property(t => t.jinjia).HasColumnName("jinjia");
+            this.Property(t => t.shoujia).HasColumnName("shoujia");
             this.Property(t => t.zhekou).HasColumnName("zhekou");
             this.Property(t => t.moling).HasColumnName("moling");
             this.Property(t => t.beizhu).HasColumnName("beizhu");

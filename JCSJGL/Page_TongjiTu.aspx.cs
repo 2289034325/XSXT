@@ -42,20 +42,36 @@ namespace JCSJGL
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                //初始化分店下拉框
+            {              
                 DBContext db = new DBContext();
+                TFendian[] fs = null;
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                //初始化分店下拉框
                 int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
+                    //显示搜索
+                    div_sch_jms.Visible = true;
 
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+
+                    //全部的加盟商由于数据太大，暂不全放在一起统计分析
+                    //cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+
+                    //fs = new TFendian[] { };
+
+                    fs = db.GetFendiansAsItems(_LoginUser.jmsid);
                 }
                 else
                 {
                     jmsid = _LoginUser.jmsid;
+                    fs = db.GetFendiansAsItems(jmsid);
                 }
-                TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0,new ListItem("所有分店",""));
 
@@ -76,6 +92,9 @@ namespace JCSJGL
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.类型.ToString(), ((byte)CHART_X_TYPE.类型).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.颜色.ToString(), ((byte)CHART_X_TYPE.颜色).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.价格.ToString(), ((byte)CHART_X_TYPE.价格).ToString()));
+
+                chk_x.Items[0].Selected = true;
+                chk_x.Items[1].Selected = true;
             }
         }
         
@@ -94,6 +113,15 @@ namespace JCSJGL
         {
             //取数据
             TXiaoshou[] xss = getXiaoshouData();
+            if (xss.Count() == 0)
+            {
+                div_charts.InnerHtml = "<div style='color:red;font-size:20px;position:relative;top:200px;text-align:center;'>指定条件内没有销售数据<div>";
+                return;
+            }
+            else
+            {
+                div_charts.InnerHtml = "";
+            }
             List<byte> xTypes = getXTypes();
 
             if (xTypes.Contains((byte)CHART_X_TYPE.月份))
@@ -179,13 +207,15 @@ namespace JCSJGL
                     {
                         danjia = getJiageStr(50, 500, r.jine / r.shuliang),
                         r.shuliang,
-                        r.jine,
-                        jinjia = r.TTiaoma == null ? (r.jine / 2) : r.TTiaoma.jinjia
+                        //r.jine,
+                        //jinjia = r.TTiaoma == null ? (r.jine / 2) : r.TTiaoma.jinjia
+                        lr = r.lirun
                     }).
                     GroupBy(r => r.danjia).Select(r => new
                     {
                         X = r.Key,
-                        Y = r.Sum(rx => rx.jine - rx.jinjia * rx.shuliang)
+                        //Y = r.Sum(rx => rx.jine - rx.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.lr)
                     }).OrderByDescending(r => r.Y);
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
@@ -246,7 +276,8 @@ namespace JCSJGL
                     Select(r => new
                     {
                         X = r.Key,
-                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.lirun)
                     }).OrderByDescending(r => r.Y);
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
@@ -307,7 +338,8 @@ namespace JCSJGL
                     Select(r => new
                     {
                         X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.lirun)
                     }).OrderByDescending(r => r.Y);
 
                 dt = Tool.CommonFunc.LINQToDataTable(data);
@@ -385,7 +417,8 @@ namespace JCSJGL
                     {
                         wn = r.Key.DayOfWeek.ToString(),
                         ws = (int)r.Key.DayOfWeek,
-                        Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                        Y = r.Sum(rx => rx.lirun)
                     }).GroupBy(r => new { r.wn, r.ws }).
                     Select(r => new
                     {
@@ -421,9 +454,9 @@ namespace JCSJGL
         /// <param name="endDate"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        private int getWCountInTimeSpan(DateTime startDate, DateTime endDate, int w)
+        private decimal getWCountInTimeSpan(DateTime startDate, DateTime endDate, int w)
         {
-            int c = 0;
+            decimal c = 0;
             for (DateTime dt = startDate.Date; dt <= endDate.Date; dt=dt.AddDays(1))
             {
                 if ((int)dt.DayOfWeek == w)
@@ -439,23 +472,21 @@ namespace JCSJGL
         {
             DateTime startDate = xss.Min(r => r.xiaoshoushijian);
             DateTime endDate = xss.Max(r => r.xiaoshoushijian);
-            int div = (endDate - startDate).Days;
+            decimal div = (endDate - startDate).Days + 1;
 
             byte yType = byte.Parse(cmb_y.SelectedValue);
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => new { date = r.xiaoshoushijian.Date, hour = r.xiaoshoushijian.Hour }).
+                var data = xss.GroupBy(r => new { hour = r.xiaoshoushijian.Hour }).
                    Select(r => new
                    {
-                       Xd = r.Key.date,
                        X = r.Key.hour,
                        Y = r.Sum(rx => rx.shuliang)
                    }).GroupBy(r => r.X).
                    Select(r => new
                    {
                        X = r.Key,
-                       //Y = Math.Round(r.Average(rr => rr.Y), 2)
                        Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
                    }).OrderBy(r => r.X).ToList();
 
@@ -472,8 +503,7 @@ namespace JCSJGL
                    }).GroupBy(r => r.X).
                    Select(r => new
                    {
-                       X = r.Key,
-                       //Y = Math.Round(r.Average(rr => rr.Y), 2)                       
+                       X = r.Key,                    
                        Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
                    }).OrderBy(r => r.X).ToList();
 
@@ -486,12 +516,12 @@ namespace JCSJGL
                 {
                     Xd = r.Key.date,
                     X = r.Key.hour,
-                    Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                    //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
+                    Y = r.Sum(rx => rx.lirun)
                 }).GroupBy(r => r.X).
                 Select(r => new
                 {
                     X = r.Key,
-                    //Y = Math.Round(r.Average(rr => rr.Y), 2)
                     Y = decimal.Round(r.Sum(rr => rr.Y) / div, 2)
                 }).OrderBy(r => r.X).ToList();
 
@@ -538,7 +568,8 @@ namespace JCSJGL
                     Select(r => new
                     {
                         X = r.Key,
-                        Y = Math.Round(r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang), 2)
+                        //Y = Math.Round(r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang), 2)
+                        Y = decimal.Round(r.Sum(rx => rx.lirun),2)
                     }).OrderBy(r => r.X).ToList();
                 dt = Tool.CommonFunc.LINQToDataTable(data); 
             }
@@ -607,17 +638,17 @@ namespace JCSJGL
             {
                 var data = xss.Select(r => new
                 {
-                    lirun = (r.TTiaoma == null ? (r.jine / 2) : r.jine - r.TTiaoma.jinjia * r.shuliang),
+                    lirun = r.lirun,
                     month = new DateTime(r.xiaoshoushijian.Year, r.xiaoshoushijian.Month, 1),
                     xun = getXun(r.xiaoshoushijian)
                 }).
-                    GroupBy(r => new { r.month, r.xun }).Select(r => new
-                    {
-                        X = r.Key.month,
-                        r.Key.xun,
-                        Y = Math.Round(r.Sum(rx => rx.lirun), 2)
-                    }).
-                    OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
+                GroupBy(r => new { r.month, r.xun }).Select(r => new
+                {
+                    X = r.Key.month,
+                    r.Key.xun,
+                    Y = Math.Round(r.Sum(rx => rx.lirun), 2)
+                }).
+                OrderBy(r => r.X).OrderBy(r => r.xun).ToList();
                 dt = Tool.CommonFunc.LINQToDataTable(data);
                 dt_s = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "上旬"));
                 dt_z = Tool.CommonFunc.LINQToDataTable(data.Where(r => r.xun == "中旬"));
@@ -687,9 +718,13 @@ namespace JCSJGL
         {
             //取查询条件
             int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
             }
             else
             {
@@ -709,7 +744,7 @@ namespace JCSJGL
             }
             if (!string.IsNullOrEmpty(txb_xsrq_end.Text.Trim()))
             {
-                xsrq_end = DateTime.Parse(txb_xsrq_end.Text.Trim());
+                xsrq_end = DateTime.Parse(txb_xsrq_end.Text.Trim()).Date.AddDays(1);
             }
 
             DBContext db = new DBContext();
@@ -778,6 +813,35 @@ namespace JCSJGL
             }
 
             return ret;
+        }
+
+        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            div_charts.InnerHtml = "";
+
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                cmb_fd.Items.Clear();
+                DBContext db = new DBContext();
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    int jmsid = int.Parse(cmb_jms.SelectedValue);
+                    TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
+                    Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+                else
+                {
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+            }
+            else
+            {
+                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
+                throw new MyException("非法操作，请刷新页面重新执行");
+            }
         }
 
     }

@@ -13,8 +13,8 @@ namespace JCSJWCF
     [ServiceContract]
     public interface IValidService
     {
-        [OperationContract]
-        void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm);
+        //[OperationContract]
+        //void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm);
 
         [OperationContract]
         void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);

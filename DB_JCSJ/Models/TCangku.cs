@@ -9,7 +9,6 @@ namespace DB_JCSJ.Models
         {
             this.TCangkuJinchuhuos = new List<TCangkuJinchuhuo>();
             this.TCangkuKucuns = new List<TCangkuKucun>();
-            this.TUser_Cangku = new List<TUser_Cangku>();
         }
 
         public int id { get; set; }
@@ -27,6 +26,5 @@ namespace DB_JCSJ.Models
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public virtual ICollection<TCangkuKucun> TCangkuKucuns { get; set; }
-        public virtual ICollection<TUser_Cangku> TUser_Cangku { get; set; }
     }
 }

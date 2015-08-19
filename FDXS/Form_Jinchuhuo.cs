@@ -16,9 +16,13 @@ namespace FDXS
 {
     public partial class Form_Jinchuhuo : MyForm
     {
+        //批量输入条码对话框
+        private Dlg_Tiaomahao _dlgtm;
+
         public Form_Jinchuhuo()
         {
             InitializeComponent();
+            _dlgtm = new Dlg_Tiaomahao();
         }
 
         /// <summary>
@@ -27,6 +31,13 @@ namespace FDXS
         /// <param name="tm"></param>
         public override void OnScan(string tmh)
         {
+            //判断是不是正在批量输入
+            if (_dlgtm.Visible)
+            {
+                _dlgtm.OnScan(tmh);
+                return;
+            }
+
             int jcid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
 
 
@@ -217,7 +228,7 @@ namespace FDXS
 
             DBContext db = IDB.GetDB();
             TJinchuhuo nc = db.InsertJinchuhuo(c);
-
+            nc.TUser = RuntimeInfo.LoginUser;
             addJinchuhuo(nc);
         }
 
@@ -241,6 +252,7 @@ namespace FDXS
 
             DBContext db = IDB.GetDB();
             TJinchuhuo nc = db.InsertJinchuhuo(c);
+            nc.TUser = RuntimeInfo.LoginUser;
 
             addJinchuhuo(nc);
         }
@@ -253,6 +265,13 @@ namespace FDXS
         private void cmn_crk_daoru_Click(object sender, EventArgs e)
         {
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+            Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value);
+
+            if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.出)
+            {
+                MessageBox.Show("出货无法批量导入");
+                return;
+            }            
 
             //检查该出入库记录是否已经上报
             if (!checkAllow())
@@ -262,35 +281,60 @@ namespace FDXS
             }
 
             DBContext db = IDB.GetDB();
-            Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
-            if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
+            if (_dlgtm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                Dictionary<string, short> tmsls = tmhs.ToDictionary(k => k.Split(new char[] { ',' })[0], v => short.Parse(v.Split(new char[] { ',' })[1]));
+                //string[] tmhs = _dlgtm.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                //Dictionary<string, short> tmsls = tmhs.ToDictionary(k => k.Split(new char[] { ',' })[0], v => short.Parse(v.Split(new char[] { ',' })[1]));
 
-                TTiaoma[] tms = db.GetTiaomasByTmhs(tmsls.Select(r => r.Key).ToArray());
+                string[] tmhs = _dlgtm.TMHs;
+                Dictionary<string, short> tmsls = tmhs.GroupBy(r => r).
+                    Select(r => new { tmh = r.Key, sl = r.Count() }).ToDictionary(r => r.tmh, v => (short)v.sl);
+                string[] tmhs_all = tmsls.Keys.ToArray();
+
+                TTiaoma[] tms = db.GetTiaomasByTmhs(tmhs);
+                string[] tmhs_exist = tms.Select(r => r.tiaoma).ToArray();
+
+                string[] tmhs_no = tmhs_all.Except(tmhs_exist).ToArray();
+                //下载不存在的条码信息
+                if (tmhs_no.Length != 0)
+                {
+                    CommonMethod.DownLoadTiaomaInfo(tmhs_no);
+                }
+
+                //下载后再检查是否有遗漏
+                tms = db.GetTiaomasByTmhs(tmhs);
+                tmhs_exist = tms.Select(r => r.tiaoma).ToArray();
+                tmhs_no = tmhs_all.Except(tmhs_exist).ToArray();
+                if (tmhs_no.Length != 0)
+                {
+                    string errtms = tmhs_no.Aggregate((a, b) => { return a + "," + b; });
+                    MessageBox.Show("无法下载下列条码，请检查网络是否联通，或者确认这些条码来源\r\n" + errtms);
+                    return;
+                }
                 Dictionary<int, short> tss = tms.ToDictionary(k => k.id, v => tmsls[v.tiaoma]);
-                if (tms.Length != tmhs.Length)
+
+
+                List<TJinchuMX> mxs = new List<TJinchuMX>();
+                foreach (KeyValuePair<int, short> p in tss)
                 {
-                    MessageBox.Show("有条码信息不存在，请先下载条码信息");
-                }
-                else
-                {
-                    List<TJinchuMX> mxs = new List<TJinchuMX>();
-                    foreach (KeyValuePair<int, short> p in tss)
+                    TJinchuMX mx = new TJinchuMX
                     {
-                        TJinchuMX mx = new TJinchuMX
-                        {
-                            jinchuid = crkid,
-                            tiaomaid = p.Key,
-                            shuliang = p.Value
-                        };
+                        jinchuid = crkid,
+                        tiaomaid = p.Key,
+                        shuliang = p.Value
+                    };
 
-                        mxs.Add(mx);
-                    }
-
-                    db.InsertJinchuMxs(mxs.ToArray());
+                    mxs.Add(mx);
                 }
+                TJinchuMX[] all = mxs.ToArray();
+                //已经存在的，数量加1
+                TJinchuMX[] mx_exist = db.GetJinchuhuoMxsByJchId(crkid);
+                int[] tmids_exist = mx_exist.Select(r=>r.tiaomaid).ToArray();
+                TJinchuMX[] mx_insert = all.Where(r => !tmids_exist.Contains(r.tiaomaid)).ToArray();
+                TJinchuMX[] mx_update = all.Where(r => tmids_exist.Contains(r.tiaomaid)).ToArray();
+
+                db.InsertUpdateJinchuMxs(mx_insert,mx_update);
 
                 refreshMx();
             }
@@ -380,10 +424,10 @@ namespace FDXS
                 Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), sfx);
                 if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.进)
                 {
-                    if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
+                    if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
                     {
                         e.Cancel = true;
-                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" +
+                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]或者[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" +
                             Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]");
                     }
                 }
@@ -640,12 +684,25 @@ namespace FDXS
                     return;
                 }
 
+                DBContext db = IDB.GetDB();
+                //检查是否有本地不存在的条码
+                int[] tmids = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r=>r.tiaomaid).ToArray();
+                TTiaoma[] tms = db.GetTiaomasByIds(tmids);
+                int[] tmids_exist = tms.Select(r=>r.id).ToArray();
+                if (tmids_exist.Any(r=>!tmids.Contains(r)))
+                {
+                    ShowMsg("本地缺少条码信息，请先下载条码信息", true);
+                    return;
+                }
+
                 TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
                 {
                     fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                     laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
                     beizhu = "从服务器下载",
                     caozuorenid = RuntimeInfo.LoginUser.id,
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now,
                     TJinchuMXes = r.TCangkuJinchuhuoMXes.Select(xr => new TJinchuMX
                     {
                         tiaomaid = xr.tiaomaid,
@@ -654,13 +711,12 @@ namespace FDXS
 
                 }).ToArray();
 
-                DBContext db = IDB.GetDB();
+                TJinchuhuo[] njs = db.InsertJinchuhuos(jchs);
                 foreach (TJinchuhuo jc in jchs)
                 {
-                    TJinchuhuo nj = db.InsertJinchuhuo(jc);
-                    addJinchuhuo(nj);
+                    jc.TUser = RuntimeInfo.LoginUser;
+                    addJinchuhuo(jc);
                 }
-
                 int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
                 ShowMsg("进货" + total + "件", false);
             }

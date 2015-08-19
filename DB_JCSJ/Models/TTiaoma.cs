@@ -15,6 +15,7 @@ namespace DB_JCSJ.Models
         }
 
         public int id { get; set; }
+        public int jmsid { get; set; }
         public int kuanhaoid { get; set; }
         public int gysid { get; set; }
         public string gyskuanhao { get; set; }
@@ -31,6 +32,7 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TFendianJinchuhuoMX> TFendianJinchuhuoMXes { get; set; }
         public virtual ICollection<TFendianKucunMX> TFendianKucunMXes { get; set; }
         public virtual TGongyingshang TGongyingshang { get; set; }
+        public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshous { get; set; }

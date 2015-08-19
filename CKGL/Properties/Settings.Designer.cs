@@ -61,7 +61,7 @@ namespace CKGL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
         public string DBUSER {
             get {
                 return ((string)(this["DBUSER"]));
@@ -85,7 +85,7 @@ namespace CKGL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://domain/ValidService.svc/ValidService")]
         public string WCFValidADD {
             get {
                 return ((string)(this["WCFValidADD"]));
@@ -97,7 +97,7 @@ namespace CKGL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://domain/DataService.svc/wsDataService")]
         public string WCFDataADD {
             get {
                 return ((string)(this["WCFDataADD"]));

@@ -34,6 +34,13 @@ namespace FDXS
             string xmm1 = txb_xmm1.Text;
             string xmm2 = txb_xmm2.Text;
 
+            //检测两个新密码是否一样
+            if (string.IsNullOrEmpty(jmm) || string.IsNullOrEmpty(xmm1) || string.IsNullOrEmpty(xmm2))
+            {
+                MessageBox.Show("密码不能是空白");
+                return;
+            }
+
             //检测新密码是否正确
             DBContext db = IDB.GetDB();
             TUser u = db.GetUserById(RuntimeInfo.LoginUser.id);
@@ -43,12 +50,6 @@ namespace FDXS
                 return;
             }
 
-            //检测两个新密码是否一样
-            if (!string.IsNullOrEmpty(xmm1))
-            {
-                MessageBox.Show("旧密码不正确");
-                return;
-            }
             if (xmm1 != xmm2)
             {
                 MessageBox.Show("两次输入的新密码不一致");

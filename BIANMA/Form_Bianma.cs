@@ -450,62 +450,7 @@ namespace BIANMA
             }
         }
 
-        /// <summary>
-        /// 自动生成款号
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_sckh_Click(object sender, EventArgs e)
-        {
-            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
-
-            foreach (TKuanhaoExtend tk in _khs)
-            {
-                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.旧款)
-                {
-                    continue;
-                }
-
-                //空白的才发番，不是空白的留给用户手动命名
-                if (string.IsNullOrEmpty(tk.kuanhao.kuanhao) || string.IsNullOrWhiteSpace(tk.kuanhao.kuanhao))
-                {
-                    string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.KH_NUM_LEN);
-                    tk.kuanhao.kuanhao = AB + NUM;
-                }
-            }        
-
-            refreshKuanhao();
-        }
-
-        /// <summary>
-        /// 自动生成条码
-        /// 当前的年月日+自动发号
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mni_sctm_Click(object sender, EventArgs e)
-        {
-            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
-            foreach (TKuanhaoExtend tk in _khs)
-            {
-                foreach (TTiaomaExtend tt in tk.tms)
-                {
-                    if (tt.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
-                    {
-                        //空白的才发番，不是空白的留给用户手动命名
-                        string tm = tt.tiaoma.tiaoma;
-                        if (string.IsNullOrEmpty(tm) || string.IsNullOrWhiteSpace(tm))
-                        {
-                            string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.TM_NUM_LEN);
-                            tt.tiaoma.tiaoma = Settings.Default.TM_START_CHAR + AB + NUM;
-                        }
-                    }
-                }
-            }        
-
-            refreshTiaoma();
-        }
-
+        
         /// <summary>
         /// 刷新条码grid显示信息
         /// </summary>
@@ -1678,6 +1623,74 @@ namespace BIANMA
             };
 
             return te;
+        }
+
+        /// <summary>
+        /// 自动生成款号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void makeKuanhao()
+        {
+            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
+
+            foreach (TKuanhaoExtend tk in _khs)
+            {
+                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.旧款)
+                {
+                    continue;
+                }
+
+                //空白的才发番，不是空白的留给用户手动命名
+                if (string.IsNullOrEmpty(tk.kuanhao.kuanhao) || string.IsNullOrWhiteSpace(tk.kuanhao.kuanhao))
+                {
+                    string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.KH_NUM_LEN);
+                    tk.kuanhao.kuanhao = AB + NUM;
+                }
+            }
+
+            refreshKuanhao();
+        }
+
+        /// <summary>
+        /// 自动生成条码
+        /// 当前的年月日+自动发号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void makeTiaoma()
+        {
+            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
+            foreach (TKuanhaoExtend tk in _khs)
+            {
+                foreach (TTiaomaExtend tt in tk.tms)
+                {
+                    if (tt.xj == XTCONSTS.TIAOMA_XINJIU.新条码)
+                    {
+                        //空白的才发番，不是空白的留给用户手动命名
+                        string tm = tt.tiaoma.tiaoma;
+                        if (string.IsNullOrEmpty(tm) || string.IsNullOrWhiteSpace(tm))
+                        {
+                            string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.TM_NUM_LEN);
+                            tt.tiaoma.tiaoma = Settings.Default.TM_START_CHAR + AB + NUM;
+                        }
+                    }
+                }
+            }
+
+            refreshTiaoma();
+        }
+
+
+        /// <summary>
+        /// 标准编码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_bzbm_Click(object sender, EventArgs e)
+        {
+            makeKuanhao();
+            makeTiaoma();
         }
     }
 }

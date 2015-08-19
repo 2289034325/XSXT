@@ -35,6 +35,7 @@
             this.btn_ok = new System.Windows.Forms.Button();
             this.chk_auto = new System.Windows.Forms.CheckBox();
             this.btn_setting = new System.Windows.Forms.Button();
+            this.btn_resetscan = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txb_mm
@@ -101,11 +102,22 @@
             this.btn_setting.UseVisualStyleBackColor = true;
             this.btn_setting.Click += new System.EventHandler(this.btn_setting_Click);
             // 
+            // btn_resetscan
+            // 
+            this.btn_resetscan.Location = new System.Drawing.Point(156, 102);
+            this.btn_resetscan.Name = "btn_resetscan";
+            this.btn_resetscan.Size = new System.Drawing.Size(75, 23);
+            this.btn_resetscan.TabIndex = 15;
+            this.btn_resetscan.Text = "重置扫描枪";
+            this.btn_resetscan.UseVisualStyleBackColor = true;
+            this.btn_resetscan.Click += new System.EventHandler(this.btn_resetscan_Click);
+            // 
             // Dlg_Denglu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 84);
+            this.ClientSize = new System.Drawing.Size(319, 82);
+            this.Controls.Add(this.btn_resetscan);
             this.Controls.Add(this.btn_setting);
             this.Controls.Add(this.chk_auto);
             this.Controls.Add(this.btn_ok);
@@ -133,5 +145,6 @@
         private System.Windows.Forms.Button btn_ok;
         private System.Windows.Forms.CheckBox chk_auto;
         private System.Windows.Forms.Button btn_setting;
+        private System.Windows.Forms.Button btn_resetscan;
     }
 }

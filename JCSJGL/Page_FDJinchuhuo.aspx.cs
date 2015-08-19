@@ -20,26 +20,38 @@ namespace JCSJGL
         {
             if (!IsPostBack)
             {
-                //初始化分店下拉框
                 DBContext db = new DBContext();
+
+                TFendian[] fs = null;
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                //初始化分店下拉框
                 int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
+                    //显示搜索
+                    div_sch_jms.Visible = true;
+
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+
+                    fs = new TFendian[] { };
                 }
                 else
                 {
                     jmsid = _LoginUser.jmsid;
+                    fs = db.GetFendiansAsItems(jmsid);
                 }
-                TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
 
                 //日期下拉框
                 txb_fsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txb_fsrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                //txb_sbrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                //txb_sbrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
         
@@ -57,8 +69,13 @@ namespace JCSJGL
         private void search()
         {   //取查询条件
             int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 || 
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                } 
                 grid_jinchu.Columns[0].Visible = true;
             }
             else
@@ -125,6 +142,41 @@ namespace JCSJGL
         {
             grid_jinchu.PageIndex = e.NewPageIndex;
             search();
+        }
+
+        /// <summary>
+        /// 下拉框联动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            grid_jinchu.DataSource = null;
+            grid_jinchu.DataBind();
+
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                cmb_fd.Items.Clear();
+                DBContext db = new DBContext();
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    int jmsid = int.Parse(cmb_jms.SelectedValue);
+                    TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
+                    Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+                else
+                {
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+            }
+            else
+            {
+                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
+                throw new MyException("非法操作，请刷新页面重新执行");
+            }
         }
 
     }

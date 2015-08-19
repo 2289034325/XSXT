@@ -312,6 +312,7 @@
     <Content Include="Page_CKJinchuhuoMX.aspx" />
     <Content Include="Page_CKKucun.aspx" />
     <Content Include="Page_CKKucunMX.aspx" />
+    <Content Include="Page_Dtyzm.aspx" />
     <Content Include="Page_Jiamengshang.aspx" />
     <Content Include="Page_TongjiBiao.aspx" />
     <Content Include="Page_TongjiTu.aspx" />
@@ -390,6 +391,13 @@
     </Compile>
     <Compile Include="Page_CKKucunMX.aspx.designer.cs">
       <DependentUpon>Page_CKKucunMX.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Dtyzm.aspx.cs">
+      <DependentUpon>Page_Dtyzm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Dtyzm.aspx.designer.cs">
+      <DependentUpon>Page_Dtyzm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Jiamengshang.aspx.cs">
       <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>

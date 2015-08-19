@@ -119,5 +119,17 @@ namespace FDXS
                 btn_ok_Click(null, null);
             }
         }
+
+        /// <summary>
+        /// 重置扫描枪
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_resetscan_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ScanName = "";
+            Settings.Default.Save();
+            System.Windows.Forms.Application.Restart();
+        }
     }
 }

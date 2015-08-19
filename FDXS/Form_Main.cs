@@ -406,5 +406,30 @@ namespace FDXS
                 fm.Activate();
             }
         }
+
+        /// <summary>
+        /// 重新连接服务器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_cxljfwq_Click(object sender, EventArgs e)
+        {
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    ShowMsg("正在连接", false);
+
+                    JCSJWCF.Reconnect();
+
+                    ShowMsg("连接成功", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg("连接失败\r\n" + ex.Message, true);
+                }
+            }, false).Start();
+        }
     }
 }

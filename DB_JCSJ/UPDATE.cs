@@ -125,7 +125,7 @@ namespace DB_JCSJ
             }
 
             /// <summary>
-            /// 修改会员信息
+            /// 修改会员信息，此方法不修改手机号
             /// </summary>
             /// <param name="h"></param>
             public void UpdateHuiyuan(THuiyuan h)
@@ -134,7 +134,7 @@ namespace DB_JCSJ
 
                 //分店由注册的时候定，不需要被修改
                 //oh.fendianid = h.fendianid;
-                oh.shoujihao = h.shoujihao;
+                //oh.shoujihao = h.shoujihao;
                 oh.xingming = h.xingming;
                 oh.xingbie = h.xingbie;
                 oh.shengri = h.shengri;
@@ -264,6 +264,20 @@ namespace DB_JCSJ
                 oj.dianhua = j.dianhua;
                 oj.beizhu = j.beizhu;
                 oj.xiugaishijian = j.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 修改加盟商的动态验证码
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="yzm"></param>
+            public void UpdateJiamengshangDtyzm(int id, string yzm)
+            {
+                TJiamengshang oj = _db.TJiamengshangs.Single(r => r.id == id);
+
+                oj.dtyzm = yzm;
 
                 _db.SaveChanges();
             }

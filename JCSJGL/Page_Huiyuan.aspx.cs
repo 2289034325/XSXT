@@ -20,11 +20,28 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
+                //隐藏搜索条件
+                div_sch.Visible = false;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch.Visible = true;
+
+                    DBContext db = new DBContext();
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                }
+                else
+                {
+                    //加载所有会员信息
+                    loadHuiyuans();
+                }
+
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB));
 
-                //加载所有会员信息
-                loadHuiyuans();
             }           
         }        
 
@@ -38,6 +55,10 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
                 grid_huiyuan.Columns[0].Visible = true;
             }
             else
@@ -49,7 +70,7 @@ namespace JCSJGL
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 fendian = r.TFendian.dianming,
                 shoujihao = r.shoujihao,
                 xingming = r.xingming,
@@ -88,6 +109,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             THuiyuan f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
             //f.caozuorenid = _LoginUser.id;
@@ -154,6 +177,11 @@ namespace JCSJGL
 
             db.DeleteHuiyuan(id);
 
+            loadHuiyuans();
+        }
+
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
             loadHuiyuans();
         }
 

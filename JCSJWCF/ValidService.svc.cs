@@ -26,31 +26,31 @@ namespace JCSJWCF
         /// <param name="zcm">注册码</param>
         /// <param name="tzm">客户端机器特征码</param>
         /// <returns></returns>
-        public void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm)
-        {
-            //验证注册码
-            if (!validateDTMM(zcm))
-            {
-                throw new FaultException("注册码错误");
-            }
-            else
-            {
-                TUser u = new TUser();
-                //生成新用户
-                u.dengluming = dlm;
-                u.yonghuming = xm;
-                u.mima = mm;
-                u.jiqima = tzm;
-                u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码;
-                u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
-                u.beizhu = "";
-                u.charushijian = DateTime.Now;
-                u.xiugaishijian = DateTime.Now;
+        //public void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm)
+        //{
+        //    //验证注册码
+        //    if (!validateDTMM(zcm))
+        //    {
+        //        throw new MyException("注册码错误");
+        //    }
+        //    else
+        //    {
+        //        TUser u = new TUser();
+        //        //生成新用户
+        //        u.dengluming = dlm;
+        //        u.yonghuming = xm;
+        //        u.mima = mm;
+        //        u.jiqima = tzm;
+        //        u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码;
+        //        u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
+        //        u.beizhu = "";
+        //        u.charushijian = DateTime.Now;
+        //        u.xiugaishijian = DateTime.Now;
 
-                DBContext db = new DBContext();
-                TUser nu = db.InsertUser(u);
-            }
-        }
+        //        DBContext db = new DBContext();
+        //        TUser nu = db.InsertUser(u);
+        //    }
+        //}
 
         /// <summary>
         /// 仓库系统注册
@@ -61,56 +61,23 @@ namespace JCSJWCF
         /// <param name="zcm">注册码</param>
         public void CKZHZhuce(int ckid, string ckmc, string jqm, string zcm)
         {
-            //验证注册码
-            if (!validateDTMM(zcm))
+            DBContext db = new DBContext();
+            //检查仓库ID和仓库名称是否匹配
+            TCangku tc = db.GetCangkuByIdMc(ckid, ckmc);
+            if (tc == null)
             {
-                throw new FaultException("注册码错误");
+                throw new MyException("仓库ID和仓库名称不匹配", null);
             }
             else
             {
-                DBContext db = new DBContext();
-                //检查仓库ID和仓库名称是否匹配
-                TCangku tc = db.GetCangkuByIdMc(ckid, ckmc);
-                if ( tc == null)
+                if (!validateDTMM(tc.jmsid, zcm))
                 {
-                    throw new FaultException("仓库ID和仓库名称不匹配");
+                    throw new MyException("验证码错误", null);
                 }
-
-                //更新机器码
-                db.UpdateCangkuJQM(ckid, jqm);
-
-                //检查账号是否已经存在
-                //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid);
-                //if (u == null)
-                //{
-                //    u = new TUser();
-                //    //登陆名由一个前缀加上仓库ID组成
-                //    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_CK + ckid;
-                //    u.yonghuming = ckmc;
-                //    u.mima = Tool.CommonFunc.MD5_16(ckid.ToString());
-                //    u.jiqima = tzm;
-                //    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.仓库系统;
-                //    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
-                //    u.beizhu = "";
-                //    u.charushijian = DateTime.Now;
-                //    u.xiugaishijian = DateTime.Now;
-
-                //    TUser nu = db.InsertUser(u);
-
-                //    //插入用户 仓库 关系表
-                //    TUser_Cangku uc = new TUser_Cangku 
-                //    {
-                //        yonghuid = nu.id,
-                //        cangkuid = ckid
-                //    };
-
-                //    db.InsertUser_Cangku(uc);
-                //}
-                //else
-                //{
-                //    db.UpdateUserJQM(u.id,tzm);
-                //}
             }
+
+            //更新机器码
+            db.UpdateCangkuJQM(ckid, jqm);
         }
 
         /// <summary>
@@ -122,54 +89,22 @@ namespace JCSJWCF
         /// <param name="zcm">注册码</param>
         public void FDZHZhuce(int fdid, string fdmc, string jqm, string zcm)
         {
-            //验证注册码
-            if (!validateDTMM(zcm))
+            DBContext db = new DBContext();
+            //检查分店ID和分店名称是否匹配
+            TFendian fd = db.GetFendianByIdMc(fdid, fdmc);
+            if (fd == null)
             {
-                throw new FaultException("注册码错误");
+                throw new MyException("分店ID或店名错误", null);
             }
             else
             {
-                DBContext db = new DBContext();
-                //检查分店ID和分店名称是否匹配
-                if (db.GetFendianByIdMc(fdid, fdmc) == null)
+                if (!validateDTMM(fd.jmsid, zcm))
                 {
-                    throw new FaultException("分店ID和店名不匹配");
+                    throw new MyException("验证码错误", null);
                 }
-
-                db.UpdateFendianJQM(fdid, jqm);
-
-                //检查账号是否已经存在
-                //TUser u = db.GetUserByDlm(Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid);
-                //if (u == null)
-                //{
-                //    u = new TUser();
-                //    //登陆名由一个前缀加上分店ID组成
-                //    u.dengluming = Tool.JCSJ.DBCONSTS.USER_DLM_PRE_FD + fdid;
-                //    u.yonghuming = fdmc;
-                //    u.mima = Tool.CommonFunc.MD5_16(fdid.ToString());
-                //    u.jiqima = tzm;
-                //    u.juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.分店系统;
-                //    u.zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用;
-                //    u.beizhu = "";
-                //    u.charushijian = DateTime.Now;
-                //    u.xiugaishijian = DateTime.Now;
-
-                //    TUser nu = db.InsertUser(u);
-
-                //    //插入账号，分店关系表
-                //    TUser_Fendian uf = new TUser_Fendian 
-                //    {
-                //        yonghuid = nu.id,
-                //        fendianid = fdid
-                //    };
-
-                //    db.InsertUser_Fendian(uf);
-                //}
-                //else
-                //{
-                //    db.UpdateUserJQM(u.id,tzm);
-                //}
             }
+
+            db.UpdateFendianJQM(fdid, jqm);
         }
 
         /// <summary>
@@ -186,14 +121,14 @@ namespace JCSJWCF
             TUser u = db.GetUser(dlm, mm);
             if (u == null)
             {
-                throw new FaultException("用户名或密码不正确");
+                throw new MyException("用户名或密码不正确", null);
             }
             else
             {
                 //验证注册码
-                if (!validateDTMM(zcm))
+                if (!validateDTMM(u.jmsid,zcm))
                 {
-                    throw new FaultException("注册码不正确");
+                    throw new MyException("验证码错误", null);
                 }
                 else
                 {
@@ -208,14 +143,15 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="mm"></param>
         /// <returns></returns>
-        private bool validateDTMM(string mm)
+        private bool validateDTMM(int jmsid,string mm)
         {
-            string bm = System.Web.HttpContext.Current.Application["DTMM"].ToString();
+            DBContext db = new DBContext();
+            TJiamengshang j= db.GetJiamengshangById(jmsid);            
              
-            if (mm == bm)
+            if (mm == j.dtyzm)
             {
                 //重新生成动态密码
-                System.Web.HttpContext.Current.Application["DTMM"] = Tool.CommonFunc.GetRandomNum(6);
+                db.UpdateJiamengshangDtyzm(jmsid, Tool.CommonFunc.GetRandomNum(6));
                 return true;
             }
 

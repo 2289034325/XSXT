@@ -35,8 +35,10 @@
             this.txb_cm = new System.Windows.Forms.TextBox();
             this.txb_ys = new System.Windows.Forms.TextBox();
             this.btn_ok = new System.Windows.Forms.Button();
-            this.txb_dj = new System.Windows.Forms.TextBox();
+            this.txb_jj = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txb_sj = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -60,7 +62,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 56);
+            this.label4.Location = new System.Drawing.Point(306, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 3;
@@ -75,7 +77,7 @@
             // 
             // txb_cm
             // 
-            this.txb_cm.Location = new System.Drawing.Point(59, 51);
+            this.txb_cm.Location = new System.Drawing.Point(353, 20);
             this.txb_cm.Name = "txb_cm";
             this.txb_cm.Size = new System.Drawing.Size(100, 21);
             this.txb_cm.TabIndex = 5;
@@ -89,36 +91,54 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(225, 96);
+            this.btn_ok.Location = new System.Drawing.Point(353, 52);
             this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(75, 23);
+            this.btn_ok.Size = new System.Drawing.Size(100, 23);
             this.btn_ok.TabIndex = 8;
             this.btn_ok.Text = "确定";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
-            // txb_dj
+            // txb_jj
             // 
-            this.txb_dj.Location = new System.Drawing.Point(200, 51);
-            this.txb_dj.Name = "txb_dj";
-            this.txb_dj.Size = new System.Drawing.Size(100, 21);
-            this.txb_dj.TabIndex = 10;
+            this.txb_jj.Location = new System.Drawing.Point(59, 49);
+            this.txb_jj.Name = "txb_jj";
+            this.txb_jj.Size = new System.Drawing.Size(100, 21);
+            this.txb_jj.TabIndex = 10;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(165, 54);
+            this.label2.Location = new System.Drawing.Point(12, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 9;
-            this.label2.Text = "单价";
+            this.label2.Text = "进价";
+            // 
+            // txb_sj
+            // 
+            this.txb_sj.Location = new System.Drawing.Point(200, 49);
+            this.txb_sj.Name = "txb_sj";
+            this.txb_sj.Size = new System.Drawing.Size(100, 21);
+            this.txb_sj.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(165, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "售价";
             // 
             // Dlg_Wutiaoma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 131);
-            this.Controls.Add(this.txb_dj);
+            this.ClientSize = new System.Drawing.Size(471, 96);
+            this.Controls.Add(this.txb_sj);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txb_jj);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_ys);
@@ -147,7 +167,9 @@
         private System.Windows.Forms.TextBox txb_cm;
         private System.Windows.Forms.TextBox txb_ys;
         private System.Windows.Forms.Button btn_ok;
-        private System.Windows.Forms.TextBox txb_dj;
+        private System.Windows.Forms.TextBox txb_jj;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txb_sj;
+        private System.Windows.Forms.Label label5;
     }
 }

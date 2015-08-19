@@ -27,13 +27,13 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            string om = txb_om.Text;
-            string nm = txb_nm.Text;
+            //string om = txb_om.Text;
+            //string nm = txb_nm.Text;
 
-            JCSJWCF.BMZHEditPsw(om, nm);
+            //JCSJWCF.BMZHEditPsw(om, nm);
 
-            MessageBox.Show("修改成功");
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            //MessageBox.Show("修改成功");
+            //this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
 }

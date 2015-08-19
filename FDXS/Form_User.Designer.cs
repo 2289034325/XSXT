@@ -41,8 +41,6 @@
             this.cmn_yh = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_yh_pass = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txb_mm = new System.Windows.Forms.TextBox();
-            this.btn_editpass = new System.Windows.Forms.Button();
             this.btn_edit = new System.Windows.Forms.Button();
             this.btn_add = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_user)).BeginInit();
@@ -138,8 +136,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.txb_mm);
-            this.panel1.Controls.Add(this.btn_editpass);
             this.panel1.Controls.Add(this.btn_edit);
             this.panel1.Controls.Add(this.btn_add);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -147,24 +143,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1013, 38);
             this.panel1.TabIndex = 12;
-            // 
-            // txb_mm
-            // 
-            this.txb_mm.Location = new System.Drawing.Point(255, 11);
-            this.txb_mm.Name = "txb_mm";
-            this.txb_mm.PasswordChar = '*';
-            this.txb_mm.Size = new System.Drawing.Size(100, 21);
-            this.txb_mm.TabIndex = 5;
-            // 
-            // btn_editpass
-            // 
-            this.btn_editpass.Location = new System.Drawing.Point(174, 9);
-            this.btn_editpass.Name = "btn_editpass";
-            this.btn_editpass.Size = new System.Drawing.Size(75, 23);
-            this.btn_editpass.TabIndex = 4;
-            this.btn_editpass.Text = "更改密码";
-            this.btn_editpass.UseVisualStyleBackColor = true;
-            this.btn_editpass.Click += new System.EventHandler(this.btn_editpass_Click);
             // 
             // btn_edit
             // 
@@ -199,7 +177,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.grid_user)).EndInit();
             this.cmn_yh.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -220,7 +197,5 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.Button btn_edit;
-        private System.Windows.Forms.Button btn_editpass;
-        private System.Windows.Forms.TextBox txb_mm;
     }
 }

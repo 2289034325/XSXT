@@ -381,7 +381,13 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TGongyingshang[] TGongyingshangsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.THuiyuan[] THuiyuansField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TKuanhao[] TKuanhaosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TTiaoma[] TTiaomasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TUser TUserField;
@@ -403,6 +409,9 @@ namespace CKGL.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string dianhuaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dtyzmField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short fendianshuField;
@@ -502,6 +511,19 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.THuiyuan[] THuiyuans {
+            get {
+                return this.THuiyuansField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.THuiyuansField, value) != true)) {
+                    this.THuiyuansField = value;
+                    this.RaisePropertyChanged("THuiyuans");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public CKGL.JCSJData.TKuanhao[] TKuanhaos {
             get {
                 return this.TKuanhaosField;
@@ -510,6 +532,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.TKuanhaosField, value) != true)) {
                     this.TKuanhaosField = value;
                     this.RaisePropertyChanged("TKuanhaos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TTiaoma[] TTiaomas {
+            get {
+                return this.TTiaomasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TTiaomasField, value) != true)) {
+                    this.TTiaomasField = value;
+                    this.RaisePropertyChanged("TTiaomas");
                 }
             }
         }
@@ -601,6 +636,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.dianhuaField, value) != true)) {
                     this.dianhuaField = value;
                     this.RaisePropertyChanged("dianhua");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string dtyzm {
+            get {
+                return this.dtyzmField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dtyzmField, value) != true)) {
+                    this.dtyzmField = value;
+                    this.RaisePropertyChanged("dtyzm");
                 }
             }
         }
@@ -2100,6 +2148,9 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TGongyingshang TGongyingshangField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TJiamengshang TJiamengshangField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TKuanhao TKuanhaoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2128,6 +2179,9 @@ namespace CKGL.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal jinjiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int jmsidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int kuanhaoidField;
@@ -2215,6 +2269,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.TGongyingshangField, value) != true)) {
                     this.TGongyingshangField = value;
                     this.RaisePropertyChanged("TGongyingshang");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TJiamengshang TJiamengshang {
+            get {
+                return this.TJiamengshangField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TJiamengshangField, value) != true)) {
+                    this.TJiamengshangField = value;
+                    this.RaisePropertyChanged("TJiamengshang");
                 }
             }
         }
@@ -2345,6 +2412,19 @@ namespace CKGL.JCSJData {
                 if ((this.jinjiaField.Equals(value) != true)) {
                     this.jinjiaField = value;
                     this.RaisePropertyChanged("jinjia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int jmsid {
+            get {
+                return this.jmsidField;
+            }
+            set {
+                if ((this.jmsidField.Equals(value) != true)) {
+                    this.jmsidField = value;
+                    this.RaisePropertyChanged("jmsid");
                 }
             }
         }
@@ -3533,6 +3613,9 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TFendian TFendianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TJiamengshang TJiamengshangField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TXiaoshou[] TXiaoshousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3552,6 +3635,9 @@ namespace CKGL.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal jifenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int jmsidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime shengriField;
@@ -3587,6 +3673,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.TFendianField, value) != true)) {
                     this.TFendianField = value;
                     this.RaisePropertyChanged("TFendian");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TJiamengshang TJiamengshang {
+            get {
+                return this.TJiamengshangField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TJiamengshangField, value) != true)) {
+                    this.TJiamengshangField = value;
+                    this.RaisePropertyChanged("TJiamengshang");
                 }
             }
         }
@@ -3678,6 +3777,19 @@ namespace CKGL.JCSJData {
                 if ((this.jifenField.Equals(value) != true)) {
                     this.jifenField = value;
                     this.RaisePropertyChanged("jifen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int jmsid {
+            get {
+                return this.jmsidField;
+            }
+            set {
+                if ((this.jmsidField.Equals(value) != true)) {
+                    this.jmsidField = value;
+                    this.RaisePropertyChanged("jmsid");
                 }
             }
         }
@@ -3779,9 +3891,6 @@ namespace CKGL.JCSJData {
         private string beizhuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal danjiaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int fendianidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3791,6 +3900,9 @@ namespace CKGL.JCSJData {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal jinjiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal molingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3798,6 +3910,9 @@ namespace CKGL.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime shangbaoshijianField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal shoujiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short shuliangField;
@@ -3877,19 +3992,6 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal danjia {
-            get {
-                return this.danjiaField;
-            }
-            set {
-                if ((this.danjiaField.Equals(value) != true)) {
-                    this.danjiaField = value;
-                    this.RaisePropertyChanged("danjia");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int fendianid {
             get {
                 return this.fendianidField;
@@ -3929,6 +4031,19 @@ namespace CKGL.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal jinjia {
+            get {
+                return this.jinjiaField;
+            }
+            set {
+                if ((this.jinjiaField.Equals(value) != true)) {
+                    this.jinjiaField = value;
+                    this.RaisePropertyChanged("jinjia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal moling {
             get {
                 return this.molingField;
@@ -3963,6 +4078,19 @@ namespace CKGL.JCSJData {
                 if ((this.shangbaoshijianField.Equals(value) != true)) {
                     this.shangbaoshijianField = value;
                     this.RaisePropertyChanged("shangbaoshijian");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal shoujia {
+            get {
+                return this.shoujiaField;
+            }
+            set {
+                if ((this.shoujiaField.Equals(value) != true)) {
+                    this.shoujiaField = value;
+                    this.RaisePropertyChanged("shoujia");
                 }
             }
         }
@@ -4471,12 +4599,6 @@ namespace CKGL.JCSJData {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
         System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
-        void BMZHEditPsw(string om, string nm);
-        
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/BMZHEditPsw", ReplyAction="http://tempuri.org/IDataService/BMZHEditPswResponse")]
-        System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm);
-        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
         CKGL.JCSJData.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
         
@@ -4683,14 +4805,6 @@ namespace CKGL.JCSJData {
         
         public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm) {
             return base.Channel.FDZHLoginAsync(fdid, tzm);
-        }
-        
-        public void BMZHEditPsw(string om, string nm) {
-            base.Channel.BMZHEditPsw(om, nm);
-        }
-        
-        public System.Threading.Tasks.Task BMZHEditPswAsync(string om, string nm) {
-            return base.Channel.BMZHEditPswAsync(om, nm);
         }
         
         public CKGL.JCSJData.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {

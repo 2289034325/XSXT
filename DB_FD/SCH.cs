@@ -62,6 +62,10 @@ namespace DB_FD
         {
             return _db.TUsers.Where(r => r.juese != excepJS).ToArray();
         }
+        public TUser[] GetUsers()
+        {
+            return _db.TUsers.ToArray();
+        }
 
         /// <summary>
         /// 搜索进出货记录
@@ -286,8 +290,7 @@ namespace DB_FD
             }
             if (end != null)
             {
-                DateTime dend = end.Value.AddDays(1);
-                xss = xss.Where(r => r.xiaoshoushijian < dend);
+                xss = xss.Where(r => r.xiaoshoushijian < end);
             }
 
             return xss.ToArray();

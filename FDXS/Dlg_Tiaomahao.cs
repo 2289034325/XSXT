@@ -12,13 +12,24 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_Tiaomahao : Form
+    public partial class Dlg_Tiaomahao : MyForm
     {
+        public string[] TMHs 
+        {
+            get 
+            {
+                return txb_tmhs.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            }
+        }
         public Dlg_Tiaomahao()
         {
             InitializeComponent();
         }
 
+        public override void OnScan(string tm)
+        {
+            txb_tmhs.AppendText(tm + Environment.NewLine);
+        }
 
         /// <summary>
         /// 

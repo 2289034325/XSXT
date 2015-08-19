@@ -21,8 +21,25 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //加载所有仓库信息
-                loadCangkus();
+                //隐藏搜索条件
+                div_sch.Visible = false;
+
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch.Visible = true;
+
+                    DBContext db = new DBContext();
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                }
+                else
+                {
+                    //加载所有仓库信息
+                    loadCangkus();
+                }
             }
         }
 
@@ -36,6 +53,10 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
                 grid_cangku.Columns[0].Visible = true;
             }
             else
@@ -161,6 +182,16 @@ namespace JCSJGL
             }
             db.DeleteCangku(id);
 
+            loadCangkus();
+        }
+
+        /// <summary>
+        /// 搜索仓库信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
             loadCangkus();
         }
     }

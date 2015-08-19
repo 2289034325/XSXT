@@ -27,15 +27,15 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            string dlm = txb_dlm.Text.Trim();
-            string mm = txb_mm.Text;
-            string xm = txb_xm.Text;
-            string zcm = txb_zcm.Text.Trim();
-            string tzm = Tool.CommonFunc.GetJQM();
+            //string dlm = txb_dlm.Text.Trim();
+            //string mm = txb_mm.Text;
+            //string xm = txb_xm.Text;
+            //string zcm = txb_zcm.Text.Trim();
+            //string tzm = Tool.CommonFunc.GetJQM();
 
-            JCSJWCF.BMZHZhuce(dlm, mm, xm, zcm);
-            MessageBox.Show("注册成功");
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            //JCSJWCF.BMZHZhuce(dlm, mm, xm, zcm);
+            //MessageBox.Show("注册成功");
+            //this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }
 }

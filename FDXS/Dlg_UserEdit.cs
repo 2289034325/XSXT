@@ -33,7 +33,7 @@ namespace FDXS
         private void btn_ok_Click(object sender, EventArgs e)
         {
             string dlm = txb_dlm.Text.Trim();
-            string mm = txb_mm.Text.Trim();
+            string mm = Tool.CommonFunc.MD5_16(txb_mm.Text);
             byte js = byte.Parse(cmb_js.SelectedValue.ToString());
             string yhm = txb_yhm.Text.Trim();
             string bz = txb_bz.Text.Trim();
@@ -45,7 +45,7 @@ namespace FDXS
                 User = new TUser
                 {
                     dengluming = dlm,
-                    mima = Tool.CommonFunc.MD5_16(mm),
+                    mima = mm,
                     juese = js,
                     yonghuming = yhm,
                     beizhu = bz,
@@ -59,7 +59,7 @@ namespace FDXS
             else
             {
                 User.dengluming = dlm;
-                //User.mima = mm;
+                User.mima = mm;
                 User.juese = js;
                 User.yonghuming = yhm;
                 User.beizhu = bz;
@@ -78,11 +78,21 @@ namespace FDXS
         /// <param name="e"></param>
         private void Dlg_UserEdit_Load(object sender, EventArgs e)
         {
+            Dictionary<string, byte> jss = new Dictionary<string, byte>();
+            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.系统管理员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员);
+                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店长.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店长);
+                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店员);
+            }
+            else if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长)
+            {
+                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店长.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店长);
+                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店员);
+            }
+
             //角色下拉框
-            Tool.CommonFunc.InitCombbox(cmb_js, typeof(Tool.FD.DBCONSTS.USER_XTJS));
-            DataTable dt = (DataTable)cmb_js.DataSource;
-            //去掉系统管理员的角色
-            dt.Rows.RemoveAt(0);
+            Tool.CommonFunc.InitCombbox(cmb_js, jss);
 
             //状态下拉框
             Tool.CommonFunc.InitCombbox(cmb_zt, typeof(Tool.FD.DBCONSTS.USER_ZT));
@@ -95,7 +105,7 @@ namespace FDXS
             else
             {
                 txb_dlm.Text = User.dengluming;
-                txb_mm.Text = User.mima;
+                //txb_mm.Text = User.mima;
                 txb_yhm.Text = User.yonghuming;
                 cmb_js.SelectedValue = User.juese;
                 cmb_zt.SelectedValue = User.zhuangtai;

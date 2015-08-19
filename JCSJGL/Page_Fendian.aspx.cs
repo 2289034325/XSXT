@@ -21,8 +21,25 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //加载所有分店信息
-                loadFendians();
+                //隐藏搜索条件
+                div_sch.Visible = false;
+
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch.Visible = true;
+
+                    DBContext db = new DBContext();
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                }
+                else
+                {
+                    //加载所有分店信息
+                    loadFendians();
+                }
 
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_fzxz, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_FZXB));
@@ -31,38 +48,7 @@ namespace JCSJGL
                 Tool.CommonFunc.InitDropDownList(cmb_dpxz, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ));
                 Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_ZT));
             }
-            //else
-            //{
-            //    string opt = hid_opt.Value;
-            //    if (opt == "DELETE")
-            //    {
-            //        //操作后清除操作标志
-            //        hid_opt.Value = "";
-
-            //        int id = int.Parse(hid_id.Value);
-            //        deleteFendian(id);
-            //    }
-            //}
-        }
-
-        /// <summary>
-        /// 删除分店
-        /// </summary>
-        /// <param name="id"></param>
-        //private void deleteFendian(int id)
-        //{
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    DBContext db = new DBContext();
-        //    TFendian of = db.GetFendianById(id);
-        //    if (of.jmsid != _LoginUser.jmsid)
-        //    {
-        //        throw new MyException("非法操作，无法删除该分店");
-        //    }
-        //    db.DeleteFendian(id);
-
-        //    loadFendians();
-        //}
+        }       
 
         private void loadFendians()
         {
@@ -71,7 +57,10 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
                 grid_fendian.Columns[0].Visible = true;
             }
             else
@@ -248,6 +237,16 @@ namespace JCSJGL
             }
             db.DeleteFendian(id);
 
+            loadFendians();
+        }
+
+        /// <summary>
+        /// 搜索分店
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
             loadFendians();
         }
     }

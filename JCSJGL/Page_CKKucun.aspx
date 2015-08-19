@@ -3,22 +3,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>仓库库存记录</title>
     <script type="text/javascript">
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
-    <%--<asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />--%>
     <div id="div_sch" class="div_sch">
-        <div><label>仓库</label><asp:DropDownList runat="server" ID="cmb_ck"></asp:DropDownList></div>
-        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
+        <div id="div_sch_jms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>
+        <div>
+            <label>仓库</label><asp:DropDownList runat="server" ID="cmb_ck"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
     </div>
     <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
@@ -37,7 +37,7 @@
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
     <asp:GridView ID="grid_kc_ck" runat="server" AutoGenerateColumns="False"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="ckid" HeaderText="仓库ID" Visible="false"></asp:BoundField>
@@ -59,7 +59,7 @@
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
     <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="cangku" HeaderText="仓库"></asp:BoundField>

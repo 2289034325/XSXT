@@ -57,7 +57,7 @@ namespace JCSJGL
         private void loadJiamengshangs()
         {
             DBContext db = new DBContext();
-            TJiamengshang[] js = db.GetAllJiamengshangs();
+            TJiamengshang[] js = db.GetJiamengshangs();
             var dfs = js.Select(r => new
             {
                 r.id,
@@ -169,6 +169,7 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TJiamengshang j= getEditInfo();
+            j.dtyzm = "";
             j.caozuorenid = _LoginUser.id;
             j.charushijian = DateTime.Now;
             j.xiugaishijian = DateTime.Now;

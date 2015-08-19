@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,19 +13,62 @@ namespace JCSJGL
         protected void Page_Load(object sender, EventArgs e)
         {
             Exception ex = (Exception)Application["Error"];
-            if (ex.InnerException != null)
-            {
-                ex = ex.InnerException;
-            }
-            //显示错误信息
+            int i = 0;
+            string msg = null;
             if (ex is MyException)
             {
-                lbl_errorMsg.Text = ex.Message;
+                msg = ex.Message;
             }
-            else
+            else if (ex is SqlException)
             {
-                lbl_errorMsg.Text = "系统发生未知错误";
+                if (ex.Message.Contains("REFERENCE"))
+                {
+                    msg = "要删除的数据正在被其他数据引用，请先删除引用该数据的数据！";
+                }
+                else if (ex.Message.Contains("UNIQUE"))
+                {
+                    msg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                }
             }
+
+            if (msg == null)
+            {
+                while (ex.InnerException != null)
+                {
+                    //防止无线循环
+                    if (i > 5)
+                    {
+                        break;
+                    }
+
+                    ex = ex.InnerException;
+                    if (ex is MyException)
+                    {
+                        msg = ex.Message;
+                    }
+                    else if (ex is SqlException)
+                    {
+                        if (ex.Message.Contains("REFERENCE"))
+                        {
+                            msg = "要删除的数据正在被其他数据引用，请先删除引用该数据的数据！";
+                        }
+                        else if (ex.Message.Contains("UNIQUE"))
+                        {
+                            msg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                        }
+                    }
+
+                    //防止无线循环
+                    i++;
+                }
+            }
+
+            if (msg == null)
+            {
+                msg = "发生未知的系统错误，请联系系统管理员";
+            }
+
+            lbl_errorMsg.Text = msg;
         }
     }
 }

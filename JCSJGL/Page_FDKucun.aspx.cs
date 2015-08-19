@@ -22,17 +22,32 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
+                TFendian[] fs = null;
+
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                //初始化分店下拉框
                 int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
+                    //显示搜索
+                    div_sch_jms.Visible = true;
 
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+
+                    fs = new TFendian[] { };
                 }
                 else
                 {
                     jmsid = _LoginUser.jmsid;
+
+                    fs = db.GetFendiansAsItems(jmsid);
                 }
-                TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
 
@@ -67,10 +82,17 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
+                grid_kc_total.Columns[0].Visible = true;
+                grid_kc_fd.Columns[0].Visible = true;
             }
             else
             {
+                grid_kc_total.Columns[0].Visible = false;
+                grid_kc_fd.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;
             }
             TFendianKucun[] jcs = db.GetFDKucunByCond(jmsid, fdid, true);
@@ -117,11 +139,16 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                jmsid = null;
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
+                grid_kc.Columns[0].Visible = true;
             }
             else
             {
- 
+                jmsid = _LoginUser.jmsid;
+                grid_kc.Columns[0].Visible = false;
             }
             TFendianKucun[] jcs = db.GetFDKucunByCond(jmsid, fdid, false);
             var xs = jcs.Select(r => new
@@ -179,6 +206,40 @@ namespace JCSJGL
             db.DeleteFDKucun(id); 
 
             loadHistroy(ok.fendianid);
+        }
+
+        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            grid_kc_total.DataSource = null;
+            grid_kc_total.DataBind();
+            grid_kc_fd.DataSource = null;
+            grid_kc_fd.DataBind();
+            grid_kc.DataSource = null;
+            grid_kc.DataBind();
+
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                cmb_fd.Items.Clear();
+                DBContext db = new DBContext();
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    int jmsid = int.Parse(cmb_jms.SelectedValue);
+                    TFendian[] fs = db.GetFendiansAsItems(jmsid);
+
+                    Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+                else
+                {
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+            }
+            else
+            {
+                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
+                throw new MyException("非法操作，请刷新页面重新执行");
+            }
         }
     }
 }

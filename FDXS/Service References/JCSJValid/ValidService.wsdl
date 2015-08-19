@@ -6,12 +6,6 @@
       <xsd:import schemaLocation="http://localhost/JCSJWCF/ValidService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IValidService_BMZHZhuce_InputMessage">
-    <wsdl:part name="parameters" element="tns:BMZHZhuce" />
-  </wsdl:message>
-  <wsdl:message name="IValidService_BMZHZhuce_OutputMessage">
-    <wsdl:part name="parameters" element="tns:BMZHZhuceResponse" />
-  </wsdl:message>
   <wsdl:message name="IValidService_CKZHZhuce_InputMessage">
     <wsdl:part name="parameters" element="tns:CKZHZhuce" />
   </wsdl:message>
@@ -31,10 +25,6 @@
     <wsdl:part name="parameters" element="tns:BMZHBangdingResponse" />
   </wsdl:message>
   <wsdl:portType name="IValidService">
-    <wsdl:operation name="BMZHZhuce">
-      <wsdl:input wsaw:Action="http://tempuri.org/IValidService/BMZHZhuce" message="tns:IValidService_BMZHZhuce_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IValidService/BMZHZhuceResponse" message="tns:IValidService_BMZHZhuce_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="CKZHZhuce">
       <wsdl:input wsaw:Action="http://tempuri.org/IValidService/CKZHZhuce" message="tns:IValidService_CKZHZhuce_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IValidService/CKZHZhuceResponse" message="tns:IValidService_CKZHZhuce_OutputMessage" />
@@ -50,15 +40,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IValidService" type="tns:IValidService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="BMZHZhuce">
-      <soap:operation soapAction="http://tempuri.org/IValidService/BMZHZhuce" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CKZHZhuce">
       <soap:operation soapAction="http://tempuri.org/IValidService/CKZHZhuce" style="document" />
       <wsdl:input>

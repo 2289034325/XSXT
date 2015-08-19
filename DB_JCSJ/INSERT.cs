@@ -136,18 +136,18 @@ namespace DB_JCSJ
             /// 分店系统注册后，关联上分店ID
             /// </summary>
             /// <param name="uf"></param>
-            public void InsertUser_Fendian(TUser_Fendian uf)
-            {
-                _db.TUser_Fendian.Add(uf);
+            //public void InsertUser_Fendian(TUser_Fendian uf)
+            //{
+            //    _db.TUser_Fendian.Add(uf);
 
-                _db.SaveChanges();
-            }
-            public void InsertUser_Cangku(TUser_Cangku uc)
-            {
-                _db.TUser_Cangku.Add(uc);
+            //    _db.SaveChanges();
+            //}
+            //public void InsertUser_Cangku(TUser_Cangku uc)
+            //{
+            //    _db.TUser_Cangku.Add(uc);
 
-                _db.SaveChanges();
-            }
+            //    _db.SaveChanges();
+            //}
 
             /// <summary>
             /// 插入分店上报的销售记录

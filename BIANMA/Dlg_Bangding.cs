@@ -30,7 +30,13 @@ namespace BIANMA
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
             string zcm = txb_zcm.Text.Trim();
-            string tzm = Tool.CommonFunc.GetJQM();
+            string jqm = Tool.CommonFunc.GetJQM();
+
+            if (string.IsNullOrEmpty(dlm) || string.IsNullOrEmpty(mm) || string.IsNullOrEmpty(zcm))
+            {
+                MessageBox.Show("不能留下空白");
+                return;
+            }
 
             JCSJWCF.BMZHBangding(dlm, mm, zcm);
 

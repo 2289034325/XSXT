@@ -12,7 +12,7 @@ namespace JCSJWCF
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            Application["DTMM"] = Tool.CommonFunc.GetRandomNum(6);
+
         }
 
         protected void Session_Start(object sender, EventArgs e)

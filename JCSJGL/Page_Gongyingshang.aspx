@@ -12,21 +12,22 @@
             $("#txb_dz").val(dz);
             $("#txb_bz").val(bz);
         }
-
-        //删除
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
+    <div id="div_sch" class="div_sch" runat="server">
+        <div>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
+    </div>
     <asp:GridView ID="grid_gys" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" 
         BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowDeleting="grid_gys_RowDeleting">
         <Columns>
-            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="mingcheng" HeaderText="名称"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="电话"></asp:BoundField>

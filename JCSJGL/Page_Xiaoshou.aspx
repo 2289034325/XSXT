@@ -6,7 +6,10 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch" class="div_sch">
+    <div id="div_sch" class="div_sch"> 
+        <div id="div_sch_jms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>
         <div>
             <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
         <div>
@@ -28,7 +31,7 @@
             <asp:BoundField DataField="yanse" HeaderText="颜色"></asp:BoundField>
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
             <asp:BoundField DataField="shuliang" HeaderText="数量"></asp:BoundField>
-            <asp:BoundField DataField="danjia" HeaderText="单价"></asp:BoundField>
+            <asp:BoundField DataField="shoujia" HeaderText="单价"></asp:BoundField>
             <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
             <asp:BoundField DataField="moling" HeaderText="抹零"></asp:BoundField>
             <asp:BoundField DataField="jiage" HeaderText="价格"></asp:BoundField>

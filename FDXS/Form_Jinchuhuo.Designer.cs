@@ -362,13 +362,13 @@
             this.cmn_crk.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmn_crk_daoru});
             this.cmn_crk.Name = "cmn_crk";
-            this.cmn_crk.Size = new System.Drawing.Size(137, 26);
+            this.cmn_crk.Size = new System.Drawing.Size(153, 48);
             // 
             // cmn_crk_daoru
             // 
             this.cmn_crk_daoru.Name = "cmn_crk_daoru";
-            this.cmn_crk_daoru.Size = new System.Drawing.Size(136, 22);
-            this.cmn_crk_daoru.Text = "从文件导入";
+            this.cmn_crk_daoru.Size = new System.Drawing.Size(152, 22);
+            this.cmn_crk_daoru.Text = "批量输入";
             this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
             // 
             // Form_Jinchuhuo

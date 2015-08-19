@@ -19,6 +19,15 @@ namespace DB_JCSJ
             _db.Configuration.ProxyCreationEnabled = false;
         }
     }
+
+    public class MyDbException : Exception
+    {
+        public MyDbException(string msg)
+            : base(msg)
+        {
+ 
+        }
+    }
 }
 
 namespace DB_JCSJ.Models
@@ -45,8 +54,17 @@ namespace DB_JCSJ.Models
         {
             get
             {
-                return decimal.Round(danjia * shuliang * zhekou / 10 - moling, 2);
+                return decimal.Round(shoujia * shuliang * zhekou / 10 - moling, 2);
             }
+        }
+
+        [NotMapped]
+        public decimal lirun
+        {
+            get
+            {
+                return decimal.Round((shoujia * zhekou / 10 - moling - jinjia) * shuliang, 2);
+            }            
         }
     }
 }

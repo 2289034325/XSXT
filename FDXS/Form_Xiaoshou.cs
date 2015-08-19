@@ -66,7 +66,7 @@ namespace FDXS
             string tmh = txb_tiaoma.Text.Trim();
             string kh = txb_kuanhao.Text.Trim();
             DateTime? dstart = dp_start.Checked ? (DateTime?)dp_start.Value.Date : null;
-            DateTime? dend = dp_end.Checked ? (DateTime?)dp_end.Value.Date : null;
+            DateTime? dend = dp_end.Checked ? (DateTime?)dp_end.Value.Date.AddDays(1) : null;
 
             //查询数据
             DBContext db = IDB.GetDB();
@@ -137,12 +137,12 @@ namespace FDXS
                 x.TTiaoma== null?"":x.TTiaoma.pinming,
                 x.TTiaoma== null?"":x.TTiaoma.yanse,
                 x.TTiaoma== null?"":x.TTiaoma.chima,
-                x.danjia,
+                x.shoujia,
                 x.shuliang,
                 x.zhekou,
                 x.moling,
-                //价格
-                x.jine.ToString("##.##"),
+                //金额
+                x.jine.ToString("00.00"),
                 //销售员
                 x.xiaoshouyuan,
                 x.xiaoshoushijian,

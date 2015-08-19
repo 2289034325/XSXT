@@ -13,6 +13,16 @@ namespace CKGL
     {
         private static DataServiceClient _jdc = null;
 
+        /// <summary>
+        /// 重新建立连接
+        /// </summary>
+        public static void Reconnect()
+        {
+            _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
+            //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
+            _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+        }
+
         public static void Login()
         {
             if (_jdc == null)

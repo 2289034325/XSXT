@@ -12,16 +12,16 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DBUSER" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">sa</Value>
     </Setting>
     <Setting Name="DBPSW" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WCFValidADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://domain/ValidService.svc/ValidService</Value>
     </Setting>
     <Setting Name="WCFDataADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://domain/DataService.svc/wsDataService</Value>
     </Setting>
     <Setting Name="ScanName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

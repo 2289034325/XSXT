@@ -34,16 +34,11 @@
             this.mni_addjkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addsm = new System.Windows.Forms.ToolStripMenuItem();
-            this.生成款号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_sckh = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_sctm = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_bzbm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_wenjian = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_qingkong = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空本地缓存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveServer = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveLoacal = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,9 +87,8 @@
             this.mni_addjkh,
             this.mni_addxkh,
             this.mni_addsm,
-            this.生成款号ToolStripMenuItem,
+            this.mni_bzbm,
             this.mni_jiazai,
-            this.mni_qingkong,
             this.保存ToolStripMenuItem,
             this.导出ToolStripMenuItem});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
@@ -131,28 +125,12 @@
             this.mni_addsm.Text = "新色码";
             this.mni_addsm.Click += new System.EventHandler(this.mni_addsm_Click);
             // 
-            // 生成款号ToolStripMenuItem
+            // mni_bzbm
             // 
-            this.生成款号ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mni_sckh,
-            this.mni_sctm});
-            this.生成款号ToolStripMenuItem.Name = "生成款号ToolStripMenuItem";
-            this.生成款号ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.生成款号ToolStripMenuItem.Text = "标准编码";
-            // 
-            // mni_sckh
-            // 
-            this.mni_sckh.Name = "mni_sckh";
-            this.mni_sckh.Size = new System.Drawing.Size(124, 22);
-            this.mni_sckh.Text = "生成款号";
-            this.mni_sckh.Click += new System.EventHandler(this.mni_sckh_Click);
-            // 
-            // mni_sctm
-            // 
-            this.mni_sctm.Name = "mni_sctm";
-            this.mni_sctm.Size = new System.Drawing.Size(124, 22);
-            this.mni_sctm.Text = "生成条码";
-            this.mni_sctm.Click += new System.EventHandler(this.mni_sctm_Click);
+            this.mni_bzbm.Name = "mni_bzbm";
+            this.mni_bzbm.Size = new System.Drawing.Size(68, 21);
+            this.mni_bzbm.Text = "标准编码";
+            this.mni_bzbm.Click += new System.EventHandler(this.mni_bzbm_Click);
             // 
             // mni_jiazai
             // 
@@ -185,27 +163,6 @@
             this.mni_jiazai_wenjian.Text = "从文件加载";
             this.mni_jiazai_wenjian.Click += new System.EventHandler(this.mni_jiazai_wenjian_Click);
             // 
-            // mni_qingkong
-            // 
-            this.mni_qingkong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清空gridToolStripMenuItem,
-            this.清空本地缓存ToolStripMenuItem});
-            this.mni_qingkong.Name = "mni_qingkong";
-            this.mni_qingkong.Size = new System.Drawing.Size(44, 21);
-            this.mni_qingkong.Text = "清空";
-            // 
-            // 清空gridToolStripMenuItem
-            // 
-            this.清空gridToolStripMenuItem.Name = "清空gridToolStripMenuItem";
-            this.清空gridToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.清空gridToolStripMenuItem.Text = "清空grid";
-            // 
-            // 清空本地缓存ToolStripMenuItem
-            // 
-            this.清空本地缓存ToolStripMenuItem.Name = "清空本地缓存ToolStripMenuItem";
-            this.清空本地缓存ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.清空本地缓存ToolStripMenuItem.Text = "清空本地缓存";
-            // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -218,14 +175,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -241,14 +198,14 @@
             // mni_bqdy
             // 
             this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(148, 22);
+            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
             this.mni_bqdy.Text = "标签打印";
             this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
             // mni_fddr
             // 
             this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(148, 22);
+            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
             this.mni_fddr.Text = "条码数量清单";
             this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
@@ -532,13 +489,11 @@
         private System.Windows.Forms.ToolStripMenuItem mni_addxkh;
         private System.Windows.Forms.ToolStripMenuItem mni_addsm;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai;
-        private System.Windows.Forms.ToolStripMenuItem mni_qingkong;
         private System.Windows.Forms.DataGridView grid_all;
         private System.Windows.Forms.ToolStripMenuItem mni_addjkh;
         private System.Windows.Forms.ContextMenuStrip cmn_all;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_shuaxin;
-        private System.Windows.Forms.ToolStripMenuItem 生成款号ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mni_sckh;
+        private System.Windows.Forms.ToolStripMenuItem mni_bzbm;
         private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mni_saveServer;
         private System.Windows.Forms.ToolStripMenuItem mni_saveLoacal;
@@ -549,9 +504,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_fddr;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_saveTm;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_jzkh;
-        private System.Windows.Forms.ToolStripMenuItem mni_sctm;
-        private System.Windows.Forms.ToolStripMenuItem 清空gridToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空本地缓存ToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_jssj;
         private System.Windows.Forms.TextBox txb_sjxs;

@@ -15,17 +15,13 @@
             $("#cmb_gys").val(gysid);
             $("#txb_gyskh").val(gyskh);
         }
-
-        //删除
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
+         <div id="div_sch_jms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+        </div>
         <div>
             <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx"></asp:DropDownList></div>
         <div>
@@ -40,8 +36,8 @@
          AllowCustomPaging="true" AllowPaging="true" PageSize="20" BackColor="White"  DataKeyNames="id" OnRowDeleting="grid_tiaoma_RowDeleting"
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_tiaoma_PageIndexChanging">
         <Columns>
-            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="gongyingshang" HeaderText="供应商"></asp:BoundField>

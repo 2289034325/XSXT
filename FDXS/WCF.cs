@@ -12,6 +12,16 @@ namespace FDXS
     public static class JCSJWCF
     {
         private static DataServiceClient _jdc = null;
+
+        /// <summary>
+        /// 重新建立连接
+        /// </summary>
+        public static void Reconnect()
+        {
+            _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
+            _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+        }
+
         /// <summary>
         /// 检查到数据中心的连接状态
         /// </summary>
@@ -52,10 +62,10 @@ namespace FDXS
             return _jdc.GetHuiyuanByShoujihao(sjh);
         }
 
-        internal static void HuiyuanZhuce(THuiyuan h)
+        internal static THuiyuan HuiyuanZhuce(THuiyuan h)
         {
             Login();
-            _jdc.HuiyuanZhuce(h);
+            return _jdc.HuiyuanZhuce(h);
         }
 
         internal static void FDZHZhuce(int ckid, string ckm, string jqm, string zcm)
@@ -70,11 +80,11 @@ namespace FDXS
             return _jdc.GetHuiyuanById(id);
         }
 
-        internal static THuiyuanZK[] GetHuiyuanZhekous()
-        {
-            Login();
-            return _jdc.GetHuiyuanZhekous();
-        }
+        //internal static THuiyuanZK[] GetHuiyuanZhekous()
+        //{
+        //    Login();
+        //    return _jdc.GetHuiyuanZhekous();
+        //}
 
         internal static void ShangbaoJinchuhuo_FD(TFendianJinchuhuo[] jcjcs)
         {
@@ -91,7 +101,7 @@ namespace FDXS
         internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByUpdTime(upt_start,upt_end);
+            return _jdc.GetTiaomasByCond(null, null, upt_start, upt_end);
         }
 
         internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)

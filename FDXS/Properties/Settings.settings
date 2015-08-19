@@ -27,10 +27,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WCFValidADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://120.25.246.150:8000/ValidService.svc/ValidService</Value>
+      <Value Profile="(Default)">http://domain/ValidService.svc/ValidService</Value>
     </Setting>
     <Setting Name="WCFDataADD" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://120.25.246.150:8000/DataService.svc/wsDataService</Value>
+      <Value Profile="(Default)">http://domain/DataService.svc/wsDataService</Value>
     </Setting>
     <Setting Name="DBSERVER" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>

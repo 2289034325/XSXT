@@ -17,9 +17,19 @@ namespace FDXS
 {
     public partial class Form_Tiaomaxinxi : MyForm
     {
+        private Dlg_Tiaomahao _dlgtmh;
         public Form_Tiaomaxinxi()
         {
             InitializeComponent();
+            _dlgtmh = new Dlg_Tiaomahao();
+        }
+
+        public override void OnScan(string tm)
+        {
+            if (_dlgtmh.Visible)
+            {
+                _dlgtmh.OnScan(tm);
+            }
         }
 
         /// <summary>
@@ -37,7 +47,7 @@ namespace FDXS
             try
             {
                 JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
-                saveToLocal(jtms);
+                CommonMethod.SaveTmsToLocal(jtms);
 
                 ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
             }
@@ -55,66 +65,12 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzdtm_Click(object sender, EventArgs e)
         {
-            Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
-
-            if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (_dlgtmh.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-                    {
-                        try
-                        {
-                            JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
-                            saveToLocal(jtms);
-
-                            ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
-                        }
-                        catch (Exception ex)
-                        {
-                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                            ShowMsg(ex.Message, true);
-                        }
-                    }, false).Start();
+                //string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] tmhs = _dlgtmh.TMHs;
+                CommonMethod.DownLoadTiaomaInfo(tmhs);
             }
-        }
-
-        /// <summary>
-        /// 把取得的条码信息保存到本地
-        /// </summary>
-        /// <param name="jtms"></param>
-        private void saveToLocal(JCSJData.TTiaoma[] jtms)
-        {
-            List<TTiaoma> tms = new List<TTiaoma>();
-            foreach (JCSJData.TTiaoma jtm in jtms)
-            {
-                TTiaoma tm = new TTiaoma
-                {
-                    id = jtm.id,
-                    tiaoma = jtm.tiaoma,
-                    kuanhao = jtm.TKuanhao.kuanhao,
-                    gongyingshang = jtm.TGongyingshang.mingcheng,
-                    gyskuanhao = jtm.gyskuanhao,
-                    leixing = jtm.TKuanhao.leixing,
-                    pinming = jtm.TKuanhao.pinming,
-                    yanse = jtm.yanse,
-                    chima = jtm.chima,
-                    jinjia = jtm.jinjia,
-                    shoujia = jtm.shoujia
-                };
-                tms.Add(tm);
-            }
-
-            //找出已经在本地存在的条码
-            DBContext db = IDB.GetDB();
-            TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
-            int[] oids = otms.Select(r => r.id).ToArray();
-            //需要更新的条码和需要新插入的条码
-            TTiaoma[] uts = tms.Where(r => oids.Contains(r.id)).ToArray();
-            uts.ToList().ForEach(t => t.xiugaishijian = DateTime.Now);
-            TTiaoma[] nts = tms.Where(r => !oids.Contains(r.id)).ToArray();
-            nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
-            db.UpdateTiaomas(uts);
-            db.InsertTiaomas(nts);
         }
 
         /// <summary>

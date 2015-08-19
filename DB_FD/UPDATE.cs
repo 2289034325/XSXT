@@ -176,7 +176,10 @@ namespace DB_FD
             var ou = _db.TUsers.Single(r => r.id == u.id);
 
             ou.dengluming = u.dengluming;
-            //ou.mima = u.mima;
+            if (!string.IsNullOrEmpty(u.mima))
+            {
+                ou.mima = u.mima;
+            }
             ou.yonghuming = u.yonghuming;
             ou.juese = u.juese;
             ou.zhuangtai = u.zhuangtai;

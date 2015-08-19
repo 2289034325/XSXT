@@ -22,23 +22,32 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
+                TCangku[] fs = null;
+
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                //初始化分店下拉框
                 int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    grid_kc_total.Columns[0].Visible = true;
-                    grid_kc_ck.Columns[0].Visible = true;
-                    grid_kc.Columns[0].Visible = true;
+                    //显示搜索
+                    div_sch_jms.Visible = true;
+
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+
+                    fs = new TCangku[] { };
                 }
                 else
                 {
-                    grid_kc_total.Columns[0].Visible = false;
-                    grid_kc_ck.Columns[0].Visible = false;
-                    grid_kc.Columns[0].Visible = false;
                     jmsid = _LoginUser.jmsid;
+
+                    fs = db.GetCangkusAsItems(jmsid);
                 }
 
-                TCangku[] fs = db.GetCangkusAsItems(jmsid);
                 Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
                 cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
 
@@ -78,10 +87,17 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
+                grid_kc_total.Columns[0].Visible = true;
+                grid_kc_ck.Columns[0].Visible = true;
             }
             else
             {
+                grid_kc_total.Columns[0].Visible = false;
+                grid_kc_ck.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;
             }
             TCangkuKucun[] jcs = db.GetCKKucunByCond(jmsid, ckid, true);
@@ -128,11 +144,16 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
+                grid_kc.Columns[0].Visible = true;
             }
             else
             {
                 jmsid = _LoginUser.jmsid;
+                grid_kc.Columns[0].Visible = false;
             }
             TCangkuKucun[] jcs = db.GetCKKucunByCond(jmsid, ckid, false);
             var xs = jcs.Select(r => new
@@ -190,6 +211,40 @@ namespace JCSJGL
             db.DeleteCKKucun(id);
 
             loadHistroy(ok.cangkuid);            
+        }
+
+        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            grid_kc_total.DataSource = null;
+            grid_kc_total.DataBind();
+            grid_kc_ck.DataSource = null;
+            grid_kc_ck.DataBind();
+            grid_kc.DataSource = null;
+            grid_kc.DataBind();
+
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                cmb_ck.Items.Clear();
+                DBContext db = new DBContext();
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    int jmsid = int.Parse(cmb_jms.SelectedValue);
+                    TCangku[] fs = db.GetCangkusAsItems(jmsid);
+
+                    Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
+                }
+                else
+                {
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
+                }
+            }
+            else
+            {
+                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
+                throw new MyException("非法操作，请刷新页面重新执行");
+            }
         }
     }
 }

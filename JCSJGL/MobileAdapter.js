@@ -48,22 +48,22 @@ $(document).ready(function () {
     if (!IsPC())
     {
         //Mobile加载会破坏页面
-        $(document).bind("mobileinit", function () {
-            $.mobile.ajaxEnabled = false;
-            $.mobile.autoInitializePage = false;
-            $.mobile.hashListeningEnabled = false;
-            $.mobile.pushStateEnabled = false;
+        //$(document).bind("mobileinit", function () {
+        //    $.mobile.ajaxEnabled = false;
+        //    $.mobile.autoInitializePage = false;
+        //    $.mobile.hashListeningEnabled = false;
+        //    $.mobile.pushStateEnabled = false;
 
-            //调节滑动翻页的敏捷度
-            $.event.special.swipe.scrollSupressionThreshold = 200;
-            $.event.special.swipe.durationThreshold = 300;
-            $.event.special.swipe.horizontalDistanceThreshold = 210;
-            $.event.special.swipe.verticalDistanceThreshold = 50;
-        });
+        //    //调节滑动翻页的敏捷度
+        //    $.event.special.swipe.scrollSupressionThreshold = 200;
+        //    $.event.special.swipe.durationThreshold = 300;
+        //    $.event.special.swipe.horizontalDistanceThreshold = 210;
+        //    $.event.special.swipe.verticalDistanceThreshold = 50;
+        //});
 
         //Iphone webApp
         $("head").append("<meta name='viewport' content='user-scalable=yes, initial-scale=1.0, width=device-width, minimal-ui'>");
-        $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='black'>");
+        $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='#4285f4'>");
         $("head").append("<meta name='apple-mobile-web-app-capable' content='yes'>");
         $("head").append("<meta name='format-detection' content='telephone=no'>");
         $("head").append("<link rel='apple-touch-icon' sizes='114x114' href='imgs/iphoneLogo.png' />");
@@ -83,15 +83,46 @@ $(document).ready(function () {
         mni.css("font-weight", "bold");
 
         //加载jquerymobile
-        $.getScript("jquery.mobile-1.4.5/jquery.mobile-1.4.5.js", function ()
+        //$.getScript("jquery.mobile-1.4.5/jquery.mobile-1.4.5.js", function ()
+        //{
+        //    //左右滑动，代表后退前进
+        //    $(document).on("swipeleft", function () {
+        //        history.back();
+        //    });
+        //    $(document).on("swiperight", function () {
+        //        history.forward();
+        //    });
+        //});
+
+        //在最下方放置后退键
+        var bd = $("<div>返回</div>");
+        bd.css("height", "30px").css("width","50px").css("font-size","25px").css("text-align","center");
+        bd.css("position", "fixed").css("bottom", "0px").css("right", "0px").css("background-color", "#FFFBD6");
+        bd.css("opacity", "0.2");
+        bd.click(function () { history.back(); });
+        $("body").append(bd);
+
+        //右上角放个小箭头，点击，展开菜单
+        var ep = $("<div id='div_expandmn'>▼</div>");
+        ep.css("width", "50px").css("font-size", "30px").css("text-align", "right");
+        ep.css("position", "absolute").css("top", "0px").css("right", "0px").css("opacity", "0.7");
+        ep.css("background-color", "white");
+        ep.click(function ()
         {
-            //左右滑动，代表后退前进
-            $(document).on("swipeleft", function () {
-                history.back();
-            });
-            $(document).on("swiperight", function () {
-                history.forward();
-            });
+            var mn = $("#div_mn_main");
+            if (mn.attr('data-click-state') == 1)
+            {
+                mn.attr('data-click-state',0);
+                mn.attr("class","mainMenu");
+                $(this).html("▼");
+            }
+            else {
+                mn.attr('data-click-state', 1);
+                mn.attr("class","mainMenuExpand");
+                $(this).html("▲");
+            }
         });
+        $("body").append(ep);
+
     }
 });

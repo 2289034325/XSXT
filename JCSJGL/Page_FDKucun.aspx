@@ -3,23 +3,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>分店库存记录</title>
     <script type="text/javascript">
-        //删除
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">    
-    <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
-    <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
+<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
-        <div><label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
-        <div><asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
+        <div id="div_sch_jms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>
+        <div>
+            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
     </div>
-    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False" 
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False"
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
@@ -38,8 +37,8 @@
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
 
-    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False"  
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False"
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="fdid" HeaderText="分店ID" Visible="false"></asp:BoundField>
@@ -62,7 +61,7 @@
     </asp:GridView>
 
     <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" >
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
@@ -72,7 +71,7 @@
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
             <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="Page_FDKucunMX.aspx?id={0}" Text="查看" HeaderText="查看明细"></asp:HyperLinkField>
-             <asp:TemplateField ShowHeader="False">
+            <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <asp:Button ID="btn_delete" runat="server" OnClientClick="return confirm('确定删除吗?')" Text="刪除" CommandName="Delete" />
                 </ItemTemplate>

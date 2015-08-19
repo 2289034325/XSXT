@@ -27,14 +27,18 @@ namespace DB_FD
         /// <param name="c"></param>
         public TJinchuhuo InsertJinchuhuo(TJinchuhuo c)
         {
-            c.charushijian = DateTime.Now;
-            c.xiugaishijian = DateTime.Now;
             TJinchuhuo nc = _db.TJinchuhuos.Add(c);
             _db.SaveChanges();
 
-            nc.TUser = _db.TUsers.Single(r => r.id == nc.caozuorenid);
-
             return nc;
+        }
+        public TJinchuhuo[] InsertJinchuhuos(TJinchuhuo[] js)
+        {
+           TJinchuhuo[] njs = _db.TJinchuhuos.AddRange(js).ToArray();
+
+            _db.SaveChanges();
+
+            return njs;
         }
 
         /// <summary>
@@ -44,6 +48,18 @@ namespace DB_FD
         public void InsertJinchuMxs(TJinchuMX[] mxs)
         {
             _db.TJinchuMXes.AddRange(mxs);
+
+            _db.SaveChanges();
+        }
+        public void InsertUpdateJinchuMxs(TJinchuMX[] insert, TJinchuMX[] update)
+        {
+            foreach (TJinchuMX u in update)
+            {
+                var ou = _db.TJinchuMXes.Single(r => r.jinchuid == u.jinchuid && r.tiaomaid == u.tiaomaid);
+                ou.shuliang += u.shuliang;
+            }
+
+            _db.TJinchuMXes.AddRange(insert);
 
             _db.SaveChanges();
         }

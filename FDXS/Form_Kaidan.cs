@@ -79,7 +79,7 @@ namespace FDXS
                         chima = t.chima
                     },
                     tiaomaid = t.id,
-                    danjia = t.shoujia,
+                    shoujia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
                     moling = 0,
@@ -105,7 +105,8 @@ namespace FDXS
                 xs.TTiaoma == null?"":xs.TTiaoma.yanse,
                 xs.TTiaoma == null?"":xs.TTiaoma.chima,
                 xs.shuliang,
-                xs.danjia,
+                xs.jinjia,
+                xs.shoujia,
                 xs.zhekou,
                 xs.moling,
                 xs.jine,
@@ -199,7 +200,7 @@ namespace FDXS
         private void refreshJinriXS()
         {
             DBContext db = IDB.GetDB();
-            TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date);
+            TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date.AddDays(1));
             int xsl = jrxss.Sum(r => r.shuliang);
             decimal xse = jrxss.Sum(r => r.jine);
             lbl_jrxl.Text = xsl.ToString();
@@ -240,7 +241,7 @@ namespace FDXS
             decimal zj = 0;
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
-                decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
+                decimal danjia = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
                 short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
                 decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
                 decimal moling = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
@@ -276,7 +277,7 @@ namespace FDXS
 
             //刷新应收列
             short sl = short.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_sl.Name].Value.ToString());
-            decimal dj = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_dj.Name].Value.ToString());
+            decimal dj = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_sj.Name].Value.ToString());
             decimal zk = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_zk.Name].Value.ToString());
             decimal ml = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value.ToString());
             decimal jiage = decimal.Round(sl * dj * zk / 10 - ml, 2);
@@ -334,7 +335,8 @@ namespace FDXS
                         tmid = (int)dr.Cells[col_tmid.Name].Value;
                     }
                 }
-                decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
+                decimal jj = decimal.Parse(dr.Cells[col_jj.Name].Value.ToString());
+                decimal sj = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
                 short sl = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
                 decimal zk = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
                 decimal ml = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
@@ -348,11 +350,11 @@ namespace FDXS
                     return;
                 }
 
-                if (ml != 0 && dr.Index != 0)
-                {
-                    MessageBox.Show("只允许在第一行抹零");
-                    return;
-                }
+                //if (ml != 0 && dr.Index != 0)
+                //{
+                //    MessageBox.Show("只允许在第一行抹零");
+                //    return;
+                //}
 
                 //if (yingshou < 0)
                 //{
@@ -379,7 +381,8 @@ namespace FDXS
                     xiaoshouyuan = cmb_xsy.Text,
                     huiyuanid = _Huiyuan == null ? null : (int?)_Huiyuan.id,
                     tiaomaid = tmid,
-                    danjia = danjia,
+                    jinjia = jj,
+                    shoujia = sj,
                     shuliang = sl,
                     zhekou = zk,
                     moling = ml,
@@ -475,7 +478,7 @@ namespace FDXS
                 string tiaoma = x.TTiaoma == null ? "" : x.TTiaoma.tiaoma;
                 string pinming = x.TTiaoma == null ? "" : x.TTiaoma.pinming;
                 short shuliang = x.shuliang;
-                decimal danjia = x.danjia;
+                decimal danjia = x.shoujia;
                 decimal jine = x.jine;
                 printG.DrawString(tiaoma, printFont, myBrush, leftMargin, yPosition, new StringFormat());
                 printG.DrawString(shuliang.ToString(), printFont, myBrush, leftMargin + 90, yPosition, new StringFormat());
@@ -488,10 +491,10 @@ namespace FDXS
             printG.DrawString("_______________________________", printFont, myBrush, leftMargin, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("小计", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.shoujia * x.shuliang).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("优惠", printFont, myBrush, leftMargin, yPosition, new StringFormat());
-            printG.DrawString(_XSS.Sum(x => x.danjia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
+            printG.DrawString(_XSS.Sum(x => x.shoujia * x.shuliang * (10 - x.zhekou) / 10 + x.moling).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("应付", printFont, myBrush, leftMargin, yPosition, new StringFormat());
             printG.DrawString((_XSS.Sum(x => x.jine)).ToString("0.00"), printFont, myBrush, leftMargin + 135, yPosition, new StringFormat());
@@ -522,6 +525,15 @@ namespace FDXS
             try
             {
                 string sjh = txb_sjh.Text.Trim();
+                //如果是空，取消清空会员变量
+                if (string.IsNullOrEmpty(sjh))
+                {
+                    _Huiyuan = null;
+                    lbl_hyxm.Text = "";
+                    lbl_hyjf.Text = "";
+                    return;
+                }
+
                 //检查是否是规则的手机号
                 if (!Tool.CommonFunc.IsTelNum(sjh))
                 {
@@ -562,13 +574,13 @@ namespace FDXS
 
                 _Huiyuan = h;
                 //按照积分折扣表给该会员应有的折扣
-                THuiyuanZK[] zks = db.GetHuiyuanZKs();
-                decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
+                //THuiyuanZK[] zks = db.GetHuiyuanZKs();
+                //decimal hyzk = zks.Where(r => r.jifen <= h.jifen).Max(r => (decimal?)r.zhekou) ?? 10;
 
                 //设置页面显示
                 lbl_hyxm.Text = h.xingming;
                 lbl_hyjf.Text = h.jifen.ToString();
-                lbl_hyzk.Text = hyzk.ToString();
+                //lbl_hyzk.Text = hyzk.ToString();
             }
             catch (Exception ex)
             {
@@ -600,7 +612,7 @@ namespace FDXS
                     return;
                 }
 
-                JCSJData.THuiyuan h = new JCSJData.THuiyuan
+                JCSJData.THuiyuan jh = new JCSJData.THuiyuan
                 {
                     shoujihao = sjh,
                     xingming = "",
@@ -610,7 +622,24 @@ namespace FDXS
                 };
 
                 //注册会员
-                JCSJWCF.HuiyuanZhuce(h);
+                jh = JCSJWCF.HuiyuanZhuce(jh);
+
+                THuiyuan lh = new THuiyuan
+                {
+                    id = jh.id,
+                    fendianid = jh.fendianid,
+                    shoujihao = jh.shoujihao,
+                    xingming = jh.xingming,
+                    xingbie = jh.xingbie,
+                    shengri = jh.shengri,
+                    jifen = jh.jifen,
+                    jfgxshijian = jh.jfjsshijian,
+                    xxgxshijian = DateTime.Now
+                };
+
+                //保存到本地
+                DBContext db = IDB.GetDB();
+                db.InsertHuiyuan(lh);
 
                 ShowMsg("注册成功", false);
             }
@@ -618,6 +647,8 @@ namespace FDXS
             {
                 Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
                 ShowMsg(ex.Message, true);
+
+                return;
             }
 
             //刷新出新会员信息
@@ -680,7 +711,7 @@ namespace FDXS
                         chima = t.chima
                     },
                     tiaomaid = t.id,
-                    danjia = t.shoujia,
+                    shoujia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
                     moling = 0,
@@ -742,22 +773,22 @@ namespace FDXS
 
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
-                decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
+                decimal danjia = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
                 short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
                 decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
 
                 decimal jg = decimal.Round(danjia * shuliang * zhekou / 10, 2);
                 decimal gw = decimal.Truncate(jg % 10);
-                decimal ml = gw + jg - decimal.Truncate(jg);
-                //if (chk_gwml.Checked)
-                //{
-                    //ml = gw + jg - decimal.Truncate(jg);
-                //}
+                decimal ml = 0;
+                if (chk_gwml.Checked)
+                {
+                    ml = gw + jg - decimal.Truncate(jg);
+                }
                 //取消抹零
-                //else
-                //{
-                //    ml = 0;
-                //}
+                else
+                {
+                    ml = 0;
+                }
 
                 dr.Cells[col_ml.Name].Value = ml;
             }
@@ -927,12 +958,14 @@ namespace FDXS
                 string pm = dw.pm;
                 string ys = dw.ys;
                 string cm = dw.cm;
-                decimal dj = dw.dj;
+                decimal jj = dw.jj;
+                decimal sj = dw.sj;
 
                 TXiaoshou xs = new TXiaoshou
                 {
                     tiaomaid = null,
-                    danjia = dj,
+                    jinjia = jj,
+                    shoujia = sj,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
                     moling = 0,

@@ -15,10 +15,12 @@ namespace FDXS
 {
     public partial class Dlg_Wutiaoma : Form
     {
+        public byte lx;
         public string pm;
         public string ys;
         public string cm;
-        public decimal dj;
+        public decimal jj;
+        public decimal sj;
 
         public Dlg_Wutiaoma()
         {
@@ -37,16 +39,17 @@ namespace FDXS
             pm = txb_pm.Text.Trim();
             ys = txb_ys.Text.Trim();
             cm = txb_cm.Text.Trim();
-            string sdj = txb_dj.Text.Trim();
+            string sjj = txb_jj.Text.Trim();
+            string ssj = txb_sj.Text.Trim();
 
             if(string.IsNullOrEmpty(pm)||string.IsNullOrEmpty(ys)||
-                string.IsNullOrEmpty(cm)||string.IsNullOrEmpty(sdj))
+                string.IsNullOrEmpty(cm)||string.IsNullOrEmpty(sjj)||string.IsNullOrEmpty(ssj))
             {
                 MessageBox.Show("不能输入空白");
                 return;
             }
 
-            if (!decimal.TryParse(sdj, out dj))
+            if (!decimal.TryParse(sjj, out jj) || !decimal.TryParse(ssj, out sj))
             {
                 MessageBox.Show("单价只能填写数字");
                 return;

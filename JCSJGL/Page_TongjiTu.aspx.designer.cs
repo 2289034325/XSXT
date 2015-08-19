@@ -22,6 +22,24 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.HiddenField hid_windowWidth;
         
         /// <summary>
+        /// div_sch_jms 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_jms;
+        
+        /// <summary>
+        /// cmb_jms 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
+        
+        /// <summary>
         /// cmb_fd 控件。
         /// </summary>
         /// <remarks>

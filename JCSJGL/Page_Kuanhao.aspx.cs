@@ -21,45 +21,30 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
+                //隐藏搜索条件
+                div_sch_jms.Visible = false;
+
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch_jms.Visible = true;
+
+                    DBContext db = new DBContext();
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                }
+
                 //初始化下拉框
                 Tool.CommonFunc.InitDropDownList(cmb_lx_sch, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
-                cmb_lx_sch.Items.Insert(0, "");
+                cmb_lx_sch.Items.Insert(0, new ListItem("所有类型", ""));
+
                 Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB));
             }
-            //else
-            //{
-            //    string opt = hid_opt.Value;
-            //    if (opt == "DELETE")
-            //    {
-            //        //操作后清除操作标志
-            //        hid_opt.Value = "";
-
-            //        int id = int.Parse(hid_id.Value);
-            //        deleteKuanhao(id);
-            //    }
-            //}
         }
-
-        /// <summary>
-        /// 删除款号
-        /// </summary>
-        /// <param name="id"></param>
-        //private void deleteKuanhao(int id)
-        //{
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    DBContext db = new DBContext();
-        //    TKuanhao ok = db.GetKuanhaoById(id);
-        //    if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-        //    {
-        //        throw new MyException("非法操作，无法删除该款号");
-        //    }
-        //    db.DeleteKuanhao(id);
-
-        //    loadKuanhaos();
-        //}
-
+       
         /// <summary>
         /// 加载款号
         /// </summary>
@@ -77,19 +62,18 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+               _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                jmsid = _LoginUser.jmsid; 
-                //grid_kuanhao.Columns.Insert(1, new BoundField()
-                //{
-                //    HeaderText = "加盟商",
-                //    DataField = "jiamengshang"
-                //});
-                grid_kuanhao.Columns[1].Visible = true;
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                } 
+                grid_kuanhao.Columns[0].Visible = true;
             }
             else
             {
-                grid_kuanhao.Columns[1].Visible = false;
+                grid_kuanhao.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;
             }
             TKuanhao[] fs = db.GetKuanhaosByCond(jmsid, lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);

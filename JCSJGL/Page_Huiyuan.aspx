@@ -12,22 +12,17 @@
             $("#txb_sr").val(sr);
             $("#txb_bz").val(bz);
         }
-
-        //删除
-        //function Delete(id)
-        //{
-        //    $("#hid_opt").val("DELETE");
-        //    $("#hid_id").val(id);
-        //}
-
-        //function DeleteZK(id)
-        //{
-        //    $("#hid_opt").val("DELETEZK");
-        //    $("#hid_id").val(id);
-        //}
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">    
+    <div id="div_sch" class="div_sch" runat="server">
+        <div>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
+    </div>
     <asp:GridView ID="grid_huiyuan" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966"
          BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowDeleting="grid_huiyuan_RowDeleting">
         <Columns>
@@ -68,7 +63,7 @@
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="手机号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_sjh" ClientIDMode="Static"></asp:TextBox></div>
+            <asp:Label runat="server" Text="手机号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_sjh" ClientIDMode="Static" Enabled="false"></asp:TextBox></div>
         <div>
             <asp:Label runat="server" Text="姓名"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_xm" ClientIDMode="Static"></asp:TextBox></div>
         <div>

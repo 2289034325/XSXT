@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -34,6 +35,8 @@ namespace JCSJGL
         {
             //在出现未处理的错误时运行的代码
             Exception ex = Server.GetLastError();
+            string logfile = ConfigurationManager.AppSettings["LogFile"].ToString();
+            Tool.CommonFunc.LogEx(logfile, ex);
 
             //传递给错误页面
             Application["Error"] = ex;   

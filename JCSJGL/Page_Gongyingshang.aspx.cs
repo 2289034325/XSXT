@@ -20,42 +20,27 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //加载供应商信息
-                loadGongyingshangs();
+                //隐藏搜索条件
+                div_sch.Visible = false;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    //显示搜索
+                    div_sch.Visible = true;
+
+                    DBContext db = new DBContext();
+                    TJiamengshang[] jmss = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                }
+                else
+                {
+                    //加载供应商信息
+                    loadGongyingshangs();
+                }
             }
-            //else
-            //{
-            //    string opt = hid_opt.Value;
-            //    if (opt == "DELETE")
-            //    {
-            //        //操作后清除操作标志
-            //        hid_opt.Value = "";
-
-            //        int id = int.Parse(hid_id.Value);
-            //        deleteGongyingshang(id);
-            //    }
-            //}
         }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        //private void deleteGongyingshang(int id)
-        //{
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    DBContext db = new DBContext();
-        //    TGongyingshang og = db.GetGongyingshangById(id);
-        //    if (og.jmsid != _LoginUser.jmsid)
-        //    {
-        //        throw new MyException("非法操作，无法删除该供应商");
-        //    }
-        //    db.DeleteGongyingshang(id);
-
-        //    loadGongyingshangs();
-        //}
-
+        
         /// <summary>
         /// 加载所有供应商信息
         /// </summary>
@@ -66,11 +51,15 @@ namespace JCSJGL
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                grid_gys.Columns[1].Visible = true;
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                }
+                grid_gys.Columns[0].Visible = true;
             }
             else
             {
-                grid_gys.Columns[1].Visible = false;
+                grid_gys.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;
             }
 
@@ -188,6 +177,11 @@ namespace JCSJGL
             }
             db.DeleteGongyingshang(id);
 
+            loadGongyingshangs();
+        }
+
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
             loadGongyingshangs();
         }
     }

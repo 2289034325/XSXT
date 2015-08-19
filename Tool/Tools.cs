@@ -142,6 +142,24 @@ namespace Tool
             Cmb.ValueMember = "Value";
             Cmb.DataSource = dt;
         }
+        public static void InitCombbox(ComboBox Cmb, Dictionary<string, byte> dic)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Text", typeof(string));
+            dt.Columns.Add("Value", typeof(byte));
+
+            foreach (KeyValuePair<string, byte> p in dic)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Text"] = p.Key;
+                dr["Value"] = p.Value;
+                dt.Rows.Add(dr);
+            }
+
+            Cmb.DisplayMember = "Text";
+            Cmb.ValueMember = "Value";
+            Cmb.DataSource = dt;
+        }
         public static void InitCombbox(ComboBox Cmb, object[] Items, string TextField, string ValueField)
         {
             if (Items.Length < 1)
@@ -407,38 +425,51 @@ namespace Tool
         {
             try
             {
-                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--" + msg 
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--消息--" + msg 
                     + "\r\n------------------------------------------------------\r\n");
             }
             catch(Exception ex)
             {
-                MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
+                //MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
             }
         }
         public static void LogEx(string file, Exception e)
         {
             try
             {
-                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--"
-                    + e.Message + "\r\n" + e.StackTrace + "\r\n");
-                if (e.InnerException != null)
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--异常--" + e.Message 
+                    + "\r\n" + e.StackTrace + "\r\n");
+                int i = 0;
+                while (e.InnerException != null)
                 {
-                    File.AppendAllText(file, "innerException--" + e.InnerException.Message + "" 
-                        + e.InnerException.StackTrace 
-                        + "\r\n------------------------------------------------------\r\n");
+                    if (i > 5)
+                    {
+                        break;
+                    }
+
+                    e = e.InnerException;
+
+                    File.AppendAllText(file, "内部异常--" + e.Message 
+                        + "\r\n" + e.StackTrace + "\r\n");
+
+                    //防止无线循环
+                    i++;
                 }
+
+                File.AppendAllText(file, "\r\n------------------------------------------------------\r\n\r\n");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
+                //MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
             }
         }
     }
 
     public class MyException : Exception
     {
-        public MyException(string Msg,Exception innerEx):base(Msg,innerEx)
-        {}
+        public MyException(string Msg, Exception innerEx)
+            : base(Msg, innerEx)
+        { }
     }
 
     /// <summary>

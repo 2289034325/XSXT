@@ -10,7 +10,9 @@ namespace DB_JCSJ.Models
             this.TCangkus = new List<TCangku>();
             this.TFendians = new List<TFendian>();
             this.TGongyingshangs = new List<TGongyingshang>();
+            this.THuiyuans = new List<THuiyuan>();
             this.TKuanhaos = new List<TKuanhao>();
+            this.TTiaomas = new List<TTiaoma>();
             this.TUsers = new List<TUser>();
         }
 
@@ -32,14 +34,17 @@ namespace DB_JCSJ.Models
         public string lianxiren { get; set; }
         public string dianhua { get; set; }
         public string beizhu { get; set; }
+        public string dtyzm { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual ICollection<TCangku> TCangkus { get; set; }
         public virtual ICollection<TFendian> TFendians { get; set; }
         public virtual ICollection<TGongyingshang> TGongyingshangs { get; set; }
+        public virtual ICollection<THuiyuan> THuiyuans { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TKuanhao> TKuanhaos { get; set; }
+        public virtual ICollection<TTiaoma> TTiaomas { get; set; }
         public virtual ICollection<TUser> TUsers { get; set; }
     }
 }

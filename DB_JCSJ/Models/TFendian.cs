@@ -11,7 +11,6 @@ namespace DB_JCSJ.Models
             this.TFendianJinchuhuos = new List<TFendianJinchuhuo>();
             this.TFendianKucuns = new List<TFendianKucun>();
             this.THuiyuans = new List<THuiyuan>();
-            this.TUser_Fendian = new List<TUser_Fendian>();
             this.TXiaoshous = new List<TXiaoshou>();
         }
 
@@ -42,7 +41,6 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TFendianJinchuhuo> TFendianJinchuhuos { get; set; }
         public virtual ICollection<TFendianKucun> TFendianKucuns { get; set; }
         public virtual ICollection<THuiyuan> THuiyuans { get; set; }
-        public virtual ICollection<TUser_Fendian> TUser_Fendian { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshous { get; set; }
     }
 }

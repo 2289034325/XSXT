@@ -65,7 +65,16 @@ namespace DB_FD.Models
         {
             get 
             {
-                return decimal.Round(danjia * shuliang * zhekou / 10 - moling, 2);
+                return decimal.Round(shoujia * shuliang * zhekou / 10 - moling, 2);
+            }
+        }
+
+        [NotMapped]
+        public decimal lirun
+        {
+            get
+            {
+                return decimal.Round((shoujia * zhekou / 10 - moling - jinjia) * shuliang, 2);
             }
         }
     }

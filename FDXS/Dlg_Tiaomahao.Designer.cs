@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 285);
+            this.ClientSize = new System.Drawing.Size(332, 282);
             this.Controls.Add(this.txb_tmhs);
             this.Controls.Add(this.btn_ok);
             this.MaximizeBox = false;
@@ -69,6 +69,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_ok;
-        public System.Windows.Forms.RichTextBox txb_tmhs;
+        private System.Windows.Forms.RichTextBox txb_tmhs;
     }
 }

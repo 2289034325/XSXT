@@ -11,6 +11,7 @@ namespace DB_JCSJ.Models
         }
 
         public int id { get; set; }
+        public int jmsid { get; set; }
         public int fendianid { get; set; }
         public string shoujihao { get; set; }
         public string xingming { get; set; }
@@ -22,6 +23,7 @@ namespace DB_JCSJ.Models
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual TFendian TFendian { get; set; }
+        public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshous { get; set; }
     }
 }

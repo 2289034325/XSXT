@@ -62,7 +62,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 3;
-            this.label4.Text = "注册码";
+            this.label4.Text = "验证码";
             // 
             // txb_dlm
             // 
@@ -88,7 +88,7 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(237, 92);
+            this.btn_ok.Location = new System.Drawing.Point(237, 52);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 8;
@@ -100,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 131);
+            this.ClientSize = new System.Drawing.Size(331, 96);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_mm);
             this.Controls.Add(this.txb_zcm);

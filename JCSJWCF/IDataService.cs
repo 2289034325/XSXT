@@ -24,8 +24,8 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = true)]
         void FDZHLogin(int fdid, string tzm);
 
-        [OperationContract(IsInitiating=false)]
-        void BMZHEditPsw(string om,string nm);
+        //[OperationContract(IsInitiating=false)]
+        //void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
         TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
