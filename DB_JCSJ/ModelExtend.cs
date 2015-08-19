@@ -63,7 +63,7 @@ namespace DB_JCSJ.Models
         {
             get
             {
-                return decimal.Round((shoujia * zhekou / 10 - moling - jinjia) * shuliang, 2);
+                return decimal.Round(jine - jinjia * shuliang, 2);
             }            
         }
     }

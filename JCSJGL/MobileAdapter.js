@@ -63,7 +63,7 @@ $(document).ready(function () {
 
         //Iphone webApp
         $("head").append("<meta name='viewport' content='user-scalable=yes, initial-scale=1.0, width=device-width, minimal-ui'>");
-        $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='#4285f4'>");
+        $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='black'>");
         $("head").append("<meta name='apple-mobile-web-app-capable' content='yes'>");
         $("head").append("<meta name='format-detection' content='telephone=no'>");
         $("head").append("<link rel='apple-touch-icon' sizes='114x114' href='imgs/iphoneLogo.png' />");

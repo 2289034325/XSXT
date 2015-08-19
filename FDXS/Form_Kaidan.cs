@@ -79,6 +79,7 @@ namespace FDXS
                         chima = t.chima
                     },
                     tiaomaid = t.id,
+                    jinjia = t.jinjia,
                     shoujia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,
@@ -711,6 +712,7 @@ namespace FDXS
                         chima = t.chima
                     },
                     tiaomaid = t.id,
+                    jinjia = t.jinjia,
                     shoujia = t.shoujia,
                     shuliang = 1,
                     zhekou = Settings.Default.GDZK,

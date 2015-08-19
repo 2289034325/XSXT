@@ -31,10 +31,12 @@
             <asp:BoundField DataField="yanse" HeaderText="颜色"></asp:BoundField>
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
             <asp:BoundField DataField="shuliang" HeaderText="数量"></asp:BoundField>
-            <asp:BoundField DataField="shoujia" HeaderText="单价"></asp:BoundField>
+            <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
+            <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
             <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
             <asp:BoundField DataField="moling" HeaderText="抹零"></asp:BoundField>
             <asp:BoundField DataField="jiage" HeaderText="价格"></asp:BoundField>
+            <asp:BoundField DataField="lirun" HeaderText="利润"></asp:BoundField>
             <asp:BoundField DataField="huiyuan" HeaderText="会员"></asp:BoundField>
             <asp:BoundField DataField="xiaoshouyuan" HeaderText="销售员"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
