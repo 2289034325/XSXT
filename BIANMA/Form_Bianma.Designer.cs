@@ -46,6 +46,15 @@
             this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             this.grid_all = new System.Windows.Forms.DataGridView();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_szgys = new System.Windows.Forms.Button();
+            this.cmb_gys = new System.Windows.Forms.ComboBox();
+            this.btn_jssj = new System.Windows.Forms.Button();
+            this.txb_sjxs = new System.Windows.Forms.TextBox();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,15 +73,6 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_szgys = new System.Windows.Forms.Button();
-            this.cmb_gys = new System.Windows.Forms.ComboBox();
-            this.btn_jssj = new System.Windows.Forms.Button();
-            this.txb_sjxs = new System.Windows.Forms.TextBox();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
@@ -175,14 +175,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -198,14 +198,14 @@
             // mni_bqdy
             // 
             this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
+            this.mni_bqdy.Size = new System.Drawing.Size(148, 22);
             this.mni_bqdy.Text = "标签打印";
             this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
             // mni_fddr
             // 
             this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
+            this.mni_fddr.Size = new System.Drawing.Size(148, 22);
             this.mni_fddr.Text = "条码数量清单";
             this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
@@ -249,135 +249,6 @@
             this.grid_all.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_all_UserDeletedRow);
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
             this.grid_all.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_all_KeyDown);
-            // 
-            // col_all_tmidex
-            // 
-            this.col_all_tmidex.HeaderText = "TMIDEX";
-            this.col_all_tmidex.Name = "col_all_tmidex";
-            this.col_all_tmidex.Visible = false;
-            // 
-            // col_all_khidex
-            // 
-            this.col_all_khidex.HeaderText = "KHIDEX";
-            this.col_all_khidex.Name = "col_all_khidex";
-            this.col_all_khidex.Visible = false;
-            // 
-            // col_all_kh
-            // 
-            this.col_all_kh.DataPropertyName = "kuanhao";
-            this.col_all_kh.HeaderText = "款号";
-            this.col_all_kh.Name = "col_all_kh";
-            this.col_all_kh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_khxj
-            // 
-            this.col_all_khxj.HeaderText = "新/旧款";
-            this.col_all_khxj.Name = "col_all_khxj";
-            this.col_all_khxj.ReadOnly = true;
-            this.col_all_khxj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_xb
-            // 
-            this.col_all_xb.DataPropertyName = "xingbie";
-            this.col_all_xb.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.col_all_xb.HeaderText = "性别";
-            this.col_all_xb.Name = "col_all_xb";
-            this.col_all_xb.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // col_all_lx
-            // 
-            this.col_all_lx.DataPropertyName = "leixing";
-            this.col_all_lx.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.col_all_lx.HeaderText = "类型";
-            this.col_all_lx.Name = "col_all_lx";
-            this.col_all_lx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // col_all_pm
-            // 
-            this.col_all_pm.DataPropertyName = "pinming";
-            this.col_all_pm.HeaderText = "品名";
-            this.col_all_pm.Name = "col_all_pm";
-            this.col_all_pm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_tm
-            // 
-            this.col_all_tm.DataPropertyName = "tiaoma";
-            this.col_all_tm.HeaderText = "条码";
-            this.col_all_tm.Name = "col_all_tm";
-            this.col_all_tm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_tmxj
-            // 
-            this.col_all_tmxj.HeaderText = "新/旧条码";
-            this.col_all_tmxj.Name = "col_all_tmxj";
-            this.col_all_tmxj.ReadOnly = true;
-            this.col_all_tmxj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_gys
-            // 
-            this.col_all_gys.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.col_all_gys.HeaderText = "供应商";
-            this.col_all_gys.Name = "col_all_gys";
-            this.col_all_gys.ReadOnly = true;
-            this.col_all_gys.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_all_gys.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // col_all_gyskh
-            // 
-            this.col_all_gyskh.DataPropertyName = "gyskuanhao";
-            this.col_all_gyskh.HeaderText = "供应商款号";
-            this.col_all_gyskh.Name = "col_all_gyskh";
-            this.col_all_gyskh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_ys
-            // 
-            this.col_all_ys.DataPropertyName = "yanse";
-            this.col_all_ys.HeaderText = "颜色";
-            this.col_all_ys.Name = "col_all_ys";
-            this.col_all_ys.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_cm
-            // 
-            this.col_all_cm.DataPropertyName = "chima";
-            this.col_all_cm.HeaderText = "尺码";
-            this.col_all_cm.Name = "col_all_cm";
-            this.col_all_cm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_sl
-            // 
-            this.col_all_sl.HeaderText = "数量";
-            this.col_all_sl.Name = "col_all_sl";
-            this.col_all_sl.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_jj
-            // 
-            this.col_all_jj.DataPropertyName = "jinjia";
-            this.col_all_jj.HeaderText = "进价";
-            this.col_all_jj.Name = "col_all_jj";
-            this.col_all_jj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_sj
-            // 
-            this.col_all_sj.DataPropertyName = "shoujia";
-            this.col_all_sj.HeaderText = "售价";
-            this.col_all_sj.Name = "col_all_sj";
-            this.col_all_sj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_crsj
-            // 
-            this.col_all_crsj.DataPropertyName = "charushijian";
-            this.col_all_crsj.HeaderText = "插入时间";
-            this.col_all_crsj.Name = "col_all_crsj";
-            this.col_all_crsj.ReadOnly = true;
-            this.col_all_crsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // col_all_xgsj
-            // 
-            this.col_all_xgsj.DataPropertyName = "xiugaishijian";
-            this.col_all_xgsj.HeaderText = "修改时间";
-            this.col_all_xgsj.Name = "col_all_xgsj";
-            this.col_all_xgsj.ReadOnly = true;
-            this.col_all_xgsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cmn_all
             // 
@@ -457,6 +328,134 @@
             this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
             this.txb_sjxs.TabIndex = 0;
             // 
+            // col_all_tmidex
+            // 
+            this.col_all_tmidex.HeaderText = "TMIDEX";
+            this.col_all_tmidex.Name = "col_all_tmidex";
+            this.col_all_tmidex.Visible = false;
+            // 
+            // col_all_khidex
+            // 
+            this.col_all_khidex.HeaderText = "KHIDEX";
+            this.col_all_khidex.Name = "col_all_khidex";
+            this.col_all_khidex.Visible = false;
+            // 
+            // col_all_kh
+            // 
+            this.col_all_kh.DataPropertyName = "kuanhao";
+            this.col_all_kh.HeaderText = "款号";
+            this.col_all_kh.Name = "col_all_kh";
+            this.col_all_kh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_khxj
+            // 
+            this.col_all_khxj.HeaderText = "新/旧款";
+            this.col_all_khxj.Name = "col_all_khxj";
+            this.col_all_khxj.ReadOnly = true;
+            this.col_all_khxj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_xb
+            // 
+            this.col_all_xb.DataPropertyName = "xingbie";
+            this.col_all_xb.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.col_all_xb.HeaderText = "性别";
+            this.col_all_xb.Name = "col_all_xb";
+            this.col_all_xb.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // col_all_lx
+            // 
+            this.col_all_lx.DataPropertyName = "leixing";
+            this.col_all_lx.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.col_all_lx.HeaderText = "类型";
+            this.col_all_lx.Name = "col_all_lx";
+            this.col_all_lx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // col_all_pm
+            // 
+            this.col_all_pm.DataPropertyName = "pinming";
+            this.col_all_pm.HeaderText = "品名";
+            this.col_all_pm.Name = "col_all_pm";
+            this.col_all_pm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_tm
+            // 
+            this.col_all_tm.DataPropertyName = "tiaoma";
+            this.col_all_tm.HeaderText = "条码";
+            this.col_all_tm.Name = "col_all_tm";
+            this.col_all_tm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_tmxj
+            // 
+            this.col_all_tmxj.HeaderText = "新/旧条码";
+            this.col_all_tmxj.Name = "col_all_tmxj";
+            this.col_all_tmxj.ReadOnly = true;
+            this.col_all_tmxj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_gys
+            // 
+            this.col_all_gys.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.col_all_gys.HeaderText = "供应商";
+            this.col_all_gys.Name = "col_all_gys";
+            this.col_all_gys.ReadOnly = true;
+            this.col_all_gys.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // col_all_gyskh
+            // 
+            this.col_all_gyskh.DataPropertyName = "gyskuanhao";
+            this.col_all_gyskh.HeaderText = "供应商款号";
+            this.col_all_gyskh.Name = "col_all_gyskh";
+            this.col_all_gyskh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_ys
+            // 
+            this.col_all_ys.DataPropertyName = "yanse";
+            this.col_all_ys.HeaderText = "颜色";
+            this.col_all_ys.Name = "col_all_ys";
+            this.col_all_ys.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_cm
+            // 
+            this.col_all_cm.DataPropertyName = "chima";
+            this.col_all_cm.HeaderText = "尺码";
+            this.col_all_cm.Name = "col_all_cm";
+            this.col_all_cm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_sl
+            // 
+            this.col_all_sl.HeaderText = "数量";
+            this.col_all_sl.Name = "col_all_sl";
+            this.col_all_sl.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_jj
+            // 
+            this.col_all_jj.DataPropertyName = "jinjia";
+            this.col_all_jj.HeaderText = "进价";
+            this.col_all_jj.Name = "col_all_jj";
+            this.col_all_jj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_sj
+            // 
+            this.col_all_sj.DataPropertyName = "shoujia";
+            this.col_all_sj.HeaderText = "售价";
+            this.col_all_sj.Name = "col_all_sj";
+            this.col_all_sj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_crsj
+            // 
+            this.col_all_crsj.DataPropertyName = "charushijian";
+            this.col_all_crsj.HeaderText = "插入时间";
+            this.col_all_crsj.Name = "col_all_crsj";
+            this.col_all_crsj.ReadOnly = true;
+            this.col_all_crsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // col_all_xgsj
+            // 
+            this.col_all_xgsj.DataPropertyName = "xiugaishijian";
+            this.col_all_xgsj.HeaderText = "修改时间";
+            this.col_all_xgsj.Name = "col_all_xgsj";
+            this.col_all_xgsj.ReadOnly = true;
+            this.col_all_xgsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form_Bianma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -509,6 +508,7 @@
         private System.Windows.Forms.TextBox txb_sjxs;
         private System.Windows.Forms.Button btn_szgys;
         private System.Windows.Forms.ComboBox cmb_gys;
+        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_wenjian;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
@@ -527,7 +527,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
-        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_wenjian;
     }
 }
 

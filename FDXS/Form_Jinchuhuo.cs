@@ -267,11 +267,11 @@ namespace FDXS
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
             Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value);
 
-            if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.出)
-            {
-                MessageBox.Show("出货无法批量导入");
-                return;
-            }            
+            //if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.出)
+            //{
+            //    MessageBox.Show("出货无法批量导入");
+            //    return;
+            //}            
 
             //检查该出入库记录是否已经上报
             if (!checkAllow())
