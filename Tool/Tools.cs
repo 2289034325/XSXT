@@ -264,7 +264,8 @@ namespace Tool
         /// <returns></returns>
         public static string GetJQM()
         {
-            string tzm = "";
+            string jqm = "";
+
             //获取网卡硬件地址
             string mac = "";
             ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
@@ -277,7 +278,7 @@ namespace Tool
                     break;
                 }
             }
-            tzm += mac;
+            jqm += mac;
 
             //cpu序列号
             string cpuInfo = "";
@@ -287,10 +288,32 @@ namespace Tool
             {
                 cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
             }
-            tzm += cpuInfo;
+            jqm += cpuInfo;
+
+            //硬盘序列号
+            mc = new ManagementClass("Win32_PhysicalMedia");       
+            moc = mc.GetInstances();
+            string dskInfo = "";
+            foreach( ManagementObject mo in moc )     
+            {
+                dskInfo = mo.Properties["SerialNumber"].Value.ToString();    
+                break;
+            }
+            jqm += dskInfo;
+
+            //主板序号
+            mc = new ManagementClass("Win32_BaseBoard");   
+            moc = mc.GetInstances();
+            string mbdInfo = null;
+            foreach( ManagementObject mo in moc )    
+            {
+                mbdInfo = mo.Properties["SerialNumber"].Value.ToString();   
+                break;
+            }
+            jqm += mbdInfo;
 
 
-            return tzm;
+            return jqm;
         }
 
         /// <summary>
@@ -425,7 +448,13 @@ namespace Tool
         {
             try
             {
-                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--消息--" + msg 
+                //按日期记录
+                FileInfo fi = new FileInfo(file);
+                string filePath = fi.DirectoryName;
+                string fileName = DateTime.Now.ToString("yyyyMMdd") + fi.Name;
+                file = filePath +"\\"+ fileName;
+
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--" + msg 
                     + "\r\n------------------------------------------------------\r\n");
             }
             catch(Exception ex)
@@ -437,8 +466,7 @@ namespace Tool
         {
             try
             {
-                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--异常--" + e.Message 
-                    + "\r\n" + e.StackTrace + "\r\n");
+                string errMsg = "异常--" + e.Message + "\r\n" + e.StackTrace + "\r\n";
                 int i = 0;
                 while (e.InnerException != null)
                 {
@@ -448,15 +476,11 @@ namespace Tool
                     }
 
                     e = e.InnerException;
-
-                    File.AppendAllText(file, "内部异常--" + e.Message 
-                        + "\r\n" + e.StackTrace + "\r\n");
+                    errMsg += "内部异常--" + e.Message + "\r\n" + e.StackTrace + "\r\n";
 
                     //防止无线循环
                     i++;
                 }
-
-                File.AppendAllText(file, "\r\n------------------------------------------------------\r\n\r\n");
             }
             catch (Exception ex)
             {
