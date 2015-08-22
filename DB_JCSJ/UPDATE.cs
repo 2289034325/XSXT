@@ -227,9 +227,9 @@ namespace DB_JCSJ
             /// 下载进货数据后，更新其下载时间
             /// </summary>
             /// <param name="jcids"></param>
-            public void UpdateCangkuFahuoFendianXzsj(int[] ids)
+            public void UpdateCangkuFahuoFendianXzsj(int[] jcids)
             {
-                var ds = _db.TCangkuFahuoFendians.Where(r => ids.Contains(r.id));
+                var ds = _db.TCangkuFahuoFendians.Where(r => jcids.Contains(r.ckjinchuid));
                 foreach (var d in ds)
                 {
                     d.xzshijian = DateTime.Now;

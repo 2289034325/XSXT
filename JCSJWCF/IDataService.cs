@@ -143,5 +143,8 @@ namespace JCSJWCF
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
         TCangkuJinchuhuo[] XiazaiJinhuoShuju();
+
+        [OperationContract(IsInitiating = false)]
+        void XiazaiJinhuoShujuFinish(int[] ckjcids);
     }
 }

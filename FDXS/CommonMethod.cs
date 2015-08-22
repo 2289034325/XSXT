@@ -15,7 +15,7 @@ namespace FDXS
         /// 下载指定的一组条码信息
         /// </summary>
         /// <param name="tmhs"></param>
-        public static void DownLoadTiaomaInfo(string[] tmhs)
+        public static void DownLoadTiaomaInfo(string[] tmhs, bool autoClose)
         {
             new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
             {
@@ -31,8 +31,28 @@ namespace FDXS
                     Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
                     ShowMsg(ex.Message, true);
                 }
-            }, false).Start();
+            }, autoClose).Start();
         }
+
+        public static void DownLoadTiaomaInfo(DateTime start, DateTime end,bool autoClose)
+        {
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
+                    CommonMethod.SaveTmsToLocal(jtms);
+
+                    ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, autoClose).Start();
+        }
+    
 
         /// <summary>
         /// 把取得的条码信息保存到本地

@@ -384,4 +384,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="XiazaiJinhuoShujuFinish">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ckjcids" nillable="true" type="q33:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuFinishResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

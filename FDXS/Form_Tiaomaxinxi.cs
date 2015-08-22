@@ -39,24 +39,25 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            new Tool.ActionMessageTool(btn_xzzxtm_Click_sync, false).Start();    
+            //new Tool.ActionMessageTool(btn_xzzxtm_Click_sync, false).Start();    
+            CommonMethod.DownLoadTiaomaInfo(dp_start.Value, dp_end.Value, false);
         }
 
-        private void btn_xzzxtm_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
-        {
-            try
-            {
-                JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
-                CommonMethod.SaveTmsToLocal(jtms);
+        //private void btn_xzzxtm_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
+        //{
+        //    try
+        //    {
+        //        JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(dp_start.Value, dp_end.Value);
+        //        CommonMethod.SaveTmsToLocal(jtms);
 
-                ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
-            }
-            catch (Exception ex)
-            {
-                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                ShowMsg(ex.Message, true);
-            }  
-        }
+        //        ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+        //        ShowMsg(ex.Message, true);
+        //    }  
+        //}
 
         /// <summary>
         /// 下载指定条码信息
@@ -69,7 +70,7 @@ namespace FDXS
             {
                 //string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 string[] tmhs = _dlgtmh.TMHs;
-                CommonMethod.DownLoadTiaomaInfo(tmhs);
+                CommonMethod.DownLoadTiaomaInfo(tmhs, false);
             }
         }
 

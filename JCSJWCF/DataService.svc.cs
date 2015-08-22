@@ -782,9 +782,7 @@ namespace JCSJWCF
         public TCangkuJinchuhuo[] XiazaiJinhuoShuju()
         {
             DBContext db = new DBContext();
-            TCangkuFahuoFendian[] fhs = db.GetFDJinhuoshuju(_LoginFendian.id);
-            //更新下载时间
-            db.UpdateCangkuFahuoFendianXzsj(fhs.Select(r => r.id).ToArray());           
+            TCangkuFahuoFendian[] fhs = db.GetFDJinhuoshuju(_LoginFendian.id);  
 
             TCangkuJinchuhuo[] jchs = fhs.Select(r=>r.TCangkuJinchuhuo).ToArray();
 
@@ -795,9 +793,20 @@ namespace JCSJWCF
                 foreach (var mx in f.TCangkuJinchuhuoMXes)
                 {
                     mx.TCangkuJinchuhuo = null;
+                    mx.TTiaoma.TCangkuJinchuhuoMXes.Clear();                   
                 }
             }
             return jchs;
+        }
+        /// <summary>
+        /// 下载数据完成后，更新下载时间，以防重复下载
+        /// </summary>
+        /// <param name="ckjcids"></param>
+        public void XiazaiJinhuoShujuFinish(int[] ckjcids)
+        {
+            DBContext db = new DBContext();
+            //更新下载时间
+            db.UpdateCangkuFahuoFendianXzsj(ckjcids);   
         }
     }
 }

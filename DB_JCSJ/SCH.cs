@@ -556,6 +556,7 @@ namespace DB_JCSJ
             public TCangkuFahuoFendian[] GetFDJinhuoshuju(int fdid)
             {
                 return _db.TCangkuFahuoFendians.Include(r=>r.TCangkuJinchuhuo).Include(r=>r.TCangkuJinchuhuo.TCangkuJinchuhuoMXes).
+                    Include(r=>r.TCangkuJinchuhuo.TCangkuJinchuhuoMXes.Select(xr=>xr.TTiaoma)).
                     Where(r => r.fendianid == fdid && r.xzshijian == null).ToArray();
             }
 

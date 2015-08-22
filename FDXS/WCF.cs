@@ -122,6 +122,12 @@ namespace FDXS
             return _jdc.XiazaiJinhuoShuju();
         }
 
+        internal static void XiazaiJinhuoShujuFinish(int[] ckjcids)
+        {
+            Login();
+            _jdc.XiazaiJinhuoShujuFinish(ckjcids);
+        }
+
         //internal static string GetLatestVersion()
         //{
         //    ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);

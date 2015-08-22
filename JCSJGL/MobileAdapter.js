@@ -104,9 +104,9 @@ $(document).ready(function () {
 
         //右上角放个小箭头，点击，展开菜单
         var ep = $("<div id='div_expandmn'>▼</div>");
-        ep.css("width", "50px").css("font-size", "30px").css("text-align", "right");
-        ep.css("position", "absolute").css("top", "0px").css("right", "0px").css("opacity", "0.7");
-        ep.css("background-color", "white");
+        ep.css("width", "150px").css("font-size", "30px").css("text-align", "right").css("padding","0").css("margin","0");
+        ep.css("position", "absolute").css("top", "0px").css("right", "0px");
+        ep.css("background", "-webkit-gradient(linear, 100% 0%, 0% 0%,from(rgba(255,255,255,1)), to(rgba(255,255,255,0.1)))");
         ep.click(function ()
         {
             var mn = $("#div_mn_main");

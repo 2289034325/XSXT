@@ -299,7 +299,7 @@ namespace FDXS
                 //下载不存在的条码信息
                 if (tmhs_no.Length != 0)
                 {
-                    CommonMethod.DownLoadTiaomaInfo(tmhs_no);
+                    CommonMethod.DownLoadTiaomaInfo(tmhs_no, true);
                 }
 
                 //下载后再检查是否有遗漏
@@ -686,14 +686,20 @@ namespace FDXS
 
                 DBContext db = IDB.GetDB();
                 //检查是否有本地不存在的条码
-                int[] tmids = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r=>r.tiaomaid).ToArray();
-                TTiaoma[] tms = db.GetTiaomasByIds(tmids);
-                int[] tmids_exist = tms.Select(r=>r.id).ToArray();
-                if (tmids_exist.Any(r=>!tmids.Contains(r)))
-                {
-                    ShowMsg("本地缺少条码信息，请先下载条码信息", true);
-                    return;
-                }
+                string[] tmhs = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r=>r.TTiaoma.tiaoma).ToArray();
+                TTiaoma[] tms = db.GetTiaomasByTmhs(tmhs);
+                string[] tmh_exist = tms.Select(r=>r.tiaoma).ToArray();
+
+                string[] tmh_not_exist = tmhs.Except(tmh_exist).ToArray();
+                //从服务器下载不存在的条码信息
+                CommonMethod.DownLoadTiaomaInfo(tmh_not_exist, true);
+
+                //string untmhs = tmh_not_exist.Aggregate((a, b) => { return a + "," + b; });
+                //if (tmh_not_exist.Length != 0)
+                //{
+                //    ShowMsg("本地缺少条码信息，请先下载条码信息\r\n" + untmhs, true);
+                //    return;
+                //}
 
                 TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
                 {
@@ -717,6 +723,10 @@ namespace FDXS
                     jc.TUser = RuntimeInfo.LoginUser;
                     addJinchuhuo(jc);
                 }
+
+                //像服务器返回信息表示已经收到数据
+                JCSJWCF.XiazaiJinhuoShujuFinish(jhs.Select(r => r.id).ToArray());
+
                 int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
                 ShowMsg("进货" + total + "件", false);
             }
