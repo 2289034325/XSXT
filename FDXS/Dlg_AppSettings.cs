@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,13 +35,41 @@ namespace FDXS
             string dbpsw = txb_dbpsw.Text;
             string validadd = txb_validadd.Text.Trim();
             string dataadd = txb_dataadd.Text.Trim();
-
+            string dbPath = txb_dbPath.Text.Trim();
+            string bkPath = txb_bakPath.Text.Trim();
 
             if (string.IsNullOrEmpty(dbname) || string.IsNullOrEmpty(dbuser) ||
                 string.IsNullOrEmpty(dbpsw) || string.IsNullOrEmpty(validadd) ||
+                string.IsNullOrEmpty(dbPath) || string.IsNullOrEmpty(bkPath) ||
                 string.IsNullOrEmpty(dbserver) || string.IsNullOrEmpty(dataadd))
             {
                 MessageBox.Show("不能输入空白");
+                return;
+            }
+
+            //路径必须以\结尾
+            if (!dbPath.EndsWith("\\") || !bkPath.EndsWith("\\"))
+            {
+                MessageBox.Show("路径必须以斜杠[\\]结尾");
+                return;
+            }
+
+            if (!Directory.Exists(dbPath))
+            {
+                MessageBox.Show("数据库路径不存在");
+                return;
+            }
+
+            if (!Directory.Exists(bkPath))
+            {
+                MessageBox.Show("数据库备份路径不存在");
+                return;
+            }
+
+            //限制销售数据上报频率，减小服务器压力
+            if (dp_xsinterval.Value.TimeOfDay.TotalMinutes < 10)
+            {
+                MessageBox.Show("销售数据的上报最小间隔为10分钟");
                 return;
             }
 
@@ -52,6 +81,8 @@ namespace FDXS
             Settings.Default.WCFDataADD = dataadd;
             Settings.Default.DayTaskTime = dp_daytasktime.Value.TimeOfDay;
             Settings.Default.XsTaskInterval = dp_xsinterval.Value.TimeOfDay;
+            Settings.Default.DBPath = dbPath;
+            Settings.Default.DBbakPath = bkPath;
 
             Settings.Default.Save();
 
@@ -73,6 +104,8 @@ namespace FDXS
             txb_dataadd.Text = Settings.Default.WCFDataADD.ToString();
             dp_daytasktime.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.DayTaskTime);
             dp_xsinterval.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.XsTaskInterval);
+            txb_dbPath.Text = Settings.Default.DBPath;
+            txb_bakPath.Text = Settings.Default.DBbakPath;
         }
     }
 }

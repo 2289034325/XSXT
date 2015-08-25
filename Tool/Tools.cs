@@ -481,6 +481,8 @@ namespace Tool
                     //防止无线循环
                     i++;
                 }
+
+                Log(file, errMsg);
             }
             catch (Exception ex)
             {
@@ -590,50 +592,75 @@ namespace Tool
     /// </summary>
     public class DBTool
     {
-        private string _dbServer;
-        private string _dbName;
-        private string _dbUid;
-        private string _dbPsw;
-        private string _bakFile;
-        private string _restoreFile;
         private string _conn;
 
-        public DBTool(string dbServer, string dbName, string dbUid, string dbPsw, string bakFile, string restoreFile)
+        public DBTool(string conn)
         {
-            _dbServer = dbServer;
-            _dbName = dbName;
-            _dbUid = dbUid;
-            _dbPsw = dbPsw;
-            _bakFile = bakFile;
-            _restoreFile = restoreFile;
-
-            _conn = string.Format("data source={0};initial catalog={1};user id={2};password={3}", _dbServer, _dbName, _dbUid, _dbPsw);
+            _conn = conn;
         }
 
-        public void BackUp()
+        public void CreateDatabase(string sql)
         {
-            //删除同名文件
-
-            //备份
-            using (SqlConnection conn = new SqlConnection(_conn))
+            SqlConnection tmpConn = new SqlConnection(_conn);
+            SqlCommand myCommand = new SqlCommand(sql, tmpConn);
+            try
             {
-                string sqlStmt = String.Format("BACKUP DATABASE {0} TO DISK='{1}'", _dbName, _bakFile);
-                SqlCommand cmd = new SqlCommand(sqlStmt, conn);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                tmpConn.Open();
+                myCommand.ExecuteNonQuery();
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                tmpConn.Close();
+            }
+
+            return;
         }
 
-        public void Restore()
+        public void BackUp(string file)
         {
-            using (SqlConnection conn = new SqlConnection(_conn))
+            SqlConnection tmpConn = new SqlConnection(_conn);
+
+            string sqlStmt = String.Format("BACKUP DATABASE {0} TO DISK='{1}'", tmpConn.Database, file);
+            SqlCommand cmd = new SqlCommand(sqlStmt, tmpConn);
+
+            try
             {
-                string sqlStmt = String.Format("RESTORE DATABASE {0} FROM DISK = '{1}' WITH MOVE '{0}' TO '{2}{0}.mdf',   MOVE '{0}_log' TO '{2}{0}.ldf'", _dbName, _bakFile, _restoreFile);
-                SqlCommand cmd = new SqlCommand(sqlStmt, conn);
-                conn.Open();
+                tmpConn.Open();
                 cmd.ExecuteNonQuery();
-                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                tmpConn.Close();
+            }
+
+        }
+
+        public void Restore(string fromFile,string dbPath)
+        {
+            SqlConnection tmpConn = new SqlConnection(_conn);
+            string sqlStmt = String.Format("RESTORE DATABASE {0} FROM DISK = '{1}' WITH MOVE '{0}.mdf' TO '{2}{0}.mdf',   MOVE '{0}.ldf' TO '{2}{0}.ldf'", tmpConn.Database,fromFile, dbPath);
+            SqlCommand cmd = new SqlCommand(sqlStmt, tmpConn);
+
+            try
+            {
+                tmpConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                tmpConn.Close();
             }
         }
 
@@ -641,33 +668,33 @@ namespace Tool
         /// 取得设计版本
         /// </summary>
         /// <returns></returns>
-        public int GetVersion()
-        {
-            int v = 0;
-            using (SqlConnection conn = new SqlConnection(_conn))
-            {
-                string sqlStmt = String.Format("SELECT CAST(value AS int) sys.extended_properties where name = 'Version'");
-                SqlCommand cmd = new SqlCommand(sqlStmt, conn);
-                conn.Open();
-                v = (int)cmd.ExecuteScalar();
-                conn.Close();
-            }
-            return v;
-        }
+        //public int GetVersion()
+        //{
+        //    int v = 0;
+        //    using (SqlConnection conn = new SqlConnection(_conn))
+        //    {
+        //        string sqlStmt = String.Format("SELECT CAST(value AS int) sys.extended_properties where name = 'Version'");
+        //        SqlCommand cmd = new SqlCommand(sqlStmt, conn);
+        //        conn.Open();
+        //        v = (int)cmd.ExecuteScalar();
+        //        conn.Close();
+        //    }
+        //    return v;
+        //}
         /// <summary>
         /// 设置版本号
         /// </summary>
         /// <param name="v"></param>
-        public void SetVersion(int v)
-        {
-            using (SqlConnection conn = new SqlConnection(_conn))
-            {
-                string sqlStmt = String.Format("EXEC sp_updateextendedproperty @name = N'Version', @value = '{0}'", v);
-                SqlCommand cmd = new SqlCommand(sqlStmt, conn);
-                conn.Open();
-                v = cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-        }
+        //public void SetVersion(int v)
+        //{
+        //    using (SqlConnection conn = new SqlConnection(_conn))
+        //    {
+        //        string sqlStmt = String.Format("EXEC sp_updateextendedproperty @name = N'Version', @value = '{0}'", v);
+        //        SqlCommand cmd = new SqlCommand(sqlStmt, conn);
+        //        conn.Open();
+        //        v = cmd.ExecuteNonQuery();
+        //        conn.Close();
+        //    }
+        //}
     }
 }

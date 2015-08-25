@@ -3,6 +3,7 @@ using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,6 +92,6 @@ namespace FDXS
             nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
             db.UpdateTiaomas(uts);
             db.InsertTiaomas(nts);
-        }        
+        }
     }
 }

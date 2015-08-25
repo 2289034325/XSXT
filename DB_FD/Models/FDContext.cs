@@ -24,6 +24,7 @@ namespace DB_FD.Models
         public DbSet<TPandian> TPandians { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
+        public DbSet<TVersion> TVersions { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
         public DbSet<VKucun> VKucuns { get; set; }
 
@@ -37,6 +38,7 @@ namespace DB_FD.Models
             modelBuilder.Configurations.Add(new TPandianMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
+            modelBuilder.Configurations.Add(new TVersionMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());
             modelBuilder.Configurations.Add(new VKucunMap());
         }

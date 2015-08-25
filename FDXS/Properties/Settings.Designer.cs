@@ -199,5 +199,53 @@ namespace FDXS.Properties {
                 this["DBName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\db\\")]
+        public string DBPath {
+            get {
+                return ((string)(this["DBPath"]));
+            }
+            set {
+                this["DBPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\db\\bak\\")]
+        public string DBbakPath {
+            get {
+                return ((string)(this["DBbakPath"]));
+            }
+            set {
+                this["DBbakPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public short DBbakDays {
+            get {
+                return ((short)(this["DBbakDays"]));
+            }
+            set {
+                this["DBbakDays"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2015-08-25")]
+        public global::System.DateTime DayTaskDoneDate {
+            get {
+                return ((global::System.DateTime)(this["DayTaskDoneDate"]));
+            }
+            set {
+                this["DayTaskDoneDate"] = value;
+            }
+        }
     }
 }

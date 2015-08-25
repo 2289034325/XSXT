@@ -31,6 +31,7 @@
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtzc = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_cxljfwq = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_czsmq = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +46,7 @@
             this.mn_main_tiaoma = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_baobiao = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_hyyl = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_cxljfwq = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_dbbkup = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,13 +72,14 @@
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mn_main_xtsz,
             this.mn_main_xtzc,
             this.mn_main_cxljfwq,
-            this.mn_main_xtsz,
             this.mn_main_czsmq,
-            this.mn_main_version,
+            this.mn_main_dbbkup,
             this.mn_main_editpsw,
-            this.mn_main_userchange});
+            this.mn_main_userchange,
+            this.mn_main_version});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -88,6 +90,13 @@
             this.mn_main_xtzc.Size = new System.Drawing.Size(160, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_xtzc_Click);
+            // 
+            // mn_main_cxljfwq
+            // 
+            this.mn_main_cxljfwq.Name = "mn_main_cxljfwq";
+            this.mn_main_cxljfwq.Size = new System.Drawing.Size(160, 22);
+            this.mn_main_cxljfwq.Text = "重新连接服务器";
+            this.mn_main_cxljfwq.Click += new System.EventHandler(this.mn_main_cxljfwq_Click);
             // 
             // mn_main_xtsz
             // 
@@ -187,12 +196,12 @@
             this.mn_main_hyyl.Text = "会员一览";
             this.mn_main_hyyl.Click += new System.EventHandler(this.mn_main_hyyl_Click);
             // 
-            // mn_main_cxljfwq
+            // mn_main_dbbkup
             // 
-            this.mn_main_cxljfwq.Name = "mn_main_cxljfwq";
-            this.mn_main_cxljfwq.Size = new System.Drawing.Size(160, 22);
-            this.mn_main_cxljfwq.Text = "重新连接服务器";
-            this.mn_main_cxljfwq.Click += new System.EventHandler(this.mn_main_cxljfwq_Click);
+            this.mn_main_dbbkup.Name = "mn_main_dbbkup";
+            this.mn_main_dbbkup.Size = new System.Drawing.Size(160, 22);
+            this.mn_main_dbbkup.Text = "数据库备份";
+            this.mn_main_dbbkup.Click += new System.EventHandler(this.mn_main_dbbkup_Click);
             // 
             // Form_Main
             // 
@@ -233,6 +242,7 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_kd;
         private System.Windows.Forms.ToolStripMenuItem mn_main_hyyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_cxljfwq;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_dbbkup;
     }
 }
 

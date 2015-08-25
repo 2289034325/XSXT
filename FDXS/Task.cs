@@ -3,6 +3,7 @@ using DB_FD.Models;
 using FDXS.Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,13 @@ namespace FDXS
         /// </summary>
         public static void DayTask()
         {
+            //检查当天的任务是否已经执行完
+            DateTime dtime = Settings.Default.DayTaskDoneDate.Date;
+            if (dtime.Date == DateTime.Now.Date)
+            {
+                return;
+            }
+
             Timer t = new Timer();
             //10分钟检查一次
             t.Interval = 600000;
@@ -50,10 +58,8 @@ namespace FDXS
             try
             {
                 string file = Settings.Default.LogFile;
-                Tool.CommonFunc.Log(file, "销售开始");
                 System.Threading.Thread.Sleep(5000);
                 SBXiaoshou();
-                Tool.CommonFunc.Log(file, "销售结束");
             }
             catch (Exception ex)
             {
@@ -65,11 +71,8 @@ namespace FDXS
 
         private static void DoDayTask(object obj, ElapsedEventArgs args)
         {
-            string file = null;
             try
             {
-                file = Settings.Default.LogFile;
-
                 //检查当前时间是否跟设定的任务时间一致
                 TimeSpan ttime = Settings.Default.DayTaskTime;
                 TimeSpan tnow = DateTime.Now.TimeOfDay;
@@ -83,35 +86,71 @@ namespace FDXS
                 t.Stop();           
 
                 //上报进出货
-                Tool.CommonFunc.Log(file, "进货开始");
                 SBJinchuhuo();
-                Tool.CommonFunc.Log(file, "进货结束");
                 //上报销售
-                Tool.CommonFunc.Log(file, "销售开始");
                 SBXiaoshou();
-                Tool.CommonFunc.Log(file, "销售结束");
                 //上报库存
-                Tool.CommonFunc.Log(file, "库存开始");
                 SBKucun();
-                Tool.CommonFunc.Log(file, "库存结束");
+                //删除旧备份，以免硬盘无空间
+                DeleteOldBak();
                 //备份数据库 
-                BackUpDB();     
+                BackUpDB();
+
+                //记录任务完成日期，避免重复执行
+                Settings.Default.DayTaskDoneDate = DateTime.Now;
+                Settings.Default.Save();
 
                 //关机
                 //System.Diagnostics.Process.Start("shutdown.exe", "-f -s -t 1");
             }
             catch (Exception ex)
             {
-                Tool.CommonFunc.LogEx(file, ex);
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+            }
+        }
+
+        /// <summary>
+        /// 删除旧的备份数据
+        /// </summary>
+        private static void DeleteOldBak()
+        {
+            string bakPath = Settings.Default.DBbakPath;
+            string[] fs = Directory.GetFiles(bakPath);
+            foreach (string f in fs)
+            {
+                FileInfo fi = new FileInfo(f);
+                short days = Settings.Default.DBbakDays;
+                if ((DateTime.Now - fi.CreationTime).TotalDays > days)
+                {
+                    File.Delete(f);
+                }
             }
         }
 
         /// <summary>
         /// 备份数据库
         /// </summary>
-        public static void BackUpDB()
+        public static string BackUpDB()
         {
-            
+            string dbServer = Settings.Default.DBSERVER;
+            string dbName = Settings.Default.DBName;
+            string dbUid = Settings.Default.DBUSER;
+            string dbPsw = Settings.Default.DBPSW;
+            string dbPath = Settings.Default.DBPath;
+            string bakPath = Settings.Default.DBbakPath;
+
+            string connStr = "data source=" + dbServer + ";initial catalog=" + dbName + ";user id=" + dbUid + ";password=" + dbPsw;
+
+            string bakName = Settings.Default.FDID + "-" + Settings.Default.FDMC + "-" + dbName + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
+            if (!Directory.Exists(bakPath))
+            {
+                Directory.CreateDirectory(bakPath);
+            }
+
+            Tool.DBTool dt = new Tool.DBTool(connStr);
+            dt.BackUp(bakPath + bakName);
+
+            return bakPath + bakName;
         }
 
         /// <summary>

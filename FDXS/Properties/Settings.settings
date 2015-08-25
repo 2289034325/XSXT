@@ -47,5 +47,17 @@
     <Setting Name="DBName" Type="System.String" Scope="User">
       <Value Profile="(Default)">FD</Value>
     </Setting>
+    <Setting Name="DBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\db\</Value>
+    </Setting>
+    <Setting Name="DBbakPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\db\bak\</Value>
+    </Setting>
+    <Setting Name="DBbakDays" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="DayTaskDoneDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2015-08-25</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

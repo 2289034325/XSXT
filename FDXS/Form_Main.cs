@@ -80,6 +80,20 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            //检查数据库版本
+            try
+            {
+                DBContext db = IDB.GetDB();
+                db.InitializeDatabase(RuntimeInfo.DbVersion);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                MessageBox.Show("数据库初始化失败");
+                Application.Exit();
+                return;
+            }
+
             //登陆检查
             if (RuntimeInfo.LoginUser == null)
             {
@@ -92,18 +106,6 @@ namespace FDXS
             }
 
             this.Text += "【当前登陆：" + RuntimeInfo.LoginUser.yonghuming + "】";
-
-            //默认显示销售页面的开单
-            //if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
-            //{
-            //    this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            //    Dlg_xiaoshou fm = new Dlg_xiaoshou("");
-            //    fm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            //    fm.WindowState = FormWindowState.Maximized;
-            //    fm.MdiParent = this;
-            //    fm.Show();
-            //    mn_main.Visible = false;
-            //}
 
             //启动任务
             MyTask.DayTask();
@@ -430,6 +432,26 @@ namespace FDXS
                     ShowMsg("连接失败\r\n" + ex.Message, true);
                 }
             }, false).Start();
+        }
+
+        /// <summary>
+        /// 手动备份
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_dbbkup_Click(object sender, EventArgs e)
+        {
+            DBTool dt = new DBTool(IDB.GetConn());
+
+            FolderBrowserDialog sfd = new FolderBrowserDialog();
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = Settings.Default.FDID + "-" + Settings.Default.FDMC + "-" + Settings.Default.DBName + "-"
+                    + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
+                dt.BackUp(sfd.SelectedPath + "\\" + fileName);
+            }
+
+            MessageBox.Show("备份成功");
         }
     }
 }

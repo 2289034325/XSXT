@@ -29,9 +29,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            //初始化数据库
-            DBContext.InitializeDatabase(IDB.GetConn());
-
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 

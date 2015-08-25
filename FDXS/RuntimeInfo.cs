@@ -13,12 +13,9 @@ namespace FDXS
         //客户端版本
         public static Version ClientVersion = new Version();
 
-        //数据库版本
-        public static int DbVersion = 0;
-
-        //版本是否是最新
-        public static bool IsLatestVersion = false;
-
+        //当前需要的数据库版本
+        public const int DbVersion = 0;
+        
         //当前登陆的用户
         public static TUser LoginUser = null;
     }

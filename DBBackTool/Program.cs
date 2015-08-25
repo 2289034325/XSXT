@@ -79,8 +79,8 @@ namespace DBBackTool
                 Directory.CreateDirectory(filePath);
             }
 
-            DBTool dt = new DBTool(dbServer, dbName, dbUid, dbPsw, filePath + fileName, null);
-            dt.BackUp();
+            DBTool dt = new DBTool(connStr);
+            dt.BackUp(fileName);
 
             return filePath + fileName;
         }

@@ -374,5 +374,14 @@ namespace DB_FD
         {
             return _db.TJinchuMXes.Include(r=>r.TJinchuhuo).Single(r => r.id == mxid);
         }
+
+        /// <summary>
+        /// 取得当前数据库版本
+        /// </summary>
+        /// <returns></returns>
+        public int GetDbVersion()
+        {
+            return _db.TVersions.Max(r => r.banben);
+        }
     }
 }

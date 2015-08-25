@@ -55,10 +55,10 @@
     <Compile Include="Migrations\201508050000001_InitialCreate.Designer.cs">
       <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FDContext.cs" />
     <Compile Include="Models\Mapping\THuiyuanMap.cs" />
     <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Models\Mapping\TPandianMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\TVersionMap.cs" />
     <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
     <Compile Include="Models\Mapping\VKucunMap.cs" />
     <Compile Include="Models\THuiyuan.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Models\TPandian.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TVersion.cs" />
     <Compile Include="Models\TXiaoshou.cs" />
     <Compile Include="Models\VKucun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,15 +96,23 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
-      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlScript\db.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlScript\tb.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
+      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
