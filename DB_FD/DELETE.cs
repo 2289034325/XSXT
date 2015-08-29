@@ -74,6 +74,14 @@ namespace DB_FD
         {
             TXiaoshou x = _db.TXiaoshous.Single(r => r.id == id);
 
+            //更新会员积分
+            if (x.huiyuanid != null)
+            {
+                THuiyuan hy = _db.THuiyuans.Single(r => r.id == x.huiyuanid);
+                hy.jifen -= x.jine;
+                hy.jfgxshijian = DateTime.Now;
+            }
+
             _db.TXiaoshous.Remove(x);
 
             _db.SaveChanges();

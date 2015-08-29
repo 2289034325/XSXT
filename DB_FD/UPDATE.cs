@@ -96,14 +96,14 @@ namespace DB_FD
         /// </summary>
         /// <param name="id"></param>
         /// <param name="jf"></param>
-        public void UpdateAddHuiyuanJF(int id, decimal jf)
-        {
-            THuiyuan h = _db.THuiyuans.Single(r => r.id == id);
+        //public void UpdateAddHuiyuanJF(int id, decimal jf)
+        //{
+        //    THuiyuan h = _db.THuiyuans.Single(r => r.id == id);
 
-            h.jifen += jf;
+        //    h.jifen += jf;
 
-            _db.SaveChanges();
-        }
+        //    _db.SaveChanges();
+        //}
 
         /// <summary>
         /// 更新本地会员信息
@@ -156,7 +156,7 @@ namespace DB_FD
         /// </summary>
         /// <param name="ids"></param>
         /// <param name="sbsj"></param>
-        public void UpdateJinchuhuoShangbaoshijian(int[] ids, DateTime sbsj)
+        public void UpdateJinchuhuoShangbaoshijian(int[] ids, DateTime? sbsj)
         {
             var jcs = _db.TJinchuhuos.Where(r => ids.Contains(r.id));
             foreach (TJinchuhuo jc in jcs)

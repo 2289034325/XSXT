@@ -62,6 +62,7 @@
             this.col_mx_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_crk_cxsb = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -360,9 +361,10 @@
             // cmn_crk
             // 
             this.cmn_crk.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_crk_daoru});
+            this.cmn_crk_daoru,
+            this.cmn_crk_cxsb});
             this.cmn_crk.Name = "cmn_crk";
-            this.cmn_crk.Size = new System.Drawing.Size(153, 48);
+            this.cmn_crk.Size = new System.Drawing.Size(153, 70);
             // 
             // cmn_crk_daoru
             // 
@@ -370,6 +372,13 @@
             this.cmn_crk_daoru.Size = new System.Drawing.Size(152, 22);
             this.cmn_crk_daoru.Text = "批量输入";
             this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
+            // 
+            // cmn_crk_cxsb
+            // 
+            this.cmn_crk_cxsb.Name = "cmn_crk_cxsb";
+            this.cmn_crk_cxsb.Size = new System.Drawing.Size(152, 22);
+            this.cmn_crk_cxsb.Text = "撤销上报";
+            this.cmn_crk_cxsb.Click += new System.EventHandler(this.cmn_crk_cxsb_Click);
             // 
             // Form_Jinchuhuo
             // 
@@ -430,5 +439,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_xgsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jc_sbsj;
         private System.Windows.Forms.Button btn_xzjinhuo;
+        private System.Windows.Forms.ToolStripMenuItem cmn_crk_cxsb;
     }
 }

@@ -808,5 +808,34 @@ namespace JCSJWCF
             //更新下载时间
             db.UpdateCangkuFahuoFendianXzsj(ckjcids);   
         }
+
+        /// <summary>
+        /// 分店系统删除已上报的销售记录
+        /// </summary>
+        /// <param name="oid"></param>
+        public void DeleteXiaoshoujilu(int oid)
+        {
+            DBContext db = new DBContext();
+            TXiaoshou ox = db.GetXiaoshouByFdidOid(_LoginFendian.id, oid);
+            //上报时间超过一天的不允许删除
+            if ((DateTime.Now - ox.shangbaoshijian).TotalDays > 1)
+            {
+                throw new MyException("上报已经超过1天的数据不允许删除", null);
+            }
+
+            db.DeleteXiaoshou(ox.id);
+        }
+        public void DeleteJinchujilu_FD(int oid)
+        {
+            DBContext db = new DBContext();
+            TFendianJinchuhuo oj = db.GetFDJinchuhuoByFdidOid(_LoginFendian.id, oid);
+            //上报时间超过一天的不允许删除
+            if ((DateTime.Now - oj.shangbaoshijian).TotalDays > 1)
+            {
+                throw new MyException("上报已经超过1天的数据不允许删除", null);
+            }
+
+            db.DeleteFDJinchuhuo(oj.id);
+        }
     }
 }

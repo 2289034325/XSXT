@@ -26,8 +26,8 @@ namespace FDXS
             }
 
             Timer t = new Timer();
-            //10分钟检查一次
-            t.Interval = 600000;
+            //1分钟检查一次
+            t.Interval = 60 * 1000;
             t.AutoReset = true;
             t.Elapsed += new ElapsedEventHandler(DoDayTask);
             t.Start();

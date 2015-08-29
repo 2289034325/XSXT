@@ -144,6 +144,36 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            public void DeleteFDJinchuhuo(int id)
+            {
+                TFendianJinchuhuo oj = _db.TFendianJinchuhuos.Include(r=>r.TFendianJinchuhuoMXes).Single(r => r.id == id);
+
+                _db.TFendianJinchuhuos.Remove(oj);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 删除一个销售记录并更新会员积分
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteXiaoshou(int id)
+            {
+                TXiaoshou ot = _db.TXiaoshous.Single(r => r.id == id);
+
+                //更新会员积分
+                if (ot.huiyuanid != null)
+                {
+                    THuiyuan hy = _db.THuiyuans.Single(r => r.id == ot.huiyuanid);
+                    hy.jifen -= ot.jine;
+                    hy.jfjsshijian = DateTime.Now;
+                }
+
+                _db.TXiaoshous.Remove(ot);
+
+                _db.SaveChanges();
+            }
         }
     }
 

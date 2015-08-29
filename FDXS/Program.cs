@@ -33,7 +33,7 @@ namespace FDXS
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            if (e.Exception is Tool.MyException || e.Exception is FaultException)
+           if (e.Exception is Tool.MyException || e.Exception is FaultException)
             {
                 MessageBox.Show(e.Exception.Message, "一般错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (e.Exception.InnerException != null)

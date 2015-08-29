@@ -187,12 +187,6 @@ namespace FDXS
 
             DBContext db = IDB.GetDB();
             TXiaoshou x = db.GetXiaoshouById(id);
-            if (x.shangbaoshijian != null)
-            {
-                e.Cancel = true;
-                MessageBox.Show("销售记录已经上报，不允许删除");
-                return;
-            }
 
             if (x.tiaomaid != null)
             {
@@ -205,6 +199,35 @@ namespace FDXS
                     return;
                 }
             }
+
+            if (x.shangbaoshijian != null)
+            {
+                if ((DateTime.Now - x.shangbaoshijian.Value).TotalDays > 1)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("上报已经超过1天的数据，不允许删除");
+                    return;
+                }
+                else
+                {
+                    if (MessageBox.Show("是否确定删除", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        //先去服务器删除
+                        new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                            {
+                                JCSJWCF.DeleteXiaoshou(x.id);
+                                db.DeleteXiaoshou(id);
+
+                                ShowMsg("删除成功", false);
+
+                            }, false).Start();
+                    }
+                }
+            }
+            else
+            {
+                db.DeleteXiaoshou(id);
+            }
         }
 
         /// <summary>
@@ -214,18 +237,18 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_xs_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
-            int id = (int)e.Row.Cells[col_id.Index].Value;
-            DBContext db = IDB.GetDB();
+            //int id = (int)e.Row.Cells[col_id.Index].Value;
+            //DBContext db = IDB.GetDB();
 
-            //把会员积分减掉
-            TXiaoshou x = db.GetXiaoshouById(id);
-            if (x.huiyuanid != null)
-            {
-                decimal jf = 0 - x.jine;
-                db.UpdateAddHuiyuanJF(x.huiyuanid.Value, jf);
-            }
+            ////把会员积分减掉
+            //TXiaoshou x = db.GetXiaoshouById(id);
+            //if (x.huiyuanid != null)
+            //{
+            //    decimal jf = 0 - x.jine;
+            //    db.UpdateAddHuiyuanJF(x.huiyuanid.Value, jf);
+            //}
 
-            db.DeleteXiaoshou(id);
+            //db.DeleteXiaoshou(id);
 
         }
 

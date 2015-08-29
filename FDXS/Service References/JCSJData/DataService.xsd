@@ -396,4 +396,28 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteXiaoshoujilu">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteXiaoshoujiluResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJinchujilu_FD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJinchujilu_FDResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

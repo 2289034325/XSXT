@@ -736,5 +736,53 @@ namespace FDXS
                 ShowMsg(ex.Message, true);
             }
         }
+
+        /// <summary>
+        /// 撤销上报记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_cxsb_Click(object sender, EventArgs e)
+        {
+            if (grid_jch.SelectedRows.Count != 1)
+            {
+                MessageBox.Show("请选择一行进出货记录");
+                return;
+            }
+
+            DataGridViewRow dr = grid_jch.SelectedRows[0];
+
+            DBContext db = IDB.GetDB();
+            int crkid = (int)dr.Cells[col_jc_id.Name].Value;
+            TJinchuhuo jc = db.GetJinchuhuoById(crkid);
+
+            if (jc.shangbaoshijian == null)
+            {
+                MessageBox.Show("尚未上报，不需要撤销");
+                return;
+            }
+            else
+            {
+                if ((DateTime.Now - jc.shangbaoshijian.Value).TotalDays > 1)
+                {
+                    MessageBox.Show("上报已经超过1天的数据，不允许撤销");
+                    return;
+                }
+                else
+                {
+                    if (MessageBox.Show("是否确定撤销", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        //先去服务器删除
+                        new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                        {
+                            JCSJWCF.DeleteJinchuhuo(jc.id);
+                            db.UpdateJinchuhuoShangbaoshijian(new int[] { jc.id }, null);
+
+                            ShowMsg("撤销成功", false);
+                        }, false).Start();
+                    }
+                }
+            }
+        }
     }
 }

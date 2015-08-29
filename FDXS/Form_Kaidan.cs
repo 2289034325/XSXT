@@ -19,28 +19,25 @@ namespace FDXS
 {
     public partial class Form_Kaidan : MyForm
     {
-        //private string _startTM;
         private List<TXiaoshou> _XSS;
         private THuiyuan _Huiyuan;
-        //private decimal _huiyuanZK;
-        //private bool _mlAuto;
+        private bool _valueChangeByCode;
 
         public Form_Kaidan()
         {
             InitializeComponent();
-            //_startTM = tm;
             _XSS = new List<TXiaoshou>();
             _Huiyuan = null;
-            //_huiyuanZK = 10;
-            //_mlAuto = true;
 
-            this.Text = "开单[当前登陆:" + RuntimeInfo.LoginUser.yonghuming + "]";
-            if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
-            {
-                //店员不允许关闭窗口
-                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                //this.ShowInTaskbar = false;
-            }
+            _valueChangeByCode = false;
+
+            //this.Text = "开单[当前登陆:" + RuntimeInfo.LoginUser.yonghuming + "]";
+            //if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店员)
+            //{
+            //    //店员不允许关闭窗口
+            //    //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //    //this.ShowInTaskbar = false;
+            //}
         }
 
         /// <summary>
@@ -143,11 +140,11 @@ namespace FDXS
         private void Dlg_xiaoshou_Load(object sender, EventArgs e)
         {
             //折扣按钮
-            btn_7z.Visible = false;
-            btn_75z.Visible = false;
-            btn_8z.Visible = false;
-            btn_85z.Visible = false;
-            btn_9z.Visible = false;
+            //btn_7z.Visible = false;
+            //btn_75z.Visible = false;
+            //btn_8z.Visible = false;
+            //btn_85z.Visible = false;
+            //btn_9z.Visible = false;
 
             //销售下拉框
             DBContext db = IDB.GetDB();
@@ -242,12 +239,14 @@ namespace FDXS
             decimal zj = 0;
             foreach (DataGridViewRow dr in grid_kaidan.Rows)
             {
-                decimal danjia = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
-                short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
-                decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-                decimal moling = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
+                //decimal danjia = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
+                //short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
+                //decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
+                //decimal moling = decimal.Parse(dr.Cells[col_ml.Name].Value.ToString());
 
-                zj += decimal.Round(danjia * shuliang * zhekou / 10 - moling, 2);
+                decimal je = decimal.Parse(dr.Cells[col_yingshou.Name].Value.ToString());
+
+                zj += je;
             }
 
             //抹零
@@ -271,25 +270,70 @@ namespace FDXS
         /// <param name="e"></param>
         private void grid_kaidan_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1 || e.ColumnIndex == col_yingshou.Index)
+            if (e.RowIndex == -1)
             {
                 return;
             }
 
-            //刷新应收列
+            //备注，不用处理
+            if (e.ColumnIndex == col_bz.Index)
+            {
+                return;
+            }
+
+            //如果是程序修改的值，不用处理该事件
+            if (_valueChangeByCode)
+            {
+                return;
+            }
+
             short sl = short.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_sl.Name].Value.ToString());
             decimal dj = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_sj.Name].Value.ToString());
-            decimal zk = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_zk.Name].Value.ToString());
-            decimal ml = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value.ToString());
+            decimal ml = 0;
+            decimal zk = 10;
+
+            //直接填写金额，倒算折扣和抹零
+            if (e.ColumnIndex == col_yingshou.Index)
+            {
+                decimal je = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_yingshou.Name].Value.ToString());
+                decimal zk_c = je / (decimal)sl / dj * 10;
+                zk = decimal.Round(je / (decimal)sl / dj * 10, 2);                
+                if (zk_c != zk)
+                {
+                    //如果算得的折扣不止两位小数，让折扣稍微加大一点，以免算出的抹零为负数
+                    zk += 0.01M;
+                }
+                ml = decimal.Round(dj * sl * zk / 10M - je, 2);
+
+                _valueChangeByCode = true;
+                grid_kaidan.Rows[e.RowIndex].Cells[col_zk.Name].Value = zk;
+                grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value = ml;
+                _valueChangeByCode = false;
+
+                refreshZongjia();
+
+                return;
+            }
+
+            zk = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_zk.Name].Value.ToString());
+            //输完折扣，自动抹零
+            if (e.ColumnIndex == col_sl.Index || e.ColumnIndex == col_zk.Index || e.ColumnIndex == col_ml.Index)
+            {
+                decimal ml_c = decimal.Parse(grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value.ToString());
+                decimal ml_d = decimal.Round(sl * dj * zk / 10 - decimal.Truncate(sl * dj * zk / 10), 2);                
+
+                ml = decimal.Truncate(ml_c) + ml_d;
+
+                _valueChangeByCode = true;
+                grid_kaidan.Rows[e.RowIndex].Cells[col_ml.Name].Value = ml;
+                _valueChangeByCode = false;
+            }
+
+            //刷新应收金额
             decimal jiage = decimal.Round(sl * dj * zk / 10 - ml, 2);
-
+            _valueChangeByCode = true;
             grid_kaidan.Rows[e.RowIndex].Cells[col_yingshou.Name].Value = jiage;
-
-            //自动抹零不需要刷新总价
-            //if (e.ColumnIndex == col_ml.Index)
-            //{
-            //    return;
-            //}
+            _valueChangeByCode = false;
 
             refreshZongjia();
         }
@@ -398,13 +442,14 @@ namespace FDXS
             }
 
             //保存到数据库
-            TXiaoshou[] nxss = db.InsertXiaoshous(_XSS.ToArray());
+            db.InsertXiaoshous(_XSS.ToArray());
+            //TXiaoshou[] nxss = db.InsertXiaoshous(_XSS.ToArray());
             //将积分加给会员
-            if (_Huiyuan != null)
-            {
-                decimal zj = _XSS.Sum(r => r.jine);
-                db.UpdateAddHuiyuanJF(_Huiyuan.id, zj);
-            }
+            //if (_Huiyuan != null)
+            //{
+            //    decimal zj = _XSS.Sum(r => r.jine);
+            //    db.UpdateAddHuiyuanJF(_Huiyuan.id, zj);
+            //}
 
             //打印小票
             xiaopiao();
@@ -419,11 +464,11 @@ namespace FDXS
             dp_xssj.Checked = false;
             _Huiyuan = null;
             //_mlAuto = true;
-            chk_gwml.Checked = false;
+            //chk_gwml.Checked = false;
             txb_sjh.Text = "";
             lbl_hyjf.Text = "";
             lbl_hyxm.Text = "";
-            lbl_hyzk.Text = "";
+            //lbl_hyzk.Text = "";
             txb_shishou.Text = "";
 
 
@@ -734,70 +779,7 @@ namespace FDXS
             Form_JifenZhekou jf = new Form_JifenZhekou();
             jf.ShowDialog();
         }
-
-        /// <summary>
-        /// 个位抹零
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chk_gwml_CheckedChanged(object sender, EventArgs e)
-        {
-            //手动抹零
-            //_mlAuto = false;
-
-            if (grid_kaidan.Rows.Count == 0)
-            {
-                return;
-            }
-            //计算总价的个位数
-            //decimal zj = 0;
-            //foreach (DataGridViewRow dr in grid_kaidan.Rows)
-            //{
-            //    decimal danjia = decimal.Parse(dr.Cells[col_dj.Name].Value.ToString());
-            //    short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
-            //    decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-
-            //    zj += decimal.Round(danjia * shuliang * zhekou / 10, 2);
-            //}
-            //decimal gw = decimal.Truncate(zj % 10);
-            //decimal ml = decimal.Parse(grid_kaidan.Rows[0].Cells[col_ml.Name].Value.ToString());
-            //抹零
-            //if (chk_gwml.Checked)
-            //{
-            //    ml = gw + ml - decimal.Truncate(ml);
-            //}
-            ////取消抹零
-            //else
-            //{
-            //    ml = ml - decimal.Truncate(ml);
-            //}
-            //grid_kaidan.Rows[0].Cells[col_ml.Name].Value = ml;
-
-            foreach (DataGridViewRow dr in grid_kaidan.Rows)
-            {
-                decimal danjia = decimal.Parse(dr.Cells[col_sj.Name].Value.ToString());
-                short shuliang = short.Parse(dr.Cells[col_sl.Name].Value.ToString());
-                decimal zhekou = decimal.Parse(dr.Cells[col_zk.Name].Value.ToString());
-
-                decimal jg = decimal.Round(danjia * shuliang * zhekou / 10, 2);
-                decimal gw = decimal.Truncate(jg % 10);
-                decimal ml = 0;
-                if (chk_gwml.Checked)
-                {
-                    ml = gw + jg - decimal.Truncate(jg);
-                }
-                //取消抹零
-                else
-                {
-                    ml = 0;
-                }
-
-                dr.Cells[col_ml.Name].Value = ml;
-            }
-
-            //刷新总价
-            refreshZongjia();
-        }
+       
 
         /// <summary>
         /// 手动修改抹零时，留下标记
@@ -926,25 +908,25 @@ namespace FDXS
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_zkview_Click(object sender, EventArgs e)
-        {
-            if (btn_7z.Visible)
-            {
-                btn_7z.Visible = false;
-                btn_75z.Visible = false;
-                btn_8z.Visible = false;
-                btn_85z.Visible = false;
-                btn_9z.Visible = false;
-            }
-            else
-            {
-                btn_7z.Visible = true;
-                btn_75z.Visible = true;
-                btn_8z.Visible = true;
-                btn_85z.Visible = true;
-                btn_9z.Visible = true;
-            }
-        }
+        //private void btn_zkview_Click(object sender, EventArgs e)
+        //{
+        //    if (btn_7z.Visible)
+        //    {
+        //        btn_7z.Visible = false;
+        //        btn_75z.Visible = false;
+        //        btn_8z.Visible = false;
+        //        btn_85z.Visible = false;
+        //        btn_9z.Visible = false;
+        //    }
+        //    else
+        //    {
+        //        btn_7z.Visible = true;
+        //        btn_75z.Visible = true;
+        //        btn_8z.Visible = true;
+        //        btn_85z.Visible = true;
+        //        btn_9z.Visible = true;
+        //    }
+        //}
 
         /// <summary>
         /// 无条码商品开单

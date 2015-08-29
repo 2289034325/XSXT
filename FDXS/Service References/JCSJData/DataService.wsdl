@@ -211,6 +211,18 @@
   <wsdl:message name="IDataService_XiazaiJinhuoShujuFinish_OutputMessage">
     <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuFinishResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_DeleteXiaoshoujilu_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteXiaoshoujilu" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteXiaoshoujilu_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteXiaoshoujiluResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_FD_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FD" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_FD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FDResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
@@ -331,6 +343,14 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShujuFinish">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" message="tns:IDataService_XiazaiJinhuoShujuFinish_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinishResponse" message="tns:IDataService_XiazaiJinhuoShujuFinish_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteXiaoshoujilu">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteXiaoshoujilu" message="tns:IDataService_DeleteXiaoshoujilu_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteXiaoshoujiluResponse" message="tns:IDataService_DeleteXiaoshoujilu_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteJinchujilu_FD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD" message="tns:IDataService_DeleteJinchujilu_FD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse" message="tns:IDataService_DeleteJinchujilu_FD_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -606,6 +626,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteXiaoshoujilu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteXiaoshoujilu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJinchujilu_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IDataService" type="tns:IDataService">
     <wsp:PolicyReference URI="#NetTcpBinding_IDataService_policy" />
@@ -873,6 +911,24 @@
     </wsdl:operation>
     <wsdl:operation name="XiazaiJinhuoShujuFinish">
       <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteXiaoshoujilu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteXiaoshoujilu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJinchujilu_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_FD" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

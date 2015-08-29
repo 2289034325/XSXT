@@ -100,14 +100,21 @@ namespace DB_FD
         /// </summary>
         /// <param name="xss"></param>
         /// <returns></returns>
-        public TXiaoshou[] InsertXiaoshous(TXiaoshou[] xss)
+        public void InsertXiaoshous(TXiaoshou[] xss)
         {
-            TXiaoshou[] nxss = _db.TXiaoshous.AddRange(xss).ToArray();
-            _db.SaveChanges();
-            int[] ids = nxss.Select(r => r.id).ToArray();
-            TXiaoshou[] nx = _db.TXiaoshous.Include(r=>r.TTiaoma).Where(r => ids.Contains(r.id)).ToArray();
+            if (xss.Any(r => r.huiyuanid != null))
+            {
+                int? hyid = xss.First().huiyuanid;
+                decimal je = xss.Sum(r => r.jine);
 
-            return nx;
+                THuiyuan hy = _db.THuiyuans.Single(r => r.id == hyid);
+                hy.jifen += je;
+                hy.jfgxshijian = DateTime.Now;
+            }
+
+            _db.TXiaoshous.AddRange(xss).ToArray();
+
+            _db.SaveChanges();
         }
 
         /// <summary>

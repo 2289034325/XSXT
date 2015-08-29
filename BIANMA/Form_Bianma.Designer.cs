@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.mni_khxx = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_addjkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addsm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_bzbm = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,15 +45,6 @@
             this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             this.grid_all = new System.Windows.Forms.DataGridView();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_szgys = new System.Windows.Forms.Button();
-            this.cmb_gys = new System.Windows.Forms.ComboBox();
-            this.btn_jssj = new System.Windows.Forms.Button();
-            this.txb_sjxs = new System.Windows.Forms.TextBox();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +63,16 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_jzkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_szgys = new System.Windows.Forms.Button();
+            this.cmb_gys = new System.Windows.Forms.ComboBox();
+            this.btn_jssj = new System.Windows.Forms.Button();
+            this.txb_sjxs = new System.Windows.Forms.TextBox();
+            this.mni_addjkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
@@ -103,13 +103,6 @@
             this.mni_khxx.Size = new System.Drawing.Size(68, 21);
             this.mni_khxx.Text = "款号信息";
             this.mni_khxx.Click += new System.EventHandler(this.mni_khxx_Click);
-            // 
-            // mni_addjkh
-            // 
-            this.mni_addjkh.Name = "mni_addjkh";
-            this.mni_addjkh.Size = new System.Drawing.Size(56, 21);
-            this.mni_addjkh.Text = "旧款号";
-            this.mni_addjkh.Click += new System.EventHandler(this.mni_addjkh_Click);
             // 
             // mni_addxkh
             // 
@@ -250,84 +243,6 @@
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
             this.grid_all.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_all_KeyDown);
             // 
-            // cmn_all
-            // 
-            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_all_shuaxin,
-            this.cmn_all_saveTm,
-            this.cmn_all_jzkh});
-            this.cmn_all.Name = "cmn_all";
-            this.cmn_all.Size = new System.Drawing.Size(125, 70);
-            // 
-            // cmn_all_shuaxin
-            // 
-            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
-            this.cmn_all_shuaxin.Size = new System.Drawing.Size(124, 22);
-            this.cmn_all_shuaxin.Text = "刷新";
-            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
-            // 
-            // cmn_all_saveTm
-            // 
-            this.cmn_all_saveTm.Name = "cmn_all_saveTm";
-            this.cmn_all_saveTm.Size = new System.Drawing.Size(124, 22);
-            this.cmn_all_saveTm.Text = "保存修改";
-            this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
-            // 
-            // cmn_all_jzkh
-            // 
-            this.cmn_all_jzkh.Name = "cmn_all_jzkh";
-            this.cmn_all_jzkh.Size = new System.Drawing.Size(124, 22);
-            this.cmn_all_jzkh.Text = "加载款号";
-            this.cmn_all_jzkh.Click += new System.EventHandler(this.cmn_all_jzkh_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btn_szgys);
-            this.panel1.Controls.Add(this.cmb_gys);
-            this.panel1.Controls.Add(this.btn_jssj);
-            this.panel1.Controls.Add(this.txb_sjxs);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 25);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1170, 35);
-            this.panel1.TabIndex = 11;
-            // 
-            // btn_szgys
-            // 
-            this.btn_szgys.Location = new System.Drawing.Point(326, 6);
-            this.btn_szgys.Name = "btn_szgys";
-            this.btn_szgys.Size = new System.Drawing.Size(75, 23);
-            this.btn_szgys.TabIndex = 3;
-            this.btn_szgys.Text = "设置供应商";
-            this.btn_szgys.UseVisualStyleBackColor = true;
-            this.btn_szgys.Click += new System.EventHandler(this.btn_szgys_Click);
-            // 
-            // cmb_gys
-            // 
-            this.cmb_gys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_gys.FormattingEnabled = true;
-            this.cmb_gys.Location = new System.Drawing.Point(199, 8);
-            this.cmb_gys.Name = "cmb_gys";
-            this.cmb_gys.Size = new System.Drawing.Size(121, 20);
-            this.cmb_gys.TabIndex = 2;
-            // 
-            // btn_jssj
-            // 
-            this.btn_jssj.Location = new System.Drawing.Point(118, 6);
-            this.btn_jssj.Name = "btn_jssj";
-            this.btn_jssj.Size = new System.Drawing.Size(75, 23);
-            this.btn_jssj.TabIndex = 1;
-            this.btn_jssj.Text = "计算售价";
-            this.btn_jssj.UseVisualStyleBackColor = true;
-            this.btn_jssj.Click += new System.EventHandler(this.btn_jssj_Click);
-            // 
-            // txb_sjxs
-            // 
-            this.txb_sjxs.Location = new System.Drawing.Point(12, 7);
-            this.txb_sjxs.Name = "txb_sjxs";
-            this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
-            this.txb_sjxs.TabIndex = 0;
-            // 
             // col_all_tmidex
             // 
             this.col_all_tmidex.HeaderText = "TMIDEX";
@@ -456,6 +371,91 @@
             this.col_all_xgsj.ReadOnly = true;
             this.col_all_xgsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // cmn_all
+            // 
+            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_all_shuaxin,
+            this.cmn_all_saveTm,
+            this.cmn_all_jzkh});
+            this.cmn_all.Name = "cmn_all";
+            this.cmn_all.Size = new System.Drawing.Size(125, 70);
+            // 
+            // cmn_all_shuaxin
+            // 
+            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
+            this.cmn_all_shuaxin.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_shuaxin.Text = "刷新";
+            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
+            // 
+            // cmn_all_saveTm
+            // 
+            this.cmn_all_saveTm.Name = "cmn_all_saveTm";
+            this.cmn_all_saveTm.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_saveTm.Text = "保存修改";
+            this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
+            // 
+            // cmn_all_jzkh
+            // 
+            this.cmn_all_jzkh.Name = "cmn_all_jzkh";
+            this.cmn_all_jzkh.Size = new System.Drawing.Size(124, 22);
+            this.cmn_all_jzkh.Text = "加载款号";
+            this.cmn_all_jzkh.Click += new System.EventHandler(this.cmn_all_jzkh_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btn_szgys);
+            this.panel1.Controls.Add(this.cmb_gys);
+            this.panel1.Controls.Add(this.btn_jssj);
+            this.panel1.Controls.Add(this.txb_sjxs);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1170, 35);
+            this.panel1.TabIndex = 11;
+            // 
+            // btn_szgys
+            // 
+            this.btn_szgys.Location = new System.Drawing.Point(326, 6);
+            this.btn_szgys.Name = "btn_szgys";
+            this.btn_szgys.Size = new System.Drawing.Size(75, 23);
+            this.btn_szgys.TabIndex = 3;
+            this.btn_szgys.Text = "设置供应商";
+            this.btn_szgys.UseVisualStyleBackColor = true;
+            this.btn_szgys.Click += new System.EventHandler(this.btn_szgys_Click);
+            // 
+            // cmb_gys
+            // 
+            this.cmb_gys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_gys.FormattingEnabled = true;
+            this.cmb_gys.Location = new System.Drawing.Point(199, 8);
+            this.cmb_gys.Name = "cmb_gys";
+            this.cmb_gys.Size = new System.Drawing.Size(121, 20);
+            this.cmb_gys.TabIndex = 2;
+            // 
+            // btn_jssj
+            // 
+            this.btn_jssj.Location = new System.Drawing.Point(118, 6);
+            this.btn_jssj.Name = "btn_jssj";
+            this.btn_jssj.Size = new System.Drawing.Size(75, 23);
+            this.btn_jssj.TabIndex = 1;
+            this.btn_jssj.Text = "计算售价";
+            this.btn_jssj.UseVisualStyleBackColor = true;
+            this.btn_jssj.Click += new System.EventHandler(this.btn_jssj_Click);
+            // 
+            // txb_sjxs
+            // 
+            this.txb_sjxs.Location = new System.Drawing.Point(12, 7);
+            this.txb_sjxs.Name = "txb_sjxs";
+            this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
+            this.txb_sjxs.TabIndex = 0;
+            // 
+            // mni_addjkh
+            // 
+            this.mni_addjkh.Name = "mni_addjkh";
+            this.mni_addjkh.Size = new System.Drawing.Size(56, 21);
+            this.mni_addjkh.Text = "旧款号";
+            this.mni_addjkh.Click += new System.EventHandler(this.mni_addjkh_Click);
+            // 
             // Form_Bianma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -489,7 +489,6 @@
         private System.Windows.Forms.ToolStripMenuItem mni_addsm;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai;
         private System.Windows.Forms.DataGridView grid_all;
-        private System.Windows.Forms.ToolStripMenuItem mni_addjkh;
         private System.Windows.Forms.ContextMenuStrip cmn_all;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_shuaxin;
         private System.Windows.Forms.ToolStripMenuItem mni_bzbm;
@@ -527,6 +526,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
+        private System.Windows.Forms.ToolStripMenuItem mni_addjkh;
     }
 }
 

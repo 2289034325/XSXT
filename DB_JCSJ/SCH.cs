@@ -410,6 +410,10 @@ namespace DB_JCSJ
             {
                 return _db.TXiaoshous.Where(r => r.TFendian.jmsid == jmsid).Count();
             }
+            public TXiaoshou GetXiaoshouByFdidOid(int fdid, int oid)
+            {
+                return _db.TXiaoshous.Single(r => r.fendianid == fdid && r.oid == oid);
+            }
 
             /// <summary>
             /// 查询分店进出货数据
@@ -469,6 +473,10 @@ namespace DB_JCSJ
             public TFendianJinchuhuo GetFDJinchuhuoByJcId(int id)
             {
                 return _db.TFendianJinchuhuos.Include(r=>r.TFendian).Single(r => r.id == id);
+            }
+            public TFendianJinchuhuo GetFDJinchuhuoByFdidOid(int fdid,int oid)
+            {
+                return _db.TFendianJinchuhuos.Single(r => r.fendianid == fdid && r.oid == oid);
             }
 
             /// <summary>

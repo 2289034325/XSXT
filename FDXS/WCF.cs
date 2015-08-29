@@ -133,5 +133,16 @@ namespace FDXS
         //    ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);
         //    return vdc.GetLatestVersion(Tool.JCSJ.DBCONSTS.SYS_CLIENT_TYPE.分店);
         //}
+
+        internal static void DeleteXiaoshou(int id)
+        {
+            Login();
+            _jdc.DeleteXiaoshoujilu(id);
+        }
+        internal static void DeleteJinchuhuo(int id)
+        {
+            Login();
+            _jdc.DeleteJinchujilu_FD(id);
+        }
     }
 }

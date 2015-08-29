@@ -146,5 +146,11 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         void XiazaiJinhuoShujuFinish(int[] ckjcids);
+
+        //分店系统删除已上报的销售记录和进出货记录
+        [OperationContract(IsInitiating = false)]
+        void DeleteXiaoshoujilu(int oid);
+        [OperationContract(IsInitiating = false)]
+        void DeleteJinchujilu_FD(int oid);
     }
 }

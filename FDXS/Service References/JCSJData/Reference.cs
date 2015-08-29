@@ -4478,6 +4478,18 @@ namespace FDXS.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinishResponse")]
         System.Threading.Tasks.Task XiazaiJinhuoShujuFinishAsync(int[] ckjcids);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteXiaoshoujilu", ReplyAction="http://tempuri.org/IDataService/DeleteXiaoshoujiluResponse")]
+        void DeleteXiaoshoujilu(int oid);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteXiaoshoujilu", ReplyAction="http://tempuri.org/IDataService/DeleteXiaoshoujiluResponse")]
+        System.Threading.Tasks.Task DeleteXiaoshoujiluAsync(int oid);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD", ReplyAction="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse")]
+        void DeleteJinchujilu_FD(int oid);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD", ReplyAction="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse")]
+        System.Threading.Tasks.Task DeleteJinchujilu_FDAsync(int oid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4745,6 +4757,22 @@ namespace FDXS.JCSJData {
         
         public System.Threading.Tasks.Task XiazaiJinhuoShujuFinishAsync(int[] ckjcids) {
             return base.Channel.XiazaiJinhuoShujuFinishAsync(ckjcids);
+        }
+        
+        public void DeleteXiaoshoujilu(int oid) {
+            base.Channel.DeleteXiaoshoujilu(oid);
+        }
+        
+        public System.Threading.Tasks.Task DeleteXiaoshoujiluAsync(int oid) {
+            return base.Channel.DeleteXiaoshoujiluAsync(oid);
+        }
+        
+        public void DeleteJinchujilu_FD(int oid) {
+            base.Channel.DeleteJinchujilu_FD(oid);
+        }
+        
+        public System.Threading.Tasks.Task DeleteJinchujilu_FDAsync(int oid) {
+            return base.Channel.DeleteJinchujilu_FDAsync(oid);
         }
     }
 }
