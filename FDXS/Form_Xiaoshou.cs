@@ -222,6 +222,11 @@ namespace FDXS
 
                             }, false).Start();
                     }
+                    else
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
             }
             else
