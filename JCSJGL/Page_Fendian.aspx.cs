@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -21,6 +22,7 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
+                DBContext db = new DBContext();
                 //隐藏搜索条件
                 div_sch.Visible = false;
 
@@ -30,7 +32,6 @@ namespace JCSJGL
                     //显示搜索
                     div_sch.Visible = true;
 
-                    DBContext db = new DBContext();
                     TJiamengshang[] jmss = db.GetJiamengshangs();
                     Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
@@ -47,6 +48,17 @@ namespace JCSJGL
                 Tool.CommonFunc.InitDropDownList(cmb_dc, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DC));
                 Tool.CommonFunc.InitDropDownList(cmb_dpxz, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ));
                 Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.FENDIAN_ZT));
+                //加载省市行政区
+                VDiqu[] dqs = db.GetAllDiqus();
+                //将第一级和第二级地区连接
+                VDiqu[] ssdqs = dqs.Where(r => r.jibie == 1).ToArray();
+                Tool.CommonFunc.InitDropDownList(cmb_xzdq, ssdqs, "lujing", "id");
+
+                //品牌下拉框
+                TJiamengshangPinpai[] ycpps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
+                TJiamengshangPinpai[] jmpps = db.GetJiamengPinpaisByJmsId(_LoginUser.jmsid);
+                TJiamengshangPinpai[] pps = ycpps.Concat(jmpps).ToArray();
+                Tool.CommonFunc.InitDropDownList(cmb_pp, pps, "mingcheng", "id");
             }
         }       
 
@@ -69,6 +81,7 @@ namespace JCSJGL
                 grid_fendian.Columns[0].Visible = false;
             }
             TFendian[] fs = db.GetFendians(jmsid);
+            VDiqu[] dqs = db.GetAllDiqus();
             var dfs = fs.Select(r => new
             {
                 id = r.id,
@@ -76,12 +89,14 @@ namespace JCSJGL
                 fzxingbie = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
                 fzleixing = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
                 dianming = r.dianming,
+                pinpai = r.TJiamengshangPinpai.mingcheng,
                 mianji = r.mianji,
                 keliuliang = r.keliuliang,
                 dangci = ((Tool.JCSJ.DBCONSTS.FENDIAN_DC)r.dangci).ToString(),
                 dpxingzhi = ((Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ)r.dpxingzhi).ToString(),
                 zhuanrangfei = r.zhuanrangfei,
                 yuezu = r.yuezu,
+                diqu = dqs.Single(rr=>rr.id == r.diquid).lujing,
                 dizhi = r.dizhi,
                 lianxiren = r.lianxiren,
                 dianhua = r.dianhua,
@@ -90,8 +105,8 @@ namespace JCSJGL
                 beizhu = r.beizhu,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.fzxingbie + "','" + r.fzleixing + "','" + r.dianming + "','" + r.mianji + "','" + r.keliuliang + "','"+
-                r.dangci + "','" + r.dpxingzhi + "','" + r.zhuanrangfei + "','" + r.yuezu + "','" + r.dizhi + "','" +
+                editParams = r.id + ",'" + r.fzxingbie + "','" + r.fzleixing + "','" + r.dianming + "',"+r.ppid+",'" + r.mianji + "','" + r.keliuliang + "','" +
+                r.dangci + "','" + r.dpxingzhi + "','" + r.zhuanrangfei + "','" + r.yuezu + "','" + r.diquid + "','" + r.dizhi + "','" +
                 r.lianxiren + "','" + r.dianhua + "','" + r.kaidianriqi.ToString("yyyy-MM-dd") + "','" + r.zhuangtai + "','" + r.beizhu + "'"
             });
 
@@ -110,14 +125,13 @@ namespace JCSJGL
 
             TFendian f = getEditInfo();
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
             TFendian of = db.GetFendianById(f.id);
             if (of.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法修改此分店信息");
+                throw new MyException("非法操作，无法修改此分店信息", null);
             }
             db.UpdateFendian(f);
 
@@ -133,12 +147,14 @@ namespace JCSJGL
             byte fzxb = byte.Parse(cmb_fzxz.SelectedValue);
             byte fzlx = byte.Parse(cmb_fzlx.SelectedValue);
             string dm = txb_dm.Text.Trim();
+            int ppid = int.Parse(cmb_pp.SelectedValue);
             short mj = short.Parse(txb_mj.Text.Trim());
             short kll = short.Parse(txb_kll.Text.Trim());
             byte dc = byte.Parse(cmb_dc.SelectedValue);
             byte dpxz = byte.Parse(cmb_dpxz.SelectedValue);
             decimal zrf = decimal.Parse(txb_zrf.Text.Trim());
             decimal yz = decimal.Parse(txb_yz.Text.Trim());
+            int dqid = int.Parse(cmb_xzdq.SelectedValue);
             string dz = txb_dz.Text.Trim();
             string lxr = txb_lxr.Text.Trim();
             string dh = txb_dh.Text.Trim();
@@ -149,23 +165,23 @@ namespace JCSJGL
             string errMsg = "非法操作，请刷新页面重新执行";
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_FZXB), fzxb))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_FZLX), fzlx))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DC), dc))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_DPXZ), dpxz))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.FENDIAN_ZT), zt))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
 
             TFendian f = new TFendian
@@ -173,12 +189,14 @@ namespace JCSJGL
                 fzxingbie = fzxb,
                 fzleixing = fzlx,
                 dianming = dm,
+                ppid = ppid,
                 mianji = mj,
                 keliuliang = kll,
                 dangci = dc,
                 dpxingzhi = dpxz,
                 zhuanrangfei = zrf,
                 yuezu = yz,
+                diquid = dqid,
                 dizhi = dz,
                 lianxiren = lxr,
                 dianhua = dh,
@@ -211,7 +229,7 @@ namespace JCSJGL
             int cc = db.GetFendianCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.fendianshu)
             {
-                throw new MyException("拥有的分店数量已到上限，如有需要增加更多分店请联系系统管理员");
+                throw new MyException("拥有的分店数量已到上限，如有需要增加更多分店请联系系统管理员", null);
             }
             db.InsertFendian(f);
 
@@ -233,7 +251,7 @@ namespace JCSJGL
             TFendian of = db.GetFendianById(id);
             if (of.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该分店");
+                throw new MyException("非法操作，无法删除该分店", null);
             }
             db.DeleteFendian(id);
 

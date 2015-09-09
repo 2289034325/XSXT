@@ -59,6 +59,7 @@
     <Compile Include="Models\Mapping\TCangkuKucunMap.cs" />
     <Compile Include="Models\Mapping\TCangkuKucunMXMap.cs" />
     <Compile Include="Models\Mapping\TCangkuMap.cs" />
+    <Compile Include="Models\Mapping\TDiquMap.cs" />
     <Compile Include="Models\Mapping\TFendianJinchuhuoMap.cs" />
     <Compile Include="Models\Mapping\TFendianJinchuhuoMXMap.cs" />
     <Compile Include="Models\Mapping\TFendianKucunMap.cs" />
@@ -67,17 +68,22 @@
     <Compile Include="Models\Mapping\TGongyingshangMap.cs" />
     <Compile Include="Models\Mapping\THuiyuanMap.cs" />
     <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangGXMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangGXSQMap.cs" />
     <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangPinpaiMap.cs" />
     <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
     <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
+    <Compile Include="Models\Mapping\VDiquMap.cs" />
     <Compile Include="Models\TCangku.cs" />
     <Compile Include="Models\TCangkuFahuoFendian.cs" />
     <Compile Include="Models\TCangkuJinchuhuo.cs" />
     <Compile Include="Models\TCangkuJinchuhuoMX.cs" />
     <Compile Include="Models\TCangkuKucun.cs" />
     <Compile Include="Models\TCangkuKucunMX.cs" />
+    <Compile Include="Models\TDiqu.cs" />
     <Compile Include="Models\TFendian.cs" />
     <Compile Include="Models\TFendianJinchuhuo.cs" />
     <Compile Include="Models\TFendianJinchuhuoMX.cs" />
@@ -87,10 +93,14 @@
     <Compile Include="Models\THuiyuan.cs" />
     <Compile Include="Models\THuiyuanZK.cs" />
     <Compile Include="Models\TJiamengshang.cs" />
+    <Compile Include="Models\TJiamengshangGX.cs" />
+    <Compile Include="Models\TJiamengshangGXSQ.cs" />
+    <Compile Include="Models\TJiamengshangPinpai.cs" />
     <Compile Include="Models\TKuanhao.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />
     <Compile Include="Models\TXiaoshou.cs" />
+    <Compile Include="Models\VDiqu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
     <Compile Include="UPDATE.cs" />
@@ -99,6 +109,9 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Context.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Entity.tt" />
+    <None Include="CodeTemplates\ReverseEngineerCodeFirst\Mapping.tt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

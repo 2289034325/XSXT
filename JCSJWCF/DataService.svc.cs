@@ -90,7 +90,6 @@ namespace JCSJWCF
 
             //去除循环引用
             u.TJiamengshang.TUsers.Clear();
-            u.TJiamengshangs.Clear();
 
             return u;
         }
@@ -193,11 +192,10 @@ namespace JCSJWCF
             foreach (TTiaoma t in ts)
             {
                 t.TKuanhao.TTiaomas.Clear();
-                t.TKuanhao.TJiamengshang = null;
+                t.TKuanhao.TJiamengshangPinpai = null;
                 t.TGongyingshang.TTiaomas.Clear();
                 t.TGongyingshang.TJiamengshang = null;
                 t.TJiamengshang.TTiaomas.Clear();
-                t.TJiamengshang.TKuanhaos.Clear();
                 t.TJiamengshang.TGongyingshangs.Clear();
             }
             return ts;
@@ -227,10 +225,10 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        public TKuanhao[] GetKuanhaos()
+        public TKuanhao[] GetKuanhaosByCond(int pageSize, int pageIndex, out int recordCount)
         {
             DBContext db = new DBContext();
-            TKuanhao[] ks = db.GetKuanhaos(_jmsid);
+            TKuanhao[] ks = db.GetKuanhaosByCond(_jmsid, null, null, null, pageSize, pageIndex, out recordCount);
 
             return ks;
         }
@@ -259,7 +257,6 @@ namespace JCSJWCF
                 throw new MyException("拥有的款号数已到上限，如要增加更多款号请联系系统管理员", null);
             }
             k.caozuorenid = _LoginUser.id;
-            k.jmsid = _jmsid;
             k.charushijian = DateTime.Now;
             k.xiugaishijian = DateTime.Now;
 
@@ -280,9 +277,9 @@ namespace JCSJWCF
             }
 
             TKuanhao ok = db.GetKuanhaoById(k.id);
-            if (ok.jmsid != _jmsid)
+            if (ok.TJiamengshangPinpai.jmsid != _jmsid)
             {
-                throw new MyException("非法操作，无法该款号信息", null);
+                throw new MyException("非法操作，无法修改该款号信息", null);
             }
             k.xiugaishijian = DateTime.Now;
 
@@ -298,7 +295,7 @@ namespace JCSJWCF
             DBContext db = new DBContext();
             TKuanhao k = db.GetKuanhaoById(id);
 
-            if (k.jmsid != _jmsid)
+            if (k.TJiamengshangPinpai.jmsid != _jmsid)
             {
                 throw new MyException("非法操作，无法删除该款号", null);
             }
@@ -346,10 +343,10 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="khs"></param>
         /// <returns></returns>
-        public string[] CheckKuanhaosChongfu(string[] khs)
+        public string[] CheckKuanhaosChongfu(int ppid,string[] khs)
         {
             DBContext db = new DBContext();
-            return db.GetKuanhaoExistByMcWithJmsId(khs, _jmsid);
+            return db.GetKuanhaoExistByMcWithPpId(ppid,khs);
         }
 
         /// <summary>
@@ -383,7 +380,7 @@ namespace JCSJWCF
             foreach (TKuanhao k in ks)
             {
                 k.caozuorenid = _LoginUser.id;
-                k.jmsid = _jmsid;
+                //k.jmsid = _jmsid;
                 k.charushijian = DateTime.Now;
                 k.xiugaishijian = DateTime.Now;
 
@@ -449,7 +446,7 @@ namespace JCSJWCF
         {
             DBContext db = new DBContext();
             TTiaoma ot = db.GetTiaomaById(t.id);
-            if (ot.TKuanhao.jmsid != _jmsid)
+            if (ot.jmsid != _jmsid)
             {
                 throw new MyException("非法操作，无法修改该条码信息", null);
             }
@@ -836,6 +833,23 @@ namespace JCSJWCF
             }
 
             db.DeleteFDJinchuhuo(oj.id);
+        }
+
+        /// <summary>
+        /// 取得某加盟商的原创品牌
+        /// </summary>
+        /// <returns></returns>
+        public TJiamengshangPinpai[] GetYuanchuangPinpais()
+        {
+            DBContext db = new DBContext();
+            TJiamengshangPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
+            //去除循环引用
+            foreach (var p in pps)
+            {
+                p.TJiamengshang.TJiamengshangPinpais.Clear();
+            }
+
+            return pps;
         }
     }
 }

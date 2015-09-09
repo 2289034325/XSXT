@@ -765,7 +765,7 @@ namespace JCSJGL
 
             if (interval < 0 || max < 0 || danjia < 0 || interval >= max)
             {
-                throw new MyException("参数异常。价格不得为负数，价格区间不得大于等于最大价格。");
+                throw new MyException("参数异常。价格不得为负数，价格区间不得大于等于最大价格。", null);
             }
 
             if (danjia < interval)
@@ -840,7 +840,7 @@ namespace JCSJGL
             else
             {
                 //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行");
+                throw new MyException("非法操作，请刷新页面重新执行", null);
             }
         }
 

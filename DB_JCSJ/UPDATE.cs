@@ -73,12 +73,14 @@ namespace DB_JCSJ
                 of.fzxingbie = f.fzxingbie;
                 of.fzleixing = f.fzleixing;
                 of.dianming = f.dianming;
+                of.ppid = f.ppid;
                 of.mianji = f.mianji;
                 of.keliuliang = f.keliuliang;
                 of.dangci = f.dangci;
                 of.dpxingzhi = f.dpxingzhi;
                 of.zhuanrangfei = f.zhuanrangfei;
                 of.yuezu = f.yuezu;
+                of.diquid = f.diquid;
                 of.dizhi = f.dizhi;
                 of.lianxiren = f.lianxiren;
                 of.dianhua = f.dianhua;
@@ -247,6 +249,17 @@ namespace DB_JCSJ
                 var oj = _db.TJiamengshangs.Single(r => r.id == j.id);
 
                 oj.mingcheng = j.mingcheng;
+                oj.zhuceshouji = j.zhuceshouji;
+                oj.zhuceyouxiang = j.zhuceyouxiang;
+                oj.diquid = j.diquid;
+                oj.dizhi = j.dizhi;
+                oj.lianxiren = j.lianxiren;
+                oj.dianhua = j.dianhua;
+                oj.beizhu = j.beizhu;
+
+                oj.fjmsshu = j.fjmsshu;
+                oj.zjmsshu = j.zjmsshu;
+                oj.ppshu = j.ppshu;
                 oj.zhanghaoshu = j.zhanghaoshu;
                 oj.kuanhaoshu = j.kuanhaoshu;
                 oj.tiaomashu = j.tiaomashu;
@@ -260,9 +273,24 @@ namespace DB_JCSJ
                 oj.shoucifufei = j.shoucifufei;
                 oj.xufeidanjia = j.xufeidanjia;
                 oj.jiezhiriqi = j.jiezhiriqi;
+                oj.xiugaishijian = j.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+            /// <summary>
+            /// 用户修改自己的相关信息
+            /// </summary>
+            /// <param name="j"></param>
+            public void UpdateJiamengshangWodexinxi(TJiamengshang j)
+            {
+                var oj = _db.TJiamengshangs.Single(r => r.id == j.id);
+
+                oj.zhuceshouji = j.zhuceshouji;
+                oj.zhuceyouxiang = j.zhuceyouxiang;
+                oj.diquid = j.diquid;
+                oj.dizhi = j.dizhi;
                 oj.lianxiren = j.lianxiren;
                 oj.dianhua = j.dianhua;
-                oj.beizhu = j.beizhu;
                 oj.xiugaishijian = j.xiugaishijian;
 
                 _db.SaveChanges();
@@ -278,6 +306,65 @@ namespace DB_JCSJ
                 TJiamengshang oj = _db.TJiamengshangs.Single(r => r.id == id);
 
                 oj.dtyzm = yzm;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 修改地区名称
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="mc"></param>
+            public void UpdateDiqu(int id, string mc)
+            {
+                TDiqu od = _db.TDiqus.Single(r => r.id == id);
+
+                od.mingcheng = mc;
+                od.lsmingcheng += "-" + mc;
+                od.xiugaishijian = DateTime.Now;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 加盟请求审核后，更新审核结果
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="jieguo"></param>
+            public void UpdateJiamengGXSQShenhe(int id, byte jieguo)
+            {
+                TJiamengshangGXSQ os = _db.TJiamengshangGXSQs.Single(r => r.id == id);
+
+                os.jieguo = jieguo;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 修改下级加盟商的名称，便于辨识
+            /// </summary>
+            /// <param name="g"></param>
+            public void UpdateJiamengGXBeizhu(TJiamengshangGX g)
+            {
+                TJiamengshangGX og = _db.TJiamengshangGXes.Single(r => r.id == g.id);
+
+                og.bzmingcheng = g.bzmingcheng;
+                og.beizhu = g.beizhu;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 修改品牌信息
+            /// </summary>
+            /// <param name="p"></param>
+            public void UpdateJiamengshangPinpai(TJiamengshangPinpai p)
+            {
+                TJiamengshangPinpai op = _db.TJiamengshangPinpais.Single(r => r.id == p.id);
+
+                op.mingcheng = p.mingcheng;
+                op.kejiameng = p.kejiameng;
+                op.xiugaishijian = p.xiugaishijian;
 
                 _db.SaveChanges();
             }

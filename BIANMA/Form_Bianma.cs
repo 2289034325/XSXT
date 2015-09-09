@@ -69,13 +69,18 @@ namespace BIANMA
             {
                 throw new MyException("请先登陆管理系统增加至少一个供应商信息", null);
             }
-
-
             Tool.CommonFunc.InitCombbox(cmb_gys, gyss, "mingcheng", "id");
-
             col_all_gys.DataSource = gyss;
             col_all_gys.ValueMember = "id";
             col_all_gys.DisplayMember = "mingcheng";
+
+            //品牌下拉框
+            TJiamengshangPinpai[] pps = JCSJWCF.GetYuanchuangPinpais();
+            if (pps.Count() == 0)
+            {
+                throw new MyException("您没有自己的品牌，无法进行编码", null);
+            }
+            Tool.CommonFunc.InitCombbox(cmb_pp, pps, "mingcheng", "id");
         }       
 
         /// <summary>
@@ -104,18 +109,18 @@ namespace BIANMA
                         idex = getClientId(),
                         tiaoma = r,
                         shuliang = 0,
-                        xj = XTCONSTS.TIAOMA_XINJIU.旧条码
+                        xj = XTCONSTS.TIAOMA_XINJIU.既存条码
                     }).ToList();
 
                     //检查是否已经有同名的款号被加载到了本地
-                    TKuanhaoExtend ekt = _khs.SingleOrDefault(r => r.kuanhao.kuanhao == k.kuanhao && r.xj == XTCONSTS.KUANHAO_XINJIU.旧款);
+                    TKuanhaoExtend ekt = _khs.SingleOrDefault(r => r.kuanhao.kuanhao == k.kuanhao && r.xj == XTCONSTS.KUANHAO_XINJIU.既存款号);
                     if (ekt == null)
                     {
                         //将该款号加入集合
                         TKuanhaoExtend khex = new TKuanhaoExtend
                         {
                             idex = getClientId(),
-                            xj = XTCONSTS.KUANHAO_XINJIU.旧款,
+                            xj = XTCONSTS.KUANHAO_XINJIU.既存款号,
                             kuanhao = k,
                             tms = tsex
                         };
@@ -279,7 +284,7 @@ namespace BIANMA
             TKuanhaoExtend tk = new TKuanhaoExtend
             {
                 idex = getClientId(),
-                xj = isNew ? XTCONSTS.KUANHAO_XINJIU.新款 : XTCONSTS.KUANHAO_XINJIU.旧款,
+                xj = isNew ? XTCONSTS.KUANHAO_XINJIU.新款号 : XTCONSTS.KUANHAO_XINJIU.既存款号,
                 kuanhao = new TKuanhao
                 {
                     kuanhao = "",
@@ -486,7 +491,7 @@ namespace BIANMA
                 }
 
                 //检查新款号
-                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.新款)
+                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.新款号)
                 {
                     //款号符合固定格式
                     if (!Tool.CommonFunc.CheckFormat_KH(tk.kuanhao.kuanhao))
@@ -534,7 +539,13 @@ namespace BIANMA
             //去服务器验证新款号
             if (nkhs.Count() > 0)
             {
-                string[] eKhs = JCSJWCF.CheckKuanhaosChongfu(nkhs.ToArray());
+                //设置品牌ID
+                int ppid = int.Parse(cmb_pp.SelectedValue.ToString());
+                _khs.ForEach((k) => 
+                {
+                    k.kuanhao.ppid = ppid;
+                });
+                string[] eKhs = JCSJWCF.CheckKuanhaosChongfu(ppid,nkhs.ToArray());
                
                 //先恢复为原色，再接受检查
                 setCellColorByKh(null,col_all_kh.Index, null);
@@ -801,7 +812,7 @@ namespace BIANMA
                 //取得所有新款号
                 foreach (TKuanhaoExtend tk in _khs)
                 {
-                    if (tk.xj == XTCONSTS.KUANHAO_XINJIU.新款)
+                    if (tk.xj == XTCONSTS.KUANHAO_XINJIU.新款号)
                     {
                         ks.Add(tk.kuanhao);
                     }
@@ -818,7 +829,7 @@ namespace BIANMA
                         TKuanhao k = nks.SingleOrDefault(r => r.kuanhao == tk.kuanhao.kuanhao);
                         if (k != null)
                         {
-                            tk.xj = XTCONSTS.KUANHAO_XINJIU.旧款;
+                            tk.xj = XTCONSTS.KUANHAO_XINJIU.既存款号;
                             tk.kuanhao = k;
                             tk.tms.ForEach(r => r.tiaoma.kuanhaoid = k.id);
                         }
@@ -859,7 +870,7 @@ namespace BIANMA
                             TTiaoma t = nts.SingleOrDefault(r => r.tiaoma == tex.tiaoma.tiaoma);
                             if (t != null)
                             {
-                                tex.xj = XTCONSTS.TIAOMA_XINJIU.旧条码;
+                                tex.xj = XTCONSTS.TIAOMA_XINJIU.既存条码;
                                 tex.tiaoma = t;
                             }
                         }
@@ -874,8 +885,8 @@ namespace BIANMA
             //刷新新旧，保存后，所有的都变成旧款号，旧条码
             foreach (DataGridViewRow dr in grid_all.Rows)
             {
-                dr.Cells[col_all_khxj.Name].Value = XTCONSTS.KUANHAO_XINJIU.旧款.ToString();
-                dr.Cells[col_all_tmxj.Name].Value = XTCONSTS.TIAOMA_XINJIU.旧条码.ToString();
+                dr.Cells[col_all_khxj.Name].Value = XTCONSTS.KUANHAO_XINJIU.既存款号.ToString();
+                dr.Cells[col_all_tmxj.Name].Value = XTCONSTS.TIAOMA_XINJIU.既存条码.ToString();
             }
         }               
 
@@ -1060,7 +1071,7 @@ namespace BIANMA
             if (e.ColumnIndex == col_all_kh.Index)
             {
                 tk.kuanhao.kuanhao = kh;
-                if (khxj == XTCONSTS.KUANHAO_XINJIU.旧款)
+                if (khxj == XTCONSTS.KUANHAO_XINJIU.既存款号)
                 {
                     tk.kuanhao.id = 0;
                     tk.kuanhao.pinming = "";
@@ -1144,7 +1155,7 @@ namespace BIANMA
             //款号信息
             if (e.ColumnIndex == col_all_xb.Index || e.ColumnIndex == col_all_lx.Index || e.ColumnIndex == col_all_pm.Index)
             {
-                if(khxj == XTCONSTS.KUANHAO_XINJIU.旧款)
+                if(khxj == XTCONSTS.KUANHAO_XINJIU.既存款号)
                 {
                     e.Cancel = true;
                 }
@@ -1152,7 +1163,7 @@ namespace BIANMA
             //条码
             else if (e.ColumnIndex == col_all_tm.Index)
             {
-                if (tmxj == XTCONSTS.TIAOMA_XINJIU.旧条码)
+                if (tmxj == XTCONSTS.TIAOMA_XINJIU.既存条码)
                 {
                     e.Cancel = true;
                 }
@@ -1280,7 +1291,7 @@ namespace BIANMA
             TTiaomaExtend tt = tk.tms.Single(r => r.idex == tmidex);
             XTCONSTS.KUANHAO_XINJIU khxj = (XTCONSTS.KUANHAO_XINJIU)Enum.Parse(typeof(XTCONSTS.KUANHAO_XINJIU), dr.Cells[col_all_khxj.Name].Value.ToString());
 
-            if (khxj == XTCONSTS.KUANHAO_XINJIU.新款)
+            if (khxj == XTCONSTS.KUANHAO_XINJIU.新款号)
             {
                 MessageBox.Show("只有旧款才能加载");
                 return;
@@ -1585,7 +1596,7 @@ namespace BIANMA
                         xiugaishijian = DateTime.Now
                     },
                     tms = r.Select(gr=>gr.te).ToList(),
-                    xj = XTCONSTS.KUANHAO_XINJIU.新款
+                    xj = XTCONSTS.KUANHAO_XINJIU.新款号
                 }).ToList();
 
                 cmn_all_shuaxin_Click(null, null);
@@ -1636,7 +1647,7 @@ namespace BIANMA
 
             foreach (TKuanhaoExtend tk in _khs)
             {
-                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.旧款)
+                if (tk.xj == XTCONSTS.KUANHAO_XINJIU.既存款号)
                 {
                     continue;
                 }

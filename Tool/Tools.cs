@@ -85,13 +85,13 @@ namespace Tool
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static Dictionary<string, byte> GetDicFromEnum(Type t)
+        public static Dictionary<string, string> GetDicFromEnum(Type t)
         {
-            Dictionary<string, byte> dic = new Dictionary<string, byte>();
+            Dictionary<string, string> dic = new Dictionary<string, string>();
             Array vs = Enum.GetValues(t);
             foreach (Enum v in vs)
             {
-                dic.Add(Enum.GetName(t, v), Convert.ToByte(v));
+                dic.Add(Enum.GetName(t, v), Convert.ToByte(v).ToString());
             }
 
             return dic;
@@ -189,13 +189,13 @@ namespace Tool
             Cmb.ValueMember = "Value";
             Cmb.DataSource = dt;
         }
-        public static void InitDropDownList(DropDownList Cmb, Dictionary<string,byte> dic)
+        public static void InitDropDownList(DropDownList Cmb, Dictionary<string,string> dic)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Text", typeof(string));
-            dt.Columns.Add("Value", typeof(byte));
-            
-            foreach (KeyValuePair<string,byte> p in dic)
+            dt.Columns.Add("Value", typeof(string));
+
+            foreach (KeyValuePair<string, string> p in dic)
             {
                 DataRow dr = dt.NewRow();
                 dr["Text"] = p.Key;

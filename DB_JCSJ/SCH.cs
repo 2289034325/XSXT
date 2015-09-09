@@ -61,7 +61,7 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TFendian[] GetFendians(int? jmsid)
             {
-                var fs = _db.TFendians.Include(r => r.TJiamengshang).AsQueryable();
+                var fs = _db.TFendians.Include(r => r.TJiamengshang).Include(r=>r.TJiamengshangPinpai).AsQueryable();
                 if(jmsid !=null)
                 {
                     fs = fs.Where(r=>r.jmsid == jmsid);
@@ -186,10 +186,10 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TKuanhao[] GetKuanhaosByCond(int? jmsid,byte? lx, string kh, string pm, int pageSize, int pageIndex, out int recordCount)
             {
-                var Kuanhaos = _db.TKuanhaos.Include(r => r.TJiamengshang).AsQueryable();
+                var Kuanhaos = _db.TKuanhaos.Include(r => r.TJiamengshangPinpai).Include(r=>r.TJiamengshangPinpai.TJiamengshang).AsQueryable();
                 if (jmsid != null)
                 {
-                    Kuanhaos = Kuanhaos.Where(r => r.jmsid == jmsid.Value);
+                    Kuanhaos = Kuanhaos.Where(r => r.TJiamengshangPinpai.jmsid == jmsid.Value);
                 }
                 if (lx != null)
                 {
@@ -217,7 +217,7 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TKuanhao GetKuanhaoByMcWithJmsId(string kh,int jmsid)
             {
-                return _db.TKuanhaos.SingleOrDefault(r => r.kuanhao == kh && r.jmsid == jmsid);
+                return _db.TKuanhaos.SingleOrDefault(r => r.kuanhao == kh && r.TJiamengshangPinpai.jmsid == jmsid);
             }
             /// <summary>
             /// 检查给定的款号名称中，有多少是已经存在的
@@ -225,22 +225,22 @@ namespace DB_JCSJ
             /// <param name="khs"></param>
             /// <param name="jmsid"></param>
             /// <returns></returns>
-            public string[] GetKuanhaoExistByMcWithJmsId(string[] khs, int jmsid)
+            public string[] GetKuanhaoExistByMcWithPpId(int ppid,string[] khs)
             {
-                return _db.TKuanhaos.Where(r => khs.Contains(r.kuanhao) && r.jmsid == jmsid).Select(r => r.kuanhao).ToArray();
+                return _db.TKuanhaos.Where(r => khs.Contains(r.kuanhao) && r.ppid == ppid).Select(r => r.kuanhao).ToArray();
             }
             public TKuanhao GetKuanhaoById(int id)
             {
-                var k = _db.TKuanhaos.Single(r => r.id == id);
+                var k = _db.TKuanhaos.Include(r=>r.TJiamengshangPinpai).Single(r => r.id == id);
                 return k;
             }
-            public TKuanhao[] GetKuanhaos(int jmsid)
-            {
-                return _db.TKuanhaos.Where(r => r.jmsid == jmsid).ToArray();
-            }
+            //public TKuanhao[] GetKuanhaos(int jmsid)
+            //{
+            //    return _db.TKuanhaos.Where(r => r.jmsid == jmsid).ToArray();
+            //}
             public int GetKuanhaoCount(int jmsid)
             {
-                return _db.TKuanhaos.Where(r => r.jmsid == jmsid).Count();
+                return _db.TKuanhaos.Where(r => r.TJiamengshangPinpai.jmsid == jmsid).Count();
             }
 
             /// <summary>
@@ -567,7 +567,19 @@ namespace DB_JCSJ
                     Include(r=>r.TCangkuJinchuhuo.TCangkuJinchuhuoMXes.Select(xr=>xr.TTiaoma)).
                     Where(r => r.fendianid == fdid && r.xzshijian == null).ToArray();
             }
-
+            /// <summary>
+            /// 根据是否接受加盟，查询品牌信息
+            /// </summary>
+            /// <param name="kjm"></param>
+            /// <returns></returns>
+            public TJiamengshangPinpai[] GetJiamengshangPinpaiByKejiameng(byte kjm)
+            {
+                return _db.TJiamengshangPinpais.Include(r => r.TJiamengshang).Where(r => r.kejiameng == kjm).ToArray();
+            }
+            public TJiamengshangPinpai GetJiamengshangPinpaiById(int id)
+            {
+                return _db.TJiamengshangPinpais.Single(r => r.id == id);
+            }
             /// <summary>
             /// 取所有加盟商信息
             /// </summary>
@@ -577,19 +589,66 @@ namespace DB_JCSJ
                 return _db.TJiamengshangs.ToArray();
             }
             /// <summary>
+            /// 取所有顶级加盟商
+            /// </summary>
+            /// <returns></returns>
+            public TJiamengshang[] GetJiamengshangsOfDingji()
+            {
+                return _db.TJiamengshangs.Where(r => r.fjmsshu == 0).ToArray();
+            }
+            /// <summary>
             /// 取得一组款号的加盟商ID
             /// </summary>
             /// <param name="khids"></param>
             /// <returns></returns>
             public int[] GetJiamengshangIdsByKhIds(int[] khids)
             {
-                return _db.TKuanhaos.Where(r => khids.Contains(r.jmsid)).Select(r => r.jmsid).Distinct().ToArray();
+                return _db.TKuanhaos.Where(r => khids.Contains(r.TJiamengshangPinpai.jmsid)).Select(r => r.TJiamengshangPinpai.jmsid).Distinct().ToArray();
             }
             public TJiamengshang GetJiamengshangById(int id)
             {
                 return _db.TJiamengshangs.Single(r => r.id == id);
             }
+            /// <summary>
+            /// 取某个加盟商所加盟的所有代理商信息
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangGX[] GetMyDlsesByMyJmsId(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Include(r=>r.Dls).Include(r=>r.TJiamengshangPinpai).Where(r => r.jmsid == jmsid).ToArray();
+            }
+            /// <summary>
+            /// 取得某个加盟商的所有下属加盟商信息
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangGX[] GetMyJmsesByMyJmsId(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Include(r=>r.Jms).Include(r=>r.TJiamengshangPinpai).Where(r => r.dlsid == jmsid).ToArray();
+            }
 
+            /// <summary>
+            /// 查询某个加盟商的向上级申请加盟记录
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangGXSQ[] GetMySjSQ(int jmsid)
+            {
+                return _db.TJiamengshangGXSQs.Include(r=>r.Dls).Include(r=>r.TJiamengshangPinpai).Where(r => r.jmsid == jmsid).ToArray();
+            }
+            public TJiamengshangGXSQ GetJiamengGXSQById(int id)
+            {
+                return _db.TJiamengshangGXSQs.Include(r=>r.Jms).Single(r => r.id == id);
+            }
+            public TJiamengshangGX GetJiamengGXById(int id)
+            {
+                return _db.TJiamengshangGXes.Single(r => r.id == id);
+            }
+            public TJiamengshangGXSQ[] GetMyXjSQ(int jmsid)
+            {
+                return _db.TJiamengshangGXSQs.Include(r => r.Jms).Include(r => r.TJiamengshangPinpai).Where(r => r.dlsid == jmsid).ToArray();
+            }
             /// <summary>
             /// 计算某个加盟商的分店库存详细记录的数量
             /// </summary>
@@ -679,8 +738,93 @@ namespace DB_JCSJ
             {
                 return _db.TCangkuKucunMXes.Include(r => r.TTiaoma).Include(r => r.TTiaoma.TKuanhao).Where(r => r.kucunid == kcid).ToArray();
             }
-        
 
+            /// <summary>
+            /// 取得指定地区的子地区
+            /// </summary>
+            /// <param name="fid"></param>
+            /// <returns></returns>
+            public TDiqu[] GetDiqusByFid(int? fid)
+            {
+                return _db.TDiqus.Where(r => r.fid == fid).ToArray();
+            }
+            public TDiqu GetDiquById(int id)
+            {
+                return _db.TDiqus.Single(r => r.id == id);
+            }
+            public VDiqu[] GetAllDiqus()
+            {
+                return _db.VDiqus.ToArray();
+            }
+
+            /// <summary>
+            /// 检查某个加盟申请是否已经存在
+            /// </summary>
+            /// <param name="dlsid"></param>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangGXSQ GetJiamengGXSQByDlsIdPpIdJmsId(int dlsid,int ppid, int jmsid)
+            {
+                return _db.TJiamengshangGXSQs.SingleOrDefault(r => r.dlsid == dlsid && r.ppid == ppid && r.jmsid == jmsid);
+            }
+
+            /// <summary>
+            /// 取得某加盟商的原创品牌
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangPinpai[] GetYuanchuangPinpaisByJmsId(int? jmsid)
+            {
+                var pps = _db.TJiamengshangPinpais.Include(r=>r.TJiamengshang).AsQueryable();
+                if(jmsid != null)
+                {
+                    pps = pps.Where(r=>r.jmsid == jmsid);
+                }
+                return pps.ToArray();
+            }
+            /// <summary>
+            /// 取得某加盟商加盟的品牌
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public TJiamengshangPinpai[] GetJiamengPinpaisByJmsId(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Where(r => r.jmsid == jmsid).Select(r => r.TJiamengshangPinpai).ToArray();
+            }
+            
+
+            /// <summary>
+            /// 统计加盟商原创和加盟的品牌数
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public int GetYCPinpaiCount(int jmsid)
+            {
+                return _db.TJiamengshangPinpais.Where(r => r.jmsid == jmsid).Count();
+            }
+            public int GetJMPinpaiCount(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Where(r => r.jmsid == jmsid).Count();
+            }
+
+            /// <summary>
+            /// 取得某个加盟商已有的子加盟商数
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public int GetZiJiamengshangCount(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Where(r => r.dlsid == jmsid).Count();
+            }
+            /// <summary>
+            /// 取得本身以加盟的代理商数量
+            /// </summary>
+            /// <param name="jmsid"></param>
+            /// <returns></returns>
+            public int GetFuJiamengshangCount(int jmsid)
+            {
+                return _db.TJiamengshangGXes.Where(r => r.jmsid == jmsid).Count();
+            }
         }
  
 }

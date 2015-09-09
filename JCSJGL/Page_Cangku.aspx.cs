@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -103,7 +104,7 @@ namespace JCSJGL
             TCangku oc = db.GetCangkuById(f.id);
             if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法修改该仓库的信息");
+                throw new MyException("非法操作，无法修改该仓库的信息", null);
             }
             db.UpdateCangku(f);
 
@@ -155,7 +156,7 @@ namespace JCSJGL
             int cc = db.GetCangkusCount(f.jmsid);
             if (cc >= _LoginUser.TJiamengshang.cangkushu)
             {
-                throw new MyException("拥有的仓库数量已到上限，如有需要增加更多仓库请联系系统管理员");
+                throw new MyException("拥有的仓库数量已到上限，如有需要增加更多仓库请联系系统管理员", null);
             }
             db.InsertCangku(f);
 
@@ -178,7 +179,7 @@ namespace JCSJGL
             TCangku oc = db.GetCangkuById(id);
             if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除此仓库");
+                throw new MyException("非法操作，无法删除此仓库", null);
             }
             db.DeleteCangku(id);
 

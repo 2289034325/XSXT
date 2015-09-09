@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -26,7 +27,7 @@ namespace JCSJGL
                 div_edit_jms.Visible = false;
 
                 //初始化下拉框
-                Dictionary<string, byte> jss = new Dictionary<string, byte>();
+                Dictionary<string, string> jss = new Dictionary<string, string>();
 
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
@@ -46,9 +47,9 @@ namespace JCSJGL
                 else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员 ||
                          _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理)
                 {
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString(), (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员);
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString(), (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理);
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString(), (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码);
+                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员).ToString());
+                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理).ToString());
+                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString());
 
                     //加载用户
                     loadUsers();
@@ -133,7 +134,7 @@ namespace JCSJGL
                 if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    throw new MyException("不允许将其他角色提升到该权限");
+                    throw new MyException("不允许将其他角色提升到该权限", null);
                 }
             }
 
@@ -146,16 +147,16 @@ namespace JCSJGL
                 if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    throw new MyException("非法操作，无法修改该账户信息");
+                    throw new MyException("非法操作，无法修改该账户信息", null);
                 }
                 if (ou.jmsid != _LoginUser.jmsid)
                 {
-                    throw new MyException("非法操作，无法修改该账户信息");
+                    throw new MyException("非法操作，无法修改该账户信息", null);
                 }
             }
             else
             {
-                throw new MyException("非法操作，无法修改该账户信息");
+                throw new MyException("非法操作，无法修改该账户信息", null);
             }
 
             db.UpdateUserInfo(nu);
@@ -174,7 +175,7 @@ namespace JCSJGL
 
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.USER_XTJS), js))
             {
-                throw new MyException("非法操作，请刷新页面重新执行");
+                throw new MyException("非法操作，请刷新页面重新执行", null);
             }
 
             return new TUser
@@ -213,7 +214,7 @@ namespace JCSJGL
                 {
                     if (nu.jmsid != _LoginUser.jmsid)
                     {
-                        throw new MyException("不允许给其他加盟商增加该类型账户");
+                        throw new MyException("不允许给其他加盟商增加该类型账户", null);
                     }
                 }         
             }
@@ -222,20 +223,20 @@ namespace JCSJGL
                 if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    throw new MyException("非法操作，无法增加");
+                    throw new MyException("非法操作，无法增加", null);
                 }
                 nu.jmsid = _LoginUser.jmsid;
             }
             else
             {
-                throw new MyException("非法操作，无法增加");
+                throw new MyException("非法操作，无法增加", null);
             }
 
             DBContext db = new DBContext();
             int cc = db.GetUserCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.zhanghaoshu)
             {
-                throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员");
+                throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员", null);
             }
 
             db.InsertUser(nu);
@@ -260,7 +261,7 @@ namespace JCSJGL
             //不能删除别人的用户
             if (_LoginUser.id == id)
             {
-                throw new MyException("不能删除自己");
+                throw new MyException("不能删除自己", null);
             }
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
@@ -271,11 +272,11 @@ namespace JCSJGL
                 if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    throw new MyException("非法操作，无法删除该用户");
+                    throw new MyException("非法操作，无法删除该用户", null);
                 }
                 if (ou.jmsid != _LoginUser.jmsid)
                 {
-                    throw new MyException("非法操作，无法删除该用户");
+                    throw new MyException("非法操作，无法删除该用户", null);
                 }
             }
 

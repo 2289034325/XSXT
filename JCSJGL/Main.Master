@@ -22,8 +22,11 @@
                 <DynamicSelectedStyle BackColor="#FFCC66"></DynamicSelectedStyle>
                 <Items>
                     <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx" ></asp:MenuItem>
                     <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_Jiamengshang.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="品牌信息" Value="品牌信息" NavigateUrl="~/Page_PinpaiXinxi.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>
@@ -37,7 +40,8 @@
                     <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="统计表" Value="统计表" NavigateUrl="~/Page_TongjiBiao.aspx"></asp:MenuItem>       
                     <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>       
-                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>             
+                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>    
+                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>            
                 </Items>
                 <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
                 <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></StaticMenuItemStyle>

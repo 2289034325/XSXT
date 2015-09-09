@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -120,7 +121,7 @@ namespace JCSJGL
             THuiyuan oh = db.GetHuiyuanById(f.id);
             if (oh.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法修改该会员信息");
+                throw new MyException("非法操作，无法修改该会员信息", null);
             }
             db.UpdateHuiyuan(f);
 
@@ -142,7 +143,7 @@ namespace JCSJGL
             string errMsg = "非法操作，请刷新页面重新执行";
             if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.HUIYUAN_XB), xingbie))
             {
-                throw new MyException(errMsg);
+                throw new MyException(errMsg, null);
             }
 
             THuiyuan f = new THuiyuan
@@ -172,7 +173,7 @@ namespace JCSJGL
             THuiyuan og = db.GetHuiyuanById(id);
             if (og.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该会员");
+                throw new MyException("非法操作，无法删除该会员", null);
             }
 
             db.DeleteHuiyuan(id);

@@ -142,11 +142,11 @@ namespace JCSJGL
             TGongyingshang og = db.GetGongyingshangById(f.gysid);
             if (ot.jmsid != og.jmsid)
             {
-                throw new MyException("非法操作，无法修改该条码信息");
+                throw new MyException("非法操作，无法修改该条码信息", null);
             }
             if (ot.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法修改该条码信息");
+                throw new MyException("非法操作，无法修改该条码信息", null);
             }
 
             db.UpdateTiaoma(f);
@@ -167,10 +167,11 @@ namespace JCSJGL
             decimal shoujia = decimal.Parse(txb_sj.Text.Trim());
             string kuanhao = txb_kh.Text.Trim();
             DBContext db = new DBContext();
+
             TKuanhao k = db.GetKuanhaoByMcWithJmsId(kuanhao, _LoginUser.jmsid);
             if (k == null)
             {
-                throw new MyException("该款号不存在");
+                throw new MyException("该款号不存在", null);
             }
 
             int gysid = int.Parse(cmb_gys.SelectedValue);
@@ -210,7 +211,7 @@ namespace JCSJGL
             int cc = db.GetTiaomaCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.tiaomashu)
             {
-                throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员");
+                throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员", null);
             }
             db.InsertTiaoma(f);
 
@@ -243,7 +244,7 @@ namespace JCSJGL
             TTiaoma ok = db.GetTiaomaById(id);
             if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该条码");
+                throw new MyException("非法操作，无法删除该条码", null);
             }
 
             db.DeleteTiaoma(id);

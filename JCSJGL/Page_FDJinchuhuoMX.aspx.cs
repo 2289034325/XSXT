@@ -37,7 +37,7 @@ namespace JCSJGL
                 TFendianJinchuhuo tf = db.GetFDJinchuhuoByJcId(jcid);
                 if (tf.TFendian.jmsid != _LoginUser.jmsid)
                 {
-                    throw new MyException("非法操作，无法显示数据");
+                    throw new MyException("非法操作，无法显示数据", null);
                 }
             }
 

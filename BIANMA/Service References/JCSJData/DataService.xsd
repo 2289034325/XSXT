@@ -73,15 +73,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetKuanhaos">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetKuanhaosResponse">
+  <xs:element name="GetKuanhaosByCond">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetKuanhaosResult" nillable="true" type="q4:ArrayOfTKuanhao" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKuanhaosByCondResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetKuanhaosByCondResult" nillable="true" type="q4:ArrayOfTKuanhao" />
+        <xs:element minOccurs="0" name="recordCount" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -154,6 +158,7 @@
   <xs:element name="CheckKuanhaosChongfu">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="ppid" type="xs:int" />
         <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="khs" nillable="true" type="q10:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
@@ -381,6 +386,54 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="XiazaiJinhuoShujuResult" nillable="true" type="q32:ArrayOfTCangkuJinchuhuo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuFinish">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ckjcids" nillable="true" type="q33:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuFinishResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteXiaoshoujilu">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteXiaoshoujiluResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJinchujilu_FD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJinchujilu_FDResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetYuanchuangPinpais">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetYuanchuangPinpaisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetYuanchuangPinpaisResult" nillable="true" type="q34:ArrayOfTJiamengshangPinpai" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

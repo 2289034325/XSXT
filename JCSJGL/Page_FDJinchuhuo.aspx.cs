@@ -175,7 +175,7 @@ namespace JCSJGL
             else
             {
                 //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行");
+                throw new MyException("非法操作，请刷新页面重新执行", null);
             }
         }
 

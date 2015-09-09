@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -27,7 +28,7 @@ namespace JCSJGL
                 }
                 else if (ex.Message.Contains("UNIQUE"))
                 {
-                    msg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                    msg = "发现重复数据！";
                 }
             }
 
@@ -54,7 +55,7 @@ namespace JCSJGL
                         }
                         else if (ex.Message.Contains("UNIQUE"))
                         {
-                            msg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                            msg = "发现重复数据！";
                         }
                     }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -59,7 +60,7 @@ namespace JCSJGL
             {
                 setCookie(false);
                 //Response.Redirect("Page_Error.aspx?ErrorMsg=用户名或密码不正确");
-                throw new MyException("用户名或密码不正确");
+                throw new MyException("用户名或密码不正确",null);
             }
             else
             {
@@ -67,7 +68,7 @@ namespace JCSJGL
                 {
                     setCookie(false);
                     //Response.Redirect("Page_Error.aspx?ErrorMsg=该账号已经被停用");
-                    throw new MyException("该账号已经被停用");
+                    throw new MyException("该账号已经被停用", null);
                 }
                 else
                 {

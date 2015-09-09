@@ -36,7 +36,7 @@ namespace JCSJGL
                 TFendianKucun tf = db.GetFDKucunById(jcid);
                 if (tf.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                 {
-                    throw new MyException("非法操作，无法显示数据");
+                    throw new MyException("非法操作，无法显示数据", null);
                 }
             }
 

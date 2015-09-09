@@ -159,6 +159,25 @@ namespace Tool.JCSJ
                 仓库 = 2,
                 编码 = 3
             }
+
+            /// <summary>
+            /// 加盟申请的审核结果
+            /// </summary>
+            public enum JMSQ_JIEGUO : byte
+            {
+                待审核 = 0,
+                通过 = 1,
+                拒绝 = 2
+            }
+
+            /// <summary>
+            /// 某个品牌是否接受加盟
+            /// </summary>
+            public enum JMS_PP_KJM : byte
+            {
+                不接受加盟 = 0,
+                接受加盟 = 1
+            }
         }
 
 }

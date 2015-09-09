@@ -174,6 +174,58 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 删除一个地区编码
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteDiqu(int id)
+            {
+                TDiqu d = _db.TDiqus.Single(r => r.id == id);
+
+                _db.TDiqus.Remove(d);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 审核通过后，自动删除请求记录
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteJiamengGXSQ(int id)
+            {
+                TJiamengshangGXSQ s = _db.TJiamengshangGXSQs.Single(r => r.id == id);
+
+                _db.TJiamengshangGXSQs.Remove(s);
+
+                _db.SaveChanges();
+            }
+            /// <summary>
+            /// 某个加盟商退出了加盟
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteJiamengGX(int id)
+            {
+                TJiamengshangGX g = _db.TJiamengshangGXes.Single(r => r.id == id);
+
+                _db.TJiamengshangGXes.Remove(g);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 删除一个原创品牌
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteJiamengshangPinpai(int id)
+            {
+                TJiamengshangPinpai p = _db.TJiamengshangPinpais.Single(r => r.id == id);
+
+                _db.TJiamengshangPinpais.Remove(p);
+
+                _db.SaveChanges();
+            }
+
         }
     }
 

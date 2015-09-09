@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
@@ -100,7 +101,7 @@ namespace JCSJGL
             TGongyingshang og = db.GetGongyingshangById(f.id);
             if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法修改此供应商信息");
+                throw new MyException("非法操作，无法修改此供应商信息", null);
             }
             db.UpdateGongyingshang(f);
 
@@ -150,7 +151,7 @@ namespace JCSJGL
             int cc = db.GetGongyingshangCount(_LoginUser.jmsid);
             if (cc >= _LoginUser.TJiamengshang.gongyingshangshu)
             {
-                throw new MyException("拥有的供应商数量已到上限，如有需要增加更多供应商请联系系统管理员");
+                throw new MyException("拥有的供应商数量已到上限，如有需要增加更多供应商请联系系统管理员", null);
             }
             db.InsertGongyingshang(f);
 
@@ -173,7 +174,7 @@ namespace JCSJGL
             TGongyingshang og = db.GetGongyingshangById(id);
             if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该供应商");
+                throw new MyException("非法操作，无法删除该供应商", null);
             }
             db.DeleteGongyingshang(id);
 

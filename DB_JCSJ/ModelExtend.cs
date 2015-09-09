@@ -19,15 +19,6 @@ namespace DB_JCSJ
             _db.Configuration.ProxyCreationEnabled = false;
         }
     }
-
-    public class MyDbException : Exception
-    {
-        public MyDbException(string msg)
-            : base(msg)
-        {
- 
-        }
-    }
 }
 
 namespace DB_JCSJ.Models

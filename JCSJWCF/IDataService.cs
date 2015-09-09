@@ -36,7 +36,7 @@ namespace JCSJWCF
 
 
         [OperationContract(IsInitiating = false)]
-        TKuanhao[] GetKuanhaos();
+        TKuanhao[] GetKuanhaosByCond(int pageSize, int pageIndex, out int recordCount);
 
 
         [OperationContract(IsInitiating = false)]
@@ -66,7 +66,7 @@ namespace JCSJWCF
         TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
 
         [OperationContract(IsInitiating = false)]
-        string[] CheckKuanhaosChongfu(string[] khs);
+        string[] CheckKuanhaosChongfu(int ppid,string[] khs);
 
         [OperationContract(IsInitiating = false)]
         string[] CheckTiaomaChongfu(string[] tms);
@@ -152,5 +152,12 @@ namespace JCSJWCF
         void DeleteXiaoshoujilu(int oid);
         [OperationContract(IsInitiating = false)]
         void DeleteJinchujilu_FD(int oid);
+
+        /// <summary>
+        /// 取得某加盟商的原创品牌
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract(IsInitiating = false)]
+        TJiamengshangPinpai[] GetYuanchuangPinpais();
     }
 }

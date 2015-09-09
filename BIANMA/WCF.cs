@@ -91,10 +91,10 @@ namespace BIANMA
         //    _jdc.DeleteGongyingshang(id);
         //}
 
-        internal static TKuanhao[] GetKuanhaos()
+        internal static TKuanhao[] GetKuanhaosByCond(int pageSize, int pageIndex, out int recordCount)
         {
             AutoLogin();
-            return _jdc.GetKuanhaos();
+            return _jdc.GetKuanhaosByCond(pageSize, pageIndex, out recordCount);
         }
 
         internal static TKuanhao InsertKuanhao(TKuanhao k)
@@ -139,10 +139,10 @@ namespace BIANMA
             return _jdc.GetKuanhaoByMc(kh);
         }
 
-        internal static string[] CheckKuanhaosChongfu(string[] khs)
+        internal static string[] CheckKuanhaosChongfu(int ppid,string[] khs)
         {
             AutoLogin();
-            return _jdc.CheckKuanhaosChongfu(khs);
+            return _jdc.CheckKuanhaosChongfu(ppid,khs);
         }
 
         internal static string[] CheckTiaomaChongfu(string[] tms)
@@ -167,6 +167,12 @@ namespace BIANMA
         {
             AutoLogin();
             _jdc.EditTiaoma(t);
+        }
+
+        internal static TJiamengshangPinpai[] GetYuanchuangPinpais()
+        {
+            AutoLogin();
+            return _jdc.GetYuanchuangPinpais();            
         }
     }
 }

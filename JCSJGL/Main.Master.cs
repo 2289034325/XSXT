@@ -30,7 +30,7 @@ namespace JCSJGL
                 MenuItem jmi = null;
                 foreach (MenuItem mi in div_mn_main.Items)
                 {
-                    if (mi.Text.Contains("加盟商"))
+                    if (mi.Text.Contains("加盟商信息"))
                     {
                         jmi = mi;
                         break;

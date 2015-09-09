@@ -36,7 +36,7 @@ namespace JCSJGL
                 TCangkuKucun tf = db.GetCKKucunById(jcid);
                 if (tf.TCangku.jmsid != _LoginUser.jmsid)
                 {
-                    throw new MyException("非法操作，无法显示数据");
+                    throw new MyException("非法操作，无法显示数据", null);
                 }
             }
 

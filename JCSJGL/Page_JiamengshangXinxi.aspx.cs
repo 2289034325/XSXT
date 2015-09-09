@@ -6,12 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_Jiamengshang : MyPage
+    public partial class Page_JiamengshangXinxi : MyPage
     {
-        public Page_Jiamengshang()
+        public Page_JiamengshangXinxi()
         {
             _PageName = PageName.加盟商信息;
         }
@@ -22,34 +23,15 @@ namespace JCSJGL
             {
                 //加载所有加盟商信息
                 loadJiamengshangs();
+
+                //地区下拉框
+                DBContext db = new DBContext();
+                VDiqu[] dqs = db.GetAllDiqus();
+                //将第一级和第二级地区连接
+                VDiqu[] ssdqs = dqs.Where(r => r.jibie == 1).ToArray();
+                Tool.CommonFunc.InitDropDownList(cmb_xzdq, ssdqs, "lujing", "id");
             }
-            //else
-            //{
-            //    string opt = hid_opt.Value;
-            //    if (opt == "DELETE")
-            //    {
-            //        //操作后清除操作标志
-            //        hid_opt.Value = "";
-
-            //        int id = int.Parse(hid_id.Value);
-            //        deleteJiamengshang(id);
-            //    }
-            //}
         }
-
-        /// <summary>
-        /// 删除一个加盟商
-        /// </summary>
-        /// <param name="id"></param>
-        //private void deleteJiamengshang(int id)
-        //{
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    DBContext db = new DBContext();
-        //    db.DeleteJiamengshang(id);
-
-        //    loadJiamengshangs();
-        //}
 
         /// <summary>
         /// 加载所有加盟商信息
@@ -58,10 +40,22 @@ namespace JCSJGL
         {
             DBContext db = new DBContext();
             TJiamengshang[] js = db.GetJiamengshangs();
+            VDiqu[] dqs = db.GetAllDiqus();
             var dfs = js.Select(r => new
             {
                 r.id,
                 r.mingcheng,
+                shoujihao = r.zhuceshouji,
+                youxiang = r.zhuceyouxiang,
+                diqu = dqs.Single(rr => rr.id == r.diquid).lujing,
+                r.dizhi,
+                r.lianxiren,
+                r.dianhua,
+                r.beizhu,
+
+                r.fjmsshu,
+                r.zjmsshu,
+                r.ppshu,
                 r.zhanghaoshu,
                 r.kuanhaoshu,
                 r.tiaomashu,
@@ -75,15 +69,13 @@ namespace JCSJGL
                 r.shoucifufei,
                 r.xufeidanjia,
                 jiezhiriqi = r.jiezhiriqi.ToString("yyyy/MM/dd"),
-                r.lianxiren,
-                r.dianhua,
-                r.beizhu,
                 r.charushijian,
                 r.xiugaishijian,
-                editParams = string.Format("{0},'{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},'{14}','{15}','{16}','{17}'", 
-                            r.id, r.mingcheng, r.zhanghaoshu,r.kuanhaoshu, r.tiaomashu, r.huiyuanshu, r.fendianshu, 
-                            r.cangkushu,r.gongyingshangshu,r.xsjilushu,r.jchjilushu,r.kcjilushu,r.shoucifufei, r.xufeidanjia,
-                            r.jiezhiriqi.ToString("yyyy-MM-dd"), r.lianxiren, r.dianhua, r.beizhu)
+                editParams = 
+                            r.id+",'"+r.mingcheng+"','"+r.zhuceshouji+"','"+r.zhuceyouxiang+"',"+r.diquid+",'"+r.dizhi+"','"+r.lianxiren+"','"+r.dianhua+"','"+ r.beizhu+
+                            "',"+r.fjmsshu+","+r.zjmsshu+","+r.ppshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+","+ r.huiyuanshu+","+ r.fendianshu+
+                            ","+r.cangkushu+","+r.gongyingshangshu+","+r.xsjilushu+","+r.jchjilushu+","+r.kcjilushu+","+r.shoucifufei+","+ r.xufeidanjia+
+                            ",'"+r.jiezhiriqi.ToString("yyyy-MM-dd")+"'"
             });
 
             grid_jiamengshang.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -100,8 +92,14 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
 
             TJiamengshang f = getEditInfo();
+            if (string.IsNullOrEmpty(hid_id.Value))
+            {
+                throw new MyException("请先选择需要修改的加盟商",null);
+            }
             f.id = int.Parse(hid_id.Value);
-            f.caozuorenid = _LoginUser.id;
+            //以防重复操作
+            hid_id.Value = "";
+            //f.caozuorenid = _LoginUser.id;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
@@ -116,8 +114,18 @@ namespace JCSJGL
         /// <returns></returns>
         private TJiamengshang getEditInfo()
         {
-            //int fendianid = int.Parse(cmb_fd.SelectedValue);
             string mc = txb_mc.Text.Trim();
+            string sjh = txb_sjh.Text.Trim();
+            string yx = txb_yx.Text.Trim();
+            int dq = int.Parse(cmb_xzdq.SelectedValue);
+            string lxr = txb_lxr.Text.Trim();
+            string dh = txb_dh.Text.Trim();
+            string dz = txb_dz.Text.Trim();
+            string bz = txb_bz.Text.Trim();
+
+            byte fjmss = byte.Parse(txb_fjmss.Text.Trim());
+            short zjmss = short.Parse(txb_zjmss.Text.Trim());
+            byte pps = byte.Parse(txb_pps.Text.Trim());
             byte zhs = byte.Parse(txb_zhs.Text.Trim());
             int khs = int.Parse(txb_khs.Text.Trim());
             int tms = int.Parse(txb_tms.Text.Trim());
@@ -131,13 +139,25 @@ namespace JCSJGL
             decimal scff = decimal.Parse(txb_scff.Text.Trim());
             decimal xfdj = decimal.Parse(txb_xfdj.Text.Trim());
             DateTime jzrq = DateTime.Parse(txb_jzrq.Text.Trim());
-            string lxr = txb_lxr.Text.Trim();
-            string dh = txb_dh.Text.Trim();
-            string bz = txb_bz.Text.Trim();
 
             TJiamengshang j = new TJiamengshang
             {
+                //基本信息
                 mingcheng = mc,
+                zhuceshouji = sjh,
+                zhuceyouxiang = yx,
+                diquid = dq,
+                dizhi = dz,
+                lianxiren = lxr,
+                dianhua = dh,
+                beizhu = bz,
+                charushijian = DateTime.Now,
+                xiugaishijian = DateTime.Now,
+                dtyzm = Tool.CommonFunc.GetRandomNum(6),
+
+                fjmsshu = fjmss,
+                zjmsshu = zjmss,
+                ppshu = pps,
                  zhanghaoshu = zhs,
                  kuanhaoshu = khs,
                  tiaomashu = tms,
@@ -151,16 +171,13 @@ namespace JCSJGL
                  shoucifufei = scff,
                  xufeidanjia = xfdj,
                  jiezhiriqi = jzrq,
-                 lianxiren = lxr,
-                 dianhua = dh,
-                 beizhu = bz
             };
 
             return j;
         }
 
         /// <summary>
-        /// 新增一个会员
+        /// 新增一个加盟商
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -169,8 +186,8 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TJiamengshang j= getEditInfo();
-            j.dtyzm = "";
-            j.caozuorenid = _LoginUser.id;
+            j.dtyzm = Tool.CommonFunc.GetRandomNum(6);            
+            //j.caozuorenid = _LoginUser.id;
             j.charushijian = DateTime.Now;
             j.xiugaishijian = DateTime.Now;
 
@@ -180,21 +197,24 @@ namespace JCSJGL
             loadJiamengshangs();
         }
 
-        /// <summary>
-        /// 删除一个加盟商
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void grid_jiamengshang_RowDeleting(object sender, GridViewDeleteEventArgs e)
+
+        protected void grid_jiamengshang_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = int.Parse(grid_jiamengshang.DataKeys[index].Value.ToString());
+            if (e.CommandName == "SC")
+            {
+                Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-            int id = int.Parse(grid_jiamengshang.DataKeys[e.RowIndex].Value.ToString());
+                DBContext db = new DBContext();
+                db.DeleteJiamengshang(id);
 
-            DBContext db = new DBContext();
-            db.DeleteJiamengshang(id);
-
-            loadJiamengshangs();
+                loadJiamengshangs();
+            }
+            else
+            {
+                throw new MyException("非法操作", null);
+            }
         }
     }
 }

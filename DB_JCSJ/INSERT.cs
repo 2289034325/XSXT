@@ -242,7 +242,49 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
-            
+
+            public TDiqu InsertDiqu(TDiqu d)
+            {
+               TDiqu nd = _db.TDiqus.Add(d);
+
+                _db.SaveChanges();
+
+                return nd;
+            }
+
+            /// <summary>
+            /// 插入一个加盟申请信息
+            /// </summary>
+            /// <param name="s"></param>
+            public void InsertJiamengGXSQ(TJiamengshangGXSQ s)
+            {
+                _db.TJiamengshangGXSQs.Add(s);
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 插入一个加盟关系
+            /// </summary>
+            /// <param name="g"></param>
+            public void InsertJiamengGX(TJiamengshangGX g)
+            {
+                _db.TJiamengshangGXes.Add(g);
+
+                _db.SaveChanges();
+            }
+
+
+            /// <summary>
+            /// 某个加盟商创建一个新品牌
+            /// </summary>
+            /// <param name="p"></param>
+            public void InsertJiamengshangPinpai(TJiamengshangPinpai p)
+            {
+                _db.TJiamengshangPinpais.Add(p);
+
+                _db.SaveChanges();
+            }
         }
     }
 

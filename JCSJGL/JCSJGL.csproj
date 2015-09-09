@@ -73,6 +73,54 @@
     <Content Include="imgs\iphoneLogo.png" />
     <Content Include="imgs\webLogo.ico" />
     <Content Include="jquery-2.1.3.js" />
+    <Content Include="jquery-ui-1.11.4\external\jquery\jquery.js" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-icons_222222_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\index.html" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\external\jquery\jquery.js" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-icons_222222_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\index.html" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.js" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.min.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.min.js" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.structure.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.structure.min.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.theme.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui-1.11.4.custom\jquery-ui.theme.min.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.js" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.min.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.min.js" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.structure.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.structure.min.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.theme.css" />
+    <Content Include="jquery-ui-1.11.4\jquery-ui.theme.min.css" />
     <Content Include="jquery.mobile-1.4.5\images\ajax-loader.gif" />
     <Content Include="jquery.mobile-1.4.5\images\icons-png\action-black.png" />
     <Content Include="jquery.mobile-1.4.5\images\icons-png\action-white.png" />
@@ -290,6 +338,9 @@
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Page_PinpaiXinxi.aspx" />
+    <Content Include="Page_WodeXinxi.aspx" />
+    <Content Include="Zhuce.aspx" />
     <Content Include="Main.Master" />
     <Content Include="MobileAdapter.js" />
     <Content Include="MyStyle.css" />
@@ -313,7 +364,9 @@
     <Content Include="Page_CKKucun.aspx" />
     <Content Include="Page_CKKucunMX.aspx" />
     <Content Include="Page_Dtyzm.aspx" />
-    <Content Include="Page_Jiamengshang.aspx" />
+    <Content Include="Page_Diqu.aspx" />
+    <Content Include="Page_JiamengshangGuanxi.aspx" />
+    <Content Include="Page_JiamengshangXinxi.aspx" />
     <Content Include="Page_TongjiBiao.aspx" />
     <Content Include="Page_TongjiTu.aspx" />
     <Content Include="Page_FDKucunMX.aspx" />
@@ -335,6 +388,27 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Page_PinpaiXinxi.aspx.cs">
+      <DependentUpon>Page_PinpaiXinxi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_PinpaiXinxi.aspx.designer.cs">
+      <DependentUpon>Page_PinpaiXinxi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_WodeXinxi.aspx.cs">
+      <DependentUpon>Page_WodeXinxi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_WodeXinxi.aspx.designer.cs">
+      <DependentUpon>Page_WodeXinxi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Zhuce.aspx.cs">
+      <DependentUpon>Zhuce.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Zhuce.aspx.designer.cs">
+      <DependentUpon>Zhuce.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -399,12 +473,26 @@
     <Compile Include="Page_Dtyzm.aspx.designer.cs">
       <DependentUpon>Page_Dtyzm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Page_Jiamengshang.aspx.cs">
-      <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>
+    <Compile Include="Page_Diqu.aspx.cs">
+      <DependentUpon>Page_Diqu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page_Jiamengshang.aspx.designer.cs">
-      <DependentUpon>Page_Jiamengshang.aspx</DependentUpon>
+    <Compile Include="Page_Diqu.aspx.designer.cs">
+      <DependentUpon>Page_Diqu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_JiamengshangGuanxi.aspx.cs">
+      <DependentUpon>Page_JiamengshangGuanxi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_JiamengshangGuanxi.aspx.designer.cs">
+      <DependentUpon>Page_JiamengshangGuanxi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_JiamengshangXinxi.aspx.cs">
+      <DependentUpon>Page_JiamengshangXinxi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_JiamengshangXinxi.aspx.designer.cs">
+      <DependentUpon>Page_JiamengshangXinxi.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_TongjiBiao.aspx.cs">
       <DependentUpon>Page_TongjiBiao.aspx</DependentUpon>

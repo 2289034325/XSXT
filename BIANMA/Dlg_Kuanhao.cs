@@ -41,7 +41,8 @@ namespace BIANMA
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            TKuanhao[] ks = JCSJWCF.GetKuanhaos();
+            int recordCount = 0;
+            TKuanhao[] ks = JCSJWCF.GetKuanhaosByCond(100,0,out recordCount);
             
             grid_kh.Rows.Clear();
             foreach (TKuanhao k in ks)
@@ -151,8 +152,8 @@ namespace BIANMA
             txb_pm.Text = dr.Cells[col_pm.Name].Value.ToString();
             txb_bz.Text = dr.Cells[col_bz.Name].Value.ToString();
 
-            cmb_xb.SelectedText = dr.Cells[col_xb.Name].Value.ToString();
-            cmb_lx.SelectedText = dr.Cells[col_lx.Name].Value.ToString();
+            cmb_xb.SelectedValue = dr.Cells[col_xb.Name].Value.ToString();
+            cmb_lx.SelectedValue = dr.Cells[col_lx.Name].Value.ToString();
         }
 
 

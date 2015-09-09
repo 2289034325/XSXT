@@ -13,7 +13,7 @@ namespace DB_JCSJ.Models.Mapping
             // Properties
             this.Property(t => t.dengluming)
                 .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(20);
 
             this.Property(t => t.mima)
                 .IsRequired()
@@ -25,7 +25,7 @@ namespace DB_JCSJ.Models.Mapping
 
             this.Property(t => t.yonghuming)
                 .IsRequired()
-                .HasMaxLength(5);
+                .HasMaxLength(20);
 
             this.Property(t => t.beizhu)
                 .IsRequired()

@@ -11,15 +11,15 @@ namespace BIANMA
         //新款旧款
         public enum KUANHAO_XINJIU : byte
         {
-            新款=1,
-            旧款=2
+            新款号=1,
+            既存款号=2
         }
 
         //条码新旧
         public enum TIAOMA_XINJIU : byte
         {
             新条码 = 1,
-            旧条码 = 2
+            既存条码 = 2
         }
 
         /// <summary>

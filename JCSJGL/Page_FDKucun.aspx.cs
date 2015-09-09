@@ -200,7 +200,7 @@ namespace JCSJGL
             TFendianKucun ok = db.GetFDKucunById(id);
             if (ok.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("非法操作，无法删除该数据");
+                throw new MyException("非法操作，无法删除该数据", null);
             }
 
             db.DeleteFDKucun(id); 
@@ -238,7 +238,7 @@ namespace JCSJGL
             else
             {
                 //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行");
+                throw new MyException("非法操作，请刷新页面重新执行", null);
             }
         }
     }
