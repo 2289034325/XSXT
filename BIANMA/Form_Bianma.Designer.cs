@@ -45,6 +45,15 @@
             this.mni_bqdy = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_fddr = new System.Windows.Forms.ToolStripMenuItem();
             this.grid_all = new System.Windows.Forms.DataGridView();
+            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_szgys = new System.Windows.Forms.Button();
+            this.cmb_gys = new System.Windows.Forms.ComboBox();
+            this.btn_jssj = new System.Windows.Forms.Button();
+            this.txb_sjxs = new System.Windows.Forms.TextBox();
+            this.mni_jiazai_fhjl = new System.Windows.Forms.ToolStripMenuItem();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,15 +72,7 @@
             this.col_all_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmn_all = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_all_shuaxin = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_all_saveTm = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_szgys = new System.Windows.Forms.Button();
-            this.cmb_gys = new System.Windows.Forms.ComboBox();
-            this.btn_jssj = new System.Windows.Forms.Button();
-            this.txb_sjxs = new System.Windows.Forms.TextBox();
-            this.cmb_pp = new System.Windows.Forms.ComboBox();
+            this.cmn_all_zsjk = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
@@ -128,7 +129,8 @@
             this.mni_jiazai.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mni_jiazai_fuwuqi,
             this.mni_jiazai_bendi,
-            this.mni_jiazai_wenjian});
+            this.mni_jiazai_wenjian,
+            this.mni_jiazai_fhjl});
             this.mni_jiazai.Name = "mni_jiazai";
             this.mni_jiazai.Size = new System.Drawing.Size(92, 21);
             this.mni_jiazai.Text = "加载条码信息";
@@ -136,22 +138,22 @@
             // mni_jiazai_fuwuqi
             // 
             this.mni_jiazai_fuwuqi.Name = "mni_jiazai_fuwuqi";
-            this.mni_jiazai_fuwuqi.Size = new System.Drawing.Size(162, 22);
-            this.mni_jiazai_fuwuqi.Text = "从服务器加载";
+            this.mni_jiazai_fuwuqi.Size = new System.Drawing.Size(196, 22);
+            this.mni_jiazai_fuwuqi.Text = "从服务器加载已有条码";
             this.mni_jiazai_fuwuqi.Click += new System.EventHandler(this.mni_jiazai_Click);
             // 
             // mni_jiazai_bendi
             // 
             this.mni_jiazai_bendi.Name = "mni_jiazai_bendi";
-            this.mni_jiazai_bendi.Size = new System.Drawing.Size(162, 22);
+            this.mni_jiazai_bendi.Size = new System.Drawing.Size(196, 22);
             this.mni_jiazai_bendi.Text = "从本地XML加载";
             this.mni_jiazai_bendi.Click += new System.EventHandler(this.mni_jiazai_bendi_Click);
             // 
             // mni_jiazai_wenjian
             // 
             this.mni_jiazai_wenjian.Name = "mni_jiazai_wenjian";
-            this.mni_jiazai_wenjian.Size = new System.Drawing.Size(162, 22);
-            this.mni_jiazai_wenjian.Text = "从文件加载";
+            this.mni_jiazai_wenjian.Size = new System.Drawing.Size(196, 22);
+            this.mni_jiazai_wenjian.Text = "从CSV文件加载";
             this.mni_jiazai_wenjian.Click += new System.EventHandler(this.mni_jiazai_wenjian_Click);
             // 
             // 保存ToolStripMenuItem
@@ -166,14 +168,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -189,14 +191,14 @@
             // mni_bqdy
             // 
             this.mni_bqdy.Name = "mni_bqdy";
-            this.mni_bqdy.Size = new System.Drawing.Size(148, 22);
+            this.mni_bqdy.Size = new System.Drawing.Size(152, 22);
             this.mni_bqdy.Text = "标签打印";
             this.mni_bqdy.Click += new System.EventHandler(this.mni_dyexcel_Click);
             // 
             // mni_fddr
             // 
             this.mni_fddr.Name = "mni_fddr";
-            this.mni_fddr.Size = new System.Drawing.Size(148, 22);
+            this.mni_fddr.Size = new System.Drawing.Size(152, 22);
             this.mni_fddr.Text = "条码数量清单";
             this.mni_fddr.Click += new System.EventHandler(this.mni_fddr_Click);
             // 
@@ -240,6 +242,84 @@
             this.grid_all.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_all_UserDeletedRow);
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
             this.grid_all.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_all_KeyDown);
+            // 
+            // cmn_all
+            // 
+            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmn_all_shuaxin,
+            this.cmn_all_saveTm,
+            this.cmn_all_zsjk});
+            this.cmn_all.Name = "cmn_all";
+            this.cmn_all.Size = new System.Drawing.Size(153, 92);
+            // 
+            // cmn_all_shuaxin
+            // 
+            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
+            this.cmn_all_shuaxin.Size = new System.Drawing.Size(152, 22);
+            this.cmn_all_shuaxin.Text = "刷新";
+            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
+            // 
+            // cmn_all_saveTm
+            // 
+            this.cmn_all_saveTm.Name = "cmn_all_saveTm";
+            this.cmn_all_saveTm.Size = new System.Drawing.Size(152, 22);
+            this.cmn_all_saveTm.Text = "保存修改";
+            this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btn_szgys);
+            this.panel1.Controls.Add(this.cmb_gys);
+            this.panel1.Controls.Add(this.btn_jssj);
+            this.panel1.Controls.Add(this.txb_sjxs);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1170, 35);
+            this.panel1.TabIndex = 11;
+            // 
+            // btn_szgys
+            // 
+            this.btn_szgys.Location = new System.Drawing.Point(326, 6);
+            this.btn_szgys.Name = "btn_szgys";
+            this.btn_szgys.Size = new System.Drawing.Size(75, 23);
+            this.btn_szgys.TabIndex = 3;
+            this.btn_szgys.Text = "设置供应商";
+            this.btn_szgys.UseVisualStyleBackColor = true;
+            this.btn_szgys.Click += new System.EventHandler(this.btn_szgys_Click);
+            // 
+            // cmb_gys
+            // 
+            this.cmb_gys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_gys.FormattingEnabled = true;
+            this.cmb_gys.Location = new System.Drawing.Point(199, 8);
+            this.cmb_gys.Name = "cmb_gys";
+            this.cmb_gys.Size = new System.Drawing.Size(121, 20);
+            this.cmb_gys.TabIndex = 2;
+            // 
+            // btn_jssj
+            // 
+            this.btn_jssj.Location = new System.Drawing.Point(118, 6);
+            this.btn_jssj.Name = "btn_jssj";
+            this.btn_jssj.Size = new System.Drawing.Size(75, 23);
+            this.btn_jssj.TabIndex = 1;
+            this.btn_jssj.Text = "计算售价";
+            this.btn_jssj.UseVisualStyleBackColor = true;
+            this.btn_jssj.Click += new System.EventHandler(this.btn_jssj_Click);
+            // 
+            // txb_sjxs
+            // 
+            this.txb_sjxs.Location = new System.Drawing.Point(12, 7);
+            this.txb_sjxs.Name = "txb_sjxs";
+            this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
+            this.txb_sjxs.TabIndex = 0;
+            // 
+            // mni_jiazai_fhjl
+            // 
+            this.mni_jiazai_fhjl.Name = "mni_jiazai_fhjl";
+            this.mni_jiazai_fhjl.Size = new System.Drawing.Size(196, 22);
+            this.mni_jiazai_fhjl.Text = "从供应商发货记录加载";
+            this.mni_jiazai_fhjl.Click += new System.EventHandler(this.mni_jiazai_fhjl_Click);
             // 
             // col_all_tmidex
             // 
@@ -349,7 +429,7 @@
             // col_all_sj
             // 
             this.col_all_sj.DataPropertyName = "shoujia";
-            this.col_all_sj.HeaderText = "售价";
+            this.col_all_sj.HeaderText = "吊牌价";
             this.col_all_sj.Name = "col_all_sj";
             this.col_all_sj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
@@ -369,85 +449,12 @@
             this.col_all_xgsj.ReadOnly = true;
             this.col_all_xgsj.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // cmn_all
+            // cmn_all_zsjk
             // 
-            this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmn_all_shuaxin,
-            this.cmn_all_saveTm});
-            this.cmn_all.Name = "cmn_all";
-            this.cmn_all.Size = new System.Drawing.Size(125, 48);
-            // 
-            // cmn_all_shuaxin
-            // 
-            this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
-            this.cmn_all_shuaxin.Size = new System.Drawing.Size(124, 22);
-            this.cmn_all_shuaxin.Text = "刷新";
-            this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
-            // 
-            // cmn_all_saveTm
-            // 
-            this.cmn_all_saveTm.Name = "cmn_all_saveTm";
-            this.cmn_all_saveTm.Size = new System.Drawing.Size(124, 22);
-            this.cmn_all_saveTm.Text = "保存修改";
-            this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cmb_pp);
-            this.panel1.Controls.Add(this.btn_szgys);
-            this.panel1.Controls.Add(this.cmb_gys);
-            this.panel1.Controls.Add(this.btn_jssj);
-            this.panel1.Controls.Add(this.txb_sjxs);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 25);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1170, 35);
-            this.panel1.TabIndex = 11;
-            // 
-            // btn_szgys
-            // 
-            this.btn_szgys.Location = new System.Drawing.Point(326, 6);
-            this.btn_szgys.Name = "btn_szgys";
-            this.btn_szgys.Size = new System.Drawing.Size(75, 23);
-            this.btn_szgys.TabIndex = 3;
-            this.btn_szgys.Text = "设置供应商";
-            this.btn_szgys.UseVisualStyleBackColor = true;
-            this.btn_szgys.Click += new System.EventHandler(this.btn_szgys_Click);
-            // 
-            // cmb_gys
-            // 
-            this.cmb_gys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_gys.FormattingEnabled = true;
-            this.cmb_gys.Location = new System.Drawing.Point(199, 8);
-            this.cmb_gys.Name = "cmb_gys";
-            this.cmb_gys.Size = new System.Drawing.Size(121, 20);
-            this.cmb_gys.TabIndex = 2;
-            // 
-            // btn_jssj
-            // 
-            this.btn_jssj.Location = new System.Drawing.Point(118, 6);
-            this.btn_jssj.Name = "btn_jssj";
-            this.btn_jssj.Size = new System.Drawing.Size(75, 23);
-            this.btn_jssj.TabIndex = 1;
-            this.btn_jssj.Text = "计算售价";
-            this.btn_jssj.UseVisualStyleBackColor = true;
-            this.btn_jssj.Click += new System.EventHandler(this.btn_jssj_Click);
-            // 
-            // txb_sjxs
-            // 
-            this.txb_sjxs.Location = new System.Drawing.Point(12, 7);
-            this.txb_sjxs.Name = "txb_sjxs";
-            this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
-            this.txb_sjxs.TabIndex = 0;
-            // 
-            // cmb_pp
-            // 
-            this.cmb_pp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_pp.FormattingEnabled = true;
-            this.cmb_pp.Location = new System.Drawing.Point(407, 8);
-            this.cmb_pp.Name = "cmb_pp";
-            this.cmb_pp.Size = new System.Drawing.Size(121, 20);
-            this.cmb_pp.TabIndex = 4;
+            this.cmn_all_zsjk.Name = "cmn_all_zsjk";
+            this.cmn_all_zsjk.Size = new System.Drawing.Size(152, 22);
+            this.cmn_all_zsjk.Text = "这是旧款";
+            this.cmn_all_zsjk.Click += new System.EventHandler(this.cmn_all_zsjk_Click);
             // 
             // Form_Bianma
             // 
@@ -500,6 +507,7 @@
         private System.Windows.Forms.Button btn_szgys;
         private System.Windows.Forms.ComboBox cmb_gys;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_wenjian;
+        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_fhjl;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;
@@ -518,7 +526,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_sj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
-        private System.Windows.Forms.ComboBox cmb_pp;
+        private System.Windows.Forms.ToolStripMenuItem cmn_all_zsjk;
     }
 }
 

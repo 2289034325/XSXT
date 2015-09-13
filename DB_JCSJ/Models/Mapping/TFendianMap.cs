@@ -70,7 +70,7 @@ namespace DB_JCSJ.Models.Mapping
             this.HasRequired(t => t.TJiamengshang)
                 .WithMany(t => t.TFendians)
                 .HasForeignKey(d => d.jmsid);
-            this.HasRequired(t => t.TJiamengshangPinpai)
+            this.HasRequired(t => t.TPinpai)
                 .WithMany(t => t.TFendians)
                 .HasForeignKey(d => d.ppid);
             this.HasRequired(t => t.TUser)

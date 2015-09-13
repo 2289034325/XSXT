@@ -36,7 +36,7 @@ namespace DB_JCSJ.Models.Mapping
             this.HasRequired(t => t.Jms)
                 .WithMany(t => t.SjGxes)
                 .HasForeignKey(d => d.jmsid);
-            this.HasRequired(t => t.TJiamengshangPinpai)
+            this.HasRequired(t => t.TPinpai)
                 .WithMany(t => t.TJiamengshangGXes)
                 .HasForeignKey(d => d.ppid);
 

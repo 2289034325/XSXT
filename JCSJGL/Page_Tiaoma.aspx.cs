@@ -96,27 +96,27 @@ namespace JCSJGL
             }
 
             DBContext db = new DBContext();
-            VTiaoma[] fs = db.GetTiaomasByCond(null,jmsid,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
+            TTiaoma[] fs = db.GetTiaomasByCond(jmsid,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.jms,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 tiaoma = r.tiaoma,
                 yanse = r.yanse,
                 chima = r.chima,
                 jinjia = r.jinjia,
                 shoujia = r.shoujia,
-                kuanhao = r.kuanhao,
-                pinpai = r.pinpai,
-                leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
-                pinming = r.pinming,
-                gongyingshang = r.gys,
+                kuanhao = r.TKuanhao.kuanhao,
+                pinpai = r.TKuanhao.TPinpai.mingcheng,
+                leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
+                pinming = r.TKuanhao.pinming,
+                gongyingshang = r.TGongyingshang.mingcheng,
                 gysid = r.gysid,
                 gyskuanhao = r.gyskuanhao,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.tiaoma + "','" + r.yanse + "','" + r.chima + "','" + r.jinjia + "','" + r.shoujia + "','" +
-                             r.kuanhao + "','" + r.gysid + "','" + r.gyskuanhao + "'"
+                             r.TKuanhao.kuanhao + "','" + r.gysid + "','" + r.gyskuanhao + "'"
             });
 
             grid_tiaoma.VirtualItemCount = recordCount;
@@ -171,7 +171,7 @@ namespace JCSJGL
 
             //TODO
             //当前款号只在某品牌内不重复，如果某加盟商有多个品牌，而且不同的品牌内有相同款号的话，该方法就会报错
-            TKuanhao[] ks = db.GetKuanhaosByMcWithJmsId(kuanhao, _LoginUser.jmsid);
+            TKuanhao[] ks = db.GetKuanhaosByMcJmsId(new string[]{kuanhao}, _LoginUser.jmsid);
             if (ks.Count() == 0)
             {
                 throw new MyException("该款号不存在，或者该款号不属于您", null);

@@ -11,7 +11,6 @@ namespace DB_JCSJ.Models
             this.TCangkuKucunMXes = new List<TCangkuKucunMX>();
             this.TFendianJinchuhuoMXes = new List<TFendianJinchuhuoMX>();
             this.TFendianKucunMXes = new List<TFendianKucunMX>();
-            this.TTiaomaJinjias = new List<TTiaomaJinjia>();
             this.TXiaoshous = new List<TXiaoshou>();
         }
 
@@ -36,7 +35,6 @@ namespace DB_JCSJ.Models
         public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TKuanhao TKuanhao { get; set; }
         public virtual TUser TUser { get; set; }
-        public virtual ICollection<TTiaomaJinjia> TTiaomaJinjias { get; set; }
         public virtual ICollection<TXiaoshou> TXiaoshous { get; set; }
     }
 }

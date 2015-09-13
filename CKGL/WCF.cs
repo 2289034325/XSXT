@@ -78,10 +78,10 @@ namespace CKGL
         /// 取得条码
         /// </summary>
         /// <returns></returns>
-        internal static VTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
+        internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByCond(null,"","",upt_start, upt_end);
+            return _jdc.GetTiaomasByCond("","",upt_start, upt_end);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace CKGL
         /// </summary>
         /// <param name="tmhs"></param>
         /// <returns></returns>
-        internal static VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+        internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
         {
             Login();
             return _jdc.GetTiaomasByTiaomahaos(tmhs);

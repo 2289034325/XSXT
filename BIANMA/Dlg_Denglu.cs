@@ -1,4 +1,5 @@
-﻿using DB_JCSJ;
+﻿using BIANMA.Properties;
+using DB_JCSJ;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,8 +30,19 @@ namespace BIANMA
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            LoginInfo.User = JCSJWCF.Login(dlm, mm);
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                {
+                    try
+                    {
+                        RuntimeInfo.LoginUser = JCSJWCF.Login(dlm, mm);
+                        this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                        ShowMsg(ex.Message, true);
+                    }
+                }, true).Start();
         }
 
         /// <summary>

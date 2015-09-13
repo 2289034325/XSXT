@@ -97,16 +97,16 @@ namespace BIANMA
             _jdc.DeleteKuanhao(id);
         }
 
-        internal static VTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
+        internal static TTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
         {
             AutoLogin();
-            return _jdc.GetTiaomasByCond((byte)Tool.JCSJ.DBCONSTS.TIAOMA_LY.原创,kuanhao, tiaoma, start, end);
+            return _jdc.GetTiaomasByCond(kuanhao, tiaoma, start, end);
         }
 
-        internal static TKuanhao GetKuanhaoByMc(string kh)
+        internal static TKuanhao[] GetKuanhaosByMcs(string[] khs)
         {
             AutoLogin();
-            return _jdc.GetKuanhaoByMc(kh);
+            return _jdc.GetKuanhaosByMcs(khs);
         }
 
         internal static string[] CheckKuanhaosChongfu(string[] khs)
@@ -139,10 +139,15 @@ namespace BIANMA
             _jdc.EditTiaoma(t);
         }
 
-        internal static TJiamengshangPinpai[] GetYuanchuangPinpais()
+        internal static TPinpai[] GetYCPinpais()
         {
             AutoLogin();
-            return _jdc.GetYuanchuangPinpais();            
+            return _jdc.GetYCPinpais();            
+        }
+        internal static TPinpai[] GetJMPinpais()
+        {
+            AutoLogin();
+            return _jdc.GetJMPinpais();
         }
     }
 }

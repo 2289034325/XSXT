@@ -98,13 +98,13 @@ namespace FDXS
             _jdc.ShangbaoKucun_FD(fks);
         }
 
-        internal static VTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
+        internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByCond(null,null, null, upt_start, upt_end);
+            return _jdc.GetTiaomasByCond(null, null, upt_start, upt_end);
         }
 
-        internal static VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+        internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
         {
             Login();
             return _jdc.GetTiaomasByTiaomahaos(tmhs);

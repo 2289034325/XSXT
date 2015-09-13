@@ -28,7 +28,7 @@ namespace JCSJWCF
         //void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
-        VTiaoma[] GetTiaomasByCond(byte? tmly,string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
+        TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
 
 
         [OperationContract(IsInitiating = false)]
@@ -60,7 +60,8 @@ namespace JCSJWCF
         //void DeleteGongyingshang(int id);
 
         [OperationContract(IsInitiating = false)]
-        TKuanhao GetKuanhaoByMc(string kh);
+        TKuanhao[] GetKuanhaosByMcs(string[] khs);
+        //TKuanhao GetKuanhaoByMc(string kh);
 
         //[OperationContract(IsInitiating = false)]
         //TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
@@ -85,7 +86,7 @@ namespace JCSJWCF
         //TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end);
 
         [OperationContract(IsInitiating = false)]
-        VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
+        TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
 
 
         [OperationContract(IsInitiating = false)]
@@ -162,6 +163,12 @@ namespace JCSJWCF
         /// </summary>
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
-        TJiamengshangPinpai[] GetYuanchuangPinpais();
+        TPinpai[] GetYCPinpais();
+        /// <summary>
+        /// 取得某加盟商加盟的品牌
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract(IsInitiating = false)]
+        TPinpai[] GetJMPinpais();
     }
 }

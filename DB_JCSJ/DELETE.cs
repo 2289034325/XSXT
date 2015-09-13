@@ -219,9 +219,9 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteJiamengshangPinpai(int id)
             {
-                TJiamengshangPinpai p = _db.TJiamengshangPinpais.Single(r => r.id == id);
+                TPinpai p = _db.TPinpais.Single(r => r.id == id);
 
-                _db.TJiamengshangPinpais.Remove(p);
+                _db.TPinpais.Remove(p);
 
                 _db.SaveChanges();
             }

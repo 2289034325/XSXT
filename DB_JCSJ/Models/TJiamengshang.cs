@@ -16,9 +16,8 @@ namespace DB_JCSJ.Models
             this.SjGxes = new List<TJiamengshangGX>();
             this.SQXjGxes = new List<TJiamengshangGXSQ>();
             this.SQSjGxes = new List<TJiamengshangGXSQ>();
-            this.TJiamengshangPinpais = new List<TJiamengshangPinpai>();
+            this.TPinpais = new List<TPinpai>();
             this.TTiaomas = new List<TTiaoma>();
-            this.TTiaomaJinjias = new List<TTiaomaJinjia>();
             this.TUsers = new List<TUser>();
         }
 
@@ -60,9 +59,8 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TJiamengshangGX> SjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQXjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQSjGxes { get; set; }
-        public virtual ICollection<TJiamengshangPinpai> TJiamengshangPinpais { get; set; }
+        public virtual ICollection<TPinpai> TPinpais { get; set; }
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
-        public virtual ICollection<TTiaomaJinjia> TTiaomaJinjias { get; set; }
         public virtual ICollection<TUser> TUsers { get; set; }
     }
 }

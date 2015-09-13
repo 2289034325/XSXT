@@ -1,4 +1,5 @@
-﻿using DB_JCSJ;
+﻿using BIANMA.Properties;
+using DB_JCSJ;
 using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
@@ -35,20 +36,34 @@ namespace BIANMA
         }  
 
         /// <summary>
-        /// 重新加载供应商信息
+        /// 重新加载款号信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_refresh_Click(object sender, EventArgs e)
         {
             int recordCount = 0;
-            TKuanhao[] ks = JCSJWCF.GetKuanhaosByCond(100,0,out recordCount);
-            
-            grid_kh.Rows.Clear();
-            foreach (TKuanhao k in ks)
+            TKuanhao[] ks = null;
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
             {
-                addKuanhao(k);
-            }
+                try
+                {
+                    //TODO
+                    //暂时未分页
+                    ks = JCSJWCF.GetKuanhaosByCond(100, 0, out recordCount);
+
+                    grid_kh.Rows.Clear();
+                    foreach (TKuanhao k in ks)
+                    {
+                        addKuanhao(k);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, true).Start();
         }
 
         /// <summary>
@@ -59,11 +74,20 @@ namespace BIANMA
         private void btn_add_Click(object sender, EventArgs e)
         {
             TKuanhao k = getEditInfo();
-            TKuanhao nk;
-
-            nk = JCSJWCF.InsertKuanhao(k);
-
-            addKuanhao(nk);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    TKuanhao nk = JCSJWCF.InsertKuanhao(k);
+                    addKuanhao(nk);
+                    ShowMsg("增加成功", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, true).Start();
         }
 
         /// <summary>
@@ -172,9 +196,20 @@ namespace BIANMA
             TKuanhao ok = getEditInfo();
             ok.id = (int)grid_kh.SelectedRows[0].Cells[col_id.Name].Value;
 
-            JCSJWCF.EditKuanhao(ok);
-
-            editKuanhao(ok);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJWCF.EditKuanhao(ok);
+                    editKuanhao(ok);
+                    ShowMsg("修改成功", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
         }
 
         /// <summary>
@@ -186,7 +221,20 @@ namespace BIANMA
         {
             int id = int.Parse(e.Row.Cells["col_id"].Value.ToString());
 
-            JCSJWCF.DeleteKuanhao(id);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJWCF.DeleteKuanhao(id);
+
+                    ShowMsg("删除成功", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, true).Start();
         }
     }
 }

@@ -176,13 +176,13 @@ namespace JCSJWCF
         /// <param name="Start">条码插入时间</param>
         /// <param name="End">条码插入时间</param>
         /// <returns></returns>
-        public VTiaoma[] GetTiaomasByCond(byte? tmly,string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End)
+        public TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End)
         {
             DBContext db = new DBContext();
             int recordCount = 0;
             int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
 
-            VTiaoma[] ts = db.GetTiaomasByCond(tmly, _jmsid, null, Kuanhao, Tiaoma, Start, End, dataLimit, 0, out recordCount);
+            TTiaoma[] ts = db.GetTiaomasByCond(_jmsid, null, Kuanhao, Tiaoma, Start, End, dataLimit, 0, out recordCount);
             if (recordCount > dataLimit)
             {
                 throw new MyException("数据太多，请缩小时间区域", null);
@@ -260,7 +260,7 @@ namespace JCSJWCF
             k.charushijian = DateTime.Now;
             k.xiugaishijian = DateTime.Now;
 
-            TKuanhao[] oks = db.GetKuanhaosByMcWithJmsId(k.kuanhao, _LoginUser.jmsid);
+            TKuanhao[] oks = db.GetKuanhaosByMcJmsId(new string[]{k.kuanhao}, _LoginUser.jmsid);
             if (oks.Count() > 0)
             {
                 throw new MyException("款号重复", null);
@@ -283,7 +283,7 @@ namespace JCSJWCF
             }
 
             TKuanhao ok = db.GetKuanhaoById(k.id);
-            if (ok.TJiamengshangPinpai.jmsid != _jmsid)
+            if (ok.TPinpai.jmsid != _jmsid)
             {
                 throw new MyException("非法操作，无法修改该款号信息", null);
             }
@@ -301,7 +301,7 @@ namespace JCSJWCF
             DBContext db = new DBContext();
             TKuanhao k = db.GetKuanhaoById(id);
 
-            if (k.TJiamengshangPinpai.jmsid != _jmsid)
+            if (k.TPinpai.jmsid != _jmsid)
             {
                 throw new MyException("非法操作，无法删除该款号", null);
             }
@@ -314,21 +314,34 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="kh"></param>
         /// <returns></returns>
-        public TKuanhao GetKuanhaoByMc(string kh)
+        //public TKuanhao GetKuanhaoByMc(string kh)
+        //{
+        //    DBContext db = new DBContext();
+        //    TKuanhao[] ks = db.GetKuanhaosByMcJmsId(new string[]{kh}, _jmsid);
+        //    if (ks.Count() >1)
+        //    {
+        //        throw new MyException("款号[" + kh + "]重复，属于多个品牌，无法加载其信息", null);
+        //    }
+        //    TKuanhao k = null;
+        //    if (ks.Count() == 1)
+        //    {
+        //        k = ks[0];
+        //    }
+
+        //    return k;
+        //}
+        public TKuanhao[] GetKuanhaosByMcs(string[] khs)
         {
-            DBContext db = new DBContext();
-            TKuanhao[] ks = db.GetKuanhaosByMcWithJmsId(kh, _jmsid);
-            if (ks.Count() >1)
+            int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
+            if (khs.Count() > dataLimit)
             {
-                throw new MyException("款号[" + kh + "]重复，属于多个品牌，无法加载其信息", null);
-            }
-            TKuanhao k = null;
-            if (ks.Count() == 1)
-            {
-                k = ks[0];
+                throw new MyException("数据太多，请减少请求的条码数量", null);
             }
 
-            return k;
+            DBContext db = new DBContext();
+            TKuanhao[] ks = db.GetKuanhaosByMcJmsId(khs, _jmsid);
+
+            return ks;
         }
 
         /// <summary>
@@ -370,25 +383,23 @@ namespace JCSJWCF
         /// <returns></returns>
         public TKuanhao[] SaveKuanhaos(TKuanhao[] ks)
         {
-            string errMsg = "非法操作，请刷新页面重新执行";
+            DBContext db = new DBContext();            
             foreach (TKuanhao k in ks)
             {
                 k.caozuorenid = _LoginUser.id;
-                //k.jmsid = _jmsid;
                 k.charushijian = DateTime.Now;
                 k.xiugaishijian = DateTime.Now;
 
                 if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX), k.leixing))
                 {
-                    throw new MyException(errMsg, null);
+                    throw new MyException("非法操作，请刷新页面重新执行", null);
                 }
                 if (!Enum.IsDefined(typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB), k.xingbie))
                 {
-                    throw new MyException(errMsg, null);
+                    throw new MyException("非法操作，请刷新页面重新执行", null);
                 }
             }
 
-            DBContext db = new DBContext();
             int cc = db.GetKuanhaoCount(_jmsid);
             if (cc + ks.Count() > _LoginUser.TJiamengshang.kuanhaoshu)
             {
@@ -456,7 +467,7 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="tmhs">条码号数组</param>
         /// <returns></returns>
-        public VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+        public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
         {
             int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
             if (tmhs.Count() > dataLimit)
@@ -465,7 +476,7 @@ namespace JCSJWCF
             }
 
             DBContext db = new DBContext();
-            VTiaoma[] ts = db.GetTiaomasByTiaomahaosWithJmsId(tmhs, _jmsid);
+            TTiaoma[] ts = db.GetTiaomasByTiaomahaosWithJmsId(tmhs, _jmsid);
             //去除循环引用
             //foreach (TTiaoma t in ts)
             //{
@@ -802,14 +813,27 @@ namespace JCSJWCF
         /// 取得某加盟商的原创品牌
         /// </summary>
         /// <returns></returns>
-        public TJiamengshangPinpai[] GetYuanchuangPinpais()
+        public TPinpai[] GetYCPinpais()
         {
             DBContext db = new DBContext();
-            TJiamengshangPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
+            TPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
             //去除循环引用
             foreach (var p in pps)
             {
-                p.TJiamengshang.TJiamengshangPinpais.Clear();
+                p.TJiamengshang.TPinpais.Clear();
+            }
+
+            return pps;
+        }
+        public TPinpai[] GetJMPinpais()
+        {
+            DBContext db = new DBContext();
+            TPinpai[] pps = db.GetJiamengPinpaisByJmsId(_LoginUser.jmsid);
+            //去除循环引用
+            foreach (var p in pps)
+            {
+                p.TJiamengshangGXes.Clear();
+                p.TJiamengshangGXSQs.Clear();
             }
 
             return pps;
@@ -844,7 +868,7 @@ namespace JCSJWCF
             foreach (var gx in gxes)
             {
                 gx.Jms = null;
-                gx.TJiamengshangPinpai = null;
+                gx.TPinpai = null;
             }
             return gxes;
         }

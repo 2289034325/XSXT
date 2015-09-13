@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DB_JCSJ.Models
 {
-    public partial class TJiamengshangPinpai
+    public partial class TPinpai
     {
-        public TJiamengshangPinpai()
+        public TPinpai()
         {
             this.TFendians = new List<TFendian>();
             this.TJiamengshangGXes = new List<TJiamengshangGX>();

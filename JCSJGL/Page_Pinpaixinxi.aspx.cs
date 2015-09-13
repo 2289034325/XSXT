@@ -47,7 +47,7 @@ namespace JCSJGL
                 jmsid = _LoginUser.jmsid;
                 grid_ycpp.Columns[0].Visible = false;
             }
-            TJiamengshangPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(jmsid);
+            TPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(jmsid);
             var ycpps = pps.Select(r => new
             {
                 jms = r.TJiamengshang.mingcheng,
@@ -77,7 +77,7 @@ namespace JCSJGL
             hid_id.Value = "";//防止重复执行
             string mc = txb_ppmc.Text.Trim();
             byte sfjsjm = byte.Parse(cmb_sfjsjm.SelectedValue);
-            TJiamengshangPinpai p = new TJiamengshangPinpai
+            TPinpai p = new TPinpai
             {
                 id = id,
                 mingcheng = mc,
@@ -86,7 +86,7 @@ namespace JCSJGL
             };
 
             DBContext db = new DBContext();
-            TJiamengshangPinpai op = db.GetJiamengshangPinpaiById(id);
+            TPinpai op = db.GetPinpaiById(id);
             if (op.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改此品牌信息", null);
@@ -110,7 +110,7 @@ namespace JCSJGL
             int id = int.Parse(grid_ycpp.DataKeys[e.RowIndex].Value.ToString());
 
             DBContext db = new DBContext();
-            TJiamengshangPinpai of = db.GetJiamengshangPinpaiById(id);
+            TPinpai of = db.GetPinpaiById(id);
             if (of.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该品牌", null);
@@ -133,6 +133,10 @@ namespace JCSJGL
             DBContext db = new DBContext();
             int ycppsl = db.GetYCPinpaiCount(_LoginUser.jmsid);
             int jmppsl = db.GetJMPinpaiCount(_LoginUser.jmsid);
+            if (ycppsl > 0)
+            {
+                throw new MyException("只能创建一个品牌", null);
+            }
             if (ycppsl + jmppsl >= _LoginUser.TJiamengshang.ppshu)
             {
                 throw new MyException("创建和加盟的品牌数量已到达上限，如要创建或者加盟更多品牌请联系系统管理员", null);
@@ -140,7 +144,7 @@ namespace JCSJGL
 
             string mc = txb_ppmc.Text.Trim();
             byte sfjsjm = byte.Parse(cmb_sfjsjm.SelectedValue);
-            TJiamengshangPinpai p = new TJiamengshangPinpai
+            TPinpai p = new TPinpai
             {
                 jmsid = _LoginUser.jmsid,
                 mingcheng = mc,

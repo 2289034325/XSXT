@@ -20,7 +20,7 @@ namespace DB_JCSJ.Models
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
-        public virtual TJiamengshangPinpai TJiamengshangPinpai { get; set; }
+        public virtual TPinpai TPinpai { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
     }

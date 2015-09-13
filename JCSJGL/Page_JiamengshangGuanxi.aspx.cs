@@ -45,7 +45,7 @@ namespace JCSJGL
                 TJiamengshangGX[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
                 int[] yjmppids = yjms.Select(r => r.ppid).ToArray();
                 //接受加盟，且不是自己的品牌，而且未加盟过的品牌
-                TJiamengshangPinpai[] pps = db.GetJiamengshangPinpaiByKejiameng((byte)Tool.JCSJ.DBCONSTS.JMS_PP_KJM.接受加盟).
+                TPinpai[] pps = db.GetPinpaiByKejiameng((byte)Tool.JCSJ.DBCONSTS.JMS_PP_KJM.接受加盟).
                     Where(r=>r.jmsid != _LoginUser.jmsid && !yjmppids.Contains(r.id)).ToArray();
                 var jpps = pps.Select(r => new
                 {
@@ -68,7 +68,7 @@ namespace JCSJGL
             var jmsesdata = jmses.Select(r => new
             {
                 jmsid = r.id,
-                pinpai = r.TJiamengshangPinpai.mingcheng,
+                pinpai = r.TPinpai.mingcheng,
                 jiamengshang = r.Jms.mingcheng,
                 r.bzmingcheng,
                 r.Jms.lianxiren,
@@ -94,7 +94,7 @@ namespace JCSJGL
             var xjsqsdata = xjsqs.Select(r => new
             {
                 r.id,
-                pinpai = r.TJiamengshangPinpai.mingcheng,
+                pinpai = r.TPinpai.mingcheng,
                 jiamengshang = r.Jms.mingcheng,
                 r.Jms.lianxiren,
                 r.Jms.dianhua,
@@ -113,7 +113,7 @@ namespace JCSJGL
             {
                 r.id,
                 dailishang = r.Dls.mingcheng,
-                pinpai = r.TJiamengshangPinpai.mingcheng,
+                pinpai = r.TPinpai.mingcheng,
                 r.Dls.lianxiren,
                 r.Dls.dianhua,
                 jmsj = r.charushijian
@@ -189,7 +189,7 @@ namespace JCSJGL
             {
                 r.id,
                 dailishang = r.Dls.mingcheng,
-                pinpai = r.TJiamengshangPinpai.mingcheng,
+                pinpai = r.TPinpai.mingcheng,
                 r.Dls.lianxiren,
                 r.Dls.dianhua,
                 sqsj = r.charushijian,

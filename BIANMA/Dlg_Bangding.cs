@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BIANMA.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,9 +39,20 @@ namespace BIANMA
                 return;
             }
 
-            JCSJWCF.BMZHBangding(dlm, mm, zcm);
-
-            MessageBox.Show("绑定成功");
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJWCF.BMZHBangding(dlm, mm, zcm);
+                    ShowMsg("操作成功", false);
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, true).Start();
         }
     }
 }

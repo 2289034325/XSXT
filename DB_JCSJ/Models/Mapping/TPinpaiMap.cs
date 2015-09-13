@@ -3,9 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DB_JCSJ.Models.Mapping
 {
-    public class TJiamengshangPinpaiMap : EntityTypeConfiguration<TJiamengshangPinpai>
+    public class TPinpaiMap : EntityTypeConfiguration<TPinpai>
     {
-        public TJiamengshangPinpaiMap()
+        public TPinpaiMap()
         {
             // Primary Key
             this.HasKey(t => t.id);
@@ -16,7 +16,7 @@ namespace DB_JCSJ.Models.Mapping
                 .HasMaxLength(20);
 
             // Table & Column Mappings
-            this.ToTable("TJiamengshangPinpai");
+            this.ToTable("TPinpai");
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.jmsid).HasColumnName("jmsid");
             this.Property(t => t.mingcheng).HasColumnName("mingcheng");
@@ -26,7 +26,7 @@ namespace DB_JCSJ.Models.Mapping
 
             // Relationships
             this.HasRequired(t => t.TJiamengshang)
-                .WithMany(t => t.TJiamengshangPinpais)
+                .WithMany(t => t.TPinpais)
                 .HasForeignKey(d => d.jmsid);
 
         }

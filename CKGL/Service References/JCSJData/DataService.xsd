@@ -47,7 +47,6 @@
   <xs:element name="GetTiaomasByCond">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="tmly" nillable="true" type="xs:unsignedByte" />
         <xs:element minOccurs="0" name="Kuanhao" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Tiaoma" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime" />
@@ -58,7 +57,7 @@
   <xs:element name="GetTiaomasByCondResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetTiaomasByCondResult" nillable="true" type="q2:ArrayOfVTiaoma" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetTiaomasByCondResult" nillable="true" type="q2:ArrayOfTTiaoma" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -145,7 +144,6 @@
   <xs:element name="CheckKuanhaosChongfu">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ppid" type="xs:int" />
         <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="khs" nillable="true" type="q9:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
@@ -221,7 +219,7 @@
   <xs:element name="GetTiaomasByTiaomahaosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetTiaomasByTiaomahaosResult" nillable="true" type="q19:ArrayOfVTiaoma" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetTiaomasByTiaomahaosResult" nillable="true" type="q19:ArrayOfTTiaoma" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -444,7 +442,7 @@
   <xs:element name="GetYuanchuangPinpaisResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetYuanchuangPinpaisResult" nillable="true" type="q35:ArrayOfTJiamengshangPinpai" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetYuanchuangPinpaisResult" nillable="true" type="q35:ArrayOfTPinpai" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

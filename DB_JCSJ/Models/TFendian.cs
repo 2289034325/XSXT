@@ -44,7 +44,7 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public virtual TDiqu TDiqu { get; set; }
         public virtual TJiamengshang TJiamengshang { get; set; }
-        public virtual TJiamengshangPinpai TJiamengshangPinpai { get; set; }
+        public virtual TPinpai TPinpai { get; set; }
         public virtual TUser TUser { get; set; }
         public virtual ICollection<TFendianJinchuhuo> TFendianJinchuhuos { get; set; }
         public virtual ICollection<TFendianKucun> TFendianKucuns { get; set; }

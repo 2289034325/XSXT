@@ -363,42 +363,6 @@
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.GetKuanhaosByCondResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangku.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangkuJinchuhuo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TFendian.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TGongyingshang.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshang.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshangPinpai.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TTiaoma.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TUser.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.VTiaoma.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />
     <None Include="Service References\JCSJValid\ValidService.xsd">
       <SubType>Designer</SubType>
@@ -445,40 +409,58 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\JCSJData\" />
-    <WCFMetadataStorage Include="Service References\JCSJValid\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\ValidService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJValid\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="logo.ico" />
     <None Include="Service References\JCSJValid\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Service References\JCSJValid\configuration.svcinfo" />
+    <None Include="Service References\JCSJValid\configuration91.svcinfo" />
+    <None Include="Service References\JCSJValid\ValidService.disco" />
+    <None Include="Service References\JCSJData\FDXS.JCSJData.GetKuanhaosByCondResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangku.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangkuJinchuhuo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TFendian.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TGongyingshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshangGX.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TPinpai.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TTiaoma.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\JCSJData\configuration.svcinfo" />
+    <None Include="Service References\JCSJData\configuration91.svcinfo" />
     <None Include="Service References\JCSJData\DataService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\JCSJData\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\JCSJData\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="logo.ico" />
+    <WCFMetadataStorage Include="Service References\JCSJData\" />
+    <WCFMetadataStorage Include="Service References\JCSJValid\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

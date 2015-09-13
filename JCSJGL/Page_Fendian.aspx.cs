@@ -55,9 +55,9 @@ namespace JCSJGL
                 Tool.CommonFunc.InitDropDownList(cmb_xzdq, ssdqs, "lujing", "id");
 
                 //品牌下拉框
-                TJiamengshangPinpai[] ycpps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
-                TJiamengshangPinpai[] jmpps = db.GetJiamengPinpaisByJmsId(_LoginUser.jmsid);
-                TJiamengshangPinpai[] pps = ycpps.Concat(jmpps).ToArray();
+                TPinpai[] ycpps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
+                TPinpai[] jmpps = db.GetJiamengPinpaisByJmsId(_LoginUser.jmsid);
+                TPinpai[] pps = ycpps.Concat(jmpps).ToArray();
                 Tool.CommonFunc.InitDropDownList(cmb_pp, pps, "mingcheng", "id");
             }
         }       
@@ -89,7 +89,7 @@ namespace JCSJGL
                 fzxingbie = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
                 fzleixing = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
                 dianming = r.dianming,
-                pinpai = r.TJiamengshangPinpai.mingcheng,
+                pinpai = r.TPinpai.mingcheng,
                 mianji = r.mianji,
                 keliuliang = r.keliuliang,
                 dangci = ((Tool.JCSJ.DBCONSTS.FENDIAN_DC)r.dangci).ToString(),

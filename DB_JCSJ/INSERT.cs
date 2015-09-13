@@ -279,9 +279,9 @@ namespace DB_JCSJ
             /// 某个加盟商创建一个新品牌
             /// </summary>
             /// <param name="p"></param>
-            public void InsertJiamengshangPinpai(TJiamengshangPinpai p)
+            public void InsertJiamengshangPinpai(TPinpai p)
             {
-                _db.TJiamengshangPinpais.Add(p);
+                _db.TPinpais.Add(p);
 
                 _db.SaveChanges();
             }

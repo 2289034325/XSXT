@@ -14,6 +14,6 @@ namespace DB_JCSJ.Models
         public System.DateTime charushijian { get; set; }
         public virtual TJiamengshang Dls { get; set; }
         public virtual TJiamengshang Jms { get; set; }
-        public virtual TJiamengshangPinpai TJiamengshangPinpai { get; set; }
+        public virtual TPinpai TPinpai { get; set; }
     }
 }

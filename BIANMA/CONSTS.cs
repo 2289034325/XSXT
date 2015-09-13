@@ -11,15 +11,15 @@ namespace BIANMA
         //新款旧款
         public enum KUANHAO_XINJIU : byte
         {
-            新款号=1,
-            既存款号=2
+            新=1,
+            旧=2
         }
 
         //条码新旧
         public enum TIAOMA_XINJIU : byte
         {
-            新条码 = 1,
-            既存条码 = 2
+            新 = 1,
+            旧 = 2
         }
 
         /// <summary>
@@ -36,6 +36,16 @@ namespace BIANMA
             数量 = 6,
             进价 = 7,
             售价 = 8
+        }
+
+        /// <summary>
+        /// 自编码：新款号和新条码属于自己的品牌
+        /// 下载编码：不能新增款号，条码来自于加盟品牌
+        /// </summary>
+        public enum BM_MOD : byte
+        {
+            自编码 = 0,
+            下载编码 = 1
         }
     }
 }

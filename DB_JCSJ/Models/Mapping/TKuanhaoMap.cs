@@ -37,7 +37,7 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.xiugaishijian).HasColumnName("xiugaishijian");
 
             // Relationships
-            this.HasRequired(t => t.TJiamengshangPinpai)
+            this.HasRequired(t => t.TPinpai)
                 .WithMany(t => t.TKuanhaos)
                 .HasForeignKey(d => d.ppid);
             this.HasRequired(t => t.TUser)

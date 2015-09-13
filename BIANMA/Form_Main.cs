@@ -25,7 +25,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mni_bianma_Click(object sender, EventArgs e)
         {
-            if (LoginInfo.User == null)
+            if (RuntimeInfo.LoginUser == null)
             {
                 MessageBox.Show("未登录");
                 return;
@@ -124,7 +124,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mn_main_xgmm_Click(object sender, EventArgs e)
         {
-            if (LoginInfo.User == null)
+            if (RuntimeInfo.LoginUser == null)
             {
                 MessageBox.Show("未登录");
                 return;
@@ -152,7 +152,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void mn_main_denglu_Click(object sender, EventArgs e)
         {
-            if (LoginInfo.User != null)
+            if (RuntimeInfo.LoginUser != null)
             {
                 MessageBox.Show("已登录");
                 return;

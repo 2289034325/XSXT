@@ -358,9 +358,9 @@ namespace DB_JCSJ
             /// 修改品牌信息
             /// </summary>
             /// <param name="p"></param>
-            public void UpdateJiamengshangPinpai(TJiamengshangPinpai p)
+            public void UpdateJiamengshangPinpai(TPinpai p)
             {
-                TJiamengshangPinpai op = _db.TJiamengshangPinpais.Single(r => r.id == p.id);
+                TPinpai op = _db.TPinpais.Single(r => r.id == p.id);
 
                 op.mingcheng = p.mingcheng;
                 op.kejiameng = p.kejiameng;
