@@ -98,7 +98,30 @@ namespace BIANMA
                 DateTime? start = dj.dp_start.Checked ? (DateTime?)dj.dp_start.Value.Date : null;
                 DateTime? end = dj.dp_end.Checked ? (DateTime?)dj.dp_end.Value.Date.AddDays(1) : null;
 
-                TTiaoma[] ts = JCSJWCF.GetTiaomas(kuanhao, tiaoma, start, end); 
+                VTiaoma[] vts = JCSJWCF.GetTiaomas(kuanhao, tiaoma, start, end);
+                TTiaoma[] ts = vts.Select(r => new TTiaoma 
+                {
+                    id = r.id,
+                    jmsid = r.jmsid,
+                    kuanhaoid = r.kuanhaoid,
+                    TKuanhao = new TKuanhao
+                    {
+                        id = r.kuanhaoid,
+                        kuanhao = r.kuanhao,
+                        leixing = r.leixing,
+                        pinming = r.pinming
+                    },
+                    gysid = r.gysid,
+                    gyskuanhao = r.gyskuanhao,
+                    tiaoma = r.tiaoma,
+                    yanse = r.yanse,
+                    chima = r.chima,
+                    jinjia = r.jinjia,
+                    shoujia = r.shoujia,
+                    caozuorenid = r.caozuorenid,
+                    charushijian = r.charushijian,
+                    xiugaishijian = r.xiugaishijian
+                }).ToArray();
                 TKuanhao[] ks =  ts.Select(r => r.TKuanhao).DistinctBy(r=>r.id).ToArray();
 
                 //加入集合，显示款号条码
@@ -545,7 +568,7 @@ namespace BIANMA
                 {
                     k.kuanhao.ppid = ppid;
                 });
-                string[] eKhs = JCSJWCF.CheckKuanhaosChongfu(ppid,nkhs.ToArray());
+                string[] eKhs = JCSJWCF.CheckKuanhaosChongfu(nkhs.ToArray());
                
                 //先恢复为原色，再接受检查
                 setCellColorByKh(null,col_all_kh.Index, null);
@@ -1153,7 +1176,7 @@ namespace BIANMA
             XTCONSTS.TIAOMA_XINJIU tmxj = (XTCONSTS.TIAOMA_XINJIU)Enum.Parse(typeof(XTCONSTS.TIAOMA_XINJIU), grid_all[col_all_tmxj.Name, e.RowIndex].Value.ToString());
             
             //款号信息
-            if (e.ColumnIndex == col_all_xb.Index || e.ColumnIndex == col_all_lx.Index || e.ColumnIndex == col_all_pm.Index)
+            if (e.ColumnIndex == col_all_kh.Index || e.ColumnIndex == col_all_xb.Index || e.ColumnIndex == col_all_lx.Index || e.ColumnIndex == col_all_pm.Index)
             {
                 if(khxj == XTCONSTS.KUANHAO_XINJIU.既存款号)
                 {
@@ -1552,6 +1575,12 @@ namespace BIANMA
                 {
                     fs = new StreamReader(file, Encoding.Default);
                     content = fs.ReadToEnd();
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    MessageBox.Show("读取文件时发生错误");
+                    return;
                 }
                 finally
                 {

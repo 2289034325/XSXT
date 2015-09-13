@@ -204,7 +204,7 @@ namespace CKGL
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.新货,
                 beizhu = "",
-                caozuorenid = LoginInfo.User.id,
+                caozuorenid = RuntimeInfo.LoginUser.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -229,7 +229,7 @@ namespace CKGL
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
                 laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店,
                 beizhu = "",
-                caozuorenid = LoginInfo.User.id,
+                caozuorenid = RuntimeInfo.LoginUser.id,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now,
                 shangbaoshijian = null
@@ -557,23 +557,39 @@ namespace CKGL
                 oid = r.id,
                 fangxiang = r.fangxiang,
                 laiyuanquxiang = r.laiyuanquxiang,
+                gxckid = r.cangkuid,
+                fdid = r.fendianid,
+                jmsid = r.jmsid,
+                zhekou = r.zhekou,                
                 beizhu = r.beizhu,
                 fashengshijian = r.charushijian,
                 TCangkuJinchuhuoMXes = r.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
                 {
                     tiaomaid = mr.tiaomaid,
-                    shuliang = mr.shuliang
+                    shuliang = mr.shuliang,                    
                 }).ToArray()
             }).ToArray();
 
-            //数据中心处理                
-            JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
 
-            //更新本地上报时间
-            int[] ids = jcs.Select(r => r.id).ToArray();
-            db.UpdateChurukuShangbaoshijian(ids, DateTime.Now);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    //数据中心处理                
+                    JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
 
-            MessageBox.Show("完成");
+                    //更新本地上报时间
+                    int[] ids = jcs.Select(r => r.id).ToArray();
+                    db.UpdateChurukuShangbaoshijian(ids, DateTime.Now);
+
+                    ShowMsg("完成",false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
         }
 
         /// <summary>
@@ -626,7 +642,34 @@ namespace CKGL
             if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 int fdid = int.Parse(dl.cmb_fd.SelectedValue.ToString());
-                JCSJWCF.CangkuFahuoFendian(id, fdid);
+                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                {
+                    try
+                    {
+                        JCSJWCF.CangkuFahuoFendian(id, fdid);
+                        ShowMsg("上传成功", false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                        ShowMsg(ex.Message, true);
+                    }
+                }, true).Start();
+            }
+        }
+
+        /// <summary>
+        /// 增加一个进出库记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            Dlg_Jinchu dj = new Dlg_Jinchu();
+            if (dj.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                TChuruku cr = dj.Churuku;
+                addChuruku(cr);
             }
         }
     }

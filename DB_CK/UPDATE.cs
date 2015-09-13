@@ -74,5 +74,19 @@ namespace DB_CK
 
             _db.SaveChanges();
         }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="mm"></param>
+        public void UpdateUserPsw(int id, string mm)
+        {
+            TUser ou = _db.TUsers.Single(r => r.id == id);
+
+            ou.mima = mm;
+
+            _db.SaveChanges();
+        }
     }
 }

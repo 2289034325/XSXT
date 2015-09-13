@@ -37,9 +37,9 @@
             this.mn_main_churuku = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_yhgl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tmyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_cxlj = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xgmm = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +50,6 @@
             this.mn_main_churuku,
             this.mn_main_kcyl,
             this.mn_main_kcgl,
-            this.mn_main_yhgl,
             this.mn_main_tmyl,
             this.mn_main_cxlj});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
@@ -65,7 +64,8 @@
             this.重置扫描枪ToolStripMenuItem,
             this.mn_main_xtsz,
             this.mn_main_xtzc,
-            this.mn_main_version});
+            this.mn_main_version,
+            this.mn_main_xgmm});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -118,13 +118,6 @@
             this.mn_main_kcgl.Text = "库存管理";
             this.mn_main_kcgl.Click += new System.EventHandler(this.mn_main_kcgl_Click);
             // 
-            // mn_main_yhgl
-            // 
-            this.mn_main_yhgl.Name = "mn_main_yhgl";
-            this.mn_main_yhgl.Size = new System.Drawing.Size(68, 21);
-            this.mn_main_yhgl.Text = "用户管理";
-            this.mn_main_yhgl.Click += new System.EventHandler(this.mn_main_yhgl_Click);
-            // 
             // mn_main_tmyl
             // 
             this.mn_main_tmyl.Name = "mn_main_tmyl";
@@ -138,6 +131,13 @@
             this.mn_main_cxlj.Size = new System.Drawing.Size(104, 21);
             this.mn_main_cxlj.Text = "重新连接服务器";
             this.mn_main_cxlj.Click += new System.EventHandler(this.mn_main_cxlj_Click);
+            // 
+            // mn_main_xgmm
+            // 
+            this.mn_main_xgmm.Name = "mn_main_xgmm";
+            this.mn_main_xgmm.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_xgmm.Text = "修改密码";
+            this.mn_main_xgmm.Click += new System.EventHandler(this.mn_main_xgmm_Click);
             // 
             // Form_Main
             // 
@@ -167,10 +167,10 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_churuku;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcgl;
-        private System.Windows.Forms.ToolStripMenuItem mn_main_yhgl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_tmyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_version;
         private System.Windows.Forms.ToolStripMenuItem mn_main_cxlj;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_xgmm;
     }
 }
 

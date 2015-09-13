@@ -18,18 +18,31 @@ namespace DB_JCSJ.Models.Mapping
             // Table & Column Mappings
             this.ToTable("TCangkuJinchuhuo");
             this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.cangkuid).HasColumnName("cangkuid");
+            this.Property(t => t.fsckid).HasColumnName("fsckid");
             this.Property(t => t.oid).HasColumnName("oid");
             this.Property(t => t.fangxiang).HasColumnName("fangxiang");
             this.Property(t => t.laiyuanquxiang).HasColumnName("laiyuanquxiang");
+            this.Property(t => t.gxckid).HasColumnName("gxckid");
+            this.Property(t => t.fdid).HasColumnName("fdid");
+            this.Property(t => t.jmsid).HasColumnName("jmsid");
+            this.Property(t => t.zhekou).HasColumnName("zhekou");
             this.Property(t => t.beizhu).HasColumnName("beizhu");
             this.Property(t => t.fashengshijian).HasColumnName("fashengshijian");
             this.Property(t => t.shangbaoshijian).HasColumnName("shangbaoshijian");
 
             // Relationships
-            this.HasRequired(t => t.TCangku)
+            this.HasRequired(t => t.FaShengCangku)
+                .WithMany(t => t.FashengJinchus)
+                .HasForeignKey(d => d.fsckid);
+            this.HasOptional(t => t.GuanxiCangku)
+                .WithMany(t => t.GuanxiJinchus)
+                .HasForeignKey(d => d.gxckid);
+            this.HasOptional(t => t.TFendian)
                 .WithMany(t => t.TCangkuJinchuhuos)
-                .HasForeignKey(d => d.cangkuid);
+                .HasForeignKey(d => d.fdid);
+            this.HasOptional(t => t.TJiamengshang)
+                .WithMany(t => t.TCangkuJinchuhuos)
+                .HasForeignKey(d => d.jmsid);
 
         }
     }

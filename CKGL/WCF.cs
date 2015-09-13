@@ -78,10 +78,10 @@ namespace CKGL
         /// 取得条码
         /// </summary>
         /// <returns></returns>
-        internal static TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
+        internal static VTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end)
         {
             Login();
-            return _jdc.GetTiaomasByCond("","",upt_start, upt_end);
+            return _jdc.GetTiaomasByCond(null,"","",upt_start, upt_end);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace CKGL
         /// </summary>
         /// <param name="tmhs"></param>
         /// <returns></returns>
-        internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+        internal static VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
         {
             Login();
             return _jdc.GetTiaomasByTiaomahaos(tmhs);
@@ -99,7 +99,7 @@ namespace CKGL
         /// 取得所有的分店信息
         /// </summary>
         /// <returns></returns>
-        internal static TFendian[] GetAllFendians()
+        internal static TFendian[] GetFendians()
         {
             Login();
             return _jdc.GetFendians();
@@ -114,6 +114,18 @@ namespace CKGL
         {
             Login();
             _jdc.CangkufahuoFendian(id, fdid);
+        }
+
+        internal static TCangku[] GetCangkus()
+        {
+            Login();
+            return _jdc.GetCangkus();
+        }
+
+        internal static TJiamengshangGX[] GetZiJiamengshangs()
+        {
+            Login();
+            return _jdc.GetZiJiamengshangs();
         }
     }
 }

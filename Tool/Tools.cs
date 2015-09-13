@@ -142,17 +142,17 @@ namespace Tool
             Cmb.ValueMember = "Value";
             Cmb.DataSource = dt;
         }
-        public static void InitCombbox(ComboBox Cmb, Dictionary<string, byte> dic)
+        public static void InitCombbox(ComboBox Cmb, Dictionary<string, string> dic)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Text", typeof(string));
-            dt.Columns.Add("Value", typeof(byte));
+            dt.Columns.Add("Value", typeof(string));
 
-            foreach (KeyValuePair<string, byte> p in dic)
+            foreach (KeyValuePair<string, string> p in dic)
             {
                 DataRow dr = dt.NewRow();
-                dr["Text"] = p.Key;
-                dr["Value"] = p.Value;
+                dr["Text"] = p.Value;
+                dr["Value"] = p.Key;
                 dt.Rows.Add(dr);
             }
 
@@ -198,8 +198,8 @@ namespace Tool
             foreach (KeyValuePair<string, string> p in dic)
             {
                 DataRow dr = dt.NewRow();
-                dr["Text"] = p.Key;
-                dr["Value"] = p.Value;
+                dr["Text"] = p.Value;
+                dr["Value"] = p.Key;
                 dt.Rows.Add(dr);
             }
 

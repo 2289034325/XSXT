@@ -184,6 +184,12 @@ namespace JCSJGL
             {
                 throw new MyException("拥有的款号数量已到上限，如有需要增加更多款号请联系系统管理员", null);
             }
+            TKuanhao[] oks = db.GetKuanhaosByMcWithJmsId(f.kuanhao, _LoginUser.jmsid);
+            if (oks.Count() > 0)
+            {
+                throw new MyException("款号重复", null);
+            }
+
             db.InsertKuanhao(f);
 
             loadKuanhaos();

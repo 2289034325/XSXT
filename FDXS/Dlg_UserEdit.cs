@@ -78,17 +78,17 @@ namespace FDXS
         /// <param name="e"></param>
         private void Dlg_UserEdit_Load(object sender, EventArgs e)
         {
-            Dictionary<string, byte> jss = new Dictionary<string, byte>();
+            Dictionary<string, string> jss = new Dictionary<string, string>();
             if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员)
             {
-                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.系统管理员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员);
-                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店长.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店长);
-                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店员);
+                jss.Add(((byte)Tool.FD.DBCONSTS.USER_XTJS.系统管理员).ToString(), Tool.FD.DBCONSTS.USER_XTJS.系统管理员.ToString());
+                jss.Add(((byte)Tool.FD.DBCONSTS.USER_XTJS.店长).ToString(), Tool.FD.DBCONSTS.USER_XTJS.店长.ToString());
+                jss.Add(((byte)Tool.FD.DBCONSTS.USER_XTJS.店员).ToString(), Tool.FD.DBCONSTS.USER_XTJS.店员.ToString());
             }
             else if (RuntimeInfo.LoginUser.juese == (byte)Tool.FD.DBCONSTS.USER_XTJS.店长)
             {
-                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店长.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店长);
-                jss.Add(Tool.FD.DBCONSTS.USER_XTJS.店员.ToString(), (byte)Tool.FD.DBCONSTS.USER_XTJS.店员);
+                jss.Add(((byte)Tool.FD.DBCONSTS.USER_XTJS.店长).ToString(), Tool.FD.DBCONSTS.USER_XTJS.店长.ToString());
+                jss.Add(((byte)Tool.FD.DBCONSTS.USER_XTJS.店员).ToString(), Tool.FD.DBCONSTS.USER_XTJS.店员.ToString());
             }
 
             //角色下拉框

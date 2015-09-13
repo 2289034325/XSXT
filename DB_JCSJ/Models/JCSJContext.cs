@@ -37,9 +37,11 @@ namespace DB_JCSJ.Models
         public DbSet<TJiamengshangPinpai> TJiamengshangPinpais { get; set; }
         public DbSet<TKuanhao> TKuanhaos { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
+        public DbSet<TTiaomaJinjia> TTiaomaJinjias { get; set; }
         public DbSet<TUser> TUsers { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
         public DbSet<VDiqu> VDiqus { get; set; }
+        public DbSet<VTiaoma> VTiaomas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -64,9 +66,11 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TJiamengshangPinpaiMap());
             modelBuilder.Configurations.Add(new TKuanhaoMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
+            modelBuilder.Configurations.Add(new TTiaomaJinjiaMap());
             modelBuilder.Configurations.Add(new TUserMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());
             modelBuilder.Configurations.Add(new VDiquMap());
+            modelBuilder.Configurations.Add(new VTiaomaMap());
         }
     }
 }

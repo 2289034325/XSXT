@@ -29,9 +29,13 @@
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
-            <asp:BoundField DataField="cangku" HeaderText="仓库"></asp:BoundField>
+            <asp:BoundField DataField="fscangku" HeaderText="发生仓库"></asp:BoundField>
             <asp:BoundField DataField="fangxiang" HeaderText="方向"></asp:BoundField>
             <asp:BoundField DataField="lyqx" HeaderText="来源去向"></asp:BoundField>
+            <asp:BoundField DataField="gxcangku" HeaderText="关系仓库"></asp:BoundField>
+            <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
+            <asp:BoundField DataField="zjms" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
             <asp:BoundField DataField="jianshu" HeaderText="件数"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="fashengshijian" HeaderText="发生时间"></asp:BoundField>

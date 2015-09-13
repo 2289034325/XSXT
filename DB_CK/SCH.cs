@@ -46,7 +46,10 @@ namespace DB_CK
 
             return u;
         }
-
+        public TUser GetUserById(int id)
+        {
+            return _db.TUsers.Single(r => r.id == id);
+        }
         /// <summary>
         /// 搜索出入库记录
         /// </summary>

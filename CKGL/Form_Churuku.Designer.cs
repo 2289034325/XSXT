@@ -62,6 +62,7 @@
             this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_crk_uplazy = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_add = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -74,6 +75,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_add);
             this.panel1.Controls.Add(this.btn_shangbao);
             this.panel1.Controls.Add(this.dp_end);
             this.panel1.Controls.Add(this.dp_start);
@@ -371,6 +373,16 @@
             this.cmn_crk_uplazy.Text = "上传让分店下载";
             this.cmn_crk_uplazy.Click += new System.EventHandler(this.cmn_crk_uplazy_Click);
             // 
+            // btn_add
+            // 
+            this.btn_add.Location = new System.Drawing.Point(702, 5);
+            this.btn_add.Name = "btn_add";
+            this.btn_add.Size = new System.Drawing.Size(105, 23);
+            this.btn_add.TabIndex = 27;
+            this.btn_add.Text = "增加出入库记录";
+            this.btn_add.UseVisualStyleBackColor = true;
+            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
+            // 
             // Form_Churuku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -429,5 +441,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_crk_xgsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_crk_sbsj;
         private System.Windows.Forms.ToolStripMenuItem cmn_crk_uplazy;
+        private System.Windows.Forms.Button btn_add;
     }
 }

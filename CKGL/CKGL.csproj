@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonMethod.cs" />
     <Compile Include="Dlg_AppSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +113,18 @@
     </Compile>
     <Compile Include="Dlg_Denglu.Designer.cs">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Jinchu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Jinchu.Designer.cs">
+      <DependentUpon>Dlg_Jinchu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_XiugaiMima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_XiugaiMima.Designer.cs">
+      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg_ScanSet.cs">
       <SubType>Form</SubType>
@@ -180,7 +193,60 @@
       <DependentUpon>Form_Yonghu.cs</DependentUpon>
     </Compile>
     <Compile Include="IDB.cs" />
-    <Compile Include="LoginInfo.cs" />
+    <Compile Include="Models\JCSJContext.cs" />
+    <Compile Include="Models\Mapping\TCangkuFahuoFendianMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuJinchuhuoMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuJinchuhuoMXMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuKucunMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuKucunMXMap.cs" />
+    <Compile Include="Models\Mapping\TCangkuMap.cs" />
+    <Compile Include="Models\Mapping\TDiquMap.cs" />
+    <Compile Include="Models\Mapping\TFendianJinchuhuoMap.cs" />
+    <Compile Include="Models\Mapping\TFendianJinchuhuoMXMap.cs" />
+    <Compile Include="Models\Mapping\TFendianKucunMap.cs" />
+    <Compile Include="Models\Mapping\TFendianKucunMXMap.cs" />
+    <Compile Include="Models\Mapping\TFendianMap.cs" />
+    <Compile Include="Models\Mapping\TGongyingshangMap.cs" />
+    <Compile Include="Models\Mapping\THuiyuanMap.cs" />
+    <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangGXMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangGXSQMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangPinpaiMap.cs" />
+    <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
+    <Compile Include="Models\Mapping\TTiaomaJinjiaMap.cs" />
+    <Compile Include="Models\Mapping\TTiaomaMap.cs" />
+    <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
+    <Compile Include="Models\Mapping\VDiquMap.cs" />
+    <Compile Include="Models\Mapping\VTiaomaMap.cs" />
+    <Compile Include="Models\TCangku.cs" />
+    <Compile Include="Models\TCangkuFahuoFendian.cs" />
+    <Compile Include="Models\TCangkuJinchuhuo.cs" />
+    <Compile Include="Models\TCangkuJinchuhuoMX.cs" />
+    <Compile Include="Models\TCangkuKucun.cs" />
+    <Compile Include="Models\TCangkuKucunMX.cs" />
+    <Compile Include="Models\TDiqu.cs" />
+    <Compile Include="Models\TFendian.cs" />
+    <Compile Include="Models\TFendianJinchuhuo.cs" />
+    <Compile Include="Models\TFendianJinchuhuoMX.cs" />
+    <Compile Include="Models\TFendianKucun.cs" />
+    <Compile Include="Models\TFendianKucunMX.cs" />
+    <Compile Include="Models\TGongyingshang.cs" />
+    <Compile Include="Models\THuiyuan.cs" />
+    <Compile Include="Models\THuiyuanZK.cs" />
+    <Compile Include="Models\TJiamengshang.cs" />
+    <Compile Include="Models\TJiamengshangGX.cs" />
+    <Compile Include="Models\TJiamengshangGXSQ.cs" />
+    <Compile Include="Models\TJiamengshangPinpai.cs" />
+    <Compile Include="Models\TKuanhao.cs" />
+    <Compile Include="Models\TTiaoma.cs" />
+    <Compile Include="Models\TTiaomaJinjia.cs" />
+    <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TXiaoshou.cs" />
+    <Compile Include="Models\VDiqu.cs" />
+    <Compile Include="Models\VTiaoma.cs" />
+    <Compile Include="RuntimeInfo.cs" />
     <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -205,6 +271,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Jinchu.resx">
+      <DependentUpon>Dlg_Jinchu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_XiugaiMima.resx">
+      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_ScanSet.resx">
       <DependentUpon>Dlg_ScanSet.cs</DependentUpon>
@@ -260,6 +332,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.GetKuanhaosByCondResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TCangku.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TCangkuJinchuhuo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -272,6 +350,12 @@
     <None Include="Service References\JCSJData\CKGL.JCSJData.THuiyuan.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TJiamengshangGX.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TJiamengshangPinpai.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TKuanhao.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -279,6 +363,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.VTiaoma.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\DataService.wsdl" />

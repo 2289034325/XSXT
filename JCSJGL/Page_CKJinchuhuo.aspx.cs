@@ -69,12 +69,14 @@ namespace JCSJGL
         private void search()
         { 
             //取查询条件
+            DBContext db = new DBContext();
             int? ckid = null;
             if (!string.IsNullOrEmpty(cmb_ck.SelectedValue))
             {
                 ckid = int.Parse(cmb_ck.SelectedValue);
             }
             int? jmsid = null;
+            Dictionary<int,string> jmses = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                  _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
@@ -83,11 +85,13 @@ namespace JCSJGL
                     jmsid = int.Parse(cmb_jms.SelectedValue);
                 } 
                 grid_jinchu.Columns[0].Visible = true;
+                jmses = db.GetJiamengshangs().ToDictionary(k=>k.id,v=>v.mingcheng);
             }
             else
             {
                 jmsid = _LoginUser.jmsid;
                 grid_jinchu.Columns[0].Visible = false;
+                jmses = db.GetZiJiamengshangs(jmsid.Value).ToDictionary(k=>k.id,v=>v.bzmingcheng);
             }
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
@@ -111,18 +115,21 @@ namespace JCSJGL
             }
 
             int recordCount = 0;
-            DBContext db = new DBContext();
             TCangkuJinchuhuo[] jcs = db.GetCKJinchuhuoByCond(jmsid, ckid,
                 xsrq_start, xsrq_end, sbrq_start, sbrq_end,
                 grid_jinchu.PageSize, grid_jinchu.PageIndex, out recordCount);
             var xs = jcs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TCangku.TJiamengshang.mingcheng,
-                cangku = r.TCangku.mingcheng,
+                jiamengshang = r.FaShengCangku.TJiamengshang.mingcheng,
+                fscangku = r.FaShengCangku.mingcheng,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
                 lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
-                jianshu = r.TCangkuJinchuhuoMXes.Sum(mr=>mr.shuliang),
+                gxcangku = r.GuanxiCangku == null ? "" : r.GuanxiCangku.mingcheng,
+                fendian = r.TFendian == null ? "" : r.TFendian.dianming,
+                zjms = r.TJiamengshang == null ? "" : jmses[r.jmsid.Value],
+                zhekou = r.zhekou,
+                jianshu = r.TCangkuJinchuhuoMXes.Sum(mr => mr.shuliang),
                 r.beizhu,
                 r.fashengshijian,
                 r.shangbaoshijian

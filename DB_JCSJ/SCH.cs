@@ -215,9 +215,9 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="kh"></param>
             /// <returns></returns>
-            public TKuanhao GetKuanhaoByMcWithJmsId(string kh,int jmsid)
+            public TKuanhao[] GetKuanhaosByMcWithJmsId(string kh,int jmsid)
             {
-                return _db.TKuanhaos.SingleOrDefault(r => r.kuanhao == kh && r.TJiamengshangPinpai.jmsid == jmsid);
+                return _db.TKuanhaos.Where(r => r.kuanhao == kh && r.TJiamengshangPinpai.jmsid == jmsid).ToArray();
             }
             /// <summary>
             /// 检查给定的款号名称中，有多少是已经存在的
@@ -225,9 +225,9 @@ namespace DB_JCSJ
             /// <param name="khs"></param>
             /// <param name="jmsid"></param>
             /// <returns></returns>
-            public string[] GetKuanhaoExistByMcWithPpId(int ppid,string[] khs)
+            public string[] GetKuanhaoExistByMcWithJmsId(int jmsid,string[] khs)
             {
-                return _db.TKuanhaos.Where(r => khs.Contains(r.kuanhao) && r.ppid == ppid).Select(r => r.kuanhao).ToArray();
+                return _db.TKuanhaos.Where(r => khs.Contains(r.kuanhao) && r.TJiamengshangPinpai.jmsid == jmsid).Select(r => r.kuanhao).ToArray();
             }
             public TKuanhao GetKuanhaoById(int id)
             {
@@ -247,16 +247,23 @@ namespace DB_JCSJ
             /// 取得指定个数的条码信息
             /// </summary>
             /// <returns></returns>
-            public TTiaoma[] GetTiaomasByCond(int? jmsid,byte? lx, string kh, string tmh,DateTime? xgsj_start,DateTime? xgsj_end, int pageSize, int pageIndex, out int recordCount)
+            public VTiaoma[] GetTiaomasByCond(byte? tmly,int? jmsid,byte? lx, string kh, string tmh,DateTime? xgsj_start,DateTime? xgsj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var tms = _db.TTiaomas.Include(r => r.TJiamengshang).Include(r=>r.TKuanhao).Include(r=>r.TGongyingshang).AsQueryable();
+                //var tms = _db.TTiaomas.Include(r => r.TJiamengshang).Include(r=>r.TKuanhao).Include(r=>r.TGongyingshang).AsQueryable();
+
+                var tms = _db.VTiaomas.AsQueryable();
+                if (tmly != null)
+                {
+                    tms = tms.Where(r => r.laiyuan == tmly);
+                }
+
                 if (lx != null)
                 {
-                    tms = tms.Where(r => r.TKuanhao.leixing == lx.Value);
+                    tms = tms.Where(r => r.leixing == lx.Value);
                 }
                 if (!string.IsNullOrEmpty(kh))
                 {
-                    tms = tms.Where(r => r.TKuanhao.kuanhao == kh || r.gyskuanhao == kh);
+                    tms = tms.Where(r => r.kuanhao == kh || r.gyskuanhao == kh);
                 }
                 if (!string.IsNullOrEmpty(tmh))
                 {
@@ -283,30 +290,16 @@ namespace DB_JCSJ
                 return tms.ToArray();
             }
 
-            /// <summary>
-            /// 根据款号取得所有的条码信息
-            /// </summary>
-            /// <param name="kh">款号名称</param>
-            /// <returns></returns>
-            public TTiaoma[] GetTiaomasByKuanhaoMcWithJmsId(string kh,int jmsid)
+            public VTiaoma[] GetTiaomasByTiaomahaosWithJmsId(string[] tmhs, int jmsid)
             {
-                return _db.TTiaomas.Where(r => r.TKuanhao.kuanhao == kh && r.jmsid == jmsid).ToArray();
-            }
+                var tms = _db.VTiaomas.Where(r => tmhs.Contains(r.tiaoma) && r.jmsid == jmsid);
 
-            /// <summary>
-            /// 根据条码号取得条码信息
-            /// </summary>
-            /// <param name="t"></param>
-            /// <returns></returns>
-            public TTiaoma GetTiaomaByTiaomahaoWithJmsId(string t,int jmsid)
-            {
-                return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == t && r.jmsid == jmsid);
+                return tms.ToArray();
             }
-            public TTiaoma[] GetTiaomasByTiaomahaosWithJmsId(string[] tmhs, int jmsid)
+            public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
             {
-                return _db.TTiaomas.Include(r => r.TKuanhao).Include(r => r.TGongyingshang).
-                    Where(r => tmhs.Contains(r.tiaoma) && r.jmsid == jmsid).ToArray();
-            }
+                return _db.TTiaomas.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+            } 
             public TTiaoma GetTiaomaById(int id)
             {
                 return _db.TTiaomas.Include(r=>r.TKuanhao).Single(r => r.id == id);
@@ -487,11 +480,11 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TCangkuJinchuhuo GetCKJinchuhuo(int ckid, int oid)
             {
-                return _db.TCangkuJinchuhuos.SingleOrDefault(r => r.cangkuid == ckid && r.oid == oid);
+                return _db.TCangkuJinchuhuos.SingleOrDefault(r => r.fsckid == ckid && r.oid == oid);
             }
             public TCangkuJinchuhuo GetCKJinchuhuoById(int id)
             {
-                return _db.TCangkuJinchuhuos.Include(r=>r.TCangku).Single(r => r.id == id);
+                return _db.TCangkuJinchuhuos.Include(r=>r.FaShengCangku).Single(r => r.id == id);
             }
             public TCangkuJinchuhuoMX[] GetCKJinchuhuoMXsByJcId(int jcid)
             {
@@ -614,7 +607,7 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="jmsid"></param>
             /// <returns></returns>
-            public TJiamengshangGX[] GetMyDlsesByMyJmsId(int jmsid)
+            public TJiamengshangGX[] GetFuJiamengshangs(int jmsid)
             {
                 return _db.TJiamengshangGXes.Include(r=>r.Dls).Include(r=>r.TJiamengshangPinpai).Where(r => r.jmsid == jmsid).ToArray();
             }
@@ -623,7 +616,7 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="jmsid"></param>
             /// <returns></returns>
-            public TJiamengshangGX[] GetMyJmsesByMyJmsId(int jmsid)
+            public TJiamengshangGX[] GetZiJiamengshangs(int jmsid)
             {
                 return _db.TJiamengshangGXes.Include(r=>r.Jms).Include(r=>r.TJiamengshangPinpai).Where(r => r.dlsid == jmsid).ToArray();
             }
@@ -674,18 +667,20 @@ namespace DB_JCSJ
             }
             public int GetCKJinchuhuoCount(int jmsid)
             {
-                return _db.TCangkuJinchuhuoMXes.Where(r => r.TCangkuJinchuhuo.TCangku.jmsid == jmsid).Count();
+                return _db.TCangkuJinchuhuoMXes.Where(r => r.TCangkuJinchuhuo.FaShengCangku.jmsid == jmsid).Count();
             }
             public TCangkuJinchuhuo[] GetCKJinchuhuoByCond(int? jmsid,int? ckid,DateTime? fssj_start,DateTime? fssj_end,DateTime? sbsj_start,DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var jcs = _db.TCangkuJinchuhuos.Include(r => r.TCangku).Include(r=>r.TCangku.TJiamengshang).Include(r => r.TCangkuJinchuhuoMXes).AsQueryable();
+                var jcs = _db.TCangkuJinchuhuos.Include(r => r.FaShengCangku).Include(r => r.FaShengCangku.TJiamengshang).
+                    Include(r=>r.GuanxiCangku).Include(r=>r.TFendian).Include(r=>r.TJiamengshang).
+                    Include(r => r.TCangkuJinchuhuoMXes).AsQueryable();
                 if (jmsid != null)
                 {
-                    jcs = jcs.Where(r => r.TCangku.jmsid == jmsid);
+                    jcs = jcs.Where(r => r.FaShengCangku.jmsid == jmsid);
                 }
                 if (ckid != null)
                 {
-                    jcs = jcs.Where(r => r.cangkuid == ckid);
+                    jcs = jcs.Where(r => r.fsckid == ckid);
                 }
                 if (fssj_start != null)
                 {

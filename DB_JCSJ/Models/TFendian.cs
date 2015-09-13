@@ -8,6 +8,7 @@ namespace DB_JCSJ.Models
         public TFendian()
         {
             this.TCangkuFahuoFendians = new List<TCangkuFahuoFendian>();
+            this.TCangkuJinchuhuos = new List<TCangkuJinchuhuo>();
             this.TFendianJinchuhuos = new List<TFendianJinchuhuo>();
             this.TFendianKucuns = new List<TFendianKucun>();
             this.THuiyuans = new List<THuiyuan>();
@@ -40,6 +41,7 @@ namespace DB_JCSJ.Models
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
+        public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public virtual TDiqu TDiqu { get; set; }
         public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TJiamengshangPinpai TJiamengshangPinpai { get; set; }

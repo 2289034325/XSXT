@@ -42,7 +42,7 @@ namespace JCSJGL
                 loadXjjms();
 
                 //加盟品牌选择下拉框
-                TJiamengshangGX[] yjms = db.GetMyDlsesByMyJmsId(_LoginUser.jmsid);
+                TJiamengshangGX[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
                 int[] yjmppids = yjms.Select(r => r.ppid).ToArray();
                 //接受加盟，且不是自己的品牌，而且未加盟过的品牌
                 TJiamengshangPinpai[] pps = db.GetJiamengshangPinpaiByKejiameng((byte)Tool.JCSJ.DBCONSTS.JMS_PP_KJM.接受加盟).
@@ -63,7 +63,7 @@ namespace JCSJGL
         private void loadXjjms()
         {
             DBContext db = new DBContext();
-            TJiamengshangGX[] jmses = db.GetMyJmsesByMyJmsId(_LoginUser.jmsid);
+            TJiamengshangGX[] jmses = db.GetZiJiamengshangs(_LoginUser.jmsid);
             VDiqu[] dqs = db.GetAllDiqus();
             var jmsesdata = jmses.Select(r => new
             {
@@ -108,7 +108,7 @@ namespace JCSJGL
         private void loadJmpps()
         {
             DBContext db = new DBContext();
-            TJiamengshangGX[] dlses = db.GetMyDlsesByMyJmsId(_LoginUser.jmsid);
+            TJiamengshangGX[] dlses = db.GetFuJiamengshangs(_LoginUser.jmsid);
             var dlsesdata = dlses.Select(r => new
             {
                 r.id,
@@ -138,7 +138,7 @@ namespace JCSJGL
             int ppid = int.Parse(cmb_ppxz.SelectedValue.Split(new char[] { ',' })[1]);
 
             DBContext db = new DBContext();
-            TJiamengshangGX[] yjms = db.GetMyDlsesByMyJmsId(_LoginUser.jmsid);
+            TJiamengshangGX[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
             int[] yjmppids = yjms.Select(r => r.ppid).ToArray();
             if (yjmppids.Contains(ppid))
             {
@@ -149,6 +149,12 @@ namespace JCSJGL
             if (cc >= _LoginUser.TJiamengshang.fjmsshu)
             {
                 throw new MyException("加盟的品牌已到上限，如果想要加盟更多的品牌请联系系统管理员", null);
+            }
+            //自己是品牌商，不允许再加盟别的品牌
+            int zc = db.GetZiJiamengshangCount(_LoginUser.jmsid);
+            if (zc != 0)
+            {
+                throw new MyException("您已经是代理商，不允许再加盟别的品牌", null);
             }
             //检查是否已经存在
             TJiamengshangGXSQ osq = db.GetJiamengGXSQByDlsIdPpIdJmsId(dlsid, ppid, _LoginUser.jmsid);
@@ -223,6 +229,12 @@ namespace JCSJGL
                     beizhu = "",
                     charushijian = DateTime.Now
                 };
+                //自己是加盟商，不能再接受子加盟商
+                int zc = db.GetFuJiamengshangCount(_LoginUser.jmsid);
+                if (zc != 0)
+                {
+                    throw new MyException("您是加盟商，不允许再接受下级代理或加盟", null);
+                }
                 //检查子加盟商数是否超出
                 int cc = db.GetZiJiamengshangCount(_LoginUser.jmsid);
                 if (cc >= _LoginUser.TJiamengshang.zjmsshu)

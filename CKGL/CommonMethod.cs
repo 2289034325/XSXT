@@ -1,0 +1,93 @@
+﻿using DB_CK;
+using DB_CK.Models;
+using CKGL.Properties;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CKGL
+{
+    class CommonMethod
+    {
+        /// <summary>
+        /// 下载指定的一组条码信息
+        /// </summary>
+        /// <param name="tmhs"></param>
+        public static void DownLoadTiaomaInfo(string[] tmhs, bool autoClose)
+        {
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJData.VTiaoma[] jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
+                    SaveTmsToLocal(jtms);
+
+                    ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, autoClose).Start();
+        }
+
+        public static void DownLoadTiaomaInfo(DateTime start, DateTime end,bool autoClose)
+        {
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJData.VTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
+                    CommonMethod.SaveTmsToLocal(jtms);
+
+                    ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, autoClose).Start();
+        }
+
+
+        private static void SaveTmsToLocal(JCSJData.VTiaoma[] jtms)
+        {
+            List<TTiaoma> tms = new List<TTiaoma>();
+            foreach (JCSJData.VTiaoma jtm in jtms)
+            {
+                TTiaoma tm = new TTiaoma
+                {
+                    id = jtm.id,
+                    tiaoma = jtm.tiaoma,
+                    kuanhao = jtm.kuanhao,
+                    gongyingshang = jtm.gys,
+                    gyskuanhao = jtm.gyskuanhao,
+                    leixing = jtm.leixing,
+                    pinming = jtm.pinming,
+                    yanse = jtm.yanse,
+                    chima = jtm.chima,
+                    jinjia = jtm.jinjia,
+                    shoujia = jtm.shoujia
+                };
+                tms.Add(tm);
+            }
+
+            //找出已经在本地存在的条码
+            DBContext db = IDB.GetDB();
+            TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
+            int[] oids = otms.Select(r => r.id).ToArray();
+            //需要更新的条码和需要新插入的条码
+            TTiaoma[] uts = tms.Where(r => oids.Contains(r.id)).ToArray();
+            uts.ToList().ForEach(t => t.xiugaishijian = DateTime.Now);
+            TTiaoma[] nts = tms.Where(r => !oids.Contains(r.id)).ToArray();
+            nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
+            db.UpdateTiaomas(uts);
+            db.InsertTiaomas(nts);
+        }
+    }
+}

@@ -7,7 +7,8 @@ namespace DB_JCSJ.Models
     {
         public TCangku()
         {
-            this.TCangkuJinchuhuos = new List<TCangkuJinchuhuo>();
+            this.FashengJinchus = new List<TCangkuJinchuhuo>();
+            this.GuanxiJinchus = new List<TCangkuJinchuhuo>();
             this.TCangkuKucuns = new List<TCangkuKucun>();
         }
 
@@ -24,7 +25,8 @@ namespace DB_JCSJ.Models
         public System.DateTime xiugaishijian { get; set; }
         public virtual TJiamengshang TJiamengshang { get; set; }
         public virtual TUser TUser { get; set; }
-        public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
+        public virtual ICollection<TCangkuJinchuhuo> FashengJinchus { get; set; }
+        public virtual ICollection<TCangkuJinchuhuo> GuanxiJinchus { get; set; }
         public virtual ICollection<TCangkuKucun> TCangkuKucuns { get; set; }
     }
 }

@@ -61,11 +61,11 @@
   <wsdl:message name="IDataService_GetGongyingshangs_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGongyingshangsResponse" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetKuanhaos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetKuanhaos" />
+  <wsdl:message name="IDataService_GetKuanhaosByCond_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKuanhaosByCond" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetKuanhaos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetKuanhaosResponse" />
+  <wsdl:message name="IDataService_GetKuanhaosByCond_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKuanhaosByCondResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_InsertKuanhao_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertKuanhao" />
@@ -90,12 +90,6 @@
   </wsdl:message>
   <wsdl:message name="IDataService_GetKuanhaoByMc_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetKuanhaoByMcResponse" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetTiaomasByKuanhaoMc_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTiaomasByKuanhaoMc" />
-  </wsdl:message>
-  <wsdl:message name="IDataService_GetTiaomasByKuanhaoMc_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTiaomasByKuanhaoMcResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_CheckKuanhaosChongfu_InputMessage">
     <wsdl:part name="parameters" element="tns:CheckKuanhaosChongfu" />
@@ -199,11 +193,47 @@
   <wsdl:message name="IDataService_GetFendians_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFendiansResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetCangkus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCangkus" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetCangkus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCangkusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetZiJiamengshangs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetZiJiamengshangs" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetZiJiamengshangs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetZiJiamengshangsResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataService_XiazaiJinhuoShuju_InputMessage">
     <wsdl:part name="parameters" element="tns:XiazaiJinhuoShuju" />
   </wsdl:message>
   <wsdl:message name="IDataService_XiazaiJinhuoShuju_OutputMessage">
     <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShujuFinish_InputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuFinish" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShujuFinish_OutputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuFinishResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteXiaoshoujilu_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteXiaoshoujilu" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteXiaoshoujilu_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteXiaoshoujiluResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_FD_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FD" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_FD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetYuanchuangPinpais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetYuanchuangPinpais" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetYuanchuangPinpais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetYuanchuangPinpaisResponse" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
@@ -226,9 +256,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetGongyingshangs" message="tns:IDataService_GetGongyingshangs_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetGongyingshangsResponse" message="tns:IDataService_GetGongyingshangs_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetKuanhaos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetKuanhaos" message="tns:IDataService_GetKuanhaos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetKuanhaosResponse" message="tns:IDataService_GetKuanhaos_OutputMessage" />
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetKuanhaosByCond">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetKuanhaosByCond" message="tns:IDataService_GetKuanhaosByCond_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetKuanhaosByCondResponse" message="tns:IDataService_GetKuanhaosByCond_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="InsertKuanhao">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/InsertKuanhao" message="tns:IDataService_InsertKuanhao_InputMessage" />
@@ -245,10 +275,6 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetKuanhaoByMc">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetKuanhaoByMc" message="tns:IDataService_GetKuanhaoByMc_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetKuanhaoByMcResponse" message="tns:IDataService_GetKuanhaoByMc_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetTiaomasByKuanhaoMc">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc" message="tns:IDataService_GetTiaomasByKuanhaoMc_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMcResponse" message="tns:IDataService_GetTiaomasByKuanhaoMc_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="CheckKuanhaosChongfu">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CheckKuanhaosChongfu" message="tns:IDataService_CheckKuanhaosChongfu_InputMessage" />
@@ -318,9 +344,33 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetFendians" message="tns:IDataService_GetFendians_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetFendiansResponse" message="tns:IDataService_GetFendians_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetCangkus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetCangkus" message="tns:IDataService_GetCangkus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetCangkusResponse" message="tns:IDataService_GetCangkus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetZiJiamengshangs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetZiJiamengshangs" message="tns:IDataService_GetZiJiamengshangs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetZiJiamengshangsResponse" message="tns:IDataService_GetZiJiamengshangs_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShuju">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju" message="tns:IDataService_XiazaiJinhuoShuju_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse" message="tns:IDataService_XiazaiJinhuoShuju_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShujuFinish">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" message="tns:IDataService_XiazaiJinhuoShujuFinish_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinishResponse" message="tns:IDataService_XiazaiJinhuoShujuFinish_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteXiaoshoujilu">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteXiaoshoujilu" message="tns:IDataService_DeleteXiaoshoujilu_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteXiaoshoujiluResponse" message="tns:IDataService_DeleteXiaoshoujilu_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteJinchujilu_FD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD" message="tns:IDataService_DeleteJinchujilu_FD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse" message="tns:IDataService_DeleteJinchujilu_FD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetYuanchuangPinpais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetYuanchuangPinpais" message="tns:IDataService_GetYuanchuangPinpais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetYuanchuangPinpaisResponse" message="tns:IDataService_GetYuanchuangPinpais_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -371,8 +421,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetKuanhaos">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaos" style="document" />
+    <wsdl:operation name="GetKuanhaosByCond">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaosByCond" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -409,15 +459,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetKuanhaoByMc">
       <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaoByMc" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTiaomasByKuanhaoMc">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -578,8 +619,62 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCangkus">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetCangkus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZiJiamengshangs">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetZiJiamengshangs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="XiazaiJinhuoShuju">
       <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShuju" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XiazaiJinhuoShujuFinish">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteXiaoshoujilu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteXiaoshoujilu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJinchujilu_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetYuanchuangPinpais">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetYuanchuangPinpais" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -636,8 +731,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetKuanhaos">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaos" style="document" />
+    <wsdl:operation name="GetKuanhaosByCond">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaosByCond" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -674,15 +769,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetKuanhaoByMc">
       <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaoByMc" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTiaomasByKuanhaoMc">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByKuanhaoMc" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -843,8 +929,62 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCangkus">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetCangkus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZiJiamengshangs">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetZiJiamengshangs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="XiazaiJinhuoShuju">
       <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShuju" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XiazaiJinhuoShujuFinish">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteXiaoshoujilu">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteXiaoshoujilu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJinchujilu_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetYuanchuangPinpais">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetYuanchuangPinpais" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

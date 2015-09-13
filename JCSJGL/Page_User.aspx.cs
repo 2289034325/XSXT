@@ -47,9 +47,9 @@ namespace JCSJGL
                 else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员 ||
                          _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理)
                 {
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员).ToString());
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理).ToString());
-                    jss.Add(Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString(), ((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString());
 
                     //加载用户
                     loadUsers();

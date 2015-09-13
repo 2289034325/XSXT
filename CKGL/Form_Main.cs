@@ -179,7 +179,7 @@ namespace CKGL
         private void Form_Main_Load(object sender, EventArgs e)
         {
             //登陆检查
-            if (LoginInfo.User == null)
+            if (RuntimeInfo.LoginUser == null)
             {
                 Dlg_Denglu df = new Dlg_Denglu();
                 if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
@@ -217,7 +217,33 @@ namespace CKGL
         /// <param name="e"></param>
         private void mn_main_cxlj_Click(object sender, EventArgs e)
         {
-            JCSJWCF.Reconnect();
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                    {
+                        try
+                        {
+                            JCSJWCF.Reconnect();
+                            ShowMsg("连接成功", false);
+                        }
+                        catch (Exception ex)
+                        {
+                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                            ShowMsg(ex.Message, true);
+                        }
+                    }, false).Start();
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_xgmm_Click(object sender, EventArgs e)
+        {
+            Dlg_XiugaiMima dl = new Dlg_XiugaiMima();
+            if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                MessageBox.Show("修改成功");
+            }
         }
     }
 }

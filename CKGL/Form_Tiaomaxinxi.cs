@@ -27,13 +27,10 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            //先登陆基础数据中心
-            JCSJData.TTiaoma[] jtms;
             DateTime start = dp_start.Value;
             DateTime end = dp_end.Value;
-            jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
 
-            saveToLocal(jtms);
+            CommonMethod.DownLoadTiaomaInfo(start, end, false);
         }
 
         /// <summary>
@@ -47,51 +44,9 @@ namespace CKGL
             if (dt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string[] tmhs = dt.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                JCSJData.TTiaoma[] jtms = null;
 
-                jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
-
-                saveToLocal(jtms);
+                CommonMethod.DownLoadTiaomaInfo(tmhs, false);
             }
-        }
-
-        /// <summary>
-        /// 把取得的条码信息保存到本地
-        /// </summary>
-        /// <param name="jtms"></param>
-        private void saveToLocal(JCSJData.TTiaoma[] jtms)
-        {            
-            List<TTiaoma> tms = new List<TTiaoma>();
-            foreach (JCSJData.TTiaoma jtm in jtms)
-            {
-                TTiaoma tm = new TTiaoma
-                {
-                    id = jtm.id,
-                    tiaoma = jtm.tiaoma,
-                    kuanhao = jtm.TKuanhao.kuanhao,
-                    gongyingshang = jtm.TGongyingshang.mingcheng,
-                    gyskuanhao = jtm.gyskuanhao,
-                    leixing = jtm.TKuanhao.leixing,
-                    pinming = jtm.TKuanhao.pinming,
-                    yanse = jtm.yanse,
-                    chima = jtm.chima,
-                    jinjia = jtm.jinjia,
-                    shoujia = jtm.shoujia
-                };
-                tms.Add(tm);
-            }
-
-            //找出已经在本地存在的条码
-            DBContext db = IDB.GetDB();
-            TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
-            int[] oids = otms.Select(r => r.id).ToArray();
-            //需要更新的条码和需要新插入的条码
-            TTiaoma[] uts = tms.Where(r => oids.Contains(r.id)).ToArray();
-            uts.ToList().ForEach(t => t.xiugaishijian = DateTime.Now);
-            TTiaoma[] nts = tms.Where(r => !oids.Contains(r.id)).ToArray();
-            nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
-            db.UpdateTiaomas(uts);
-            db.InsertTiaomas(nts);
         }
 
         /// <summary>

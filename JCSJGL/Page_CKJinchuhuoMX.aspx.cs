@@ -35,7 +35,7 @@ namespace JCSJGL
             {
                 //除了系统管理员和总经理，其他加盟商禁止查看其他加盟商的数据
                 TCangkuJinchuhuo tf = db.GetCKJinchuhuoById(jcid);
-                if (tf.TCangku.jmsid != _LoginUser.jmsid)
+                if (tf.FaShengCangku.jmsid != _LoginUser.jmsid)
                 {
                     throw new MyException("非法操作，无法显示数据", null);
                 }

@@ -73,24 +73,6 @@ namespace BIANMA
             return _jdc.GetGongyingshangs();
         }
 
-        //internal static TGongyingshang InsertGongyingshang(TGongyingshang g)
-        //{
-        //    AutoLogin();
-        //    return _jdc.InsertGongyingshang(g);
-        //}
-
-        //internal static void EditGongyingshang(TGongyingshang og)
-        //{
-        //    AutoLogin();
-        //    _jdc.EditGongyingshang(og);
-        //}
-
-        //internal static void DeleteGongyingshang(int id)
-        //{
-        //    AutoLogin();
-        //    _jdc.DeleteGongyingshang(id);
-        //}
-
         internal static TKuanhao[] GetKuanhaosByCond(int pageSize, int pageIndex, out int recordCount)
         {
             AutoLogin();
@@ -115,22 +97,10 @@ namespace BIANMA
             _jdc.DeleteKuanhao(id);
         }
 
-        //internal static void BMZHEditPsw(string om, string nm)
-        //{
-        //    AutoLogin();
-        //    _jdc.BMZHEditPsw(Tool.CommonFunc.MD5_16(om), Tool.CommonFunc.MD5_16(nm));
-        //}
-
-        //internal static void BMZHZhuce(string dlm, string mm, string xm, string zcm)
-        //{
-        //    ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCF_VALIDADD);
-        //    vdc.BMZHZhuce(dlm, Tool.CommonFunc.MD5_16(mm), xm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
-        //}
-
-        internal static TTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
+        internal static VTiaoma[] GetTiaomas(string kuanhao, string tiaoma, DateTime? start, DateTime? end)
         {
             AutoLogin();
-            return _jdc.GetTiaomasByCond(kuanhao, tiaoma, start, end);
+            return _jdc.GetTiaomasByCond((byte)Tool.JCSJ.DBCONSTS.TIAOMA_LY.原创,kuanhao, tiaoma, start, end);
         }
 
         internal static TKuanhao GetKuanhaoByMc(string kh)
@@ -139,10 +109,10 @@ namespace BIANMA
             return _jdc.GetKuanhaoByMc(kh);
         }
 
-        internal static string[] CheckKuanhaosChongfu(int ppid,string[] khs)
+        internal static string[] CheckKuanhaosChongfu(string[] khs)
         {
             AutoLogin();
-            return _jdc.CheckKuanhaosChongfu(ppid,khs);
+            return _jdc.CheckKuanhaosChongfu(khs);
         }
 
         internal static string[] CheckTiaomaChongfu(string[] tms)

@@ -40,15 +40,26 @@ namespace CKGL
             string zcm = txb_zcm.Text.Trim();
             string jqm = Tool.CommonFunc.GetJQM();
 
-            JCSJWCF.CKZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJWCF.CKZHZhuce(ckid, ckm, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+                    //把仓库ID，库名，写入本地配置文件
+                    Settings.Default.CKID = ckid;
+                    Settings.Default.CKMC = ckm;
+                    Settings.Default.Save();
 
-            //把仓库ID，库名，写入本地配置文件
-            Settings.Default.CKID = ckid;
-            Settings.Default.CKMC = ckm;
-            Settings.Default.Save();
+                    ShowMsg("注册成功", false);
 
-            MessageBox.Show("注册成功");
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
         }
 
         /// <summary>

@@ -86,9 +86,20 @@ namespace CKGL
                 
             }).ToArray();
 
-            JCSJWCF.ShangbaoKucun_CK(fks);
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    JCSJWCF.ShangbaoKucun_CK(fks);
 
-            MessageBox.Show("完成");
+                    ShowMsg("完成", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
         }
     }
 }

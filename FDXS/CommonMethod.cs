@@ -22,7 +22,7 @@ namespace FDXS
             {
                 try
                 {
-                    JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
+                    JCSJData.VTiaoma[] jtms = JCSJWCF.GetTiaomasByTiaomahaos(tmhs);
                     SaveTmsToLocal(jtms);
 
                     ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
@@ -41,7 +41,7 @@ namespace FDXS
             {
                 try
                 {
-                    JCSJData.TTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
+                    JCSJData.VTiaoma[] jtms = JCSJWCF.GetTiaomasByUpdTime(start, end);
                     CommonMethod.SaveTmsToLocal(jtms);
 
                     ShowMsg("下载完毕，共下载" + jtms.Count() + "个条码信息", false);
@@ -59,20 +59,20 @@ namespace FDXS
         /// 把取得的条码信息保存到本地
         /// </summary>
         /// <param name="jtms"></param>
-        public static void SaveTmsToLocal(JCSJData.TTiaoma[] jtms)
+        public static void SaveTmsToLocal(JCSJData.VTiaoma[] jtms)
         {
             List<TTiaoma> tms = new List<TTiaoma>();
-            foreach (JCSJData.TTiaoma jtm in jtms)
+            foreach (JCSJData.VTiaoma jtm in jtms)
             {
                 TTiaoma tm = new TTiaoma
                 {
                     id = jtm.id,
                     tiaoma = jtm.tiaoma,
-                    kuanhao = jtm.TKuanhao.kuanhao,
-                    gongyingshang = jtm.TGongyingshang.mingcheng,
+                    kuanhao = jtm.kuanhao,
+                    gongyingshang = jtm.gys,
                     gyskuanhao = jtm.gyskuanhao,
-                    leixing = jtm.TKuanhao.leixing,
-                    pinming = jtm.TKuanhao.pinming,
+                    leixing = jtm.leixing,
+                    pinming = jtm.pinming,
                     yanse = jtm.yanse,
                     chima = jtm.chima,
                     jinjia = jtm.jinjia,

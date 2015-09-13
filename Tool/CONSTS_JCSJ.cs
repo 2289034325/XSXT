@@ -147,6 +147,7 @@ namespace Tool.JCSJ
                 仓库 = 3,
                 退货 = 4,
                 丢弃 = 5,
+                加盟商 = 6,
                 其他 = 99
             }
 
@@ -177,6 +178,15 @@ namespace Tool.JCSJ
             {
                 不接受加盟 = 0,
                 接受加盟 = 1
+            }
+
+            /// <summary>
+            /// 条码的来源类别
+            /// </summary>
+            public enum TIAOMA_LY : byte
+            {
+                加盟 = 0,
+                原创 = 1
             }
         }
 

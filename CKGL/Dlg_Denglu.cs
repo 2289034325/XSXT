@@ -46,7 +46,7 @@ namespace CKGL
                 }
                 else
                 {
-                    LoginInfo.User = user;
+                    RuntimeInfo.LoginUser = user;
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 }
             }

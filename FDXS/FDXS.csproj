@@ -363,6 +363,12 @@
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.GetKuanhaosByCondResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TCangku.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TCangkuJinchuhuo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -375,6 +381,12 @@
     <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshangPinpai.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -382,6 +394,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.VTiaoma.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />
@@ -460,7 +475,6 @@
   <ItemGroup>
     <None Include="Service References\JCSJData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

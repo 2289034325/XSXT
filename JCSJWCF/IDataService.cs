@@ -28,7 +28,7 @@ namespace JCSJWCF
         //void BMZHEditPsw(string om,string nm);
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
+        VTiaoma[] GetTiaomasByCond(byte? tmly,string Kuanhao, string Tiaoma, DateTime? Start, DateTime? End);
 
 
         [OperationContract(IsInitiating = false)]
@@ -62,11 +62,11 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = false)]
         TKuanhao GetKuanhaoByMc(string kh);
 
-        [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
+        //[OperationContract(IsInitiating = false)]
+        //TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
 
         [OperationContract(IsInitiating = false)]
-        string[] CheckKuanhaosChongfu(int ppid,string[] khs);
+        string[] CheckKuanhaosChongfu(string[] khs);
 
         [OperationContract(IsInitiating = false)]
         string[] CheckTiaomaChongfu(string[] tms);
@@ -85,7 +85,7 @@ namespace JCSJWCF
         //TTiaoma[] GetTiaomasByUpdTime(DateTime upt_start, DateTime upt_end);
 
         [OperationContract(IsInitiating = false)]
-        TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
+        VTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
 
 
         [OperationContract(IsInitiating = false)]
@@ -136,6 +136,10 @@ namespace JCSJWCF
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
         TFendian[] GetFendians();
+        [OperationContract(IsInitiating = false)]
+        TCangku[] GetCangkus();
+        [OperationContract(IsInitiating = false)]
+        TJiamengshangGX[] GetZiJiamengshangs();
 
         /// <summary>
         /// 分店看到进货后，直接从中央系统下载这批货的详细数据

@@ -92,6 +92,11 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
 
             TJiamengshang f = getEditInfo();
+            //父加盟商数量和子加盟商数量不得同时大于0
+            if (f.fjmsshu > 0 && f.zjmsshu > 0)
+            {
+                throw new MyException("不允许中间代理商", null);
+            }
             if (string.IsNullOrEmpty(hid_id.Value))
             {
                 throw new MyException("请先选择需要修改的加盟商",null);
