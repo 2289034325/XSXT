@@ -29,6 +29,20 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
+            //检查数据库版本
+            try
+            {
+                DBContext db = IDB.GetDB();
+                db.InitializeDatabase(RuntimeInfo.DbVersion);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                MessageBox.Show("数据库初始化失败");
+                Application.Exit();
+                return;
+            }
+
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 

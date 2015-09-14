@@ -9,14 +9,15 @@ namespace DB_JCSJ.Models
         {
             this.TCangkus = new List<TCangku>();
             this.TCangkuJinchuhuos = new List<TCangkuJinchuhuo>();
-            this.TFendians = new List<TFendian>();
+            this.Zyds = new List<TFendian>();
+            this.Jmds = new List<TFendian>();
             this.TGongyingshangs = new List<TGongyingshang>();
             this.THuiyuans = new List<THuiyuan>();
             this.XjGxes = new List<TJiamengshangGX>();
             this.SjGxes = new List<TJiamengshangGX>();
             this.SQXjGxes = new List<TJiamengshangGXSQ>();
             this.SQSjGxes = new List<TJiamengshangGXSQ>();
-            this.TPinpais = new List<TPinpai>();
+            this.TKuanhaos = new List<TKuanhao>();
             this.TTiaomas = new List<TTiaoma>();
             this.TUsers = new List<TUser>();
         }
@@ -32,7 +33,6 @@ namespace DB_JCSJ.Models
         public string beizhu { get; set; }
         public byte fjmsshu { get; set; }
         public short zjmsshu { get; set; }
-        public byte ppshu { get; set; }
         public byte zhanghaoshu { get; set; }
         public int tiaomashu { get; set; }
         public int huiyuanshu { get; set; }
@@ -52,14 +52,15 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TCangku> TCangkus { get; set; }
         public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public virtual TDiqu TDiqu { get; set; }
-        public virtual ICollection<TFendian> TFendians { get; set; }
+        public virtual ICollection<TFendian> Zyds { get; set; }
+        public virtual ICollection<TFendian> Jmds { get; set; }
         public virtual ICollection<TGongyingshang> TGongyingshangs { get; set; }
         public virtual ICollection<THuiyuan> THuiyuans { get; set; }
         public virtual ICollection<TJiamengshangGX> XjGxes { get; set; }
         public virtual ICollection<TJiamengshangGX> SjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQXjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQSjGxes { get; set; }
-        public virtual ICollection<TPinpai> TPinpais { get; set; }
+        public virtual ICollection<TKuanhao> TKuanhaos { get; set; }
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
         public virtual ICollection<TUser> TUsers { get; set; }
     }

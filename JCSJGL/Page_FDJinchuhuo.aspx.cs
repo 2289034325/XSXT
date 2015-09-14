@@ -118,7 +118,7 @@ namespace JCSJGL
             var xs = jcs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
+                jiamengshang = r.TFendian.Jms.mingcheng,
                 fendian = r.TFendian.dianming,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
                 lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),

@@ -67,7 +67,7 @@ namespace FDXS
             }
 
             //限制销售数据上报频率，减小服务器压力
-            if (dp_xsinterval.Value.TimeOfDay.TotalMinutes < 10)
+            if (dp_xsinterval.Value.TimeOfDay.TotalMinutes < 10 && dp_xsinterval.Value.TimeOfDay.TotalMinutes != 0)
             {
                 MessageBox.Show("销售数据的上报最小间隔为10分钟");
                 return;

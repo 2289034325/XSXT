@@ -109,7 +109,7 @@ namespace JCSJGL
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(jmsid, fdid, xsrq_start, xsrq_end, null, null, null, null, out recordCount);
 
-            var data = xss.GroupBy(r => new { jms = r.TFendian.TJiamengshang.mingcheng, r.TFendian.jmsid }).Select(r => new
+            var data = xss.GroupBy(r => new { jms = r.TFendian.Jms.mingcheng, r.TFendian.jmsid }).Select(r => new
             {
                 jmsid = r.Key.jmsid,
                 jms = r.Key.jms,
@@ -181,7 +181,7 @@ namespace JCSJGL
                 var data = xss.GroupBy(r => new
                 {
                     jmsid = r.TFendian.jmsid,
-                    jms = r.TFendian.TJiamengshang.mingcheng,
+                    jms = r.TFendian.Jms.mingcheng,
                     rq = r.xiaoshoushijian.ToString("yyyy-MM-dd")
                 }).Select(r => new
                 {

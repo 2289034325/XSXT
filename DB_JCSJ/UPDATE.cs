@@ -203,6 +203,18 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+            /// <summary>
+            /// 修改款号名称
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="kh"></param>
+            public void UpdateKuanhaoMc(int id, string kh)
+            {
+                TKuanhao ok = _db.TKuanhaos.Single(r => r.id == id);
+                ok.kuanhao = kh;
+
+                _db.SaveChanges();
+            }
 
             /// <summary>
             /// 修改条码信息
@@ -221,6 +233,19 @@ namespace DB_JCSJ
                 ot.gysid = t.gysid;
                 ot.gyskuanhao = t.gyskuanhao;
                 ot.xiugaishijian = t.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+
+            /// <summary>
+            /// 修改一个条码的条码号
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="tmh"></param>
+            public void UpdateTiaomaTmh(int id, string tmh)
+            {
+                TTiaoma ot = _db.TTiaomas.Single(r => r.id == id);
+                ot.tiaoma = tmh;
 
                 _db.SaveChanges();
             }
@@ -259,7 +284,6 @@ namespace DB_JCSJ
 
                 oj.fjmsshu = j.fjmsshu;
                 oj.zjmsshu = j.zjmsshu;
-                oj.ppshu = j.ppshu;
                 oj.zhanghaoshu = j.zhanghaoshu;
                 oj.kuanhaoshu = j.kuanhaoshu;
                 oj.tiaomashu = j.tiaomashu;
@@ -350,21 +374,6 @@ namespace DB_JCSJ
 
                 og.bzmingcheng = g.bzmingcheng;
                 og.beizhu = g.beizhu;
-
-                _db.SaveChanges();
-            }
-
-            /// <summary>
-            /// 修改品牌信息
-            /// </summary>
-            /// <param name="p"></param>
-            public void UpdateJiamengshangPinpai(TPinpai p)
-            {
-                TPinpai op = _db.TPinpais.Single(r => r.id == p.id);
-
-                op.mingcheng = p.mingcheng;
-                op.kejiameng = p.kejiameng;
-                op.xiugaishijian = p.xiugaishijian;
 
                 _db.SaveChanges();
             }

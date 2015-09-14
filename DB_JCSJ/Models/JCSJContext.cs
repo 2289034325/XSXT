@@ -35,7 +35,6 @@ namespace DB_JCSJ.Models
         public DbSet<TJiamengshangGX> TJiamengshangGXes { get; set; }
         public DbSet<TJiamengshangGXSQ> TJiamengshangGXSQs { get; set; }
         public DbSet<TKuanhao> TKuanhaos { get; set; }
-        public DbSet<TPinpai> TPinpais { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
@@ -62,7 +61,6 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TJiamengshangGXMap());
             modelBuilder.Configurations.Add(new TJiamengshangGXSQMap());
             modelBuilder.Configurations.Add(new TKuanhaoMap());
-            modelBuilder.Configurations.Add(new TPinpaiMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());

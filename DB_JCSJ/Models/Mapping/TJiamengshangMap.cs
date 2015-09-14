@@ -56,7 +56,6 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.beizhu).HasColumnName("beizhu");
             this.Property(t => t.fjmsshu).HasColumnName("fjmsshu");
             this.Property(t => t.zjmsshu).HasColumnName("zjmsshu");
-            this.Property(t => t.ppshu).HasColumnName("ppshu");
             this.Property(t => t.zhanghaoshu).HasColumnName("zhanghaoshu");
             this.Property(t => t.tiaomashu).HasColumnName("tiaomashu");
             this.Property(t => t.huiyuanshu).HasColumnName("huiyuanshu");

@@ -4,7 +4,7 @@
     <title>加盟商管理</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,fjmss,zjmss,pps,zhs,khs,tms,hys,fds,cks,gyss,xsjls,jchjls,kcjls,scff,xfdj,jzrq) {
+        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,fjmss,zjmss,zhs,khs,tms,hys,fds,cks,gyss,xsjls,jchjls,kcjls,scff,xfdj,jzrq) {
             $("#hid_id").val(id);
             $("#txb_mc").val(mc);
             $("#txb_sjh").val(sjh);
@@ -17,7 +17,6 @@
             
             $("#txb_fjmss").val(fjmss);
             $("#txb_zjmss").val(zjmss);
-            $("#txb_pps").val(pps);
             $("#txb_zhs").val(zhs);
             $("#txb_khs").val(khs);
             $("#txb_tms").val(tms);
@@ -49,8 +48,6 @@
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="fjmsshu" HeaderText="父加盟商数"></asp:BoundField>
             <asp:BoundField DataField="zjmsshu" HeaderText="子加盟商数"></asp:BoundField>
-            <asp:BoundField DataField="ppshu" HeaderText="品牌数"></asp:BoundField>
-            <asp:BoundField DataField="ppshu" HeaderText="品牌数"></asp:BoundField>
             <asp:BoundField DataField="zhanghaoshu" HeaderText="账号数"></asp:BoundField>
             <asp:BoundField DataField="kuanhaoshu" HeaderText="款号数"></asp:BoundField>
             <asp:BoundField DataField="tiaomashu" HeaderText="条码数"></asp:BoundField>
@@ -119,9 +116,6 @@
         </div>
         <div>
             <asp:Label runat="server" Text="子加盟商数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_zjmss" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <asp:Label runat="server" Text="品牌数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_pps" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <asp:Label runat="server" Text="账号数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_zhs" ClientIDMode="Static"></asp:TextBox>

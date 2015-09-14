@@ -15,7 +15,6 @@ namespace DB_JCSJ.Models.Mapping
             this.ToTable("TJiamengshangGXSQ");
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.dlsid).HasColumnName("dlsid");
-            this.Property(t => t.ppid).HasColumnName("ppid");
             this.Property(t => t.jmsid).HasColumnName("jmsid");
             this.Property(t => t.jieguo).HasColumnName("jieguo");
             this.Property(t => t.charushijian).HasColumnName("charushijian");
@@ -27,9 +26,6 @@ namespace DB_JCSJ.Models.Mapping
             this.HasRequired(t => t.Jms)
                 .WithMany(t => t.SQSjGxes)
                 .HasForeignKey(d => d.jmsid);
-            this.HasRequired(t => t.TPinpai)
-                .WithMany(t => t.TJiamengshangGXSQs)
-                .HasForeignKey(d => d.ppid);
 
         }
     }

@@ -43,10 +43,6 @@ namespace JCSJGL
 
                 Tool.CommonFunc.InitDropDownList(cmb_lx, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_LX));
                 Tool.CommonFunc.InitDropDownList(cmb_xb, typeof(Tool.JCSJ.DBCONSTS.KUANHAO_XB));
-
-                //品牌下拉框
-                TPinpai[] pps = db.GetYuanchuangPinpaisByJmsId(_LoginUser.jmsid);
-                Tool.CommonFunc.InitDropDownList(cmb_pp, pps, "mingcheng", "id");
             }
         }
        
@@ -85,8 +81,7 @@ namespace JCSJGL
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TPinpai.TJiamengshang.mingcheng,
-                pinpai = r.TPinpai.mingcheng,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 kuanhao = r.kuanhao,
                 leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
                 xingbie = ((Tool.JCSJ.DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
@@ -94,7 +89,7 @@ namespace JCSJGL
                 beizhu = r.beizhu,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + "," + r.ppid + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.xingbie + "','" + r.pinming + "','" + r.beizhu + "'"
+                editParams = r.id + ",'" + r.kuanhao + "','" + r.leixing + "','" + r.xingbie + "','" + r.pinming + "','" + r.beizhu + "'"
             });
 
             grid_kuanhao.VirtualItemCount = recordCount;
@@ -118,7 +113,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TKuanhao ok = db.GetKuanhaoById(f.id);
-            if (ok.TPinpai.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该款号", null);
             }
@@ -134,7 +129,7 @@ namespace JCSJGL
         private TKuanhao getEditInfo()
         {
             string kuanhao = txb_kh.Text.Trim();
-            int ppid = int.Parse(cmb_pp.SelectedValue);
+            //int ppid = int.Parse(cmb_pp.SelectedValue);
             byte leixing = byte.Parse(cmb_lx.SelectedValue);
             byte xingbie = byte.Parse(cmb_xb.SelectedValue);
             string piming = txb_pm.Text.Trim();
@@ -152,7 +147,6 @@ namespace JCSJGL
 
             TKuanhao f = new TKuanhao
             {
-                ppid = ppid,
                 kuanhao=kuanhao,
                 leixing = leixing,
                 xingbie = xingbie,
@@ -173,7 +167,7 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TKuanhao f = getEditInfo();
-            //f.jmsid = _LoginUser.jmsid;
+            f.jmsid = _LoginUser.jmsid;
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
@@ -220,7 +214,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TKuanhao ok = db.GetKuanhaoById(id);
-            if (ok.TPinpai.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该款号", null);
             }

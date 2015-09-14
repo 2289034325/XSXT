@@ -152,7 +152,7 @@ namespace JCSJGL
                 grid_xiaoshou.PageSize, grid_xiaoshou.PageIndex, out recordCount);
             var xs = xss.Select(r => new
             {
-                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
+                jiamengshang = r.TFendian.Jms.mingcheng,
                 fendian = r.TFendian.dianming,
                 kuanhao = r.TTiaoma==null?"":r.TTiaoma.TKuanhao.kuanhao,
                 leixing = r.TTiaoma == null ? "" : ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing).ToString(),

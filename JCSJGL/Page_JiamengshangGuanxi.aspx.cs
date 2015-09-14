@@ -42,15 +42,15 @@ namespace JCSJGL
                 loadXjjms();
 
                 //加盟品牌选择下拉框
-                TJiamengshangGX[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
-                int[] yjmppids = yjms.Select(r => r.ppid).ToArray();
+                TJiamengshang[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
+                int[] dlsids = yjms.Select(r => r.id).ToArray();
                 //接受加盟，且不是自己的品牌，而且未加盟过的品牌
-                TPinpai[] pps = db.GetPinpaiByKejiameng((byte)Tool.JCSJ.DBCONSTS.JMS_PP_KJM.接受加盟).
-                    Where(r=>r.jmsid != _LoginUser.jmsid && !yjmppids.Contains(r.id)).ToArray();
+                TJiamengshang[] pps = db.GetJiamengshangsOfDingji().
+                    Where(r => r.id != _LoginUser.jmsid && !dlsids.Contains(r.id)).ToArray();
                 var jpps = pps.Select(r => new
                 {
-                    id = r.jmsid + "," + r.id,
-                    pinpai = r.TJiamengshang.mingcheng + "-" + r.mingcheng
+                    id = r.id,
+                    pinpai = r.mingcheng
                 }).ToArray();
                 Tool.CommonFunc.InitDropDownList(cmb_ppxz, jpps, "pinpai", "id");
                 cmb_ppxz.Items.Insert(0, new ListItem("", ""));
@@ -63,12 +63,11 @@ namespace JCSJGL
         private void loadXjjms()
         {
             DBContext db = new DBContext();
-            TJiamengshangGX[] jmses = db.GetZiJiamengshangs(_LoginUser.jmsid);
+            TJiamengshangGX[] jmses = db.GetZiJiamengshangGXes(_LoginUser.jmsid);
             VDiqu[] dqs = db.GetAllDiqus();
             var jmsesdata = jmses.Select(r => new
             {
                 jmsid = r.id,
-                pinpai = r.TPinpai.mingcheng,
                 jiamengshang = r.Jms.mingcheng,
                 r.bzmingcheng,
                 r.Jms.lianxiren,
@@ -94,7 +93,6 @@ namespace JCSJGL
             var xjsqsdata = xjsqs.Select(r => new
             {
                 r.id,
-                pinpai = r.TPinpai.mingcheng,
                 jiamengshang = r.Jms.mingcheng,
                 r.Jms.lianxiren,
                 r.Jms.dianhua,
@@ -108,12 +106,11 @@ namespace JCSJGL
         private void loadJmpps()
         {
             DBContext db = new DBContext();
-            TJiamengshangGX[] dlses = db.GetFuJiamengshangs(_LoginUser.jmsid);
+            TJiamengshangGX[] dlses = db.GetFuJiamengshangGXes(_LoginUser.jmsid);
             var dlsesdata = dlses.Select(r => new
             {
                 r.id,
-                dailishang = r.Dls.mingcheng,
-                pinpai = r.TPinpai.mingcheng,
+                pinpai = r.Dls.mingcheng,
                 r.Dls.lianxiren,
                 r.Dls.dianhua,
                 jmsj = r.charushijian
@@ -135,14 +132,13 @@ namespace JCSJGL
                 throw new MyException("请选择一个要加盟的代理商", null);
             }
             int dlsid = int.Parse(cmb_ppxz.SelectedValue.Split(new char[] { ',' })[0]);
-            int ppid = int.Parse(cmb_ppxz.SelectedValue.Split(new char[] { ',' })[1]);
 
             DBContext db = new DBContext();
-            TJiamengshangGX[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
-            int[] yjmppids = yjms.Select(r => r.ppid).ToArray();
-            if (yjmppids.Contains(ppid))
+            TJiamengshang[] yjms = db.GetFuJiamengshangs(_LoginUser.jmsid);
+            int[] dlsids = yjms.Select(r => r.id).ToArray();
+            if (dlsids.Contains(dlsid))
             {
-                throw new MyException("以加盟该品牌，请不要重复申请", null);
+                throw new MyException("已加盟该品牌，请不要重复申请", null);
             }
             //检查已经加盟的代理商数量是否已超限制
             int cc = db.GetFuJiamengshangCount(_LoginUser.jmsid);
@@ -157,7 +153,7 @@ namespace JCSJGL
                 throw new MyException("您已经是代理商，不允许再加盟别的品牌", null);
             }
             //检查是否已经存在
-            TJiamengshangGXSQ osq = db.GetJiamengGXSQByDlsIdPpIdJmsId(dlsid, ppid, _LoginUser.jmsid);
+            TJiamengshangGXSQ osq = db.GetJiamengGXSQByDlsIdJmsId(dlsid, _LoginUser.jmsid);
             if (osq != null)
             {
                 throw new MyException("请不要重复申请，或者删除旧的申请记录然后再申请加盟", null);
@@ -167,7 +163,6 @@ namespace JCSJGL
             TJiamengshangGXSQ sq = new TJiamengshangGXSQ
             {
                 dlsid = dlsid,
-                ppid = ppid,
                 jmsid = _LoginUser.jmsid,
                 jieguo = (byte)Tool.JCSJ.DBCONSTS.JMSQ_JIEGUO.待审核,
                 charushijian = DateTime.Now
@@ -188,8 +183,7 @@ namespace JCSJGL
             var sjsqdata = sjsqs.Select(r => new
             {
                 r.id,
-                dailishang = r.Dls.mingcheng,
-                pinpai = r.TPinpai.mingcheng,
+                pinpai = r.Dls.mingcheng,
                 r.Dls.lianxiren,
                 r.Dls.dianhua,
                 sqsj = r.charushijian,
@@ -224,7 +218,6 @@ namespace JCSJGL
                 {
                     dlsid = sq.dlsid,
                     jmsid = sq.jmsid,
-                    ppid = sq.ppid,
                     bzmingcheng = sq.Jms.mingcheng,
                     beizhu = "",
                     charushijian = DateTime.Now

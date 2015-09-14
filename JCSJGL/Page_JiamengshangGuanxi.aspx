@@ -22,7 +22,6 @@
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowCommand="grid_sjsq_RowCommand">
         <Columns>
             <asp:BoundField DataField="id" Visible="false" HeaderText="关系ID"></asp:BoundField>
-            <asp:BoundField DataField="dailishang" HeaderText="代理商"></asp:BoundField>
             <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="联系电话"></asp:BoundField>
@@ -44,7 +43,6 @@
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowDeleting="grid_jmpp_RowDeleting">
         <Columns>
             <asp:BoundField DataField="id" Visible="false" HeaderText="关系ID"></asp:BoundField>
-            <asp:BoundField DataField="dailishang" HeaderText="代理商"></asp:BoundField>
             <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="联系电话"></asp:BoundField>
@@ -69,7 +67,6 @@
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowCommand="grid_xjsq_RowCommand">
         <Columns>
             <asp:BoundField DataField="id" Visible="false" HeaderText="ID"></asp:BoundField>
-            <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="diqu" HeaderText="地区"></asp:BoundField>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
@@ -93,7 +90,6 @@
         BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jmsid" Visible="false" HeaderText="ID"></asp:BoundField>
-            <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="diqu" HeaderText="地区"></asp:BoundField>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商名称"></asp:BoundField>
             <asp:BoundField DataField="bzmingcheng" HeaderText="备注名称"></asp:BoundField>

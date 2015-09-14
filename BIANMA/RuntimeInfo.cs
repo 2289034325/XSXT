@@ -20,11 +20,8 @@ namespace BIANMA
 
         //供应商
         public static TGongyingshang[] Gyses = null;
-
-        //自己的品牌
-        public static TPinpai[] MyPps = null;
-
+        
         //加盟的品牌
-        public static TPinpai[] JmPps = null;
+        public static TJiamengshang[] JmPps = null;
     }
 }

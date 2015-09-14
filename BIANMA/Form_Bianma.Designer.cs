@@ -73,6 +73,8 @@
             this.col_all_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmn_all_zsjk = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_cfkh = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_all_cftm = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
@@ -226,7 +228,6 @@
             this.col_all_sj,
             this.col_all_crsj,
             this.col_all_xgsj});
-            this.grid_all.ContextMenuStrip = this.cmn_all;
             this.grid_all.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_all.Location = new System.Drawing.Point(0, 60);
             this.grid_all.Name = "grid_all";
@@ -238,6 +239,7 @@
             this.grid_all.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grid_all_CellValidating);
             this.grid_all.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_all_CellValueChanged);
             this.grid_all.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.grid_all_RowPostPaint);
+            this.grid_all.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.grid_all_RowStateChanged);
             this.grid_all.SelectionChanged += new System.EventHandler(this.grid_all_SelectionChanged);
             this.grid_all.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_all_UserDeletedRow);
             this.grid_all.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_all_UserDeletingRow);
@@ -248,22 +250,24 @@
             this.cmn_all.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmn_all_shuaxin,
             this.cmn_all_saveTm,
-            this.cmn_all_zsjk});
+            this.cmn_all_zsjk,
+            this.cmn_all_cfkh,
+            this.cmn_all_cftm});
             this.cmn_all.Name = "cmn_all";
-            this.cmn_all.Size = new System.Drawing.Size(153, 92);
+            this.cmn_all.Size = new System.Drawing.Size(185, 114);
             // 
             // cmn_all_shuaxin
             // 
             this.cmn_all_shuaxin.Name = "cmn_all_shuaxin";
-            this.cmn_all_shuaxin.Size = new System.Drawing.Size(152, 22);
+            this.cmn_all_shuaxin.Size = new System.Drawing.Size(184, 22);
             this.cmn_all_shuaxin.Text = "刷新";
             this.cmn_all_shuaxin.Click += new System.EventHandler(this.cmn_all_shuaxin_Click);
             // 
             // cmn_all_saveTm
             // 
             this.cmn_all_saveTm.Name = "cmn_all_saveTm";
-            this.cmn_all_saveTm.Size = new System.Drawing.Size(152, 22);
-            this.cmn_all_saveTm.Text = "保存修改";
+            this.cmn_all_saveTm.Size = new System.Drawing.Size(184, 22);
+            this.cmn_all_saveTm.Text = "保存条码修改";
             this.cmn_all_saveTm.Click += new System.EventHandler(this.cmn_all_saveTm_Click);
             // 
             // panel1
@@ -452,9 +456,22 @@
             // cmn_all_zsjk
             // 
             this.cmn_all_zsjk.Name = "cmn_all_zsjk";
-            this.cmn_all_zsjk.Size = new System.Drawing.Size(152, 22);
+            this.cmn_all_zsjk.Size = new System.Drawing.Size(184, 22);
             this.cmn_all_zsjk.Text = "这是旧款";
             this.cmn_all_zsjk.Click += new System.EventHandler(this.cmn_all_zsjk_Click);
+            // 
+            // cmn_all_cfkh
+            // 
+            this.cmn_all_cfkh.Name = "cmn_all_cfkh";
+            this.cmn_all_cfkh.Size = new System.Drawing.Size(184, 22);
+            this.cmn_all_cfkh.Text = "查看重复的款号信息";
+            this.cmn_all_cfkh.Click += new System.EventHandler(this.cmn_all_cfkh_Click);
+            // 
+            // cmn_all_cftm
+            // 
+            this.cmn_all_cftm.Name = "cmn_all_cftm";
+            this.cmn_all_cftm.Size = new System.Drawing.Size(184, 22);
+            this.cmn_all_cftm.Text = "查看重复的条码信息";
             // 
             // Form_Bianma
             // 
@@ -527,6 +544,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_crsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_xgsj;
         private System.Windows.Forms.ToolStripMenuItem cmn_all_zsjk;
+        private System.Windows.Forms.ToolStripMenuItem cmn_all_cfkh;
+        private System.Windows.Forms.ToolStripMenuItem cmn_all_cftm;
     }
 }
 

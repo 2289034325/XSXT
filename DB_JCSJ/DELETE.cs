@@ -213,19 +213,6 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
-            /// <summary>
-            /// 删除一个原创品牌
-            /// </summary>
-            /// <param name="id"></param>
-            public void DeleteJiamengshangPinpai(int id)
-            {
-                TPinpai p = _db.TPinpais.Single(r => r.id == id);
-
-                _db.TPinpais.Remove(p);
-
-                _db.SaveChanges();
-            }
-
         }
     }
 

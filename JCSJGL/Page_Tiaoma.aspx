@@ -94,7 +94,7 @@
         <div>
             <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox></div>
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" /></div>
+            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" /></div>
     </div>
 
 </asp:Content>

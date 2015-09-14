@@ -67,11 +67,11 @@ namespace DB_JCSJ.Models.Mapping
             this.HasRequired(t => t.TDiqu)
                 .WithMany(t => t.TFendians)
                 .HasForeignKey(d => d.diquid);
-            this.HasRequired(t => t.TJiamengshang)
-                .WithMany(t => t.TFendians)
+            this.HasRequired(t => t.Jms)
+                .WithMany(t => t.Zyds)
                 .HasForeignKey(d => d.jmsid);
-            this.HasRequired(t => t.TPinpai)
-                .WithMany(t => t.TFendians)
+            this.HasRequired(t => t.Pinpai)
+                .WithMany(t => t.Jmds)
                 .HasForeignKey(d => d.ppid);
             this.HasRequired(t => t.TUser)
                 .WithMany(t => t.TFendians)

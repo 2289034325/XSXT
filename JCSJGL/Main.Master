@@ -25,7 +25,6 @@
                     <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx" ></asp:MenuItem>
                     <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="品牌信息" Value="品牌信息" NavigateUrl="~/Page_PinpaiXinxi.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>

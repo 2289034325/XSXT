@@ -109,16 +109,16 @@ namespace BIANMA
             return _jdc.GetKuanhaosByMcs(khs);
         }
 
-        internal static string[] CheckKuanhaosChongfu(string[] khs)
-        {
-            AutoLogin();
-            return _jdc.CheckKuanhaosChongfu(khs);
-        }
+        //internal static TKuanhao[] CheckKuanhaosChongfu(string[] khs)
+        //{
+        //    AutoLogin();
+        //    return _jdc.GetKuanhaosByMcs(khs);
+        //}
 
-        internal static string[] CheckTiaomaChongfu(string[] tms)
+        internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tms)
         {
             AutoLogin();
-            return _jdc.CheckTiaomaChongfu(tms);
+            return _jdc.GetTiaomasByTiaomahaos(tms);
         }
 
         internal static TKuanhao[] SaveKuanhaos(TKuanhao[] tKuanhao)
@@ -139,15 +139,22 @@ namespace BIANMA
             _jdc.EditTiaoma(t);
         }
 
-        internal static TPinpai[] GetYCPinpais()
-        {
-            AutoLogin();
-            return _jdc.GetYCPinpais();            
-        }
-        internal static TPinpai[] GetJMPinpais()
+        internal static TJiamengshang[] GetJMPinpais()
         {
             AutoLogin();
             return _jdc.GetJMPinpais();
+        }
+
+        internal static void XiugaiKuanhao(int id, string kh)
+        {
+            AutoLogin();
+            _jdc.XiugaiKuanhao(id, kh);
+        }
+
+        internal static void XiugaiTiaoma(int id, string tm)
+        {
+            AutoLogin();
+            _jdc.XiugaiTiaoma(id, tm);
         }
     }
 }

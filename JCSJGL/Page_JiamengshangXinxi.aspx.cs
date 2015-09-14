@@ -55,7 +55,6 @@ namespace JCSJGL
 
                 r.fjmsshu,
                 r.zjmsshu,
-                r.ppshu,
                 r.zhanghaoshu,
                 r.kuanhaoshu,
                 r.tiaomashu,
@@ -73,7 +72,7 @@ namespace JCSJGL
                 r.xiugaishijian,
                 editParams = 
                             r.id+",'"+r.mingcheng+"','"+r.zhuceshouji+"','"+r.zhuceyouxiang+"',"+r.diquid+",'"+r.dizhi+"','"+r.lianxiren+"','"+r.dianhua+"','"+ r.beizhu+
-                            "',"+r.fjmsshu+","+r.zjmsshu+","+r.ppshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+","+ r.huiyuanshu+","+ r.fendianshu+
+                            "',"+r.fjmsshu+","+r.zjmsshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+","+ r.huiyuanshu+","+ r.fendianshu+
                             ","+r.cangkushu+","+r.gongyingshangshu+","+r.xsjilushu+","+r.jchjilushu+","+r.kcjilushu+","+r.shoucifufei+","+ r.xufeidanjia+
                             ",'"+r.jiezhiriqi.ToString("yyyy-MM-dd")+"'"
             });
@@ -130,7 +129,6 @@ namespace JCSJGL
 
             byte fjmss = byte.Parse(txb_fjmss.Text.Trim());
             short zjmss = short.Parse(txb_zjmss.Text.Trim());
-            byte pps = byte.Parse(txb_pps.Text.Trim());
             byte zhs = byte.Parse(txb_zhs.Text.Trim());
             int khs = int.Parse(txb_khs.Text.Trim());
             int tms = int.Parse(txb_tms.Text.Trim());
@@ -162,7 +160,6 @@ namespace JCSJGL
 
                 fjmsshu = fjmss,
                 zjmsshu = zjmss,
-                ppshu = pps,
                  zhanghaoshu = zhs,
                  kuanhaoshu = khs,
                  tiaomashu = tms,

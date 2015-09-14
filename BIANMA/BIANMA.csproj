@@ -105,6 +105,18 @@
     <Compile Include="Dlg_JiazaiFahuoJilu.Designer.cs">
       <DependentUpon>Dlg_JiazaiFahuoJilu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg_ChongfuTiaoma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_ChongfuTiaoma.Designer.cs">
+      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_ChongfuKuanhao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_ChongfuKuanhao.Designer.cs">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg_Kuanhao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +192,12 @@
     <EmbeddedResource Include="Dlg_JiazaiFahuoJilu.resx">
       <DependentUpon>Dlg_JiazaiFahuoJilu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_ChongfuTiaoma.resx">
+      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_ChongfuKuanhao.resx">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Kuanhao.resx">
       <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +241,7 @@
     <None Include="Properties\DataSources\DB_JCSJ.Models.TFendian.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TGongyingshang.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.THuiyuan.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.Models.TJiamengshang.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TJiamengshangGX.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TJiamengshangPinpai.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TKuanhao.datasource" />

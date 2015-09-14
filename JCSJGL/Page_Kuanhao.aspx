@@ -4,9 +4,8 @@
     <title>款号管理</title>
     <script type="text/javascript">
         //编辑
-        function EditInfo(id,pp,kh,lx,xb,pm,bz) {
+        function EditInfo(id,kh,lx,xb,pm,bz) {
             $("#hid_id").val(id);
-            $("#cmb_pp").val(pp);
             $("#txb_kh").val(kh);
             $("#cmb_lx").val(lx);
             $("#cmb_xb").val(xb);
@@ -46,7 +45,6 @@
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
-            <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>
             <asp:BoundField DataField="xingbie" HeaderText="性别"></asp:BoundField>
@@ -80,9 +78,6 @@
     <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
-        <div>
-            <asp:Label runat="server" Text="品牌"></asp:Label><asp:DropDownList runat="server" ID="cmb_pp" ClientIDMode="Static"></asp:DropDownList>
-        </div>
         <div>
             <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
         </div>

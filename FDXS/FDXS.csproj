@@ -363,6 +363,9 @@
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />
     <None Include="Service References\JCSJValid\ValidService.xsd">
       <SubType>Designer</SubType>
@@ -439,9 +442,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TPinpai.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TTiaoma.datasource">

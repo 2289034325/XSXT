@@ -273,18 +273,6 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
-
-
-            /// <summary>
-            /// 某个加盟商创建一个新品牌
-            /// </summary>
-            /// <param name="p"></param>
-            public void InsertJiamengshangPinpai(TPinpai p)
-            {
-                _db.TPinpais.Add(p);
-
-                _db.SaveChanges();
-            }
         }
     }
 

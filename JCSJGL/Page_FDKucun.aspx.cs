@@ -98,7 +98,7 @@ namespace JCSJGL
             TFendianKucun[] jcs = db.GetFDKucunByCond(jmsid, fdid, true);
             var xs = jcs.Select(r => new
             {
-                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
+                jiamengshang = r.TFendian.Jms.mingcheng,
                 fdid = r.fendianid,
                 fendian = r.TFendian.dianming,
                 kucunshuliang = r.TFendianKucunMXes.Sum(mr => mr.shuliang),
@@ -153,7 +153,7 @@ namespace JCSJGL
             TFendianKucun[] jcs = db.GetFDKucunByCond(jmsid, fdid, false);
             var xs = jcs.Select(r => new
             {
-                jiamengshang = r.TFendian.TJiamengshang.mingcheng,
+                jiamengshang = r.TFendian.Jms.mingcheng,
                 id = r.id,
                 fendian = r.TFendian.dianming,
                 kucunshuliang = r.TFendianKucunMXes.Sum(mr => mr.shuliang),

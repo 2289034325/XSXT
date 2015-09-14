@@ -338,7 +338,6 @@
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.min.css" />
-    <Content Include="Page_PinpaiXinxi.aspx" />
     <Content Include="Page_WodeXinxi.aspx" />
     <Content Include="Zhuce.aspx" />
     <Content Include="Main.Master" />
@@ -388,13 +387,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Page_PinpaiXinxi.aspx.cs">
-      <DependentUpon>Page_PinpaiXinxi.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page_PinpaiXinxi.aspx.designer.cs">
-      <DependentUpon>Page_PinpaiXinxi.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_WodeXinxi.aspx.cs">
       <DependentUpon>Page_WodeXinxi.aspx</DependentUpon>

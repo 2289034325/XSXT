@@ -12,7 +12,7 @@ namespace BIANMA
     /// <summary>
     /// 扩展条码信息
     /// </summary>
-    class TTiaomaExtend : ICloneable
+    public class TTiaomaExtend : ICloneable
     {
         public int idex;
         //public int khidex;
@@ -54,6 +54,7 @@ namespace BIANMA
             xt.Add(new XElement("xj") { Value = ((byte)xj).ToString() });
             XElement Ntiaoma = new XElement("tiaoma");
             Ntiaoma.Add(new XElement("id") { Value = tiaoma.id.ToString() });
+            Ntiaoma.Add(new XElement("kuanhaoid") { Value = tiaoma.kuanhaoid.ToString() });
             Ntiaoma.Add(new XElement("tiaoma") { Value = tiaoma.tiaoma });
             Ntiaoma.Add(new XElement("gysid") { Value = tiaoma.gysid.ToString() });
             Ntiaoma.Add(new XElement("gyskuanhao") { Value = tiaoma.gyskuanhao });
@@ -79,6 +80,7 @@ namespace BIANMA
             tx.tiaoma = new TTiaoma
             {
                 id = int.Parse(xml.Element("tiaoma").Element("id").Value),
+                kuanhaoid = int.Parse(xml.Element("tiaoma").Element("kuanhaoid").Value),
                 tiaoma = xml.Element("tiaoma").Element("tiaoma").Value,
                 gysid = int.Parse(xml.Element("tiaoma").Element("gysid").Value),
                 gyskuanhao = xml.Element("tiaoma").Element("gyskuanhao").Value,
@@ -97,7 +99,7 @@ namespace BIANMA
     }
 
 
-    class TKuanhaoExtend
+    public class TKuanhaoExtend
     {
         public int idex;
         public XTCONSTS.KUANHAO_XINJIU xj;

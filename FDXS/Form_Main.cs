@@ -80,19 +80,6 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            //检查数据库版本
-            try
-            {
-                DBContext db = IDB.GetDB();
-                db.InitializeDatabase(RuntimeInfo.DbVersion);
-            }
-            catch (Exception ex)
-            {
-                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                MessageBox.Show("数据库初始化失败");
-                Application.Exit();
-                return;
-            }
 
             //登陆检查
             if (RuntimeInfo.LoginUser == null)

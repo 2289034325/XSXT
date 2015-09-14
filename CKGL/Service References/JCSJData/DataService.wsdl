@@ -73,11 +73,11 @@
   <wsdl:message name="IDataService_DeleteKuanhao_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteKuanhaoResponse" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetKuanhaoByMc_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetKuanhaoByMc" />
+  <wsdl:message name="IDataService_GetKuanhaosByMcs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKuanhaosByMcs" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetKuanhaoByMc_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetKuanhaoByMcResponse" />
+  <wsdl:message name="IDataService_GetKuanhaosByMcs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKuanhaosByMcsResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_CheckKuanhaosChongfu_InputMessage">
     <wsdl:part name="parameters" element="tns:CheckKuanhaosChongfu" />
@@ -217,11 +217,11 @@
   <wsdl:message name="IDataService_DeleteJinchujilu_FD_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FDResponse" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetYuanchuangPinpais_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetYuanchuangPinpais" />
+  <wsdl:message name="IDataService_GetJMPinpais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJMPinpais" />
   </wsdl:message>
-  <wsdl:message name="IDataService_GetYuanchuangPinpais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetYuanchuangPinpaisResponse" />
+  <wsdl:message name="IDataService_GetJMPinpais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJMPinpaisResponse" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
@@ -260,9 +260,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteKuanhao" message="tns:IDataService_DeleteKuanhao_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteKuanhaoResponse" message="tns:IDataService_DeleteKuanhao_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetKuanhaoByMc">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetKuanhaoByMc" message="tns:IDataService_GetKuanhaoByMc_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetKuanhaoByMcResponse" message="tns:IDataService_GetKuanhaoByMc_OutputMessage" />
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetKuanhaosByMcs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetKuanhaosByMcs" message="tns:IDataService_GetKuanhaosByMcs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetKuanhaosByMcsResponse" message="tns:IDataService_GetKuanhaosByMcs_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="CheckKuanhaosChongfu">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CheckKuanhaosChongfu" message="tns:IDataService_CheckKuanhaosChongfu_InputMessage" />
@@ -356,9 +356,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD" message="tns:IDataService_DeleteJinchujilu_FD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse" message="tns:IDataService_DeleteJinchujilu_FD_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetYuanchuangPinpais">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetYuanchuangPinpais" message="tns:IDataService_GetYuanchuangPinpais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetYuanchuangPinpaisResponse" message="tns:IDataService_GetYuanchuangPinpais_OutputMessage" />
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetJMPinpais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetJMPinpais" message="tns:IDataService_GetJMPinpais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetJMPinpaisResponse" message="tns:IDataService_GetJMPinpais_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -445,8 +445,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetKuanhaoByMc">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaoByMc" style="document" />
+    <wsdl:operation name="GetKuanhaosByMcs">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetKuanhaosByMcs" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -661,8 +661,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetYuanchuangPinpais">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/GetYuanchuangPinpais" style="document" />
+    <wsdl:operation name="GetJMPinpais">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetJMPinpais" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

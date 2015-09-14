@@ -91,7 +91,7 @@ namespace JCSJGL
             {
                 jmsid = _LoginUser.jmsid;
                 grid_jinchu.Columns[0].Visible = false;
-                jmses = db.GetZiJiamengshangs(jmsid.Value).ToDictionary(k=>k.id,v=>v.bzmingcheng);
+                jmses = db.GetZiJiamengshangGXes(jmsid.Value).ToDictionary(k=>k.id,v=>v.bzmingcheng);
             }
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;

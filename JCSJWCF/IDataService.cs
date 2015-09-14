@@ -66,11 +66,11 @@ namespace JCSJWCF
         //[OperationContract(IsInitiating = false)]
         //TTiaoma[] GetTiaomasByKuanhaoMc(string kh);
 
-        [OperationContract(IsInitiating = false)]
-        string[] CheckKuanhaosChongfu(string[] khs);
+        //[OperationContract(IsInitiating = false)]
+        //string[] CheckKuanhaosChongfu(string[] khs);
 
-        [OperationContract(IsInitiating = false)]
-        string[] CheckTiaomaChongfu(string[] tms);
+        //[OperationContract(IsInitiating = false)]
+        //string[] CheckTiaomaChongfu(string[] tms);
 
         [OperationContract(IsInitiating = false)]
         TKuanhao[] SaveKuanhaos(TKuanhao[] ks);
@@ -139,8 +139,13 @@ namespace JCSJWCF
         TFendian[] GetFendians();
         [OperationContract(IsInitiating = false)]
         TCangku[] GetCangkus();
+
+        /// <summary>
+        /// 取下级加盟商
+        /// </summary>
+        /// <returns></returns>
         [OperationContract(IsInitiating = false)]
-        TJiamengshangGX[] GetZiJiamengshangs();
+        TJiamengshang[] GetZiJiamengshangs();
 
         /// <summary>
         /// 分店看到进货后，直接从中央系统下载这批货的详细数据
@@ -158,17 +163,18 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = false)]
         void DeleteJinchujilu_FD(int oid);
 
-        /// <summary>
-        /// 取得某加盟商的原创品牌
-        /// </summary>
-        /// <returns></returns>
-        [OperationContract(IsInitiating = false)]
-        TPinpai[] GetYCPinpais();
+       
         /// <summary>
         /// 取得某加盟商加盟的品牌
         /// </summary>
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
-        TPinpai[] GetJMPinpais();
+        TJiamengshang[] GetJMPinpais();
+
+        [OperationContract(IsInitiating = false)]
+        void XiugaiKuanhao(int id, string kh);
+
+        [OperationContract(IsInitiating = false)]
+        void XiugaiTiaoma(int id, string tm);
     }
 }
