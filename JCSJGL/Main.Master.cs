@@ -25,21 +25,21 @@ namespace JCSJGL
         {
             TUser u = (TUser)Session["USER"];
 
+            //隐藏部分菜单
             if (!(u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 || u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
             {
-                MenuItem jmi = null;
+                List<MenuItem> hmi = new List<MenuItem>(); ;
                 foreach (MenuItem mi in div_mn_main.Items)
                 {
-                    if (mi.Text.Contains("加盟商信息"))
+                    if (mi.Text.Contains("加盟商信息") || mi.Text.Contains("注册码"))
                     {
-                        jmi = mi;
-                        break;
+                        hmi.Add(mi);
                     }
                 }
 
-                if (jmi != null)
+                foreach(MenuItem mi in hmi)
                 {
-                    div_mn_main.Items.Remove(jmi);
+                    div_mn_main.Items.Remove(mi);
                 }
             }
         }

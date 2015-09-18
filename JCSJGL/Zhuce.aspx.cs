@@ -51,6 +51,13 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_zhuce_Click(object sender, EventArgs e)
         {
+            string zcm = txb_zcm.Value.Trim();
+            List<string> zcms = SysTool.loadZcms();
+            if (!zcms.Contains(zcm))
+            {
+                throw new MyException("注册码错误",null);
+            }
+
             string mc = txb_mc.Value.Trim();
             if (string.IsNullOrEmpty(mc))
             {
@@ -87,10 +94,46 @@ namespace JCSJGL
             }
             string dz = txb_dz.Value.Trim();
 
+            //生成一个随机的4位代码
+            DBContext db = new DBContext();
+            short[] dms = db.GetJiamengshangDaimas();
+            short ndm = 0;
+            if (dms.Count() >= 9000)
+            {
+                throw new MyException("用户数已到上限，无法再注册", null);
+            }
+            if (dms.Count() == 0)
+            {
+                //最小代码从1000开始，0开头的条码不好看
+                ndm = 1000;
+            }
+            else
+            {
+                for (int i = 0; i < dms.Length - 1; i++)
+                {
+                    if (dms[i + 1] - dms[i] > 1)
+                    {
+                        ndm = (short)(dms[i] + 1);
+                        break;
+                    }
+                }
+                if (ndm == 0)
+                {
+                    ndm = (short)(dms.Max() + 1);
+                }
+            }
+           
+            //控制新产生的代码，避免超过9999
+            if (ndm > 9999 || ndm < 1000)
+            {
+                throw new MyException("系统错误，请重新提交注册", null);
+            }
+
             TJiamengshang j = new TJiamengshang
             {
                 //基本信息
                 mingcheng = mc,
+                daima = ndm,
                 zhuceshouji = sjh,
                 zhuceyouxiang = yx,
                 diquid = dqid,
@@ -103,6 +146,7 @@ namespace JCSJGL
                 xiugaishijian = DateTime.Now,
 
                 //用量
+                fjmsshu= 1,
                 zjmsshu = 0,
                 zhanghaoshu = 3,
                 kuanhaoshu = 10000,
@@ -133,11 +177,15 @@ namespace JCSJGL
                 xiugaishijian = DateTime.Now
             });
 
-            DBContext db = new DBContext();
             db.InsertJiamengshang(j);
 
+            //将用过的注册码删去
+            SysTool.delZcm(zcm);
+
+            Response.Write("<script>alert('注册成功');window.location='Login.aspx';</script>");
+
             //转向登陆页面
-            Response.Redirect("Login.aspx");
+            //Response.Redirect("Login.aspx");
         }       
     }
 }

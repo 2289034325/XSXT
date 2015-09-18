@@ -10,7 +10,8 @@
         }
 
         .div_input {
-            display: inline-flex;
+            display: -webkit-inline-flex;
+            display:-ms-inline-flexbox;
         }
 
             .div_input label {
@@ -67,6 +68,9 @@
             </div>
             <div class="div_shuoming">
                 <label>这是您区别其他用户或代理商的唯一名称</label>
+            </div>
+            <div class="div_input">
+                <label>代码</label><input type="text" id="txb_dm" runat="server" disabled="disabled" />
             </div>
             <div class="div_input">
                 <label>手机号</label><input type="text" id="txb_sjh" runat="server" />

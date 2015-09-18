@@ -47,6 +47,7 @@ namespace DB_JCSJ.Models.Mapping
             this.ToTable("TJiamengshang");
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.mingcheng).HasColumnName("mingcheng");
+            this.Property(t => t.daima).HasColumnName("daima");
             this.Property(t => t.zhuceshouji).HasColumnName("zhuceshouji");
             this.Property(t => t.zhuceyouxiang).HasColumnName("zhuceyouxiang");
             this.Property(t => t.diquid).HasColumnName("diquid");

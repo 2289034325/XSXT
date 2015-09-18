@@ -26,5 +26,8 @@
     <Setting Name="LogFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">D:\Log\bmlog.txt</Value>
     </Setting>
+    <Setting Name="LogoImg" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

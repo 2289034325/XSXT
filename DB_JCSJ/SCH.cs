@@ -583,6 +583,10 @@ namespace DB_JCSJ
             {
                 return _db.TJiamengshangs.Single(r => r.id == id);
             }
+            public short[] GetJiamengshangDaimas()
+            {
+                return _db.TJiamengshangs.Select(r => r.daima).ToArray();
+            }
             /// <summary>
             /// 取某个加盟商所加盟的所有代理商信息
             /// </summary>

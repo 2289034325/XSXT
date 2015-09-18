@@ -39,6 +39,7 @@
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="mingcheng" HeaderText="名称"></asp:BoundField>
+            <asp:BoundField DataField="daima" HeaderText="代码"></asp:BoundField>
             <asp:BoundField DataField="shoujihao" HeaderText="手机号"></asp:BoundField>
             <asp:BoundField DataField="youxiang" HeaderText="邮箱"></asp:BoundField>
             <asp:BoundField DataField="diqu" HeaderText="地区"></asp:BoundField>
@@ -157,7 +158,7 @@
             <asp:Label runat="server" Text="截止日期"></asp:Label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_jzrq" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
+            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" />
         </div>
     </div>
 </asp:Content>

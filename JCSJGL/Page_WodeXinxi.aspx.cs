@@ -35,6 +35,7 @@ namespace JCSJGL
 
 
                 txb_mc.Value = j.mingcheng;
+                txb_dm.Value = j.daima.ToString();
                 txb_sjh.Value = j.zhuceshouji;
                 txb_yx.Value = j.zhuceyouxiang;
                 cmb_sheng.SelectedValue = dq.fid.Value.ToString();

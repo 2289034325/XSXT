@@ -92,12 +92,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarCode.cs" />
     <Compile Include="CONSTS.cs" />
     <Compile Include="Dlg_AppSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dlg_AppSettings.Designer.cs">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg_Biaoqian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg_Biaoqian.Designer.cs">
+      <DependentUpon>Dlg_Biaoqian.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg_JiazaiFahuoJilu.cs">
       <SubType>Form</SubType>
@@ -188,6 +195,9 @@
     <Compile Include="WCF.cs" />
     <EmbeddedResource Include="Dlg_AppSettings.resx">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg_Biaoqian.resx">
+      <DependentUpon>Dlg_Biaoqian.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_JiazaiFahuoJilu.resx">
       <DependentUpon>Dlg_JiazaiFahuoJilu.cs</DependentUpon>
@@ -350,8 +360,69 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Biaoqian\Base.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\LOGO.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\RMB.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_diagonals-thick_18_b81900_40x40.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_diagonals-thick_20_666666_40x40.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_flat_10_000000_40x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_glass_100_f6f6f6_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_glass_100_fdf5ce_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_glass_65_ffffff_1x400.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_gloss-wave_35_f6a828_500x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_highlight-soft_100_eeeeee_1x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-bg_highlight-soft_75_ffe45c_1x100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-icons_222222_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-icons_228ef1_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-icons_ef8c08_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-icons_ffd27a_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\images\ui-icons_ffffff_256x240.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\jquery-ui.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\jquery-ui.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Biaoqian\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="logo.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

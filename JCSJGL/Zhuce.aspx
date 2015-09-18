@@ -16,7 +16,8 @@
         }
 
         .div_input {
-            display: inline-flex;
+            display: -webkit-inline-flex;
+            display:-ms-inline-flexbox;
         }
 
             .div_input label {
@@ -26,7 +27,7 @@
             .div_input textarea {
                 float: right;
                 width: 200px;
-                height:80px;
+                height: 80px;
             }
 
             .div_input input[type='text'] {
@@ -53,32 +54,26 @@
             padding-top: 2px;
         }
 
-        .div_shuoming 
-        {
-            margin-left:100px;
-            width:300px;
+        .div_shuoming {
+            margin-left: 100px;
+            width: 300px;
             color: gray;
             font-size: 12px;
-
         }
     </style>
     <script>
-        function chk_change()
-        {
+        function chk_change() {
             var chk_tongyi = $("#chk_tongyi");
             var btn_zhuce = $("#btn_zhuce");
-            if (chk_tongyi.is(':checked'))
-            {
+            if (chk_tongyi.is(':checked')) {
                 btn_zhuce.attr("disabled", false);
             }
-            else
-            {
+            else {
                 btn_zhuce.attr("disabled", true);
             }
         }
 
-        $(document).ready(function ()
-        {
+        $(document).ready(function () {
             var chk_tongyi = $("#chk_tongyi");
             var btn_zhuce = $("#btn_zhuce");
             if (chk_tongyi.is(':checked')) {
@@ -130,9 +125,12 @@
             <div class="div_input">
                 <label>详细地址</label><textarea id="txb_dz" runat="server"></textarea>
             </div>
+            <div class="div_input">
+                <label>注册码</label><input type="text" id="txb_zcm" runat="server" />
+            </div>
             <div class="div_input" style="float: right;">
                 <input runat="server" type="checkbox" id="chk_tongyi" onchange="chk_change()" /><label class="lbl_tongyi" for="chk_tongyi">同意使用协议</label>
-                <asp:Button runat="server" ID="btn_zhuce" Text="注册" OnClick="btn_zhuce_Click"/>
+                <asp:Button runat="server" ID="btn_zhuce" Text="注册" OnClick="btn_zhuce_Click" />
             </div>
         </div>
     </form>

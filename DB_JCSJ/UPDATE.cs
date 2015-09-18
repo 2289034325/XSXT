@@ -212,6 +212,7 @@ namespace DB_JCSJ
             {
                 TKuanhao ok = _db.TKuanhaos.Single(r => r.id == id);
                 ok.kuanhao = kh;
+                ok.xiugaishijian = DateTime.Now;
 
                 _db.SaveChanges();
             }
@@ -246,6 +247,7 @@ namespace DB_JCSJ
             {
                 TTiaoma ot = _db.TTiaomas.Single(r => r.id == id);
                 ot.tiaoma = tmh;
+                ot.xiugaishijian = DateTime.Now;
 
                 _db.SaveChanges();
             }

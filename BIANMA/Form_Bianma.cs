@@ -14,6 +14,7 @@ using System.Xml.Linq;
 using Tool.JCSJ;
 using Tool;
 using DB_JCSJ.Models;
+using System.Drawing.Printing;
 
 namespace BIANMA
 {
@@ -40,6 +41,10 @@ namespace BIANMA
         private TKuanhao[] _eKhs;
         private TTiaoma[] _eTms;
 
+        //等待打印的数据
+        List<string[]> _dataPrint;
+        int _pIndex;
+
         public Form_Bianma()
         {
             InitializeComponent();
@@ -57,6 +62,9 @@ namespace BIANMA
 
             _eKhs = null;
             _eTms = null;
+
+            _dataPrint = new List<string[]>();
+            _pIndex = 0;
         }
 
         /// <summary>
@@ -505,7 +513,7 @@ namespace BIANMA
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmn_all_shuaxin_Click(object sender, EventArgs e)
+        private void cmi_shuaxin_Click(object sender, EventArgs e)
         {
             grid_all.Rows.Clear();
             foreach (TKuanhaoExtend tk in _khs)
@@ -532,6 +540,16 @@ namespace BIANMA
                 TTiaomaExtend tt = tk.tms.Single(r => r.idex == tmidex);
 
                 dr.Cells[col_all_tm.Name].Value = tt.tiaoma.tiaoma;
+                dr.Cells[col_all_tmxj.Name].Value = tt.xj.ToString();
+                dr.Cells[col_all_gys.Name].Value = tt.tiaoma.gysid;
+                dr.Cells[col_all_gyskh.Name].Value = tt.tiaoma.gyskuanhao;
+                dr.Cells[col_all_ys.Name].Value = tt.tiaoma.yanse;
+                dr.Cells[col_all_cm.Name].Value = tt.tiaoma.chima;
+                dr.Cells[col_all_jj.Name].Value = tt.tiaoma.jinjia;
+                dr.Cells[col_all_sj.Name].Value = tt.tiaoma.shoujia;
+                dr.Cells[col_all_crsj.Name].Value = tt.tiaoma.charushijian;
+                dr.Cells[col_all_xgsj.Name].Value = tt.tiaoma.xiugaishijian;
+
             }
         }
 
@@ -944,6 +962,8 @@ namespace BIANMA
                             tk.tms.ForEach(r => r.tiaoma.kuanhaoid = k.id);
                         }
                     }
+                    //刷新表格
+                    refreshKuanhao();
                 }
             }
             else
@@ -1002,6 +1022,8 @@ namespace BIANMA
                             }
                         }
                     }
+                    //刷新表格
+                    refreshTiaoma();
                 }
             }
             else
@@ -1010,11 +1032,11 @@ namespace BIANMA
             }
 
             //刷新新旧，保存后，所有的都变成旧款号，旧条码
-            foreach (DataGridViewRow dr in grid_all.Rows)
-            {
-                dr.Cells[col_all_khxj.Name].Value = XTCONSTS.KUANHAO_XINJIU.旧.ToString();
-                dr.Cells[col_all_tmxj.Name].Value = XTCONSTS.TIAOMA_XINJIU.旧.ToString();
-            }
+            //foreach (DataGridViewRow dr in grid_all.Rows)
+            //{
+            //    dr.Cells[col_all_khxj.Name].Value = XTCONSTS.KUANHAO_XINJIU.旧.ToString();
+            //    dr.Cells[col_all_tmxj.Name].Value = XTCONSTS.TIAOMA_XINJIU.旧.ToString();
+            //}
 
             MessageBox.Show("保存成功");
         }               
@@ -1716,7 +1738,7 @@ namespace BIANMA
                     xj = XTCONSTS.KUANHAO_XINJIU.新
                 }).ToList();
 
-                cmn_all_shuaxin_Click(null, null);
+                cmi_shuaxin_Click(null, null);
             }
         }
 
@@ -1822,7 +1844,7 @@ namespace BIANMA
         /// <param name="e"></param>
         private void makeTiaoma()
         {
-            string AB = Tool.CommonFunc.Year_month_to_AB(Settings.Default.STARTYEAR);
+            string AB = Tool.CommonFunc.Year_month_to_num(Settings.Default.STARTYEAR);
             foreach (TKuanhaoExtend tk in _khs)
             {
                 foreach (TTiaomaExtend tt in tk.tms)
@@ -1834,7 +1856,7 @@ namespace BIANMA
                         if (string.IsNullOrEmpty(tm) || string.IsNullOrWhiteSpace(tm))
                         {
                             string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.TM_NUM_LEN);
-                            tt.tiaoma.tiaoma = Settings.Default.TM_START_CHAR + AB + NUM;
+                            tt.tiaoma.tiaoma = RuntimeInfo.LoginUser.TJiamengshang.daima + AB + NUM;
                         }
                     }
                 }
@@ -1945,6 +1967,12 @@ namespace BIANMA
             int khidex = (int)dr.Cells[col_all_khidex.Name].Value;           
             TKuanhaoExtend tk = _khs.Single(r => r.idex == khidex);
 
+            if (_eKhs == null)
+            {
+                MessageBox.Show("请先将数据保存到服务器，如果发现重复款号，再使用该功能");
+                return;
+            }
+
             TKuanhao jk = _eKhs.SingleOrDefault(r => r.kuanhao == nkh);
             if (jk == null)
             {
@@ -1974,6 +2002,56 @@ namespace BIANMA
             }
         }
 
+        /// <summary>
+        /// 处理重复的条码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_all_cftm_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow dr = grid_all.SelectedRows[0];
+            string ntm = (string)dr.Cells[col_all_tm.Name].Value;
+            int khidex = (int)dr.Cells[col_all_khidex.Name].Value;
+            int tmidex = (int)dr.Cells[col_all_tmidex.Name].Value;
+            TKuanhaoExtend tke = _khs.Single(r => r.idex == khidex);
+            TTiaomaExtend te = tke.tms.Single(r=>r.idex == tmidex);
+
+            if (_eTms == null)
+            {
+                MessageBox.Show("请先将数据保存到服务器，如果发现重复条码，再使用该功能");
+                return;
+            }
+
+            TTiaoma jt = _eTms.SingleOrDefault(r => r.tiaoma == ntm);
+            if (jt == null)
+            {
+                MessageBox.Show("未发现与该条码重复的条码号");
+                return;
+            }
+            TTiaomaExtend jte = new TTiaomaExtend();
+            jte.xj = XTCONSTS.TIAOMA_XINJIU.旧;
+            jte.tiaoma = jt;
+
+            Dlg_ChongfuTiaoma dc = new Dlg_ChongfuTiaoma(jte, te, tke.kuanhao);
+            DialogResult dlr = dc.ShowDialog();
+            if (dlr == System.Windows.Forms.DialogResult.OK)
+            {
+                //修改新条码号
+                string rntm = dc.txb_xtm.Text.Trim();
+                dr.Cells[col_all_tm.Name].Value = rntm;
+
+                refreshTiaoma();
+            }
+            else if (dlr == System.Windows.Forms.DialogResult.Yes)
+            {
+                //使用旧条码号
+                te.xj = XTCONSTS.TIAOMA_XINJIU.旧;
+                te.tiaoma = jt;
+                
+                refreshTiaoma();
+            }
+        }
+
         private void grid_all_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             if (e.Row.Selected)
@@ -1985,5 +2063,238 @@ namespace BIANMA
                 e.Row.ContextMenuStrip = null;
             }
         }
+
+        /// <summary>
+        /// 右键，菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grid_all_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                grid_all.ClearSelection();
+                grid_all.Rows[e.RowIndex].Selected = true;
+            }
+        }
+
+
+        private void mni_biaoqian_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void print()
+        {
+            var data = _khs.SelectMany(r => r.tms, (a, b) => new
+            {
+                b.tiaoma.tiaoma,
+                a.kuanhao.kuanhao,
+                a.kuanhao.pinming,
+                b.tiaoma.yanse,
+                b.tiaoma.chima,
+                b.tiaoma.shoujia,
+                gys = RuntimeInfo.Gyses.Single(r => r.id == b.tiaoma.gysid).mingcheng,
+                b.tiaoma.gyskuanhao,
+                b.shuliang
+            });
+            DataTable dt = Tool.CommonFunc.LINQToDataTable(data);
+            Dlg_Biaoqian db = new Dlg_Biaoqian(dt);
+            db.WindowState = FormWindowState.Maximized;
+            db.ShowDialog();
+        }
+
+        private void dayinBiaoqian()
+        {
+            PrintController printController = new StandardPrintController();
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintController = printController;
+            printDocument.PrintPage += new PrintPageEventHandler(this.printDocument_PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+
+            try
+            {
+                printDocument.Print();
+            }
+            catch (Exception ex)
+            {
+                printDocument.PrintController.OnEndPrint(printDocument, new PrintEventArgs());
+                throw ex;
+            }
+        }
+        private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.HasMorePages = true; //此处打开多页打印属性          
+
+            Graphics printG = e.Graphics; //获得绘图对象 
+            Font printFont = new Font("黑体", 12,FontStyle.Bold);
+            float yPosition = 0;
+            float lblMargin = 10;
+            float valMargin = 60;
+            float cH = printFont.GetHeight(printG);
+            SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
+
+            //LOGO
+            RectangleF destRect = new RectangleF(0, yPosition, 150, 50);
+            printG.DrawImage(getLogo(), destRect);
+            yPosition += 60;
+            //信息
+            printG.DrawString("款号：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.款号], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("品名：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.品名], new Font("黑体", 10, FontStyle.Bold), myBrush, valMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("颜色：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.颜色], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("尺码：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.尺码], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            printG.DrawString("序号：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.序号], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            yPosition += cH;
+            yPosition += cH;
+            //条码
+            destRect = new RectangleF(0, yPosition, 150, 50);
+            printG.DrawImage(Get128CodeAuto(_dataPrint[_pIndex][(int)PRINT_ITEM.条码]), destRect);
+            yPosition += 80;
+            //横线
+            printG.DrawString("-------------------------", printFont, myBrush, lblMargin-10, yPosition, new StringFormat());
+            yPosition += cH;
+            //吊牌价
+            printG.DrawString("零售价", printFont, myBrush, lblMargin, yPosition, new StringFormat());
+            destRect = new RectangleF(65, yPosition, 40, 20);
+            printG.DrawImage(getRmb(), destRect);
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.吊牌价], printFont, myBrush, 108, yPosition, new StringFormat());
+
+            //有的行需要打印多次，每打印一次，将数量减去1，减为0后，打印下一行
+            int sl = int.Parse(_dataPrint[_pIndex][(int)PRINT_ITEM.数量]);
+            sl--;
+            _dataPrint[_pIndex][(int)PRINT_ITEM.数量] = sl.ToString();
+            if (sl <= 0)
+            {
+                _pIndex++;
+                if (_pIndex >= _dataPrint.Count)
+                {
+                    e.HasMorePages = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载logo图片
+        /// </summary>
+        /// <returns></returns>
+        private Image getLogo()
+        {
+            Image im = Image.FromFile(Settings.Default.LogoImg);
+            return im;
+        }
+        private Image getRmb()
+        {
+            Image im = Image.FromFile(Application.StartupPath + "\\Biaoqian\\images\\RMB.jpg");
+            return im;
+        }
+
+        private Image Get128CodeAuto(string tm)
+        {
+            Code128Auto ca = new Code128Auto(tm);
+            return ca.GetBarCodeImage();
+        }
+
+        /// <summary>
+        /// 打印所有行的条码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_dyall_Click(object sender, EventArgs e)
+        {
+            _dataPrint.Clear();
+
+            preData(grid_all.Rows.Cast<DataGridViewRow>().ToArray());            
+
+            if (_dataPrint.Count > 0)
+            {
+                _pIndex = 0;
+                dayinBiaoqian();
+            }
+        }
+
+        /// <summary>
+        /// 打印选中的行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mni_dysel_Click(object sender, EventArgs e)
+        {
+            _dataPrint.Clear();
+
+            preData(grid_all.SelectedRows.Cast<DataGridViewRow>().ToArray());
+
+            if (_dataPrint.Count > 0)
+            {
+                _pIndex = 0;
+                dayinBiaoqian();
+            }
+        }
+
+        /// <summary>
+        /// 准备打印数据
+        /// </summary>
+        /// <param name="drs"></param>
+        private void preData(DataGridViewRow[] drs)
+        {
+            //检查logo图片是否存在
+            if (!File.Exists(Settings.Default.LogoImg))
+            {
+                MessageBox.Show("标签logo图片不存在，请重新设置");
+                return;
+            }
+            foreach (DataGridViewRow dr in drs)
+            {
+                string xh = (dr.Index + 1).ToString();
+                string tm = dr.Cells[col_all_tm.Name].Value.ToString();
+                string kh = dr.Cells[col_all_kh.Name].Value.ToString();
+                string pm = dr.Cells[col_all_pm.Name].Value.ToString();
+                string ys = dr.Cells[col_all_ys.Name].Value.ToString();
+                string cm = dr.Cells[col_all_cm.Name].Value.ToString();
+                string dpj = decimal.Parse(dr.Cells[col_all_sj.Name].Value.ToString()).ToString("#");
+                string gyskh = dr.Cells[col_all_gyskh.Name].Value.ToString();
+                string sl = dr.Cells[col_all_sl.Name].Value.ToString();
+
+                string[] d = new string[] 
+                {
+                    xh,tm,string.IsNullOrEmpty(gyskh)?kh:gyskh,pm,ys,cm,dpj,sl
+                };
+
+                _dataPrint.Add(d);
+            }
+        }
+
+        private void mni_szlg_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fn = ofd.FileName;
+                Settings.Default.LogoImg = fn;
+                Settings.Default.Save();
+            }
+        }
+    }
+
+    public enum PRINT_ITEM : int
+    {
+        序号=0,
+        条码=1,
+        款号=2,
+        品名=3,
+        颜色=4,
+        尺码=5,
+        吊牌价=6,
+        数量=7
     }
 }

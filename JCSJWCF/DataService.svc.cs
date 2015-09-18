@@ -189,15 +189,14 @@ namespace JCSJWCF
             }
 
             //去除循环引用
-            //foreach (TTiaoma t in ts)
-            //{
-            //    t.TKuanhao.TTiaomas.Clear();
-            //    t.TKuanhao.TJiamengshangPinpai = null;
-            //    t.TGongyingshang.TTiaomas.Clear();
-            //    t.TGongyingshang.TJiamengshang = null;
-            //    t.TJiamengshang.TTiaomas.Clear();
-            //    t.TJiamengshang.TGongyingshangs.Clear();
-            //}
+            foreach (TTiaoma t in ts)
+            {
+                t.TJiamengshang = null;
+                t.TKuanhao.TTiaomas.Clear();
+                t.TKuanhao.TJiamengshang = null;
+                t.TGongyingshang.TTiaomas.Clear();
+                t.TGongyingshang.TJiamengshang = null;
+            }
             return ts;
         }
 

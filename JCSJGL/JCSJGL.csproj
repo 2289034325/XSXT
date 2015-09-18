@@ -14,7 +14,7 @@
     <RootNamespace>JCSJGL</RootNamespace>
     <AssemblyName>JCSJGL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -338,7 +338,9 @@
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Page_Dtzcm.aspx" />
     <Content Include="Page_WodeXinxi.aspx" />
+    <Content Include="App_Data\ZCM.txt" />
     <Content Include="Zhuce.aspx" />
     <Content Include="Main.Master" />
     <Content Include="MobileAdapter.js" />
@@ -387,6 +389,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Dtzcm.aspx.cs">
+      <DependentUpon>Page_Dtzcm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_Dtzcm.aspx.designer.cs">
+      <DependentUpon>Page_Dtzcm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_WodeXinxi.aspx.cs">
       <DependentUpon>Page_WodeXinxi.aspx</DependentUpon>
@@ -610,7 +619,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>39139</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39139/</IISUrl>
+          <IISUrl>http://localhost/JCSJGL</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

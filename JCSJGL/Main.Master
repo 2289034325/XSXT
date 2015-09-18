@@ -38,9 +38,10 @@
                     <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="统计表" Value="统计表" NavigateUrl="~/Page_TongjiBiao.aspx"></asp:MenuItem>       
-                    <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>       
+                    <asp:MenuItem Text="统计图" Value="统计图" NavigateUrl="~/Page_TongjiTu.aspx"></asp:MenuItem>     
+                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>         
                     <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>    
-                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>            
+                    <asp:MenuItem Text="注册码" Value="注册码" NavigateUrl="~/Page_Dtzcm.aspx"></asp:MenuItem>         
                 </Items>
                 <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
                 <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></StaticMenuItemStyle>

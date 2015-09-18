@@ -361,6 +361,21 @@ namespace Tool
 
             return A.ToString() + B.ToString();
         }
+        /// <summary>
+        /// 计算从起始日期到现在经历的月数
+        /// </summary>
+        /// <param name="NumStartYear"></param>
+        /// <returns></returns>
+        public static string Year_month_to_num(int NumStartYear)
+        {
+            //计算起始日期到现在的月数
+            DateTime start = new DateTime(NumStartYear, 1, 1);
+            DateTime end = DateTime.Now.Date;
+
+            int ms = (end.Year - start.Year) * 12 + end.Month - start.Month + 1;
+
+            return ms.ToString().PadLeft(3,'0');
+        }
 
         /// <summary>
         /// 取得指定长度的数字字符串
@@ -396,27 +411,36 @@ namespace Tool
         {
             if (kh.Length > 20)
             {
-                return false;
+                throw new MyException("款号字符不得超过20位", null);
             }
 
             Regex reg = new Regex(@"^[A-Za-z0-9]+$");
-            return reg.IsMatch(kh);
+            if (!reg.IsMatch(kh))
+            {
+                throw new MyException("款号不能含有字母和数字意外的字符", null);
+            }
+            return true;
         }
 
         /// <summary>
-        /// 条码只能由字母和数字组成
+        /// 条码只能由字母和数字组成，且最短不能小于9位，不能超过13位
         /// </summary>
         /// <param name="tm"></param>
         /// <returns></returns>
         public static bool CheckFormat_TM(string tm)
         {
-            if (tm.Length < 9)
+            if (tm.Length < 9 || tm.Length > 13)
             {
-                return false;
+                throw new MyException("条码长度必须在9到13个字符之间", null);
             }
 
             Regex reg = new Regex(@"^[A-Za-z0-9]+$");
-            return reg.IsMatch(tm);
+            if (!reg.IsMatch(tm))
+            {
+                throw new MyException("条码不能含有字母和数字意外的字符", null);
+            }
+
+            return true;
         }
         
         /// <summary>

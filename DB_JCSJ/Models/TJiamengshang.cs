@@ -24,6 +24,7 @@ namespace DB_JCSJ.Models
 
         public int id { get; set; }
         public string mingcheng { get; set; }
+        public short daima { get; set; }
         public string zhuceshouji { get; set; }
         public string zhuceyouxiang { get; set; }
         public int diquid { get; set; }

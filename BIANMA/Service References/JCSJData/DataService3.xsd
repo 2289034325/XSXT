@@ -155,6 +155,7 @@
       <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="cangkushu" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="daima" type="xs:short" />
       <xs:element minOccurs="0" name="dianhua" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="diquid" type="xs:int" />
       <xs:element minOccurs="0" name="dizhi" nillable="true" type="xs:string" />

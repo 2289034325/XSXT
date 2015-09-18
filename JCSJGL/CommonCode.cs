@@ -1,6 +1,7 @@
 ﻿using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using Tool;
@@ -32,6 +33,7 @@ namespace JCSJGL
         仓库库存,
         仓库库存明细,
         动态验证码,
+        注册码,
         我的信息
     }
     public enum PageOpt
@@ -212,6 +214,14 @@ namespace JCSJGL
                     LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员))
                 {
                     throw new MyException("没有权限",null);
+                }
+            }
+            else if (Page == PageName.注册码)
+            {
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
+                {
+                    throw new MyException("没有权限", null);
                 }
             }
             else if (Page == PageName.地区编码)
@@ -550,6 +560,53 @@ namespace JCSJGL
                     }
                 }
             }
+        }
+
+    }
+
+    public class SysTool
+    {
+        public static string zcmFile = HttpContext.Current.Server.MapPath("~") + "\\App_Data\\ZCM.txt";
+        public static List<string> loadZcms()
+        {
+            //从文本文件加载                
+            StreamReader sr = new StreamReader(zcmFile);
+            List<string> zcms = new List<string>();
+            while (!sr.EndOfStream)
+            {
+                string zcm = sr.ReadLine();
+                if (string.IsNullOrEmpty(zcm) || string.IsNullOrWhiteSpace(zcm))
+                {
+                    continue;
+                }
+
+                zcms.Add(zcm);
+            }
+            sr.Close();
+
+            return zcms;
+        }
+
+        public static void addZcms(List<string> nzcms)
+        {
+            List<string> zcms = loadZcms();
+            zcms.AddRange(nzcms);
+            StreamWriter sw = new StreamWriter(zcmFile, false);
+            string sms = zcms.Aggregate((a,b)=>{return a+"\r\n"+b;});
+            sw.Write(sms);
+            sw.Flush();
+            sw.Close();
+        }
+
+        public static void delZcm(string zcm)
+        {
+            List<string> zcms = loadZcms();
+            zcms.Remove(zcm);
+            StreamWriter sw = new StreamWriter(zcmFile, false);
+            string sms = zcms.Aggregate((a, b) => { return a + "\r\n" + b; });
+            sw.Write(sms);
+            sw.Flush();
+            sw.Close();
         }
     }
 }

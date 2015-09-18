@@ -29,17 +29,21 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txb_kh = new System.Windows.Forms.TextBox();
+            this.txb_jtm = new System.Windows.Forms.TextBox();
             this.btn_edit = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grid_kh = new System.Windows.Forms.DataGridView();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txb_xtm = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btn_refresh = new System.Windows.Forms.Button();
+            this.btn_add = new System.Windows.Forms.Button();
             this.col_xj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_lx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_gys = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_gys = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_ys = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_cm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,11 +51,6 @@
             this.col_sj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_crsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txb_pm = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btn_refresh = new System.Windows.Forms.Button();
-            this.btn_add = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,12 +67,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "方案1";
             // 
-            // txb_kh
+            // txb_jtm
             // 
-            this.txb_kh.Location = new System.Drawing.Point(249, 12);
-            this.txb_kh.Name = "txb_kh";
-            this.txb_kh.Size = new System.Drawing.Size(173, 21);
-            this.txb_kh.TabIndex = 4;
+            this.txb_jtm.Location = new System.Drawing.Point(249, 12);
+            this.txb_jtm.Name = "txb_jtm";
+            this.txb_jtm.Size = new System.Drawing.Size(173, 21);
+            this.txb_jtm.TabIndex = 4;
             // 
             // btn_edit
             // 
@@ -83,6 +82,7 @@
             this.btn_edit.TabIndex = 8;
             this.btn_edit.Text = "使用旧条码";
             this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_syjtm_Click);
             // 
             // splitContainer1
             // 
@@ -98,13 +98,13 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.txb_pm);
+            this.splitContainer1.Panel2.Controls.Add(this.txb_xtm);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.btn_refresh);
             this.splitContainer1.Panel2.Controls.Add(this.btn_add);
             this.splitContainer1.Panel2.Controls.Add(this.btn_edit);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.txb_kh);
+            this.splitContainer1.Panel2.Controls.Add(this.txb_jtm);
             this.splitContainer1.Size = new System.Drawing.Size(861, 214);
             this.splitContainer1.SplitterDistance = 108;
             this.splitContainer1.TabIndex = 9;
@@ -116,7 +116,6 @@
             this.grid_kh.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid_kh.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_kh.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_id,
             this.col_xj,
             this.col_tm,
             this.col_kh,
@@ -137,17 +136,54 @@
             this.grid_kh.ReadOnly = true;
             this.grid_kh.RowHeadersVisible = false;
             this.grid_kh.RowTemplate.Height = 23;
-            this.grid_kh.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grid_kh.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grid_kh.Size = new System.Drawing.Size(861, 108);
             this.grid_kh.TabIndex = 10;
             // 
-            // col_id
+            // label2
             // 
-            this.col_id.DataPropertyName = "id";
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "方案3";
+            // 
+            // txb_xtm
+            // 
+            this.txb_xtm.Location = new System.Drawing.Point(249, 41);
+            this.txb_xtm.Name = "txb_xtm";
+            this.txb_xtm.Size = new System.Drawing.Size(173, 21);
+            this.txb_xtm.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 44);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 12);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "方案2";
+            // 
+            // btn_refresh
+            // 
+            this.btn_refresh.Location = new System.Drawing.Point(53, 10);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(190, 23);
+            this.btn_refresh.TabIndex = 14;
+            this.btn_refresh.Text = "将旧条码重新命名为";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_jtmcmm_Click);
+            // 
+            // btn_add
+            // 
+            this.btn_add.Location = new System.Drawing.Point(53, 39);
+            this.btn_add.Name = "btn_add";
+            this.btn_add.Size = new System.Drawing.Size(190, 23);
+            this.btn_add.TabIndex = 13;
+            this.btn_add.Text = "将新条码重新命名为";
+            this.btn_add.UseVisualStyleBackColor = true;
+            this.btn_add.Click += new System.EventHandler(this.btn_xtmcmm_Click);
             // 
             // col_xj
             // 
@@ -186,9 +222,12 @@
             // 
             // col_gys
             // 
+            this.col_gys.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.col_gys.HeaderText = "供应商";
             this.col_gys.Name = "col_gys";
             this.col_gys.ReadOnly = true;
+            this.col_gys.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_gys.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_gys.Width = 66;
             // 
             // col_gyskh
@@ -240,49 +279,6 @@
             this.col_xgsj.ReadOnly = true;
             this.col_xgsj.Width = 78;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 73);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "方案3";
-            // 
-            // txb_pm
-            // 
-            this.txb_pm.Location = new System.Drawing.Point(249, 41);
-            this.txb_pm.Name = "txb_pm";
-            this.txb_pm.Size = new System.Drawing.Size(173, 21);
-            this.txb_pm.TabIndex = 16;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 44);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 12);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "方案2";
-            // 
-            // btn_refresh
-            // 
-            this.btn_refresh.Location = new System.Drawing.Point(53, 10);
-            this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.Size = new System.Drawing.Size(190, 23);
-            this.btn_refresh.TabIndex = 14;
-            this.btn_refresh.Text = "将旧条码重新命名为";
-            this.btn_refresh.UseVisualStyleBackColor = true;
-            // 
-            // btn_add
-            // 
-            this.btn_add.Location = new System.Drawing.Point(53, 39);
-            this.btn_add.Name = "btn_add";
-            this.btn_add.Size = new System.Drawing.Size(190, 23);
-            this.btn_add.TabIndex = 13;
-            this.btn_add.Text = "将新条码重新命名为";
-            this.btn_add.UseVisualStyleBackColor = true;
-            // 
             // Dlg_ChongfuTiaoma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -294,6 +290,7 @@
             this.Name = "Dlg_ChongfuTiaoma";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "重复条码信息";
+            this.Load += new System.EventHandler(this.Dlg_ChongfuTiaoma_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -307,22 +304,21 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txb_kh;
+        private System.Windows.Forms.TextBox txb_jtm;
         private System.Windows.Forms.Button btn_edit;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView grid_kh;
         private System.Windows.Forms.Button btn_refresh;
         private System.Windows.Forms.Button btn_add;
-        private System.Windows.Forms.TextBox txb_pm;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
+        public System.Windows.Forms.TextBox txb_xtm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_tm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_lx;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_pm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_gys;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_gys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_gyskh;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_ys;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_cm;

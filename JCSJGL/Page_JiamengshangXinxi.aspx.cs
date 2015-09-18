@@ -45,6 +45,7 @@ namespace JCSJGL
             {
                 r.id,
                 r.mingcheng,
+                r.daima,
                 shoujihao = r.zhuceshouji,
                 youxiang = r.zhuceyouxiang,
                 diqu = dqs.Single(rr => rr.id == r.diquid).lujing,
