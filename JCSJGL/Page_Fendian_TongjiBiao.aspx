@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_TongjiBiao.aspx.cs" Inherits="JCSJGL.Page_TongjiBiao" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Page_Fendian_TongjiBiao.aspx.cs" Inherits="JCSJGL.Page_Fendian_TongjiBiao" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
-    <title>统计表</title>
+    <title>销售统计表</title>
     <script type="text/javascript">
     </script>
 </asp:Content>

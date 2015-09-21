@@ -230,7 +230,8 @@ namespace DB_JCSJ
                 ot.chima = t.chima;
                 ot.jinjia = t.jinjia;
                 ot.shoujia = t.shoujia;
-                ot.kuanhaoid = t.kuanhaoid;
+                //所属款号，不允许修改
+                //ot.kuanhaoid = t.kuanhaoid;
                 ot.gysid = t.gysid;
                 ot.gyskuanhao = t.gyskuanhao;
                 ot.xiugaishijian = t.xiugaishijian;

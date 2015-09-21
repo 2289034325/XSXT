@@ -273,6 +273,25 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 插入一个加盟商进退货记录
+            /// </summary>
+            /// <param name="j"></param>
+            public void InsertJiamengshangJinchuhuo(TJiamengshangJintuihuo j)
+            {
+                _db.TJiamengshangJintuihuos.Add(j);
+
+                _db.SaveChanges();
+            }
+
+            public void InsertJiamengshangJinchuhuoMX(TJiamengshangJintuihuoMX m)
+            {
+                _db.TJiamengshangJintuihuoMXes.Add(m);
+
+                _db.SaveChanges();
+            }
+
         }
     }
 

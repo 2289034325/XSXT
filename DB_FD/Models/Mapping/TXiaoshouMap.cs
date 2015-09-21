@@ -23,6 +23,7 @@ namespace DB_FD.Models.Mapping
             this.ToTable("TXiaoshou");
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.xiaoshoushijian).HasColumnName("xiaoshoushijian");
+            this.Property(t => t.jinhuoriqi).HasColumnName("jinhuoriqi");
             this.Property(t => t.xiaoshouyuan).HasColumnName("xiaoshouyuan");
             this.Property(t => t.huiyuanid).HasColumnName("huiyuanid");
             this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");

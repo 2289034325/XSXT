@@ -81,8 +81,14 @@ namespace FDXS
                 tms.Add(tm);
             }
 
-            //找出已经在本地存在的条码
             DBContext db = IDB.GetDB();
+            //检查是否有条码号冲突的，因为用户可能在编码时修改了旧条码号，
+            //或者在网站上条码信息管理页面修改了条码号，导致分店系统的条码号
+            //TODO
+            //TTiaoma[] otmhs = db.GetTiaomasByTmhs(tms.Select(r => r.tiaoma).ToArray());
+
+
+            //找出已经在本地存在的条码
             TTiaoma[] otms = db.GetTiaomasByIds(tms.Select(r => r.id).ToArray());
             int[] oids = otms.Select(r => r.id).ToArray();
             //需要更新的条码和需要新插入的条码

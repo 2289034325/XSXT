@@ -138,6 +138,15 @@ namespace Tool.JCSJ
             }
 
             /// <summary>
+            /// 加盟商拿货退货
+            /// </summary>
+            public enum JMS_FHTH : byte
+            {
+                发货=1,
+                退货=2
+            }
+
+            /// <summary>
             /// 进出货的来源去向
             /// </summary>
             public enum JCH_LYQX : byte

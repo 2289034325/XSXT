@@ -34,12 +34,12 @@
             this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtzc = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xgmm = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_churuku = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tmyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_cxlj = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_xgmm = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +97,13 @@
             this.mn_main_version.Text = "版本";
             this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
             // 
+            // mn_main_xgmm
+            // 
+            this.mn_main_xgmm.Name = "mn_main_xgmm";
+            this.mn_main_xgmm.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_xgmm.Text = "修改密码";
+            this.mn_main_xgmm.Click += new System.EventHandler(this.mn_main_xgmm_Click);
+            // 
             // mn_main_churuku
             // 
             this.mn_main_churuku.Name = "mn_main_churuku";
@@ -131,13 +138,6 @@
             this.mn_main_cxlj.Size = new System.Drawing.Size(104, 21);
             this.mn_main_cxlj.Text = "重新连接服务器";
             this.mn_main_cxlj.Click += new System.EventHandler(this.mn_main_cxlj_Click);
-            // 
-            // mn_main_xgmm
-            // 
-            this.mn_main_xgmm.Name = "mn_main_xgmm";
-            this.mn_main_xgmm.Size = new System.Drawing.Size(152, 22);
-            this.mn_main_xgmm.Text = "修改密码";
-            this.mn_main_xgmm.Click += new System.EventHandler(this.mn_main_xgmm_Click);
             // 
             // Form_Main
             // 

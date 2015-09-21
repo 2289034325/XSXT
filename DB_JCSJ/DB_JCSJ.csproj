@@ -70,6 +70,8 @@
     <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
     <Compile Include="Models\Mapping\TJiamengshangGXMap.cs" />
     <Compile Include="Models\Mapping\TJiamengshangGXSQMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangJintuihuoMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangJintuihuoMXMap.cs" />
     <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
     <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
@@ -94,6 +96,8 @@
     <Compile Include="Models\TJiamengshang.cs" />
     <Compile Include="Models\TJiamengshangGX.cs" />
     <Compile Include="Models\TJiamengshangGXSQ.cs" />
+    <Compile Include="Models\TJiamengshangJintuihuo.cs" />
+    <Compile Include="Models\TJiamengshangJintuihuoMX.cs" />
     <Compile Include="Models\TKuanhao.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />

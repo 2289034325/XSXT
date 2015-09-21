@@ -192,6 +192,7 @@ namespace FDXS
             {
                 oid = r.id,
                 xiaoshoushijian = r.xiaoshoushijian,
+                jinhuoriqi = r.jinhuoriqi,
                 xiaoshouyuan = r.xiaoshouyuan,
                 tiaomaid = r.tiaomaid,
                 huiyuanid = r.huiyuanid,

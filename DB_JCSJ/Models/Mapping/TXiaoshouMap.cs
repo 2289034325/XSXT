@@ -25,6 +25,7 @@ namespace DB_JCSJ.Models.Mapping
             this.Property(t => t.fendianid).HasColumnName("fendianid");
             this.Property(t => t.oid).HasColumnName("oid");
             this.Property(t => t.xiaoshoushijian).HasColumnName("xiaoshoushijian");
+            this.Property(t => t.jinhuoriqi).HasColumnName("jinhuoriqi");
             this.Property(t => t.xiaoshouyuan).HasColumnName("xiaoshouyuan");
             this.Property(t => t.huiyuanid).HasColumnName("huiyuanid");
             this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");

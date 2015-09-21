@@ -8,7 +8,6 @@ namespace DB_JCSJ.Models
         public TJiamengshang()
         {
             this.TCangkus = new List<TCangku>();
-            this.TCangkuJinchuhuos = new List<TCangkuJinchuhuo>();
             this.Zyds = new List<TFendian>();
             this.Jmds = new List<TFendian>();
             this.TGongyingshangs = new List<TGongyingshang>();
@@ -17,6 +16,8 @@ namespace DB_JCSJ.Models
             this.SjGxes = new List<TJiamengshangGX>();
             this.SQXjGxes = new List<TJiamengshangGXSQ>();
             this.SQSjGxes = new List<TJiamengshangGXSQ>();
+            this.Fahuos = new List<TJiamengshangJintuihuo>();
+            this.Jinhuos = new List<TJiamengshangJintuihuo>();
             this.TKuanhaos = new List<TKuanhao>();
             this.TTiaomas = new List<TTiaoma>();
             this.TUsers = new List<TUser>();
@@ -51,7 +52,6 @@ namespace DB_JCSJ.Models
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }
         public virtual ICollection<TCangku> TCangkus { get; set; }
-        public virtual ICollection<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public virtual TDiqu TDiqu { get; set; }
         public virtual ICollection<TFendian> Zyds { get; set; }
         public virtual ICollection<TFendian> Jmds { get; set; }
@@ -61,6 +61,8 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TJiamengshangGX> SjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQXjGxes { get; set; }
         public virtual ICollection<TJiamengshangGXSQ> SQSjGxes { get; set; }
+        public virtual ICollection<TJiamengshangJintuihuo> Fahuos { get; set; }
+        public virtual ICollection<TJiamengshangJintuihuo> Jinhuos { get; set; }
         public virtual ICollection<TKuanhao> TKuanhaos { get; set; }
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
         public virtual ICollection<TUser> TUsers { get; set; }

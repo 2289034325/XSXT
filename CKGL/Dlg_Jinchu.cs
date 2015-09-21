@@ -102,14 +102,10 @@ namespace CKGL
             TChuruku cr = new TChuruku
             {
                 beizhu = bz,
-                cangkuid = ckid,
                 caozuorenid = RuntimeInfo.LoginUser.id,
-                fangxiang = fx,
-                fendianid = fdid,
-                jmsid = jmsid,
+                fangxiang = fx,               
                 laiyuanquxiang = lyqx,
                 shangbaoshijian = null,
-                zhekou = zk,
                 charushijian = DateTime.Now,
                 xiugaishijian = DateTime.Now
             };
@@ -133,30 +129,30 @@ namespace CKGL
             Tool.CommonFunc.InitCombbox(cmb_lyqx, typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
             cmb_lyqx.SelectedIndex = -1;
 
-            if (RuntimeInfo.AllCks == null)
-            {
-                //加载仓库、分店、子加盟商信息
-                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-                    {
-                        try
-                        {
-                            CKGL.JCSJData.TCangku[] cks = JCSJWCF.GetCangkus();
-                            CKGL.JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
-                            CKGL.JCSJData.TJiamengshangGX[] jmses = JCSJWCF.GetZiJiamengshangs();
+            //if (RuntimeInfo.AllCks == null)
+            //{
+            //    //加载仓库、分店、子加盟商信息
+            //    new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            //        {
+            //            try
+            //            {
+            //                CKGL.JCSJData.TCangku[] cks = JCSJWCF.GetCangkus();
+            //                CKGL.JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
+            //                CKGL.JCSJData.TJiamengshangGX[] jmses = JCSJWCF.GetZiJiamengshangs();
 
-                            RuntimeInfo.AllCks = cks.Where(r => r.id != Settings.Default.CKID).ToDictionary(k => k.id.ToString(), v => v.mingcheng);
-                            RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
-                            RuntimeInfo.AllJmses = jmses.ToDictionary(k => k.jmsid.ToString(), v => v.bzmingcheng);
-                        }
-                        catch (Exception ex)
-                        {
-                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                            ShowMsg(ex.Message, true);
-                            Close();
-                        }
+            //                RuntimeInfo.AllCks = cks.Where(r => r.id != Settings.Default.CKID).ToDictionary(k => k.id.ToString(), v => v.mingcheng);
+            //                RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
+            //                RuntimeInfo.AllJmses = jmses.ToDictionary(k => k.jmsid.ToString(), v => v.bzmingcheng);
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+            //                ShowMsg(ex.Message, true);
+            //                Close();
+            //            }
 
-                    }, true).Start();
-            }
+            //        }, true).Start();
+            //}
 
             Tool.CommonFunc.InitCombbox(cmb_ck, RuntimeInfo.AllCks);
             cmb_ck.SelectedIndex = -1;

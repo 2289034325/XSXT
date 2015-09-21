@@ -116,7 +116,7 @@ namespace JCSJGL
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
                 editParams = r.id + ",'" + r.tiaoma + "','" + r.yanse + "','" + r.chima + "','" + r.jinjia + "','" + r.shoujia + "','" +
-                             r.TKuanhao.kuanhao + "','" + r.gysid + "','" + r.gyskuanhao + "'"
+                             r.gysid + "','" + r.gyskuanhao + "'"
             });
 
             grid_tiaoma.VirtualItemCount = recordCount;
@@ -140,14 +140,23 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TTiaoma ot = db.GetTiaomaById(f.id);
+            TKuanhao ok = db.GetKuanhaoById(ot.kuanhaoid);
             TGongyingshang og = db.GetGongyingshangById(f.gysid);
             if (ot.jmsid != og.jmsid)
             {
                 throw new MyException("非法操作，无法修改该条码信息", null);
             }
+            //不能把加盟条码的款号改成别的款号
+            if (ok.jmsid != _LoginUser.jmsid)
+            {
+                if (f.kuanhaoid != ot.kuanhaoid)
+                {
+                    throw new MyException("这个条码信息来自品牌商，不能修改它所属的款号", null);
+                }
+            }
             if (ot.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
-                throw new MyException("该条码不属于您，无法修改该条码信息", null);
+                throw new MyException("非法操作，无法修改该条码信息", null);
             }
 
             db.UpdateTiaoma(f);
@@ -166,21 +175,21 @@ namespace JCSJGL
             string chima = txb_cm.Text.Trim();
             decimal jinjia = decimal.Parse(txb_jj.Text.Trim());
             decimal shoujia = decimal.Parse(txb_sj.Text.Trim());
-            string kuanhao = txb_kh.Text.Trim();
+            //string kuanhao = txb_kh.Text.Trim();
             DBContext db = new DBContext();
 
             //TODO
             //当前款号只在某品牌内不重复，如果某加盟商有多个品牌，而且不同的品牌内有相同款号的话，该方法就会报错
-            TKuanhao[] ks = db.GetKuanhaosByMcJmsId(new string[]{kuanhao}, _LoginUser.jmsid);
-            if (ks.Count() == 0)
-            {
-                throw new MyException("该款号不存在，或者该款号不属于您", null);
-            }
-            else if (ks.Count() > 1)
-            {
-                throw new MyException("款号["+kuanhao+"]重复，属于多个品牌，无法将条码指定为该款号", null);
-            }
-            TKuanhao k = ks[0];     
+            //TKuanhao[] ks = db.GetKuanhaosByMcJmsId(new string[]{kuanhao}, _LoginUser.jmsid);
+            //if (ks.Count() == 0)
+            //{
+            //    throw new MyException("该款号不存在，或者该款号不属于您", null);
+            //}
+            //else if (ks.Count() > 1)
+            //{
+            //    throw new MyException("款号["+kuanhao+"]重复，属于多个品牌，无法将条码指定为该款号", null);
+            //}
+            //TKuanhao k = ks[0];     
 
             int gysid = int.Parse(cmb_gys.SelectedValue);
             string gyskuanhao = txb_gyskh.Text.Trim();
@@ -192,7 +201,7 @@ namespace JCSJGL
                 chima = chima,
                 jinjia = jinjia,
                 shoujia = shoujia,
-                kuanhaoid = k.id,
+                //kuanhaoid = k.id,
                 gysid = gysid,
                 gyskuanhao = gyskuanhao,
             };
@@ -205,26 +214,26 @@ namespace JCSJGL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btn_add_Click(object sender, EventArgs e)
-        {
-            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+        //protected void btn_add_Click(object sender, EventArgs e)
+        //{
+        //    Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
-            TTiaoma f = getEditInfo();
-            f.jmsid = _LoginUser.jmsid;
-            f.caozuorenid = _LoginUser.id;
-            f.charushijian = DateTime.Now;
-            f.xiugaishijian = DateTime.Now;
+        //    TTiaoma f = getEditInfo();
+        //    f.jmsid = _LoginUser.jmsid;
+        //    f.caozuorenid = _LoginUser.id;
+        //    f.charushijian = DateTime.Now;
+        //    f.xiugaishijian = DateTime.Now;
 
-            DBContext db = new DBContext();
-            int cc = db.GetTiaomaCount(_LoginUser.jmsid);
-            if (cc >= _LoginUser.TJiamengshang.tiaomashu)
-            {
-                throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员", null);
-            }
-            db.InsertTiaoma(f);
+        //    DBContext db = new DBContext();
+        //    int cc = db.GetTiaomaCount(_LoginUser.jmsid);
+        //    if (cc >= _LoginUser.TJiamengshang.tiaomashu)
+        //    {
+        //        throw new MyException("拥有的条码数已达到上限，如果需要增加更多条码请联系系统管理员", null);
+        //    }
+        //    db.InsertTiaoma(f);
 
-            search();
-        }
+        //    search();
+        //}
 
         /// <summary>
         /// 换页

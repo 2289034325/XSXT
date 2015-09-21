@@ -556,11 +556,7 @@ namespace CKGL
             {
                 oid = r.id,
                 fangxiang = r.fangxiang,
-                laiyuanquxiang = r.laiyuanquxiang,
-                gxckid = r.cangkuid,
-                fdid = r.fendianid,
-                jmsid = r.jmsid,
-                zhekou = r.zhekou,                
+                laiyuanquxiang = r.laiyuanquxiang,                          
                 beizhu = r.beizhu,
                 fashengshijian = r.charushijian,
                 TCangkuJinchuhuoMXes = r.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
@@ -602,7 +598,7 @@ namespace CKGL
             //来源去向列的下拉框值
             col_crk_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
             col_crk_lyqx.DisplayMember = "Text";
-            col_crk_lyqx.ValueMember = "Value";
+            col_crk_lyqx.ValueMember = "Value";            
         }
 
         /// <summary>

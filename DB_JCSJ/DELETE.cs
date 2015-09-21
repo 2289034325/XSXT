@@ -213,6 +213,27 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
+            /// <summary>
+            /// 删除一个加盟商进退货记录
+            /// </summary>
+            /// <param name="id"></param>
+            public void DeleteJiamengshangJintuihuo(int id)
+            {
+                TJiamengshangJintuihuo j = _db.TJiamengshangJintuihuos.Single(r => r.id == id);
+
+                _db.TJiamengshangJintuihuos.Remove(j);
+
+                _db.SaveChanges();
+            }
+
+            public void DeleteJiamengshangJintuihuoMX(int id)
+            {
+                TJiamengshangJintuihuoMX m = _db.TJiamengshangJintuihuoMXes.Single(r => r.id == id);
+
+                _db.TJiamengshangJintuihuoMXes.Remove(m);
+
+                _db.SaveChanges();
+            }
         }
     }
 

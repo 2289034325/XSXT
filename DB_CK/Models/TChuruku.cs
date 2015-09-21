@@ -13,10 +13,6 @@ namespace DB_CK.Models
         public int id { get; set; }
         public byte fangxiang { get; set; }
         public byte laiyuanquxiang { get; set; }
-        public Nullable<int> cangkuid { get; set; }
-        public Nullable<int> fendianid { get; set; }
-        public Nullable<int> jmsid { get; set; }
-        public Nullable<decimal> zhekou { get; set; }
         public string beizhu { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }

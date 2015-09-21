@@ -10,7 +10,7 @@
 namespace JCSJGL {
     
     
-    public partial class Page_TongjiBiao {
+    public partial class Page_Fendian_TongjiBiao {
         
         /// <summary>
         /// div_sch_jms 控件。

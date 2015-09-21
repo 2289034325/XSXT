@@ -367,15 +367,11 @@ namespace JCSJWCF
         public string[] CheckTiaomaChongfu(string[] tms)
         {
             DBContext db = new DBContext();
-            //List<string> eTms = new List<string>();
-            //foreach (string t in tms)
-            //{
-            //    if (db.GetTiaomaByTiaomahaoWithJmsId(t, _jmsid) != null)
-            //    {
-            //        eTms.Add(t);
-            //    }
-            //}
-            TTiaoma[] etms = db.GetTiaomasByTiaomahaos(tms);
+            TTiaoma[] etms = db.GetTiaomasByTiaomahaosWithJmsId(tms, _LoginUser.jmsid);
+            foreach (TTiaoma tm in etms)
+            {
+                tm.TGongyingshang.TTiaomas.Clear();
+            }
 
             return etms.Select(r=>r.tiaoma).ToArray();
         }
@@ -688,7 +684,7 @@ namespace JCSJWCF
         {
             foreach (TCangkuJinchuhuo jc in cjcs)
             {
-                jc.fsckid = _LoginCangku.id;
+                jc.ckid = _LoginCangku.id;
                 jc.shangbaoshijian = DateTime.Now;
             }
 

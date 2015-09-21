@@ -16,11 +16,11 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_TongjiTu : MyPage
+    public partial class Page_Fendian_TongjiTu : MyPage
     {
-        public Page_TongjiTu()
+        public Page_Fendian_TongjiTu()
         {
-            _PageName = PageName.统计图;
+            _PageName = PageName.分店销售统计图;
         }
         private enum CHART_Y_TYPE:byte
         {
@@ -33,10 +33,7 @@ namespace JCSJGL
             月份=7,
             日期=1,
             小时=2,
-            星期=3,
-            类型=4,
-            颜色=5,
-            价格=6
+            星期=3
         }
         
         protected void Page_Load(object sender, EventArgs e)
@@ -89,9 +86,6 @@ namespace JCSJGL
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.日期.ToString(), ((byte)CHART_X_TYPE.日期).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.小时.ToString(), ((byte)CHART_X_TYPE.小时).ToString()));
                 chk_x.Items.Add(new ListItem(CHART_X_TYPE.星期.ToString(), ((byte)CHART_X_TYPE.星期).ToString()));
-                chk_x.Items.Add(new ListItem(CHART_X_TYPE.类型.ToString(), ((byte)CHART_X_TYPE.类型).ToString()));
-                chk_x.Items.Add(new ListItem(CHART_X_TYPE.颜色.ToString(), ((byte)CHART_X_TYPE.颜色).ToString()));
-                chk_x.Items.Add(new ListItem(CHART_X_TYPE.价格.ToString(), ((byte)CHART_X_TYPE.价格).ToString()));
 
                 chk_x.Items[0].Selected = true;
                 chk_x.Items[1].Selected = true;
@@ -149,220 +143,6 @@ namespace JCSJGL
                 div.Controls.Add(makeWeekChart(xss));
                 div_charts.Controls.Add(div);
             }
-            if (xTypes.Contains((byte)CHART_X_TYPE.类型))
-            {
-                HtmlGenericControl div = new HtmlGenericControl("div");
-                div.Controls.Add(makeTypeChart(xss));
-                div_charts.Controls.Add(div);
-            }
-            if (xTypes.Contains((byte)CHART_X_TYPE.颜色))
-            {
-                HtmlGenericControl div = new HtmlGenericControl("div");
-                div.Controls.Add(makeColorChart(xss));
-                div_charts.Controls.Add(div);
-            }
-            if (xTypes.Contains((byte)CHART_X_TYPE.价格))
-            {
-                HtmlGenericControl div = new HtmlGenericControl("div");
-                div.Controls.Add(makePriceChart(xss));
-                div_charts.Controls.Add(div);
-            }
-        }
-
-        private Chart makePriceChart(TXiaoshou[] xss)
-        {
-            byte yType = byte.Parse(cmb_y.SelectedValue);
-            DataTable dt = new DataTable();
-            if (yType == (byte)CHART_Y_TYPE.销售量)
-            {
-                //退货的不统计
-                var data = xss.Where(r => r.shuliang > 0).
-                    Select(r => new { danjia = getJiageStr(50, 500, r.jine / r.shuliang), r.shuliang }).
-                    GroupBy(r => r.danjia).Select(r => new
-                    {
-                        X = r.Key,
-                        Y = r.Sum(rx => rx.shuliang)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.销售额)
-            {
-                //退货的不统计
-                var data = xss.Where(r => r.shuliang > 0).
-                Select(r => new { danjia = getJiageStr(50, 500, r.jine / r.shuliang), r.shuliang, r.jine }).
-                GroupBy(r => r.danjia).Select(r => new
-                {
-                    X = r.Key,
-                    Y = r.Sum(rx => rx.jine)
-                }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.利润)
-            {
-                //退货的不统计
-                var data = xss.Where(r => r.shuliang > 0).
-                    Select(r => new
-                    {
-                        danjia = getJiageStr(50, 500, r.jine / r.shuliang),
-                        r.shuliang,
-                        //r.jine,
-                        //jinjia = r.TTiaoma == null ? (r.jine / 2) : r.TTiaoma.jinjia
-                        lr = r.lirun
-                    }).
-                    GroupBy(r => r.danjia).Select(r => new
-                    {
-                        X = r.Key,
-                        //Y = r.Sum(rx => rx.jine - rx.jinjia * rx.shuliang)
-                        Y = r.Sum(rx => rx.lr)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-
-            Chart cht = new Chart();
-
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = Convert.ToInt32(wndWidth);
-            cht.Series.Clear();
-            cht.ChartAreas.Clear();
-            cht.ChartAreas.Add("A1");
-            Series ps = cht.Series.Add("S1");
-            Legend pl = cht.Legends.Add("L1");
-            pl.Docking = Docking.Bottom;
-            pl.Alignment = System.Drawing.StringAlignment.Center;
-            ps.ToolTip = "#VAL";
-            ps.Label = "#PERCENT";
-            ps.LegendText = "#VALX";
-            ps["CollectedThreshold"] = "10";
-            ps["CollectedLabel"] = "其他";
-            ps["CollectedLegendText"] = "其他";
-            ps.ChartType = SeriesChartType.Pie;
-            ps.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
-
-            return cht;
-        }
-
-        private Chart makeColorChart(TXiaoshou[] xss)
-        {
-            byte yType = byte.Parse(cmb_y.SelectedValue);
-            DataTable dt = new DataTable();
-            if (yType == (byte)CHART_Y_TYPE.销售量)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
-                    Select(r => new
-                    {
-                        X = r.Key,
-                        Y = r.Sum(rx => rx.shuliang)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.销售额)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
-                    Select(r => new
-                    {
-                        X = r.Key,
-                        Y = r.Sum(rx => rx.jine)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.利润)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? "其他" : r.TTiaoma.yanse).
-                    Select(r => new
-                    {
-                        X = r.Key,
-                        //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
-                        Y = r.Sum(rx => rx.lirun)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-
-            Chart cht = new Chart();
-
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = Convert.ToInt32(wndWidth);
-            cht.Series.Clear();
-            cht.ChartAreas.Clear();
-            cht.ChartAreas.Add("A1");
-            Series cs = cht.Series.Add("S1");
-            Legend cl = cht.Legends.Add("L1");
-            cl.Docking = Docking.Bottom;
-            cl.Alignment = System.Drawing.StringAlignment.Center;
-            cs.ToolTip = "#VAL";
-            cs.Label = "#PERCENT";
-            cs.LegendText = "#VALX";
-            cs["CollectedThreshold"] = "10";
-            cs["CollectedLabel"] = "其他";
-            cs["CollectedLegendText"] = "其他";
-            cs.ChartType = SeriesChartType.Pie;
-            cs.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
-
-            return cht;
-        }
-
-        private Chart makeTypeChart(TXiaoshou[] xss)
-        {
-            byte yType = byte.Parse(cmb_y.SelectedValue);
-            DataTable dt = new DataTable();
-            if (yType == (byte)CHART_Y_TYPE.销售量)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
-                    Select(r => new
-                    {
-                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                        Y = r.Sum(rx => rx.shuliang)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.销售额)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
-                    Select(r => new
-                    {
-                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                        Y = r.Sum(rx => rx.jine)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-            else if (yType == (byte)CHART_Y_TYPE.利润)
-            {
-                var data = xss.GroupBy(r => r.TTiaoma == null ? (byte)Tool.JCSJ.DBCONSTS.KUANHAO_LX.其他 : r.TTiaoma.TKuanhao.leixing).
-                    Select(r => new
-                    {
-                        X = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.Key).ToString(),
-                        //Y = r.Sum(rx => rx.TTiaoma == null ? (rx.jine / 2) : rx.jine - rx.TTiaoma.jinjia * rx.shuliang)
-                        Y = r.Sum(rx => rx.lirun)
-                    }).OrderByDescending(r => r.Y);
-
-                dt = Tool.CommonFunc.LINQToDataTable(data);
-            }
-
-            Chart cht = new Chart();
-
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = Convert.ToInt32(wndWidth);
-            cht.Series.Clear();
-            cht.ChartAreas.Clear();
-            cht.ChartAreas.Add("A1");
-            Series pts = cht.Series.Add("S1");
-            Legend ptl = cht.Legends.Add("L1");
-            ptl.Docking = Docking.Bottom;
-            ptl.Alignment = System.Drawing.StringAlignment.Center;
-            pts.ToolTip = "#VAL";
-            pts.Label = "#PERCENT";
-            pts.LegendText = "#VALX";
-            pts.ChartType = SeriesChartType.Pie;
-            pts.Points.DataBind(dt.AsEnumerable(), "X", "Y", "");
-
-            return cht;
         }
 
         private Chart makeWeekChart(TXiaoshou[] xss)
@@ -753,51 +533,6 @@ namespace JCSJGL
 
             return xss;
         }
-
-        /// <summary>
-        /// 以50为一个档次，将销售单价分为几个区间
-        /// </summary>
-        /// <param name="danjia"></param>
-        /// <returns></returns>
-        private string getJiageStr(decimal interval, decimal max, decimal danjia)
-        {
-            string ret = "";
-
-            if (interval < 0 || max < 0 || danjia < 0 || interval >= max)
-            {
-                throw new MyException("参数异常。价格不得为负数，价格区间不得大于等于最大价格。", null);
-            }
-
-            if (danjia < interval)
-            {
-                ret = "＜" + interval;
-            }
-            else if (danjia >= interval && danjia < max)
-            {
-                int i = 1;
-                decimal iStart, iEnd;
-                while (ret == "")
-                {
-                    iStart = interval * i;
-                    iEnd = interval * (i + 1);
-                    if (danjia >= iStart && danjia < iEnd)
-                    {
-                        ret = iStart + "-" + iEnd;
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            }
-            else
-            {
-                ret = "≥" + max;
-            }
-
-            return ret;
-        }
-
 
         /// <summary>
         /// 取得选中的X类型

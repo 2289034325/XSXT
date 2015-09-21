@@ -438,9 +438,6 @@
     <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshangGX.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

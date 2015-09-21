@@ -408,10 +408,12 @@ namespace FDXS
                 //}
 
                 //未知条码不检测库存
+                DateTime? jhrq = null;
                 if (tmid != null)
                 {
                     //检查库存数量是否足够
                     VKucun vx = db.GetKucunByTiaomaId(tmid.Value);
+                    jhrq = vx.jinhuoriqi;
                     if (vx.shuliang < sl)
                     {
                         MessageBox.Show(pm + "库存不足");
@@ -423,6 +425,7 @@ namespace FDXS
                 TXiaoshou x = new TXiaoshou
                 {
                     xiaoshoushijian = dp_xssj.Checked ? dp_xssj.Value : DateTime.Now,
+                    jinhuoriqi = jhrq,
                     xiaoshouyuan = cmb_xsy.Text,
                     huiyuanid = _Huiyuan == null ? null : (int?)_Huiyuan.id,
                     tiaomaid = tmid,

@@ -9,6 +9,7 @@ namespace DB_JCSJ.Models
         public int fendianid { get; set; }
         public int oid { get; set; }
         public System.DateTime xiaoshoushijian { get; set; }
+        public Nullable<System.DateTime> jinhuoriqi { get; set; }
         public string xiaoshouyuan { get; set; }
         public Nullable<int> huiyuanid { get; set; }
         public Nullable<int> tiaomaid { get; set; }

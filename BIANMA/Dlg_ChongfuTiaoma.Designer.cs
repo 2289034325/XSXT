@@ -66,6 +66,7 @@
             this.label1.Size = new System.Drawing.Size(35, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "方案1";
+            this.label1.Visible = false;
             // 
             // txb_jtm
             // 
@@ -73,6 +74,7 @@
             this.txb_jtm.Name = "txb_jtm";
             this.txb_jtm.Size = new System.Drawing.Size(173, 21);
             this.txb_jtm.TabIndex = 4;
+            this.txb_jtm.Visible = false;
             // 
             // btn_edit
             // 
@@ -147,7 +149,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 17;
-            this.label2.Text = "方案3";
+            this.label2.Text = "方案2";
             // 
             // txb_xtm
             // 
@@ -163,7 +165,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 12);
             this.label6.TabIndex = 15;
-            this.label6.Text = "方案2";
+            this.label6.Text = "方案1";
             // 
             // btn_refresh
             // 
@@ -173,6 +175,7 @@
             this.btn_refresh.TabIndex = 14;
             this.btn_refresh.Text = "将旧条码重新命名为";
             this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Visible = false;
             this.btn_refresh.Click += new System.EventHandler(this.btn_jtmcmm_Click);
             // 
             // btn_add

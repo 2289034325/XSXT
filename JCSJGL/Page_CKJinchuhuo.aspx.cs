@@ -121,14 +121,10 @@ namespace JCSJGL
             var xs = jcs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.FaShengCangku.TJiamengshang.mingcheng,
-                fscangku = r.FaShengCangku.mingcheng,
+                jiamengshang = r.TCangku.TJiamengshang.mingcheng,
+                cangku = r.TCangku.mingcheng,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
-                lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
-                gxcangku = r.GuanxiCangku == null ? "" : r.GuanxiCangku.mingcheng,
-                fendian = r.TFendian == null ? "" : r.TFendian.dianming,
-                zjms = r.TJiamengshang == null ? "" : jmses[r.jmsid.Value],
-                zhekou = r.zhekou,
+                lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),             
                 jianshu = r.TCangkuJinchuhuoMXes.Sum(mr => mr.shuliang),
                 r.beizhu,
                 r.fashengshijian,

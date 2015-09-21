@@ -11,11 +11,11 @@ using Tool;
 
 namespace JCSJGL
 {
-    public partial class Page_TongjiBiao : MyPage
+    public partial class Page_Fendian_TongjiBiao : MyPage
     {
-        public Page_TongjiBiao()
+        public Page_Fendian_TongjiBiao()
         {
-            _PageName = PageName.统计表;
+            _PageName = PageName.分店销售统计表;
         }
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -20,10 +20,6 @@ namespace DB_CK.Models.Mapping
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.fangxiang).HasColumnName("fangxiang");
             this.Property(t => t.laiyuanquxiang).HasColumnName("laiyuanquxiang");
-            this.Property(t => t.cangkuid).HasColumnName("cangkuid");
-            this.Property(t => t.fendianid).HasColumnName("fendianid");
-            this.Property(t => t.jmsid).HasColumnName("jmsid");
-            this.Property(t => t.zhekou).HasColumnName("zhekou");
             this.Property(t => t.beizhu).HasColumnName("beizhu");
             this.Property(t => t.caozuorenid).HasColumnName("caozuorenid");
             this.Property(t => t.charushijian).HasColumnName("charushijian");
