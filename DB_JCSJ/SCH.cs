@@ -290,10 +290,14 @@ namespace DB_JCSJ
 
                 return tms.ToArray();
             }
-            public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+            public TTiaoma GetTiaomaByTiaomahaoWithJmsId(string tmh, int jmsid)
             {
-                return _db.TTiaomas.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
-            } 
+                return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == tmh && r.jmsid == jmsid);
+            }
+            //public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+            //{
+            //    return _db.TTiaomas.Where(r => tmhs.Contains(r.tiaoma)).ToArray();
+            //} 
             public TTiaoma GetTiaomaById(int id)
             {
                 return _db.TTiaomas.Include(r=>r.TKuanhao).Single(r => r.id == id);
@@ -866,7 +870,7 @@ namespace DB_JCSJ
 
             public TJiamengshangJintuihuoMX GetJiamengshangJintuihuoMXById(int id)
             {
-                return _db.TJiamengshangJintuihuoMXes.Single(r => r.id == id);
+                return _db.TJiamengshangJintuihuoMXes.Include(r=>r.TJiamengshangJintuihuo).Single(r => r.id == id);
             }
         }
  

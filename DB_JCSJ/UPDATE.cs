@@ -380,5 +380,33 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            /// <summary>
+            /// 加盟商进退货数据
+            /// </summary>
+            /// <param name="j"></param>
+            public void UpdateJiamengshangJintuihuo(TJiamengshangJintuihuo j)
+            {
+                TJiamengshangJintuihuo oj = _db.TJiamengshangJintuihuos.Single(r => r.id == j.id);
+
+                oj.zhekou = j.zhekou;
+                oj.beizhu = j.beizhu;
+                oj.xiugaishijian = j.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+            /// <summary>
+            /// 进退货明细
+            /// </summary>
+            /// <param name="m"></param>
+            public void UpdateJiamengshangJintuihuoMX(TJiamengshangJintuihuoMX m)
+            {
+                TJiamengshangJintuihuoMX oj = _db.TJiamengshangJintuihuoMXes.Single(r => r.id == m.id);
+
+                oj.tiaomaid = m.tiaomaid;
+                oj.jinhuojia = m.jinhuojia;
+
+                _db.SaveChanges();
+            }
         }
     }

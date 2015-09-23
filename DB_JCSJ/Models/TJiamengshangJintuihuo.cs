@@ -16,6 +16,7 @@ namespace DB_JCSJ.Models
         public byte fangxiang { get; set; }
         public System.DateTime fashengriqi { get; set; }
         public decimal zhekou { get; set; }
+        public string beizhu { get; set; }
         public int caozuorenid { get; set; }
         public System.DateTime charushijian { get; set; }
         public System.DateTime xiugaishijian { get; set; }

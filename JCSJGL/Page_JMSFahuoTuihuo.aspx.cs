@@ -2,6 +2,7 @@
 using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -47,7 +48,11 @@ namespace JCSJGL
                     TJiamengshang[] jmses = db.GetZiJiamengshangs(dlsid.Value);
                     Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
-                }                
+                }
+                
+                //默认日期
+                txb_fsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txb_fsrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
 
@@ -57,14 +62,24 @@ namespace JCSJGL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btn_sch_Click(object sender, EventArgs e)
-        { 
+        {
+            grid_jc.DataSource = null;
+            grid_jc.DataBind();
+            grid_mx.DataSource = null;
+            grid_mx.DataBind();
+
+            loadFahuotuihuo();            
+        }
+
+        private void loadFahuotuihuo()
+        {
             int? dlsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_dls.SelectedValue))
                 {
-                    dlsid = int.Parse(cmb_jms.SelectedValue);
+                    dlsid = int.Parse(cmb_dls.SelectedValue);
                 }
                 grid_jc.Columns[0].Visible = true;
             }
@@ -92,18 +107,20 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TJiamengshangJintuihuo[] jths = db.GetJiamengshangJintuihuosByCond(dlsid, jmsid, fsrq_start, fsrq_end);
-            var data = jths.Select(r => new 
+            var data = jths.Select(r => new
             {
                 r.id,
                 dailishang = r.Dls.mingcheng,
-                fashengriqi = r.fashengriqi,
+                fashengriqi = r.fashengriqi.ToString("yyyy-MM-dd"),
                 jiamengshang = r.Jms.mingcheng,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JMS_FHTH)r.fangxiang).ToString(),
                 zhekou = r.zhekou,
                 shuliang = r.TJiamengshangJintuihuoMXes.Count,
-                jine = r.TJiamengshangJintuihuoMXes.Sum(xr=>xr.jinhuojia*xr.shuliang),
+                jine = r.TJiamengshangJintuihuoMXes.Sum(xr => xr.jinhuojia * xr.shuliang),
+                r.beizhu,
                 r.charushijian,
-                r.xiugaishijian
+                r.xiugaishijian,
+                editParams = r.id + "," + r.zhekou + ",'" + r.beizhu + "'"
             });
 
             grid_jc.DataSource = Tool.CommonFunc.LINQToDataTable(data);
@@ -153,49 +170,8 @@ namespace JCSJGL
             int id = int.Parse(grid_jc.DataKeys[index].Value.ToString());
             if (e.CommandName == "MX")
             {
-                loadMX(id);
-            }
-            else if (e.CommandName == "ADDMX")
-            {
-                Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
-
-                string tmh = txb_tm.Text.Trim();
-                if (string.IsNullOrEmpty(tmh))
-                {
-                    throw new MyException("请填写要增加的条码号", null);
-                }
-
-                DBContext db = new DBContext();
-                TTiaoma[] tms = db.GetTiaomasByTiaomahaosWithJmsId(new string[] { tmh },_LoginUser.jmsid);
-                if (tms.Length == 0)
-                {
-                    throw new MyException("条码[" + tmh + "]不存在", null);
-                }
-                else if (tms.Length > 1)
-                {
-                    throw new MyException("系统错误，请重新尝试", null);
-                }
-                TTiaoma tm = tms[0];
-                TJiamengshangJintuihuoMX[] omxes= db.GetJiamengshangJintuihuoMXes(id);
-                if (omxes.Any(r => r.tiaomaid == tm.id))
-                {
-                    throw new MyException("条码[" + tmh + "]已经存在，请不要重复添加", null);
-                }
-
-                TJiamengshangJintuihuo jc = db.GetJiamengshangJintuihuosById(id);
-                TJiamengshangJintuihuoMX mx = new TJiamengshangJintuihuoMX
-                {
-                    jintuiid = id,
-                    tiaomaid = tm.id,
-                    chengbenjia = tm.jinjia,
-                    diaopaijia = tm.shoujia,
-                    jinhuojia = decimal.Round(tm.shoujia * jc.zhekou / 10, 2),
-                    shuliang = 1
-                };
-
-                db.InsertJiamengshangJinchuhuoMX(mx);
-
-                //重新加载数据
+                //此处设置是为了在修改明细记录后重新加载明细的时候用
+                hid_jcid.Value = id.ToString();
                 loadMX(id);
             }
             else if (e.CommandName == "DEL")
@@ -203,13 +179,14 @@ namespace JCSJGL
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
                 DBContext db = new DBContext();
+                TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(id);
+                if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                {
+                    throw new MyException("非法操作，无法删除", null);
+                }
                 db.DeleteJiamengshangJintuihuo(id);
 
                 btn_sch_Click(null, null);
-            }
-            else
-            {
-                throw new MyException("非法操作，请刷新页面后重新执行", null);
             }
         }
 
@@ -232,7 +209,8 @@ namespace JCSJGL
                 r.TTiaoma.chima,
                 diaopaijia = r.TTiaoma.shoujia,
                 r.jinhuojia,
-                zhekou = decimal.Round(r.jinhuojia / r.TTiaoma.shoujia * 10M, 2)
+                zhekou = decimal.Round(r.jinhuojia / r.TTiaoma.shoujia * 10M, 2),
+                editParams = r.id + ",'" + r.TTiaoma.tiaoma + "'," + r.jinhuojia
             });
 
             grid_mx.DataSource = Tool.CommonFunc.LINQToDataTable(data);
@@ -254,14 +232,14 @@ namespace JCSJGL
             {
                 DBContext db = new DBContext();
                 TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(id);
+                if (om.TJiamengshangJintuihuo.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                {
+                    throw new MyException("非法操作，无法删除", null);
+                }
                 db.DeleteJiamengshangJintuihuoMX(id);
 
                 //重新加载数据
                 loadMX(om.jintuiid);
-            }
-            else
-            {
-                throw new MyException("非法操作，请刷新页面后重新执行", null);
             }
         }
 
@@ -272,6 +250,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_fahuo_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             if (string.IsNullOrEmpty(cmb_jms.SelectedValue))
             {
                 throw new MyException("请先选择一个加盟商",null);
@@ -286,13 +266,17 @@ namespace JCSJGL
                 jmsid = jmsid,
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JMS_FHTH.发货,
                 zhekou = 3,
+                beizhu = "",
                 caozuorenid = _LoginUser.id,
                 charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now
+                xiugaishijian = DateTime.Now            
             };
 
             DBContext db = new DBContext();
             db.InsertJiamengshangJinchuhuo(jc);
+
+            //重新加载表格
+            loadFahuotuihuo();
         }
 
         /// <summary>
@@ -302,6 +286,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_tuihuo_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             if (string.IsNullOrEmpty(cmb_jms.SelectedValue))
             {
                 throw new MyException("请先选择一个加盟商", null);
@@ -311,16 +297,119 @@ namespace JCSJGL
 
             TJiamengshangJintuihuo jc = new TJiamengshangJintuihuo
             {
+                dlsid = _LoginUser.jmsid,
                 fashengriqi = DateTime.Now,
                 jmsid = jmsid,
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JMS_FHTH.退货,
                 zhekou = 3,
+                beizhu = "",
+                caozuorenid = _LoginUser.id,
                 charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now
+                xiugaishijian = DateTime.Now            
             };
 
             DBContext db = new DBContext();
             db.InsertJiamengshangJinchuhuo(jc);
-        }     
+
+            //重新加载表格
+            loadFahuotuihuo();
+        }
+
+        /// <summary>
+        /// 保存修改
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_save_jc_Click(object sender, EventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
+            int id = int.Parse(hid_jcid.Value);
+            decimal zk = decimal.Parse(txb_zk.Text.Trim());
+            string bz = txb_bz.Text.Trim();
+            TJiamengshangJintuihuo j = new TJiamengshangJintuihuo 
+            {
+                id =id,
+                zhekou = zk,
+                beizhu = bz,
+                xiugaishijian = DateTime.Now
+            };
+
+            DBContext db = new DBContext();
+            TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(id);
+            if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法修改", null);
+            }
+            db.UpdateJiamengshangJintuihuo(j);
+
+            //重新加载数据
+            loadFahuotuihuo();
+        }
+
+        protected void btn_save_mx_Click(object sender, EventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
+            DBContext db = new DBContext();
+
+            int jcid = int.Parse(hid_jcid.Value);
+            int mxid = int.Parse(hid_mxid.Value);
+            string tmh = txb_tm_edit.Text.Trim();
+            TTiaoma tm = db.GetTiaomaByTiaomahaoWithJmsId(tmh, _LoginUser.jmsid);
+            if (tm == null)
+            {
+                throw new MyException("条码[" + tmh + "]不存在", null);
+            }
+            decimal jhj = decimal.Parse(txb_jhj.Text.Trim());
+            TJiamengshangJintuihuoMX m = new TJiamengshangJintuihuoMX
+            {
+                id = mxid,
+                tiaomaid = tm.id,
+                jinhuojia = jhj
+            };
+
+            TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(jcid);
+            if (om.TJiamengshangJintuihuo.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法修改", null);
+            }
+            db.UpdateJiamengshangJintuihuoMX(m);
+            
+            //重新加载数据
+            loadMX(jcid);
+        }
+
+        protected void btn_add_mx_Click(object sender, EventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
+            DBContext db = new DBContext();
+
+            int jcid = int.Parse(hid_jcid.Value);
+            TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(jcid);
+            if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            {
+                throw new MyException("非法操作，无法增加", null);
+            }
+            string tmh = txb_tm_edit.Text.Trim();
+            TTiaoma tm = db.GetTiaomaByTiaomahaoWithJmsId(tmh, _LoginUser.jmsid);
+            if (tm == null)
+            {
+                throw new MyException("条码[" + tmh + "]不存在", null);
+            }
+            decimal jhj = decimal.Parse(txb_jhj.Text.Trim());
+            TJiamengshangJintuihuoMX j = new TJiamengshangJintuihuoMX
+            {
+                jintuiid = jcid,
+                tiaomaid = tm.id,
+                jinhuojia = jhj
+            };
+
+            db.InsertJiamengshangJinchuhuoMX(j);
+
+            //重新加载数据
+            loadMX(jcid);
+        }  
     }
 }

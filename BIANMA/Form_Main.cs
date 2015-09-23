@@ -54,14 +54,14 @@ namespace BIANMA
         private void Form_Main_Load(object sender, EventArgs e)
         {
             //登陆检查
-            if (RuntimeInfo.LoginUser == null)
-            {
-                Dlg_Denglu df = new Dlg_Denglu();
-                if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                {
-                    Application.Exit();
-                }
-            }
+            //if (RuntimeInfo.LoginUser == null)
+            //{
+            //    Dlg_Denglu df = new Dlg_Denglu();
+            //    if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        Application.Exit();
+            //    }
+            //}
 
             //显示编码页面
             //mni_bianma_Click(null, null);
