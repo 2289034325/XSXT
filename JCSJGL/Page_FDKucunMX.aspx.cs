@@ -32,9 +32,10 @@ namespace JCSJGL
             if (_LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 &&
              _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                //除了系统管理员和总经理，其他加盟商禁止查看其他加盟商的数据
+                //除了系统管理员和总经理或品牌商，其他加盟商禁止查看其他加盟商的数据
                 TFendianKucun tf = db.GetFDKucunById(jcid);
-                if (tf.TFendian.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                if (!(tf.TFendian.jmsid == _LoginUser.jmsid || tf.TFendian.ppid == _LoginUser.jmsid ||
+                    _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
                 {
                     throw new MyException("非法操作，无法显示数据", null);
                 }

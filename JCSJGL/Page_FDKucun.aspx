@@ -8,7 +8,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
         <div id="div_sch_jms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+            <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>        
+        <div id="div_sch_zjms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_zjms" AutoPostBack="true" OnSelectedIndexChanged="cmb_zjms_SelectedIndexChanged"></asp:DropDownList>
         </div>
         <div>
             <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
@@ -37,7 +40,7 @@
         <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
 
-    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False"
+    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False" DataKeyNames="fdid" OnRowCommand="grid_kc_fd_RowCommand"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
@@ -47,7 +50,7 @@
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
-            <asp:HyperLinkField DataNavigateUrlFields="fdid" DataNavigateUrlFormatString="Page_FDKucun.aspx?fdid={0}" Text="查看" HeaderText="历史库存"></asp:HyperLinkField>
+            <asp:ButtonField CommandName="LSKC" Text="历史库存" ButtonType="Link" ShowHeader="false" />
         </Columns>
         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>

@@ -6,18 +6,31 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch" class="div_sch"> 
+    <div id="div_sch" class="div_sch">
         <div id="div_sch_jms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+            <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
+        </div>        
+        <div id="div_sch_zjms" runat="server">
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_zjms" AutoPostBack="true" OnSelectedIndexChanged="cmb_zjms_SelectedIndexChanged"></asp:DropDownList>
         </div>
         <div>
-            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList></div>
+            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
+        </div>
         <div>
-            <label>销售日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_end"></asp:TextBox></div>
+            <label>款号</label><asp:TextBox runat="server" ID="txb_kh" ClientIDMode="Static" CssClass="middle"></asp:TextBox>
+        </div>
         <div>
-            <label>上报日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_end"></asp:TextBox></div>
+            <label>条码</label><asp:TextBox runat="server" ID="txb_tm" ClientIDMode="Static" CssClass="long"></asp:TextBox>
+        </div>
         <div>
-            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" /></div>
+            <label>销售日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_xsrq_end"></asp:TextBox>
+        </div>
+        <div>
+            <label>上报日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_sbrq_end"></asp:TextBox>
+        </div>
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
     </div>
     <asp:GridView ID="grid_xiaoshou" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_xiaoshou_PageIndexChanging">

@@ -167,7 +167,7 @@ namespace FDXS
             {
                 tiaomaid = r.id,
                 shuliang = r.shuliang,
-                jinhuoriqi = r.jinhuoriqi.Value
+                jinhuoriqi = r.jinhuoriqi
             }).ToArray();
 
             //调用服务接口

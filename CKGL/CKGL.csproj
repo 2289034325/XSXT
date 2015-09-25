@@ -353,9 +353,6 @@
     <None Include="Service References\JCSJData\CKGL.JCSJData.TJiamengshang.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\JCSJData\CKGL.JCSJData.TJiamengshangGX.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TKuanhao.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

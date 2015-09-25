@@ -2148,6 +2148,9 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TUser TUserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string beizhuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int caozuorenidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2170,6 +2173,9 @@ namespace FDXS.JCSJData {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime xiugaishijianField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal zhekouField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -2229,6 +2235,19 @@ namespace FDXS.JCSJData {
                 if ((object.ReferenceEquals(this.TUserField, value) != true)) {
                     this.TUserField = value;
                     this.RaisePropertyChanged("TUser");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string beizhu {
+            get {
+                return this.beizhuField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.beizhuField, value) != true)) {
+                    this.beizhuField = value;
+                    this.RaisePropertyChanged("beizhu");
                 }
             }
         }
@@ -2333,6 +2352,19 @@ namespace FDXS.JCSJData {
                 if ((this.xiugaishijianField.Equals(value) != true)) {
                     this.xiugaishijianField = value;
                     this.RaisePropertyChanged("xiugaishijian");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal zhekou {
+            get {
+                return this.zhekouField;
+            }
+            set {
+                if ((this.zhekouField.Equals(value) != true)) {
+                    this.zhekouField = value;
+                    this.RaisePropertyChanged("zhekou");
                 }
             }
         }
@@ -5108,7 +5140,7 @@ namespace FDXS.JCSJData {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime jinhuoriqiField;
+        private System.Nullable<System.DateTime> jinhuoriqiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int kucunidField;
@@ -5169,7 +5201,7 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime jinhuoriqi {
+        public System.Nullable<System.DateTime> jinhuoriqi {
             get {
                 return this.jinhuoriqiField;
             }
@@ -5374,7 +5406,7 @@ namespace FDXS.JCSJData {
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime jinhuoriqiField;
+        private System.Nullable<System.DateTime> jinhuoriqiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int kucunidField;
@@ -5435,7 +5467,7 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime jinhuoriqi {
+        public System.Nullable<System.DateTime> jinhuoriqi {
             get {
                 return this.jinhuoriqiField;
             }

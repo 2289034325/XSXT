@@ -126,6 +126,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_wyjm_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             //取得选中的品牌ID
             if (string.IsNullOrEmpty(cmb_ppxz.SelectedValue))
             {
@@ -208,6 +210,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_xjsq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_xjsq.DataKeys[index].Values[0].ToString());
             if (e.CommandName == "YES")
@@ -261,6 +265,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_sjsq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_sjsq.DataKeys[index].Values[0].ToString());
             if (e.CommandName == "SC")
@@ -277,8 +283,15 @@ namespace JCSJGL
             loadWdsq();
         }
 
+        /// <summary>
+        /// 修改子加盟商备注
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btn_edit_Click(object sender, EventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
+
             int id = int.Parse(hid_id.Value);
             string bzmc = txb_bzmc.Text.Trim();
             string bz = txb_bz.Text.Trim();
@@ -308,6 +321,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_jmpp_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
             int id = int.Parse(grid_jmpp.DataKeys[e.RowIndex].Value.ToString());
 
             DBContext db = new DBContext();

@@ -188,6 +188,7 @@
       <xs:element minOccurs="0" name="Jms" nillable="true" type="tns:TJiamengshang" />
       <xs:element minOccurs="0" name="TJiamengshangJintuihuoMXes" nillable="true" type="tns:ArrayOfTJiamengshangJintuihuoMX" />
       <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
+      <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="caozuorenid" type="xs:int" />
       <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
       <xs:element minOccurs="0" name="dlsid" type="xs:int" />
@@ -196,6 +197,7 @@
       <xs:element minOccurs="0" name="id" type="xs:int" />
       <xs:element minOccurs="0" name="jmsid" type="xs:int" />
       <xs:element minOccurs="0" name="xiugaishijian" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="zhekou" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TJiamengshangJintuihuo" nillable="true" type="tns:TJiamengshangJintuihuo" />
@@ -275,7 +277,7 @@
       <xs:element minOccurs="0" name="TCangkuKucun" nillable="true" type="tns:TCangkuKucun" />
       <xs:element minOccurs="0" name="TTiaoma" nillable="true" type="tns:TTiaoma" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="jinhuoriqi" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="jinhuoriqi" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="kucunid" type="xs:int" />
       <xs:element minOccurs="0" name="shuliang" type="xs:short" />
       <xs:element minOccurs="0" name="tiaomaid" type="xs:int" />
@@ -335,7 +337,7 @@
       <xs:element minOccurs="0" name="TFendianKucun" nillable="true" type="tns:TFendianKucun" />
       <xs:element minOccurs="0" name="TTiaoma" nillable="true" type="tns:TTiaoma" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="jinhuoriqi" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="jinhuoriqi" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="kucunid" type="xs:int" />
       <xs:element minOccurs="0" name="shuliang" type="xs:short" />
       <xs:element minOccurs="0" name="tiaomaid" type="xs:int" />

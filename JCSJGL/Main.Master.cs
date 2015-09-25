@@ -42,6 +42,26 @@ namespace JCSJGL
                     div_mn_main.Items.Remove(mi);
                 }
             }
+
+            //如果没有下级子加盟商，不显示发货退货页面
+            DBContext db = new DBContext();
+            TJiamengshang jms = db.GetJiamengshangById(u.jmsid);
+            if (jms.zjmsshu <= 0)
+            {
+                List<MenuItem> hmi = new List<MenuItem>(); ;
+                foreach (MenuItem mi in div_mn_main.Items)
+                {
+                    if (mi.Text.Contains("发货退货"))
+                    {
+                        hmi.Add(mi);
+                    }
+                }
+
+                foreach (MenuItem mi in hmi)
+                {
+                    div_mn_main.Items.Remove(mi);
+                }
+            }
         }
     }
 }

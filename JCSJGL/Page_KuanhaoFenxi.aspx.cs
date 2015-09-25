@@ -43,12 +43,9 @@ namespace JCSJGL
             if (!IsPostBack)
             {              
                 DBContext db = new DBContext();
-                TFendian[] fs = null;
                 //隐藏搜索条件
                 div_sch_jms.Visible = false;
 
-                //初始化分店下拉框
-                int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
@@ -155,7 +152,7 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -166,7 +163,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.销售额)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -178,7 +175,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -217,7 +214,7 @@ namespace JCSJGL
             DataTable dt = new DataTable();
             if (yType == (byte)CHART_Y_TYPE.销售量)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -229,7 +226,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.销售额)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -241,7 +238,7 @@ namespace JCSJGL
             }
             else if (yType == (byte)CHART_Y_TYPE.利润)
             {
-                var data = xss.GroupBy(r => new { r.TTiaoma.kuanhaoid, r.TTiaoma.TKuanhao.kuanhao }).
+                var data = xss.GroupBy(r => new { r.TTiaoma.TKuanhao.kuanhao }).
                     Select(r => new
                     {
                         X = r.Key.kuanhao,
@@ -552,6 +549,7 @@ namespace JCSJGL
         /// <returns></returns>
         private TXiaoshou[] getXiaoshouData()
         {
+            DBContext db = new DBContext();
             //取查询条件
             int? jmsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
@@ -567,6 +565,8 @@ namespace JCSJGL
                 jmsid = _LoginUser.jmsid;
             }
 
+            int[] ppids = getPPids();
+            int[] jmsids = getJmsids();
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
             if (!string.IsNullOrEmpty(txb_xsrq_start.Text.Trim()))
@@ -578,24 +578,73 @@ namespace JCSJGL
                 xsrq_end = DateTime.Parse(txb_xsrq_end.Text.Trim()).Date.AddDays(1);
             }
 
-            DBContext db = new DBContext();
             //自己的款号
-            TXiaoshou[] mykhs = db.GetXiaoshousOfMyKhs(jmsid.Value, xsrq_start, xsrq_end);
+            //TXiaoshou[] mykhs = db.GetXiaoshousOfMyKhs(jmsid.Value, xsrq_start, xsrq_end);
             //加盟的品牌商款号
-            TJiamengshang[] dlses = db.GetFuJiamengshangs(jmsid.Value);
-            int[] dlsids = dlses.Select(r => r.id).ToArray();
-            TXiaoshou[] jmkhs = new TXiaoshou[] { };
-            if (dlsids.Length != 0)
-            {
-                jmkhs = db.GetXiaoshousOfJmKhs(dlsids,jmsid.Value, xsrq_start, xsrq_end); ;
-            }
+            //TJiamengshang[] dlses = db.GetFuJiamengshangs(jmsid.Value);
+            //int[] dlsids = dlses.Select(r => r.id).ToArray();
+            //TXiaoshou[] jmkhs = new TXiaoshou[] { };
+            //if (dlsids.Length != 0)
+            //{
+            //    jmkhs = db.GetXiaoshousOfJmKhs(dlsids,jmsid.Value, xsrq_start, xsrq_end); ;
+            //}
 
             //合并两个集合
-            TXiaoshou[] xses = mykhs.Concat(jmkhs).ToArray();
+            //TXiaoshou[] xses = mykhs.Concat(jmkhs).ToArray();
+
+            int rCount = 0;
+            TXiaoshou[] xses = db.GetXiaoshousByCond(ppids, jmsids, null, "", "", xsrq_start, xsrq_end, null, null, null, null, out rCount);
 
             return xses;
         }
+        private int[] getJmsids()
+        {
+            DBContext db = new DBContext();
+            List<int> jmsids = new List<int>();
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    TJiamengshang[] jmses = db.GetZiJiamengshangs(int.Parse(cmb_jms.SelectedValue));
+                    jmsids.AddRange(jmses.Select(r => r.id));
+                    jmsids.Add(int.Parse(cmb_jms.SelectedValue));
+                }
+            }
+            else
+            {
+                //非系统管理员或总经理，只能查询自己直营店和加盟商的销售数据
+                TJiamengshang[] jmses = db.GetZiJiamengshangs(_LoginUser.jmsid);
+                jmsids.AddRange(jmses.Select(r => r.id));
+                jmsids.Add(_LoginUser.jmsid);
 
+            }
+            return jmsids.ToArray();
+        }
+        private int[] getPPids()
+        {
+            List<int> lppids = new List<int>();
+            //如果是品牌商查询，将子加盟商的名称替换为备注名称
+            DBContext db = new DBContext();
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    TJiamengshang[] pps = db.GetFuJiamengshangs(int.Parse(cmb_jms.SelectedValue));
+                    lppids.AddRange(pps.Select(r => r.id));
+                    lppids.Add(int.Parse(cmb_jms.SelectedValue));
+                }
+            }
+            else
+            {
+                TJiamengshang[] pps = db.GetFuJiamengshangs(_LoginUser.jmsid);
+                lppids.AddRange(pps.Select(r => r.id));
+                lppids.Add(_LoginUser.jmsid);
+            }
+
+            return lppids.ToArray();
+        }
         /// <summary>
         /// 以50为一个档次，将销售单价分为几个区间
         /// </summary>

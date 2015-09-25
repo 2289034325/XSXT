@@ -82,7 +82,7 @@ namespace CKGL
             {
                 tiaomaid = r.id,
                 shuliang = r.shuliang,
-                jinhuoriqi = r.jinhuoriqi.Value
+                jinhuoriqi = r.jinhuoriqi
                 
             }).ToArray();
 

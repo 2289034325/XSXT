@@ -68,9 +68,11 @@ namespace DB_JCSJ
                 }
                 return fs.OrderBy(r => r.jmsid).ToArray();
             }
+            
             /// <summary>
             /// 取得分店信息，作为查询下拉框
             /// </summary>
+            /// <param name="jmsid">分店所属的加盟商ID</param>
             /// <returns></returns>
             public TFendian[] GetFendiansAsItems(int? jmsid)
             {
@@ -79,6 +81,17 @@ namespace DB_JCSJ
                 {
                     fs = fs.Where(r => r.jmsid == jmsid);
                 }
+                return fs.OrderBy(r => r.jmsid).ToArray();
+            }
+            /// <summary>
+            /// 取得某个品牌的加盟分店（不含该品牌的直营店）
+            /// </summary>
+            /// <param name="ppid"></param>
+            /// <returns></returns>
+            public TFendian[] GetFendiansOfPinpaiAsItems(int ppid)
+            {
+                var fs = _db.TFendians.Where(r => r.jmsid != ppid && r.ppid == ppid);
+
                 return fs.OrderBy(r => r.jmsid).ToArray();
             }
             public TFendian GetFendianByIdMc(int id, string mc)
@@ -350,8 +363,11 @@ namespace DB_JCSJ
             }
 
             /// <summary>
-            /// 按条件查询销售记录
+            /// 按条件查询销售记录，包括自己的直营分店和加盟商的分店
+            /// 产生的销售记录
             /// </summary>
+            /// <param name="ppids">每个用户只能查询属于自己的品牌和加盟品牌的销售数据</param>
+            /// <param name="jmsid">子加盟商ID，销售数据的分店必须属于该加盟商ID</param>
             /// <param name="fdid">分店ID</param>
             /// <param name="xsrq_start">销售日期起始</param>
             /// <param name="xsrq_end">销售日期截止</param>
@@ -361,17 +377,29 @@ namespace DB_JCSJ
             /// <param name="pageIndex">取第几页数据，如果不想分页，传入null</param>
             /// <param name="recordCount">符合条件的数据量</param>
             /// <returns></returns>
-            public TXiaoshou[] GetXiaoshousByCond(int? jmsid, int? fdid, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int? pageSize, int? pageIndex, out int recordCount)
+            public TXiaoshou[] GetXiaoshousByCond(int[] ppids,int[] jmsids, int? fdid,string kh,string tm, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int? pageSize, int? pageIndex, out int recordCount)
             {
                 var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r => r.TTiaoma.TKuanhao).
                     Include(r => r.TFendian).Include(r => r.THuiyuan).Include(r=>r.TFendian.Jms).AsQueryable();
-                if (jmsid != null)
+                if (ppids.Length != 0)
                 {
-                    xss = xss.Where(r => r.TFendian.jmsid == jmsid);
+                    xss = xss.Where(r => ppids.Contains(r.TFendian.ppid));
+                }
+                if (jmsids.Length != 0)
+                {
+                    xss = xss.Where(r => jmsids.Contains(r.TFendian.jmsid));
                 }
                 if (fdid != null)
                 {
                     xss = xss.Where(r => r.fendianid == fdid);
+                }
+                if (!string.IsNullOrEmpty(kh))
+                {
+                    xss = xss.Where(r => r.TTiaoma.TKuanhao.kuanhao == kh);
+                }
+                if (!string.IsNullOrEmpty(tm))
+                {
+                    xss = xss.Where(r => r.TTiaoma.tiaoma == tm);
                 }
                 if (xsrq_start != null)
                 {
@@ -410,20 +438,20 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="jmsid"></param>
             /// <returns></returns>
-            public TXiaoshou[] GetXiaoshousOfMyKhs(int jmsid,DateTime? xsrq_start,DateTime? xsrq_end)
-            {
-                var xss = _db.TXiaoshous.Include(r=>r.TTiaoma).Include(r=>r.TTiaoma.TKuanhao).Where(r => r.TTiaoma.TKuanhao.jmsid == jmsid).AsQueryable();
-                if (xsrq_start != null)
-                {
-                    xss = xss.Where(r => r.xiaoshoushijian >= xsrq_start.Value);
-                }
-                if (xsrq_end != null)
-                {
-                    xss = xss.Where(r => r.xiaoshoushijian < xsrq_end.Value);
-                }
+            //public TXiaoshou[] GetXiaoshousOfMyKhs(int jmsid,DateTime? xsrq_start,DateTime? xsrq_end)
+            //{
+            //    var xss = _db.TXiaoshous.Include(r=>r.TTiaoma).Include(r=>r.TTiaoma.TKuanhao).Where(r => r.TTiaoma.TKuanhao.jmsid == jmsid).AsQueryable();
+            //    if (xsrq_start != null)
+            //    {
+            //        xss = xss.Where(r => r.xiaoshoushijian >= xsrq_start.Value);
+            //    }
+            //    if (xsrq_end != null)
+            //    {
+            //        xss = xss.Where(r => r.xiaoshoushijian < xsrq_end.Value);
+            //    }
 
-                return xss.ToArray();
-            }
+            //    return xss.ToArray();
+            //}
             
             /// <summary>
             /// 查询我加盟的款号的销售数据
@@ -432,21 +460,21 @@ namespace DB_JCSJ
             /// <param name="xsrq_start">销售起始日期</param>
             /// <param name="xsrq_end">截止日期</param>
             /// <returns></returns>
-            public TXiaoshou[] GetXiaoshousOfJmKhs(int[] dlsids,int jmsid, DateTime? xsrq_start, DateTime? xsrq_end)
-            {
-                var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r => r.TTiaoma.TKuanhao).
-                    Where(r => dlsids.Contains(r.TTiaoma.TKuanhao.jmsid) && r.TFendian.jmsid == jmsid).AsQueryable();
-                if (xsrq_start != null)
-                {
-                    xss = xss.Where(r => r.xiaoshoushijian >= xsrq_start.Value);
-                }
-                if (xsrq_end != null)
-                {
-                    xss = xss.Where(r => r.xiaoshoushijian < xsrq_end.Value);
-                }
+            //public TXiaoshou[] GetXiaoshousOfJmKhs(int[] dlsids,int jmsid, DateTime? xsrq_start, DateTime? xsrq_end)
+            //{
+            //    var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r => r.TTiaoma.TKuanhao).
+            //        Where(r => dlsids.Contains(r.TTiaoma.TKuanhao.jmsid) && r.TFendian.jmsid == jmsid).AsQueryable();
+            //    if (xsrq_start != null)
+            //    {
+            //        xss = xss.Where(r => r.xiaoshoushijian >= xsrq_start.Value);
+            //    }
+            //    if (xsrq_end != null)
+            //    {
+            //        xss = xss.Where(r => r.xiaoshoushijian < xsrq_end.Value);
+            //    }
 
-                return xss.ToArray();
-            }
+            //    return xss.ToArray();
+            //}
 
             /// <summary>
             /// 查询分店进出货数据
@@ -552,9 +580,13 @@ namespace DB_JCSJ
             /// <param name="pageSize"></param>
             /// <param name="pageIndex"></param>
             /// <returns></returns>
-            public TFendianKucun[] GetFDKucunByCond(int?jmsid,int? fdid,bool latest)
+            public TFendianKucun[] GetFDKucunByCond(int[] ppids,int?jmsid,int? fdid,bool latest)
             {
                 var kcs = _db.TFendianKucuns.AsQueryable();
+                if (ppids.Length != 0)
+                {
+                    kcs = kcs.Where(r => ppids.Contains(r.TFendian.ppid));
+                }
                 if (fdid != null)
                 {
                     kcs = kcs.Where(r => r.fendianid == fdid);

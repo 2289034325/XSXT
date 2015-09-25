@@ -19,10 +19,16 @@ namespace JCSJGL
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            //如果不是顶级加盟商，不显示该页面
+            DBContext db = new DBContext();
+            TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid);
+            if (j.zjmsshu <= 0)
+            {
+                throw new MyException("没有权限", null);
+            }
+
             if (!IsPostBack)
             {
-                DBContext db = new DBContext();
-
                 //隐藏搜索条件
                 div_sch_dls.Visible = false;
 
@@ -45,8 +51,8 @@ namespace JCSJGL
                 else
                 {
                     dlsid = _LoginUser.jmsid;
-                    TJiamengshang[] jmses = db.GetZiJiamengshangs(dlsid.Value);
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
+                    TJiamengshangGX[] jmses = db.GetZiJiamengshangGXes(dlsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "bzmingcheng", "jmsid");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
                 }
                 
