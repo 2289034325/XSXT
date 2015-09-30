@@ -275,7 +275,7 @@ namespace JCSJGL
             else
             {
                 //如果下拉框有选择，就只查询选择的子加盟商的数据
-                if (string.IsNullOrEmpty(cmb_zjms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
                 {
                     jmsids.Add(int.Parse(cmb_zjms.SelectedValue));
                 }

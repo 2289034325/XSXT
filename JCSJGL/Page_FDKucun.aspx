@@ -11,23 +11,23 @@
             <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
         </div>        
         <div id="div_sch_zjms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_zjms" AutoPostBack="true" OnSelectedIndexChanged="cmb_zjms_SelectedIndexChanged"></asp:DropDownList>
-        </div>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_zjms" AutoPostBack="true"></asp:DropDownList>
+        </div>        
         <div>
-            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
-        </div>
-        <div>
-            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+            <asp:Button ID="btn_sch" runat="server" Text="刷新" OnClick="btn_sch_Click" />
         </div>
     </div>
-    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="10"
+         DataKeyNames="id" OnRowCommand="grid_kc_total_RowCommand" EnableViewState="true" ViewStateMode="Enabled"
+        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_kc_total_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="jmsid" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
-            <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
+            <asp:BoundField DataField="shoujiajine" HeaderText="吊牌价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
+            <asp:ButtonField CommandName="FDKC" Text="分店库存" ButtonType="Link" ShowHeader="false" />
         </Columns>
         <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>

@@ -24,6 +24,7 @@
         </div>
     </div>
     <asp:GridView ID="grid_jms" runat="server" AutoGenerateColumns="False" DataKeyNames="jmsid" OnRowCommand="grid_jms_RowCommand"
+        AllowCustomPaging="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="grid_jms_PageIndexChanging"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="jms" HeaderText="加盟商"></asp:BoundField>

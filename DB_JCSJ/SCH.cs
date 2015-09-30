@@ -68,6 +68,15 @@ namespace DB_JCSJ
                 }
                 return fs.OrderBy(r => r.jmsid).ToArray();
             }
+            public TFendian[] GetFendians(int[] ppids, int jmsid)
+            {
+                var fs = _db.TFendians.Include(r => r.Jms).Include(r => r.Pinpai).Where(r=>r.jmsid == jmsid).AsQueryable();
+                if (ppids.Length != 0)
+                {
+                    fs = fs.Where(r => ppids.Contains(r.ppid));
+                }
+                return fs.OrderBy(r => r.jmsid).ToArray();
+            }
             
             /// <summary>
             /// 取得分店信息，作为查询下拉框
@@ -580,7 +589,7 @@ namespace DB_JCSJ
             /// <param name="pageSize"></param>
             /// <param name="pageIndex"></param>
             /// <returns></returns>
-            public TFendianKucun[] GetFDKucunByCond(int[] ppids,int?jmsid,int? fdid,bool latest)
+            public TFendianKucun[] GetFDKucunByCond(int[] ppids,int[] jmsids,int? fdid,bool latest)
             {
                 var kcs = _db.TFendianKucuns.AsQueryable();
                 if (ppids.Length != 0)
@@ -591,9 +600,9 @@ namespace DB_JCSJ
                 {
                     kcs = kcs.Where(r => r.fendianid == fdid);
                 }
-                if (jmsid != null)
+                if (jmsids.Length != 0)
                 {
-                    kcs = kcs.Where(r => r.TFendian.jmsid == jmsid);
+                    kcs = kcs.Where(r => jmsids.Contains(r.TFendian.jmsid));
                 }
                 //只取每个分店最新提交的库存记录
                 if (latest)
@@ -862,7 +871,7 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="dlsid"></param>
             /// <returns></returns>
-            public TJiamengshangJintuihuo[] GetJiamengshangJintuihuosByCond(int? dlsid,int? jmsid,DateTime? d_start,DateTime? d_end)
+            public TJiamengshangJintuihuo[] GetJiamengshangJintuihuosByCond(int? dlsid,int? jmsid,DateTime? d_start,DateTime? d_end,int pageSize,int pageIndex,out int recordCount)
             {
                 var data = _db.TJiamengshangJintuihuos.Include(r=>r.TJiamengshangJintuihuoMXes)
                     .Include(r => r.Dls).Include(r => r.Jms).AsQueryable();
@@ -882,6 +891,9 @@ namespace DB_JCSJ
                 {
                     data = data.Where(r => r.fashengriqi < d_end.Value);
                 }
+
+                recordCount = data.Count();
+                data = data.OrderByDescending(r => r.fashengriqi).Skip(pageSize * pageIndex).Take(pageSize);
 
                 return data.ToArray();
             }

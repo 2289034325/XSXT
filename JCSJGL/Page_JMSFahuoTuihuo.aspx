@@ -107,6 +107,7 @@
         </div>
     </div>
     <asp:GridView ID="grid_jc" runat="server" AutoGenerateColumns="False" OnRowCommand="grid_jc_RowCommand" DataKeyNames="id"
+        AllowCustomPaging="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="grid_jc_PageIndexChanging"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
             <asp:BoundField DataField="dailishang" HeaderText="代理商"></asp:BoundField>

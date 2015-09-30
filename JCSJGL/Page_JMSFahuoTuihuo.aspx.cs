@@ -69,17 +69,20 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_sch_Click(object sender, EventArgs e)
         {
-            grid_jc.DataSource = null;
-            grid_jc.DataBind();
-            grid_mx.DataSource = null;
-            grid_mx.DataBind();
 
             loadFahuotuihuo();            
         }
 
         private void loadFahuotuihuo()
         {
+            grid_jc.DataSource = null;
+            grid_jc.DataBind();
+            grid_mx.DataSource = null;
+            grid_mx.DataBind();
+
+            DBContext db = new DBContext();
             int? dlsid = null;
+            Dictionary<int, string> bzmcs = new Dictionary<int, string>();
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
@@ -88,11 +91,16 @@ namespace JCSJGL
                     dlsid = int.Parse(cmb_dls.SelectedValue);
                 }
                 grid_jc.Columns[0].Visible = true;
+
+                bzmcs = db.GetJiamengshangs().ToDictionary(k => k.id, v => v.mingcheng);
             }
             else
             {
                 grid_jc.Columns[0].Visible = false;
                 dlsid = _LoginUser.jmsid;
+
+                bzmcs = db.GetZiJiamengshangGXes(_LoginUser.jmsid).ToDictionary(k => k.jmsid, v => v.bzmingcheng);
+                bzmcs.Add(_LoginUser.jmsid, _LoginUser.TJiamengshang.mingcheng);  
             }
 
             int? jmsid = null;
@@ -111,14 +119,14 @@ namespace JCSJGL
                 fsrq_end = DateTime.Parse(txb_fsrq_end.Text.Trim()).Date.AddDays(1);
             }
 
-            DBContext db = new DBContext();
-            TJiamengshangJintuihuo[] jths = db.GetJiamengshangJintuihuosByCond(dlsid, jmsid, fsrq_start, fsrq_end);
+            int recordCount = 0;
+            TJiamengshangJintuihuo[] jths = db.GetJiamengshangJintuihuosByCond(dlsid, jmsid, fsrq_start, fsrq_end,grid_jc.PageSize,grid_jc.PageIndex,out recordCount);
             var data = jths.Select(r => new
             {
                 r.id,
                 dailishang = r.Dls.mingcheng,
                 fashengriqi = r.fashengriqi.ToString("yyyy-MM-dd"),
-                jiamengshang = r.Jms.mingcheng,
+                jiamengshang = bzmcs[r.jmsid],
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JMS_FHTH)r.fangxiang).ToString(),
                 zhekou = r.zhekou,
                 shuliang = r.TJiamengshangJintuihuoMXes.Count,
@@ -129,6 +137,7 @@ namespace JCSJGL
                 editParams = r.id + "," + r.zhekou + ",'" + r.beizhu + "'"
             });
 
+            grid_jc.VirtualItemCount = recordCount;
             grid_jc.DataSource = Tool.CommonFunc.LINQToDataTable(data);
             grid_jc.DataBind();
         }
@@ -172,10 +181,10 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_jc_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            int id = int.Parse(grid_jc.DataKeys[index].Value.ToString());
             if (e.CommandName == "MX")
             {
+                int index = Convert.ToInt32(e.CommandArgument);
+                int id = int.Parse(grid_jc.DataKeys[index].Value.ToString());
                 //此处设置是为了在修改明细记录后重新加载明细的时候用
                 hid_jcid.Value = id.ToString();
                 loadMX(id);
@@ -184,9 +193,11 @@ namespace JCSJGL
             {
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
+                int index = Convert.ToInt32(e.CommandArgument);
+                int id = int.Parse(grid_jc.DataKeys[index].Value.ToString());
                 DBContext db = new DBContext();
                 TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(id);
-                if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                if (oj.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                 {
                     throw new MyException("非法操作，无法删除", null);
                 }
@@ -238,7 +249,7 @@ namespace JCSJGL
             {
                 DBContext db = new DBContext();
                 TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(id);
-                if (om.TJiamengshangJintuihuo.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                if (om.TJiamengshangJintuihuo.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                 {
                     throw new MyException("非法操作，无法删除", null);
                 }
@@ -343,7 +354,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(id);
-            if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (oj.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改", null);
             }
@@ -376,7 +387,7 @@ namespace JCSJGL
             };
 
             TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(jcid);
-            if (om.TJiamengshangJintuihuo.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (om.TJiamengshangJintuihuo.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改", null);
             }
@@ -394,7 +405,7 @@ namespace JCSJGL
 
             int jcid = int.Parse(hid_jcid.Value);
             TJiamengshangJintuihuo oj = db.GetJiamengshangJintuihuosById(jcid);
-            if (oj.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (oj.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法增加", null);
             }
@@ -416,6 +427,13 @@ namespace JCSJGL
 
             //重新加载数据
             loadMX(jcid);
+        }
+
+        protected void grid_jc_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+           
+            grid_jc.PageIndex =  e.NewPageIndex;
+            loadFahuotuihuo();
         }  
     }
 }

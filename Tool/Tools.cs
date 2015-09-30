@@ -91,7 +91,7 @@ namespace Tool
             Array vs = Enum.GetValues(t);
             foreach (Enum v in vs)
             {
-                dic.Add(Enum.GetName(t, v), Convert.ToByte(v).ToString());
+                dic.Add(Convert.ToByte(v).ToString(),Enum.GetName(t, v));
             }
 
             return dic;

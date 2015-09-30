@@ -88,7 +88,8 @@ namespace JCSJGL
         private void loadXjsq()
         {
             DBContext db = new DBContext();
-            TJiamengshangGXSQ[] xjsqs = db.GetMyXjSQ(_LoginUser.jmsid).Where(r => r.jieguo == (byte)Tool.JCSJ.DBCONSTS.JMSQ_JIEGUO.待审核).ToArray();
+            TJiamengshangGXSQ[] axjsqs = db.GetMyXjSQ(_LoginUser.jmsid);
+            TJiamengshangGXSQ[] xjsqs = axjsqs.Where(r => r.jieguo == (byte)Tool.JCSJ.DBCONSTS.JMSQ_JIEGUO.待审核).ToArray();
             VDiqu[] dqs = db.GetAllDiqus();
             var xjsqsdata = xjsqs.Select(r => new
             {
@@ -131,7 +132,7 @@ namespace JCSJGL
             //取得选中的品牌ID
             if (string.IsNullOrEmpty(cmb_ppxz.SelectedValue))
             {
-                throw new MyException("请选择一个要加盟的代理商", null);
+                throw new MyException("请选择一个要加盟的品牌", null);
             }
             int dlsid = int.Parse(cmb_ppxz.SelectedValue.Split(new char[] { ',' })[0]);
 
@@ -152,7 +153,7 @@ namespace JCSJGL
             int zc = db.GetZiJiamengshangCount(_LoginUser.jmsid);
             if (zc != 0)
             {
-                throw new MyException("您已经是代理商，不允许再加盟别的品牌", null);
+                throw new MyException("您已经是品牌商，不允许再加盟别的品牌", null);
             }
             //检查是否已经存在
             TJiamengshangGXSQ osq = db.GetJiamengGXSQByDlsIdJmsId(dlsid, _LoginUser.jmsid);
