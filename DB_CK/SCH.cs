@@ -188,5 +188,15 @@ namespace DB_CK
 
             return tms.ToArray();
         }
+
+
+        /// <summary>
+        /// 取得当前数据库版本
+        /// </summary>
+        /// <returns></returns>
+        public int GetDbVersion()
+        {
+            return _db.TVersions.Max(r => r.banben);
+        }
     }
 }

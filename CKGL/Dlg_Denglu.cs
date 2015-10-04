@@ -29,13 +29,23 @@ namespace CKGL
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            //初始化数据库
-            DBContext.InitializeDatabase(IDB.GetConn());            
+            DBContext db = IDB.GetDB();
+            //检查数据库版本
+            try
+            {
+                db.InitializeDatabase(RuntimeInfo.DbVersion);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                MessageBox.Show("数据库初始化失败");
+                //Application.Exit();
+                return;
+            }        
 
             string dlm = txb_dlm.Text.Trim();
             string mm = txb_mm.Text;
 
-            DBContext db = IDB.GetDB();
             TUser user = db.GetUser(dlm, Tool.CommonFunc.MD5_16(mm));
             if (user != null)
             {

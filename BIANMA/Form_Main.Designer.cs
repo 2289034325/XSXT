@@ -65,28 +65,28 @@
             // mn_main_setting
             // 
             this.mn_main_setting.Name = "mn_main_setting";
-            this.mn_main_setting.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_setting.Size = new System.Drawing.Size(124, 22);
             this.mn_main_setting.Text = "设置";
             this.mn_main_setting.Click += new System.EventHandler(this.mn_main_setting_Click);
             // 
             // mn_main_banben
             // 
             this.mn_main_banben.Name = "mn_main_banben";
-            this.mn_main_banben.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_banben.Size = new System.Drawing.Size(124, 22);
             this.mn_main_banben.Text = "版本";
             this.mn_main_banben.Click += new System.EventHandler(this.mn_main_banben_Click);
             // 
             // mn_main_zhbd
             // 
             this.mn_main_zhbd.Name = "mn_main_zhbd";
-            this.mn_main_zhbd.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_zhbd.Size = new System.Drawing.Size(124, 22);
             this.mn_main_zhbd.Text = "账号绑定";
             this.mn_main_zhbd.Click += new System.EventHandler(this.mn_main_zhbd_Click);
             // 
             // mn_main_denglu
             // 
             this.mn_main_denglu.Name = "mn_main_denglu";
-            this.mn_main_denglu.Size = new System.Drawing.Size(152, 22);
+            this.mn_main_denglu.Size = new System.Drawing.Size(124, 22);
             this.mn_main_denglu.Text = "登陆";
             this.mn_main_denglu.Click += new System.EventHandler(this.mn_main_denglu_Click);
             // 
@@ -102,6 +102,7 @@
             this.mni_fenlei.Name = "mni_fenlei";
             this.mni_fenlei.Size = new System.Drawing.Size(44, 21);
             this.mni_fenlei.Text = "分类";
+            this.mni_fenlei.Visible = false;
             this.mni_fenlei.Click += new System.EventHandler(this.mni_fenlei_Click);
             // 
             // Form_Main

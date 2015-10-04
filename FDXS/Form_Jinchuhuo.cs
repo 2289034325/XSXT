@@ -775,10 +775,18 @@ namespace FDXS
                         //先去服务器删除
                         new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
                         {
-                            JCSJWCF.DeleteJinchuhuo(jc.id);
-                            db.UpdateJinchuhuoShangbaoshijian(new int[] { jc.id }, null);
+                            try
+                            {
+                                JCSJWCF.DeleteJinchuhuo(jc.id);
+                                db.UpdateJinchuhuoShangbaoshijian(new int[] { jc.id }, null);
 
-                            ShowMsg("撤销成功", false);
+                                ShowMsg("撤销成功", false);
+                            }
+                            catch (Exception ex)
+                            {
+                                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                                ShowMsg(ex.Message, true);                                
+                            }
                         }, false).Start();
                     }
                 }

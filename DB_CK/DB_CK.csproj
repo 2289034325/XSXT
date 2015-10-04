@@ -53,23 +53,20 @@
     <Compile Include="ConnExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
-    <Compile Include="Migrations\201508050000001_InitialCreate.cs" />
-    <Compile Include="Migrations\201508050000001_InitialCreate.Designer.cs">
-      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CKContext.cs" />
     <Compile Include="Models\Mapping\TChurukuMap.cs" />
     <Compile Include="Models\Mapping\TChurukuMXMap.cs" />
     <Compile Include="Models\Mapping\TKucunXZMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
+    <Compile Include="Models\Mapping\TVersionMap.cs" />
     <Compile Include="Models\Mapping\VKucunMap.cs" />
     <Compile Include="Models\TChuruku.cs" />
     <Compile Include="Models\TChurukuMX.cs" />
     <Compile Include="Models\TKucunXZ.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TVersion.cs" />
     <Compile Include="Models\VKucun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
@@ -92,15 +89,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
-      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SqlScript\db.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlScript\tb.sql">
+    <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

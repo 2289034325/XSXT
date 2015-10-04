@@ -247,9 +247,6 @@
     <Compile Include="Models\VDiqu.cs" />
     <Compile Include="Models\VTiaoma.cs" />
     <Compile Include="RuntimeInfo.cs" />
-    <Content Include="SqlScript\0.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Compile Include="Program.cs">
       <SubType>
       </SubType>

@@ -102,10 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlScript\db.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlScript\tb.sql">
+    <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

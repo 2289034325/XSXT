@@ -39,7 +39,7 @@ namespace FDXS
             {
                 Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
                 MessageBox.Show("数据库初始化失败");
-                Application.Exit();
+                //Application.Exit();
                 return;
             }
 

@@ -21,6 +21,7 @@ namespace DB_CK.Models
         public DbSet<TKucunXZ> TKucunXZs { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
+        public DbSet<TVersion> TVersions { get; set; }
         public DbSet<VKucun> VKucuns { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -30,6 +31,7 @@ namespace DB_CK.Models
             modelBuilder.Configurations.Add(new TKucunXZMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
+            modelBuilder.Configurations.Add(new TVersionMap());
             modelBuilder.Configurations.Add(new VKucunMap());
         }
     }

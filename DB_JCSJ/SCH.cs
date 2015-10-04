@@ -156,7 +156,7 @@ namespace DB_JCSJ
             }
             public TCangku GetCangkuById(int id)
             {
-                return _db.TCangkus.Include(r=>r.TJiamengshang).SingleOrDefault(r => r.id == id);
+                return _db.TCangkus.Include(r=>r.TJiamengshang).Single(r => r.id == id);
             }
 
             /// <summary>
@@ -271,7 +271,7 @@ namespace DB_JCSJ
             /// <returns></returns>
             public TTiaoma[] GetTiaomasByCond(int? jmsid,byte? lx, string kh, string tmh,DateTime? xgsj_start,DateTime? xgsj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var tms = _db.TTiaomas.Include(r => r.TJiamengshang).Include(r => r.TKuanhao).Include(r=>r.TKuanhao.TJiamengshang).Include(r => r.TGongyingshang).AsQueryable();
+                var tms = _db.TTiaomas.Include(r => r.TJiamengshang).Include(r => r.TKuanhao).Include(r => r.TGongyingshang).AsQueryable();
 
                 if (lx != null)
                 {
@@ -308,7 +308,7 @@ namespace DB_JCSJ
 
             public TTiaoma[] GetTiaomasByTiaomahaosWithJmsId(string[] tmhs, int jmsid)
             {
-                var tms = _db.TTiaomas.Include(r=>r.TGongyingshang).Where(r => tmhs.Contains(r.tiaoma) && r.jmsid == jmsid);
+                var tms = _db.TTiaomas.Include(r=>r.TKuanhao).Include(r=>r.TGongyingshang).Where(r => tmhs.Contains(r.tiaoma) && r.jmsid == jmsid);
 
                 return tms.ToArray();
             }

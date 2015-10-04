@@ -107,7 +107,7 @@ namespace JCSJGL
                 jinjia = r.jinjia,
                 shoujia = r.shoujia,
                 kuanhao = r.TKuanhao.kuanhao,
-                pinpai = r.TKuanhao.TJiamengshang.mingcheng,
+                //pinpai = r.TKuanhao.TJiamengshang.mingcheng,
                 leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TKuanhao.leixing).ToString(),
                 pinming = r.TKuanhao.pinming,
                 gongyingshang = r.TGongyingshang.mingcheng,

@@ -74,13 +74,8 @@ namespace DBBackTool
             string filePath = localPath + folderName + "\\";
             string fileName = dbName + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
 
-            if (!Directory.Exists(filePath))
-            {
-                Directory.CreateDirectory(filePath);
-            }
-
             DBTool dt = new DBTool(connStr);
-            dt.BackUp(fileName);
+            dt.BackUp(filePath,fileName);
 
             return filePath + fileName;
         }

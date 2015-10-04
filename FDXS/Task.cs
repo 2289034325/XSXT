@@ -142,13 +142,9 @@ namespace FDXS
             string connStr = "data source=" + dbServer + ";initial catalog=" + dbName + ";user id=" + dbUid + ";password=" + dbPsw;
 
             string bakName = Settings.Default.FDID + "-" + Settings.Default.FDMC + "-" + dbName + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
-            if (!Directory.Exists(bakPath))
-            {
-                Directory.CreateDirectory(bakPath);
-            }
-
+           
             Tool.DBTool dt = new Tool.DBTool(connStr);
-            dt.BackUp(bakPath + bakName);
+            dt.BackUp(bakPath , bakName);
 
             return bakPath + bakName;
         }

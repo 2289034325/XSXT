@@ -115,17 +115,5 @@ namespace CKGL
             Login();
             _jdc.CangkufahuoFendian(id, fdid);
         }
-
-        internal static TCangku[] GetCangkus()
-        {
-            Login();
-            return _jdc.GetCangkus();
-        }
-
-        internal static TJiamengshangGX[] GetZiJiamengshangs()
-        {
-            Login();
-            return _jdc.GetZiJiamengshangs();
-        }
     }
 }

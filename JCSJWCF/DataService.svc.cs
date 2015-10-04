@@ -104,9 +104,13 @@ namespace JCSJWCF
         {
             //验证Id是否存在
             DBContext db = new DBContext();
-            TCangku ck = db.GetCangkuById(ckid);
-            if (ck == null)
+            TCangku ck = null;
+            try
             {
+                ck = db.GetCangkuById(ckid);
+            }
+            catch
+            { 
                 throw new MyException("错误的仓库ID，请重新注册系统", null);
             }
 
@@ -128,8 +132,12 @@ namespace JCSJWCF
         {
             //验证Id是否存在
             DBContext db = new DBContext();
-            TFendian fd = db.GetFendianById(fdid);
-            if (fd == null)
+            TFendian fd = null;
+            try
+            {
+                fd = db.GetFendianById(fdid);
+            }
+            catch
             {
                 throw new MyException("错误的分店ID，请先注册系统", null);
             }
@@ -195,7 +203,7 @@ namespace JCSJWCF
                 t.TKuanhao.TTiaomas.Clear();
                 t.TKuanhao.TJiamengshang = null;
                 t.TGongyingshang.TTiaomas.Clear();
-                t.TGongyingshang.TJiamengshang = null;
+                t.TGongyingshang.TJiamengshang = null;                
             }
             return ts;
         }
@@ -481,7 +489,7 @@ namespace JCSJWCF
             //去除循环引用
             foreach (TTiaoma t in ts)
             {
-                //t.TKuanhao.TTiaomas.Clear();
+                t.TKuanhao.TTiaomas.Clear();
                 t.TGongyingshang.TTiaomas.Clear();
             }
 

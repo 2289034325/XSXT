@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -513,6 +514,70 @@ namespace Tool
                 //MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
             }
         }
+
+        /// <summary>
+        /// 优化数据库错误显示到客户端
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        public static string GetCustomErrorMessage(Exception ex)
+        {
+            string errMsg = null;
+            if (ex is Tool.MyException)
+            {
+                errMsg = ex.Message;
+            }
+            else if (ex is SqlException)
+            {
+                if (ex.Message.Contains("REFERENCE"))
+                {
+                    errMsg = "要删除的数据正在被其他数据引用，请先删除引用该数据的数据！";
+                }
+                else if (ex.Message.Contains("UNIQUE"))
+                {
+                    errMsg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                }
+            }
+            int i = 0;
+            if (errMsg == null)
+            {
+                while (ex.InnerException != null)
+                {
+                    //防止无线循环
+                    if (i > 5)
+                    {
+                        break;
+                    }
+
+                    ex = ex.InnerException;
+                    if (ex is Tool.MyException)
+                    {
+                        errMsg = ex.Message;
+                    }
+                    else if (ex is SqlException)
+                    {
+                        if (ex.Message.Contains("REFERENCE"))
+                        {
+                            errMsg = "要删除的数据正在被其他数据引用，请先删除引用该数据的数据！";
+                        }
+                        else if (ex.Message.Contains("UNIQUE"))
+                        {
+                            errMsg = "发现重复数据，例如登录名，店名，仓库名称，供应商名称，会员手机号，款号，条码号！";
+                        }
+                    }
+
+                    //防止无线循环
+                    i++;
+                }
+            }
+
+            if (errMsg == null)
+            {
+                errMsg = "发生未知的系统错误，请联系系统管理员";
+            }
+
+            return errMsg;
+        }
     }
 
     public class MyException : Exception
@@ -563,7 +628,10 @@ namespace Tool
             _timer.AutoReset = true;
             _timer.Elapsed += delegate 
             {
-                _dlg.pgb.Value ++;
+                if (_dlg.pgb.Value < _dlg.pgb.Maximum)
+                {
+                    _dlg.pgb.Value++;
+                }
             };
             _err = false;
             _auto = autoClose;
@@ -623,29 +691,35 @@ namespace Tool
             _conn = conn;
         }
 
-        public void CreateDatabase(string sql)
+        //public void CreateDatabase(string sql)
+        //{
+        //    SqlConnection tmpConn = new SqlConnection(_conn);
+        //    SqlCommand myCommand = new SqlCommand(sql, tmpConn);
+        //    try
+        //    {
+        //        tmpConn.Open();
+        //        myCommand.ExecuteNonQuery();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        tmpConn.Close();
+        //    }
+
+        //    return;
+        //}
+
+        public void BackUp(string path,string fn)
         {
-            SqlConnection tmpConn = new SqlConnection(_conn);
-            SqlCommand myCommand = new SqlCommand(sql, tmpConn);
-            try
+            if (!Directory.Exists(path))
             {
-                tmpConn.Open();
-                myCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                tmpConn.Close();
+                Directory.CreateDirectory(path);
             }
 
-            return;
-        }
-
-        public void BackUp(string file)
-        {
+            string file = path + fn;
             SqlConnection tmpConn = new SqlConnection(_conn);
 
             string sqlStmt = String.Format("BACKUP DATABASE {0} TO DISK='{1}'", tmpConn.Database, file);
@@ -720,5 +794,60 @@ namespace Tool
         //        conn.Close();
         //    }
         //}
+
+
+        /// <summary>
+        /// 执行一个sql脚本文件
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="fn"></param>
+        public void SqlFile(DbContext db, string fn)
+        {
+            string sql = File.ReadAllText(fn, Encoding.Default);
+            //ExecuteSqlCommand不支持GO,因此，分隔开，变为多个命令遍历执行
+            string[] cmms = sql.Split(new string[] { "GO\r\n", "\r\nGO" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string cmm in cmms)
+            {
+                if (string.IsNullOrEmpty(cmm) || string.IsNullOrWhiteSpace(cmm))
+                {
+                    continue;
+                }
+
+                db.Database.ExecuteSqlCommand(cmm);
+            }
+        }
+
+        public void CreateDatabase(string dbPath, string dbName)
+        {
+            if (!Directory.Exists(dbPath))
+            {
+                Directory.CreateDirectory(dbPath);
+            }
+
+            string sql = "USE [master] "+
+                "CREATE DATABASE [@DBName] ON  PRIMARY "+
+                "( NAME = '@DBName', FILENAME = N'@DBPath@DBName.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )"+
+                "LOG ON "+
+                "( NAME = '@DBName_log', FILENAME = N'@DBPath@DBName_log.ldf' , SIZE = 4672KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)";
+            sql = sql.Replace("@DBPath", dbPath).Replace("@DBName", dbName);
+
+            SqlConnection tmpConn = new SqlConnection(_conn);
+            SqlCommand myCommand = new SqlCommand(sql, tmpConn);
+            try
+            {
+                tmpConn.Open();
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                tmpConn.Close();
+            }
+
+            return;
+        }
     }
 }

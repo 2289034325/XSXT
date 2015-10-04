@@ -76,7 +76,9 @@ namespace FDXS
                     yanse = jtm.yanse,
                     chima = jtm.chima,
                     jinjia = jtm.jinjia,
-                    shoujia = jtm.shoujia
+                    shoujia = jtm.shoujia,
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now
                 };
                 tms.Add(tm);
             }
@@ -93,9 +95,7 @@ namespace FDXS
             int[] oids = otms.Select(r => r.id).ToArray();
             //需要更新的条码和需要新插入的条码
             TTiaoma[] uts = tms.Where(r => oids.Contains(r.id)).ToArray();
-            uts.ToList().ForEach(t => t.xiugaishijian = DateTime.Now);
             TTiaoma[] nts = tms.Where(r => !oids.Contains(r.id)).ToArray();
-            nts.ToList().ForEach(t => { t.charushijian = DateTime.Now; t.xiugaishijian = DateTime.Now; });
             db.UpdateTiaomas(uts);
             db.InsertTiaomas(nts);
         }

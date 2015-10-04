@@ -107,7 +107,7 @@ namespace BIANMA
             if (RuntimeInfo.Gyses.Count() == 0)
             {
                 MessageBox.Show("请先登陆管理系统增加至少一个供应商信息");
-                Close();
+                this.BeginInvoke(new MethodInvoker(this.Close));
             }
             Tool.CommonFunc.InitCombbox(cmb_gys, RuntimeInfo.Gyses, "mingcheng", "id");
             col_all_gys.DataSource = RuntimeInfo.Gyses;
@@ -1702,7 +1702,7 @@ namespace BIANMA
                 string standHead = Enum.GetNames(typeof(XTCONSTS.FILE_COLUMN)).Aggregate((a, b) => { return a + "," + b; });
                 if (head != standHead)
                 {
-                    MessageBox.Show("正确的表头应当是");
+                    MessageBox.Show("文件内表头错误，正确的表头应当是：" + standHead);
                     return;
                 }
 

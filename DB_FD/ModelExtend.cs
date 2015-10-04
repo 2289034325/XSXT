@@ -47,13 +47,14 @@ namespace DB_FD
         /// <param name="v">当前运行需要的版本号</param>
         public void InitializeDatabase(int v)
         {
+            DBTool dt = new DBTool(string.Format("Data Source={0};Initial Catalog=master;User ID={1};Password={2};", _dbServer, _dbUid, _dbPsw));
             if (!_db.Database.Exists())
             {
                 //创建数据库
-                createDB();
+                dt.CreateDatabase(_dbPath, _dbName);
 
                 //创建表
-                sqlFile("SqlScript/tb.sql");
+                dt.SqlFile(_db, "SqlScript/0.sql");
 
                 //更新版本数据
                 TVersion tv = new TVersion
@@ -90,14 +91,9 @@ namespace DB_FD
                 else if (cv < v)
                 {
                     //备份
-                    DBTool dt = new DBTool(string.Format("Data Source={0};Initial Catalog=master;User ID={1};Password={2};", _dbServer, _dbUid, _dbPsw));
                     string bkPath = _dbPath + "UPbak\\";
-                    if (!Directory.Exists(bkPath))
-                    {
-                        Directory.CreateDirectory(bkPath);
-                    }
-                    string bkFile = bkPath + "v" + cv + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
-                    dt.BackUp(bkFile);
+                    string fName = "v" + cv + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
+                    dt.BackUp(bkPath,fName);
 
                     using (var dbContextTransaction = _db.Database.BeginTransaction())
                     {
@@ -106,7 +102,7 @@ namespace DB_FD
                             cv++;
                             for (; cv <= v; cv++)
                             {
-                                sqlFile("SqlScript/" + cv + ".sql");
+                                dt.SqlFile(_db,"SqlScript/" + cv + ".sql");
                             }
                             //更新版本数据
                             TVersion tv = new TVersion
@@ -128,40 +124,6 @@ namespace DB_FD
                     }
                 }
             }
-        }
-
-        private void sqlFile(string file)
-        {
-            string sql = File.ReadAllText(file, Encoding.Default);
-            //ExecuteSqlCommand不支持GO,因此，分隔开，变为多个命令遍历执行
-            string[] cmms = sql.Split(new string[] { "GO\r\n","\r\nGO" }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string cmm in cmms)
-            {
-                if (string.IsNullOrEmpty(cmm) || string.IsNullOrWhiteSpace(cmm))
-                {
-                    continue;
-                }
-
-                _db.Database.ExecuteSqlCommand(cmm);
-            }
-        }
-
-        private void sqlString(string sql)
-        {
- 
-        }
-
-        private void createDB()
-        {
-            DBTool dt = new DBTool(string.Format("Data Source={0};Initial Catalog=master;User ID={1};Password={2};", _dbServer, _dbUid, _dbPsw));
-            string file = "SqlScript/db.sql";
-            string sql = File.ReadAllText(file, Encoding.Default);
-            if (!Directory.Exists(_dbPath))
-            {
-                Directory.CreateDirectory(_dbPath);
-            }
-            sql = sql.Replace("@DBPath", _dbPath).Replace("@DBName", _dbName);
-            dt.CreateDatabase(sql);
         }
     }
 }
