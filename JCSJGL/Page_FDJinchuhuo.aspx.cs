@@ -43,7 +43,14 @@ namespace JCSJGL
                 else
                 {
                     jmsid = _LoginUser.jmsid;
-                    fs = db.GetFendiansAsItems(jmsid);
+                    if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                    {
+                        fs = db.GetUserFendiansByUserId(_LoginUser.id).Select(r => r.TFendian).ToArray();
+                    }
+                    else
+                    {
+                        fs = db.GetFendiansAsItems(jmsid);
+                    }
                 }
 
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
@@ -83,12 +90,7 @@ namespace JCSJGL
                 grid_jinchu.Columns[0].Visible = false;
                 jmsid = _LoginUser.jmsid;
             }
-
-            int? fdid = null;
-            if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
-            {
-                fdid = int.Parse(cmb_fd.SelectedValue);
-            }
+            
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
             if (!string.IsNullOrEmpty(txb_fsrq_start.Text.Trim()))
@@ -110,9 +112,11 @@ namespace JCSJGL
                 sbrq_end = DateTime.Parse(txb_sbrq_end.Text.Trim()).Date.AddDays(1);
             }
 
+            int[] fdids = getFdids();
+
             int recordCount = 0;
             DBContext db = new DBContext();
-            TFendianJinchuhuo[] jcs = db.GetFDJinchuhuoByCond(jmsid,fdid,
+            TFendianJinchuhuo[] jcs = db.GetFDJinchuhuoByCond(jmsid,fdids,
                 xsrq_start, xsrq_end, sbrq_start, sbrq_end,
                 grid_jinchu.PageSize, grid_jinchu.PageIndex, out recordCount);
             var xs = jcs.Select(r => new
@@ -131,6 +135,31 @@ namespace JCSJGL
             grid_jinchu.VirtualItemCount = recordCount;
             grid_jinchu.DataSource = Tool.CommonFunc.LINQToDataTable(xs);
             grid_jinchu.DataBind();
+        }
+
+        private int[] getFdids()
+        {
+            int[] fdids = new int[]{};
+
+            //下拉框没有选择全部，那就只查询选定的分店的数据
+            if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
+            {
+                int fdid = int.Parse(cmb_fd.SelectedValue);
+                fdids = new int[] { fdid };
+            }
+            //如果选择的是全部
+            else
+            {
+                //如果是店长，则也限定为权限内可见范围的数据
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                {
+                    DBContext db = new DBContext();
+                    TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
+                    fdids = ufs.Select(r => r.fendianid).ToArray();
+                }
+            }
+
+            return fdids;
         }
 
         /// <summary>

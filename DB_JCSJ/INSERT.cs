@@ -292,6 +292,13 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
+            public void InsertUserFendian(TUserFendian uf)
+            {
+                _db.TUserFendians.Add(uf);
+
+                _db.SaveChanges();
+            }
+
         }
     }
 

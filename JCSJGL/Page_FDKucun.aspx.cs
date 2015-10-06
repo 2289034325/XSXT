@@ -73,7 +73,15 @@ namespace JCSJGL
                     }
                     else
                     {
-                        div_sch_zjms.Visible = true;
+                        //如果是店长，限制为可见的分店数据
+                        if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                        {
+                            div_sch_zjms.Visible = false;
+                        }
+                        else
+                        {
+                            div_sch_zjms.Visible = true;
+                        }
                     }
                 }
 
@@ -96,28 +104,29 @@ namespace JCSJGL
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
                 grid_kc_total.Columns[0].Visible = true;
-                grid_kc_fd.Columns[0].Visible = true;
+                //grid_kc_fd.Columns[0].Visible = true;
             }
             else
             {
                 if (_LoginUser.TJiamengshang.zjmsshu <= 0)
                 {
                     grid_kc_total.Columns[0].Visible = false;
-                    grid_kc_fd.Columns[0].Visible = false;
+                    //grid_kc_fd.Columns[0].Visible = false;
                 }
                 else
                 {
                     grid_kc_total.Columns[0].Visible = true;
-                    grid_kc_fd.Columns[0].Visible = true;
+                    //grid_kc_fd.Columns[0].Visible = true;
                 }
             }
 
             //限定查询的品牌范围
             int[] ppids = getPPids();
             int[] jmsids = getJmsids();
-            int[] rjmsids = jmsids.OrderBy(r => r).Skip(grid_kc_total.PageSize * grid_kc_total.PageIndex).Take(grid_kc_total.PageSize).ToArray();
+            int[] fdids = getFdids();
+            int[] rjmsids = jmsids.OrderBy(r => r).Skip(grid_kc_total.PageSize * grid_kc_total.PageIndex).Take(grid_kc_total.PageSize).ToArray();          
 
-            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, rjmsids, null, true);
+            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, rjmsids, fdids, true);
             var xs = jcs.Select(r => new
             {
                 jmsid = r.TFendian.jmsid,
@@ -168,8 +177,9 @@ namespace JCSJGL
 
             int[] ppids = getPPids();
             int[] jmsids = new int[] { jmsid };
+            int[] fdids = getFdids();
             DBContext db = new DBContext();
-            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, jmsids, null, true);
+            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, jmsids, fdids, true);
             var xs = jcs.Select(r => new
             {
                 jiamengshang = r.TFendian.Jms.mingcheng,
@@ -213,32 +223,33 @@ namespace JCSJGL
         /// <param name="fdid"></param>
         private void loadHistroy(int fdid)
         {
-            grid_kc_total.Visible = false;
-            grid_kc_fd.Visible = false;
+            //grid_kc_total.Visible = false;
+            //grid_kc_fd.Visible = false;
             grid_kc.Visible = true;
 
             DBContext db = new DBContext();
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                grid_kc.Columns[0].Visible = true;
-            }
-            else
-            {
-                if (_LoginUser.TJiamengshang.zjmsshu <= 0)
-                {
-                    grid_kc.Columns[0].Visible = false;
-                }
-                else
-                {
-                    grid_kc.Columns[0].Visible = true;
-                }
-            }
+            //if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+            //    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            //{
+            //    grid_kc.Columns[0].Visible = true;
+            //}
+            //else
+            //{
+            //    if (_LoginUser.TJiamengshang.zjmsshu <= 0)
+            //    {
+            //        grid_kc.Columns[0].Visible = false;
+            //    }
+            //    else
+            //    {
+            //        grid_kc.Columns[0].Visible = true;
+            //    }
+            //}
 
             //限定查询的品牌范围
             int[] ppids = new int[] { };
             int[] jmsids = new int[] { };
-            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, jmsids, fdid, false);
+            int[] fdids = new int[] { fdid };
+            TFendianKucun[] jcs = db.GetFDKucunByCond(ppids, jmsids, fdids, false);
             var xs = jcs.Select(r => new
             {
                 jiamengshang = r.TFendian.Jms.mingcheng,
@@ -436,6 +447,19 @@ namespace JCSJGL
             {
                 loadHistroy(fdid);
             }
+        }
+
+        private int[] getFdids()
+        {
+            int[] fdids = new int[] { };
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+            {
+                DBContext db = new DBContext();
+                TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
+                fdids = ufs.Select(r => r.fendianid).ToArray();
+            }
+
+            return fdids;
         }
         private int[] getJmsids()
         {

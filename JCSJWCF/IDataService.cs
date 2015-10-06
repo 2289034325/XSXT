@@ -175,6 +175,6 @@ namespace JCSJWCF
         void XiugaiKuanhao(int id, string kh);
 
         [OperationContract(IsInitiating = false)]
-        void XiugaiTiaoma(int id, string tm);
+        void UpdateTiaoma(TTiaoma t);
     }
 }

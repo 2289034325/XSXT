@@ -234,6 +234,15 @@ namespace DB_JCSJ
 
                 _db.SaveChanges();
             }
+
+            public void DeleteUserFendian(int id)
+            {
+                TUserFendian ouf = _db.TUserFendians.Single(r => r.id == id);
+
+                _db.TUserFendians.Remove(ouf);
+
+                _db.SaveChanges();
+            }
         }
     }
 

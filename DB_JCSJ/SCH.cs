@@ -386,7 +386,7 @@ namespace DB_JCSJ
             /// <param name="pageIndex">取第几页数据，如果不想分页，传入null</param>
             /// <param name="recordCount">符合条件的数据量</param>
             /// <returns></returns>
-            public TXiaoshou[] GetXiaoshousByCond(int[] ppids,int[] jmsids, int? fdid,string kh,string tm, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int? pageSize, int? pageIndex, out int recordCount)
+            public TXiaoshou[] GetXiaoshousByCond(int[] ppids,int[] jmsids, int[] fdids,string kh,string tm, DateTime? xsrq_start, DateTime? xsrq_end, DateTime? sbrq_start, DateTime? sbrq_end, int? pageSize, int? pageIndex, out int recordCount)
             {
                 var xss = _db.TXiaoshous.Include(r => r.TTiaoma).Include(r => r.TTiaoma.TKuanhao).
                     Include(r => r.TFendian).Include(r => r.THuiyuan).Include(r=>r.TFendian.Jms).AsQueryable();
@@ -398,9 +398,9 @@ namespace DB_JCSJ
                 {
                     xss = xss.Where(r => jmsids.Contains(r.TFendian.jmsid));
                 }
-                if (fdid != null)
+                if (fdids.Length != 0)
                 {
-                    xss = xss.Where(r => r.fendianid == fdid);
+                    xss = xss.Where(r => fdids.Contains(r.fendianid));
                 }
                 if (!string.IsNullOrEmpty(kh))
                 {
@@ -497,7 +497,7 @@ namespace DB_JCSJ
             /// <param name="pageIndex"></param>
             /// <param name="recordCount"></param>
             /// <returns></returns>
-            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int?jmsid,int? fdid, DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
+            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int?jmsid,int[] fdids, DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
             {
                 var jcs = _db.TFendianJinchuhuos.Include(r => r.TFendian).Include(r => r.TFendianJinchuhuoMXes).
                     Include(r=>r.TFendian.Jms).AsQueryable();
@@ -505,9 +505,9 @@ namespace DB_JCSJ
                 {
                     jcs = jcs.Where(r => r.TFendian.jmsid == jmsid);
                 }
-                if (fdid != null)
+                if (fdids.Length != 0)
                 {
-                    jcs = jcs.Where(r => r.fendianid == fdid);
+                    jcs = jcs.Where(r => fdids.Contains(r.fendianid));
                 }
                 if (fssj_start != null)
                 {
@@ -589,16 +589,16 @@ namespace DB_JCSJ
             /// <param name="pageSize"></param>
             /// <param name="pageIndex"></param>
             /// <returns></returns>
-            public TFendianKucun[] GetFDKucunByCond(int[] ppids,int[] jmsids,int? fdid,bool latest)
+            public TFendianKucun[] GetFDKucunByCond(int[] ppids,int[] jmsids,int[] fdids,bool latest)
             {
                 var kcs = _db.TFendianKucuns.AsQueryable();
                 if (ppids.Length != 0)
                 {
                     kcs = kcs.Where(r => ppids.Contains(r.TFendian.ppid));
                 }
-                if (fdid != null)
+                if (fdids.Length != 0)
                 {
-                    kcs = kcs.Where(r => r.fendianid == fdid);
+                    kcs = kcs.Where(r => fdids.Contains(r.fendianid));
                 }
                 if (jmsids.Length != 0)
                 {
@@ -915,6 +915,24 @@ namespace DB_JCSJ
             public TJiamengshangJintuihuoMX GetJiamengshangJintuihuoMXById(int id)
             {
                 return _db.TJiamengshangJintuihuoMXes.Include(r=>r.TJiamengshangJintuihuo).Single(r => r.id == id);
+            }
+
+            public TUserFendian GetUserFendiansByUidFdid(int userid, int fdid)
+            {
+                return _db.TUserFendians.SingleOrDefault(r => r.userid == userid && r.fendianid == fdid);
+            }
+            public TUserFendian GetUserFendiansById(int id)
+            {
+                return _db.TUserFendians.SingleOrDefault(r => r.id == id);
+            }
+            /// <summary>
+            /// 取得某用户管辖下的分店信息
+            /// </summary>
+            /// <param name="uid"></param>
+            /// <returns></returns>
+            public TUserFendian[] GetUserFendiansByUserId(int uid)
+            {
+                return _db.TUserFendians.Include(r=>r.TFendian).Where(r => r.userid == uid).ToArray();
             }
         }
  

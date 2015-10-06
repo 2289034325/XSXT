@@ -151,10 +151,10 @@ namespace BIANMA
             _jdc.XiugaiKuanhao(id, kh);
         }
 
-        internal static void XiugaiTiaoma(int id, string tm)
+        internal static void FugaiTiaoma(TTiaoma t)
         {
             AutoLogin();
-            _jdc.XiugaiTiaoma(id, tm);
+            _jdc.UpdateTiaoma(t);
         }
     }
 }

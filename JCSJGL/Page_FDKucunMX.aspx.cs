@@ -39,6 +39,17 @@ namespace JCSJGL
                 {
                     throw new MyException("非法操作，无法显示数据", null);
                 }
+
+                //店长只能看自己下属的分店数据
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                {
+                    TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
+                    int[] ufids = ufs.Select(r => r.fendianid).ToArray();
+                    if (!ufids.Contains(tf.fendianid))
+                    {
+                        throw new MyException("非法操作，无法显示数据", null);
+                    }
+                }
             }
 
             TFendianKucunMX[] amxs = db.GetFDKucunMXsByKcId(jcid);

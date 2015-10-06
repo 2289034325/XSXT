@@ -25,10 +25,11 @@ namespace JCSJGL
                 //隐藏搜索条件
                 div_sch.Visible = false;
                 div_edit_jms.Visible = false;
+                DBContext db = new DBContext();
 
                 //初始化下拉框
                 Dictionary<string, string> jss = new Dictionary<string, string>();
-
+                TFendian[] fs = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
@@ -36,25 +37,32 @@ namespace JCSJGL
                     div_sch.Visible = true;
                     div_edit_jms.Visible = true;
 
-                    DBContext db= new DBContext();
                     TJiamengshang[] jmss = db.GetJiamengshangs();
                     Tool.CommonFunc.InitDropDownList(cmb_jms_edit, jmss, "mingcheng", "id");
                     Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商",""));
 
                     jss = Tool.CommonFunc.GetDicFromEnum(typeof(Tool.JCSJ.DBCONSTS.USER_XTJS));
+
+                    //分店下拉框
+                    fs = db.GetFendiansAsItems(null);
                 }
                 else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员 ||
                          _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理)
                 {
                     jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString());
                     jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString());
-                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.店长.ToString());
+
+                    //分店下拉框
+                    fs = db.GetFendiansAsItems(_LoginUser.jmsid);
 
                     //加载用户
                     loadUsers();
                 }
 
+                Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 Tool.CommonFunc.InitDropDownList(cmb_js, jss);
                 Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.USER_ZT));
             }            
@@ -249,41 +257,41 @@ namespace JCSJGL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void grid_yonghu_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            //权限检查
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+        //protected void grid_yonghu_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        //{
+        //    //权限检查
+        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-            int id = int.Parse(grid_yonghu.DataKeys[e.RowIndex].Value.ToString());
+        //    int id = int.Parse(grid_yonghu.DataKeys[e.RowIndex].Value.ToString());
 
-            DBContext db = new DBContext();
-            TUser ou = db.GetUserById(id);
-            //不能删除别人的用户
-            if (_LoginUser.id == id)
-            {
-                throw new MyException("不能删除自己", null);
-            }
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-            {
+        //    DBContext db = new DBContext();
+        //    TUser ou = db.GetUserById(id);
+        //    //不能删除别人的用户
+        //    if (_LoginUser.id == id)
+        //    {
+        //        throw new MyException("不能删除自己", null);
+        //    }
+        //    if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+        //    {
 
-            }
-            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
-            {
-                if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-                {
-                    throw new MyException("非法操作，无法删除该用户", null);
-                }
-                if (ou.jmsid != _LoginUser.jmsid)
-                {
-                    throw new MyException("非法操作，无法删除该用户", null);
-                }
-            }
+        //    }
+        //    else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
+        //    {
+        //        if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+        //            ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+        //        {
+        //            throw new MyException("非法操作，无法删除该用户", null);
+        //        }
+        //        if (ou.jmsid != _LoginUser.jmsid)
+        //        {
+        //            throw new MyException("非法操作，无法删除该用户", null);
+        //        }
+        //    }
 
-            db.DeleteUser(id);
+        //    db.DeleteUser(id);
 
-            loadUsers();
-        }
+        //    loadUsers();
+        //}
 
         /// <summary>
         /// 查询账户
@@ -293,6 +301,129 @@ namespace JCSJGL
         protected void btn_sch_Click(object sender, EventArgs e)
         {
             loadUsers();
+        }
+
+        /// <summary>
+        /// 给店长角色增加一个管辖的分店
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btn_fdsel_ok_Click(object sender, EventArgs e)
+        {
+            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+
+            int uid = int.Parse(hid_id.Value);
+            int fid = int.Parse(cmb_fd.SelectedValue);
+
+            DBContext db = new DBContext();
+            TUser u = db.GetUserById(uid);
+            TFendian f = db.GetFendianById(fid);
+            if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+            {
+                throw new MyException("只能给店长增加管辖的分店", null);
+            }
+            if (u.jmsid != f.jmsid)
+            {
+                throw new MyException("用户和分店不属于同一个加盟商，无法增加", null);
+            }
+
+            TUserFendian uf = db.GetUserFendiansByUidFdid(uid, fid);
+            if (uf == null)
+            {
+                TUserFendian nuf = new TUserFendian 
+                {
+                    userid = uid,
+                    fendianid = fid
+                };
+
+                db.InsertUserFendian(nuf);
+
+                //重新加载数据
+                loadFendians(uid);
+            }
+        }
+
+        protected void grid_ufs_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DEL")
+            {
+                Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
+                int index = Convert.ToInt32(e.CommandArgument);
+                int id = int.Parse(grid_ufs.DataKeys[index].Value.ToString());
+                DBContext db = new DBContext();
+                TUserFendian oj = db.GetUserFendiansById(id);
+                TUser ou = db.GetUserById(oj.userid);
+                if (ou.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                {
+                    throw new MyException("非法操作，无法删除", null);
+                }
+                db.DeleteUserFendian(id);
+
+                //重新加载数据
+                loadFendians(int.Parse(hid_id.Value));
+            }
+        }
+
+        protected void grid_yonghu_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            DBContext db = new DBContext();
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = int.Parse(grid_yonghu.DataKeys[index].Value.ToString());
+            if (e.CommandName == "FDS")
+            {
+                //为了给用户分店表删除一行后，加载数据用
+                hid_id.Value = id.ToString();
+
+                //加载分店
+                loadFendians(id);
+            }
+            else if (e.CommandName == "DEL")
+            {
+                //权限检查
+                Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+                TUser ou = db.GetUserById(id);
+                //不能删除别人的用户
+                if (_LoginUser.id == id)
+                {
+                    throw new MyException("不能删除自己", null);
+                }
+                //不能删除高权限的账号
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
+                {
+                    if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                        ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                    {
+                        throw new MyException("非法操作，无法删除该用户", null);
+                    }
+                    if (ou.jmsid != _LoginUser.jmsid)
+                    {
+                        throw new MyException("非法操作，无法删除该用户", null);
+                    }
+                }
+
+                db.DeleteUser(id);
+
+                loadUsers();
+            }
+        }
+
+        /// <summary>
+        /// 加载某用户管辖下的所有分店
+        /// </summary>
+        /// <param name="id"></param>
+        private void loadFendians(int id)
+        {
+            DBContext db = new DBContext();
+            TUserFendian[] ufs = db.GetUserFendiansByUserId(id);
+            var data = ufs.Select(r => new
+            {
+                id = r.id,
+                dianming = r.TFendian.dianming
+            });
+
+            grid_ufs.DataSource = Tool.CommonFunc.LINQToDataTable(data);
+            grid_ufs.DataBind();
         }
     }
 }

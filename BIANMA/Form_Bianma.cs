@@ -2050,6 +2050,14 @@ namespace BIANMA
                 
                 refreshTiaoma();
             }
+            else if (dlr == System.Windows.Forms.DialogResult.Retry)
+            {
+                //覆盖旧条码信息，并使用旧条码
+                te.xj = XTCONSTS.TIAOMA_XINJIU.旧;
+                te.tiaoma.id = jt.id;
+
+                refreshTiaoma();
+            }
         }
 
         private void grid_all_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)

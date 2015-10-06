@@ -217,11 +217,11 @@
   <wsdl:message name="IDataService_XiugaiKuanhao_OutputMessage">
     <wsdl:part name="parameters" element="tns:XiugaiKuanhaoResponse" />
   </wsdl:message>
-  <wsdl:message name="IDataService_XiugaiTiaoma_InputMessage">
-    <wsdl:part name="parameters" element="tns:XiugaiTiaoma" />
+  <wsdl:message name="IDataService_UpdateTiaoma_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTiaoma" />
   </wsdl:message>
-  <wsdl:message name="IDataService_XiugaiTiaoma_OutputMessage">
-    <wsdl:part name="parameters" element="tns:XiugaiTiaomaResponse" />
+  <wsdl:message name="IDataService_UpdateTiaoma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTiaomaResponse" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
@@ -356,9 +356,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiugaiKuanhao" message="tns:IDataService_XiugaiKuanhao_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiugaiKuanhaoResponse" message="tns:IDataService_XiugaiKuanhao_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiugaiTiaoma">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiugaiTiaoma" message="tns:IDataService_XiugaiTiaoma_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiugaiTiaomaResponse" message="tns:IDataService_XiugaiTiaoma_OutputMessage" />
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="UpdateTiaoma">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/UpdateTiaoma" message="tns:IDataService_UpdateTiaoma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/UpdateTiaomaResponse" message="tns:IDataService_UpdateTiaoma_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -661,8 +661,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="XiugaiTiaoma">
-      <soap12:operation soapAction="http://tempuri.org/IDataService/XiugaiTiaoma" style="document" />
+    <wsdl:operation name="UpdateTiaoma">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/UpdateTiaoma" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

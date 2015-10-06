@@ -39,6 +39,7 @@ namespace DB_JCSJ.Models
         public DbSet<TKuanhao> TKuanhaos { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
+        public DbSet<TUserFendian> TUserFendians { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
         public DbSet<VDiqu> VDiqus { get; set; }
 
@@ -67,6 +68,7 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TKuanhaoMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
+            modelBuilder.Configurations.Add(new TUserFendianMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());
             modelBuilder.Configurations.Add(new VDiquMap());
         }

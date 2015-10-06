@@ -567,6 +567,7 @@ namespace JCSJGL
 
             int[] ppids = getPPids();
             int[] jmsids = getJmsids();
+            int[] fdids = new int[] { };
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
             if (!string.IsNullOrEmpty(txb_xsrq_start.Text.Trim()))
@@ -593,7 +594,7 @@ namespace JCSJGL
             //TXiaoshou[] xses = mykhs.Concat(jmkhs).ToArray();
 
             int rCount = 0;
-            TXiaoshou[] xses = db.GetXiaoshousByCond(ppids, jmsids, null, "", "", xsrq_start, xsrq_end, null, null, null, null, out rCount);
+            TXiaoshou[] xses = db.GetXiaoshousByCond(ppids, jmsids, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out rCount);
 
             return xses;
         }

@@ -63,21 +63,38 @@ namespace BIANMA
                 t.tiaoma.xiugaishijian);
         }
 
+
+        /// <summary>
+        /// 覆盖旧条码信息（单价，吊牌价等信息）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_jtmcmm_Click(object sender, EventArgs e)
         {
-            string tm = txb_jtm.Text.Trim();
-            if (string.IsNullOrEmpty(tm))
-            {
-                MessageBox.Show("请输入要修改的条码号");
-                return;
-            }
+            //string tm = txb_jtm.Text.Trim();
+            //if (string.IsNullOrEmpty(tm))
+            //{
+            //    MessageBox.Show("请输入要修改的条码号");
+            //    return;
+            //}
 
             new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
             {
                 try
                 {
-                    JCSJWCF.XiugaiTiaoma(_jtm.tiaoma.id, tm);
-                    ShowMsg("修改成功", false);
+                    TTiaoma t = new TTiaoma
+                    {
+                        id = _jtm.tiaoma.id,
+                        yanse = _xtm.tiaoma.yanse,
+                        chima = _xtm.tiaoma.chima,
+                        jinjia = _xtm.tiaoma.jinjia,
+                        shoujia = _xtm.tiaoma.shoujia,
+                        gysid = _xtm.tiaoma.gysid,
+                        gyskuanhao = _xtm.tiaoma.gyskuanhao,
+                        xiugaishijian = DateTime.Now
+                    };
+                    JCSJWCF.FugaiTiaoma(t);
+                    ShowMsg("覆盖成功", false);
                     this.DialogResult = System.Windows.Forms.DialogResult.Retry;
                 }
                 catch (Exception ex)

@@ -879,16 +879,16 @@ namespace JCSJWCF
             db.UpdateKuanhaoMc(id, kh);
         }
 
-        public void XiugaiTiaoma(int id, string tm)
+        public void UpdateTiaoma(TTiaoma t)
         {
             DBContext db = new DBContext();
-            TTiaoma otm = db.GetTiaomaById(id);
+            TTiaoma otm = db.GetTiaomaById(t.id);
             if (otm.jmsid != _LoginUser.jmsid)
             {
                 throw new MyException("非法操作，不允许修改其他用户的条码", null);
             }
 
-            db.UpdateTiaomaTmh(id, tm);
+            db.UpdateTiaoma(t);
         }
     }
 }

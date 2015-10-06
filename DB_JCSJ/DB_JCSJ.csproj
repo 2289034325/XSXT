@@ -75,6 +75,7 @@
     <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
     <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
+    <Compile Include="Models\Mapping\TUserFendianMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
     <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
     <Compile Include="Models\Mapping\VDiquMap.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Models\TKuanhao.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />
+    <Compile Include="Models\TUserFendian.cs" />
     <Compile Include="Models\TXiaoshou.cs" />
     <Compile Include="Models\VDiqu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

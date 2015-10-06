@@ -43,7 +43,7 @@
     <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False" DataKeyNames="fdid" OnRowCommand="grid_kc_fd_RowCommand"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
-            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <%--<asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>--%>
             <asp:BoundField DataField="fdid" HeaderText="分店ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
@@ -66,9 +66,9 @@
     <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
         <Columns>
-            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <%--<asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>--%>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
-            <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
+            <%--<asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>--%>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>

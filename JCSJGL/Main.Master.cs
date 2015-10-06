@@ -44,22 +44,25 @@ namespace JCSJGL
             }
 
             //如果没有下级子加盟商，不显示发货退货页面
-            DBContext db = new DBContext();
-            TJiamengshang jms = db.GetJiamengshangById(u.jmsid);
-            if (jms.zjmsshu <= 0)
+            if (!(u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 || u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
             {
-                List<MenuItem> hmi = new List<MenuItem>(); ;
-                foreach (MenuItem mi in div_mn_main.Items)
+                DBContext db = new DBContext();
+                TJiamengshang jms = db.GetJiamengshangById(u.jmsid);
+                if (jms.zjmsshu <= 0)
                 {
-                    if (mi.Text.Contains("发货退货"))
+                    List<MenuItem> hmi = new List<MenuItem>(); ;
+                    foreach (MenuItem mi in div_mn_main.Items)
                     {
-                        hmi.Add(mi);
+                        if (mi.Text.Contains("发货退货"))
+                        {
+                            hmi.Add(mi);
+                        }
                     }
-                }
 
-                foreach (MenuItem mi in hmi)
-                {
-                    div_mn_main.Items.Remove(mi);
+                    foreach (MenuItem mi in hmi)
+                    {
+                        div_mn_main.Items.Remove(mi);
+                    }
                 }
             }
         }

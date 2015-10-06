@@ -21,10 +21,14 @@ namespace JCSJGL
         {
             //如果不是顶级加盟商，不显示该页面
             DBContext db = new DBContext();
-            TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid);
-            if (j.zjmsshu <= 0)
+            if (!(_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
             {
-                throw new MyException("没有权限", null);
+                TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid);
+                if (j.zjmsshu <= 0)
+                {
+                    throw new MyException("没有权限", null);
+                }
             }
 
             if (!IsPostBack)

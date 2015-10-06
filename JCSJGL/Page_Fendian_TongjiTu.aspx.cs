@@ -82,18 +82,33 @@ namespace JCSJGL
                     cmb_zjms.Items.Insert(0, new ListItem(_LoginUser.TJiamengshang.mingcheng, _LoginUser.jmsid.ToString()));
                     cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
 
-                    //加载所有的直营店和加盟分店
-                    TFendian[] zyds = db.GetFendiansAsItems(jmsid);
-                    TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid.Value);
-                    fs = zyds.Concat(jmds).ToArray();
+                    if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                    {
+                        fs = db.GetUserFendiansByUserId(_LoginUser.id).Select(r => r.TFendian).ToArray();
+                    }
+                    else
+                    {
+                        //加载所有的直营店和加盟分店
+                        TFendian[] zyds = db.GetFendiansAsItems(jmsid);
+                        TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid.Value);
+                        fs = zyds.Concat(jmds).ToArray();
+                    }
 
                     if (_LoginUser.TJiamengshang.zjmsshu <= 0)
                     {
                         div_sch_zjms.Visible = false;
                     }
                     else
-                    {
-                        div_sch_zjms.Visible = true;
+                    { 
+                        //如果是店长，限制为可见的分店数据
+                        if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                        {
+                            div_sch_zjms.Visible = false;
+                        }
+                        else
+                        {
+                            div_sch_zjms.Visible = true;
+                        }
                     }
                 }
 
@@ -518,6 +533,30 @@ namespace JCSJGL
             return ret;
         }
 
+        private int[] getFdids()
+        {
+            int[] fdids = new int[] { };
+
+            //下拉框没有选择全部，那就只查询选定的分店的数据
+            if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
+            {
+                int fdid = int.Parse(cmb_fd.SelectedValue);
+                fdids = new int[] { fdid };
+            }
+            //如果选择的是全部
+            else
+            {
+                //如果是店长，则也限定为权限内可见范围的数据
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                {
+                    DBContext db = new DBContext();
+                    TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
+                    fdids = ufs.Select(r => r.fendianid).ToArray();
+                }
+            }
+
+            return fdids;
+        }
         /// <summary>
         /// 查询符合条件的销售数据
         /// </summary>
@@ -528,12 +567,7 @@ namespace JCSJGL
             //限定查询的品牌范围
             int[] ppids = getPPids();
             int[] jmsids = getJmsids();
-            //取查询条件
-            int? fdid = null;
-            if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
-            {
-                fdid = int.Parse(cmb_fd.SelectedValue);
-            }
+            int[] fdids = getFdids();
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
             if (!string.IsNullOrEmpty(txb_xsrq_start.Text.Trim()))
@@ -546,7 +580,7 @@ namespace JCSJGL
             }
 
             int recordCount = 0;
-            TXiaoshou[] xss = db.GetXiaoshousByCond(ppids, jmsids, fdid, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
+            TXiaoshou[] xss = db.GetXiaoshousByCond(ppids, jmsids, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
 
             return xss;
         }
@@ -588,7 +622,7 @@ namespace JCSJGL
             else
             {
                 //如果下拉框有选择，就只查询选择的子加盟商的数据
-                if (string.IsNullOrEmpty(cmb_zjms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
                 {
                     jmsids.Add(int.Parse(cmb_zjms.SelectedValue));
                 }

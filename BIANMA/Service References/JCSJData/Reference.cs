@@ -214,11 +214,11 @@ namespace BIANMA.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiKuanhao", ReplyAction="http://tempuri.org/IDataService/XiugaiKuanhaoResponse")]
         System.Threading.Tasks.Task XiugaiKuanhaoAsync(int id, string kh);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiTiaoma", ReplyAction="http://tempuri.org/IDataService/XiugaiTiaomaResponse")]
-        void XiugaiTiaoma(int id, string tm);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/UpdateTiaoma", ReplyAction="http://tempuri.org/IDataService/UpdateTiaomaResponse")]
+        void UpdateTiaoma(DB_JCSJ.Models.TTiaoma t);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiTiaoma", ReplyAction="http://tempuri.org/IDataService/XiugaiTiaomaResponse")]
-        System.Threading.Tasks.Task XiugaiTiaomaAsync(int id, string tm);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/UpdateTiaoma", ReplyAction="http://tempuri.org/IDataService/UpdateTiaomaResponse")]
+        System.Threading.Tasks.Task UpdateTiaomaAsync(DB_JCSJ.Models.TTiaoma t);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -562,12 +562,12 @@ namespace BIANMA.JCSJData {
             return base.Channel.XiugaiKuanhaoAsync(id, kh);
         }
         
-        public void XiugaiTiaoma(int id, string tm) {
-            base.Channel.XiugaiTiaoma(id, tm);
+        public void UpdateTiaoma(DB_JCSJ.Models.TTiaoma t) {
+            base.Channel.UpdateTiaoma(t);
         }
         
-        public System.Threading.Tasks.Task XiugaiTiaomaAsync(int id, string tm) {
-            return base.Channel.XiugaiTiaomaAsync(id, tm);
+        public System.Threading.Tasks.Task UpdateTiaomaAsync(DB_JCSJ.Models.TTiaoma t) {
+            return base.Channel.UpdateTiaomaAsync(t);
         }
     }
 }
