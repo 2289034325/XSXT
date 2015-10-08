@@ -51,11 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201508050000001_InitialCreate.cs" />
-    <Compile Include="Migrations\201508050000001_InitialCreate.Designer.cs">
-      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
@@ -105,11 +100,6 @@
     <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508050000001_InitialCreate.resx">
-      <DependentUpon>201508050000001_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

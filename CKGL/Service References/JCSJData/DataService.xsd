@@ -8,6 +8,7 @@
         <xs:element minOccurs="0" name="dlm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="mm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -23,6 +24,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="ckid" type="xs:int" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -36,6 +38,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="fdid" type="xs:int" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -431,15 +434,14 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="XiugaiTiaoma">
+  <xs:element name="UpdateTiaoma">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="id" type="xs:int" />
-        <xs:element minOccurs="0" name="tm" nillable="true" type="xs:string" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="t" nillable="true" type="q33:TTiaoma" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="XiugaiTiaomaResponse">
+  <xs:element name="UpdateTiaomaResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

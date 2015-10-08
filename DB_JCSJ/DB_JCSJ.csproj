@@ -51,7 +51,6 @@
     <Compile Include="ModelExtend.cs" />
     <Compile Include="DELETE.cs" />
     <Compile Include="INSERT.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\JCSJContext.cs" />
     <Compile Include="Models\Mapping\TCangkuFahuoFendianMap.cs" />
     <Compile Include="Models\Mapping\TCangkuJinchuhuoMap.cs" />
@@ -122,10 +121,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlScript\db.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlScript\tb.sql">
+    <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

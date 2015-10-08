@@ -16,22 +16,22 @@ namespace FDXS.JCSJValid {
     public interface IValidService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
-        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
+        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/CKZHZhuce", ReplyAction="http://tempuri.org/IValidService/CKZHZhuceResponse")]
-        System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm);
+        System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/FDZHZhuce", ReplyAction="http://tempuri.org/IValidService/FDZHZhuceResponse")]
-        void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm);
+        void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/FDZHZhuce", ReplyAction="http://tempuri.org/IValidService/FDZHZhuceResponse")]
-        System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm);
+        System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/BMZHBangding", ReplyAction="http://tempuri.org/IValidService/BMZHBangdingResponse")]
-        void BMZHBangding(string dlm, string mm, string tzm, string zcm);
+        void BMZHBangding(string dlm, string mm, string tzm, string zcm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IValidService/BMZHBangding", ReplyAction="http://tempuri.org/IValidService/BMZHBangdingResponse")]
-        System.Threading.Tasks.Task BMZHBangdingAsync(string dlm, string mm, string tzm, string zcm);
+        System.Threading.Tasks.Task BMZHBangdingAsync(string dlm, string mm, string tzm, string zcm, string ver);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,28 +61,28 @@ namespace FDXS.JCSJValid {
                 base(binding, remoteAddress) {
         }
         
-        public void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm) {
-            base.Channel.CKZHZhuce(ckid, ckmc, tzm, zcm);
+        public void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm, string ver) {
+            base.Channel.CKZHZhuce(ckid, ckmc, tzm, zcm, ver);
         }
         
-        public System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm) {
-            return base.Channel.CKZHZhuceAsync(ckid, ckmc, tzm, zcm);
+        public System.Threading.Tasks.Task CKZHZhuceAsync(int ckid, string ckmc, string tzm, string zcm, string ver) {
+            return base.Channel.CKZHZhuceAsync(ckid, ckmc, tzm, zcm, ver);
         }
         
-        public void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm) {
-            base.Channel.FDZHZhuce(fdid, fdmc, tzm, zcm);
+        public void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm, string ver) {
+            base.Channel.FDZHZhuce(fdid, fdmc, tzm, zcm, ver);
         }
         
-        public System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm) {
-            return base.Channel.FDZHZhuceAsync(fdid, fdmc, tzm, zcm);
+        public System.Threading.Tasks.Task FDZHZhuceAsync(int fdid, string fdmc, string tzm, string zcm, string ver) {
+            return base.Channel.FDZHZhuceAsync(fdid, fdmc, tzm, zcm, ver);
         }
         
-        public void BMZHBangding(string dlm, string mm, string tzm, string zcm) {
-            base.Channel.BMZHBangding(dlm, mm, tzm, zcm);
+        public void BMZHBangding(string dlm, string mm, string tzm, string zcm, string ver) {
+            base.Channel.BMZHBangding(dlm, mm, tzm, zcm, ver);
         }
         
-        public System.Threading.Tasks.Task BMZHBangdingAsync(string dlm, string mm, string tzm, string zcm) {
-            return base.Channel.BMZHBangdingAsync(dlm, mm, tzm, zcm);
+        public System.Threading.Tasks.Task BMZHBangdingAsync(string dlm, string mm, string tzm, string zcm, string ver) {
+            return base.Channel.BMZHBangdingAsync(dlm, mm, tzm, zcm, ver);
         }
     }
 }

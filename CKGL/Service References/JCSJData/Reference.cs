@@ -44,6 +44,9 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TTiaoma[] TTiaomasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TUserFendian[] TUserFendiansField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string beizhuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -173,6 +176,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.TTiaomasField, value) != true)) {
                     this.TTiaomasField = value;
                     this.RaisePropertyChanged("TTiaomas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TUserFendian[] TUserFendians {
+            get {
+                return this.TUserFendiansField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TUserFendiansField, value) != true)) {
+                    this.TUserFendiansField = value;
+                    this.RaisePropertyChanged("TUserFendians");
                 }
             }
         }
@@ -1350,6 +1366,9 @@ namespace CKGL.JCSJData {
         private CKGL.JCSJData.TUser TUserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TUserFendian[] TUserFendiansField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private CKGL.JCSJData.TXiaoshou[] TXiaoshousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1537,6 +1556,19 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.TUserField, value) != true)) {
                     this.TUserField = value;
                     this.RaisePropertyChanged("TUser");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TUserFendian[] TUserFendians {
+            get {
+                return this.TUserFendiansField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TUserFendiansField, value) != true)) {
+                    this.TUserFendiansField = value;
+                    this.RaisePropertyChanged("TUserFendians");
                 }
             }
         }
@@ -2999,6 +3031,115 @@ namespace CKGL.JCSJData {
                 if ((object.ReferenceEquals(this.yanseField, value) != true)) {
                     this.yanseField = value;
                     this.RaisePropertyChanged("yanse");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TUserFendian", Namespace="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models")]
+    [System.SerializableAttribute()]
+    public partial class TUserFendian : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TFendian TFendianField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private CKGL.JCSJData.TUser TUserField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int fendianidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int useridField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TFendian TFendian {
+            get {
+                return this.TFendianField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TFendianField, value) != true)) {
+                    this.TFendianField = value;
+                    this.RaisePropertyChanged("TFendian");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public CKGL.JCSJData.TUser TUser {
+            get {
+                return this.TUserField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TUserField, value) != true)) {
+                    this.TUserField = value;
+                    this.RaisePropertyChanged("TUser");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int fendianid {
+            get {
+                return this.fendianidField;
+            }
+            set {
+                if ((this.fendianidField.Equals(value) != true)) {
+                    this.fendianidField = value;
+                    this.RaisePropertyChanged("fendianid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int userid {
+            get {
+                return this.useridField;
+            }
+            set {
+                if ((this.useridField.Equals(value) != true)) {
+                    this.useridField = value;
+                    this.RaisePropertyChanged("userid");
                 }
             }
         }
@@ -5533,22 +5674,22 @@ namespace CKGL.JCSJData {
     public interface IDataService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        CKGL.JCSJData.TUser BMZHLogin(string dlm, string mm, string tzm);
+        CKGL.JCSJData.TUser BMZHLogin(string dlm, string mm, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        System.Threading.Tasks.Task<CKGL.JCSJData.TUser> BMZHLoginAsync(string dlm, string mm, string tzm);
+        System.Threading.Tasks.Task<CKGL.JCSJData.TUser> BMZHLoginAsync(string dlm, string mm, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CKZHLogin", ReplyAction="http://tempuri.org/IDataService/CKZHLoginResponse")]
-        void CKZHLogin(int ckid, string tzm);
+        void CKZHLogin(int ckid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CKZHLogin", ReplyAction="http://tempuri.org/IDataService/CKZHLoginResponse")]
-        System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm);
+        System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
-        void FDZHLogin(int fdid, string tzm);
+        void FDZHLogin(int fdid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
-        System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm);
+        System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
         CKGL.JCSJData.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
@@ -5731,11 +5872,11 @@ namespace CKGL.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiKuanhao", ReplyAction="http://tempuri.org/IDataService/XiugaiKuanhaoResponse")]
         System.Threading.Tasks.Task XiugaiKuanhaoAsync(int id, string kh);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiTiaoma", ReplyAction="http://tempuri.org/IDataService/XiugaiTiaomaResponse")]
-        void XiugaiTiaoma(int id, string tm);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/UpdateTiaoma", ReplyAction="http://tempuri.org/IDataService/UpdateTiaomaResponse")]
+        void UpdateTiaoma(CKGL.JCSJData.TTiaoma t);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiugaiTiaoma", ReplyAction="http://tempuri.org/IDataService/XiugaiTiaomaResponse")]
-        System.Threading.Tasks.Task XiugaiTiaomaAsync(int id, string tm);
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/UpdateTiaoma", ReplyAction="http://tempuri.org/IDataService/UpdateTiaomaResponse")]
+        System.Threading.Tasks.Task UpdateTiaomaAsync(CKGL.JCSJData.TTiaoma t);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5805,28 +5946,28 @@ namespace CKGL.JCSJData {
                 base(binding, remoteAddress) {
         }
         
-        public CKGL.JCSJData.TUser BMZHLogin(string dlm, string mm, string tzm) {
-            return base.Channel.BMZHLogin(dlm, mm, tzm);
+        public CKGL.JCSJData.TUser BMZHLogin(string dlm, string mm, string tzm, string ver) {
+            return base.Channel.BMZHLogin(dlm, mm, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task<CKGL.JCSJData.TUser> BMZHLoginAsync(string dlm, string mm, string tzm) {
-            return base.Channel.BMZHLoginAsync(dlm, mm, tzm);
+        public System.Threading.Tasks.Task<CKGL.JCSJData.TUser> BMZHLoginAsync(string dlm, string mm, string tzm, string ver) {
+            return base.Channel.BMZHLoginAsync(dlm, mm, tzm, ver);
         }
         
-        public void CKZHLogin(int ckid, string tzm) {
-            base.Channel.CKZHLogin(ckid, tzm);
+        public void CKZHLogin(int ckid, string tzm, string ver) {
+            base.Channel.CKZHLogin(ckid, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm) {
-            return base.Channel.CKZHLoginAsync(ckid, tzm);
+        public System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm, string ver) {
+            return base.Channel.CKZHLoginAsync(ckid, tzm, ver);
         }
         
-        public void FDZHLogin(int fdid, string tzm) {
-            base.Channel.FDZHLogin(fdid, tzm);
+        public void FDZHLogin(int fdid, string tzm, string ver) {
+            base.Channel.FDZHLogin(fdid, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm) {
-            return base.Channel.FDZHLoginAsync(fdid, tzm);
+        public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm, string ver) {
+            return base.Channel.FDZHLoginAsync(fdid, tzm, ver);
         }
         
         public CKGL.JCSJData.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {
@@ -6079,12 +6220,12 @@ namespace CKGL.JCSJData {
             return base.Channel.XiugaiKuanhaoAsync(id, kh);
         }
         
-        public void XiugaiTiaoma(int id, string tm) {
-            base.Channel.XiugaiTiaoma(id, tm);
+        public void UpdateTiaoma(CKGL.JCSJData.TTiaoma t) {
+            base.Channel.UpdateTiaoma(t);
         }
         
-        public System.Threading.Tasks.Task XiugaiTiaomaAsync(int id, string tm) {
-            return base.Channel.XiugaiTiaomaAsync(id, tm);
+        public System.Threading.Tasks.Task UpdateTiaomaAsync(CKGL.JCSJData.TTiaoma t) {
+            return base.Channel.UpdateTiaomaAsync(t);
         }
     }
 }

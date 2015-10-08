@@ -2,6 +2,7 @@
 using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -59,8 +60,14 @@ namespace JCSJWCF
         /// <param name="ckmc">仓库名</param>
         /// <param name="tzm">机器特征码</param>
         /// <param name="zcm">注册码</param>
-        public void CKZHZhuce(int ckid, string ckmc, string jqm, string zcm)
+        public void CKZHZhuce(int ckid, string ckmc, string jqm, string zcm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["CKVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
             DBContext db = new DBContext();
             //检查仓库ID和仓库名称是否匹配
             TCangku tc = db.GetCangkuByIdMc(ckid, ckmc);
@@ -87,8 +94,14 @@ namespace JCSJWCF
         /// <param name="fdmc">分店名</param>
         /// <param name="jqm">机器码</param>
         /// <param name="zcm">注册码</param>
-        public void FDZHZhuce(int fdid, string fdmc, string jqm, string zcm)
+        public void FDZHZhuce(int fdid, string fdmc, string jqm, string zcm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["FDVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
             DBContext db = new DBContext();
             //检查分店ID和分店名称是否匹配
             TFendian fd = db.GetFendianByIdMc(fdid, fdmc);
@@ -114,8 +127,15 @@ namespace JCSJWCF
         /// <param name="mm">密码</param>
         /// <param name="tzm">机器特征码</param>
         /// <param name="zcm">注册码</param>
-        public void BMZHBangding(string dlm, string mm, string tzm, string zcm)
+        public void BMZHBangding(string dlm, string mm, string tzm, string zcm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["BMVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
+
             //验证账号密码
             DBContext db = new DBContext();
             TUser u = db.GetUser(dlm, mm);

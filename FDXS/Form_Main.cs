@@ -435,10 +435,11 @@ namespace FDXS
             {
                 string fileName = Settings.Default.FDID + "-" + Settings.Default.FDMC + "-" + Settings.Default.DBName + "-"
                     + DateTime.Now.ToString("yyyyMMddHHmmss") + ".bak";
-                dt.BackUp(sfd.SelectedPath + "\\" , fileName);
+                dt.BackUp(sfd.SelectedPath + "\\", fileName);
+
+                MessageBox.Show("备份成功");
             }
 
-            MessageBox.Show("备份成功");
         }
     }
 }

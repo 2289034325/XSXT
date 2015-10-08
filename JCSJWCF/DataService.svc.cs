@@ -59,8 +59,15 @@ namespace JCSJWCF
         /// <param name="dlm"></param>
         /// <param name="mm"></param>
         /// <param name="tzm"></param>
-        public TUser BMZHLogin(string dlm, string mm, string tzm)
+        public TUser BMZHLogin(string dlm, string mm, string tzm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["BMVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
+
             //验证账号密码
             DBContext db = new DBContext();
             TUser u = db.GetUser(dlm, mm);
@@ -100,8 +107,14 @@ namespace JCSJWCF
         /// <param name="ckid">仓库ID</param>
         /// <param name="tzm">机器码的MD5值</param>
         /// <returns></returns>
-        public void CKZHLogin(int ckid, string jqm)
+        public void CKZHLogin(int ckid, string jqm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["CKVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
             //验证Id是否存在
             DBContext db = new DBContext();
             TCangku ck = null;
@@ -128,8 +141,14 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="fdid">分店ID</param>
         /// <param name="tzm"></param>
-        public void FDZHLogin(int fdid, string jqm)
+        public void FDZHLogin(int fdid, string jqm,string ver)
         {
+            string Cver = ConfigurationManager.AppSettings["FDVersion"];
+            if (Cver != ver)
+            {
+                throw new MyException("请升级客户端版本", null);
+            }
+
             //验证Id是否存在
             DBContext db = new DBContext();
             TFendian fd = null;

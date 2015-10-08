@@ -16,13 +16,13 @@ namespace JCSJWCF
     public interface IDataService 
     {
         [OperationContract(IsInitiating = true)]
-        TUser BMZHLogin(string dlm, string mm, string tzm);
+        TUser BMZHLogin(string dlm, string mm, string tzm,string ver);
 
         [OperationContract(IsInitiating = true)]
-        void CKZHLogin(int ckid, string tzm);
+        void CKZHLogin(int ckid, string tzm,string ver);
 
         [OperationContract(IsInitiating = true)]
-        void FDZHLogin(int fdid, string tzm);
+        void FDZHLogin(int fdid, string tzm,string ver);
 
         //[OperationContract(IsInitiating=false)]
         //void BMZHEditPsw(string om,string nm);

@@ -76,7 +76,7 @@ namespace JCSJGL
                     string page = Request["despage"];
                     if (string.IsNullOrEmpty(page))
                     {
-                        page = "Page_Tiaoma.aspx";
+                        page = "Page_Fendian_TongjiBiao.aspx";
                     }
                     //写cookie
                     if (chk_auto.Checked)

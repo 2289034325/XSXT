@@ -21,6 +21,22 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    grid_xiaoshou.Columns[0].Visible = true;
+                }
+                else
+                {
+                    if (_LoginUser.TJiamengshang.zjmsshu <= 0)
+                    {
+                        grid_xiaoshou.Columns[0].Visible = false;
+                    }
+                    else
+                    {
+                        grid_xiaoshou.Columns[0].Visible = true;
+                    }
+                }
 
                 //子加盟商和分店下拉框
                 TFendian[] fs = new TFendian[] { };

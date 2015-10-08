@@ -1,6 +1,6 @@
 ﻿USE [CK]
 GO
-/****** Object:  Table [dbo].[TVersion]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TVersion]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[TVersion](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TUser]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TUser]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[TUser](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[TTiaoma]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TTiaoma]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -77,7 +77,7 @@ CREATE TABLE [dbo].[TTiaoma](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[TChuruku]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TChuruku]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,7 +97,7 @@ CREATE TABLE [dbo].[TChuruku](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TKucunXZ]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TKucunXZ]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +116,7 @@ CREATE TABLE [dbo].[TKucunXZ](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TChurukuMX]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  Table [dbo].[TChurukuMX]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +137,7 @@ CREATE TABLE [dbo].[TChurukuMX](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  View [dbo].[VKucun]    Script Date: 10/04/2015 17:49:59 ******/
+/****** Object:  View [dbo].[VKucun]    Script Date: 10/07/2015 14:37:52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,31 +176,31 @@ FROM
 GROUP BY	tiaomaid) AS B
 ON			C.id = B.tiaomaid
 GO
-/****** Object:  ForeignKey [FK_TChuruku_TUser]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  ForeignKey [FK_TChuruku_TUser]    Script Date: 10/07/2015 14:37:51 ******/
 ALTER TABLE [dbo].[TChuruku]  WITH CHECK ADD  CONSTRAINT [FK_TChuruku_TUser] FOREIGN KEY([caozuorenid])
 REFERENCES [dbo].[TUser] ([id])
 GO
 ALTER TABLE [dbo].[TChuruku] CHECK CONSTRAINT [FK_TChuruku_TUser]
 GO
-/****** Object:  ForeignKey [FK_TChurukuMX_TChuruku]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  ForeignKey [FK_TChurukuMX_TChuruku]    Script Date: 10/07/2015 14:37:51 ******/
 ALTER TABLE [dbo].[TChurukuMX]  WITH CHECK ADD  CONSTRAINT [FK_TChurukuMX_TChuruku] FOREIGN KEY([churukuid])
 REFERENCES [dbo].[TChuruku] ([id])
 GO
 ALTER TABLE [dbo].[TChurukuMX] CHECK CONSTRAINT [FK_TChurukuMX_TChuruku]
 GO
-/****** Object:  ForeignKey [FK_TChurukuMX_TTiaoma]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  ForeignKey [FK_TChurukuMX_TTiaoma]    Script Date: 10/07/2015 14:37:51 ******/
 ALTER TABLE [dbo].[TChurukuMX]  WITH CHECK ADD  CONSTRAINT [FK_TChurukuMX_TTiaoma] FOREIGN KEY([tiaomaid])
 REFERENCES [dbo].[TTiaoma] ([id])
 GO
 ALTER TABLE [dbo].[TChurukuMX] CHECK CONSTRAINT [FK_TChurukuMX_TTiaoma]
 GO
-/****** Object:  ForeignKey [FK_TKucunXZ_TTiaoma]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  ForeignKey [FK_TKucunXZ_TTiaoma]    Script Date: 10/07/2015 14:37:51 ******/
 ALTER TABLE [dbo].[TKucunXZ]  WITH CHECK ADD  CONSTRAINT [FK_TKucunXZ_TTiaoma] FOREIGN KEY([tiaomaid])
 REFERENCES [dbo].[TTiaoma] ([id])
 GO
 ALTER TABLE [dbo].[TKucunXZ] CHECK CONSTRAINT [FK_TKucunXZ_TTiaoma]
 GO
-/****** Object:  ForeignKey [FK_TKucunXZ_TUser]    Script Date: 10/04/2015 17:49:58 ******/
+/****** Object:  ForeignKey [FK_TKucunXZ_TUser]    Script Date: 10/07/2015 14:37:51 ******/
 ALTER TABLE [dbo].[TKucunXZ]  WITH CHECK ADD  CONSTRAINT [FK_TKucunXZ_TUser] FOREIGN KEY([caozuorenid])
 REFERENCES [dbo].[TUser] ([id])
 GO

@@ -19,7 +19,7 @@ namespace FDXS
         public static void Reconnect()
         {
             _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
-            _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+            _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace FDXS
             if (_jdc == null)
             {
                 _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFDataADD);
-                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()),RuntimeInfo.ClientVersion.ToString());
                 
             }
             else
@@ -40,7 +40,7 @@ namespace FDXS
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
                     _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
-                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                    _jdc.FDZHLogin(Settings.Default.FDID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace FDXS
         internal static void FDZHZhuce(int ckid, string ckm, string jqm, string zcm)
         {
             ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);
-            vdc.FDZHZhuce(ckid, ckm, jqm, zcm);
+            vdc.FDZHZhuce(ckid, ckm, jqm, zcm,RuntimeInfo.ClientVersion.ToString());
         }
 
         internal static THuiyuan GetHuiyuanById(int id)

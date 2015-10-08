@@ -497,13 +497,17 @@ namespace DB_JCSJ
             /// <param name="pageIndex"></param>
             /// <param name="recordCount"></param>
             /// <returns></returns>
-            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int?jmsid,int[] fdids, DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
+            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int[] ppids,int[] jmsids,int[] fdids, DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
             {
                 var jcs = _db.TFendianJinchuhuos.Include(r => r.TFendian).Include(r => r.TFendianJinchuhuoMXes).
                     Include(r=>r.TFendian.Jms).AsQueryable();
-                if (jmsid != null)
+                if (ppids.Length != 0)
                 {
-                    jcs = jcs.Where(r => r.TFendian.jmsid == jmsid);
+                    jcs = jcs.Where(r=>ppids.Contains(r.TFendian.ppid));
+                }
+                if (jmsids.Length != 0)
+                {
+                    jcs = jcs.Where(r => jmsids.Contains(r.TFendian.jmsid));
                 }
                 if (fdids.Length != 0)
                 {

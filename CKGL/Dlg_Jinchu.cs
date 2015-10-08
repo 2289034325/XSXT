@@ -154,12 +154,12 @@ namespace CKGL
             //        }, true).Start();
             //}
 
-            Tool.CommonFunc.InitCombbox(cmb_ck, RuntimeInfo.AllCks);
-            cmb_ck.SelectedIndex = -1;
-            Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
-            cmb_fd.SelectedIndex = -1;
-            Tool.CommonFunc.InitCombbox(cmb_jms, RuntimeInfo.AllJmses);
-            cmb_jms.SelectedIndex = -1;
+            //Tool.CommonFunc.InitCombbox(cmb_ck, RuntimeInfo.AllCks);
+            //cmb_ck.SelectedIndex = -1;
+            //Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
+            //cmb_fd.SelectedIndex = -1;
+            //Tool.CommonFunc.InitCombbox(cmb_jms, RuntimeInfo.AllJmses);
+            //cmb_jms.SelectedIndex = -1;
         }
 
         /// <summary>

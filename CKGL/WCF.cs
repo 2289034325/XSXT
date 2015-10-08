@@ -19,8 +19,7 @@ namespace CKGL
         public static void Reconnect()
         {
             _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
-            //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
-            _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+            _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
         }
 
         public static void Login()
@@ -28,16 +27,14 @@ namespace CKGL
             if (_jdc == null)
             {
                 _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
-                //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
-                _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
                     _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
-                    //_jdc = new DataServiceClient("NetTcpBinding_IDataService");
-                    _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                    _jdc.CKZHLogin(Settings.Default.CKID, Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
                 }
             }
         }
@@ -51,7 +48,7 @@ namespace CKGL
         internal static void CKZHZhuce(int ckid, string ckm,string jqm, string zcm)
         {
             ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService", Settings.Default.WCFValidADD);
-            vdc.CKZHZhuce(ckid, ckm,jqm, zcm);
+            vdc.CKZHZhuce(ckid, ckm, jqm, zcm, RuntimeInfo.ClientVersion.ToString());
         }
 
         /// <summary>

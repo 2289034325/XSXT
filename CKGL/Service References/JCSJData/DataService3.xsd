@@ -9,6 +9,7 @@
       <xs:element minOccurs="0" name="TJiamengshangJintuihuos" nillable="true" type="tns:ArrayOfTJiamengshangJintuihuo" />
       <xs:element minOccurs="0" name="TKuanhaos" nillable="true" type="tns:ArrayOfTKuanhao" />
       <xs:element minOccurs="0" name="TTiaomas" nillable="true" type="tns:ArrayOfTTiaoma" />
+      <xs:element minOccurs="0" name="TUserFendians" nillable="true" type="tns:ArrayOfTUserFendian" />
       <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="charushijian" type="xs:dateTime" />
       <xs:element minOccurs="0" name="dengluming" nillable="true" type="xs:string" />
@@ -99,6 +100,7 @@
       <xs:element minOccurs="0" name="TFendianKucuns" nillable="true" type="tns:ArrayOfTFendianKucun" />
       <xs:element minOccurs="0" name="THuiyuans" nillable="true" type="tns:ArrayOfTHuiyuan" />
       <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
+      <xs:element minOccurs="0" name="TUserFendians" nillable="true" type="tns:ArrayOfTUserFendian" />
       <xs:element minOccurs="0" name="TXiaoshous" nillable="true" type="tns:ArrayOfTXiaoshou" />
       <xs:element minOccurs="0" name="beizhu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="caozuorenid" type="xs:int" />
@@ -550,6 +552,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTFendianKucun" nillable="true" type="tns:ArrayOfTFendianKucun" />
+  <xs:complexType name="ArrayOfTUserFendian">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TUserFendian" nillable="true" type="tns:TUserFendian" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTUserFendian" nillable="true" type="tns:ArrayOfTUserFendian" />
+  <xs:complexType name="TUserFendian">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TFendian" nillable="true" type="tns:TFendian" />
+      <xs:element minOccurs="0" name="TUser" nillable="true" type="tns:TUser" />
+      <xs:element minOccurs="0" name="fendianid" type="xs:int" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="userid" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TUserFendian" nillable="true" type="tns:TUserFendian" />
   <xs:complexType name="ArrayOfTCangkuKucun">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TCangkuKucun" nillable="true" type="tns:TCangkuKucun" />

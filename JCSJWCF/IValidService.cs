@@ -17,12 +17,12 @@ namespace JCSJWCF
         //void BMZHZhuce(string dlm, string mm, string xm, string tzm, string zcm);
 
         [OperationContract]
-        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm);
+        void CKZHZhuce(int ckid, string ckmc, string tzm, string zcm,string ver);
 
         [OperationContract]
-        void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm);
+        void FDZHZhuce(int fdid, string fdmc, string tzm, string zcm,string ver);
 
         [OperationContract]
-        void BMZHBangding(string dlm, string mm, string tzm, string zcm);
+        void BMZHBangding(string dlm, string mm, string tzm, string zcm,string ver);
     }
 }
