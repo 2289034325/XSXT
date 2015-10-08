@@ -91,6 +91,9 @@ namespace JCSJGL
         {
             //取数据
             TXiaoshou[] xss = getXiaoshouData();
+            //排除无条码销售的商品
+            xss = xss.Where(r => r.TTiaoma != null).ToArray();
+
             if (xss.Count() == 0)
             {
                 div_charts.InnerHtml = "<div style='color:red;font-size:20px;position:relative;top:200px;text-align:center;'>指定条件内没有销售数据<div>";

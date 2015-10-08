@@ -12,7 +12,7 @@ namespace CKGL
     public static class RuntimeInfo
     {
         //客户端版本
-        public static Version ClientVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+        public static Version ClientVersion = new Version();
 
         //当前需要的数据库版本
         public const int DbVersion = 0;

@@ -7,6 +7,7 @@
         <xs:element minOccurs="0" name="ckmc" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="zcm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -22,6 +23,7 @@
         <xs:element minOccurs="0" name="fdmc" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="zcm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -37,6 +39,7 @@
         <xs:element minOccurs="0" name="mm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="zcm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

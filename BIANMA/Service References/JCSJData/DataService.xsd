@@ -8,6 +8,7 @@
         <xs:element minOccurs="0" name="dlm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="mm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -23,6 +24,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="ckid" type="xs:int" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -36,6 +38,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="fdid" type="xs:int" />
         <xs:element minOccurs="0" name="tzm" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ver" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

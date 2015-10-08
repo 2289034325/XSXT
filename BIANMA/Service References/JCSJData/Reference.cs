@@ -16,22 +16,22 @@ namespace BIANMA.JCSJData {
     public interface IDataService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        DB_JCSJ.Models.TUser BMZHLogin(string dlm, string mm, string tzm);
+        DB_JCSJ.Models.TUser BMZHLogin(string dlm, string mm, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/BMZHLogin", ReplyAction="http://tempuri.org/IDataService/BMZHLoginResponse")]
-        System.Threading.Tasks.Task<DB_JCSJ.Models.TUser> BMZHLoginAsync(string dlm, string mm, string tzm);
+        System.Threading.Tasks.Task<DB_JCSJ.Models.TUser> BMZHLoginAsync(string dlm, string mm, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CKZHLogin", ReplyAction="http://tempuri.org/IDataService/CKZHLoginResponse")]
-        void CKZHLogin(int ckid, string tzm);
+        void CKZHLogin(int ckid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/CKZHLogin", ReplyAction="http://tempuri.org/IDataService/CKZHLoginResponse")]
-        System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm);
+        System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
-        void FDZHLogin(int fdid, string tzm);
+        void FDZHLogin(int fdid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDataService/FDZHLogin", ReplyAction="http://tempuri.org/IDataService/FDZHLoginResponse")]
-        System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm);
+        System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm, string ver);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByCond", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByCondResponse")]
         DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End);
@@ -288,28 +288,28 @@ namespace BIANMA.JCSJData {
                 base(binding, remoteAddress) {
         }
         
-        public DB_JCSJ.Models.TUser BMZHLogin(string dlm, string mm, string tzm) {
-            return base.Channel.BMZHLogin(dlm, mm, tzm);
+        public DB_JCSJ.Models.TUser BMZHLogin(string dlm, string mm, string tzm, string ver) {
+            return base.Channel.BMZHLogin(dlm, mm, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task<DB_JCSJ.Models.TUser> BMZHLoginAsync(string dlm, string mm, string tzm) {
-            return base.Channel.BMZHLoginAsync(dlm, mm, tzm);
+        public System.Threading.Tasks.Task<DB_JCSJ.Models.TUser> BMZHLoginAsync(string dlm, string mm, string tzm, string ver) {
+            return base.Channel.BMZHLoginAsync(dlm, mm, tzm, ver);
         }
         
-        public void CKZHLogin(int ckid, string tzm) {
-            base.Channel.CKZHLogin(ckid, tzm);
+        public void CKZHLogin(int ckid, string tzm, string ver) {
+            base.Channel.CKZHLogin(ckid, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm) {
-            return base.Channel.CKZHLoginAsync(ckid, tzm);
+        public System.Threading.Tasks.Task CKZHLoginAsync(int ckid, string tzm, string ver) {
+            return base.Channel.CKZHLoginAsync(ckid, tzm, ver);
         }
         
-        public void FDZHLogin(int fdid, string tzm) {
-            base.Channel.FDZHLogin(fdid, tzm);
+        public void FDZHLogin(int fdid, string tzm, string ver) {
+            base.Channel.FDZHLogin(fdid, tzm, ver);
         }
         
-        public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm) {
-            return base.Channel.FDZHLoginAsync(fdid, tzm);
+        public System.Threading.Tasks.Task FDZHLoginAsync(int fdid, string tzm, string ver) {
+            return base.Channel.FDZHLoginAsync(fdid, tzm, ver);
         }
         
         public DB_JCSJ.Models.TTiaoma[] GetTiaomasByCond(string Kuanhao, string Tiaoma, System.Nullable<System.DateTime> Start, System.Nullable<System.DateTime> End) {

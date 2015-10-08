@@ -53,6 +53,14 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            if (AppDomain.CurrentDomain.ActivationContext != null)
+            {
+                RuntimeInfo.ClientVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+            }
+            else
+            {
+                RuntimeInfo.ClientVersion = new Version();
+            }
             //登陆检查
             //if (RuntimeInfo.LoginUser == null)
             //{

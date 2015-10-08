@@ -63,7 +63,7 @@ namespace DB_CK
             if (id == null)
             {
                 DateTime dend = end.AddDays(1);
-                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
+                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TChurukuMXes.Select(xr=>xr.TTiaoma)).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
             }
             else
             {

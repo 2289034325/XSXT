@@ -130,6 +130,7 @@ namespace CKGL
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
                     c.laiyuanquxiang.ToString(),
                     c.TChurukuMXes.Sum(r=>(short?)r.shuliang)??0,
+                    c.TChurukuMXes.Sum(r=>(short?)r.shuliang*r.TTiaoma.jinjia)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,

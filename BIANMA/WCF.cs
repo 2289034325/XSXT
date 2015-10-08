@@ -37,7 +37,7 @@ namespace BIANMA
                 }
             }
 
-            TUser User = _jdc.BMZHLogin(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+            TUser User = _jdc.BMZHLogin(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
 
             _dlm = dlm;
             _mm = mm;
@@ -49,14 +49,14 @@ namespace BIANMA
             if (_jdc == null)
             {
                 _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
-                _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
                     _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCF_DATAADD);
-                    _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()));
+                    _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace BIANMA
         internal static void BMZHBangding(string dlm, string mm, string zcm)
         {
             ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService",Settings.Default.WCF_VALIDADD);
-            vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm);
+            vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm, RuntimeInfo.ClientVersion.ToString());
         }
 
         internal static TGongyingshang[] GetGongyingshangs()
