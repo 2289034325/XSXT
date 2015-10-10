@@ -122,20 +122,9 @@ namespace JCSJGL
         }
 
         private void search()
-        {   //取查询条件
-            int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 || 
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
-                } 
-            }
-            else
-            {
-                jmsid = _LoginUser.jmsid;
-            }
+        {
+            string kh = txb_kh.Text.Trim();
+            string tm = txb_tm.Text.Trim();
             
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
@@ -175,7 +164,7 @@ namespace JCSJGL
             int[] fdids = getFdids();
 
             int recordCount = 0;
-            TFendianJinchuhuo[] jcs = db.GetFDJinchuhuoByCond(ppids,jmsids,fdids,
+            TFendianJinchuhuo[] jcs = db.GetFDJinchuhuoByCond(ppids,jmsids,fdids,kh,tm,
                 xsrq_start, xsrq_end, sbrq_start, sbrq_end,
                 grid_jinchu.PageSize, grid_jinchu.PageIndex, out recordCount);
             var xs = jcs.Select(r => new

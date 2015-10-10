@@ -37,7 +37,7 @@ input[type="text"].short
 {
     width:50px;
 }
-input[type="text"].middle
+input[type="text"],[type="date"].middle
 {
     width:100px;
 }

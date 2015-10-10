@@ -497,7 +497,7 @@ namespace DB_JCSJ
             /// <param name="pageIndex"></param>
             /// <param name="recordCount"></param>
             /// <returns></returns>
-            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int[] ppids,int[] jmsids,int[] fdids, DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
+            public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int[] ppids,int[] jmsids,int[] fdids, string kh,string tm,DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
             {
                 var jcs = _db.TFendianJinchuhuos.Include(r => r.TFendian).Include(r => r.TFendianJinchuhuoMXes).
                     Include(r=>r.TFendian.Jms).AsQueryable();
@@ -512,6 +512,14 @@ namespace DB_JCSJ
                 if (fdids.Length != 0)
                 {
                     jcs = jcs.Where(r => fdids.Contains(r.fendianid));
+                }
+                if (!string.IsNullOrEmpty(kh))
+                {
+                    jcs = jcs.Where(r => r.TFendianJinchuhuoMXes.Any(mr => mr.TTiaoma.TKuanhao.kuanhao == kh));
+                }
+                if (!string.IsNullOrEmpty(tm))
+                {
+                    jcs = jcs.Where(r => r.TFendianJinchuhuoMXes.Any(mr => mr.TTiaoma.tiaoma == tm));
                 }
                 if (fssj_start != null)
                 {

@@ -18,6 +18,12 @@
             <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
         </div>
         <div>
+            <label>款号</label><asp:TextBox runat="server" ID="txb_kh" ClientIDMode="Static" CssClass="middle"></asp:TextBox>
+        </div>
+        <div>
+            <label>条码</label><asp:TextBox runat="server" ID="txb_tm" ClientIDMode="Static" CssClass="long"></asp:TextBox>
+        </div>
+        <div>
             <label>发生日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_end"></asp:TextBox>
         </div>
         <div>
