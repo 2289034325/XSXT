@@ -19,5 +19,8 @@ namespace CKGL
 
         //当前登陆的用户
         public static TUser LoginUser = null;
+
+        //所有直营分店
+        public static Dictionary<string, string> AllFds = null;
     }
 }

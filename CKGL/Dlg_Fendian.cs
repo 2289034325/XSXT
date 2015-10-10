@@ -47,23 +47,23 @@ namespace CKGL
         /// <param name="e"></param>
         private void Dlg_Fendian_Load(object sender, EventArgs e)
         {
-            //if (RuntimeInfo.AllFds == null)
-            //{
-            //    new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-            //    {
-            //        try
-            //        {
-            //            JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
-            //            RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
-            //            Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-            //            ShowMsg(ex.Message, true);
-            //        }
-            //    }, true).Start();
-            //}
+            if (RuntimeInfo.AllFds == null)
+            {
+                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                {
+                    try
+                    {
+                        JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
+                        RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
+                        Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
+                    }
+                    catch (Exception ex)
+                    {
+                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                        ShowMsg(ex.Message, true);
+                    }
+                }, true).Start();
+            }
         }        
     }
 }
