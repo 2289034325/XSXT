@@ -61,8 +61,12 @@ namespace JCSJGL
                     Tool.CommonFunc.InitDropDownList(cmb_zjms, jmss, "mingcheng", "id");
                     cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
 
-                    //分店
-                    if (Request["jmsid"] != null)
+                    //品牌ID
+                    if (!string.IsNullOrEmpty(Request["ppid"]))
+                    {
+                        cmb_jms.SelectedValue = Request["ppid"];
+                    }
+                    if (!string.IsNullOrEmpty(Request["jmsid"]))
                     {
                         jmsid = int.Parse(Request["jmsid"]);
                         cmb_zjms.SelectedValue = Request["jmsid"];
@@ -78,7 +82,7 @@ namespace JCSJGL
                     cmb_zjms.Items.Insert(0, new ListItem(_LoginUser.TJiamengshang.mingcheng, _LoginUser.jmsid.ToString()));
                     cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
 
-                    if (Request["jmsid"] != null)
+                    if (!string.IsNullOrEmpty(Request["jmsid"]))
                     {
                         //加载属于指定子加盟商的分店
                         int zjmsid = int.Parse(Request["jmsid"]);
@@ -138,6 +142,10 @@ namespace JCSJGL
 
                 Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                if (!string.IsNullOrEmpty(Request["fdid"]))
+                {
+                    cmb_fd.SelectedValue = Request["fdid"];
+                }
 
                 //日期下拉框
                 txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -159,6 +167,10 @@ namespace JCSJGL
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
+                }
+                if (!string.IsNullOrEmpty(Request["kh"]))
+                {
+                    txb_kh.Text = Request["kh"];
                 }
 
                 if (Request.UrlReferrer != null)
@@ -304,7 +316,6 @@ namespace JCSJGL
             }
             else
             {
-                //grid_xiaoshou.Columns[0].Visible = false;
                 TJiamengshang[] pps = db.GetFuJiamengshangs(_LoginUser.jmsid);
                 lppids.AddRange(pps.Select(r => r.id));
                 lppids.Add(_LoginUser.jmsid);
