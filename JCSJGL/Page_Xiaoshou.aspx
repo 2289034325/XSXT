@@ -38,6 +38,7 @@
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
+            <asp:BoundField DataField="gyskuanhao" HeaderText="供应商款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>
             <asp:BoundField DataField="pinming" HeaderText="品名"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>

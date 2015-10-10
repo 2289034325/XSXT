@@ -249,6 +249,7 @@ namespace JCSJGL
                 jiamengshang = bzmcs[r.TFendian.jmsid],
                 fendian = r.TFendian.dianming,
                 kuanhao = r.TTiaoma==null?"":r.TTiaoma.TKuanhao.kuanhao,
+                gyskuanhao = r.TTiaoma == null ? "" : r.TTiaoma.gyskuanhao,
                 leixing = r.TTiaoma == null ? "" : ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing).ToString(),
                 pinming = r.TTiaoma == null ? "" : r.TTiaoma.TKuanhao.pinming,
                 tiaoma = r.TTiaoma == null ? "" : r.TTiaoma.tiaoma,
