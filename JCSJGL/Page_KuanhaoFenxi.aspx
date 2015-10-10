@@ -8,7 +8,7 @@
         $(document).ready(
            function ()
            {
-               $("area").attr("target", "_self");
+               $("area").click(function () { window.location.href=this.href; return false;});
            });
         function Search()
         {
