@@ -23,7 +23,7 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 //隐藏搜索条件
-                div_sch.Visible = false;
+                div_sch_jms.Visible = false;
                 div_edit_jms.Visible = false;
                 DBContext db = new DBContext();
 
@@ -34,7 +34,7 @@ namespace JCSJGL
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_sch.Visible = true;
+                    div_sch_jms.Visible = true;
                     div_edit_jms.Visible = true;
 
                     TJiamengshang[] jmss = db.GetJiamengshangs();

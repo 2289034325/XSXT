@@ -62,7 +62,7 @@ $(document).ready(function () {
         //});
 
         //Iphone webApp
-        $("head").append("<meta name='viewport' content='user-scalable=yes, initial-scale=1.0, width=device-width, minimal-ui'>");
+        $("head").append("<meta name='viewport' content='user-scalable=false, initial-scale=1.0, width=device-width, minimal-ui'>");
         $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='black'>");
         $("head").append("<meta name='apple-mobile-web-app-capable' content='yes'>");
         $("head").append("<meta name='format-detection' content='telephone=no'>");
@@ -73,14 +73,128 @@ $(document).ready(function () {
                 event.preventDefault(); window.document.location.href = this.href;
             }
         });
+        $("area").click(function (event)
+        {
+            if (this.href != "#" && this.href)
+            {
+                event.preventDefault(); window.document.location.href = this.href;
+            }
+        });
 
-        //将包含子菜单的一级菜单的链接上的onclick去掉
-        $("#mn_main a[href='#']").removeAttr("onclick").removeAttr("href");
-        //将当前菜单的字体加粗
-        var cName = $(window.location.pathname.split("/")).last()[0];
-        var mni = $("#mn_main a[href='" + cName + "']");
-        $("#mn_main > ul > li").has(mni).find(">a").css("font-weight", "bold");
-        mni.css("font-weight", "bold");
+        $("#div_body").css("overflow", "scroll").css("width", screen.availWidth + "px");
+
+        ////将包含子菜单的一级菜单的链接上的onclick去掉
+        //$("#mn_main a[href='#']").removeAttr("onclick").removeAttr("href");
+        ////将当前菜单的字体加粗
+        //var cName = $(window.location.pathname.split("/")).last()[0];
+        //var mni = $("#mn_main a[href='" + cName + "']");
+        //$("#mn_main > ul > li").has(mni).find(">a").css("font-weight", "bold");
+        //mni.css("font-weight", "bold");
+
+        //显示当前页面的title
+        var title = document.title;
+        var divTitle = $("<div id='div_title'>" + title + "<div></div></div>");
+        divTitle.css("width", document.body.clientWidth);       
+        $("#div_head").prepend(divTitle);
+
+        //生成手机菜单
+        var mobileMenu = $("<div id='div_mobileMenu'></div>");
+        mobileMenu.css("display", "none").css("z-index","1");
+        var inner = $("<div></div>");
+        inner.css("position", "fixed").css("height", screen.availHeight + "px").css("overflow", "scroll");
+        mobileMenu.append(inner);
+        $("#div_mn_main > ul > li").find(">a").each(function ()
+        {
+            $(this).css("width", document.body.clientWidth);
+            inner.append(this);
+        });
+        divTitle.after(mobileMenu);
+        
+        //点击，显示菜单       
+        divTitle.click(function ()
+        {
+            if (mobileMenu.attr('data-click-state') == 1)
+            {
+                mobileMenu.attr('data-click-state', 0);
+                mobileMenu.attr("class", "mobileMenuHide");
+                mobileMenu.css("display", "none");
+            }
+            else
+            {
+                mobileMenu.attr('data-click-state', 1);
+                mobileMenu.attr("class", "mainMenuExpand");
+                mobileMenu.css("display", "");
+            }
+        });
+
+        //grid让开title的距离
+        $("body").css("top", "30px").css("position", "absolute");
+        
+        //底部工具栏
+        var ftb = $("<div id='div_bottom_toolbar'><div id='div_showsearch'></div><div id='div_back'></div></div>");
+        ftb.css("width", screen.availWidth + "px");
+        $("#div_foot").append(ftb);
+        $("#div_back").click(function () { history.back(); });
+
+        //查询工具栏
+        var schTool = $("#div_sch");
+        schTool.attr("class", "div_sch_mobile");
+        schTool.css("display", "none");
+
+        $("#div_foot").prepend(schTool);
+        //点击，显示查询项    
+        $("#div_showsearch").click(function ()
+        {
+            if (schTool.attr('data-click-state') == 1)
+            {
+                schTool.attr('data-click-state', 0);
+                schTool.css("display", "none");
+            }
+            else
+            {
+                schTool.attr('data-click-state', 1);
+                schTool.css("display", "");
+            }
+        });
+
+        //编辑
+        var editTool = $("#div_edit");
+        editTool.attr("class", "div_edit_mobile");
+        editTool.css("display", "none");
+
+        $("#div_foot").prepend(editTool);
+
+        //grid 翻页
+        //隐藏原翻页控件
+        var oPager = $(".gridPager");
+        if (oPager.length != 0)
+        {
+            oPager.css("display", "none");
+            var pageCount = $("#hid_pageCount").attr("value");
+            var pageIndex = $("#hid_pageIndex").attr("value");
+            var oPrev = oPager.find("a").filter(function () { return $(this).text() == "Prev"; });
+            var oNext = oPager.find("a").filter(function () { return $(this).text() == "Next"; });
+
+            var divPager = $("<div id='div_pager'></div>");
+            var divPrev = $("<div class='prev'></div>");
+            var divNext = $("<div class='next'></div>");
+            var divPageNum = $("<div class='pagenum'>" +(Number(pageIndex)+1) + "/" + pageCount + "</div>");
+
+            if (oPrev.length != 0)
+            {
+                divPager.append(divPrev);
+                divPrev.click(function () { oPrev.trigger("click") });
+            }
+            if (oNext.length != 0)
+            {
+                divPager.append(divNext);
+                divNext.click(function () { oNext.trigger("click") });
+            }
+            
+            divPager.append(divPageNum);
+
+            ftb.append(divPager);
+        }
 
         //加载jquerymobile
         //$.getScript("jquery.mobile-1.4.5/jquery.mobile-1.4.5.js", function ()
@@ -93,36 +207,6 @@ $(document).ready(function () {
         //        history.forward();
         //    });
         //});
-
-        //在最下方放置后退键
-        var bd = $("<div>返回</div>");
-        bd.css("height", "30px").css("width","50px").css("font-size","25px").css("text-align","center");
-        bd.css("position", "fixed").css("bottom", "0px").css("right", "0px").css("background-color", "#FFFBD6");
-        bd.css("opacity", "0.2");
-        bd.click(function () { history.back(); });
-        $("body").append(bd);
-
-        //右上角放个小箭头，点击，展开菜单
-        var ep = $("<div id='div_expandmn'>▼</div>");
-        ep.css("width", "150px").css("font-size", "30px").css("text-align", "right").css("padding","0").css("margin","0");
-        ep.css("position", "absolute").css("top", "0px").css("right", "0px");
-        ep.css("background", "-webkit-gradient(linear, 100% 0%, 0% 0%,from(rgba(255,255,255,1)), to(rgba(255,255,255,0.1)))");
-        ep.click(function ()
-        {
-            var mn = $("#div_mn_main");
-            if (mn.attr('data-click-state') == 1)
-            {
-                mn.attr('data-click-state',0);
-                mn.attr("class","mainMenu");
-                $(this).html("▼");
-            }
-            else {
-                mn.attr('data-click-state', 1);
-                mn.attr("class","mainMenuExpand");
-                $(this).html("▲");
-            }
-        });
-        $("body").append(ep);
 
     }
 });

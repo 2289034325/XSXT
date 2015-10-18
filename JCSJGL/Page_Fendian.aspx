@@ -27,16 +27,15 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch" class="div_sch" runat="server">
-        <div>
+    <div id="div_sch" class="div_sch">
+        <div id="div_jms" runat="server">
             <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
         </div>
         <div>
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
         </div>
     </div>
-    <asp:GridView ID="grid_fendian" runat="server" AutoGenerateColumns="False" BackColor="White" DataKeyNames="id"
-        BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnRowDeleting="grid_fendian_RowDeleting">
+    <asp:GridView ID="grid_fendian" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_fendian_RowDeleting">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
@@ -70,15 +69,6 @@
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
     <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />

@@ -34,8 +34,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <asp:GridView ID="grid_jiamengshang" runat="server" AutoGenerateColumns="False" BackColor="White"
-        BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowCommand="grid_jiamengshang_RowCommand">
+    <asp:GridView ID="grid_jiamengshang" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_jiamengshang_RowCommand">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="mingcheng" HeaderText="名称"></asp:BoundField>
@@ -76,15 +75,6 @@
             </asp:TemplateField>
 
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">

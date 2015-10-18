@@ -11,6 +11,8 @@
             $("#cmb_xb").val(xb);
             $("#txb_pm").val(pm);
             $("#txb_bz").val(bz);
+
+            ShowEditDialog(true);
         }
 
         //删除
@@ -39,8 +41,7 @@
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
         </div>
     </div>
-    <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False" BackColor="White"
-        BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" OnRowDeleting="grid_kuanhao_RowDeleting"
+    <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kuanhao_RowDeleting"
         AllowCustomPaging="true" AllowPaging="true" PageSize="20" OnPageIndexChanging="grid_kuanhao_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
@@ -64,18 +65,10 @@
             </asp:TemplateField>
 
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
-        <PagerSettings Mode="Numeric" Visible="true" />
+        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />        
     </asp:GridView>
-    <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
+    <input type="hidden" id="hid_pageIndex" value="<%= grid_kuanhao.PageIndex %>" />
+    <input type="hidden" id="hid_pageCount" value="<%= grid_kuanhao.PageCount %>" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>

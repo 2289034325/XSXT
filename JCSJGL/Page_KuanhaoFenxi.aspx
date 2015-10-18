@@ -5,11 +5,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>款号分析</title>
     <script type="text/javascript">
-        $(document).ready(
-           function ()
-           {
-               $("area").click(function () { window.location.href=this.href; return false;});
-           });
+        //$(document).ready(
+        //   function ()
+        //   {
+        //       $("area").click(function () { window.location.href=this.href; return false;});
+        //   });
         function Search()
         {
             $("#hid_windowWidth").val(document.body.clientWidth);
@@ -34,7 +34,7 @@
         <div>
             <label>Y轴</label><asp:DropDownList runat="server" ID="cmb_y"></asp:DropDownList>
         </div>
-        <div>
+        <div style="overflow:scroll;">
             <asp:CheckBoxList runat="server" ID="chk_x" RepeatDirection="Horizontal"></asp:CheckBoxList>
         </div>
         <div>

@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="imgs\icons_blue.png" />
+    <Content Include="imgs\icons_white.png" />
     <Content Include="imgs\iphoneLogo.png" />
     <Content Include="imgs\webLogo.ico" />
     <Content Include="jquery-2.1.3.js" />
@@ -338,6 +340,7 @@
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Common.js" />
     <Content Include="Page_Dtzcm.aspx" />
     <Content Include="Page_JMSFahuoTuihuo.aspx" />
     <Content Include="Page_KuanhaoFenxi.aspx" />
@@ -349,6 +352,7 @@
     <Content Include="MyStyle.css" />
     <Content Include="jquery.mobile-1.4.5\jquery.mobile-1.4.5.min.map" />
     <Content Include="packages.config" />
+    <Content Include="App_Themes\DarkBlue\Controls.skin" />
     <None Include="Properties\PublishProfiles\Ali.pubxml" />
     <None Include="Properties\PublishProfiles\LocalG.pubxml" />
     <None Include="Web.Debug.config">

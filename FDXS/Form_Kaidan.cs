@@ -409,10 +409,12 @@ namespace FDXS
 
                 //未知条码不检测库存
                 DateTime? jhrq = null;
+                TTiaoma tiaoma = null;
                 if (tmid != null)
                 {
                     //检查库存数量是否足够
                     VKucun vx = db.GetKucunByTiaomaId(tmid.Value);
+                    tiaoma = db.GetTiaomaById(tmid.Value);
                     jhrq = vx.jinhuoriqi;
                     if (vx.shuliang < sl)
                     {
@@ -429,6 +431,7 @@ namespace FDXS
                     xiaoshouyuan = cmb_xsy.Text,
                     huiyuanid = _Huiyuan == null ? null : (int?)_Huiyuan.id,
                     tiaomaid = tmid,
+                    TTiaoma = tiaoma,
                     jinjia = jj,
                     shoujia = sj,
                     shuliang = sl,
@@ -525,7 +528,7 @@ namespace FDXS
             foreach (TXiaoshou x in _XSS)
             {
                 string tiaoma = x.TTiaoma == null ? "" : x.TTiaoma.tiaoma;
-                string pinming = x.TTiaoma == null ? "" : x.TTiaoma.pinming;
+                string pinming = x.TTiaoma == null ? x.beizhu : x.TTiaoma.pinming;
                 short shuliang = x.shuliang;
                 decimal danjia = x.shoujia;
                 decimal jine = x.jine;

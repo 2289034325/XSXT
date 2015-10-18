@@ -1,63 +1,56 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="JCSJGL.Main" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="JCSJGL.Main" EnableTheming="true" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="jquery-2.1.3.js"></script>
-    <script type="text/javascript" src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>    
-    <%--<script type="text/javascript" src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>--%>    
+    <script type="text/javascript" src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <script type="text/javascript" src="Common.js"></script>
     <script type="text/javascript" src="MobileAdapter.js"></script>
-    <link rel="stylesheet" type="text/css" href="jquery-ui-1.11.4.custom/jquery-ui.css"/>
-    <link rel="stylesheet" type="text/css" href="MyStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery-ui-1.11.4.custom/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="MyStyle.css" />
     <asp:ContentPlaceHolder ID="cph_head" runat="server">
     </asp:ContentPlaceHolder>
+    <title></title>
 </head>
 <body>
     <form id="form_main" runat="server">
         <div id="div_head">
-            <asp:Menu ID="div_mn_main" runat="server" BackColor="#FFFBD6" CssClass="mainMenu" OnLoad="mn_main_Load" DynamicHorizontalOffset="0" Font-Names="Verdana" ForeColor="#990000" StaticSubMenuIndent="10px" Orientation="Horizontal">
-                <DynamicHoverStyle BackColor="#990000" ForeColor="White"></DynamicHoverStyle>
-                <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></DynamicMenuItemStyle>                
-                <DynamicMenuStyle BackColor="#FFFBD6"></DynamicMenuStyle>
-                <DynamicSelectedStyle BackColor="#FFCC66"></DynamicSelectedStyle>
+            <asp:Menu ID="div_mn_main" runat="server" CssClass="mainMenu" OnLoad="mn_main_Load" StaticSubMenuIndent="16px" Orientation="Horizontal">
                 <Items>
-                    <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx" ></asp:MenuItem>
                     <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx" ></asp:MenuItem>
-                    <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>       
-                    <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx"></asp:MenuItem>      
-                    <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx"></asp:MenuItem>        
-                    <asp:MenuItem Text="发货退货" Value="发货退货" NavigateUrl="~/Page_JMSFahuotuihuo.aspx"></asp:MenuItem>       
-                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>         
-                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>    
-                    <asp:MenuItem Text="注册码" Value="注册码" NavigateUrl="~/Page_Dtzcm.aspx"></asp:MenuItem>         
+                    <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="发货退货" Value="发货退货" NavigateUrl="~/Page_JMSFahuotuihuo.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="注册码" Value="注册码" NavigateUrl="~/Page_Dtzcm.aspx" ></asp:MenuItem>
+                    <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx" ></asp:MenuItem>
                 </Items>
-                <StaticHoverStyle BackColor="#990000" ForeColor="White"></StaticHoverStyle>
-                <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"></StaticMenuItemStyle>
-                <StaticSelectedStyle BackColor="#FFCC66"></StaticSelectedStyle>
             </asp:Menu>
         </div>
-    <div id="div_body">
-        <asp:ContentPlaceHolder ID="cph_body" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
-        <div id="div_foot" style="position:fixed;bottom:0px;"></div>
+        <div id="div_body">
+            <asp:ContentPlaceHolder ID="cph_body" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="div_foot"></div>
     </form>
 </body>
 </html>

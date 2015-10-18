@@ -13,13 +13,6 @@
         <asp:Button runat="server" ID="btn_edit" Text="修改" OnClick="btn_edit_Click" />
         <asp:Button runat="server" ID="btn_delete" Text="删除" OnClick="btn_delete_Click" />
     </div>
-    <asp:TreeView ID="trv" runat="server" ImageSet="Arrows">
-        <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD"></HoverNodeStyle>
-
-        <NodeStyle HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="0px" Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black"></NodeStyle>
-
-        <ParentNodeStyle Font-Bold="False"></ParentNodeStyle>
-
-        <SelectedNodeStyle HorizontalPadding="0px" VerticalPadding="0px" Font-Underline="True" ForeColor="#5555DD"></SelectedNodeStyle>
+    <asp:TreeView ID="trv" runat="server">
     </asp:TreeView>
 </asp:Content>

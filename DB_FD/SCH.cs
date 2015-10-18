@@ -33,6 +33,10 @@ namespace DB_FD
         {
             return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == tmh);
         }
+        public TTiaoma GetTiaomaById(int id)
+        {
+            return _db.TTiaomas.Single(r => r.id == id);
+        }
         public TTiaoma[] GetTiaomaByTmhEndsWith(string tmh)
         {
             return _db.TTiaomas.Where(r => r.tiaoma.EndsWith(tmh)).ToArray();

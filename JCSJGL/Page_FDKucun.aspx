@@ -17,9 +17,8 @@
             <asp:Button ID="btn_sch" runat="server" Text="刷新" OnClick="btn_sch_Click" />
         </div>
     </div>
-    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="10"
-         DataKeyNames="id" OnRowCommand="grid_kc_total_RowCommand" EnableViewState="true" ViewStateMode="Enabled"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_kc_total_PageIndexChanging">
+    <asp:GridView ID="grid_kc_total" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20"
+        DataKeyNames="id" OnRowCommand="grid_kc_total_RowCommand" ViewStateMode="Enabled" OnPageIndexChanging="grid_kc_total_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="jmsid" HeaderText="ID" Visible="false"></asp:BoundField>
@@ -29,21 +28,13 @@
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
             <asp:ButtonField CommandName="FDKC" Text="分店库存" ButtonType="Link" ShowHeader="false" />
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
+        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>
+    <input type="hidden" id="hid_pageIndex" value="<%= grid_kc_total.PageIndex %>" />
+    <input type="hidden" id="hid_pageCount" value="<%= grid_kc_total.PageCount %>" />
 
-    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False" DataKeyNames="fdid" OnRowCommand="grid_kc_fd_RowCommand"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+    <asp:GridView ID="grid_kc_fd" runat="server" AutoGenerateColumns="False" DataKeyNames="fdid" OnRowCommand="grid_kc_fd_RowCommand">
         <Columns>
-            <%--<asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>--%>
             <asp:BoundField DataField="fdid" HeaderText="分店ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
@@ -52,23 +43,11 @@
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
             <asp:ButtonField CommandName="LSKC" Text="历史库存" ButtonType="Link" ShowHeader="false" />
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
 
-    <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+    <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting">
         <Columns>
-            <%--<asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>--%>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
-            <%--<asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>--%>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
@@ -80,15 +59,6 @@
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
 
 </asp:Content>

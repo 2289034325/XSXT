@@ -35,13 +35,11 @@
         </div>
     </div>
     <asp:GridView ID="grid_tiaoma" runat="server" AutoGenerateColumns="False"
-        AllowCustomPaging="true" AllowPaging="true" PageSize="20" BackColor="White" DataKeyNames="id" OnRowDeleting="grid_tiaoma_RowDeleting"
-        BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" OnPageIndexChanging="grid_tiaoma_PageIndexChanging">
+        AllowCustomPaging="true" AllowPaging="true" PageSize="20" DataKeyNames="id" OnRowDeleting="grid_tiaoma_RowDeleting" OnPageIndexChanging="grid_tiaoma_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>
-            <%--<asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>--%>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="gongyingshang" HeaderText="供应商"></asp:BoundField>
             <asp:BoundField DataField="gyskuanhao" HeaderText="供应商款号"></asp:BoundField>
@@ -65,18 +63,10 @@
             </asp:TemplateField>
 
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
-        <PagerSettings Mode="Numeric" Visible="true" />
+        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>
-    <%--<asp:HiddenField runat="server" ID="hid_opt" ClientIDMode="Static" />--%>
+    <input type="hidden" id="hid_pageIndex" value="<%= grid_tiaoma.PageIndex %>" />
+    <input type="hidden" id="hid_pageCount" value="<%= grid_tiaoma.PageCount %>" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>

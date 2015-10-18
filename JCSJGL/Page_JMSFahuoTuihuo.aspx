@@ -107,8 +107,7 @@
         </div>
     </div>
     <asp:GridView ID="grid_jc" runat="server" AutoGenerateColumns="False" OnRowCommand="grid_jc_RowCommand" DataKeyNames="id"
-        AllowCustomPaging="true" AllowPaging="true" PageSize="10" OnPageIndexChanging="grid_jc_PageIndexChanging"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+        AllowCustomPaging="true" AllowPaging="true" OnPageIndexChanging="grid_jc_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="dailishang" HeaderText="代理商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
@@ -130,16 +129,10 @@
             <asp:ButtonField CommandName="MX" Text="查看明细" ButtonType="Link" ShowHeader="false" />
             <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Link" ShowHeader="false" ItemStyle-CssClass="delete" />
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
+        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>
+    <input type="hidden" id="hid_pageIndex" value="<%= grid_jc.PageIndex %>" />
+    <input type="hidden" id="hid_pageCount" value="<%= grid_jc.PageCount %>" />
 
     <asp:GridView ID="grid_mx" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_mx_RowCommand"
         BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
