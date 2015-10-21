@@ -348,6 +348,11 @@ namespace JCSJGL
 
         protected void grid_ufs_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             if (e.CommandName == "DEL")
             {
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
@@ -370,6 +375,11 @@ namespace JCSJGL
 
         protected void grid_yonghu_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             DBContext db = new DBContext();
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_yonghu.DataKeys[index].Value.ToString());

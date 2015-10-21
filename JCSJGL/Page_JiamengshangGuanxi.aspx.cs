@@ -211,6 +211,11 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_xjsq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             int index = Convert.ToInt32(e.CommandArgument);
@@ -266,6 +271,11 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_sjsq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             int index = Convert.ToInt32(e.CommandArgument);

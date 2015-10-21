@@ -441,6 +441,11 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_kc_fd_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int fdid = int.Parse(grid_kc_fd.DataKeys[index].Value.ToString());
             if (e.CommandName == "LSKC")
@@ -548,6 +553,11 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void grid_kc_total_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             if (e.CommandName == "FDKC")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
@@ -558,6 +568,11 @@ namespace JCSJGL
 
         protected void grid_kc_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_kc.DataKeys[index].Value.ToString());
 

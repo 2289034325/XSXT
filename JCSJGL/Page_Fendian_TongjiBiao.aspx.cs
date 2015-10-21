@@ -298,6 +298,11 @@ namespace JCSJGL
 
         protected void grid_jms_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int jmsid = int.Parse(grid_jms.DataKeys[index].Value.ToString());
 
@@ -395,6 +400,11 @@ namespace JCSJGL
 
         protected void grid_jms_rq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int jmsid = int.Parse(grid_jms_rq.DataKeys[index].Values[0].ToString());
             string rq_s = grid_jms_rq.DataKeys[index].Values[1].ToString();
@@ -440,6 +450,11 @@ namespace JCSJGL
 
         protected void grid_fd_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int jmsid = int.Parse(grid_fd.DataKeys[index].Values[0].ToString());
             int fdid = int.Parse(grid_fd.DataKeys[index].Values[1].ToString());
@@ -495,6 +510,11 @@ namespace JCSJGL
 
         protected void grid_fd_rq_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int jmsid = int.Parse(grid_rq_fd.DataKeys[index].Values[0].ToString());
             int fdid = int.Parse(grid_rq_fd.DataKeys[index].Values[1].ToString());

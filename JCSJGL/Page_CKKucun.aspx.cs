@@ -249,6 +249,11 @@ namespace JCSJGL
 
         protected void grid_kc_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_kc.DataKeys[index].Value.ToString());
 
@@ -275,6 +280,11 @@ namespace JCSJGL
 
         protected void grid_kc_ck_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int ckid = int.Parse(grid_kc_ck.DataKeys[index].Value.ToString());
 

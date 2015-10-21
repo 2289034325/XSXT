@@ -404,6 +404,11 @@ namespace JCSJGL
 
         protected void grid_jinchu_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if (e.CommandName == "Page")
+            {
+                return;
+            }
+
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_jinchu.DataKeys[index].Value.ToString());
 
