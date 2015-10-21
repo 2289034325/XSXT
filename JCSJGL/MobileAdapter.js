@@ -105,7 +105,7 @@ $(document).ready(function () {
             {
                 cdiv = $("#div_mobileMenu").children().first()[0];
             }
-            else if ($("#div_edit").css("display") != "none")
+            else if ($("#div_edit").length != 0 && $("#div_edit").css("display") != "none")
             {
                 cdiv = $("#div_edit")[0];
             }
