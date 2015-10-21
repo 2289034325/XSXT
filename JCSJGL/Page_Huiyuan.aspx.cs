@@ -22,12 +22,12 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 //隐藏搜索条件
-                div_sch.Visible = false;
+                div_jms.Visible = false;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_sch.Visible = true;
+                    div_jms.Visible = true;
 
                     DBContext db = new DBContext();
                     TJiamengshang[] jmss = db.GetJiamengshangs();

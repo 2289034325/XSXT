@@ -13,13 +13,13 @@ namespace JCSJGL {
     public partial class Page_Huiyuan {
         
         /// <summary>
-        /// div_sch 控件。
+        /// div_jms 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_jms;
         
         /// <summary>
         /// cmb_jms 控件。
@@ -103,6 +103,15 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_bz;
         
         /// <summary>
+        /// btn_cancel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cancel;
+        
+        /// <summary>
         /// btn_edit 控件。
         /// </summary>
         /// <remarks>
@@ -110,5 +119,14 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_edit;
+        
+        /// <summary>
+        /// btn_add 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_add;
     }
 }

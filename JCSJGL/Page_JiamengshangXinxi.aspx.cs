@@ -21,9 +21,6 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //加载所有加盟商信息
-                loadJiamengshangs();
-
                 //地区下拉框
                 DBContext db = new DBContext();
                 VDiqu[] dqs = db.GetAllDiqus();
@@ -186,18 +183,18 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_add_Click(object sender, EventArgs e)
         {
-            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
+            //Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
-            TJiamengshang j= getEditInfo();
-            j.dtyzm = Tool.CommonFunc.GetRandomNum(6);            
-            //j.caozuorenid = _LoginUser.id;
-            j.charushijian = DateTime.Now;
-            j.xiugaishijian = DateTime.Now;
+            //TJiamengshang j= getEditInfo();
+            //j.dtyzm = Tool.CommonFunc.GetRandomNum(6);            
+            ////j.caozuorenid = _LoginUser.id;
+            //j.charushijian = DateTime.Now;
+            //j.xiugaishijian = DateTime.Now;
 
-            DBContext db = new DBContext();
-            db.InsertJiamengshang(j);
+            //DBContext db = new DBContext();
+            //db.InsertJiamengshang(j);
 
-            loadJiamengshangs();
+            //loadJiamengshangs();
         }
 
 
@@ -218,6 +215,11 @@ namespace JCSJGL
             {
                 throw new MyException("非法操作", null);
             }
+        }
+
+        protected void btn_sch_Click(object sender, EventArgs e)
+        {
+            loadJiamengshangs();
         }
     }
 }

@@ -147,13 +147,13 @@ namespace JCSJGL
                 throw new MyException("非法操作，无法修改该条码信息", null);
             }
             //不能把加盟条码的款号改成别的款号
-            if (ok.jmsid != _LoginUser.jmsid)
-            {
-                if (f.kuanhaoid != ot.kuanhaoid)
-                {
-                    throw new MyException("这个条码信息来自品牌商，不能修改它所属的款号", null);
-                }
-            }
+            //if (ok.jmsid != _LoginUser.jmsid)
+            //{
+            //    if (f.kuanhaoid != ot.kuanhaoid)
+            //    {
+            //        throw new MyException("这个条码信息来自品牌商，不能修改它所属的款号", null);
+            //    }
+            //}
             if (ot.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该条码信息", null);

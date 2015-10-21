@@ -12,7 +12,12 @@
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 
-<asp:GridView runat="server" >
+<asp:GridView runat="server" CssClass="grid" >
         <HeaderStyle CssClass="gridHeader" />
+        <RowStyle CssClass="gridRow" />
         <PagerStyle CssClass="gridPager" />
 </asp:GridView>
+
+<asp:TreeView runat="server" >
+        <SelectedNodeStyle ForeColor="Red" />
+</asp:TreeView>

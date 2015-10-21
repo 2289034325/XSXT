@@ -3,6 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>款号管理</title>
     <script type="text/javascript">
+        $(document).ready(
+          function () {
+              $(".delete").click(function () 
+              {
+                  return confirm('是否确定删除?');
+              });
+
+              if(IsPC())
+              {
+                  var udl = $( "#div_edit" ).dialog(
+                      {
+                          autoOpen: false,
+                          resizable: false,
+                          height:220,
+                          width:400,
+                          modal: true
+                      });                
+                  udl.parent().appendTo(jQuery("form:first"));          
+              }
+          });
+
         //编辑
         function EditInfo(id,kh,lx,xb,pm,bz) {
             $("#hid_id").val(id);
@@ -12,7 +33,32 @@
             $("#txb_pm").val(pm);
             $("#txb_bz").val(bz);
 
-            ShowEditDialog(true);
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
+        }
+        
+        function Add()
+        {
+            if(IsPC())
+            {
+                $(".btnAdd").css("display","");
+                $(".btnEdit").css("display","none");
+                $( "#div_edit" ).dialog( "option", "title", "新增" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {
+                ShowEditDialog('div_edit',true);
+            }
         }
 
         //删除
@@ -36,6 +82,9 @@
         </div>
         <div>
             <label>品名</label><asp:TextBox CssClass="middle" runat="server" ID="txb_pm_sch"></asp:TextBox>
+        </div>
+        <div>
+            <asp:Button ID="btn_toAdd" runat="server" Text="新增" OnClientClick="Add();return false;" />
         </div>
         <div>
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
@@ -65,29 +114,34 @@
             </asp:TemplateField>
 
         </Columns>
-        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />        
+        <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />
     </asp:GridView>
     <input type="hidden" id="hid_pageIndex" value="<%= grid_kuanhao.PageIndex %>" />
     <input type="hidden" id="hid_pageCount" value="<%= grid_kuanhao.PageCount %>" />
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
+            <label>款号</label><asp:TextBox CssClass="middle" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="类型"></asp:Label><asp:DropDownList runat="server" ID="cmb_lx" ClientIDMode="Static"></asp:DropDownList>
+            <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="性别"></asp:Label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList>
+            <label>性别</label><asp:DropDownList runat="server" ID="cmb_xb" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="品名"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_pm" ClientIDMode="Static"></asp:TextBox>
+            <label>品名</label><asp:TextBox CssClass="middle" runat="server" ID="txb_pm" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+            <label>备注</label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog();return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" OnClick="btn_add_Click" ClientIDMode="Static" />
+            </div>
         </div>
     </div>
 </asp:Content>

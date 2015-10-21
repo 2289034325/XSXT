@@ -10,25 +10,28 @@
                     return confirm('是否确定删除?');
                 });
 
-                var fddl = $( "#div_cmb_fds" ).dialog(
-                    {
-                        autoOpen: false,
-                        resizable: false,
-                        height:220,
-                        width:400,
-                        modal: true,
-                        buttons: 
-                            {
-                                "确定": function() 
-                                {
-                                    $("#btn_fdsel_ok").trigger('click');
-                                },
-                                "取消": function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                    });                
-                fddl.parent().appendTo(jQuery("form:first"));       
+                if(IsPC())
+                {
+                    var udl = $( "#div_edit" ).dialog(
+                        {
+                            autoOpen: false,
+                            resizable: false,
+                            height:260,
+                            width:400,
+                            modal: true
+                        });                
+                    udl.parent().appendTo(jQuery("form:first"));                    
+                    
+                    var fddl = $( "#div_cmb_fds" ).dialog(
+                        {
+                            autoOpen: false,
+                            resizable: false,
+                            height:130,
+                            width:400,
+                            modal: true
+                        });                
+                    fddl.parent().appendTo(jQuery("form:first"));    
+                }
             });
 
         //编辑
@@ -40,25 +43,60 @@
             $("#cmb_js").val(js);
             $("#cmb_zt").val(zt);
             $("#txb_bz").val(bz);
+
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
         }
 
         //给店长角色增加一个管辖的分店
         function AddFendian(id)
         {            
-            $("#hid_id").val(id);
-            $( "#div_cmb_fds" ).dialog().dialog( "open" );
+            if(IsPC())
+            {
+                $("#hid_id").val(id);     
+                $(".btnAdd").css("display","");
+                $(".btnEdit").css("display","none");           
+                $( "#div_cmb_fds" ).dialog( "option", "title", "增加一个管辖分店" );
+                $( "#div_cmb_fds" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_cmb_fds",true);
+            }
+        }
+
+        function AddUser()
+        {
+            if(IsPC())
+            {
+                $(".btnAdd").css("display","");
+                $(".btnEdit").css("display","none");
+                $( "#div_edit" ).dialog( "option", "title", "新增" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {
+                ShowEditDialog('div_edit',true);
+            }
         }
     </script>
-     <style type="text/css">
-        .invisible {
-            display: none;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
         <div id="div_sch_jms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+            <label>加盟商</label><asp:DropDownList runat="server" CssClass="middle" ID="cmb_jms"></asp:DropDownList>
+        </div>
+        <div>
+            <asp:Button ID="btn_toAdd" runat="server" Text="新增" OnClientClick="AddUser();return false;" />
         </div>
         <div>
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
@@ -81,9 +119,9 @@
                     <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Link" ShowHeader="false" ItemStyle-CssClass="delete" />
-            <asp:ButtonField CommandName="FDS" Text="查看分店" ButtonType="Link" ShowHeader="false" />
-             <asp:TemplateField ShowHeader="False">
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
+            <asp:ButtonField CommandName="FDS" Text="查看分店" ButtonType="Button" ShowHeader="false" />
+            <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <input type="button" onclick="AddFendian(<%# Eval("editParams")%>)" value="增加分店"></input>
                 </ItemTemplate>
@@ -94,7 +132,7 @@
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="dianming" HeaderText="店名"></asp:BoundField>
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Link" ShowHeader="false" ItemStyle-CssClass="delete" />
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
         </Columns>
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
@@ -103,32 +141,46 @@
             <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms_edit"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="登录名"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_dlm" ClientIDMode="Static"></asp:TextBox>
+            <label>登录名</label><asp:TextBox runat="server" ID="txb_dlm" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="密码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_mm" ClientIDMode="Static"></asp:TextBox>
+            <label>密码</label><asp:TextBox runat="server" ID="txb_mm" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="用户名"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_yhm" ClientIDMode="Static"></asp:TextBox>
+            <label>用户名</label><asp:TextBox runat="server" ID="txb_yhm" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="角色"></asp:Label><asp:DropDownList runat="server" ID="cmb_js" ClientIDMode="Static"></asp:DropDownList>
+            <label>角色</label><asp:DropDownList runat="server" ID="cmb_js" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="状态"></asp:Label><asp:DropDownList runat="server" ID="cmb_zt" ClientIDMode="Static"></asp:DropDownList>
+            <label>状态</label><asp:DropDownList runat="server" ID="cmb_zt" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+            <label>备注</label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Button runat="server" ID="btn_editxx" Text="保存" OnClick="btn_editxx_Click" /><asp:Button runat="server" ID="btn_add" Text="增加" OnClick="btn_add_Click" />
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel" CssClass="btnCancel" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
+            </div>
+            <div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" OnClick="btn_add_Click" ClientIDMode="Static" />
+            </div>
         </div>
     </div>
 
-    <div id="div_cmb_fds" class="ui-widget">
+    <div id="div_cmb_fds" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="分店"></asp:Label><asp:DropDownList runat="server" ID="cmb_fd" ClientIDMode="Static"></asp:DropDownList>
+            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd" ClientIDMode="Static"></asp:DropDownList>
         </div>
-        <asp:Button runat="server" ID="btn_fdsel_ok" OnClick="btn_fdsel_ok_Click" ClientIDMode="Static" Text="确定" CssClass="invisible" />
+        <div>
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="Button1" Text="取消" OnClientClick="CloseEditDialog('div_cmb_fds');return false;" />
+            </div>
+            <div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_fdsel_edit" CssClass="btnEdit" Text="确定" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_fdsel_ok" CssClass="btnAdd" Text="确定" OnClick="btn_fdsel_ok_Click" ClientIDMode="Static" />
+            </div>
+        </div>
     </div>
 </asp:Content>

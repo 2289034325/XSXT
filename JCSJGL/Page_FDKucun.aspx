@@ -3,6 +3,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>分店库存记录</title>
     <script type="text/javascript">
+        $(document).ready(
+            function ()
+            {
+                $(".delete").click(function ()
+                {
+                    return confirm('是否确定删除?');
+                });
+            });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
@@ -26,7 +34,7 @@
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="吊牌价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
-            <asp:ButtonField CommandName="FDKC" Text="分店库存" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="FDKC" Text="分店库存" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>
@@ -41,23 +49,19 @@
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
-            <asp:ButtonField CommandName="LSKC" Text="历史库存" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="LSKC" Text="历史库存" ButtonType="Button" ShowHeader="false" />
         </Columns>
     </asp:GridView>
 
-    <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kc_RowDeleting">
+    <asp:GridView ID="grid_kc" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_kc_RowCommand" >
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
             <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
-            <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
-            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="Page_FDKucunMX.aspx?id={0}" Text="查看" HeaderText="查看明细"></asp:HyperLinkField>
-            <asp:TemplateField ShowHeader="False">
-                <ItemTemplate>
-                    <asp:Button ID="btn_delete" runat="server" OnClientClick="return confirm('确定删除吗?')" Text="刪除" CommandName="Delete" />
-                </ItemTemplate>
-            </asp:TemplateField>
+            <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>      
+            <asp:ButtonField CommandName="MX" Text="查看" ButtonType="Button" HeaderText="明细" />    
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ControlStyle-CssClass="delete" />
         </Columns>
     </asp:GridView>
 

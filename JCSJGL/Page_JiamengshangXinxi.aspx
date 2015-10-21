@@ -3,6 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>加盟商管理</title>
     <script type="text/javascript">
+        $(document).ready(
+            function () {
+                $(".delete").click(function () 
+                {
+                    return confirm('是否确定删除?');
+                });
+
+                if(IsPC())
+                {
+                    var udl = $( "#div_edit" ).dialog(
+                        {
+                            autoOpen: false,
+                            resizable: false,
+                            height:615,
+                            width:400,
+                            modal: true
+                        });                
+                    udl.parent().appendTo(jQuery("form:first"));               
+                }
+            });
+
         //编辑
         function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,fjmss,zjmss,zhs,khs,tms,hys,fds,cks,gyss,xsjls,jchjls,kcjls,scff,xfdj,jzrq) {
             $("#hid_id").val(id);
@@ -30,10 +51,27 @@
             $("#txb_scff").val(scff);
             $("#txb_xfdj").val(xfdj);
             $("#txb_jzrq").val(jzrq);
-        }
+
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
+        }        
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
+    <div id="div_sch" class="div_sch">               
+        <div>
+            <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
+        </div>
+    </div>
     <asp:GridView ID="grid_jiamengshang" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_jiamengshang_RowCommand">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
@@ -79,76 +117,81 @@
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="名称"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_mc" ClientIDMode="Static"></asp:TextBox>
+            <label>名称</label><asp:TextBox CssClass="middle" runat="server" ID="txb_mc" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="注册手机号"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_sjh" ClientIDMode="Static"></asp:TextBox>
+            <label>注册手机号</label><asp:TextBox CssClass="middle" runat="server" ID="txb_sjh" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="注册邮箱"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_yx" ClientIDMode="Static"></asp:TextBox>
+            <label>注册邮箱</label><asp:TextBox CssClass="middle" runat="server" ID="txb_yx" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="省市"></asp:Label><asp:DropDownList runat="server" ID="cmb_xzdq" ClientIDMode="Static"></asp:DropDownList>
+            <label>省市</label><asp:DropDownList runat="server" ID="cmb_xzdq" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="地址"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_dz" ClientIDMode="Static"></asp:TextBox>
+            <label>地址</label><asp:TextBox CssClass="large" runat="server" ID="txb_dz" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="联系人"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_lxr" ClientIDMode="Static"></asp:TextBox>
+            <label>联系人</label><asp:TextBox CssClass="middle" runat="server" ID="txb_lxr" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="电话"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_dh" ClientIDMode="Static"></asp:TextBox>
+            <label>电话</label><asp:TextBox CssClass="middle" runat="server" ID="txb_dh" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+            <label>备注</label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="父加盟商数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_fjmss" ClientIDMode="Static"></asp:TextBox>
+            <label>父加盟商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_fjmss" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="子加盟商数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_zjmss" ClientIDMode="Static"></asp:TextBox>
+            <label>子加盟商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_zjmss" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="账号数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_zhs" ClientIDMode="Static"></asp:TextBox>
+            <label>账号数</label><asp:TextBox CssClass="short" runat="server" ID="txb_zhs" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="款号数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_khs" ClientIDMode="Static"></asp:TextBox>
+            <label>款号数</label><asp:TextBox CssClass="short" runat="server" ID="txb_khs" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="条码数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_tms" ClientIDMode="Static"></asp:TextBox>
+            <label>条码数</label><asp:TextBox CssClass="short" runat="server" ID="txb_tms" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="会员数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_hys" ClientIDMode="Static"></asp:TextBox>
+            <label>会员数</label><asp:TextBox CssClass="short" runat="server" ID="txb_hys" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="分店数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_fds" ClientIDMode="Static"></asp:TextBox>
+            <label>分店数</label><asp:TextBox CssClass="short" runat="server" ID="txb_fds" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="仓库数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cks" ClientIDMode="Static"></asp:TextBox>
+            <label>仓库数</label><asp:TextBox CssClass="short" runat="server" ID="txb_cks" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="供应商数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_gyss" ClientIDMode="Static"></asp:TextBox>
+            <label>供应商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_gyss" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="销售记录数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_xsjls" ClientIDMode="Static"></asp:TextBox>
+            <label>销售记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_xsjls" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="进出货记录数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jchjls" ClientIDMode="Static"></asp:TextBox>
+            <label>进出货记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_jchjls" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="库存记录数"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kcjls" ClientIDMode="Static"></asp:TextBox>
+            <label>库存记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_kcjls" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="首次付费"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_scff" ClientIDMode="Static"></asp:TextBox>
+            <label>首次付费</label><asp:TextBox CssClass="short" runat="server" ID="txb_scff" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="续费单价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_xfdj" ClientIDMode="Static"></asp:TextBox>
+            <label>续费单价</label><asp:TextBox CssClass="short" runat="server" ID="txb_xfdj" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="截止日期"></asp:Label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_jzrq" ClientIDMode="Static"></asp:TextBox>
+            <label>截止日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_jzrq" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" />
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="Button1" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
+            </div>
         </div>
     </div>
 </asp:Content>

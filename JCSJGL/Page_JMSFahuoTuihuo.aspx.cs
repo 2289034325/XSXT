@@ -390,7 +390,7 @@ namespace JCSJGL
                 jinhuojia = jhj
             };
 
-            TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(jcid);
+            TJiamengshangJintuihuoMX om = db.GetJiamengshangJintuihuoMXById(mxid);
             if (om.TJiamengshangJintuihuo.dlsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改", null);

@@ -31,6 +31,15 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
         
         /// <summary>
+        /// btn_toAdd 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_toAdd;
+        
+        /// <summary>
         /// btn_sch 控件。
         /// </summary>
         /// <remarks>
@@ -139,13 +148,22 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_bz;
         
         /// <summary>
-        /// btn_editxx 控件。
+        /// btn_cancel 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_editxx;
+        protected global::System.Web.UI.WebControls.Button btn_cancel;
+        
+        /// <summary>
+        /// btn_edit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_edit;
         
         /// <summary>
         /// btn_add 控件。
@@ -164,6 +182,24 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cmb_fd;
+        
+        /// <summary>
+        /// Button1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
+        /// btn_fdsel_edit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_fdsel_edit;
         
         /// <summary>
         /// btn_fdsel_ok 控件。

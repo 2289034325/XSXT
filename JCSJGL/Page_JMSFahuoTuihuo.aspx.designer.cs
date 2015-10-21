@@ -67,15 +67,6 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_fsrq_end;
         
         /// <summary>
-        /// btn_sch 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_sch;
-        
-        /// <summary>
         /// btn_fahuo 控件。
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_tuihuo;
+        
+        /// <summary>
+        /// btn_sch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_sch;
         
         /// <summary>
         /// grid_jc 控件。
@@ -130,6 +130,15 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.TextBox txb_bz;
         
         /// <summary>
+        /// btn_cancel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cancel;
+        
+        /// <summary>
         /// btn_save_jc 控件。
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_save_jc;
+        
+        /// <summary>
+        /// btn_add 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_add;
         
         /// <summary>
         /// txb_tm_edit 控件。
@@ -155,6 +173,15 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txb_jhj;
+        
+        /// <summary>
+        /// btn_cancel2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cancel2;
         
         /// <summary>
         /// btn_save_mx 控件。

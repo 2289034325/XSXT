@@ -11,6 +11,15 @@ namespace JCSJGL
 {
     public partial class Main : System.Web.UI.MasterPage
     {
+        public string LoginUser
+        {
+            get {
+                TUser u = (TUser)Session["USER"];
+                if (u == null)
+                    return "";
+                else return u.yonghuming;
+            }
+        }
         protected void Page_Init(object sender, EventArgs e)
         {
             //登陆验证
@@ -21,15 +30,16 @@ namespace JCSJGL
             }
         }
 
-        protected void mn_main_Load(object sender, EventArgs e)
+        protected void mn_Load(object sender, EventArgs e)
         {
             TUser u = (TUser)Session["USER"];
+            Menu mn = (Menu)sender;
 
             //隐藏部分菜单
             if (!(u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 || u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
             {
                 List<MenuItem> hmi = new List<MenuItem>(); ;
-                foreach (MenuItem mi in div_mn_main.Items)
+                foreach (MenuItem mi in mn.Items)
                 {
                     if (mi.Text.Contains("加盟商信息") || mi.Text.Contains("注册码"))
                     {
@@ -39,7 +49,7 @@ namespace JCSJGL
 
                 foreach(MenuItem mi in hmi)
                 {
-                    div_mn_main.Items.Remove(mi);
+                    mn.Items.Remove(mi);
                 }
             }
 
@@ -51,7 +61,7 @@ namespace JCSJGL
                 if (jms.zjmsshu <= 0)
                 {
                     List<MenuItem> hmi = new List<MenuItem>(); ;
-                    foreach (MenuItem mi in div_mn_main.Items)
+                    foreach (MenuItem mi in mn.Items)
                     {
                         if (mi.Text.Contains("发货退货"))
                         {
@@ -61,7 +71,7 @@ namespace JCSJGL
 
                     foreach (MenuItem mi in hmi)
                     {
-                        div_mn_main.Items.Remove(mi);
+                        mn.Items.Remove(mi);
                     }
                 }
             }

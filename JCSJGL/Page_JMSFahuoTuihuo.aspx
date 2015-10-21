@@ -10,81 +10,81 @@
                     return confirm('是否确定删除?');
                 });
 
-                var jcdl = $( "#div_edit_jc" ).dialog(
-                    {
-                        autoOpen: false,
-                        resizable: false,
-                        height:220,
-                        width:400,
-                        modal: true,
-                        buttons: 
-                            {
-                                "确定": function() 
-                                {
-                                    $("#btn_save_jc").trigger('click');
-                                },
-                                "取消": function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                    });
-                var mxdl = $( "#div_edit_mx" ).dialog(
-                     {
-                         autoOpen: false,
-                         resizable: false,
-                         height:200,
-                         modal: true,
-                         buttons: 
-                             {
-                                 "确定": function() 
-                                 {
-                                     var title = $( "#div_edit_mx" ).dialog( "option", "title" );
-                                     if(title == "修改")
-                                     {
-                                         $("#btn_save_mx").trigger('click');
-                                     }
-                                     else
-                                     {
-                                         $("#btn_add_mx").trigger('click');
-                                     }
-                                 },
-                                 "取消": function() 
-                                 {
-                                     $( this ).dialog( "close" );
-                                 }
-                             }
-                     });
-                
-                jcdl.parent().appendTo(jQuery("form:first"));                
-                mxdl.parent().appendTo(jQuery("form:first"));
+                if(IsPC())
+                {
+                    var udl = $( "#div_edit" ).dialog(
+                        {
+                            autoOpen: false,
+                            resizable: false,
+                            height:150,
+                            width:400,
+                            modal: true
+                        });                
+                    udl.parent().appendTo(jQuery("form:first"));        
+
+                    var mxdl = $( "#div_edit_mx" ).dialog(
+                         {
+                             autoOpen: false,
+                             resizable: false,
+                             height:150,
+                             width:400,
+                             modal: true                             
+                         });     
+                    mxdl.parent().appendTo(jQuery("form:first"));
+                }
             });
         function EditJc(id,zk,bz) 
         {
             $("#hid_jcid").val(id);
             $("#txb_zk").val(zk);
             $("#txb_bz").val(bz);
-            $( "#div_edit_jc" ).dialog().dialog( "open" );
-        } 
+
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
+        }
         function AddMx(jcid) 
         {
-            $("#hid_jcid").val(jcid);
-            $( "#div_edit_mx" ).dialog( "option", "title", "增加" );
-            $( "#div_edit_mx" ).dialog().dialog( "open" );
+            if(IsPC())
+            {
+                $("#hid_jcid").val(jcid);     
+                $(".btnAdd").css("display","");
+                $(".btnEdit").css("display","none");           
+                $( "#div_edit_mx" ).dialog( "option", "title", "增加" );
+                $( "#div_edit_mx" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit_mx",true);
+            }
         } 
         function EditMx(id,tm,jhj) 
         {
             $("#hid_mxid").val(id);
             $("#txb_tm_edit").val(tm);
             $("#txb_jhj").val(jhj);
-            $( "#div_edit_mx" ).dialog( "option", "title", "修改" );
-            $( "#div_edit_mx" ).dialog().dialog( "open" );
+
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit_mx" ).dialog( "option", "title", "修改" );
+                $( "#div_edit_mx" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit_mx",false);
+            }
         } 
     </script>
-    <style type="text/css">
-        .invisible {
-            display: none;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
@@ -92,7 +92,7 @@
             <label>代理商</label><asp:DropDownList runat="server" ID="cmb_dls" AutoPostBack="true" OnSelectedIndexChanged="cmb_dls_SelectedIndexChanged"></asp:DropDownList>
         </div>
         <div>
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true"></asp:DropDownList>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
         </div>
         <div>
             <label>条码</label><asp:TextBox CssClass="middle" TextMode="SingleLine" runat="server" ID="txb_tm"></asp:TextBox>
@@ -100,10 +100,13 @@
         <div>
             <label>发生日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_start"></asp:TextBox><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_fsrq_end"></asp:TextBox>
         </div>
+        <div class="twoButtonInline left">
+            <asp:Button ID="btn_fahuo" runat="server" Text="发货" OnClick="btn_fahuo_Click" />
+            </div><div class="twoButtonInline">
+            <asp:Button ID="btn_tuihuo" runat="server" Text="退货" OnClick="btn_tuihuo_Click" />
+        </div>
         <div>
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
-            <asp:Button ID="btn_fahuo" runat="server" Text="发货" OnClick="btn_fahuo_Click" />
-            <asp:Button ID="btn_tuihuo" runat="server" Text="退货" OnClick="btn_tuihuo_Click" />
         </div>
     </div>
     <asp:GridView ID="grid_jc" runat="server" AutoGenerateColumns="False" OnRowCommand="grid_jc_RowCommand" DataKeyNames="id"
@@ -123,19 +126,22 @@
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <input type="button" onclick="EditJc(<%# Eval("editParams")%>)" value="修改"></input>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
                     <input type="button" onclick="AddMx(<%# Eval("editParams")%>)" value="增加一件"></input>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:ButtonField CommandName="MX" Text="查看明细" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Link" ShowHeader="false" ItemStyle-CssClass="delete" />
+            <asp:ButtonField CommandName="MX" Text="查看明细" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
         </Columns>
         <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>
     <input type="hidden" id="hid_pageIndex" value="<%= grid_jc.PageIndex %>" />
     <input type="hidden" id="hid_pageCount" value="<%= grid_jc.PageCount %>" />
 
-    <asp:GridView ID="grid_mx" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_mx_RowCommand"
-        BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4">
+    <asp:GridView ID="grid_mx" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_mx_RowCommand">
         <Columns>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="tiaoma" HeaderText="条码"></asp:BoundField>
@@ -151,36 +157,40 @@
                     <input type="button" onclick="EditMx(<%# Eval("editParams")%>)" value="修改"></input>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Link" ShowHeader="false" ItemStyle-CssClass="delete" />
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
         </Columns>
-        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099"></FooterStyle>
-        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC"></HeaderStyle>
-        <PagerStyle HorizontalAlign="Center" BackColor="#FFFFCC" ForeColor="#330099"></PagerStyle>
-        <RowStyle BackColor="White" ForeColor="#330099"></RowStyle>
-        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399"></SelectedRowStyle>
-        <SortedAscendingCellStyle BackColor="#FEFCEB"></SortedAscendingCellStyle>
-        <SortedAscendingHeaderStyle BackColor="#AF0101"></SortedAscendingHeaderStyle>
-        <SortedDescendingCellStyle BackColor="#F6F0C0"></SortedDescendingCellStyle>
-        <SortedDescendingHeaderStyle BackColor="#7E0000"></SortedDescendingHeaderStyle>
     </asp:GridView>
-    <div id="div_edit_jc" class="ui-widget">
+    <div id="div_edit" class="div_edit">        
         <div>
-            <asp:Label runat="server" Text="折扣"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_zk" ClientIDMode="Static"></asp:TextBox>
+            <label>折扣</label><asp:TextBox  runat="server" ID="txb_zk" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+            <label>备注</label><asp:TextBox  runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
         </div>
-        <asp:Button runat="server" ID="btn_save_jc" OnClick="btn_save_jc_Click" ClientIDMode="Static" Text="保存" CssClass="invisible" />
+        <div>
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_save_jc" CssClass="btnEdit" Text="确定" OnClick="btn_save_jc_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add"  CssClass="btnAdd" Text="确定" ClientIDMode="Static" />
+            </div>
+        </div>
     </div>
-    <div id="div_edit_mx" class="ui-widget">
+    <div id="div_edit_mx" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="long" runat="server" ID="txb_tm_edit" ClientIDMode="Static"></asp:TextBox>
+            <label>条码</label><asp:TextBox runat="server" ID="txb_tm_edit" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="进货价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jhj" ClientIDMode="Static"></asp:TextBox>
+            <label>进货价</label><asp:TextBox  runat="server" ID="txb_jhj" ClientIDMode="Static"></asp:TextBox>
         </div>
-        <asp:Button runat="server" ID="btn_save_mx" OnClick="btn_save_mx_Click" ClientIDMode="Static" Text="修改" CssClass="invisible" />
-        <asp:Button runat="server" ID="btn_add_mx" OnClick="btn_add_mx_Click" ClientIDMode="Static" Text="增加" CssClass="invisible" />
+        <div>
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel2" Text="取消" OnClientClick="CloseEditDialog('div_edit_mx');return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_save_mx" CssClass="btnEdit" Text="确定" OnClick="btn_save_mx_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add_mx"  CssClass="btnAdd" Text="确定" OnClick="btn_add_mx_Click" ClientIDMode="Static" />
+            </div>
+        </div>
     </div>
 
     <asp:HiddenField runat="server" ID="hid_jcid" ClientIDMode="Static" />

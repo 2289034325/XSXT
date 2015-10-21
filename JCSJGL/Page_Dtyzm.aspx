@@ -7,8 +7,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_yzm" runat="server" style="top: 200px; position: relative; font-size: 30px; text-align: center;"></div>
-    <div style="text-align: center; position: relative;top: 200px;">
+    <div style="text-align: center;">
+        <div style="height:200px;"></div>
+        <div id="div_yzm" runat="server" style="font-size: 30px; "></div>
         <asp:Button runat="server" ID="btn_renew" OnClick="btn_renew_Click" Text="重新生成" />
     </div>
 </asp:Content>

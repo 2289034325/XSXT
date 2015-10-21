@@ -256,8 +256,10 @@ namespace JCSJGL
 
             Chart cht = new Chart();
 
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = Convert.ToInt32(wndWidth);
+            //int wndWidth = int.Parse(hid_windowWidth.Value);
+            //cht.Width = Convert.ToInt32(wndWidth);
+
+            cht.Width = Unit.Parse(hid_windowWidth.Value);
             cht.Series.Clear();
             cht.ChartAreas.Clear();
             cht.ChartAreas.Add("A1");
@@ -353,8 +355,10 @@ namespace JCSJGL
 
             Chart cht = new Chart();
 
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = wndWidth;
+            //int wndWidth = int.Parse(hid_windowWidth.Value);
+            //cht.Width = wndWidth;
+
+            cht.Width = Unit.Parse(hid_windowWidth.Value);
             cht.Series.Clear();
             cht.ChartAreas.Clear();
             cht.ChartAreas.Add("A1");
@@ -399,8 +403,10 @@ namespace JCSJGL
 
             Chart cht = new Chart();
             
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = wndWidth;
+            //int wndWidth = int.Parse(hid_windowWidth.Value);
+            //cht.Width = wndWidth;
+
+            cht.Width = Unit.Parse(hid_windowWidth.Value);
             cht.Series.Clear();
             cht.ChartAreas.Clear();
             cht.ChartAreas.Add("A1");
@@ -480,8 +486,10 @@ namespace JCSJGL
 
             Chart cht = new Chart();
 
-            int wndWidth = int.Parse(hid_windowWidth.Value);
-            cht.Width = wndWidth;
+            //int wndWidth = int.Parse(hid_windowWidth.Value);
+            //cht.Width = wndWidth;
+
+            cht.Width = Unit.Parse(hid_windowWidth.Value);
             cht.Series.Clear();
             cht.ChartAreas.Clear();
             ChartArea ca = cht.ChartAreas.Add("A1");

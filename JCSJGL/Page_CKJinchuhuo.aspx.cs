@@ -177,5 +177,16 @@ namespace JCSJGL
             }
         }
 
+        protected void grid_jinchu_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = int.Parse(grid_jinchu.DataKeys[index].Value.ToString());
+
+            if (e.CommandName == "MX")
+            {
+                Response.Redirect(string.Format("Page_CKJinchuhuoMX.aspx?id={0}", id));
+            }
+        }
+
     }
 }

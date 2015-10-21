@@ -7,8 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace JCSJGL
-{
+namespace JCSJGL {
     
     
     public partial class Page_Error {

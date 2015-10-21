@@ -3,6 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>条码信息</title>
     <script type="text/javascript">
+        $(document).ready(
+         function () {
+             $(".delete").click(function () 
+             {
+                 return confirm('是否确定删除?');
+             });
+
+             if(IsPC())
+             {
+                 var udl = $( "#div_edit" ).dialog(
+                     {
+                         autoOpen: false,
+                         resizable: false,
+                         height:270,
+                         width:400,
+                         modal: true
+                     });                
+                 udl.parent().appendTo(jQuery("form:first"));          
+             }
+         });
+
         //编辑
         function EditInfo(id,tm,ys,cm,jj,sj,gysid,gyskh) {
             $("#hid_id").val(id);
@@ -13,6 +34,18 @@
             $("#txb_sj").val(sj);
             $("#cmb_gys").val(gysid);
             $("#txb_gyskh").val(gyskh);
+
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
         }
     </script>
 </asp:Content>
@@ -70,31 +103,36 @@
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
     <div id="div_edit" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="条码"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" Enabled="false" ClientIDMode="Static"></asp:TextBox>
+            <label>条码</label><asp:TextBox CssClass="middle" runat="server" ID="txb_tm" Enabled="false" ClientIDMode="Static"></asp:TextBox>
         </div>
         <%--<div>
-            <asp:Label runat="server" Text="款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
+            <label>款号</label><asp:TextBox CssClass="short" runat="server" ID="txb_kh" ClientIDMode="Static"></asp:TextBox>
         </div>--%>
         <div>
-            <asp:Label runat="server" Text="供应商"></asp:Label><asp:DropDownList runat="server" ID="cmb_gys" ClientIDMode="Static"></asp:DropDownList>
+            <label>供应商</label><asp:DropDownList runat="server" ID="cmb_gys" ClientIDMode="Static"></asp:DropDownList>
         </div>
         <div>
-            <asp:Label runat="server" Text="供应商款号"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox>
+            <label style="font-size:0.9em;">供应商款号</label><asp:TextBox CssClass="short" runat="server" ID="txb_gyskh" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="颜色"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox>
+            <label>颜色</label><asp:TextBox CssClass="short" runat="server" ID="txb_ys" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="尺码"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
+            <label>尺码</label><asp:TextBox CssClass="short" runat="server" ID="txb_cm" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="进价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
+            <label>进价</label><asp:TextBox CssClass="short" runat="server" ID="txb_jj" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="售价"></asp:Label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
+            <label>售价</label><asp:TextBox CssClass="short" runat="server" ID="txb_sj" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" />
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" ClientIDMode="Static" />
+            </div>
         </div>
     </div>
 

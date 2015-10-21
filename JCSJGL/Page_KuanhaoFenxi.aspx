@@ -12,7 +12,14 @@
         //   });
         function Search()
         {
-            $("#hid_windowWidth").val(document.body.clientWidth);
+            if (IsPC())
+            {
+                $("#hid_windowWidth").val(Number(document.body.clientWidth) * 0.8);
+            }
+            else
+            {
+                $("#hid_windowWidth").val(document.body.clientWidth);
+            }
         }
     </script>
 </asp:Content>
@@ -34,7 +41,7 @@
         <div>
             <label>Y轴</label><asp:DropDownList runat="server" ID="cmb_y"></asp:DropDownList>
         </div>
-        <div style="overflow:scroll;">
+        <div style="overflow:auto;">
             <asp:CheckBoxList runat="server" ID="chk_x" RepeatDirection="Horizontal"></asp:CheckBoxList>
         </div>
         <div>

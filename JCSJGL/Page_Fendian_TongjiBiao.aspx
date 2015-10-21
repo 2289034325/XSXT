@@ -31,9 +31,9 @@
             <asp:BoundField DataField="xl" HeaderText="销售量"></asp:BoundField>
             <asp:BoundField DataField="xse" HeaderText="销售额"></asp:BoundField>
             <asp:BoundField DataField="lr" HeaderText="利润"></asp:BoundField>
-            <asp:ButtonField CommandName="FENDIAN" Text="分店" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="RIQI" Text="日期" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="FENDIAN" Text="分店" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="RIQI" Text="日期" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <RowStyle HorizontalAlign="Right"></RowStyle>
         <PagerSettings Mode="Numeric" Visible="true" />
@@ -47,8 +47,8 @@
             <asp:BoundField DataField="xl" HeaderText="销售量"></asp:BoundField>
             <asp:BoundField DataField="xse" HeaderText="销售额"></asp:BoundField>
             <asp:BoundField DataField="lr" HeaderText="利润"></asp:BoundField>
-            <asp:ButtonField CommandName="FENDIAN" Text="分店" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="FENDIAN" Text="分店" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <RowStyle HorizontalAlign="Right"></RowStyle>
         <PagerSettings Mode="Numeric" Visible="true" />
@@ -61,8 +61,8 @@
             <asp:BoundField DataField="xl" HeaderText="销售量"></asp:BoundField>
             <asp:BoundField DataField="xse" HeaderText="销售额"></asp:BoundField>
             <asp:BoundField DataField="lr" HeaderText="利润"></asp:BoundField>
-            <asp:ButtonField CommandName="RIQI" Text="日期" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="RIQI" Text="日期" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <RowStyle HorizontalAlign="Right"></RowStyle>
         <PagerSettings Mode="Numeric" Visible="true" />
@@ -76,7 +76,7 @@
             <asp:BoundField DataField="xl" HeaderText="销售量"></asp:BoundField>
             <asp:BoundField DataField="xse" HeaderText="销售额"></asp:BoundField>
             <asp:BoundField DataField="lr" HeaderText="利润"></asp:BoundField>
-            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="XIANGXI" Text="详细" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <RowStyle HorizontalAlign="Right"></RowStyle>
         <PagerSettings Mode="Numeric" Visible="true" />

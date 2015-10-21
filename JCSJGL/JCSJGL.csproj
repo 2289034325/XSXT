@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="imgs\login_back.gif" />
+    <Content Include="imgs\login_back.png" />
     <Content Include="imgs\icons_blue.png" />
     <Content Include="imgs\icons_white.png" />
     <Content Include="imgs\iphoneLogo.png" />
@@ -346,6 +348,7 @@
     <Content Include="Page_KuanhaoFenxi.aspx" />
     <Content Include="Page_WodeXinxi.aspx" />
     <Content Include="App_Data\ZCM.txt" />
+    <Content Include="test.html" />
     <Content Include="Zhuce.aspx" />
     <Content Include="Main.Master" />
     <Content Include="MobileAdapter.js" />

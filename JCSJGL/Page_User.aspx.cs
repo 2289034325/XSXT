@@ -125,7 +125,7 @@ namespace JCSJGL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btn_editxx_Click(object sender, EventArgs e)
+        protected void btn_edit_Click(object sender, EventArgs e)
         {
             Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
 
@@ -212,6 +212,7 @@ namespace JCSJGL
             nu.xiugaishijian = DateTime.Now;
 
 
+            DBContext db = new DBContext();
             //确保不能新建比自己权限高的账户
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
@@ -224,9 +225,16 @@ namespace JCSJGL
                     {
                         throw new MyException("不允许给其他加盟商增加该类型账户", null);
                     }
-                }         
+                }
+
+                int cc = db.GetUserCount(nu.jmsid);
+                TJiamengshang j = db.GetJiamengshangById(nu.jmsid);
+                if (cc >= j.zhanghaoshu)
+                {
+                    throw new MyException("该加盟商拥有的账号数已到上限", null);
+                }      
             }
-            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
+            else
             {
                 if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
@@ -234,17 +242,12 @@ namespace JCSJGL
                     throw new MyException("非法操作，无法增加", null);
                 }
                 nu.jmsid = _LoginUser.jmsid;
-            }
-            else
-            {
-                throw new MyException("非法操作，无法增加", null);
-            }
 
-            DBContext db = new DBContext();
-            int cc = db.GetUserCount(_LoginUser.jmsid);
-            if (cc >= _LoginUser.TJiamengshang.zhanghaoshu)
-            {
-                throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员", null);
+                int cc = db.GetUserCount(nu.jmsid);
+                if (cc >= _LoginUser.TJiamengshang.zhanghaoshu)
+                {
+                    throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员", null);
+                }    
             }
 
             db.InsertUser(nu);

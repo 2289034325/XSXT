@@ -24,7 +24,8 @@
             <asp:Button ID="btn_sch" runat="server" Text="查询" OnClick="btn_sch_Click" />
         </div>
     </div>
-    <asp:GridView ID="grid_jinchu" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" AllowPaging="true" PageSize="20" OnPageIndexChanging="grid_jinchu_PageIndexChanging">
+    <asp:GridView ID="grid_jinchu" runat="server" AutoGenerateColumns="False" AllowCustomPaging="true" DataKeyNames="id"
+        AllowPaging="true" PageSize="20" OnPageIndexChanging="grid_jinchu_PageIndexChanging" OnRowCommand="grid_jinchu_RowCommand">
         <Columns>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
@@ -34,8 +35,8 @@
             <asp:BoundField DataField="jianshu" HeaderText="件数"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="fashengshijian" HeaderText="发生时间"></asp:BoundField>
-            <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>
-            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="Page_CKJinchuhuoMX.aspx?id={0}" Text="查看" HeaderText="查看明细"></asp:HyperLinkField>
+            <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>            
+            <asp:ButtonField CommandName="MX" Text="查看" ButtonType="Button" HeaderText="明细" /> 
         </Columns>
         <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
     </asp:GridView>

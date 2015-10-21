@@ -195,23 +195,23 @@ namespace JCSJGL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void grid_kc_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            //检查权限
-            Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+        //protected void grid_kc_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        //{
+        //    //检查权限
+        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-            int id = int.Parse(grid_kc.DataKeys[e.RowIndex].Value.ToString());
+        //    int id = int.Parse(grid_kc.DataKeys[e.RowIndex].Value.ToString());
 
-            DBContext db = new DBContext();
-            TCangkuKucun ok = db.GetCKKucunById(id);
-            if (ok.TCangku.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-            {
-                throw new MyException("非法操作，无法删除该数据", null);
-            }
-            db.DeleteCKKucun(id);
+        //    DBContext db = new DBContext();
+        //    TCangkuKucun ok = db.GetCKKucunById(id);
+        //    if (ok.TCangku.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+        //    {
+        //        throw new MyException("非法操作，无法删除该数据", null);
+        //    }
+        //    db.DeleteCKKucun(id);
 
-            loadHistroy(ok.cangkuid);            
-        }
+        //    loadHistroy(ok.cangkuid);            
+        //}
 
         protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -244,6 +244,43 @@ namespace JCSJGL
             {
                 //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
                 throw new MyException("非法操作，请刷新页面重新执行", null);
+            }
+        }
+
+        protected void grid_kc_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = int.Parse(grid_kc.DataKeys[index].Value.ToString());
+
+            if (e.CommandName == "DEL")
+            {
+                //检查权限
+                Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
+
+                DBContext db = new DBContext();
+                TCangkuKucun ok = db.GetCKKucunById(id);
+                if (ok.TCangku.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                {
+                    throw new MyException("非法操作，无法删除该数据", null);
+                }
+                db.DeleteCKKucun(id);
+
+                loadHistroy(ok.cangkuid);
+            }
+            else if (e.CommandName == "MX")
+            {
+                Response.Redirect(string.Format("Page_CKKucunMX.aspx?id={0}", id));
+            }
+        }
+
+        protected void grid_kc_ck_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int ckid = int.Parse(grid_kc_ck.DataKeys[index].Value.ToString());
+
+            if (e.CommandName == "LSKC")
+            {
+                Response.Redirect(string.Format("Page_CKKucun.aspx?ckid={0}", ckid));
             }
         }
     }

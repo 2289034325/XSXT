@@ -7,7 +7,14 @@
     <script type="text/javascript">
         function Search()
         {
-            $("#hid_windowWidth").val(document.body.clientWidth);
+            if (IsPC())
+            {
+                $("#hid_windowWidth").val(Number(document.body.clientWidth) * 0.8);
+            }
+            else
+            {
+                $("#hid_windowWidth").val(document.body.clientWidth);
+            }
         }
     </script>
 </asp:Content>

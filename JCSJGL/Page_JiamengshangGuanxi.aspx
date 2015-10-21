@@ -7,8 +7,8 @@
             $("#hid_id").val(id);
             $("#txb_bzmc").val(bzmc);
             $("#txb_bz").val(bz);
-
-            $("#div_edit").css("display","");
+            
+            ShowEditDialog("div_edit",false);
         }
     </script>
 </asp:Content>
@@ -26,7 +26,7 @@
             <asp:BoundField DataField="dianhua" HeaderText="联系电话"></asp:BoundField>
             <asp:BoundField DataField="sqsj" HeaderText="申请时间"></asp:BoundField>
             <asp:BoundField DataField="jieguo" HeaderText="结果"></asp:BoundField>
-            <asp:ButtonField CommandName="SC" Text="删除" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="SC" Text="删除" ButtonType="Button" ShowHeader="false" />
         </Columns>
     </asp:GridView>
     <asp:GridView ID="grid_jmpp" runat="server" AutoGenerateColumns="False" Caption="我加盟的品牌" DataKeyNames="id" OnRowDeleting="grid_jmpp_RowDeleting">
@@ -52,8 +52,8 @@
             <asp:BoundField DataField="dianhua" HeaderText="联系电话"></asp:BoundField>
             <asp:BoundField DataField="dizhi" HeaderText="详细地址"></asp:BoundField>
             <asp:BoundField DataField="sqsj" HeaderText="申请时间"></asp:BoundField>
-            <asp:ButtonField CommandName="YES" Text="同意" ButtonType="Link" ShowHeader="false" />
-            <asp:ButtonField CommandName="NO" Text="不同意" ButtonType="Link" ShowHeader="false" />
+            <asp:ButtonField CommandName="YES" Text="同意" ButtonType="Button" ShowHeader="false" />
+            <asp:ButtonField CommandName="NO" Text="不同意" ButtonType="Button" ShowHeader="false" />
         </Columns>
     </asp:GridView>
     <asp:GridView ID="grid_jms" runat="server" AutoGenerateColumns="False" Caption="我的子加盟商">
@@ -75,15 +75,20 @@
         </Columns>
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <div id="div_edit" class="div_edit" style="display: none;">
+    <div id="div_edit" class="div_edit">
         <div>
-            <asp:Label runat="server" Text="备注名称"></asp:Label><asp:TextBox CssClass="middle" runat="server" ID="txb_bzmc" ClientIDMode="Static"></asp:TextBox>
+            <label>备注名称</label><asp:TextBox runat="server" ID="txb_bzmc" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <asp:Label runat="server" Text="备注"></asp:Label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
-        </div>
+            <label>备注</label><asp:TextBox runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
+        </div>        
         <div>
-            <asp:Button runat="server" ID="btn_edit" Text="保存" OnClick="btn_edit_Click" />
+            <div class="twoButtonInline left">
+                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
+            </div><div class="twoButtonInline">
+                <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
+                <asp:Button runat="server" ID="btn_add" CssClass="btnAdd"  Text="确定" ClientIDMode="Static" />
+            </div>
         </div>
     </div>
 </asp:Content>
