@@ -348,7 +348,6 @@
     <Content Include="Page_KuanhaoFenxi.aspx" />
     <Content Include="Page_WodeXinxi.aspx" />
     <Content Include="App_Data\ZCM.txt" />
-    <Content Include="test.html" />
     <Content Include="Zhuce.aspx" />
     <Content Include="Main.Master" />
     <Content Include="MobileAdapter.js" />

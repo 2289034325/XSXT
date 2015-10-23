@@ -6,11 +6,6 @@ namespace DB_JCSJ.Models
 {
     public partial class JCSJContext : DbContext
     {
-        static JCSJContext()
-        {
-            Database.SetInitializer<JCSJContext>(null);
-        }
-
         public JCSJContext()
             : base("Name=JCSJContext")
         {

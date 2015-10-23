@@ -23,18 +23,6 @@ namespace DB_JCSJ
 
 namespace DB_JCSJ.Models
 {
-    public partial class FDContext : DbContext
-    {
-        /// <summary>
-        /// 指定连接字符串
-        /// </summary>
-        /// <param name="conn">数据库连接</param>
-        public FDContext(string conn)
-            : base(conn)
-        {
-        }
-    }
-
     /// <summary>
     /// 特殊的计算列
     /// </summary>

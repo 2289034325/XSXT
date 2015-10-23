@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -13,7 +16,12 @@ namespace JCSJGL
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            using (var dbcontext = new DB_JCSJ.Models.JCSJContext())
+            {
+                var objectContext = ((IObjectContextAdapter)dbcontext).ObjectContext;
+                var mappingCollection = (StorageMappingItemCollection)objectContext.MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
+                mappingCollection.GenerateViews(new List<EdmSchemaError>());
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)
