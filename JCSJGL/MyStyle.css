@@ -76,7 +76,7 @@ input[type="submit"],input[type="button"],input[type="date"]
     border-bottom-color: #6D6D6D;
 }
 #div_title div {
-    background-image: url("imgs/icons_white.png");
+    background-image: url("images/icons_white.png");
     background-position: 0 -224px;
     transform: scale(2);
     -webkit-transform:scale(2);
@@ -175,6 +175,19 @@ td {
     .div_sch .long {
         width:150px;
     }
+    .div_sch input[type="date"] {
+        box-sizing: border-box;
+        border: solid 1px #A9A9A9;
+        height:19px;
+    }
+    .div_sch select {
+        box-sizing: border-box;
+        border: solid 1px #A9A9A9;
+        height:19px;
+    }
+    .div_sch label {
+        font-size:1em;
+    }
 
 .div_edit
 {
@@ -197,11 +210,12 @@ td {
         display: inline-block;
         box-sizing: border-box;
     }
-    .div_edit input[type="date"] {
+    div_edit input[type="date"] {
         font-size:0.8em;
         width: 75%;
         display: inline-block;
         box-sizing: border-box;
+        border: solid 1px #A9A9A9;
     }
     .div_edit .twoButtonInline
     {
@@ -336,7 +350,7 @@ td {
     left:10px;
     top:7px;
     position:absolute;
-    background-image: url("imgs/icons_white.png");
+    background-image: url("images/icons_white.png");
     background-position: -160px -112px;
     transform: scale(2);
     -webkit-transform:scale(2);
@@ -349,7 +363,7 @@ td {
     right:10px;
     top:7px;
     position:absolute;     
-    background-image: url("imgs/icons_white.png");
+    background-image: url("images/icons_white.png");
     background-position: 0 -64px;
     transform: scale(2);
     -webkit-transform:scale(2);
@@ -365,7 +379,7 @@ td {
 }
     #div_pager .prev {    
         display: inline-block;
-        background-image: url("imgs/icons_white.png");
+        background-image: url("images/icons_white.png");
         background-position: -80px -160px;
         transform: scale(2);
         -webkit-transform: scale(2);
@@ -384,7 +398,7 @@ td {
 
     #div_pager .next {
         display: inline-block;
-        background-image: url("imgs/icons_white.png");
+        background-image: url("images/icons_white.png");
         background-position: -64px -160px;
         transform: scale(2);
         -webkit-transform: scale(2);   

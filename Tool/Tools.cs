@@ -430,7 +430,7 @@ namespace Tool
         /// <returns></returns>
         public static bool CheckFormat_TM(string tm)
         {
-            if (tm.Length < 9 || tm.Length > 13)
+            if (tm.Length < 8 || tm.Length > 13)
             {
                 throw new MyException("条码长度必须在9到13个字符之间", null);
             }
@@ -483,6 +483,25 @@ namespace Tool
                     + "\r\n------------------------------------------------------\r\n");
             }
             catch(Exception ex)
+            {
+                //MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
+            }
+        }
+        public static void LogInfo(string msg)
+        {
+            try
+            {
+                string file = @"D:\log\info.txt";
+                //按日期记录
+                FileInfo fi = new FileInfo(file);
+                string filePath = fi.DirectoryName;
+                string fileName = DateTime.Now.ToString("yyyyMMdd") + fi.Name;
+                file = filePath + "\\" + fileName;
+
+                File.AppendAllText(file, DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "--" + msg
+                    + "\r\n------------------------------------------------------\r\n");
+            }
+            catch (Exception ex)
             {
                 //MessageBox.Show("log消息出错，请配置好log文件\r\n" + ex.Message);
             }

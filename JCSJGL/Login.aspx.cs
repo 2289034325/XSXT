@@ -14,6 +14,7 @@ namespace JCSJGL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Tool.CommonFunc.LogInfo(Session.SessionID+":Login_Page_Load");
             if (IsPostBack)
             {
                 string dlm = txb_dlm.Value.Trim();

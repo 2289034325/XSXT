@@ -23,7 +23,7 @@ $(document).ready(function () {
         $("head").append("<meta name='apple-mobile-web-app-status-bar-style' content='black'>");
         $("head").append("<meta name='apple-mobile-web-app-capable' content='yes'>");
         $("head").append("<meta name='format-detection' content='telephone=no'>");
-        $("head").append("<link rel='apple-touch-icon' sizes='114x114' href='imgs/iphoneLogo.png' />");
+        $("head").append("<link rel='apple-touch-icon' sizes='114x114' href='images/iphoneLogo.png' />");
         //拦截超链接
         $("a").click(function (event)
         {

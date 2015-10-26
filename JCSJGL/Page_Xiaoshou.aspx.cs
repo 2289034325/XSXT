@@ -18,6 +18,7 @@ namespace JCSJGL
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Tool.CommonFunc.LogInfo(Session.SessionID + ":Xiaoshou_Page_Load");
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
@@ -181,6 +182,8 @@ namespace JCSJGL
                         searchXiaoshou();
                     }
                 }
+
+                Tool.CommonFunc.LogInfo(Session.SessionID + ":Xiaoshou_Page_Load_end");
             }
         }
         
