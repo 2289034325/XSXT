@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBBackTool", "DBBackTool\DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{089A72E3-06E4-41F7-B1CE-637B75931179}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFormControls", "MyFormControls\MyFormControls.csproj", "{D03AD417-668A-4875-B4C4-C6743109961D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,14 @@ Global
 		{089A72E3-06E4-41F7-B1CE-637B75931179}.Release|Any CPU.Build.0 = Release|Any CPU
 		{089A72E3-06E4-41F7-B1CE-637B75931179}.Release|x64.ActiveCfg = Release|Any CPU
 		{089A72E3-06E4-41F7-B1CE-637B75931179}.Release|x86.ActiveCfg = Release|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D03AD417-668A-4875-B4C4-C6743109961D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

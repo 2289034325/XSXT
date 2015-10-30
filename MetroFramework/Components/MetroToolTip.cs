@@ -33,18 +33,49 @@ using MetroFramework.Drawing;
 namespace MetroFramework.Components
 {
     [ToolboxBitmap(typeof(ToolTip))]
-    [ToolboxItemFilter("System.Windows.Forms")]
-    public class MetroToolTip : MetroToolTipBase
+    public class MetroToolTip : ToolTip, IMetroComponent
     {
+        #region Interface
 
-        protected override void OnMetroStyleChanged(object sender, EventArgs e)
+        private MetroColorStyle metroStyle = MetroColorStyle.Blue;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroColorStyle Style
         {
-            // do nothing
+            get
+            {
+                if (StyleManager != null)
+                    return StyleManager.Style;
+
+                return metroStyle;
+            }
+            set { metroStyle = value; }
         }
 
-        #region Fields
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Light;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroThemeStyle Theme
+        {
+            get
+            {
+                if (StyleManager != null)
+                    return StyleManager.Theme;
 
-        // TODO: Instead of hiding these, we should implement a property filter
+                return metroTheme;
+            }
+            set { metroTheme = value; }
+        }
+
+        private MetroStyleManager metroStyleManager = null;
+        [Browsable(false)]
+        public MetroStyleManager StyleManager
+        {
+            get { return metroStyleManager; }
+            set { metroStyleManager = value; }
+        }
+
+        #endregion
+
+        #region Fields
 
         [DefaultValue(true)]
         [Browsable(false)]
@@ -120,7 +151,6 @@ namespace MetroFramework.Components
 
             if (control is IMetroControl)
             {
-                // TODO: This would override tooltips on children
                 foreach (Control c in control.Controls)
                 {
                     SetToolTip(c, caption);
@@ -130,28 +160,41 @@ namespace MetroFramework.Components
 
         private void MetroToolTip_Popup(object sender, PopupEventArgs e)
         {
-            // only link to the windows internal style-manager if it deosn't expose a style manager component
-            // (with a style manager component, the style manager will update us automatically)
-            IMetroContainerControl styledWindow = e.AssociatedWindow as IMetroContainerControl;
-            if (styledWindow != null && styledWindow.StyleManager == null) 
-                ((IMetroStyledComponent)this).InternalStyleManager = styledWindow.InternalStyleManager;
+            if (e.AssociatedWindow is IMetroForm)
+            {
+                Style = ((IMetroForm)e.AssociatedWindow).Style;
+                Theme = ((IMetroForm)e.AssociatedWindow).Theme;
+                StyleManager = ((IMetroForm)e.AssociatedWindow).StyleManager;
+            }
+            else if (e.AssociatedControl is IMetroControl)
+            {
+                Style = ((IMetroControl)e.AssociatedControl).Style;
+                Theme = ((IMetroControl)e.AssociatedControl).Theme;
+                StyleManager = ((IMetroControl)e.AssociatedControl).StyleManager;
+            }
 
             e.ToolTipSize = new Size(e.ToolTipSize.Width + 24, e.ToolTipSize.Height + 9);
         }
 
         private void MetroToolTip_Draw(object sender, DrawToolTipEventArgs e)
         {
-            using (SolidBrush b = new SolidBrush(GetThemeColor("BackColor")))
+            MetroThemeStyle displayTheme = (Theme == MetroThemeStyle.Light) ? MetroThemeStyle.Dark : MetroThemeStyle.Light;
+
+            Color backColor = MetroPaint.BackColor.Form(displayTheme);
+            Color borderColor = MetroPaint.BorderColor.Button.Normal(displayTheme);
+            Color foreColor = MetroPaint.ForeColor.Label.Normal(displayTheme);
+
+            using (SolidBrush b = new SolidBrush(backColor))
             {
                 e.Graphics.FillRectangle(b, e.Bounds);
             }
-            using (Pen p = new Pen(GetThemeColor("BorderColor")))
+            using (Pen p = new Pen(borderColor))
             {
                 e.Graphics.DrawRectangle(p, new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1));
             }
 
-            TextRenderer.DrawText(e.Graphics, e.ToolTipText, GetThemeFont(), e.Bounds, GetThemeColor("ForeColor"), 
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            Font f = MetroFonts.Default(13f);
+            TextRenderer.DrawText(e.Graphics, e.ToolTipText, f, e.Bounds, foreColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
         #endregion

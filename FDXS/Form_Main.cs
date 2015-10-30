@@ -1,5 +1,6 @@
 ﻿using DB_FD;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Form_Main: Form
+    public partial class Form_Main: MyForm
     {
         public Form_Main()
         {
             InitializeComponent();
+            base.InitializeComponent();
 
             //校准扫描枪
             if (string.IsNullOrEmpty(Settings.Default.ScanName))
@@ -105,6 +107,12 @@ namespace FDXS
             //启动任务
             MyTask.DayTask();
             MyTask.Tasks();
+
+            //打开开单页面
+            Form_Kaidan fm = new Form_Kaidan();
+            fm.MdiParent = this;
+            fm.WindowState = FormWindowState.Maximized;
+            fm.Show();
         }
 
         /// <summary>
@@ -448,6 +456,23 @@ namespace FDXS
                 MessageBox.Show("备份成功");
             }
 
+        }
+
+        private void mn_main_tuichu_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mn_main_chuangkou_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
         }
     }
 }

@@ -21,16 +21,12 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-using System;
-
 namespace MetroFramework
 {
-    [Obsolete("Use new XML StyleManager", false)]
     public enum MetroThemeStyle
     {
-        Default = -1,
-        Light = 1,
-        Dark = 2,
+        Default,
+        Light,
+        Dark
     }
 }

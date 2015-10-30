@@ -1,32 +1,26 @@
-﻿#region Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-/*
- 
-MetroFramework - Windows Modern UI for .NET WinForms applications
-
-Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in the 
-Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the 
-following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-Portions of this software are (c) 2011 Sven Walter, http://github.com/viperneo
-
+﻿/**
+ * MetroFramework - Modern UI for WinForms
+ * 
+ * The MIT License (MIT)
+ * Copyright (c) 2011 Sven Walter, http://github.com/viperneo
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of 
+ * this software and associated documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation the rights to use, copy, 
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+ * and to permit persons to whom the Software is furnished to do so, subject to the 
+ * following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#endregion
-
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -34,22 +28,92 @@ using System.Security;
 
 namespace MetroFramework.Native
 {
-
-
-    // JT: do not make this class public if we have [SuppressUnmanagedCodeSecurity] applied
     [SuppressUnmanagedCodeSecurity]
     internal class DwmApi
     {
         #region Structs
 
+        [StructLayout(LayoutKind.Explicit)]
+        public struct RECT
+        {
+            [FieldOffset(12)]
+            public int bottom;
+            [FieldOffset(0)]
+            public int left;
+            [FieldOffset(8)]
+            public int right;
+            [FieldOffset(4)]
+            public int top;
 
+            public RECT(Rectangle rect)
+            {
+                this.left = rect.Left;
+                this.top = rect.Top;
+                this.right = rect.Right;
+                this.bottom = rect.Bottom;
+            }
+
+            public RECT(int left, int top, int right, int bottom)
+            {
+                this.left = left;
+                this.top = top;
+                this.right = right;
+                this.bottom = bottom;
+            }
+
+            public void Set()
+            {
+                this.left = InlineAssignHelper(ref this.top, InlineAssignHelper(ref this.right, InlineAssignHelper(ref this.bottom, 0)));
+            }
+
+            public void Set(Rectangle rect)
+            {
+                this.left = rect.Left;
+                this.top = rect.Top;
+                this.right = rect.Right;
+                this.bottom = rect.Bottom;
+            }
+
+            public void Set(int left, int top, int right, int bottom)
+            {
+                this.left = left;
+                this.top = top;
+                this.right = right;
+                this.bottom = bottom;
+            }
+
+            public Rectangle ToRectangle()
+            {
+                return new Rectangle(this.left, this.top, this.right - this.left, this.bottom - this.top);
+            }
+
+            public int Height
+            {
+                get { return (this.bottom - this.top); }
+            }
+
+            public Size Size
+            {
+                get { return new Size(this.Width, this.Height); }
+            }
+
+            public int Width
+            {
+                get { return (this.right - this.left); }
+            }
+            private static T InlineAssignHelper<T>(ref T target, T value)
+            {
+                target = value;
+                return value;
+            }
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct DWM_BLURBEHIND
         {
             public int dwFlags;
             public int fEnable;
-            public IntPtr hRgnBlur; // HRGN
+            public IntPtr hRgnBlur;
             public int fTransitionOnMaximized;
 
             private DWM_BLURBEHIND(bool enable)
@@ -224,7 +288,9 @@ namespace MetroFramework.Native
         [DllImport("dwmapi.dll")]
         public static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, IntPtr pvAttribute, int cbAttribute);
         [DllImport("dwmapi.dll")]
-        public static extern int DwmIsCompositionEnabled([MarshalAs(UnmanagedType.Bool)] out bool pfEnabled);
+        public static extern int DwmIsCompositionEnabled(ref int pfEnabled);
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmIsCompositionEnabled(out bool pfEnabled);
         [DllImport("dwmapi.dll")]
         public static extern int DwmModifyPreviousDxFrameDuration(IntPtr hwnd, int cRefreshes, int fRelative);
         [DllImport("dwmapi.dll")]
@@ -237,6 +303,8 @@ namespace MetroFramework.Native
         public static extern int DwmSetPresentParameters(IntPtr hwnd, ref DWM_PRESENT_PARAMETERS pPresentParams);
         [DllImport("dwmapi.dll")]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int dwAttribute, IntPtr pvAttribute, int cbAttribute);
+        [DllImport("dwmapi.dll", PreserveSig = true)]
+        public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
         [DllImport("dwmapi.dll")]
         public static extern int DwmUnregisterThumbnail(IntPtr hThumbnailId);
         [DllImport("dwmapi.dll")]
@@ -249,6 +317,5 @@ namespace MetroFramework.Native
         public static extern int SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, uint size);
 
         #endregion
-
     }
 }

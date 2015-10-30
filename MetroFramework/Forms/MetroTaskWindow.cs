@@ -37,34 +37,7 @@ namespace MetroFramework.Forms
 {
     public sealed class MetroTaskWindow : MetroForm
     {
-
-        private IContainer components;
-
-        private void InitializeComponent()
-        {
-            this.components = new System.ComponentModel.Container();
-            this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // metroStyleManager
-            // 
-            this.metroStyleManager.Owner = this;
-            // 
-            // MetroTaskWindow
-            // 
-            this.Name = "MetroTaskWindow";
-            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
-            this.ResumeLayout(false);
-
-        }
-
-        private MetroStyleManager metroStyleManager;
-
-        #region Singleton Instance
-
         private static MetroTaskWindow singletonWindow;
-
         public static void ShowTaskWindow(IWin32Window parent, string title, Control userControl, int secToClose)
         {
             if (singletonWindow != null)
@@ -77,15 +50,17 @@ namespace MetroFramework.Forms
             singletonWindow = new MetroTaskWindow(secToClose, userControl);
             singletonWindow.Text = title;
             singletonWindow.Resizable = false;
+            singletonWindow.Movable = true;
             singletonWindow.StartPosition = FormStartPosition.Manual;
-
-            IMetroForm parentForm = parent as IMetroForm;
-            if (parentForm != null && parentForm.StyleManager != null)
+            
+            if (parent != null && parent is IMetroForm)
             {
-                ((IMetroStyledComponent)singletonWindow.metroStyleManager).InternalStyleManager = parentForm.StyleManager;
+                singletonWindow.Theme = ((IMetroForm)parent).Theme;
+                singletonWindow.Style = ((IMetroForm)parent).Style;
+                singletonWindow.StyleManager = ((IMetroForm)parent).StyleManager.Clone(singletonWindow) as MetroStyleManager;
             }
 
-            singletonWindow.Show(parent);
+            singletonWindow.Show();
         }
 
         public static bool IsVisible()
@@ -125,8 +100,6 @@ namespace MetroFramework.Forms
             }
         }
 
-        #endregion
-
         private bool cancelTimer = false;
         public bool CancelTimer
         {
@@ -158,17 +131,21 @@ namespace MetroFramework.Forms
                 timer = DelayedCall.Start(UpdateProgress, 5);
         }
 
+
         private bool isInitialized = false;
         protected override void OnActivated(EventArgs e)
         {
             if (!isInitialized)
             {
+                controlContainer.Theme = Theme;
+                controlContainer.Style = Style;
+                controlContainer.StyleManager = StyleManager;
+
                 MaximizeBox = false;
                 MinimizeBox = false;
-                Movable = false;
+                Movable = true;
 
                 TopMost = true;
-                FormBorderStyle = FormBorderStyle.FixedDialog;
 
                 Size = new Size(400, 200);
 
@@ -197,6 +174,16 @@ namespace MetroFramework.Forms
                 controlContainer.Size = new Size(Width - 40, Height - 80);
                 controlContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left;
 
+                controlContainer.AutoScroll = false;
+                controlContainer.HorizontalScrollbar = false;
+                controlContainer.VerticalScrollbar = false;
+                controlContainer.Refresh();
+
+                if (StyleManager != null)
+                {
+                    StyleManager.Update();
+                }
+
                 isInitialized = true;
 
                 MoveAnimation myMoveAnim = new MoveAnimation();
@@ -210,7 +197,7 @@ namespace MetroFramework.Forms
         {
             base.OnPaint(e);
 
-            using (SolidBrush b = new SolidBrush(EffectiveBackColor))
+            using (SolidBrush b = new SolidBrush(MetroPaint.BackColor.Form(Theme)))
             {
                 e.Graphics.FillRectangle(b, new Rectangle(Width - progressWidth, 0, progressWidth, 5));
             }
@@ -238,6 +225,5 @@ namespace MetroFramework.Forms
             if (!cancelTimer)
                 timer.Reset();
         }
-
     }
 }

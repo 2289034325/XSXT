@@ -55,7 +55,7 @@ namespace MetroFramework.Localization
 
         public MetroLocalize(Control ctrl)
         {
-            importManifestResource(ctrl.GetType().Name);            
+            importManifestResource(ctrl.Name);            
         }
 
         private void importManifestResource(string ctrlName)

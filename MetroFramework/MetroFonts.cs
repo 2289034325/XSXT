@@ -1,39 +1,185 @@
-﻿#region Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-/*
- 
-MetroFramework - Windows Modern UI for .NET WinForms applications
-
-Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in the 
-Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the 
-following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
+﻿/**
+ * MetroFramework - Modern UI for WinForms
+ * 
+ * The MIT License (MIT)
+ * Copyright (c) 2011 Sven Walter, http://github.com/viperneo
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of 
+ * this software and associated documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation the rights to use, copy, 
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+ * and to permit persons to whom the Software is furnished to do so, subject to the 
+ * following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#endregion
-
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Drawing.Text;
 using System;
-using MetroFramework.Drawing;
 
 namespace MetroFramework
 {
+    public enum MetroLabelSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
 
-    internal static class MetroFonts
+    public enum MetroLabelWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroWaterMarkWeight
+    {
+        Light,
+        Regular,
+        Bold,
+        Italic
+    }
+
+    public enum MetroTileTextSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroTileTextWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroLinkSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroLinkWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroComboBoxSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroComboBoxWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroDateTimeSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroDateTimeWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroTextBoxSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroTextBoxWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroProgressBarSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroProgressBarWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroTabControlSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroTabControlWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroCheckBoxSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroCheckBoxWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public enum MetroButtonSize
+    {
+        Small,
+        Medium,
+        Tall
+    }
+
+    public enum MetroButtonWeight
+    {
+        Light,
+        Regular,
+        Bold
+    }
+
+    public static class MetroFonts
     {
 
         #region Font Resolver
@@ -51,7 +197,7 @@ namespace MetroFramework
             }
         }
 
-        private static readonly IMetroFontResolver FontResolver;
+        private static IMetroFontResolver FontResolver;
 
         static MetroFonts()
         {
@@ -78,51 +224,36 @@ namespace MetroFramework
 
         #endregion
 
-        public static Font ResolveFont(string familyName, float emSize, FontStyle fontStyle,
-                                       GraphicsUnit unit = GraphicsUnit.Pixel)
-        {
-            return FontResolver.ResolveFont(familyName, emSize, fontStyle, unit);
-        }
-
-        #region OBSOLETE
-
-        [Obsolete]
         public static Font DefaultLight(float size)
         {
             return FontResolver.ResolveFont("Segoe UI Light", size, FontStyle.Regular, GraphicsUnit.Pixel);
         }
 
-        [Obsolete]
         public static Font Default(float size)
         {
             return FontResolver.ResolveFont("Segoe UI", size, FontStyle.Regular, GraphicsUnit.Pixel);
         }
 
-        [Obsolete]
         public static Font DefaultBold(float size)
         {
             return FontResolver.ResolveFont("Segoe UI", size, FontStyle.Bold, GraphicsUnit.Pixel);
         }
 
-        [Obsolete]
+        public static Font DefaultItalic(float size)
+        {
+            return FontResolver.ResolveFont("Segoe UI", size, FontStyle.Italic, GraphicsUnit.Pixel);
+        }
+
         public static Font Title
         {
             get { return DefaultLight(24f); }
         }
 
-        [Obsolete]
         public static Font Subtitle
         {
             get { return Default(14f); }
         }
 
-        [Obsolete]
-        public static Font Button
-        {
-            get { return DefaultBold(11f); }
-        }
-
-        [Obsolete]
         public static Font Tile(MetroTileTextSize labelSize, MetroTileTextWeight labelWeight)
         {
             if (labelSize == MetroTileTextSize.Small)
@@ -156,13 +287,11 @@ namespace MetroFramework
             return DefaultLight(14f);
         }
 
-        [Obsolete]
         public static Font TileCount
         {
             get { return Default(44f); }
         }
 
-        [Obsolete]
         public static Font Link(MetroLinkSize linkSize, MetroLinkWeight linkWeight)
         {
             if (linkSize == MetroLinkSize.Small)
@@ -196,41 +325,105 @@ namespace MetroFramework
             return Default(12f);
         }
 
-        [Obsolete]
-        public static Font Label(MetroFontSize labelSize, MetroFontWeight labelWeight)
+        public static Font ComboBox(MetroComboBoxSize linkSize, MetroComboBoxWeight linkWeight)
         {
-            if (labelSize == MetroFontSize.Small)
+            if (linkSize == MetroComboBoxSize.Small)
             {
-                if (labelWeight == MetroFontWeight.Light)
+                if (linkWeight == MetroComboBoxWeight.Light)
                     return DefaultLight(12f);
-                if (labelWeight == MetroFontWeight.Regular)
+                if (linkWeight == MetroComboBoxWeight.Regular)
                     return Default(12f);
-                if (labelWeight == MetroFontWeight.Bold)
+                if (linkWeight == MetroComboBoxWeight.Bold)
                     return DefaultBold(12f);
             }
-            else if (labelSize == MetroFontSize.Medium)
+            else if (linkSize == MetroComboBoxSize.Medium)
             {
-                if (labelWeight == MetroFontWeight.Light)
+                if (linkWeight == MetroComboBoxWeight.Light)
                     return DefaultLight(14f);
-                if (labelWeight == MetroFontWeight.Regular)
+                if (linkWeight == MetroComboBoxWeight.Regular)
                     return Default(14f);
-                if (labelWeight == MetroFontWeight.Bold)
+                if (linkWeight == MetroComboBoxWeight.Bold)
                     return DefaultBold(14f);
             }
-            else if (labelSize == MetroFontSize.Large)
+            else if (linkSize == MetroComboBoxSize.Tall)
             {
-                if (labelWeight == MetroFontWeight.Light)
+                if (linkWeight == MetroComboBoxWeight.Light)
                     return DefaultLight(18f);
-                if (labelWeight == MetroFontWeight.Regular)
+                if (linkWeight == MetroComboBoxWeight.Regular)
                     return Default(18f);
-                if (labelWeight == MetroFontWeight.Bold)
+                if (linkWeight == MetroComboBoxWeight.Bold)
+                    return DefaultBold(18f);
+            }
+
+            return Default(12f);
+        }
+
+        public static Font DateTime(MetroDateTimeSize linkSize, MetroDateTimeWeight linkWeight)
+        {
+            if (linkSize == MetroDateTimeSize.Small)
+            {
+                if (linkWeight == MetroDateTimeWeight.Light)
+                    return DefaultLight(12f);
+                if (linkWeight == MetroDateTimeWeight.Regular)
+                    return Default(12f);
+                if (linkWeight == MetroDateTimeWeight.Bold)
+                    return DefaultBold(12f);
+            }
+            else if (linkSize == MetroDateTimeSize.Medium)
+            {
+                if (linkWeight == MetroDateTimeWeight.Light)
+                    return DefaultLight(14f);
+                if (linkWeight == MetroDateTimeWeight.Regular)
+                    return Default(14f);
+                if (linkWeight == MetroDateTimeWeight.Bold)
+                    return DefaultBold(14f);
+            }
+            else if (linkSize == MetroDateTimeSize.Tall)
+            {
+                if (linkWeight == MetroDateTimeWeight.Light)
+                    return DefaultLight(18f);
+                if (linkWeight == MetroDateTimeWeight.Regular)
+                    return Default(18f);
+                if (linkWeight == MetroDateTimeWeight.Bold)
+                    return DefaultBold(18f);
+            }
+
+            return Default(12f);
+        }
+
+        public static Font Label(MetroLabelSize labelSize, MetroLabelWeight labelWeight)
+        {
+            if (labelSize == MetroLabelSize.Small)
+            {
+                if (labelWeight == MetroLabelWeight.Light)
+                    return DefaultLight(12f);
+                if (labelWeight == MetroLabelWeight.Regular)
+                    return Default(12f);
+                if (labelWeight == MetroLabelWeight.Bold)
+                    return DefaultBold(12f);
+            }
+            else if (labelSize == MetroLabelSize.Medium)
+            {
+                if (labelWeight == MetroLabelWeight.Light)
+                    return DefaultLight(14f);
+                if (labelWeight == MetroLabelWeight.Regular)
+                    return Default(14f);
+                if (labelWeight == MetroLabelWeight.Bold)
+                    return DefaultBold(14f);
+            }
+            else if (labelSize == MetroLabelSize.Tall)
+            {
+                if (labelWeight == MetroLabelWeight.Light)
+                    return DefaultLight(18f);
+                if (labelWeight == MetroLabelWeight.Regular)
+                    return Default(18f);
+                if (labelWeight == MetroLabelWeight.Bold)
                     return DefaultBold(18f);
             }
 
             return DefaultLight(14f);
         }
 
-        [Obsolete]
         public static Font TextBox(MetroTextBoxSize linkSize, MetroTextBoxWeight linkWeight)
         {
             if (linkSize == MetroTextBoxSize.Small)
@@ -264,7 +457,6 @@ namespace MetroFramework
             return Default(12f);
         }
 
-        [Obsolete]
         public static Font ProgressBar(MetroProgressBarSize labelSize, MetroProgressBarWeight labelWeight)
         {
             if (labelSize == MetroProgressBarSize.Small)
@@ -298,7 +490,6 @@ namespace MetroFramework
             return DefaultLight(14f);
         }
 
-        [Obsolete]
         public static Font TabControl(MetroTabControlSize labelSize, MetroTabControlWeight labelWeight)
         {
             if (labelSize == MetroTabControlSize.Small)
@@ -332,93 +523,109 @@ namespace MetroFramework
             return DefaultLight(14f);
         }
 
-        #endregion
+        public static Font CheckBox(MetroCheckBoxSize linkSize, MetroCheckBoxWeight linkWeight)
+        {
+            if (linkSize == MetroCheckBoxSize.Small)
+            {
+                if (linkWeight == MetroCheckBoxWeight.Light)
+                    return DefaultLight(12f);
+                if (linkWeight == MetroCheckBoxWeight.Regular)
+                    return Default(12f);
+                if (linkWeight == MetroCheckBoxWeight.Bold)
+                    return DefaultBold(12f);
+            }
+            else if (linkSize == MetroCheckBoxSize.Medium)
+            {
+                if (linkWeight == MetroCheckBoxWeight.Light)
+                    return DefaultLight(14f);
+                if (linkWeight == MetroCheckBoxWeight.Regular)
+                    return Default(14f);
+                if (linkWeight == MetroCheckBoxWeight.Bold)
+                    return DefaultBold(14f);
+            }
+            else if (linkSize == MetroCheckBoxSize.Tall)
+            {
+                if (linkWeight == MetroCheckBoxWeight.Light)
+                    return DefaultLight(18f);
+                if (linkWeight == MetroCheckBoxWeight.Regular)
+                    return Default(18f);
+                if (linkWeight == MetroCheckBoxWeight.Bold)
+                    return DefaultBold(18f);
+            }
 
+            return Default(12f);
+        }
+
+        public static Font WaterMark(MetroLabelSize labelSize, MetroWaterMarkWeight labelWeight)
+        {
+            if (labelSize == MetroLabelSize.Small)
+            {
+                if (labelWeight == MetroWaterMarkWeight.Light)
+                    return DefaultLight(12f);
+                if (labelWeight == MetroWaterMarkWeight.Regular)
+                    return Default(12f);
+                if (labelWeight == MetroWaterMarkWeight.Bold)
+                    return DefaultBold(12f);
+                if (labelWeight == MetroWaterMarkWeight.Italic)
+                    return DefaultItalic(12f);
+            }
+            else if (labelSize == MetroLabelSize.Medium)
+            {
+                if (labelWeight == MetroWaterMarkWeight.Light)
+                    return DefaultLight(14f);
+                if (labelWeight == MetroWaterMarkWeight.Regular)
+                    return Default(14f);
+                if (labelWeight == MetroWaterMarkWeight.Bold)
+                    return DefaultBold(14f);
+                if (labelWeight == MetroWaterMarkWeight.Italic)
+                    return DefaultItalic(14f);
+            }
+            else if (labelSize == MetroLabelSize.Tall)
+            {
+                if (labelWeight == MetroWaterMarkWeight.Light)
+                    return DefaultLight(18f);
+                if (labelWeight == MetroWaterMarkWeight.Regular)
+                    return Default(18f);
+                if (labelWeight == MetroWaterMarkWeight.Bold)
+                    return DefaultBold(18f);
+                if (labelWeight == MetroWaterMarkWeight.Italic)
+                    return DefaultItalic(18f);
+            }
+
+            return DefaultLight(14f);
+        }
+
+        public static Font Button(MetroButtonSize linkSize, MetroButtonWeight linkWeight)
+        {
+            if (linkSize == MetroButtonSize.Small)
+            {
+                if (linkWeight == MetroButtonWeight.Light)
+                    return DefaultLight(11f);
+                if (linkWeight == MetroButtonWeight.Regular)
+                    return Default(11f);
+                if (linkWeight == MetroButtonWeight.Bold)
+                    return DefaultBold(11f);
+            }
+            else if (linkSize == MetroButtonSize.Medium)
+            {
+                if (linkWeight == MetroButtonWeight.Light)
+                    return DefaultLight(13f);
+                if (linkWeight == MetroButtonWeight.Regular)
+                    return Default(13f);
+                if (linkWeight == MetroButtonWeight.Bold)
+                    return DefaultBold(13f);
+            }
+            else if (linkSize == MetroButtonSize.Tall)
+            {
+                if (linkWeight == MetroButtonWeight.Light)
+                    return DefaultLight(16f);
+                if (linkWeight == MetroButtonWeight.Regular)
+                    return Default(16f);
+                if (linkWeight == MetroButtonWeight.Bold)
+                    return DefaultBold(16f);
+            }
+
+            return Default(11f);
+        }
     }
-
-    #region OBSOLETE
-
-    [Obsolete]
-    public enum MetroTileTextSize
-    {
-        Small,
-        Medium,
-        Tall
-    }
-
-    [Obsolete]
-    public enum MetroTileTextWeight
-    {
-        Light,
-        Regular,
-        Bold
-    }
-
-    [Obsolete]
-    public enum MetroLinkSize
-    {
-        Small,
-        Medium,
-        Tall
-    }
-
-    [Obsolete]
-    public enum MetroLinkWeight
-    {
-        Light,
-        Regular,
-        Bold
-    }
-
-    [Obsolete]
-    public enum MetroTextBoxSize
-    {
-        Small,
-        Medium,
-        Tall
-    }
-
-    [Obsolete]
-    public enum MetroTextBoxWeight
-    {
-        Light,
-        Regular,
-        Bold
-    }
-
-    [Obsolete]
-    public enum MetroProgressBarSize
-    {
-        Small,
-        Medium,
-        Tall
-    }
-
-    [Obsolete]
-    public enum MetroProgressBarWeight
-    {
-        Light,
-        Regular,
-        Bold
-    }
-
-    [Obsolete]
-    public enum MetroTabControlSize
-    {
-        Small,
-        Medium,
-        Tall
-    }
-
-    [Obsolete]
-    public enum MetroTabControlWeight
-    {
-        Light,
-        Regular,
-        Bold
-    }
-
-    #endregion
-
-
 }

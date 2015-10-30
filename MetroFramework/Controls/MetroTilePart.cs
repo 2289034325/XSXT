@@ -21,11 +21,7 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-#if HAVE_HTML_PARSER
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -49,15 +45,79 @@ namespace MetroFramework.Controls
     #endregion
 
     [ToolboxItem(false)]
-    public class MetroTilePart : Aspects.MetroControlTransparent
+    public class MetroTilePart : Control, IMetroControl
     {
+        #region Interface
+
+        private MetroColorStyle metroStyle = MetroColorStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroColorStyle.Default)]
+        public MetroColorStyle Style
+        {
+            get
+            {
+                if (DesignMode || metroStyle != MetroColorStyle.Default)
+                {
+                    return metroStyle;
+                }
+
+                if (StyleManager != null && metroStyle == MetroColorStyle.Default)
+                {
+                    return StyleManager.Style;
+                }
+                if (StyleManager == null && metroStyle == MetroColorStyle.Default)
+                {
+                    return MetroDefaults.Style;
+                }
+
+                return metroStyle;
+            }
+            set { metroStyle = value; }
+        }
+
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroThemeStyle.Default)]
+        public MetroThemeStyle Theme
+        {
+            get
+            {
+                if (DesignMode || metroTheme != MetroThemeStyle.Default)
+                {
+                    return metroTheme;
+                }
+
+                if (StyleManager != null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return StyleManager.Theme;
+                }
+                if (StyleManager == null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return MetroDefaults.Theme;
+                }
+
+                return metroTheme;
+            }
+            set { metroTheme = value; }
+        }
+
+        private MetroStyleManager metroStyleManager = null;
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MetroStyleManager StyleManager
+        {
+            get { return metroStyleManager; }
+            set { metroStyleManager = value; }
+        }
+
+        #endregion
 
         #region Fields
 
         private MetroTilePartContentType partContentType = MetroTilePartContentType.Text;
         [DefaultValue(MetroTilePartContentType.Text)]
-        [Category(MetroDefaults.CatBehavior)]
-        public MetroTilePartContentType ContentType
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
+        public MetroTilePartContentType ContentType 
         {
             get { return partContentType; }
             set { partContentType = value; }
@@ -65,7 +125,7 @@ namespace MetroFramework.Controls
 
         private string partHtmlContent = "";
         [DefaultValue("")]
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public string HtmlContent
         {
             get { return partHtmlContent; }
@@ -79,7 +139,6 @@ namespace MetroFramework.Controls
         public MetroTilePart()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            UseTransparency();
             Dock = DockStyle.Fill;
         }
 
@@ -87,8 +146,10 @@ namespace MetroFramework.Controls
 
         #region Paint Methods
 
-        protected override void OnPaintForeground(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             if (partContentType == MetroTilePartContentType.Html)
             {
                 MetroFramework.Drawing.Html.HtmlRenderer.Render(e.Graphics, partHtmlContent, ClientRectangle, true);
@@ -96,92 +157,5 @@ namespace MetroFramework.Controls
         }
 
         #endregion
-
     }
-
-#region MetroTilePartCollection
-
-    public class MetroTilePartCollection : CollectionBase
-    {
-        private object owner = null;
-        public object Owner
-        {
-            get { return owner; }
-            set { owner = value; }
-        }
-
-        public MetroTilePartCollection(object owner)
-        {
-            this.Owner = owner;
-        }
-
-        public int Add(MetroTilePart item)
-        {
-            return base.List.Add(item);
-        }
-
-        public bool Contains(MetroTilePart item)
-        {
-            return base.List.Contains(item);
-        }
-
-        public int IndexOf(MetroTilePart item)
-        {
-            return base.List.IndexOf(item);
-        }
-
-        public void Insert(int index, MetroTilePart item)
-        {
-            base.List.Insert(index, item);
-        }
-
-        public void Remove(MetroTilePart item)
-        {
-            base.List.Remove(item);
-        }
-
-        public MetroTilePart this[string index]
-        {
-            get
-            {
-                foreach (MetroTilePart item in base.List)
-                {
-                    if (item.Name == index)
-                    {
-                        return item;
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                int num = 0;
-                foreach (MetroTilePart item in base.List)
-                {
-                    if (item.Name == index)
-                    {
-                        base.List[num] = value;
-                    }
-                    num++;
-                }
-            }
-        }
-
-        public MetroTilePart this[int index]
-        {
-            get
-            {
-                return (MetroTilePart)base.List[index];
-            }
-            set
-            {
-                base.List[index] = value;
-            }
-        }
-    }
-
-    #endregion
-    
 }
-
-#endif

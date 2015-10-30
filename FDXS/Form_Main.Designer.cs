@@ -30,13 +30,14 @@
         {
             this.mn_main = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtzc = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_cxljfwq = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_czsmq = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_dbbkup = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_editpsw = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_userchange = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_version = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_jch = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_kcgl = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,12 +47,13 @@
             this.mn_main_tiaoma = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_baobiao = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_hyyl = new System.Windows.Forms.ToolStripMenuItem();
-            this.mn_main_dbbkup = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_tuichu = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
             // 
+            this.mn_main.BackColor = System.Drawing.Color.White;
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置ToolStripMenuItem,
             this.mn_main_jch,
@@ -62,7 +64,8 @@
             this.mn_main_xtyh,
             this.mn_main_tiaoma,
             this.mn_main_baobiao,
-            this.mn_main_hyyl});
+            this.mn_main_hyyl,
+            this.mn_main_tuichu});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
             this.mn_main.Name = "mn_main";
             this.mn_main.Size = new System.Drawing.Size(1126, 25);
@@ -81,8 +84,15 @@
             this.mn_main_userchange,
             this.mn_main_version});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.设置ToolStripMenuItem.Text = "设置";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.设置ToolStripMenuItem.Text = "系统设置";
+            // 
+            // mn_main_xtsz
+            // 
+            this.mn_main_xtsz.Name = "mn_main_xtsz";
+            this.mn_main_xtsz.Size = new System.Drawing.Size(160, 22);
+            this.mn_main_xtsz.Text = "系统设置";
+            this.mn_main_xtsz.Click += new System.EventHandler(this.mn_main_xtsz_Click);
             // 
             // mn_main_xtzc
             // 
@@ -98,13 +108,6 @@
             this.mn_main_cxljfwq.Text = "重新连接服务器";
             this.mn_main_cxljfwq.Click += new System.EventHandler(this.mn_main_cxljfwq_Click);
             // 
-            // mn_main_xtsz
-            // 
-            this.mn_main_xtsz.Name = "mn_main_xtsz";
-            this.mn_main_xtsz.Size = new System.Drawing.Size(160, 22);
-            this.mn_main_xtsz.Text = "系统设置";
-            this.mn_main_xtsz.Click += new System.EventHandler(this.mn_main_xtsz_Click);
-            // 
             // mn_main_czsmq
             // 
             this.mn_main_czsmq.Name = "mn_main_czsmq";
@@ -112,12 +115,12 @@
             this.mn_main_czsmq.Text = "重置扫描枪";
             this.mn_main_czsmq.Click += new System.EventHandler(this.mn_main_czsmq_Click);
             // 
-            // mn_main_version
+            // mn_main_dbbkup
             // 
-            this.mn_main_version.Name = "mn_main_version";
-            this.mn_main_version.Size = new System.Drawing.Size(160, 22);
-            this.mn_main_version.Text = "版本";
-            this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
+            this.mn_main_dbbkup.Name = "mn_main_dbbkup";
+            this.mn_main_dbbkup.Size = new System.Drawing.Size(160, 22);
+            this.mn_main_dbbkup.Text = "数据库备份";
+            this.mn_main_dbbkup.Click += new System.EventHandler(this.mn_main_dbbkup_Click);
             // 
             // mn_main_editpsw
             // 
@@ -133,11 +136,18 @@
             this.mn_main_userchange.Text = "更换用户";
             this.mn_main_userchange.Click += new System.EventHandler(this.mn_main_userchange_Click);
             // 
+            // mn_main_version
+            // 
+            this.mn_main_version.Name = "mn_main_version";
+            this.mn_main_version.Size = new System.Drawing.Size(160, 22);
+            this.mn_main_version.Text = "版本";
+            this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
+            // 
             // mn_main_jch
             // 
             this.mn_main_jch.Name = "mn_main_jch";
-            this.mn_main_jch.Size = new System.Drawing.Size(56, 21);
-            this.mn_main_jch.Text = "进出货";
+            this.mn_main_jch.Size = new System.Drawing.Size(68, 21);
+            this.mn_main_jch.Text = "进货出货";
             this.mn_main_jch.Click += new System.EventHandler(this.mn_main_jch_Click);
             // 
             // mn_main_kcyl
@@ -157,8 +167,8 @@
             // mn_main_kd
             // 
             this.mn_main_kd.Name = "mn_main_kd";
-            this.mn_main_kd.Size = new System.Drawing.Size(44, 21);
-            this.mn_main_kd.Text = "开单";
+            this.mn_main_kd.Size = new System.Drawing.Size(68, 21);
+            this.mn_main_kd.Text = "销售开单";
             this.mn_main_kd.Click += new System.EventHandler(this.mn_main_kd_Click);
             // 
             // mn_main_xs
@@ -184,9 +194,10 @@
             // 
             // mn_main_baobiao
             // 
+            this.mn_main_baobiao.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.mn_main_baobiao.Name = "mn_main_baobiao";
-            this.mn_main_baobiao.Size = new System.Drawing.Size(44, 21);
-            this.mn_main_baobiao.Text = "报表";
+            this.mn_main_baobiao.Size = new System.Drawing.Size(68, 21);
+            this.mn_main_baobiao.Text = "统计图表";
             this.mn_main_baobiao.Click += new System.EventHandler(this.mn_main_baobiao_Click);
             // 
             // mn_main_hyyl
@@ -196,17 +207,18 @@
             this.mn_main_hyyl.Text = "会员一览";
             this.mn_main_hyyl.Click += new System.EventHandler(this.mn_main_hyyl_Click);
             // 
-            // mn_main_dbbkup
+            // mn_main_tuichu
             // 
-            this.mn_main_dbbkup.Name = "mn_main_dbbkup";
-            this.mn_main_dbbkup.Size = new System.Drawing.Size(160, 22);
-            this.mn_main_dbbkup.Text = "数据库备份";
-            this.mn_main_dbbkup.Click += new System.EventHandler(this.mn_main_dbbkup_Click);
+            this.mn_main_tuichu.Name = "mn_main_tuichu";
+            this.mn_main_tuichu.Size = new System.Drawing.Size(68, 21);
+            this.mn_main_tuichu.Text = "退出系统";
+            this.mn_main_tuichu.Click += new System.EventHandler(this.mn_main_tuichu_Click);
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1126, 485);
             this.Controls.Add(this.mn_main);
             this.IsMdiContainer = true;
@@ -243,6 +255,7 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_hyyl;
         private System.Windows.Forms.ToolStripMenuItem mn_main_cxljfwq;
         private System.Windows.Forms.ToolStripMenuItem mn_main_dbbkup;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_tuichu;
     }
 }
 

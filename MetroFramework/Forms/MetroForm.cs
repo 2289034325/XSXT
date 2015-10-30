@@ -1,32 +1,26 @@
-#region Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-/*
- 
-MetroFramework - Windows Modern UI for .NET WinForms applications
-
-Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in the 
-Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the 
-following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-Portions of this software are (c) 2011 Sven Walter, http://github.com/viperneo
-
+/**
+ * MetroFramework - Modern UI for WinForms
+ * 
+ * The MIT License (MIT)
+ * Copyright (c) 2011 Sven Walter, http://github.com/viperneo
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of 
+ * this software and associated documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation the rights to use, copy, 
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+ * and to permit persons to whom the Software is furnished to do so, subject to the 
+ * following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#endregion
-
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -34,36 +28,123 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Windows.Forms;
+
 using MetroFramework.Components;
-using MetroFramework.Controls;
 using MetroFramework.Drawing;
 using MetroFramework.Interfaces;
 using MetroFramework.Native;
 
 namespace MetroFramework.Forms
 {
+    #region Enums
 
-    public partial class MetroForm : MetroFormBase, IMetroForm
+    public enum MetroFormTextAlign
     {
+        Left,
+        Center,
+        Right
+    }
 
-        #region Properties
+    public enum MetroFormShadowType
+    {
+        None,
+        Flat,
+        DropShadow,
+        SystemShadow,
+        AeroShadow
+    }
 
-        private HorizontalAlignment textAlign = HorizontalAlignment.Left;
+    public enum MetroFormBorderStyle
+    {
+        None,
+        FixedSingle
+    }
+
+    public enum BackLocation
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    }
+
+    #endregion
+
+    public class MetroForm : Form, IMetroForm, IDisposable
+    {
+        #region Interface
+
+        private MetroColorStyle metroStyle = MetroColorStyle.Blue;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroColorStyle Style
+        {
+            get
+            {
+                if (StyleManager != null)
+                    return StyleManager.Style;
+
+                return metroStyle;
+            }
+            set { metroStyle = value; }
+        }
+
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Light;
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroThemeStyle Theme
+        {
+            get
+            {
+                if (StyleManager != null)
+                    return StyleManager.Theme;
+
+                return metroTheme;
+            }
+            set { metroTheme = value; }
+        }
+
+        private MetroStyleManager metroStyleManager = null;
+        [Browsable(false)]
+        public MetroStyleManager StyleManager
+        {
+            get { return metroStyleManager; }
+            set { metroStyleManager = value; }
+        }
+
+        #endregion
+
+        #region Fields
+
+        private MetroFormTextAlign textAlign = MetroFormTextAlign.Left;
         [Browsable(true)]
-        [Category(MetroDefaults.CatAppearance)]
-        public HorizontalAlignment TextAlign
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroFormTextAlign TextAlign
         {
             get { return textAlign; }
-            set { textAlign = value; Invalidate(); }
+            set { textAlign = value; }
+        }
+
+        [Browsable(false)]
+        public override Color BackColor
+        {
+            get { return MetroPaint.BackColor.Form(Theme); }
+        }
+
+        private MetroFormBorderStyle formBorderStyle = MetroFormBorderStyle.None;
+        [DefaultValue(MetroFormBorderStyle.None)]
+        [Browsable(true)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public MetroFormBorderStyle BorderStyle
+        {
+            get { return formBorderStyle; }
+            set { formBorderStyle = value; }
         }
 
         private bool isMovable = true;
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool Movable
         {
             get { return isMovable; }
@@ -77,7 +158,6 @@ namespace MetroFramework.Forms
             {
                 value.Top = Math.Max(value.Top, DisplayHeader ? 60 : 30);
                 base.Padding = value;
-                Invalidate();
             }
         }
 
@@ -87,12 +167,12 @@ namespace MetroFramework.Forms
         }
 
         private bool displayHeader = true;
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         [DefaultValue(true)]
         public bool DisplayHeader
         {
             get { return displayHeader; }
-            set 
+            set
             {
                 if (value != displayHeader)
                 {
@@ -101,25 +181,31 @@ namespace MetroFramework.Forms
                     base.Padding = p;
                 }
                 displayHeader = value;
-                Invalidate();
             }
         }
 
         private bool isResizable = true;
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool Resizable
         {
             get { return isResizable; }
             set { isResizable = value; }
         }
 
-        private MetroFormShadowType shadowType = MetroFormShadowType.Default;
-        [Category(MetroDefaults.CatAppearance)]
-        [DefaultValue(MetroFormShadowType.Default)]
+        private MetroFormShadowType shadowType = MetroFormShadowType.Flat;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroFormShadowType.Flat)]
         public MetroFormShadowType ShadowType
         {
-            get { return shadowType; }
-            set { shadowType = value; UpdateShadow(value); }
+            get { return IsMdiChild ? MetroFormShadowType.None : shadowType; }
+            set { shadowType = value; }
+        }
+
+        [Browsable(false)]
+        public new FormBorderStyle FormBorderStyle
+        {
+            get { return base.FormBorderStyle; }
+            set { base.FormBorderStyle = value; }
         }
 
         public new Form MdiParent
@@ -127,212 +213,228 @@ namespace MetroFramework.Forms
             get { return base.MdiParent; }
             set
             {
-                UpdateShadow(value == null ? ShadowType : MetroFormShadowType.None);
+                if (value != null)
+                {
+                    RemoveShadow();
+                    shadowType = MetroFormShadowType.None;
+                }
+
                 base.MdiParent = value;
             }
         }
 
-        /// <summary>
-        ///     The colored border at the top of the form
-        /// </summary>
-        private const int BORDER_WIDTH = 5;
+        private const int borderWidth = 5;
 
+        private Bitmap _image = null;
+        private Image backImage;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(null)]
+        public Image BackImage
+        {
+            get { return backImage; }
+            set
+            {
+                backImage = value;
+                if (value != null) _image = ApplyInvert(new Bitmap(value));
+                Refresh();
+            }
+        }
+
+        private Padding backImagePadding;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public Padding BackImagePadding
+        {
+            get { return backImagePadding; }
+            set
+            {
+                backImagePadding = value;
+                Refresh();
+            }
+        }
+
+        private int backMaxSize;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public int BackMaxSize
+        {
+            get { return backMaxSize; }
+            set
+            {
+                backMaxSize = value;
+                Refresh();
+            }
+        }
+
+        private BackLocation backLocation;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(BackLocation.TopLeft)]
+        public BackLocation BackLocation
+        {
+            get { return backLocation; }
+            set
+            {
+                backLocation = value;
+                Refresh();
+            }
+        }
+
+        private bool _imageinvert;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(true)]
+        public bool ApplyImageInvert
+        {
+            get { return _imageinvert; }
+            set
+            {
+                _imageinvert = value;
+                Refresh();
+            }
+        }
         #endregion
 
         #region Constructor
 
         public MetroForm()
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.ResizeRedraw |
+                     ControlStyles.UserPaint, true);
 
-            // http://msdn.microsoft.com/en-gb/library/system.windows.forms.controlstyles.aspx
-            // https://sites.google.com/site/craigandera/craigs-stuff/windows-forms/flicker-free-control-drawing
-
-            SetStyle(
-                ControlStyles.AllPaintingInWmPaint | 
-                ControlStyles.OptimizedDoubleBuffer |
-                ControlStyles.ResizeRedraw |  // <-- prevents size handle artifacts
-                ControlStyles.UserPaint, true);
-            //UseBorderStyle();
             FormBorderStyle = FormBorderStyle.None;
+            Name = "MetroForm";
             StartPosition = FormStartPosition.CenterScreen;
+            TransparencyKey = Color.Lavender;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                UpdateShadow(MetroFormShadowType.None);
+                RemoveShadow();
             }
 
             base.Dispose(disposing);
-        }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-
-            if (DesignMode) return;
-
-            Microsoft.Win32.SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
-            UpdateShadow(ShadowType);
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            if (DesignMode) return;
-
-           SessionSwitch("OnLoad");
-
-            switch (IsMdiChild ? FormStartPosition.CenterParent : StartPosition)
-            {
-                case FormStartPosition.CenterParent:
-                    CenterToParent();
-                    break;
-                case FormStartPosition.CenterScreen:
-                        CenterToScreen();
-                    break;
-            }
-
-            RemoveCloseButton();
-
-            if (ControlBox)
-            {
-                AddWindowButton(WindowButtons.Close);
-                if (MaximizeBox) AddWindowButton(WindowButtons.Maximize);
-                if (MinimizeBox) AddWindowButton(WindowButtons.Minimize);
-                UpdateWindowButtonPosition();
-            }
-        }
-
-        void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
-        {
-            /*
-             *     ConsoleConnect = 1,
-             *     ConsoleDisconnect = 2,
-             *     RemoteConnect = 3,
-             *     RemoteDisconnect = 4,
-             *     SessionLogon = 5,
-             *     SessionLogoff = 6,
-             *     SessionLock = 7,
-             *     SessionUnlock = 8,
-             *     SessionRemoteControl = 9,
-             */
-            SessionSwitch(e.Reason.ToString());
-        }
-
-        protected bool IsRemoteSession { get; private set; }
-
-        void SessionSwitch(string reason)
-        {
-            Debug.WriteLine("SessionSwitch, reason=" + reason + ", terminalServerSession=" + SystemInformation.TerminalServerSession +
-                ", aeroThemeEnabled=" + IsAeroThemeEnabled() + ", dropShadowSupported=" + IsDropShadowSupported());
-
-            //causes unpleasant re-draws in Terminal Server
-            SetStyle(ControlStyles.AllPaintingInWmPaint, !SystemInformation.TerminalServerSession);
-
-            bool oldVal = IsRemoteSession;
-            IsRemoteSession = !IsDropShadowSupported() || !IsAeroThemeEnabled() || SystemInformation.TerminalServerSession;
-            if (oldVal != IsRemoteSession)
-            {
-                OnMetroStyleChanged(new EventArgs());
-                // TODO: Consider updating ControlStyles.AllPaintingInWmPaint - it looks better on console, but worse over remote
-            }
         }
 
         #endregion
 
         #region Paint Methods
 
-        protected override string MetroControlState
+        public Bitmap ApplyInvert(Bitmap bitmapImage)
         {
-            get { return IsRemoteSession && Enabled ? "Remote" : base.MetroControlState; }
-        }
+            byte A, R, G, B;
+            Color pixelColor;
 
-        /// <summary>
-        ///     A border drawn inside the client area.
-        /// </summary>
-        /// <remarks>
-        ///     This currently only supports <see cref="MetroBorderStyle.None"/> (the default) and 
-        ///     <see cref="MetroBorderStyle.FixedSingle"/> (a thin grey line).
-        /// </remarks>
-        private MetroBorderStyle _borderStyle = MetroBorderStyle.Default;
-        [DefaultValue(MetroBorderStyle.Default)]
-        [Browsable(true)]
-        [Category(MetroDefaults.CatAppearance)]
-#pragma warning disable 109
-        public new MetroBorderStyle BorderStyle
-#pragma warning restore 109
-        {
-            get { return _borderStyle; }
-            set { _borderStyle = value; Invalidate(); }
-        }
-        
-        protected override void OnMetroStyleChanged(EventArgs e)
-        {
-            base.OnMetroStyleChanged(e);
-            UpdateShadow(ShadowType);
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            try // without ControlStyles.AllPaintingInWmPaint, we need our own error handling
+            for (int y = 0; y < bitmapImage.Height; y++)
             {
-                e.Graphics.Clear(EffectiveBackColor);
+                for (int x = 0; x < bitmapImage.Width; x++)
+                {
+                    pixelColor = bitmapImage.GetPixel(x, y);
+                    A = pixelColor.A;
+                    R = (byte)(255 - pixelColor.R);
+                    G = (byte)(255 - pixelColor.G);
+                    B = (byte)(255 - pixelColor.B);
+
+                    if (R <= 0) R = 17;
+                    if (G <= 0) G = 17;
+                    if (B <= 0) B = 17;
+                    //bitmapImage.SetPixel(x, y, Color.FromArgb((int)A, (int)R, (int)G, (int)B));
+                    bitmapImage.SetPixel(x, y, Color.FromArgb((int)R, (int)G, (int)B));
+                }
             }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex);
-                Invalidate();
-            }
+
+            return bitmapImage;
         }
 
-        protected override void OnPaintForeground(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            using (SolidBrush b = new SolidBrush(GetStyleColor()))
-                e.Graphics.FillRectangle(b, 0, 0, Width, BORDER_WIDTH);
+            Color backColor = MetroPaint.BackColor.Form(Theme);
+            Color foreColor = MetroPaint.ForeColor.Title(Theme);
+
+            e.Graphics.Clear(backColor);
+
+            using (SolidBrush b = MetroPaint.GetStyleBrush(Style))
+            {
+                Rectangle topRect = new Rectangle(0, 0, Width, borderWidth);
+                e.Graphics.FillRectangle(b, topRect);
+            }
+
+            if (BorderStyle != MetroFormBorderStyle.None)
+            {
+                Color c = MetroPaint.BorderColor.Form(Theme);
+
+                using (Pen pen = new Pen(c))
+                {
+                    e.Graphics.DrawLines(pen, new[]
+                        {
+                            new Point(0, borderWidth),
+                            new Point(0, Height - 1),
+                            new Point(Width - 1, Height - 1),
+                            new Point(Width - 1, borderWidth)
+                        });
+                }
+            }
+
+            if (backImage != null && backMaxSize != 0)
+            {
+                Image img = MetroImage.ResizeImage(backImage, new Rectangle(0, 0, backMaxSize, backMaxSize));
+                if (_imageinvert)
+                {
+                    img = MetroImage.ResizeImage((Theme == MetroThemeStyle.Dark) ? _image : backImage, new Rectangle(0, 0, backMaxSize, backMaxSize));
+                }
+
+                switch (backLocation)
+                {
+                    case BackLocation.TopLeft:
+                        e.Graphics.DrawImage(img, 0 + backImagePadding.Left, 0 + backImagePadding.Top);
+                        break;
+                    case BackLocation.TopRight:
+                        e.Graphics.DrawImage(img, ClientRectangle.Right - (backImagePadding.Right + img.Width), 0 + backImagePadding.Top);
+                        break;
+                    case BackLocation.BottomLeft:
+                        e.Graphics.DrawImage(img, 0 + backImagePadding.Left, ClientRectangle.Bottom - (img.Height + backImagePadding.Bottom));
+                        break;
+                    case BackLocation.BottomRight:
+                        e.Graphics.DrawImage(img, ClientRectangle.Right - (backImagePadding.Right + img.Width),
+                                             ClientRectangle.Bottom - (img.Height + backImagePadding.Bottom));
+                        break;
+                }
+            }
 
             if (displayHeader)
             {
-                // Assuming padding 20px on left/right; 20px from top; max 40px height
                 Rectangle bounds = new Rectangle(20, 20, ClientRectangle.Width - 2 * 20, 40);
-                TextRenderer.DrawText(e.Graphics, Text, GetThemeFont("Form.Title"), bounds, EffectiveForeColor, TextAlign.AsTextFormatFlags() | TextFormatFlags.EndEllipsis);
-            }
-
-            MetroBorderStyle bs = BorderStyle;
-            if (bs == MetroBorderStyle.Default && !TryGetThemeProperty("BorderStyle", out bs))
-                bs = MetroBorderStyle.None;
-
-            if (bs == MetroBorderStyle.FixedSingle)
-            {
-                using (Pen pen = new Pen(GetThemeColor("BorderColor"))) // TODO: Use style color for active window?
-                {
-                    e.Graphics.DrawLines(pen, new[]
-                                {
-                                    new Point(0, BORDER_WIDTH),
-                                    new Point(0, Height - 1),
-                                    new Point(Width - 1, Height - 1),
-                                    new Point(Width - 1, BORDER_WIDTH)
-                                });
-                }
+                TextFormatFlags flags = TextFormatFlags.EndEllipsis | GetTextFormatFlags();
+                TextRenderer.DrawText(e.Graphics, Text, MetroFonts.Title, bounds, foreColor, flags);
             }
 
             if (Resizable && (SizeGripStyle == SizeGripStyle.Auto || SizeGripStyle == SizeGripStyle.Show))
             {
-                using (SolidBrush b = new SolidBrush(GetThemeColor("Button.ForeColor.Disabled")) )
+                using (SolidBrush b = new SolidBrush(MetroPaint.ForeColor.Button.Disabled(Theme)))
                 {
                     Size resizeHandleSize = new Size(2, 2);
                     e.Graphics.FillRectangles(b, new Rectangle[] {
-                        new Rectangle(new Point(ClientRectangle.Width-14,ClientRectangle.Height-6), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-6), resizeHandleSize),
-                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-10), resizeHandleSize),
                         new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-6), resizeHandleSize),
+                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-10), resizeHandleSize),
+                        new Rectangle(new Point(ClientRectangle.Width-10,ClientRectangle.Height-6), resizeHandleSize),
                         new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-10), resizeHandleSize),
+                        new Rectangle(new Point(ClientRectangle.Width-14,ClientRectangle.Height-6), resizeHandleSize),
                         new Rectangle(new Point(ClientRectangle.Width-6,ClientRectangle.Height-14), resizeHandleSize)
                     });
                 }
             }
+        }
+
+        private TextFormatFlags GetTextFormatFlags()
+        {
+            switch (TextAlign)
+            {
+                case MetroFormTextAlign.Left: return TextFormatFlags.Left;
+                case MetroFormTextAlign.Center: return TextFormatFlags.HorizontalCenter;
+                case MetroFormTextAlign.Right: return TextFormatFlags.Right;
+            }
+
+            throw new InvalidOperationException();
         }
 
         #endregion
@@ -341,28 +443,20 @@ namespace MetroFramework.Forms
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosing(e);
-            if (e.Cancel) return;
-
-            // TODO: This looks wrong / assuming that there's only one window
             if (!(this is MetroTaskWindow))
                 MetroTaskWindow.ForceClose();
+
+            base.OnClosing(e);
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            UpdateShadow(MetroFormShadowType.None);
+            if (this.Owner != null) this.Owner = null;
+
+            RemoveShadow();
+
             base.OnClosed(e);
         }
-
-        //protected override void OnDeactivate(EventArgs e)
-        //{
-        //    base.OnDeactivate(e);
-        //    //if (isInitialized)
-        //    //{
-        //        Refresh();
-        //    //}
-        //}
 
         [SecuritySafeCritical]
         public bool FocusMe()
@@ -370,34 +464,77 @@ namespace MetroFramework.Forms
             return WinApi.SetForegroundWindow(Handle);
         }
 
-
-        //protected override void OnActivated(EventArgs e)
-        //{
-        //    base.OnActivated(e);
-
-        //    if (DesignMode) return;
-
-        //    // TODO: necessary??
-        //    //Refresh();
-        //}
-
-        //protected override void OnEnabledChanged(EventArgs e)
-        //{
-        //    base.OnEnabledChanged(e);
-
-        //    Invalidate();
-        //}
-
-        protected override void OnResizeBegin(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            base.OnResizeBegin(e);
-            if (MetroDefaults.FormSuspendLayoutDuringResize||SystemInformation.TerminalServerSession) SuspendLayout();
+            base.OnLoad(e);
+
+            if (DesignMode) return;
+
+            switch (StartPosition)
+            {
+                case FormStartPosition.CenterParent:
+                    CenterToParent();
+                    break;
+                case FormStartPosition.CenterScreen:
+                    if (IsMdiChild)
+                    {
+                        CenterToParent();
+                    }
+                    else
+                    {
+                        CenterToScreen();
+                    }
+                    break;
+            }
+
+            RemoveCloseButton();
+
+            if (ControlBox)
+            {
+                AddWindowButton(WindowButtons.Close);
+
+                if (MaximizeBox)
+                    AddWindowButton(WindowButtons.Maximize);
+
+                if (MinimizeBox)
+                    AddWindowButton(WindowButtons.Minimize);
+
+                UpdateWindowButtonPosition();
+            }
+
+            CreateShadow();
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            if (shadowType == MetroFormShadowType.AeroShadow &&
+                IsAeroThemeEnabled() && IsDropShadowSupported())
+            {
+                int val = 2;
+                DwmApi.DwmSetWindowAttribute(Handle, 2, ref val, 4);
+                var m = new DwmApi.MARGINS
+                {
+                    cyBottomHeight = 1,
+                    cxLeftWidth = 0,
+                    cxRightWidth = 0,
+                    cyTopHeight = 0
+                };
+
+                DwmApi.DwmExtendFrameIntoClientArea(Handle, ref m);
+            }
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+
+            Invalidate();
         }
 
         protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
-            if (MetroDefaults.FormSuspendLayoutDuringResize || SystemInformation.TerminalServerSession) ResumeLayout();
             UpdateWindowButtonPosition();
         }
 
@@ -411,7 +548,26 @@ namespace MetroFramework.Forms
 
             switch (m.Msg)
             {
-                case WinApi.Messages.WM_NCHITTEST:
+                case (int)WinApi.Messages.WM_SYSCOMMAND:
+                    int sc = m.WParam.ToInt32() & 0xFFF0;
+                    switch (sc)
+                    {
+                        case (int)WinApi.Messages.SC_MOVE:
+                            if (!Movable) return;
+                            break;
+                        case (int)WinApi.Messages.SC_MAXIMIZE:
+                            break;
+                        case (int)WinApi.Messages.SC_RESTORE:
+                            break;
+                    }
+                    break;
+
+                case (int)WinApi.Messages.WM_NCLBUTTONDBLCLK:
+                case (int)WinApi.Messages.WM_LBUTTONDBLCLK:
+                    if (!MaximizeBox) return;
+                    break;
+
+                case (int)WinApi.Messages.WM_NCHITTEST:
                     WinApi.HitTest ht = HitTestNCA(m.HWnd, m.WParam, m.LParam);
                     if (ht != WinApi.HitTest.HTCLIENT)
                     {
@@ -420,50 +576,30 @@ namespace MetroFramework.Forms
                     }
                     break;
 
-                case WinApi.Messages.WM_SYSCOMMAND:
-                    int sc = m.WParam.ToInt32() & 0xFFF0;
-                    switch (sc)
-                    {
-                        case WinApi.Messages.SC_MOVE: 
-                            if (!Movable) return; 
-                            break;
-                        case WinApi.Messages.SC_MAXIMIZE: 
-                            break;
-                        case WinApi.Messages.SC_RESTORE:
-                            break;
-                    }
+                case (int)WinApi.Messages.WM_DWMCOMPOSITIONCHANGED:
                     break;
-
-                case WinApi.Messages.WM_NCLBUTTONDBLCLK:
-                case WinApi.Messages.WM_LBUTTONDBLCLK: // I think this one can be removed...
-                    if  (!MaximizeBox) return;
-                    break;
-
-                case WinApi.Messages.WM_SIZING:
-                    OnWmSizing(m.WParam, m.LParam);
-                    break;
-
-                case WinApi.Messages.WM_DWMCOMPOSITIONCHANGED:
-                    // Vista API only - but we should never receive the message on XP
-                    SessionSwitch("WM_DWMCOMPOSITIONCHANGED");
-                    //UpdateSessionState();
-                    break;
-
-                case WinApi.Messages.WM_DISPLAYCHANGE:
-                    SessionSwitch("WM_DISPLAYCHANGE");
-                    break;
-
             }
 
             base.WndProc(ref m);
 
-            // some messages are better post-processed ...
-
             switch (m.Msg)
             {
-                case WinApi.Messages.WM_GETMINMAXINFO:
+                case (int)WinApi.Messages.WM_GETMINMAXINFO:
                     OnGetMinMaxInfo(m.HWnd, m.LParam);
-                      //m.Result = IntPtr.Zero;
+                    break;
+                case (int)WinApi.Messages.WM_SIZE:
+                    if (windowButtonList != null)
+                    {
+                        MetroFormButton btn;
+                        windowButtonList.TryGetValue(WindowButtons.Maximize, out btn);
+                        if (btn == null) return;
+                        if (WindowState == FormWindowState.Normal)
+                        {
+                            if (shadowForm != null) shadowForm.Visible = true;
+                            btn.Text = "1";
+                        }
+                        if (WindowState == FormWindowState.Maximized) btn.Text = "2";
+                    }
                     break;
             }
         }
@@ -473,79 +609,72 @@ namespace MetroFramework.Forms
         {
             WinApi.MINMAXINFO* pmmi = (WinApi.MINMAXINFO*)lParam;
 
-            //  NOTE: MaxPosition is always relative to the origin of the window's current screen
-            // e.g. usually (0, 0) unless the taskbar is on the left or top.
-
             Screen s = Screen.FromHandle(hwnd);
-            pmmi->MaxSize = s.WorkingArea.Size;
-            pmmi->MaxPosition.X = Math.Abs(s.WorkingArea.Left - s.Bounds.Left);
-            pmmi->MaxPosition.Y = Math.Abs(s.WorkingArea.Top - s.Bounds.Top);
+            pmmi->ptMaxSize.x = s.WorkingArea.Width;
+            pmmi->ptMaxSize.y = s.WorkingArea.Height;
+            pmmi->ptMaxPosition.x = Math.Abs(s.WorkingArea.Left - s.Bounds.Left);
+            pmmi->ptMaxPosition.y = Math.Abs(s.WorkingArea.Top - s.Bounds.Top);
 
-            // The form seems to fill these in just fine...
-            //if (MinimumSize.Width > 0) pmmi->MinTrackSize.x = MinimumSize.Width;
-            //if (MinimumSize.Height > 0) pmmi->MinTrackSize.y = MinimumSize.Height;
-            //if (MaximumSize.Width > 0) pmmi->MaxTrackSize.x = MaximumSize.Width;
-            //if (MaximumSize.Height > 0) pmmi->MaxTrackSize.y = MaximumSize.Height;
-
-            // I guess these should have the normal window frame dimensions added to be correct
-            // see SystemInformation.XXX
-            _minTrackSize.Width = Math.Max(_minTrackSize.Width, pmmi->MinTrackSize.Width);
-            _minTrackSize.Height = Math.Max(_minTrackSize.Height, pmmi->MinTrackSize.Height);
-            _minTrackSize = SizeFromClientSize(_minTrackSize);
-        }
-
-        private Size _minTrackSize;
-
-        [SecuritySafeCritical]
-        private unsafe void OnWmSizing(IntPtr wParam, IntPtr lParam)
-        {
-            RECT* rc = (RECT*)lParam;
-            rc->Width = Math.Max(rc->Width, _minTrackSize.Width);
-            rc->Height = Math.Max(rc->Height, _minTrackSize.Height);
+            //if (MinimumSize.Width > 0) pmmi->ptMinTrackSize.x = MinimumSize.Width;
+            //if (MinimumSize.Height > 0) pmmi->ptMinTrackSize.y = MinimumSize.Height;
+            //if (MaximumSize.Width > 0) pmmi->ptMaxTrackSize.x = MaximumSize.Width;
+            //if (MaximumSize.Height > 0) pmmi->ptMaxTrackSize.y = MaximumSize.Height;
         }
 
         private WinApi.HitTest HitTestNCA(IntPtr hwnd, IntPtr wparam, IntPtr lparam)
         {
-            Point pc = PointToClient(new Point((int)lparam));
-            if (Resizable && SizeGripRectangle.Contains(pc)) 
-                return WinApi.HitTest.HTBOTTOMRIGHT;
-            if ( CaptionRectangle.Contains(pc))
-                return WinApi.HitTest.HTCAPTION;
-            return WinApi.HitTest.HTCLIENT;
-        }
+            //Point vPoint = PointToClient(new Point((int)lparam & 0xFFFF, (int)lparam >> 16 & 0xFFFF));
+            //Point vPoint = PointToClient(new Point((Int16)lparam, (Int16)((int)lparam >> 16)));
+            Point vPoint = new Point((Int16)lparam, (Int16)((int)lparam >> 16));
+            int vPadding = Math.Max(Padding.Right, Padding.Bottom);
 
-        private Rectangle CaptionRectangle
-        {
-            // TODO: vary height depending on DisplayHeader / Padding ?
-            get { return new Rectangle(BORDER_WIDTH, BORDER_WIDTH, ClientSize.Width - 2 * BORDER_WIDTH, 50); }
-        }
-
-        private Rectangle SizeGripRectangle
-        {
-            get
+            if (Resizable)
             {
-                int padMax = Math.Max(Padding.Right, Padding.Bottom);
-                var cs = ClientSize;
-                return new Rectangle(cs.Width - padMax, cs.Height - padMax, padMax, padMax);
+                if (RectangleToScreen(new Rectangle(ClientRectangle.Width - vPadding, ClientRectangle.Height - vPadding, vPadding, vPadding)).Contains(vPoint))
+                    return WinApi.HitTest.HTBOTTOMRIGHT;
             }
+
+            if (RectangleToScreen(new Rectangle(borderWidth, borderWidth, ClientRectangle.Width - 2 * borderWidth, 50)).Contains(vPoint))
+                return WinApi.HitTest.HTCAPTION;
+
+            return WinApi.HitTest.HTCLIENT;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
 
-            if (Movable && WindowState != FormWindowState.Maximized && 
-                e.Button == MouseButtons.Left && CaptionRectangle.Contains(e.Location))
+            if (e.Button == MouseButtons.Left && Movable)
             {
-                MoveControl();                    
+                if (WindowState == FormWindowState.Maximized) return;
+                if (Width - borderWidth > e.Location.X && e.Location.X > borderWidth && e.Location.Y > borderWidth)
+                {
+                    MoveControl();
+                }
             }
+
         }
 
         [SecuritySafeCritical]
         private void MoveControl()
         {
             WinApi.ReleaseCapture();
-            WinApi.SendMessage(Handle, WinApi.Messages.WM_NCLBUTTONDOWN, (int)WinApi.HitTest.HTCAPTION, 0);
+            WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_NCLBUTTONDOWN, (int)WinApi.HitTest.HTCAPTION, 0);
+        }
+
+        [SecuritySafeCritical]
+        private static bool IsAeroThemeEnabled()
+        {
+            if (Environment.OSVersion.Version.Major <= 5) return false;
+
+            bool aeroEnabled;
+            DwmApi.DwmIsCompositionEnabled(out aeroEnabled);
+            return aeroEnabled;
+        }
+
+        private static bool IsDropShadowSupported()
+        {
+            return Environment.OSVersion.Version.Major > 5 && SystemInformation.IsDropShadowEnabled;
         }
 
         #endregion
@@ -554,127 +683,325 @@ namespace MetroFramework.Forms
 
         private enum WindowButtons
         {
-            // do not change values - they are used as index into _windowButtons below
-            // they must be in right-to-left order, too
-            Close = 0, 
-            Maximize = 1,
-            Minimize = 2,
+            Minimize,
+            Maximize,
+            Close
         }
 
-        private readonly MetroFormButton[] _windowButtons = new MetroFormButton[3];
+        private Dictionary<WindowButtons, MetroFormButton> windowButtonList;
 
         private void AddWindowButton(WindowButtons button)
         {
-            if (_windowButtons[(int)button] != null ) throw new InvalidOperationException();
+            if (windowButtonList == null)
+                windowButtonList = new Dictionary<WindowButtons, MetroFormButton>();
 
-            MetroFormButton newButton = new MetroFormButton
-                {
-                    Text = GetButtonText(button),
-                    Tag = button,
-                    Size = new Size(25, 20),
-                    Anchor = AnchorStyles.Top | AnchorStyles.Right
-                };
+            if (windowButtonList.ContainsKey(button))
+                return;
 
+            MetroFormButton newButton = new MetroFormButton();
+
+            if (button == WindowButtons.Close)
+            {
+                newButton.Text = "r";
+            }
+            else if (button == WindowButtons.Minimize)
+            {
+                newButton.Text = "0";
+            }
+            else if (button == WindowButtons.Maximize)
+            {
+                if (WindowState == FormWindowState.Normal)
+                    newButton.Text = "1";
+                else
+                    newButton.Text = "2";
+            }
+
+            newButton.Style = Style;
+            newButton.Theme = Theme;
+            newButton.Tag = button;
+            newButton.Size = new Size(25, 20);
+            newButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            newButton.TabStop = false; //remove the form controls from the tab stop
             newButton.Click += WindowButton_Click;
             Controls.Add(newButton);
-            _windowButtons[(int)button] = newButton;
-        }
 
-        private string GetButtonText(WindowButtons button)
-        {
-            switch (button)
-            {
-                case WindowButtons.Close: return "r";
-                case WindowButtons.Minimize: return "0";
-                case WindowButtons.Maximize: return WindowState == FormWindowState.Normal ? "1" : "2";
-            }
-            throw new InvalidOperationException();
+            windowButtonList.Add(button, newButton);
         }
 
         private void WindowButton_Click(object sender, EventArgs e)
         {
             var btn = sender as MetroFormButton;
-            if (btn == null) return;
-            switch ((WindowButtons)btn.Tag)
+            if (btn != null)
             {
-                case WindowButtons.Close:
+                var btnFlag = (WindowButtons)btn.Tag;
+                if (btnFlag == WindowButtons.Close)
+                {
                     Close();
-                    return;
-                case WindowButtons.Minimize:
+                }
+                else if (btnFlag == WindowButtons.Minimize)
+                {
                     WindowState = FormWindowState.Minimized;
-                    return;
-                case WindowButtons.Maximize:
-                    WindowState = (WindowState == FormWindowState.Normal) ? FormWindowState.Maximized : FormWindowState.Normal;
-                    btn.Text = GetButtonText(WindowButtons.Maximize);
-                    return;
+                }
+                else if (btnFlag == WindowButtons.Maximize)
+                {
+                    if (WindowState == FormWindowState.Normal)
+                    {
+                        WindowState = FormWindowState.Maximized;
+                        btn.Text = "2";
+                    }
+                    else
+                    {
+                        WindowState = FormWindowState.Normal;
+                        btn.Text = "1";
+                    }
+                }
             }
-            throw new InvalidOperationException();
         }
 
         private void UpdateWindowButtonPosition()
         {
             if (!ControlBox) return;
 
-            Point location = new Point(ClientRectangle.Width - BORDER_WIDTH - 25, BORDER_WIDTH);
-            foreach (var metroFormButton in _windowButtons.Where(metroFormButton => metroFormButton != null))
+            Dictionary<int, WindowButtons> priorityOrder = new Dictionary<int, WindowButtons>(3) { { 0, WindowButtons.Close }, { 1, WindowButtons.Maximize }, { 2, WindowButtons.Minimize } };
+
+            Point firstButtonLocation = new Point(ClientRectangle.Width - borderWidth - 25, borderWidth);
+            int lastDrawedButtonPosition = firstButtonLocation.X - 25;
+
+            MetroFormButton firstButton = null;
+
+            if (windowButtonList.Count == 1)
             {
-                metroFormButton.Location = location;
-                location.Offset(-25, 0);
+                foreach (KeyValuePair<WindowButtons, MetroFormButton> button in windowButtonList)
+                {
+                    button.Value.Location = firstButtonLocation;
+                }
             }
+            else
+            {
+                foreach (KeyValuePair<int, WindowButtons> button in priorityOrder)
+                {
+                    bool buttonExists = windowButtonList.ContainsKey(button.Value);
+
+                    if (firstButton == null && buttonExists)
+                    {
+                        firstButton = windowButtonList[button.Value];
+                        firstButton.Location = firstButtonLocation;
+                        continue;
+                    }
+
+                    if (firstButton == null || !buttonExists) continue;
+
+                    windowButtonList[button.Value].Location = new Point(lastDrawedButtonPosition, borderWidth);
+                    lastDrawedButtonPosition = lastDrawedButtonPosition - 25;
+                }
+            }
+
+            Refresh();
         }
 
-        private class MetroFormButton : MetroButtonBase
+        private class MetroFormButton : Button, IMetroControl
         {
-            private bool isHovered;
-            private bool isPressed;
+            #region Interface
 
-            public MetroFormButton()
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+            protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
             {
-                SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
+                if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
+                {
+                    CustomPaintBackground(this, e);
+                }
             }
 
-            #region Paint Methods
-
-            protected override string MetroControlState
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public event EventHandler<MetroPaintEventArgs> CustomPaint;
+            protected virtual void OnCustomPaint(MetroPaintEventArgs e)
             {
-                get { if (!Enabled) return "Disabled"; if (!isHovered) return "Normal"; return isPressed ? "Press" : "Hover"; }
+                if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
+                {
+                    CustomPaint(this, e);
+                }
             }
 
-            public override Color EffectiveBackColor
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+            protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
+            {
+                if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
+                {
+                    CustomPaintForeground(this, e);
+                }
+            }
+
+            private MetroColorStyle metroStyle = MetroColorStyle.Default;
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            [DefaultValue(MetroColorStyle.Default)]
+            public MetroColorStyle Style
             {
                 get
                 {
-                switch (MetroControlState)
-                {
-                    case "Normal": 
-                            var c = Parent as IMetroControl;    // TODO: Cant we just draw transparent??
-                        if (c != null) return c.EffectiveBackColor;
-                        break;
-                    case "Press": 
-                        return GetStyleColor();
+                    if (DesignMode || metroStyle != MetroColorStyle.Default)
+                    {
+                        return metroStyle;
+                    }
+
+                    if (StyleManager != null && metroStyle == MetroColorStyle.Default)
+                    {
+                        return StyleManager.Style;
+                    }
+                    if (StyleManager == null && metroStyle == MetroColorStyle.Default)
+                    {
+                        return MetroDefaults.Style;
+                    }
+
+                    return metroStyle;
                 }
-                    return base.EffectiveBackColor;
-            }
+                set { metroStyle = value; }
             }
 
-            protected override void OnPaintBackground(PaintEventArgs e)
+            private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            [DefaultValue(MetroThemeStyle.Default)]
+            public MetroThemeStyle Theme
             {
-                try
+                get
                 {
-                    e.Graphics.Clear(EffectiveBackColor);
+                    if (DesignMode || metroTheme != MetroThemeStyle.Default)
+                    {
+                        return metroTheme;
+                    }
+
+                    if (StyleManager != null && metroTheme == MetroThemeStyle.Default)
+                    {
+                        return StyleManager.Theme;
+                    }
+                    if (StyleManager == null && metroTheme == MetroThemeStyle.Default)
+                    {
+                        return MetroDefaults.Theme;
+                    }
+
+                    return metroTheme;
                 }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine(ex);
-                    Invalidate();
-                }
+                set { metroTheme = value; }
             }
 
-            protected override void OnPaintForeground(PaintEventArgs e)
+            private MetroStyleManager metroStyleManager = null;
+            [Browsable(false)]
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+            public MetroStyleManager StyleManager
             {
+                get { return metroStyleManager; }
+                set { metroStyleManager = value; }
+            }
+
+            private bool useCustomBackColor = false;
+            [DefaultValue(false)]
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public bool UseCustomBackColor
+            {
+                get { return useCustomBackColor; }
+                set { useCustomBackColor = value; }
+            }
+
+            private bool useCustomForeColor = false;
+            [DefaultValue(false)]
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public bool UseCustomForeColor
+            {
+                get { return useCustomForeColor; }
+                set { useCustomForeColor = value; }
+            }
+
+            private bool useStyleColors = false;
+            [DefaultValue(false)]
+            [Category(MetroDefaults.PropertyCategory.Appearance)]
+            public bool UseStyleColors
+            {
+                get { return useStyleColors; }
+                set { useStyleColors = value; }
+            }
+
+            [Browsable(false)]
+            [Category(MetroDefaults.PropertyCategory.Behaviour)]
+            [DefaultValue(false)]
+            public bool UseSelectable
+            {
+                get { return GetStyle(ControlStyles.Selectable); }
+                set { SetStyle(ControlStyles.Selectable, value); }
+            }
+
+            #endregion
+
+            #region Fields
+
+            private bool isHovered = false;
+            private bool isPressed = false;
+
+            #endregion
+
+            #region Constructor
+
+            public MetroFormButton()
+            {
+                SetStyle(ControlStyles.AllPaintingInWmPaint |
+                         ControlStyles.OptimizedDoubleBuffer |
+                         ControlStyles.ResizeRedraw |
+                         ControlStyles.UserPaint, true);
+            }
+
+            #endregion
+
+            #region Paint Methods
+
+            protected override void OnPaint(PaintEventArgs e)
+            {
+                Color backColor, foreColor;
+
+                MetroThemeStyle _Theme = Theme;
+                if (Parent != null)
+                {
+                    if (Parent is IMetroForm)
+                    {
+                        _Theme = ((IMetroForm)Parent).Theme;
+                        backColor = MetroPaint.BackColor.Form(_Theme);
+                    }
+                    else if (Parent is IMetroControl)
+                    {
+                        backColor = MetroPaint.GetStyleColor(Style);
+                    }
+                    else
+                    {
+                        backColor = Parent.BackColor;
+                    }
+                }
+                else
+                {
+                    backColor = MetroPaint.BackColor.Form(_Theme);
+                }
+
+                if (isHovered && !isPressed && Enabled)
+                {
+                    foreColor = MetroPaint.ForeColor.Button.Normal(_Theme);
+                    backColor = MetroPaint.BackColor.Button.Normal(_Theme);
+                }
+                else if (isHovered && isPressed && Enabled)
+                {
+                    foreColor = MetroPaint.ForeColor.Button.Press(_Theme);
+                    backColor = MetroPaint.GetStyleColor(Style);
+                }
+                else if (!Enabled)
+                {
+                    foreColor = MetroPaint.ForeColor.Button.Disabled(_Theme);
+                    backColor = MetroPaint.BackColor.Button.Disabled(_Theme);
+                }
+                else
+                {
+                    foreColor = MetroPaint.ForeColor.Button.Normal(_Theme);
+                }
+
+                e.Graphics.Clear(backColor);
                 Font buttonFont = new Font("Webdings", 9.25f);
-                TextRenderer.DrawText(e.Graphics, Text, buttonFont, ClientRectangle, EffectiveForeColor, EffectiveBackColor, 
-                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                TextRenderer.DrawText(e.Graphics, Text, buttonFont, ClientRectangle, foreColor, backColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
             }
 
             #endregion
@@ -723,126 +1050,68 @@ namespace MetroFramework.Forms
 
         #region Shadows
 
-        protected override void SetVisibleCore(bool value)
+        private const int CS_DROPSHADOW = 0x20000;
+        const int WS_MINIMIZEBOX = 0x20000;
+        protected override CreateParams CreateParams
         {
-            // Try to make the shadow visible before us (we are owned by the shadow form!)
-            if (_shadowForm != null) _shadowForm.Visible = value;
-            base.SetVisibleCore(value);
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style |= WS_MINIMIZEBOX;
+                if (ShadowType == MetroFormShadowType.SystemShadow)
+                    cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
         }
 
-        public enum MetroFormShadowType
+        private Form shadowForm;
+
+        private void CreateShadow()
         {
-            Default = -1,
-            None = 0,
-            Flat,
-            DropShadow,
-            SystemDropShadow,
-            SystemAeroShadow
-        }
-
-        private Form _shadowForm;
-
-        private MetroFormShadowType _currentShadowType = MetroFormShadowType.None;
-
-        private void UpdateShadow(MetroFormShadowType newShadowType)
-        {
-            if (DesignMode || !IsHandleCreated || IsDisposed) return;
-
-            if (newShadowType == MetroFormShadowType.Default && !TryGetThemeProperty("ShadowType", out newShadowType))
-                newShadowType = MetroDefaults.FormShadowType;
-
-            if (_currentShadowType == newShadowType) return;
-
-            if (_currentShadowType == MetroFormShadowType.SystemDropShadow)
-            {
-                SetCsDropShadow(false);
-            }
-            else if (_shadowForm != null)
-            {
-                if(!_shadowForm.IsDisposed) _shadowForm.Dispose();
-                _shadowForm = null;
-            }
-
-            switch (newShadowType)
+            switch (ShadowType)
             {
                 case MetroFormShadowType.Flat:
-                    _shadowForm = new MetroFlatDropShadow(this);
-                    break;
+                    shadowForm = new MetroFlatDropShadow(this);
+                    return;
 
                 case MetroFormShadowType.DropShadow:
-                    _shadowForm = new MetroRealisticDropShadow(this);
-                    break;
+                    shadowForm = new MetroRealisticDropShadow(this);
+                    return;
 
-                case MetroFormShadowType.SystemAeroShadow:
-                    _shadowForm = new MetroAeroDropShadow(this);
-                    break;
+                case MetroFormShadowType.None:
+                    return;
 
-                case MetroFormShadowType.SystemDropShadow:
-                    SetCsDropShadow(true);
-                    break;
+                default:
+                    shadowForm = new MetroFlatDropShadow(this);
+                    return;
             }
-
-            _currentShadowType = newShadowType;
         }
 
-        [SecuritySafeCritical]
-        private static bool IsAeroThemeEnabled()
+        private void RemoveShadow()
         {
-            if (Environment.OSVersion.Version.Major <= 5) return false; // Make sure we dont even call the API !!
+            if (shadowForm == null || shadowForm.IsDisposed) return;
 
-            bool aeroEnabled;
-            DwmApi.DwmIsCompositionEnabled(out aeroEnabled);
-            return aeroEnabled;
-        }
-
-        private static bool IsDropShadowSupported()
-        {
-            return Environment.OSVersion.Version.Major > 5 && SystemInformation.IsDropShadowEnabled;
-        }
-
-        [SecuritySafeCritical]
-        private void SetCsDropShadow(bool hasShadow)
-        {
-            const int CS_DROPSHADOW = 0x20000;
-            const int GCL_STYLE = -26;
-
-            if (!IsDropShadowSupported())
-                return;
-            int classStyle = WinApi.GetClassLongPtr(Handle, GCL_STYLE).ToInt32();
-            if (hasShadow)
-                classStyle |= CS_DROPSHADOW;
-            else
-                classStyle &= ~CS_DROPSHADOW;
-            WinApi.SetClassLongPtr(Handle, GCL_STYLE, new IntPtr(classStyle));
-            //Is there a way to force Windows to update the class style ??
-            //WinApi.SetWindowPos(Handle, IntPtr.Zero, 0, 0, 0, 0, WinApi.SetWindowPosFlags.FRAMECHANGED |
-            //    WinApi.SetWindowPosFlags.NOMOVE | WinApi.SetWindowPosFlags.NOSIZE | WinApi.SetWindowPosFlags.NOZORDER);
-            //WinApi.RedrawWindow(Handle, IntPtr.Zero, IntPtr.Zero, WinApi.RedrawWindowFlags.Invalidate | WinApi.RedrawWindowFlags.Frame);
+            shadowForm.Visible = false;
+            Owner = shadowForm.Owner;
+            shadowForm.Owner = null;
+            shadowForm.Dispose();
+            shadowForm = null;
         }
 
         #region MetroShadowBase
 
         protected abstract class MetroShadowBase : Form
         {
-            protected MetroForm TargetForm { get; set; }
+            protected Form TargetForm { get; private set; }
 
-            private readonly int _shadowSize;
-            private readonly int _wsExStyle;
+            private readonly int shadowSize;
+            private readonly int wsExStyle;
 
-            private const int TICKS_PER_MS = 10000;
-            private const long RESIZE_REDRAW_INTERVAL = 10*TICKS_PER_MS; 
-
-            protected MetroShadowBase(MetroForm targetForm, int shadowSize, int wsExStyle)
+            protected MetroShadowBase(Form targetForm, int shadowSize, int wsExStyle)
             {
                 TargetForm = targetForm;
-                _shadowSize = shadowSize;
-                _wsExStyle = wsExStyle;
-
-                MaximizeBox = false;
-                MinimizeBox = false;
-                ShowInTaskbar = false;
-                ShowIcon = false;
-                FormBorderStyle = FormBorderStyle.None;
+                this.shadowSize = shadowSize;
+                this.wsExStyle = wsExStyle;
 
                 TargetForm.Activated += OnTargetFormActivated;
                 TargetForm.ResizeBegin += OnTargetFormResizeBegin;
@@ -853,46 +1122,18 @@ namespace MetroFramework.Forms
                 TargetForm.Move += OnTargetFormMove;
                 TargetForm.Resize += OnTargetFormResize;
 
-                // When a form is owned by another form, it is closed or hidden with the owner form.
-                // Owned forms are also never displayed behind their owner form. 
-
                 if (TargetForm.Owner != null)
                     Owner = TargetForm.Owner;
 
                 TargetForm.Owner = this;
 
-                // This should "do the right thing" (tm)
-                OnTargetFormVisibleChanged(this, new EventArgs());
-            }
+                MaximizeBox = false;
+                MinimizeBox = false;
+                ShowInTaskbar = false;
+                ShowIcon = false;
+                FormBorderStyle = FormBorderStyle.None;
 
-            [SecuritySafeCritical]
-            protected override void OnLoad(EventArgs e)
-            {
-                base.OnLoad(e);
                 Bounds = GetShadowBounds();
-#if DEBUG
-                // Uncomment to debug shadow painting
-                //TargetForm.Opacity = 0.5;
-#endif
-            }
-
-            protected override void Dispose(bool disposing)
-            {
-                if (disposing)
-                {
-                    TargetForm.Activated -= OnTargetFormActivated;
-                    TargetForm.ResizeBegin -= OnTargetFormResizeBegin;
-                    TargetForm.ResizeEnd -= OnTargetFormResizeEnd;
-                    TargetForm.VisibleChanged -= OnTargetFormVisibleChanged;
-                    TargetForm.SizeChanged -= OnTargetFormSizeChanged;
-
-                    TargetForm.Move -= OnTargetFormMove;
-                    TargetForm.Resize -= OnTargetFormResize;
-
-                    TargetForm.Owner = Owner; // dis-own so we don't dispose it
-                    Owner = TargetForm = null;
-                }
-                base.Dispose(disposing);
             }
 
             protected override CreateParams CreateParams
@@ -900,7 +1141,7 @@ namespace MetroFramework.Forms
                 get
                 {
                     CreateParams cp = base.CreateParams;
-                    cp.ExStyle |= _wsExStyle;
+                    cp.ExStyle |= wsExStyle;
                     return cp;
                 }
             }
@@ -908,7 +1149,7 @@ namespace MetroFramework.Forms
             private Rectangle GetShadowBounds()
             {
                 Rectangle r = TargetForm.Bounds;
-                r.Inflate(_shadowSize, _shadowSize);
+                r.Inflate(shadowSize, shadowSize);
                 return r;
             }
 
@@ -916,10 +1157,168 @@ namespace MetroFramework.Forms
 
             protected abstract void ClearShadow();
 
-            #region Helpers
+            #region Event Handlers
+
+            private bool isBringingToFront;
+
+            protected override void OnDeactivate(EventArgs e)
+            {
+                base.OnDeactivate(e);
+                isBringingToFront = true;
+            }
+
+            private void OnTargetFormActivated(object sender, EventArgs e)
+            {
+                if (Visible) Update();
+                if (isBringingToFront)
+                {
+                    Visible = true;
+                    isBringingToFront = false;
+                    return;
+                }
+                BringToFront();
+            }
+
+            private void OnTargetFormVisibleChanged(object sender, EventArgs e)
+            {
+                Visible = TargetForm.Visible && TargetForm.WindowState != FormWindowState.Minimized;
+                Update();
+            }
+
+            private long lastResizedOn;
+
+            private bool IsResizing { get { return lastResizedOn > 0; } }
+
+            private void OnTargetFormResizeBegin(object sender, EventArgs e)
+            {
+                lastResizedOn = DateTime.Now.Ticks;
+            }
+
+            private void OnTargetFormMove(object sender, EventArgs e)
+            {
+                if (!TargetForm.Visible || TargetForm.WindowState != FormWindowState.Normal)
+                {
+                    Visible = false;
+                }
+                else
+                {
+                    Bounds = GetShadowBounds();
+                }
+            }
+
+            private void OnTargetFormResize(object sender, EventArgs e)
+            {
+                ClearShadow();
+            }
+
+            private void OnTargetFormSizeChanged(object sender, EventArgs e)
+            {
+                Bounds = GetShadowBounds();
+
+                if (IsResizing)
+                {
+                    return;
+                }
+
+                PaintShadowIfVisible();
+            }
+
+            private void OnTargetFormResizeEnd(object sender, EventArgs e)
+            {
+                lastResizedOn = 0;
+                PaintShadowIfVisible();
+            }
+
+            private void PaintShadowIfVisible()
+            {
+                if (TargetForm.Visible && TargetForm.WindowState != FormWindowState.Minimized)
+                    PaintShadow();
+            }
+
+            #endregion
+
+            #region Constants
+
+            protected const int WS_EX_TRANSPARENT = 0x20;
+            protected const int WS_EX_LAYERED = 0x80000;
+            protected const int WS_EX_NOACTIVATE = 0x8000000;
+
+            private const int TICKS_PER_MS = 10000;
+            private const long RESIZE_REDRAW_INTERVAL = 1000 * TICKS_PER_MS;
+
+            #endregion
+        }
+
+        #endregion
+
+        #region Aero DropShadow
+
+        protected class MetroAeroDropShadow : MetroShadowBase
+        {
+            public MetroAeroDropShadow(Form targetForm)
+                : base(targetForm, 0, WS_EX_TRANSPARENT | WS_EX_NOACTIVATE)
+            {
+                FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            }
+
+            protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
+            {
+                if (specified == BoundsSpecified.Size) return;
+                base.SetBoundsCore(x, y, width, height, specified);
+            }
+
+            protected override void PaintShadow() { Visible = true; }
+
+            protected override void ClearShadow() { }
+
+        }
+
+        #endregion
+
+        #region Flat DropShadow
+
+        protected class MetroFlatDropShadow : MetroShadowBase
+        {
+            private Point Offset = new Point(-6, -6);
+
+            public MetroFlatDropShadow(Form targetForm)
+                : base(targetForm, 6, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE)
+            {
+            }
+
+            protected override void OnLoad(EventArgs e)
+            {
+                base.OnLoad(e);
+                PaintShadow();
+            }
+
+            protected override void OnPaint(PaintEventArgs e)
+            {
+                Visible = true;
+                PaintShadow();
+            }
+
+            protected override void PaintShadow()
+            {
+                using (Bitmap getShadow = DrawBlurBorder())
+                    SetBitmap(getShadow, 255);
+            }
+
+            protected override void ClearShadow()
+            {
+                Bitmap img = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(img);
+                g.Clear(Color.Transparent);
+                g.Flush();
+                g.Dispose();
+                SetBitmap(img, 255);
+                img.Dispose();
+            }
+
+            #region Drawing methods
 
             [SecuritySafeCritical]
-            protected void SetBitmap(Bitmap bitmap, byte opacity)
+            private void SetBitmap(Bitmap bitmap, byte opacity)
             {
                 if (bitmap.PixelFormat != PixelFormat.Format32bppArgb)
                     throw new ApplicationException("The bitmap must be 32ppp with alpha-channel.");
@@ -934,16 +1333,14 @@ namespace MetroFramework.Forms
                     hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
                     oldBitmap = WinApi.SelectObject(memDc, hBitmap);
 
-                    Size size = new Size(bitmap.Width, bitmap.Height);
-                    Point pointSource = new Point(0, 0);
-                    Point topPos = new Point(Left, Top);
-                    WinApi.BLENDFUNCTION blend = new WinApi.BLENDFUNCTION
-                    {
-                        BlendOp = WinApi.AC_SRC_OVER,
-                        BlendFlags = 0,
-                        SourceConstantAlpha = opacity,
-                        AlphaFormat = WinApi.AC_SRC_ALPHA
-                    };
+                    WinApi.SIZE size = new WinApi.SIZE(bitmap.Width, bitmap.Height);
+                    WinApi.POINT pointSource = new WinApi.POINT(0, 0);
+                    WinApi.POINT topPos = new WinApi.POINT(Left, Top);
+                    WinApi.BLENDFUNCTION blend = new WinApi.BLENDFUNCTION();
+                    blend.BlendOp = WinApi.AC_SRC_OVER;
+                    blend.BlendFlags = 0;
+                    blend.SourceConstantAlpha = opacity;
+                    blend.AlphaFormat = WinApi.AC_SRC_ALPHA;
 
                     WinApi.UpdateLayeredWindow(Handle, screenDc, ref topPos, ref size, memDc, ref pointSource, 0, ref blend, WinApi.ULW_ALPHA);
                 }
@@ -959,156 +1356,47 @@ namespace MetroFramework.Forms
                 }
             }
 
-            #endregion
-
-            #region event handlers
-
-            private bool _isBringingToFront;
-
-            protected override void OnDeactivate(EventArgs e)
+            private Bitmap DrawBlurBorder()
             {
-                base.OnDeactivate(e);
-                _isBringingToFront = true;
+                return (Bitmap)DrawOutsetShadow(Color.Black, new Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height));
             }
 
-            private void OnTargetFormActivated(object sender, EventArgs e)
+            private Image DrawOutsetShadow(Color color, Rectangle shadowCanvasArea)
             {
-                if (Visible) Update();
-                if (_isBringingToFront)
+                Rectangle rOuter = shadowCanvasArea;
+                Rectangle rInner = new Rectangle(shadowCanvasArea.X + (-Offset.X - 1), shadowCanvasArea.Y + (-Offset.Y - 1), shadowCanvasArea.Width - (-Offset.X * 2 - 1), shadowCanvasArea.Height - (-Offset.Y * 2 - 1));
+
+                Bitmap img = new Bitmap(rOuter.Width, rOuter.Height, PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(img);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                using (Brush bgBrush = new SolidBrush(Color.FromArgb(30, Color.Black)))
                 {
-                    _isBringingToFront = false;
-                    return;
+                    g.FillRectangle(bgBrush, rOuter);
                 }
-                BringToFront();
-            }
-
-            private void OnTargetFormVisibleChanged(object sender, EventArgs e)
-            {
-                Visible = TargetForm.Visible && TargetForm.WindowState == FormWindowState.Normal;
-                Update();
-            }
-
-            private long _lastResizedOn;
-
-            private bool IsResizing { get { return _lastResizedOn > 0; } }
-
-            private void OnTargetFormResizeBegin(object sender, EventArgs e)
-            {
-                _lastResizedOn = DateTime.Now.Ticks;
-            }
-
-            private void OnTargetFormMove(object sender, EventArgs e)
-            {
-                if (!TargetForm.Visible || TargetForm.WindowState != FormWindowState.Normal) 
-                    Visible = false; // maximized 
-                else
-                    Bounds = GetShadowBounds(); // just track the window - no need to invalidate
-            }
-
-            private void OnTargetFormResize(object sender, EventArgs e)
-            {
-                // TODO: This is causing massive flickering - can this be prevented??
-                //ClearShadow();
-            }
-
-            private void OnTargetFormSizeChanged(object sender, EventArgs e)
-            {
-                Bounds = GetShadowBounds();
-                if (IsResizing)
+                using (Brush bgBrush = new SolidBrush(Color.FromArgb(60, Color.Black)))
                 {
-                    if (DateTime.Now.Ticks - _lastResizedOn <= RESIZE_REDRAW_INTERVAL)
-                        return;
-                    _lastResizedOn = DateTime.Now.Ticks;
+                    g.FillRectangle(bgBrush, rInner);
                 }
 
-                PaintShadowIfVisible();
-            }
+                g.Flush();
+                g.Dispose();
 
-            private void OnTargetFormResizeEnd(object sender, EventArgs e)
-            {
-                _lastResizedOn = 0;
-                PaintShadowIfVisible();
-            }
-
-            private void PaintShadowIfVisible()
-            {
-                if (TargetForm.Visible && TargetForm.WindowState == FormWindowState.Normal)
-                    PaintShadow();
+                return img;
             }
 
             #endregion
-
-            #region Constants
-
-            /// <summary>
-            ///     WS_EX_TRANSPARENT does two things:
-            ///     (i) It makes the window 'transparent' to mouse clicks, i.e. all clicks are forwarded to windows below.
-            ///     (ii) it alters the painting algorithm as follows: 
-            ///     If a WS_EX_TRANSPARENT window needs to be painted, and it has any non-WS_EX_TRANSPARENT 
-            ///     windows siblings (which belong to the same process) which also need to be painted, 
-            ///     then the window manager will paint the non-WS_EX_TRANSPARENT windows first.
-            /// </summary>
-            /// <seealso href="http://blogs.msdn.com/b/oldnewthing/archive/2012/12/17/10378525.aspx"/>
-            protected const int WS_EX_TRANSPARENT = 0x20;
-
-            /// <summary>
-            ///     Using a layered window can significantly improve performance and visual effects for a window that has a complex shape, 
-            ///     animates its shape, or wishes to use alpha blending effects. The system automatically composes and repaints layered 
-            ///     windows and the windows of underlying applications. As a result, layered windows are rendered smoothly, without the 
-            ///     flickering typical of complex window regions. In addition, layered windows can be partially translucent, that is, alpha-blended.
-            /// </summary>
-            protected const int WS_EX_LAYERED = 0x80000;
-
-            /// <summary>
-            ///     A top-level window created with this style does not become the foreground window when the user clicks it. 
-            ///     The system does not bring this window to the foreground when the user minimizes or closes the foreground window.
-            /// </summary>
-            protected const int WS_EX_NOACTIVATE = 0x8000000;
-
-            #endregion
-
         }
 
         #endregion
 
-        #region MetroAeroDropShadow
+        #region Realistic DropShadow
 
-        protected class MetroAeroDropShadow : MetroShadowBase
+        protected class MetroRealisticDropShadow : MetroShadowBase
         {
-            public MetroAeroDropShadow(MetroForm targetForm)
-                : base(targetForm, 0, WS_EX_TRANSPARENT | WS_EX_NOACTIVATE )
-            {
-                // Results differ between 32-bit and 64-bit... In 32-it, we seem to be able to use all border styles
-                // (except None, of course). In 64 bit, the only fully working style is SizableToolWindow.
-                // In particular (64-bit):
-                //   FixedDialog gives a small transparent frame and round corners. 
-                //   Same with Fixed 3D or FixedSingle, but there are strange animation artifacts!?
-                //   FixedToolWindow results in a small frame straight corners, no anim artifacts
-                //   Sizable comes with no frames, but artifacts (64, OK in 32)
-                FormBorderStyle = FormBorderStyle.SizableToolWindow;
-                TransparencyKey = Color.Black;
-            }
-
-            protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
-            {
-                // ignore bogus size-only updates, we get better info from TargetForm
-                if (specified == BoundsSpecified.Size) return;
-                base.SetBoundsCore(x, y, width, height, specified);
-            }
-
-            protected override void PaintShadow() { Visible = true; }
-
-            protected override void ClearShadow() { /* nothing */ }
-            protected override void OnPaint(PaintEventArgs e) { /* nothing */ }
-            protected override void OnPaintBackground(PaintEventArgs e) { /* nothing */ }
-        }
-
-        #endregion
-
-        protected abstract class MetroLayeredShadowBase : MetroShadowBase
-        {
-            protected MetroLayeredShadowBase(MetroForm targetForm, int distance)
-                : base(targetForm, distance, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE)
+            public MetroRealisticDropShadow(Form targetForm)
+                : base(targetForm, 15, WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE)
             {
             }
 
@@ -1118,151 +1406,152 @@ namespace MetroFramework.Forms
                 PaintShadow();
             }
 
-            protected override void PaintShadow()
+            protected override void OnPaint(PaintEventArgs e)
             {
                 Visible = true;
-                using (Bitmap getShadow = DrawBorder())
+                PaintShadow();
+            }
+
+            protected override void PaintShadow()
+            {
+                using (Bitmap getShadow = DrawBlurBorder())
                     SetBitmap(getShadow, 255);
             }
 
             protected override void ClearShadow()
             {
-                // This flickers when running on console, no matter if we clear the shadow nor not
-                using (Bitmap img = new Bitmap(Width, Height, PixelFormat.Format32bppArgb))
-                using (Graphics g = Graphics.FromImage(img))
+                Bitmap img = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(img);
+                g.Clear(Color.Transparent);
+                g.Flush();
+                g.Dispose();
+                SetBitmap(img, 255);
+                img.Dispose();
+            }
+
+            #region Drawing methods
+
+            [SecuritySafeCritical]
+            private void SetBitmap(Bitmap bitmap, byte opacity)
+            {
+                if (bitmap.PixelFormat != PixelFormat.Format32bppArgb)
+                    throw new ApplicationException("The bitmap must be 32ppp with alpha-channel.");
+
+                IntPtr screenDc = WinApi.GetDC(IntPtr.Zero);
+                IntPtr memDc = WinApi.CreateCompatibleDC(screenDc);
+                IntPtr hBitmap = IntPtr.Zero;
+                IntPtr oldBitmap = IntPtr.Zero;
+
+                try
                 {
-                    g.Clear(Color.Transparent);
-                    SetBitmap(img, 255);
+                    hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
+                    oldBitmap = WinApi.SelectObject(memDc, hBitmap);
+
+                    WinApi.SIZE size = new WinApi.SIZE(bitmap.Width, bitmap.Height);
+                    WinApi.POINT pointSource = new WinApi.POINT(0, 0);
+                    WinApi.POINT topPos = new WinApi.POINT(Left, Top);
+                    WinApi.BLENDFUNCTION blend = new WinApi.BLENDFUNCTION
+                        {
+                            BlendOp = WinApi.AC_SRC_OVER,
+                            BlendFlags = 0,
+                            SourceConstantAlpha = opacity,
+                            AlphaFormat = WinApi.AC_SRC_ALPHA
+                        };
+
+                    WinApi.UpdateLayeredWindow(Handle, screenDc, ref topPos, ref size, memDc, ref pointSource, 0, ref blend, WinApi.ULW_ALPHA);
                 }
-            }
-
-            protected abstract Bitmap DrawBorder();
-
-        }
-
-        #region Flat DropShadow Form
-
-        protected class MetroFlatDropShadow : MetroLayeredShadowBase
-        {
-            private const int DISTANCE = 6;
-
-            public MetroFlatDropShadow(MetroForm targetForm) 
-                : base(targetForm, DISTANCE)
-            {
-            }
-
-            protected override Bitmap DrawBorder()
-            {
-                return DrawBorder(Color.Black, ClientRectangle);
-            }
-
-            private Bitmap DrawBorder(Color color, Rectangle canvas)
-            {
-                Bitmap img = new Bitmap(canvas.Width, canvas.Height, PixelFormat.Format32bppArgb);
-                using( Graphics g = Graphics.FromImage(img))
-                using( Region clip = g.Clip )
+                finally
                 {
-                    Rectangle r = canvas;
-                    r.Inflate(-DISTANCE, -DISTANCE);
-                    clip.Exclude(r);
-                    g.Clip = clip;
-
-                    g.SmoothingMode = SmoothingMode.AntiAlias;
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                    r = new Rectangle( 2, 2, canvas.Width - 5, canvas.Height -5);
-                    using (var p = new Pen(Color.FromArgb(30, color), 6f))
+                    WinApi.ReleaseDC(IntPtr.Zero, screenDc);
+                    if (hBitmap != IntPtr.Zero)
                     {
-                        p.LineJoin = LineJoin.Round;
-                        g.DrawRectangle(p, r);
+                        WinApi.SelectObject(memDc, oldBitmap);
+                        WinApi.DeleteObject(hBitmap);
                     }
-                    r.Inflate(-3, -3);
-                    using (var p = new Pen(Color.FromArgb(60, color), 1f))
+                    WinApi.DeleteDC(memDc);
+                }
+            }
+
+            private Bitmap DrawBlurBorder()
+            {
+                return (Bitmap)DrawOutsetShadow(0, 0, 40, 1, Color.Black, new Rectangle(1, 1, ClientRectangle.Width, ClientRectangle.Height));
+            }
+
+            private Image DrawOutsetShadow(int hShadow, int vShadow, int blur, int spread, Color color, Rectangle shadowCanvasArea)
+            {
+                Rectangle rOuter = shadowCanvasArea;
+                Rectangle rInner = shadowCanvasArea;
+                rInner.Offset(hShadow, vShadow);
+                rInner.Inflate(-blur, -blur);
+                rOuter.Inflate(spread, spread);
+                rOuter.Offset(hShadow, vShadow);
+
+                Rectangle originalOuter = rOuter;
+
+                Bitmap img = new Bitmap(originalOuter.Width, originalOuter.Height, PixelFormat.Format32bppArgb);
+                Graphics g = Graphics.FromImage(img);
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                var currentBlur = 0;
+                do
+                {
+                    var transparency = (rOuter.Height - rInner.Height) / (double)(blur * 2 + spread * 2);
+                    var shadowColor = Color.FromArgb(((int)(200 * (transparency * transparency))), color);
+                    var rOutput = rInner;
+                    rOutput.Offset(-originalOuter.Left, -originalOuter.Top);
+
+                    DrawRoundedRectangle(g, rOutput, currentBlur, Pens.Transparent, shadowColor);
+                    rInner.Inflate(1, 1);
+                    currentBlur = (int)((double)blur * (1 - (transparency * transparency)));
+
+                } while (rOuter.Contains(rInner));
+
+                g.Flush();
+                g.Dispose();
+
+                return img;
+            }
+
+            private void DrawRoundedRectangle(Graphics g, Rectangle bounds, int cornerRadius, Pen drawPen, Color fillColor)
+            {
+                int strokeOffset = Convert.ToInt32(Math.Ceiling(drawPen.Width));
+                bounds = Rectangle.Inflate(bounds, -strokeOffset, -strokeOffset);
+
+                var gfxPath = new GraphicsPath();
+
+                if (cornerRadius > 0)
+                {
+                    gfxPath.AddArc(bounds.X, bounds.Y, cornerRadius, cornerRadius, 180, 90);
+                    gfxPath.AddArc(bounds.X + bounds.Width - cornerRadius, bounds.Y, cornerRadius, cornerRadius, 270, 90);
+                    gfxPath.AddArc(bounds.X + bounds.Width - cornerRadius, bounds.Y + bounds.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
+                    gfxPath.AddArc(bounds.X, bounds.Y + bounds.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
+                }
+                else
+                {
+                    gfxPath.AddRectangle(bounds);
+                }
+
+                gfxPath.CloseAllFigures();
+
+                if (cornerRadius > 5)
+                {
+                    using (SolidBrush b = new SolidBrush(fillColor))
                     {
-                        p.LineJoin = LineJoin.Round;
-                        g.DrawRectangle(p, r);
+                        g.FillPath(b, gfxPath);
                     }
-
-                    return img;
                 }
-            }
-        }
-
-        #endregion
-
-        #region Windows7 DropShadow Form
-
-        protected class MetroRealisticDropShadow : MetroLayeredShadowBase
-        {
-            private const int DISTANCE = 10;
-            private const int TRANSPARENCY = 60;
-
-            // not tested yet:
-            private const int OFFSET_H = 0;
-            private const int OFFSET_V = 0;
-
-           public MetroRealisticDropShadow(MetroForm targetForm) 
-                : base(targetForm, DISTANCE)
-            {
-            }
-
-            protected override Bitmap DrawBorder()
-            {
-                return DrawBorder(OFFSET_H, OFFSET_V, 30, Color.Black, ClientRectangle);
-            }
-
-            private Bitmap DrawBorder(int hShadow, int vShadow, int blur, Color color, Rectangle canvas)
-            {
-                Bitmap img = new Bitmap(canvas.Width, canvas.Height, PixelFormat.Format32bppArgb);
-                using (Graphics g = Graphics.FromImage(img))
-                using (Region clip = g.Clip)
+                if (drawPen != Pens.Transparent)
                 {
-                    // avoid flickering by re-painting the target form's client area
-                    Rectangle r = canvas;
-                    r.Inflate(-DISTANCE, -DISTANCE);
-                    clip.Exclude(r);
-                    g.Clip = clip;
-
-                    g.SmoothingMode = SmoothingMode.AntiAlias;
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                    r.Offset(-1, -1); r.Width++; r.Height++;
-
-#if DEBUG
-                    // This should be drawn around the canvas
-                    //using (Pen p = new Pen(Color.DeepPink)) g.DrawRectangle(p, r);
-#endif
-                    do
+                    using (Pen p = new Pen(drawPen.Color))
                     {
-                        double scale = (canvas.Height - r.Height) / (double)(DISTANCE + DISTANCE - 1);
-                        var shadowColor = Color.FromArgb((int)(TRANSPARENCY * scale * scale), color);
-                        int cornerRadius = (blur - DISTANCE) + (int)(DISTANCE * (1 - (scale * scale)));
-
-                        var rOutput = r;
-                        rOutput.Offset(hShadow, vShadow);
-                        DrawRoundedRectangleL(g, rOutput, cornerRadius, shadowColor);
-                        r.Inflate(1, 1);
-                    } while (canvas.Width >= r.Width);
-
-                    return img;
+                        p.EndCap = p.StartCap = LineCap.Round;
+                        g.DrawPath(p, gfxPath);
+                    }
                 }
             }
 
-            private void DrawRoundedRectangleL(Graphics g, Rectangle r, int cornerRadius, Color fillColor)
-            {
-                using (GraphicsPath gfxPath = new GraphicsPath())
-                using (Pen p = new Pen(fillColor))
-                {
-                    gfxPath.AddArc(r.X, r.Y, cornerRadius, cornerRadius, 180, 90);
-                    gfxPath.AddArc(r.X + r.Width - cornerRadius, r.Y, cornerRadius, cornerRadius, 270, 90);
-                    gfxPath.AddArc(r.X + r.Width - cornerRadius, r.Y + r.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
-                    gfxPath.AddArc(r.X, r.Y + r.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
-                    gfxPath.CloseAllFigures();
-                    p.LineJoin = LineJoin.Round;
-                    g.DrawPath(p, gfxPath);
-                }
-            }
-
+            #endregion
         }
 
         #endregion
@@ -1272,7 +1561,7 @@ namespace MetroFramework.Forms
         #region Helper Methods
 
         [SecuritySafeCritical]
-        private void RemoveCloseButton()
+        public void RemoveCloseButton()
         {
             IntPtr hMenu = WinApi.GetSystemMenu(Handle, false);
             if (hMenu == IntPtr.Zero) return;
@@ -1293,6 +1582,5 @@ namespace MetroFramework.Forms
         }
 
         #endregion
-
     }
 }

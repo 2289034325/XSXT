@@ -21,26 +21,36 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace MetroFramework.Drawing
 {
-    [Obsolete("Use new XML StyleManager", false)]
-    public static class MetroPaint
+    public class MetroPaintEventArgs : EventArgs
     {
+        public Color BackColor { get; private set; }
+        public Color ForeColor { get; private set; }
+        public Graphics Graphics { get; private set; }
 
+        public MetroPaintEventArgs(Color backColor, Color foreColor, Graphics g)
+        {
+            BackColor = backColor;
+            ForeColor = foreColor;
+            Graphics = g;
+        }
+    }
+
+    public sealed class MetroPaint
+    {
         public sealed class BorderColor
         {
             public static Color Form(MetroThemeStyle theme)
             {
-                // these are co-ordinated with the flat shadow
-
                 if (theme == MetroThemeStyle.Dark)
-                    return Color.FromArgb(153, 153, 153);
+                    return Color.FromArgb(68, 68, 68);
 
-                return Color.FromArgb(153, 153, 153);
+                return Color.FromArgb(204, 204, 204);
             }
 
             public static class Button
@@ -486,7 +496,7 @@ namespace MetroFramework.Drawing
                 }
             }
 
-            public static Color Form(MetroThemeStyle theme)
+            public static Color Title(MetroThemeStyle theme)
             {
                 if (theme == MetroThemeStyle.Dark)
                     return Color.FromArgb(255, 255, 255);
@@ -692,7 +702,8 @@ namespace MetroFramework.Drawing
             }
         }
 
-        [Obsolete]
+        #region Helper Methods
+
         public static Color GetStyleColor(MetroColorStyle style)
         {
             switch (style)
@@ -744,7 +755,6 @@ namespace MetroFramework.Drawing
             }
         }
 
-        [Obsolete]
         public static SolidBrush GetStyleBrush(MetroColorStyle style)
         {
             switch (style)
@@ -796,7 +806,6 @@ namespace MetroFramework.Drawing
             }
         }
 
-        [Obsolete]
         public static Pen GetStylePen(MetroColorStyle style)
         {
             switch (style)
@@ -848,5 +857,110 @@ namespace MetroFramework.Drawing
             }
         }
 
+        public static StringFormat GetStringFormat(ContentAlignment textAlign)
+        {
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+            switch (textAlign)
+            {
+                case ContentAlignment.TopLeft:
+                    stringFormat.Alignment = StringAlignment.Near;
+                    stringFormat.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.TopCenter:
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.TopRight:
+                    stringFormat.Alignment = StringAlignment.Far;
+                    stringFormat.LineAlignment = StringAlignment.Near;
+                    break;
+
+                case ContentAlignment.MiddleLeft:
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.MiddleCenter:
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    break;
+                case ContentAlignment.MiddleRight:
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Far;
+                    break;
+
+                case ContentAlignment.BottomLeft:
+                    stringFormat.Alignment = StringAlignment.Far;
+                    stringFormat.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.BottomCenter:
+                    stringFormat.Alignment = StringAlignment.Far;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    break;
+                case ContentAlignment.BottomRight:
+                    stringFormat.Alignment = StringAlignment.Far;
+                    stringFormat.LineAlignment = StringAlignment.Far;
+                    break;
+            }
+
+            return stringFormat;
+        }
+
+        public static TextFormatFlags GetTextFormatFlags(ContentAlignment textAlign)
+        {
+            return GetTextFormatFlags(textAlign, false);
+        }
+
+        public static TextFormatFlags GetTextFormatFlags(ContentAlignment textAlign,bool WrapToLine)
+        {
+            TextFormatFlags controlFlags = TextFormatFlags.Default;
+
+            switch (WrapToLine)
+            {
+                case true:
+                    controlFlags = TextFormatFlags.WordBreak;
+                    break;
+                case false:
+                    controlFlags = TextFormatFlags.EndEllipsis;
+                    break;
+            }
+            switch (textAlign)
+            {
+                case ContentAlignment.TopLeft:
+                    controlFlags |= TextFormatFlags.Top | TextFormatFlags.Left;
+                    break;
+                case ContentAlignment.TopCenter:
+                    controlFlags |= TextFormatFlags.Top | TextFormatFlags.HorizontalCenter;
+                    break;
+                case ContentAlignment.TopRight:
+                    controlFlags |= TextFormatFlags.Top | TextFormatFlags.Right;
+                    break;
+
+                case ContentAlignment.MiddleLeft:
+                    controlFlags |= TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
+                    break;
+                case ContentAlignment.MiddleCenter:
+                    controlFlags |= TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
+                    break;
+                case ContentAlignment.MiddleRight:
+                    controlFlags |= TextFormatFlags.VerticalCenter | TextFormatFlags.Right;
+                    break;
+
+                case ContentAlignment.BottomLeft:
+                    controlFlags |= TextFormatFlags.Bottom | TextFormatFlags.Left;
+                    break;
+                case ContentAlignment.BottomCenter:
+                    controlFlags |= TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter;
+                    break;
+                case ContentAlignment.BottomRight:
+                    controlFlags |= TextFormatFlags.Bottom | TextFormatFlags.Right;
+                    break;
+            }
+
+            return controlFlags;
+        }
+
+        #endregion
     }
 }

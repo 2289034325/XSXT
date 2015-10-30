@@ -1,32 +1,5 @@
-﻿#region Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-/*
- 
-MetroFramework - Windows Modern UI for .NET WinForms applications
-
-Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in the 
-Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the 
-following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
- * */
-#endregion
-
-#region Copyright (c) 2009, Yves Goergen
-// Copyright (c) 2009, Yves Goergen
+﻿// Copyright (c) 2009, Yves Goergen, http://unclassified.de
+// Modification for MetroFramework (c) 2011, Sven Walter http://github.com/viperneo
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -47,72 +20,193 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#endregion
 
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using MetroFramework.Components;
+using MetroFramework.Drawing;
+using MetroFramework.Interfaces;
+
 namespace MetroFramework.Controls
 {
-    [Designer("MetroFramework.Design.MetroProgressSpinnerDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
+    [Designer("MetroFramework.Design.Controls.MetroProgressSpinnerDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     [ToolboxBitmap(typeof(ProgressBar))]
-    public partial class MetroProgressSpinner : MetroControlBase
+    public class MetroProgressSpinner : Control, IMetroControl
     {
+        #region Interface
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+        protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
+            {
+                CustomPaintBackground(this, e);
+            }
+        }
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaint;
+        protected virtual void OnCustomPaint(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
+            {
+                CustomPaint(this, e);
+            }
+        }
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+        protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
+            {
+                CustomPaintForeground(this, e);
+            }
+        }
+
+        private MetroColorStyle metroStyle = MetroColorStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroColorStyle.Default)]
+        public MetroColorStyle Style
+        {
+            get
+            {
+                if (DesignMode || metroStyle != MetroColorStyle.Default)
+                {
+                    return metroStyle;
+                }
+
+                if (StyleManager != null && metroStyle == MetroColorStyle.Default)
+                {
+                    return StyleManager.Style;
+                }
+                if (StyleManager == null && metroStyle == MetroColorStyle.Default)
+                {
+                    return MetroDefaults.Style;
+                }
+
+                return metroStyle;
+            }
+            set { metroStyle = value; }
+        }
+
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroThemeStyle.Default)]
+        public MetroThemeStyle Theme
+        {
+            get
+            {
+                if (DesignMode || metroTheme != MetroThemeStyle.Default)
+                {
+                    return metroTheme;
+                }
+
+                if (StyleManager != null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return StyleManager.Theme;
+                }
+                if (StyleManager == null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return MetroDefaults.Theme;
+                }
+
+                return metroTheme;
+            }
+            set { metroTheme = value; }
+        }
+
+        private MetroStyleManager metroStyleManager = null;
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MetroStyleManager StyleManager
+        {
+            get { return metroStyleManager; }
+            set { metroStyleManager = value; }
+        }
+
+        private bool useCustomBackColor = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseCustomBackColor
+        {
+            get { return useCustomBackColor; }
+            set { useCustomBackColor = value; }
+        }
+
+        private bool useCustomForeColor = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseCustomForeColor
+        {
+            get { return useCustomForeColor; }
+            set { useCustomForeColor = value; }
+        }
+
+        private bool useStyleColors = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseStyleColors
+        {
+            get { return useStyleColors; }
+            set { useStyleColors = value; }
+        }
+
+        [Browsable(false)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
+        [DefaultValue(false)]
+        public bool UseSelectable
+        {
+            get { return GetStyle(ControlStyles.Selectable); }
+            set { SetStyle(ControlStyles.Selectable, value); }
+        }
+
+        #endregion
 
         #region Fields
 
-        private readonly Timer timer;
+        private Timer timer;
         private int progress;
         private float angle = 270;
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the progress spinner is spinning.
-		/// </summary>
-		[DefaultValue(true)]
-		[Description("Specifies whether the progress spinner is spinning.")]
-        [Category(MetroDefaults.CatBehavior)]
+        [DefaultValue(true)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
         public bool Spinning
         {
             get { return timer.Enabled; }
             set { timer.Enabled = value; }
         }
 
-		/// <summary>
-		/// Gets or sets the current progress value. Set -1 to indicate that the current progress is unknown.
-		/// </summary>
-		[DefaultValue(0)]
-		[Description("The current progress value. Set -1 to indicate that the current progress is unknown.")]
-        [Category(MetroDefaults.CatAppearance)]
+        [DefaultValue(0)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int Value
         {
             get { return progress; }
             set
             {
                 if (value != -1 && (value < minimum || value > maximum))
-                    throw new ArgumentOutOfRangeException("Progress value must be -1 or between Minimum and Maximum.");
+                    throw new ArgumentOutOfRangeException("Progress value must be -1 or between Minimum and Maximum.", (Exception)null);
                 progress = value;
                 Refresh();
             }
         }
 
         private int minimum = 0;
-		/// <summary>
-		/// Gets or sets the minimum progress value.
-		/// </summary>
-		[DefaultValue(0)]
-		[Description("The minimum progress value.")]
-        [Category(MetroDefaults.CatAppearance)]
+        [DefaultValue(0)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int Minimum
         {
             get { return minimum; }
             set
             {
                 if (value < 0)
-                    throw new ArgumentOutOfRangeException("Minimum value must be >= 0.");
+                    throw new ArgumentOutOfRangeException("Minimum value must be >= 0.", (Exception)null);
                 if (value >= maximum)
-                    throw new ArgumentOutOfRangeException("Minimum value must be < Maximum.");
+                    throw new ArgumentOutOfRangeException("Minimum value must be < Maximum.", (Exception)null);
                 minimum = value;
                 if (progress != -1 && progress < minimum)
                     progress = minimum;
@@ -121,19 +215,15 @@ namespace MetroFramework.Controls
         }
 
         private int maximum = 100;
-		/// <summary>
-		/// Gets or sets the maximum progress value.
-		/// </summary>
-		[DefaultValue(0)]
-		[Description("The maximum progress value.")]
-        [Category(MetroDefaults.CatAppearance)]
+        [DefaultValue(0)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int Maximum
         {
             get { return maximum; }
             set
             {
                 if (value <= minimum)
-                    throw new ArgumentOutOfRangeException("Maximum value must be > Minimum.");
+                    throw new ArgumentOutOfRangeException("Maximum value must be > Minimum.", (Exception)null);
                 maximum = value;
                 if (progress > maximum)
                     progress = maximum;
@@ -142,72 +232,68 @@ namespace MetroFramework.Controls
         }
 
         private bool ensureVisible = true;
-		/// <summary>
-		/// Gets or sets a value indicating whether the progress spinner should be visible at all progress values.
-		/// </summary>
-		[DefaultValue(true)]
-		[Description("Specifies whether the progress spinner should be visible at all progress values.")]
-        [Category(MetroDefaults.CatAppearance)]
+        [DefaultValue(true)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool EnsureVisible
         {
             get { return ensureVisible; }
             set { ensureVisible = value; Refresh(); }
         }
 
-        private float speed = 1f;
-		/// <summary>
-		/// Gets or sets the speed factor. 1 is the original speed, less is slower, greater is faster.
-		/// </summary>
-		[DefaultValue(1f)]
-		[Description("The speed factor. 1 is the original speed, less is slower, greater is faster.")]
-        [Category(MetroDefaults.CatBehavior)]
+        private float speed;
+        [DefaultValue(1f)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
         public float Speed
         {
             get { return speed; }
             set
             {
                 if (value <= 0 || value > 10)
-                    throw new ArgumentOutOfRangeException("Speed value must be > 0 and <= 10.");
+                    throw new ArgumentOutOfRangeException("Speed value must be > 0 and <= 10.", (Exception)null);
+
                 speed = value;
             }
         }
 
         private bool backwards;
-		/// <summary>
-		/// Gets or sets a value indicating whether the progress spinner should spin anti-clockwise.
-		/// </summary>
-		[DefaultValue(false)]
-		[Description("Specifies whether the progress spinner should spin anti-clockwise.")]
-        [Category(MetroDefaults.CatBehavior)]
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
         public bool Backwards
         {
             get { return backwards; }
             set { backwards = value; Refresh(); }
         }
 
+        private bool useCustomBackground = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool CustomBackground
+        {
+            get { return useCustomBackground; }
+            set { useCustomBackground = value; }
+        }
+
         #endregion
+
+        #region Constructor
 
         public MetroProgressSpinner()
         {
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            UseTransparency();
+            timer = new Timer();
+            timer.Interval = 20;
+            timer.Tick += timer_Tick;
+            timer.Enabled = true;
 
             Width = 16;
             Height = 16;
-            timer = new Timer { Interval = 20, Enabled = true };
+            speed = 1;
+            DoubleBuffered = true;
         }
 
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-            if (!DesignMode) timer.Tick += (s, a) => { angle += speed * (backwards ? -6f : 6f); Invalidate(); };
-        }
+        #endregion
 
         #region Public Methods
 
-		/// <summary>
-		/// Resets the progress spinner's status.
-		/// </summary>
         public void Reset()
         {
             progress = minimum;
@@ -217,70 +303,150 @@ namespace MetroFramework.Controls
 
         #endregion
 
-        #region Paint Methods
+        #region Management Methods
 
-        // override to always use style color
-        public override Color EffectiveForeColor
+        private void timer_Tick(object sender, EventArgs e)
         {
-            get { return ShouldSerializeForeColor() || MetroControlState != "Normal" ? base.EffectiveForeColor : GetStyleColor(); }
+            if (!DesignMode)
+            {
+                angle += 6f * speed * (backwards ? -1 : 1);
+                Refresh();
+            }
         }
 
-        protected override void OnPaintForeground(PaintEventArgs e)
+        #endregion
+
+        #region Paint Methods
+
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            using (Pen forePen = new Pen(EffectiveForeColor, (float)Width / 5))
+            try
+            {
+                Color backColor = BackColor;
+
+                if (!useCustomBackColor)
+                {
+                    if (Parent is MetroTile)
+                    {
+                        backColor = MetroPaint.GetStyleColor(Style);
+                    }
+                    else
+                    {
+                        backColor = MetroPaint.BackColor.Form(Theme);
+                    }
+                }
+
+                if (backColor.A == 255)
+                {
+                    e.Graphics.Clear(backColor);
+                    return;
+                }
+
+                base.OnPaintBackground(e);
+
+                OnCustomPaintBackground(new MetroPaintEventArgs(backColor, Color.Empty, e.Graphics));
+            }
+            catch
+            {
+                Invalidate();
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            try
+            {
+                if (GetStyle(ControlStyles.AllPaintingInWmPaint))
+                {
+                    OnPaintBackground(e);
+                }
+
+                OnCustomPaint(new MetroPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                OnPaintForeground(e);
+            }
+            catch
+            {
+                Invalidate();
+            }
+        }
+
+        protected virtual void OnPaintForeground(PaintEventArgs e)
+        {
+            Color foreColor;
+
+            if (useCustomBackground)
+            {
+                foreColor = MetroPaint.GetStyleColor(Style);
+            }
+            else
+            {
+                if (Parent is MetroTile)
+                {
+                    foreColor = MetroPaint.ForeColor.Tile.Normal(Theme);
+                }
+                else
+                {
+                    foreColor = MetroPaint.GetStyleColor(Style);
+                }
+            }
+
+            using (Pen forePen = new Pen(foreColor, (float)Width / 5))
             {
                 int padding = (int)Math.Ceiling((float)Width / 10);
 
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-                // Draw spinner pie
                 if (progress != -1)
                 {
-				    // We have a progress value, draw a solid arc line
-				    // angle is the back end of the line.
-				    // angle +/- progress is the front end of the line
-				
                     float sweepAngle;
                     float progFrac = (float)(progress - minimum) / (float)(maximum - minimum);
 
                     if (ensureVisible)
+                    {
                         sweepAngle = 30 + 300f * progFrac;
+                    }
                     else
+                    {
                         sweepAngle = 360f * progFrac;
-                    if (backwards)
-                        sweepAngle = -sweepAngle;
+                    }
 
+                    if (backwards)
+                    {
+                        sweepAngle = -sweepAngle;
+                    }
 
                     e.Graphics.DrawArc(forePen, padding, padding, Width - 2 * padding - 1, Height - 2 * padding - 1, angle, sweepAngle);
                 }
                 else
                 {
-				    // No progress value, draw a gradient arc line
-				    // angle is the opaque front end of the line
-				    // angle +/- 180° is the transparent tail end of the line
-
                     const int maxOffset = 180;
                     for (int offset = 0; offset <= maxOffset; offset += 15)
                     {
                         int alpha = 290 - (offset * 290 / maxOffset);
 
                         if (alpha > 255)
+                        {
                             alpha = 255;
-                        else if (alpha < 0)
+                        }
+                        if (alpha < 0)
+                        {
                             alpha = 0;
+                        }
+
                         Color col = Color.FromArgb(alpha, forePen.Color);
                         using (Pen gradPen = new Pen(col, forePen.Width))
                         {
                             float startAngle = angle + (offset - (ensureVisible ? 30 : 0)) * (backwards ? 1 : -1);
-                            float sweepAngle = 15 * (backwards ? 1 : -1);	// draw in reverse direction
+                            float sweepAngle = 15 * (backwards ? 1 : -1);
                             e.Graphics.DrawArc(gradPen, padding, padding, Width - 2 * padding - 1, Height - 2 * padding - 1, startAngle, sweepAngle);
                         }
                     }
                 }
             }
+
+            OnCustomPaintForeground(new MetroPaintEventArgs(Color.Empty, foreColor, e.Graphics));
         }
 
         #endregion
-
     }
 }

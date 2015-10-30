@@ -1,60 +1,187 @@
-﻿#region Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-/*
- 
-MetroFramework - Windows Modern UI for .NET WinForms applications
-
-Copyright (c) 2013 Jens Thiel, http://thielj.github.io/MetroFramework
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in the 
-Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the 
-following conditions:
-
-The above copyright notice and this permission notice shall be included in 
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-Portions of this software are (c) 2011 Sven Walter, http://github.com/viperneo
-
+﻿/**
+ * MetroFramework - Modern UI for WinForms
+ * 
+ * The MIT License (MIT)
+ * Copyright (c) 2011 Sven Walter, http://github.com/viperneo
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of 
+ * this software and associated documentation files (the "Software"), to deal in the 
+ * Software without restriction, including without limitation the rights to use, copy, 
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+ * and to permit persons to whom the Software is furnished to do so, subject to the 
+ * following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in 
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#endregion
-
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Security;
 using System.Windows.Forms;
-
+using MetroFramework.Components;
+using MetroFramework.Drawing;
+using MetroFramework.Interfaces;
 using MetroFramework.Native;
 
 namespace MetroFramework.Controls
 {
-    // TODO: Implement Selectable
-    // TODO: Get rid of this, use ScrollOrientation
+    #region Enums
+
     public enum MetroScrollOrientation
     {
         Horizontal,
         Vertical
     }
 
-    [Designer("MetroFramework.Design.MetroScrollBarDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
+    #endregion
+
+    [Designer("MetroFramework.Design.Controls.MetroScrollBarDesigner, " + AssemblyRef.MetroFrameworkDesignSN)]
     [DefaultEvent("Scroll")]
     [DefaultProperty("Value")]
-    public class MetroScrollBar : MetroControlBase
+    public class MetroScrollBar : Control, IMetroControl
     {
+        #region Interface
 
-        protected override string MetroControlCategory { get { return "ScrollBar"; } }
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+        protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
+            {
+                CustomPaintBackground(this, e);
+            }
+        }
 
-        internal const int SCROLLBAR_DEFAULT_SIZE = 10;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaint;
+        protected virtual void OnCustomPaint(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
+            {
+                CustomPaint(this, e);
+            }
+        }
+
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+        protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
+        {
+            if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
+            {
+                CustomPaintForeground(this, e);
+            }
+        }
+
+        private MetroColorStyle metroStyle = MetroColorStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroColorStyle.Default)]
+        public MetroColorStyle Style
+        {
+            get
+            {
+                if (DesignMode || metroStyle != MetroColorStyle.Default)
+                {
+                    return metroStyle;
+                }
+
+                if (StyleManager != null && metroStyle == MetroColorStyle.Default)
+                {
+                    return StyleManager.Style;
+                }
+                if (StyleManager == null && metroStyle == MetroColorStyle.Default)
+                {
+                    return MetroDefaults.Style;
+                }
+
+                return metroStyle;
+            }
+            set { metroStyle = value; }
+        }
+
+        private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DefaultValue(MetroThemeStyle.Default)]
+        public MetroThemeStyle Theme
+        {
+            get
+            {
+                if (DesignMode || metroTheme != MetroThemeStyle.Default)
+                {
+                    return metroTheme;
+                }
+
+                if (StyleManager != null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return StyleManager.Theme;
+                }
+                if (StyleManager == null && metroTheme == MetroThemeStyle.Default)
+                {
+                    return MetroDefaults.Theme;
+                }
+
+                return metroTheme;
+            }
+            set { metroTheme = value; }
+        }
+
+        private MetroStyleManager metroStyleManager = null;
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MetroStyleManager StyleManager
+        {
+            get { return metroStyleManager; }
+            set { metroStyleManager = value; }
+        }
+
+        private bool useCustomBackColor = false;
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        public bool UseCustomBackColor
+        {
+            get { return useCustomBackColor; }
+            set { useCustomBackColor = value; }
+        }
+
+        private bool useCustomForeColor = false;
+        [Browsable(false)]
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool UseCustomForeColor
+        {
+            get { return useCustomForeColor; }
+            set { useCustomForeColor = value; }
+        }
+
+        private bool useStyleColors = false;
+        [Browsable(false)]
+        [DefaultValue(false)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool UseStyleColors
+        {
+            get { return useStyleColors; }
+            set { useStyleColors = value; }
+        }
+
+        [Browsable(false)]
+        [Category(MetroDefaults.PropertyCategory.Behaviour)]
+        [DefaultValue(false)]
+        public bool UseSelectable
+        {
+            get { return GetStyle(ControlStyles.Selectable); }
+            set { SetStyle(ControlStyles.Selectable, value); }
+        }
+
+        #endregion
 
         #region Events
 
@@ -92,7 +219,7 @@ namespace MetroFramework.Controls
 
         #endregion
 
-        #region Properties
+        #region Fields
 
         private bool isFirstScrollEventVertical = true;
         private bool isFirstScrollEventHorizontal = true;
@@ -119,7 +246,7 @@ namespace MetroFramework.Controls
         private readonly Timer progressTimer = new Timer();
 
         private int mouseWheelBarPartitions = 10;
-        [DefaultValue(10)]
+
         public int MouseWheelBarPartitions
         {
             get { return mouseWheelBarPartitions; }
@@ -141,15 +268,14 @@ namespace MetroFramework.Controls
 
         private bool useBarColor = false;
         [DefaultValue(false)]
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseBarColor
         {
             get { return useBarColor; }
             set { useBarColor = value; }
         }
 
-        [Category(MetroDefaults.CatAppearance)]
-        [DefaultValue(SCROLLBAR_DEFAULT_SIZE)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public int ScrollbarSize
         {
             get { return Orientation == MetroScrollOrientation.Vertical ? Width : Height; }
@@ -164,7 +290,7 @@ namespace MetroFramework.Controls
 
         private bool highlightOnWheel = false;
         [DefaultValue(false)]
-        [Category(MetroDefaults.CatAppearance)]
+        [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool HighlightOnWheel
         {
             get { return highlightOnWheel; }
@@ -177,18 +303,36 @@ namespace MetroFramework.Controls
         public MetroScrollOrientation Orientation
         {
             get { return metroOrientation; }
+
             set
             {
-                if (value == metroOrientation) return;
+                if (value == metroOrientation)
+                {
+                    return;
+                }
+
                 metroOrientation = value;
-                scrollOrientation = value == MetroScrollOrientation.Vertical ? ScrollOrientation.VerticalScroll : ScrollOrientation.HorizontalScroll;
-                Size = new Size(Height, Width); // TODO: ???? why wrong order??
+
+                if (value == MetroScrollOrientation.Vertical)
+                {
+                    scrollOrientation = ScrollOrientation.VerticalScroll;
+                }
+                else
+                {
+                    scrollOrientation = ScrollOrientation.HorizontalScroll;
+                }
+
+                Size = new Size(Height, Width);
                 SetupScrollBar();
             }
         }
 
-        private int minimum = 0;
-        [DefaultValue(0)]
+        private int minimum;
+        private int maximum = 100;
+        private int smallChange = 1;
+        private int largeChange = 10;
+        private int curValue;
+
         public int Minimum
         {
             get { return minimum; }
@@ -225,8 +369,6 @@ namespace MetroFramework.Controls
             }
         }
 
-        private int maximum = 100;
-        [DefaultValue(100)]
         public int Maximum
         {
             get { return maximum; }
@@ -258,7 +400,6 @@ namespace MetroFramework.Controls
             }
         }
 
-        private int smallChange = 1;
         [DefaultValue(1)]
         public int SmallChange
         {
@@ -275,8 +416,7 @@ namespace MetroFramework.Controls
             }
         }
 
-        private int largeChange = 10;
-        [DefaultValue(10)]
+        [DefaultValue(5)]
         public int LargeChange
         {
             get { return largeChange; }
@@ -302,7 +442,6 @@ namespace MetroFramework.Controls
 
         private bool dontUpdateColor = false;
 
-        private int curValue = 0;
         [DefaultValue(0)]
         [Browsable(false)]
         public int Value
@@ -360,15 +499,17 @@ namespace MetroFramework.Controls
 
         #endregion
 
+        #region Constructor
+
         public MetroScrollBar()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw |
                      ControlStyles.Selectable |
-                     ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.SupportsTransparentBackColor |
                      ControlStyles.UserPaint, true);
 
-            Width = SCROLLBAR_DEFAULT_SIZE;
+            Width = 10;
             Height = 200;
 
             SetupScrollBar();
@@ -389,19 +530,26 @@ namespace MetroFramework.Controls
             Width = width;
         }
 
+        public bool HitTest(Point point)
+        {
+            return thumbRectangle.Contains(point);
+        }
+
+        #endregion
+
         #region Update Methods
 
         [SecuritySafeCritical]
         public void BeginUpdate()
         {
-            WinApi.SendMessage(Handle, WinApi.Messages.WM_SETREDRAW, false, 0);
+            WinApi.SendMessage(Handle, (int) WinApi.Messages.WM_SETREDRAW, false, 0);
             inUpdate = true;
         }
 
         [SecuritySafeCritical]
         public void EndUpdate()
         {
-            WinApi.SendMessage(Handle, WinApi.Messages.WM_SETREDRAW, true, 0);
+            WinApi.SendMessage(Handle, (int)WinApi.Messages.WM_SETREDRAW, true, 0);
             inUpdate = false;
             SetupScrollBar();
             Refresh();
@@ -411,27 +559,116 @@ namespace MetroFramework.Controls
 
         #region Paint Methods
 
-        protected override string MetroControlState
-        {
-            get { if (!Enabled) return "Disabled"; if (!isHovered) return "Normal"; return isPressed ? "Press" : "Hover"; }
-        }
-
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             try
             {
-                e.Graphics.Clear(EffectiveBackColor);
+                Color backColor = BackColor;
+
+                if (!useCustomBackColor)
+                {
+                    if (Parent != null)
+                    {
+                        if (Parent is IMetroControl)
+                        {
+                            backColor = MetroPaint.BackColor.Form(Theme);
+                        }
+                        else
+                        {
+                            backColor = Parent.BackColor;
+                        }
+                    }
+                    else
+                    {
+                        backColor = MetroPaint.BackColor.Form(Theme);
+                    }
+                }
+
+                if (backColor.A == 255)
+                {
+                    e.Graphics.Clear(backColor);
+                    return;
+                }
+
+                base.OnPaintBackground(e);
+
+                OnCustomPaintBackground(new MetroPaintEventArgs(backColor, Color.Empty, e.Graphics));
             }
-            catch (Exception ex)
+            catch
             {
-                Trace.WriteLine(ex);
                 Invalidate();
             }
         }
 
-        protected override void OnPaintForeground(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            DrawScrollBar(e.Graphics, EffectiveBackColor, GetThemeColor("Thumb.BackColor"), GetThemeColor("Bar.BackColor"));
+            try
+            {
+                if (GetStyle(ControlStyles.AllPaintingInWmPaint))
+                {
+                    OnPaintBackground(e);
+                }
+
+                OnCustomPaint(new MetroPaintEventArgs(Color.Empty, Color.Empty, e.Graphics));
+                OnPaintForeground(e);
+            }
+            catch
+            {
+                Invalidate();
+            }
+        }
+
+        protected virtual void OnPaintForeground(PaintEventArgs e)
+        {
+            Color backColor, thumbColor, barColor;
+
+            if (useCustomBackColor)
+            {
+                backColor = BackColor;
+            }
+            else
+            {
+                if (Parent != null)
+                {
+                    if (Parent is IMetroControl)
+                    {
+                        backColor = MetroPaint.BackColor.Form(Theme);
+                    }
+                    else
+                    {
+                        backColor = Parent.BackColor;
+                    }
+                }
+                else
+                {
+                    backColor = MetroPaint.BackColor.Form(Theme);
+                }
+            }
+
+            if (isHovered && !isPressed && Enabled)
+            {
+                thumbColor = MetroPaint.BackColor.ScrollBar.Thumb.Hover(Theme);
+                barColor = MetroPaint.BackColor.ScrollBar.Bar.Hover(Theme);
+            }
+            else if (isHovered && isPressed && Enabled)
+            {
+                thumbColor = MetroPaint.BackColor.ScrollBar.Thumb.Press(Theme);
+                barColor = MetroPaint.BackColor.ScrollBar.Bar.Press(Theme);
+            }
+            else if (!Enabled)
+            {
+                thumbColor = MetroPaint.BackColor.ScrollBar.Thumb.Disabled(Theme);
+                barColor = MetroPaint.BackColor.ScrollBar.Bar.Disabled(Theme);
+            }
+            else
+            {
+                thumbColor = MetroPaint.BackColor.ScrollBar.Thumb.Normal(Theme);
+                barColor = MetroPaint.BackColor.ScrollBar.Bar.Normal(Theme);
+            }
+
+            DrawScrollBar(e.Graphics, backColor, thumbColor, barColor);
+
+            OnCustomPaintForeground(new MetroPaintEventArgs(backColor, thumbColor, e.Graphics));
         }
 
         private void DrawScrollBar(Graphics g, Color backColor, Color thumbColor, Color barColor)
@@ -704,11 +941,6 @@ namespace MetroFramework.Controls
         #endregion
 
         #region Management Methods
-
-        public bool HitTest(Point point)
-        {
-            return thumbRectangle.Contains(point);
-        }
 
         protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
         {

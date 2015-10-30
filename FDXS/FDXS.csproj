@@ -337,6 +337,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="FDXS_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -386,6 +387,10 @@
       <Project>{b93ae903-7c0c-4c2b-8b9e-b7fdaa678059}</Project>
       <Name>DB_FD</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyFormControls\MyFormControls.csproj">
+      <Project>{d03ad417-668a-4875-b4c4-c6743109961d}</Project>
+      <Name>MyFormControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tool\Tool.csproj">
       <Project>{075daad0-ac20-46ad-a2f8-763f033a8858}</Project>
       <Name>Tool</Name>
@@ -413,6 +418,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\LOGO.bmp" />
     <None Include="Service References\JCSJValid\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

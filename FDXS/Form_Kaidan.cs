@@ -1,6 +1,7 @@
 ﻿using DB_FD;
 using DB_FD.Models;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,8 @@ namespace FDXS
         public Form_Kaidan()
         {
             InitializeComponent();
+            base.InitializeComponent();
+
             _XSS = new List<TXiaoshou>();
             _Huiyuan = null;
 
@@ -197,12 +200,12 @@ namespace FDXS
         /// </summary>
         private void refreshJinriXS()
         {
-            DBContext db = IDB.GetDB();
-            TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date.AddDays(1));
-            int xsl = jrxss.Sum(r => r.shuliang);
-            decimal xse = jrxss.Sum(r => r.jine);
-            lbl_jrxl.Text = xsl.ToString();
-            lbl_jrxse.Text = xse.ToString();
+            //DBContext db = IDB.GetDB();
+            //TXiaoshou[] jrxss = db.GetXiaoshousByCond("", "", DateTime.Now.Date, DateTime.Now.Date.AddDays(1));
+            //int xsl = jrxss.Sum(r => r.shuliang);
+            //decimal xse = jrxss.Sum(r => r.jine);
+            //lbl_jrxl.Text = xsl.ToString();
+            //lbl_jrxse.Text = xse.ToString();
         }
 
         /// <summary>

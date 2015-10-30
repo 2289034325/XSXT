@@ -1,15 +1,18 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Text;
+using System.Windows.Forms;
+using MetroFramework.Interfaces;
+using MetroFramework.Components;
+using MetroFramework;
+using MetroFramework.Drawing;
+using MetroFramework.Controls;
+
 namespace MetroFramework.Controls
 {
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using MetroFramework.Components;
-    using MetroFramework.Drawing;
-    using MetroFramework.Interfaces;
-
     public partial class MetroGrid : DataGridView, IMetroControl
     {
         #region Interface
@@ -141,8 +144,15 @@ namespace MetroFramework.Controls
         }
         #endregion
 
+        #region Properties
+        float _offset = 0.2F;
+        [DefaultValue(0.2F)]
+        public float HighLightPercentage { get { return _offset; } set { _offset = value; } }
+        #endregion
+
         MetroDataGridHelper scrollhelper = null;
         MetroDataGridHelper scrollhelperH = null;
+
 
         public MetroGrid()
         {
@@ -161,20 +171,25 @@ namespace MetroFramework.Controls
 
             scrollhelper = new MetroDataGridHelper(_vertical, this);
             scrollhelperH = new MetroDataGridHelper(_horizontal, this, false);
+
+            this.DoubleBuffered = true;
         }
 
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
-
-            if (this.RowCount > 1) 
+            if (this.RowCount > 1)
             {
-                if (e.Delta > 0 && this.FirstDisplayedScrollingRowIndex > 0) 
+                if (e.Delta > 0 && this.FirstDisplayedScrollingRowIndex > 0)
+                {
                     this.FirstDisplayedScrollingRowIndex--;
+                }
                 else if (e.Delta < 0)
+                {
                     this.FirstDisplayedScrollingRowIndex++;
-            }
+                }
+            }       
         }
 
         private void StyleGrid()
@@ -202,17 +217,17 @@ namespace MetroFramework.Controls
 
             this.DefaultCellStyle.BackColor = MetroPaint.BackColor.Form(Theme);
 
-            this.DefaultCellStyle.SelectionBackColor = MetroPaint.GetStyleColor(Style);
-            this.DefaultCellStyle.SelectionForeColor = (Theme == MetroThemeStyle.Light) ? Color.FromArgb(17, 17, 17) : Color.FromArgb(255, 255, 255);
+            this.DefaultCellStyle.SelectionBackColor = ControlPaint.Light(MetroPaint.GetStyleColor(Style), _offset);
+            this.DefaultCellStyle.SelectionForeColor = Color.FromArgb(17, 17, 17);
 
-            this.DefaultCellStyle.SelectionBackColor = MetroPaint.GetStyleColor(Style);
-            this.DefaultCellStyle.SelectionForeColor = (Theme == MetroThemeStyle.Light) ? Color.FromArgb(17, 17, 17) : Color.FromArgb(255, 255, 255);
+            this.DefaultCellStyle.SelectionBackColor = ControlPaint.Light(MetroPaint.GetStyleColor(Style), _offset);
+            this.DefaultCellStyle.SelectionForeColor = Color.FromArgb(17, 17, 17);
 
-            this.RowHeadersDefaultCellStyle.SelectionBackColor = MetroPaint.GetStyleColor(Style);
-            this.RowHeadersDefaultCellStyle.SelectionForeColor = (Theme == MetroThemeStyle.Light) ? Color.FromArgb(17, 17, 17) : Color.FromArgb(255, 255, 255);
+            this.RowHeadersDefaultCellStyle.SelectionBackColor = ControlPaint.Light(MetroPaint.GetStyleColor(Style), _offset);
+            this.RowHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(17, 17, 17);
 
-            this.ColumnHeadersDefaultCellStyle.SelectionBackColor = MetroPaint.GetStyleColor(Style);
-            this.ColumnHeadersDefaultCellStyle.SelectionForeColor = (Theme == MetroThemeStyle.Light) ? Color.FromArgb(17, 17, 17) : Color.FromArgb(255, 255, 255);
+            this.ColumnHeadersDefaultCellStyle.SelectionBackColor = ControlPaint.Light(MetroPaint.GetStyleColor(Style), _offset);
+            this.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(17, 17, 17);
         }
     }
 
@@ -240,7 +255,12 @@ namespace MetroFramework.Controls
         private HScrollBar hScrollbar = null;
         private VScrollBar vScrollbar = null;
 
-        public MetroDataGridHelper(MetroScrollBar scrollbar, DataGridView grid, bool vertical = true)
+        public MetroDataGridHelper(MetroScrollBar scrollbar, DataGridView grid)
+        {
+            new MetroDataGridHelper(scrollbar, grid,true);
+        }
+
+        public MetroDataGridHelper(MetroScrollBar scrollbar, DataGridView grid, bool vertical)
         {
             _scrollbar = scrollbar;
             _scrollbar.UseBarColor = true;
@@ -302,7 +322,12 @@ namespace MetroFramework.Controls
             else
             {
                 if (_scrollbar.Value >= 0 && _scrollbar.Value < _grid.Rows.Count)
-                    _grid.FirstDisplayedScrollingRowIndex = _scrollbar.Value + (_scrollbar.Value == 1 ? -1 : 1);
+                {
+                    _grid.FirstDisplayedScrollingRowIndex = _scrollbar.Value + (_scrollbar.Value == 1 ? -1 : 1) >= _grid.Rows.Count ? _grid.Rows.Count - 1 : _scrollbar.Value + (_scrollbar.Value == 1 ? -1 : 1);
+                }  else
+                {
+                    _grid.FirstDisplayedScrollingRowIndex = _scrollbar.Value -1;
+                }
             }
 
             _grid.Invalidate();
@@ -349,7 +374,10 @@ namespace MetroFramework.Controls
                     _scrollbar.SmallChange = 1;
                     _scrollbar.LargeChange = Math.Max(1, visibleRows - 1);
                     _scrollbar.Value = _grid.FirstDisplayedScrollingRowIndex;
-
+                    if (_grid.RowCount > 0 && _grid.Rows[_grid.RowCount - 1].Cells[0].Displayed)
+                    {
+                        _scrollbar.Value =  _grid.RowCount;
+                    }
                     _scrollbar.Location = new Point(_grid.Width - _scrollbar.ScrollbarSize, 0);
                     _scrollbar.Height = _grid.Height - (hScrollbar.Visible ? _scrollbar.ScrollbarSize : 0);
                     _scrollbar.BringToFront();
