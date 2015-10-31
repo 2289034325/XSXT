@@ -295,7 +295,7 @@
             this.pnl_cover.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_cover.Location = new System.Drawing.Point(0, 92);
             this.pnl_cover.Name = "pnl_cover";
-            this.pnl_cover.Size = new System.Drawing.Size(1020, 475);
+            this.pnl_cover.Size = new System.Drawing.Size(1020, 525);
             this.pnl_cover.TabIndex = 2;
             // 
             // pnl_yiduan
@@ -305,9 +305,9 @@
             this.pnl_yiduan.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_yiduan.BackgroundImage")));
             this.pnl_yiduan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pnl_yiduan.Controls.Add(this.pnl_mzd);
-            this.pnl_yiduan.Location = new System.Drawing.Point(35, 12);
+            this.pnl_yiduan.Location = new System.Drawing.Point(40, 3);
             this.pnl_yiduan.Name = "pnl_yiduan";
-            this.pnl_yiduan.Size = new System.Drawing.Size(937, 451);
+            this.pnl_yiduan.Size = new System.Drawing.Size(937, 519);
             this.pnl_yiduan.TabIndex = 0;
             // 
             // pnl_mzd
@@ -315,7 +315,7 @@
             this.pnl_mzd.BackColor = System.Drawing.Color.Black;
             this.pnl_mzd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_mzd.BackgroundImage")));
             this.pnl_mzd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pnl_mzd.Location = new System.Drawing.Point(787, 358);
+            this.pnl_mzd.Location = new System.Drawing.Point(790, 457);
             this.pnl_mzd.Name = "pnl_mzd";
             this.pnl_mzd.Size = new System.Drawing.Size(147, 59);
             this.pnl_mzd.TabIndex = 0;
@@ -325,7 +325,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1020, 567);
+            this.ClientSize = new System.Drawing.Size(1020, 617);
             this.Controls.Add(this.pnl_cover);
             this.Controls.Add(this.mn_main);
             this.IsMdiContainer = true;
