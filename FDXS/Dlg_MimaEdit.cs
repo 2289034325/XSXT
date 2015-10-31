@@ -1,6 +1,7 @@
 ﻿using DB_FD;
 using DB_FD.Models;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +16,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_MimaEdit : Form
+    public partial class Dlg_MimaEdit : MyForm
     {
         public Dlg_MimaEdit()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
 
@@ -69,6 +71,11 @@ namespace FDXS
         private void Dlg_Zhuce_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         

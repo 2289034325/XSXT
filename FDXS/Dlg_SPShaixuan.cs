@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFormControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,12 @@ using System.Windows.Forms;
 
 namespace FDXS
 {
-    public partial class Dlg_SPShaixuan : Form
+    public partial class Dlg_SPShaixuan : MyForm
     {
         public Dlg_SPShaixuan()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
     }
 }

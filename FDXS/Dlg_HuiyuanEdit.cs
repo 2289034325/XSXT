@@ -1,6 +1,7 @@
 ﻿using DB_FD;
 using DB_FD.Models;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,14 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_HuiyuanEdit : Form
+    public partial class Dlg_HuiyuanEdit : MyForm
     {
         private int _id;
 
         public Dlg_HuiyuanEdit( int id)
         {
             InitializeComponent();
+            base.InitializeComponent();
             _id = id;
         }
 
@@ -67,6 +69,11 @@ namespace FDXS
             txb_xm.Text = h.xingming;
             cmb_xb.SelectedValue = h.xingbie;
             dp_sr.Value = h.shengri;
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

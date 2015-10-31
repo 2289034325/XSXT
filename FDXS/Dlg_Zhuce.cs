@@ -1,4 +1,5 @@
 ﻿using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_Zhuce : Form
+    public partial class Dlg_Zhuce : MyForm
     {
         public Dlg_Zhuce()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
 
@@ -72,6 +74,11 @@ namespace FDXS
         {
             txb_fdid.Text = Settings.Default.FDID.ToString();
             txb_fdm.Text = Settings.Default.FDMC;
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }        
     }
 }

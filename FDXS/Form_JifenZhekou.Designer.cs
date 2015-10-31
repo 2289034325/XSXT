@@ -1,4 +1,5 @@
-﻿namespace FDXS
+﻿using MyFormControls;
+namespace FDXS
 {
     partial class Form_JifenZhekou
     {
@@ -28,9 +29,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.btn_gx = new System.Windows.Forms.Button();
-            this.grid_zk = new System.Windows.Forms.DataGridView();
+            this.panel6 = new MyPanel();
+            this.btn_gx = new MyButton();
+            this.grid_zk = new MyGrid();
             this.col_jf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel6.SuspendLayout();
@@ -105,9 +106,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button btn_gx;
-        private System.Windows.Forms.DataGridView grid_zk;
+        private MyPanel panel6;
+        private MyButton btn_gx;
+        private MyGrid grid_zk;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_jf;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_zk;
     }

@@ -23,6 +23,7 @@ namespace FDXS
         public Form_Jinchuhuo()
         {
             InitializeComponent();
+            base.InitializeComponent();
             _dlgtm = new Dlg_Tiaomahao();
         }
 

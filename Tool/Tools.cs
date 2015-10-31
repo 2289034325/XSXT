@@ -639,7 +639,8 @@ namespace Tool
             _action = action;
 
             _dlg = new Dlg_Progress();
-            _dlg.ControlBox = false;
+            //_dlg.ControlBox = false;
+            //_dlg.btn_close.Visible = false;
             _dlg.pgb.Maximum = _TIMEOUT;
             _dlg.StartPosition = FormStartPosition.CenterScreen;
             
@@ -662,6 +663,7 @@ namespace Tool
         public void Start()
         {
             _action.BeginInvoke(ShowMessage, Finish, null);
+            
             _timer.Start();
             _dlg.Runing = true;
             _dlg.ShowDialog();            
@@ -692,8 +694,9 @@ namespace Tool
             }
             else
             {
-                //不自动关闭，就要给关闭按钮让用户自己关闭
-                _dlg.ControlBox = true;
+                //不自动关闭，就要给关闭按钮让用户自己关闭                
+                //_dlg.btn_close.Visible = true;
+                //_dlg.ControlBox = true;
             }
         }
     }

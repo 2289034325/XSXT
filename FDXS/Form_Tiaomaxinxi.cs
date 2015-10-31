@@ -22,6 +22,7 @@ namespace FDXS
         public Form_Tiaomaxinxi()
         {
             InitializeComponent();
+            base.InitializeComponent();
             _dlgtmh = new Dlg_Tiaomahao();
         }
 

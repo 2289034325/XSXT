@@ -60,6 +60,9 @@
     <Compile Include="MyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MyProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MyTab.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -21,6 +21,7 @@ namespace FDXS
         public Form_Huiyuan()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
         /// <summary>

@@ -35,6 +35,8 @@ namespace MyFormControls
         public MyGrid()
         {
             _Type = MyControlType.Standard;
+            this.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             StandardInitiate();
         }
@@ -43,6 +45,8 @@ namespace MyFormControls
         {
             this.EnableHeadersVisualStyles = false;
             this.BackgroundColor = Color.Black;
+            this.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             DataGridViewCellStyle hstl = new DataGridViewCellStyle();
             hstl.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;

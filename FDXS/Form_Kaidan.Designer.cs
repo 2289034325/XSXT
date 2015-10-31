@@ -87,7 +87,7 @@ namespace FDXS
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 73);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1066, 150);
+            this.panel3.Size = new System.Drawing.Size(1020, 150);
             this.panel3.TabIndex = 4;
             // 
             // grid_kaidan
@@ -139,7 +139,7 @@ namespace FDXS
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grid_kaidan.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.grid_kaidan.RowTemplate.Height = 40;
-            this.grid_kaidan.Size = new System.Drawing.Size(1066, 150);
+            this.grid_kaidan.Size = new System.Drawing.Size(1020, 150);
             this.grid_kaidan.TabIndex = 0;
             this.grid_kaidan.Type = MyFormControls.MyControlType.Standard;
             this.grid_kaidan.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grid_kaidan_CellBeginEdit);
@@ -266,7 +266,7 @@ namespace FDXS
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 223);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1066, 244);
+            this.panel1.Size = new System.Drawing.Size(1020, 244);
             this.panel1.TabIndex = 1;
             // 
             // label2
@@ -312,16 +312,18 @@ namespace FDXS
             // 
             this.btn_ok.BackColor = System.Drawing.Color.Black;
             this.btn_ok.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_ok.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_ok.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btn_ok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ok.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_ok.Font = new System.Drawing.Font("宋体", 60F, System.Drawing.FontStyle.Bold);
             this.btn_ok.ForeColor = System.Drawing.Color.White;
-            this.btn_ok.Location = new System.Drawing.Point(814, 0);
+            this.btn_ok.Location = new System.Drawing.Point(758, 0);
             this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(252, 244);
+            this.btn_ok.Size = new System.Drawing.Size(262, 244);
             this.btn_ok.TabIndex = 4;
             this.btn_ok.Text = "确定";
             this.btn_ok.Type = MyFormControls.MyControlType.Special;
-            this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.UseVisualStyleBackColor = false;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
             // lbl_zhaoling
@@ -377,7 +379,7 @@ namespace FDXS
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1066, 73);
+            this.panel2.Size = new System.Drawing.Size(1020, 73);
             this.panel2.TabIndex = 2;
             // 
             // myPanel1
@@ -391,7 +393,7 @@ namespace FDXS
             this.myPanel1.Controls.Add(this.lbl_hyjf);
             this.myPanel1.Controls.Add(this.btn_zchy);
             this.myPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.myPanel1.Location = new System.Drawing.Point(685, 0);
+            this.myPanel1.Location = new System.Drawing.Point(639, 0);
             this.myPanel1.Name = "myPanel1";
             this.myPanel1.Size = new System.Drawing.Size(381, 73);
             this.myPanel1.TabIndex = 26;
@@ -603,7 +605,7 @@ namespace FDXS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1066, 467);
+            this.ClientSize = new System.Drawing.Size(1020, 467);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);

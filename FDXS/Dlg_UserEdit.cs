@@ -1,6 +1,7 @@
 ﻿using DB_FD;
 using DB_FD.Models;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,14 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_UserEdit : Form
+    public partial class Dlg_UserEdit : MyForm
     {
         public TUser User;
 
         public Dlg_UserEdit(TUser u)
         {
             InitializeComponent();
+            base.InitializeComponent();
             User = u;
         }
 
@@ -111,6 +113,11 @@ namespace FDXS
                 cmb_zt.SelectedValue = User.zhuangtai;
                 txb_bz.Text = User.beizhu;
             }
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

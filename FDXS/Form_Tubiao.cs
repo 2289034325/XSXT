@@ -20,6 +20,7 @@ namespace FDXS
         public Form_Tubiao()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
         /// <summary>

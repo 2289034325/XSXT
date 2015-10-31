@@ -1,4 +1,5 @@
 ﻿using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +13,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_ScanSet : Form
+    public partial class Dlg_ScanSet : MyForm
     {
         public Dlg_ScanSet()
         {
             InitializeComponent();
+            base.InitializeComponent();
             RawInputAddIn rad = new RawInputAddIn(null, Handle, HandleScan);
         }
         private void HandleScan(string scanName)
@@ -25,6 +27,11 @@ namespace FDXS
             Settings.Default.Save();
 
             Close();
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

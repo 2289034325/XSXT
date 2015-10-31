@@ -20,6 +20,7 @@ namespace FDXS
         public Form_KucunYilan()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
         /// <summary>

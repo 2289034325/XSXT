@@ -20,6 +20,7 @@ namespace FDXS
         public Form_User()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }       
 
         /// <summary>

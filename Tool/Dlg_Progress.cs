@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFormControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,14 +11,16 @@ using System.Windows.Forms;
 
 namespace Tool
 {
-    public partial class Dlg_Progress : Form
+    public partial class Dlg_Progress : MyForm
     {
         public bool Runing;
 
         public Dlg_Progress()
         {
             InitializeComponent();
+            base.InitializeComponent();
             Runing = false;
+            //btn_close.Visible = false;
         }
 
         /// <summary>
@@ -31,6 +34,11 @@ namespace Tool
             {
                 e.Cancel = true;
             }
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

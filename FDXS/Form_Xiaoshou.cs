@@ -26,6 +26,7 @@ namespace FDXS
         public Form_Xiaoshou()
         {
             InitializeComponent();
+            base.InitializeComponent();
             //_dlgKaidan = null;
             //_XSS = null;
         }

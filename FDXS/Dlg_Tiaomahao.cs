@@ -25,6 +25,7 @@ namespace FDXS
         public Dlg_Tiaomahao()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
         public override void OnScan(string tm)
@@ -49,6 +50,11 @@ namespace FDXS
             {
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         

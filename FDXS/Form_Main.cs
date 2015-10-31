@@ -108,11 +108,24 @@ namespace FDXS
             MyTask.DayTask();
             MyTask.Tasks();
 
+            //去掉背景的挡板，因为父窗体的背景色无法设置
+            pnl_cover.Visible = false;
+
             //打开开单页面
             Form_Kaidan fm = new Form_Kaidan();
+            //Form_User fm = new Form_User();
             fm.MdiParent = this;
             fm.WindowState = FormWindowState.Maximized;
             fm.Show();
+            
+            Timer t = new Timer();
+            t.Interval = 1000;
+            t.Tick += new EventHandler((Object o, EventArgs arg) =>
+            {
+                //显示日期和登陆人
+                mn_main_info.Text = RuntimeInfo.LoginUser.yonghuming + "\r\n" + DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss");
+            });
+            t.Start();
         }
 
         /// <summary>
@@ -177,10 +190,10 @@ namespace FDXS
         /// <param name="e"></param>
         private void mn_main_kcgl_Click(object sender, EventArgs e)
         {
-            Form_KucunGuanli fm = (Form_KucunGuanli)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunGuanli)));
+            Form_KucunXiuzheng fm = (Form_KucunXiuzheng)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunXiuzheng)));
             if (fm == null)
             {
-                fm = new Form_KucunGuanli();
+                fm = new Form_KucunXiuzheng();
                 fm.MdiParent = this;
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Show();
@@ -412,6 +425,40 @@ namespace FDXS
             }
         }
 
+        private void mn_main_kcxz_Click(object sender, EventArgs e)
+        {
+            Form_KucunXiuzheng fm = (Form_KucunXiuzheng)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunXiuzheng)));
+            if (fm == null)
+            {
+                fm = new Form_KucunXiuzheng();
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        private void mn_main_kcpd_Click(object sender, EventArgs e)
+        {
+            Form_KucunPandian fm = (Form_KucunPandian)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_KucunPandian)));
+            if (fm == null)
+            {
+                fm = new Form_KucunPandian();
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
         /// <summary>
         /// 重新连接服务器
         /// </summary>
@@ -473,6 +520,43 @@ namespace FDXS
             {
                 this.WindowState = FormWindowState.Maximized;
             }
+        }
+
+        private void mn_main_menu_MouseEnter(object sender, EventArgs e)
+        {
+            this.mn_main_menu.BackgroundImage = global::FDXS.Properties.Resources.menu_windows_black;
+        }
+
+        private void mn_main_menu_MouseLeave(object sender, EventArgs e)
+        {
+            this.mn_main_menu.BackgroundImage = global::FDXS.Properties.Resources.menu_windows_white;
+        }
+
+        /// <summary>
+        /// 关闭当前正在打开的子窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mn_main_closewindow_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null)
+            {
+                ActiveMdiChild.Close();
+                if (MdiChildren.Length == 0)
+                {
+                    pnl_cover.Visible = true;
+                }
+            }            
+        }
+
+        /// <summary>
+        /// 打开子窗口时，展开底部挡板，显示全黑色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form_Main_MdiChildActivate(object sender, EventArgs e)
+        {
+            pnl_cover.Visible = false;
         }
     }
 }

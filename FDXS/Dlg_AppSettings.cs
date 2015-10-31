@@ -1,5 +1,6 @@
 ﻿using DB_FD;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_AppSettings : Form
+    public partial class Dlg_AppSettings : MyForm
     {
         public Dlg_AppSettings()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
 
@@ -106,6 +108,11 @@ namespace FDXS
             dp_xsinterval.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.XsTaskInterval);
             txb_dbPath.Text = Settings.Default.DBPath;
             txb_bakPath.Text = Settings.Default.DBbakPath;
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

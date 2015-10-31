@@ -16,8 +16,18 @@ namespace MyFormControls
 
     public class MyForm:Form
     {
+        public MyForm()
+        {
+            this.BackColor = Color.Black;
+            //去掉icon
+            this.ShowIcon = false;
+        }
         public void InitializeComponent()
         {
+            this.BackColor = Color.Black;
+            //去掉icon
+            this.ShowIcon = false;
+
             //如果是主窗口，去掉窗口标题栏
             if (this.IsMdiContainer)
             {
@@ -27,9 +37,6 @@ namespace MyFormControls
             {
                 this.ControlBox = false;
             }
-
-            //去掉icon
-            this.ShowIcon = false;
 
             foreach (Control ctrl in Controls)
             {
@@ -143,27 +150,31 @@ namespace MyFormControls
 
             foreach (ToolStripMenuItem mi in mn.Items)
             {
-                mi.ForeColor = Color.White;
-                mi.BackColor = Color.Black;
-                mi.Font = new Font("宋体", 20F, FontStyle.Bold);
-                mi.AutoSize = false;
-                mi.Overflow = ToolStripItemOverflow.AsNeeded;
+                initMenuItem(mi);                
+            }
+        }
 
-                mi.MouseEnter += new System.EventHandler(this.mi_MouseEnter);
-                mi.MouseLeave += new System.EventHandler(this.mi_MouseLeave);
+        private void initMenuItem(ToolStripMenuItem mi)
+        {
+            mi.ForeColor = Color.White;
+            mi.BackColor = Color.Black;
+            mi.Font = new Font("宋体", 20F, FontStyle.Bold);
+            mi.AutoSize = false;
+            mi.Overflow = ToolStripItemOverflow.AsNeeded;
 
-                //子菜单
-                mi.DropDown.BackColor = Color.Black;
-                (mi.DropDown as ToolStripDropDownMenu).ShowImageMargin = false;
-                foreach (ToolStripMenuItem cmi in mi.DropDownItems)
-                {
-                    cmi.ForeColor = Color.White;
-                    cmi.BackColor = Color.Black;
-                    cmi.Font = new Font("宋体", 20F, FontStyle.Bold);
+            if (mi.Alignment == ToolStripItemAlignment.Right)
+            {
+                return;
+            }
+            mi.MouseEnter += new System.EventHandler(this.mi_MouseEnter);
+            mi.MouseLeave += new System.EventHandler(this.mi_MouseLeave);
 
-                    cmi.MouseEnter += new System.EventHandler(this.mi_MouseEnter);
-                    cmi.MouseLeave += new System.EventHandler(this.mi_MouseLeave);
-                }
+            //子菜单
+            mi.DropDown.BackColor = Color.Black;
+            (mi.DropDown as ToolStripDropDownMenu).ShowImageMargin = false;
+            foreach (ToolStripMenuItem cmi in mi.DropDownItems)
+            {
+                initMenuItem(cmi);
             }
         }
 
@@ -212,25 +223,37 @@ namespace MyFormControls
         {
             protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
             {
-                if (!e.Item.Selected) base.OnRenderMenuItemBackground(e);
-                else
-                {
+                //if (!e.Item.Selected)
+                //{
+                //    base.OnRenderMenuItemBackground(e);
+                //    Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
+                //    if (e.Item.BackgroundImage != null)
+                //    {
+                //        e.Graphics.DrawImage(e.Item.BackgroundImage, 0, 0, rc.Width, rc.Height);
+                //    }
+                //}
+                //else
+                //{
                     Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
-                    
-                    e.Graphics.FillRectangle(Brushes.White, rc);
-                    e.Graphics.DrawRectangle(Pens.White, 1, 0, rc.Width - 2, rc.Height - 1);
-                }
+
+                    e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), rc);
+                    //e.Graphics.DrawRectangle(Pens.White, 1, 0, rc.Width - 2, rc.Height - 1);
+                    if (e.Item.BackgroundImage != null)
+                    {
+                        e.Graphics.DrawImage(e.Item.BackgroundImage, 0, 0, rc.Width, rc.Height);
+                    }
+                //}
             }
         }
         private void mi_MouseEnter(object sender, EventArgs e)
         {
-            ToolStripItem mi = sender as ToolStripItem;
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
             mi.ForeColor = Color.Black;
             mi.BackColor = Color.White;
         }
         private void mi_MouseLeave(object sender, EventArgs e)
         {
-            ToolStripItem mi = sender as ToolStripItem;
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
             mi.ForeColor = Color.White;
             mi.BackColor = Color.Black;
         }

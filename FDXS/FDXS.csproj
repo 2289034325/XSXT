@@ -124,6 +124,12 @@
     <Compile Include="Dlg_Wutiaoma.Designer.cs">
       <DependentUpon>Dlg_Wutiaoma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_KucunPandian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_KucunPandian.Designer.cs">
+      <DependentUpon>Form_KucunPandian.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Tubiao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,11 @@
       <DependentUpon>Form_Tubiao.cs</DependentUpon>
     </Compile>
     <Compile Include="IDB.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RuntimeInfo.cs" />
     <Compile Include="Service References\JCSJData\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -222,11 +233,11 @@
     <Compile Include="Form_Jinchuhuo.Designer.cs">
       <DependentUpon>Form_Jinchuhuo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_KucunGuanli.cs">
+    <Compile Include="Form_KucunXiuzheng.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_KucunGuanli.Designer.cs">
-      <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    <Compile Include="Form_KucunXiuzheng.Designer.cs">
+      <DependentUpon>Form_KucunXiuzheng.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Huiyuan.cs">
       <SubType>Form</SubType>
@@ -243,7 +254,7 @@
     <Compile Include="Form_KucunYilan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Kucunyilan.Designer.cs">
+    <Compile Include="Form_KucunYilan.Designer.cs">
       <DependentUpon>Form_KucunYilan.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Main.cs">
@@ -299,6 +310,9 @@
     <EmbeddedResource Include="Dlg_Zhuce.resx">
       <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_KucunPandian.resx">
+      <DependentUpon>Form_KucunPandian.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Tubiao.resx">
       <DependentUpon>Form_Tubiao.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,8 +325,8 @@
     <EmbeddedResource Include="Form_Jinchuhuo.resx">
       <DependentUpon>Form_Jinchuhuo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_KucunGuanli.resx">
-      <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    <EmbeddedResource Include="Form_KucunXiuzheng.resx">
+      <DependentUpon>Form_KucunXiuzheng.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Huiyuan.resx">
       <DependentUpon>Form_Huiyuan.cs</DependentUpon>
@@ -320,7 +334,7 @@
     <EmbeddedResource Include="Form_Xiaoshou.resx">
       <DependentUpon>Form_Xiaoshou.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Kucunyilan.resx">
+    <EmbeddedResource Include="Form_KucunYilan.resx">
       <DependentUpon>Form_KucunYilan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
@@ -331,14 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="FDXS_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -418,6 +427,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\mzd_name_white.png" />
+    <None Include="Resources\companyinfo_white.png" />
+    <None Include="Resources\menu_windows_white.png" />
+    <None Include="Resources\menu_windows_black.png" />
+    <None Include="Resources\user_white.png" />
+    <None Include="Resources\password_white.png" />
+    <None Include="Resources\超大科技_行楷.png" />
+    <None Include="Resources\超达科技_于右任.png" />
+    <None Include="Resources\超达科技_颜真卿.png" />
+    <None Include="Resources\超达科技_孙中山.png" />
+    <None Include="Resources\超达科技_毛泽东.png" />
     <None Include="Resources\LOGO.bmp" />
     <None Include="Service References\JCSJValid\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>

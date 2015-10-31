@@ -1,4 +1,5 @@
-﻿namespace FDXS
+﻿using MyFormControls;
+namespace FDXS
 {
     partial class Dlg_SPShaixuan
     {
@@ -28,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.dataGridView4 = new MyGrid();
             this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,20 +42,20 @@
             this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel6 = new MyPanel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dtp_xs_rqe = new System.Windows.Forms.DateTimePicker();
-            this.dtp_xs_rqs = new System.Windows.Forms.DateTimePicker();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button20 = new System.Windows.Forms.Button();
+            this.textBox1 = new MyTextBox();
+            this.label1 = new MyLabel();
+            this.dtp_xs_rqe = new MyDateTimePicker();
+            this.dtp_xs_rqs = new MyDateTimePicker();
+            this.label11 = new MyLabel();
+            this.button1 = new MyButton();
+            this.textBox14 = new MyTextBox();
+            this.label8 = new MyLabel();
+            this.textBox7 = new MyTextBox();
+            this.label7 = new MyLabel();
+            this.button20 = new MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.panel6.SuspendLayout();
             this.SuspendLayout();
@@ -295,19 +296,19 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView4;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dtp_xs_rqe;
-        private System.Windows.Forms.DateTimePicker dtp_xs_rqs;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private MyGrid dataGridView4;
+        private MyPanel panel6;
+        private MyTextBox textBox14;
+        private MyLabel label8;
+        private MyTextBox textBox7;
+        private MyLabel label7;
+        private MyButton button20;
+        private MyButton button1;
+        private MyDateTimePicker dtp_xs_rqe;
+        private MyDateTimePicker dtp_xs_rqs;
+        private MyLabel label11;
+        private MyTextBox textBox1;
+        private MyLabel label1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;

@@ -20,6 +20,7 @@ namespace FDXS
         public Form_JifenZhekou()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
         /// <summary>

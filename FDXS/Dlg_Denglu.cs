@@ -1,6 +1,7 @@
 ﻿using DB_FD;
 using DB_FD.Models;
 using FDXS.Properties;
+using MyFormControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,12 @@ using Tool;
 
 namespace FDXS
 {
-    public partial class Dlg_Denglu : Form
+    public partial class Dlg_Denglu : MyForm
     {
         public Dlg_Denglu()
         {
             InitializeComponent();
+            base.InitializeComponent();
         }
 
 
@@ -141,6 +143,11 @@ namespace FDXS
             Settings.Default.ScanName = "";
             Settings.Default.Save();
             System.Windows.Forms.Application.Restart();
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

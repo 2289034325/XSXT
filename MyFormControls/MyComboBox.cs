@@ -101,6 +101,11 @@ namespace MyFormControls
             {
                 ret = ((DataRowView)item)[this.DisplayMember].ToString();
             }
+            else if (item.GetType().Equals(
+                typeof(string)))
+            {
+                ret = item.ToString();
+            }
 
             return ret;
         }

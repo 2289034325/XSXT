@@ -1,4 +1,5 @@
-﻿namespace FDXS
+﻿using MyFormControls;
+namespace FDXS
 {
     partial class Dlg_Huodong
     {
@@ -28,21 +29,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.备注 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.textBox2 = new MyTextBox();
+            this.label3 = new MyLabel();
+            this.button1 = new MyButton();
+            this.textBox1 = new MyTextBox();
+            this.备注 = new MyLabel();
+            this.label1 = new MyLabel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new MyLabel();
+            this.label5 = new MyLabel();
+            this.label7 = new MyLabel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.textBox3 = new MyTextBox();
+            this.textBox4 = new MyTextBox();
+            this.dateTimePicker1 = new MyDateTimePicker();
+            this.dateTimePicker2 = new MyDateTimePicker();
             this.SuspendLayout();
             // 
             // textBox2
@@ -201,20 +202,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label 备注;
-        private System.Windows.Forms.Label label1;
+        private MyTextBox textBox2;
+        private MyLabel label3;
+        private MyButton button1;
+        private MyTextBox textBox1;
+        private MyLabel 备注;
+        private MyLabel label1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label7;
+        private MyLabel label4;
+        private MyLabel label5;
+        private MyLabel label7;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private MyTextBox textBox3;
+        private MyTextBox textBox4;
+        private MyDateTimePicker dateTimePicker1;
+        private MyDateTimePicker dateTimePicker2;
     }
 }
