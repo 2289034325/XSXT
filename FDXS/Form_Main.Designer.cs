@@ -30,10 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.mn_main = new System.Windows.Forms.MenuStrip();
-            this.mn_main_info = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnl_cover = new MyFormControls.MyPanel();
-            this.myPanel1 = new MyFormControls.MyPanel();
-            this.myPanel2 = new MyFormControls.MyPanel();
             this.mn_main_menu = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_set = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_xtsz = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,9 +54,13 @@
             this.mn_main_closewindow = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_tuichu = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_logo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_info = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnl_cover = new MyFormControls.MyPanel();
+            this.pnl_yiduan = new MyFormControls.MyPanel();
+            this.pnl_mzd = new MyFormControls.MyPanel();
             this.mn_main.SuspendLayout();
             this.pnl_cover.SuspendLayout();
-            this.myPanel1.SuspendLayout();
+            this.pnl_yiduan.SuspendLayout();
             this.SuspendLayout();
             // 
             // mn_main
@@ -76,49 +76,6 @@
             this.mn_main.Size = new System.Drawing.Size(1020, 92);
             this.mn_main.TabIndex = 0;
             this.mn_main.Text = "menuStrip1";
-            // 
-            // mn_main_info
-            // 
-            this.mn_main_info.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.mn_main_info.AutoSize = false;
-            this.mn_main_info.BackColor = System.Drawing.Color.Black;
-            this.mn_main_info.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
-            this.mn_main_info.ForeColor = System.Drawing.Color.White;
-            this.mn_main_info.Name = "mn_main_info";
-            this.mn_main_info.Size = new System.Drawing.Size(350, 92);
-            this.mn_main_info.Text = "    ";
-            // 
-            // pnl_cover
-            // 
-            this.pnl_cover.BackColor = System.Drawing.Color.Black;
-            this.pnl_cover.Controls.Add(this.myPanel1);
-            this.pnl_cover.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_cover.Location = new System.Drawing.Point(0, 92);
-            this.pnl_cover.Name = "pnl_cover";
-            this.pnl_cover.Size = new System.Drawing.Size(1020, 475);
-            this.pnl_cover.TabIndex = 2;
-            // 
-            // myPanel1
-            // 
-            this.myPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.myPanel1.BackColor = System.Drawing.Color.Black;
-            this.myPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("myPanel1.BackgroundImage")));
-            this.myPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.myPanel1.Controls.Add(this.myPanel2);
-            this.myPanel1.Location = new System.Drawing.Point(35, 12);
-            this.myPanel1.Name = "myPanel1";
-            this.myPanel1.Size = new System.Drawing.Size(937, 451);
-            this.myPanel1.TabIndex = 0;
-            // 
-            // myPanel2
-            // 
-            this.myPanel2.BackColor = System.Drawing.Color.Black;
-            this.myPanel2.BackgroundImage = global::FDXS.Properties.Resources.mzd_name_white;
-            this.myPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.myPanel2.Location = new System.Drawing.Point(765, 356);
-            this.myPanel2.Name = "myPanel2";
-            this.myPanel2.Size = new System.Drawing.Size(147, 59);
-            this.myPanel2.TabIndex = 0;
             // 
             // mn_main_menu
             // 
@@ -320,6 +277,49 @@
             this.mn_main_logo.Size = new System.Drawing.Size(570, 92);
             this.mn_main_logo.Text = "                          ";
             // 
+            // mn_main_info
+            // 
+            this.mn_main_info.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.mn_main_info.AutoSize = false;
+            this.mn_main_info.BackColor = System.Drawing.Color.Black;
+            this.mn_main_info.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
+            this.mn_main_info.ForeColor = System.Drawing.Color.White;
+            this.mn_main_info.Name = "mn_main_info";
+            this.mn_main_info.Size = new System.Drawing.Size(350, 92);
+            this.mn_main_info.Text = "    ";
+            // 
+            // pnl_cover
+            // 
+            this.pnl_cover.BackColor = System.Drawing.Color.Black;
+            this.pnl_cover.Controls.Add(this.pnl_yiduan);
+            this.pnl_cover.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnl_cover.Location = new System.Drawing.Point(0, 92);
+            this.pnl_cover.Name = "pnl_cover";
+            this.pnl_cover.Size = new System.Drawing.Size(1020, 475);
+            this.pnl_cover.TabIndex = 2;
+            // 
+            // pnl_yiduan
+            // 
+            this.pnl_yiduan.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pnl_yiduan.BackColor = System.Drawing.Color.Black;
+            this.pnl_yiduan.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_yiduan.BackgroundImage")));
+            this.pnl_yiduan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnl_yiduan.Controls.Add(this.pnl_mzd);
+            this.pnl_yiduan.Location = new System.Drawing.Point(35, 12);
+            this.pnl_yiduan.Name = "pnl_yiduan";
+            this.pnl_yiduan.Size = new System.Drawing.Size(937, 451);
+            this.pnl_yiduan.TabIndex = 0;
+            // 
+            // pnl_mzd
+            // 
+            this.pnl_mzd.BackColor = System.Drawing.Color.Black;
+            this.pnl_mzd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_mzd.BackgroundImage")));
+            this.pnl_mzd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnl_mzd.Location = new System.Drawing.Point(787, 358);
+            this.pnl_mzd.Name = "pnl_mzd";
+            this.pnl_mzd.Size = new System.Drawing.Size(147, 59);
+            this.pnl_mzd.TabIndex = 0;
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -338,7 +338,7 @@
             this.mn_main.ResumeLayout(false);
             this.mn_main.PerformLayout();
             this.pnl_cover.ResumeLayout(false);
-            this.myPanel1.ResumeLayout(false);
+            this.pnl_yiduan.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -373,8 +373,8 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcxz;
         private System.Windows.Forms.ToolStripMenuItem mn_main_kcpd;
         private System.Windows.Forms.ToolStripMenuItem mn_main_closewindow;
-        private MyFormControls.MyPanel myPanel1;
-        private MyFormControls.MyPanel myPanel2;
+        private MyFormControls.MyPanel pnl_yiduan;
+        private MyFormControls.MyPanel pnl_mzd;
     }
 }
 

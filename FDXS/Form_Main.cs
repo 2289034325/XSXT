@@ -9,6 +9,7 @@ using System.Deployment.Application;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
@@ -91,9 +92,14 @@ namespace FDXS
                 RuntimeInfo.ClientVersion = new Version();
             }
 
+            //延迟3秒显示背景画
+            Thread.Sleep(2000);
+
             //登陆检查
             if (RuntimeInfo.LoginUser == null)
             {
+                pnl_yiduan.Visible = false;
+                
                 Dlg_Denglu df = new Dlg_Denglu();
                 if (df.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 {
@@ -108,17 +114,19 @@ namespace FDXS
             MyTask.DayTask();
             MyTask.Tasks();
 
-            //去掉背景的挡板，因为父窗体的背景色无法设置
-            pnl_cover.Visible = false;
-
             //打开开单页面
             Form_Kaidan fm = new Form_Kaidan();
             //Form_User fm = new Form_User();
             fm.MdiParent = this;
             fm.WindowState = FormWindowState.Maximized;
             fm.Show();
+
+            //去掉背景的挡板，因为父窗体的背景色无法设置
+            pnl_cover.Visible = false;
+            //放出背景墙
+            pnl_yiduan.Visible = true;
             
-            Timer t = new Timer();
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
             t.Interval = 1000;
             t.Tick += new EventHandler((Object o, EventArgs arg) =>
             {
