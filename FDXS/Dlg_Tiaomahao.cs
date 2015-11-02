@@ -19,7 +19,7 @@ namespace FDXS
         {
             get 
             {
-                return txb_tmhs.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                return txb_tmhs.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
         public Dlg_Tiaomahao()
