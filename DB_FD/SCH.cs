@@ -84,11 +84,11 @@ namespace DB_FD
             if (id == null)
             {
                 DateTime dend = end.AddDays(1);
-                cs = _db.TJinchuhuos.Include(r=>r.TJinchuMXes).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();                
+                cs = _db.TJinchuhuos.Include(r => r.TJinchuMXes).Include(r => r.TJinchuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
             }
             else
             {
-                cs = _db.TJinchuhuos.Include(r=>r.TJinchuMXes).Include(r=>r.TUser).Where(r => r.id == id.Value).ToArray();
+                cs = _db.TJinchuhuos.Include(r => r.TJinchuMXes).Include(r => r.TJinchuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser).Where(r => r.id == id.Value).ToArray();
             }
 
             return cs;

@@ -51,6 +51,14 @@ namespace FDXS
             this.label2 = new MyFormControls.MyLabel();
             this.label1 = new MyFormControls.MyLabel();
             this.btn_cancel = new MyFormControls.MyButton();
+            this.txb_mailServer = new MyFormControls.MyTextBox();
+            this.myLabel1 = new MyFormControls.MyLabel();
+            this.txb_mailPsw = new MyFormControls.MyTextBox();
+            this.myLabel2 = new MyFormControls.MyLabel();
+            this.txb_mailPort = new MyFormControls.MyTextBox();
+            this.txb_mailUser = new MyFormControls.MyTextBox();
+            this.myLabel3 = new MyFormControls.MyLabel();
+            this.myLabel4 = new MyFormControls.MyLabel();
             this.SuspendLayout();
             // 
             // txb_bakPath
@@ -59,7 +67,7 @@ namespace FDXS
             this.txb_bakPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txb_bakPath.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.txb_bakPath.ForeColor = System.Drawing.Color.White;
-            this.txb_bakPath.Location = new System.Drawing.Point(399, 70);
+            this.txb_bakPath.Location = new System.Drawing.Point(425, 70);
             this.txb_bakPath.Name = "txb_bakPath";
             this.txb_bakPath.Size = new System.Drawing.Size(165, 26);
             this.txb_bakPath.TabIndex = 28;
@@ -133,7 +141,7 @@ namespace FDXS
             this.dp_xsinterval.CustomFormat = "HH:mm:ss";
             this.dp_xsinterval.Font = new System.Drawing.Font("宋体", 12F);
             this.dp_xsinterval.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_xsinterval.Location = new System.Drawing.Point(195, 198);
+            this.dp_xsinterval.Location = new System.Drawing.Point(212, 262);
             this.dp_xsinterval.Name = "dp_xsinterval";
             this.dp_xsinterval.Size = new System.Drawing.Size(104, 26);
             this.dp_xsinterval.TabIndex = 22;
@@ -144,7 +152,7 @@ namespace FDXS
             this.dp_daytasktime.CustomFormat = "HH:mm:ss";
             this.dp_daytasktime.Font = new System.Drawing.Font("宋体", 12F);
             this.dp_daytasktime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dp_daytasktime.Location = new System.Drawing.Point(195, 166);
+            this.dp_daytasktime.Location = new System.Drawing.Point(212, 230);
             this.dp_daytasktime.Name = "dp_daytasktime";
             this.dp_daytasktime.Size = new System.Drawing.Size(104, 26);
             this.dp_daytasktime.TabIndex = 21;
@@ -156,7 +164,7 @@ namespace FDXS
             this.label7.BackColor = System.Drawing.Color.Black;
             this.label7.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(12, 201);
+            this.label7.Location = new System.Drawing.Point(12, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(177, 20);
             this.label7.TabIndex = 20;
@@ -169,7 +177,7 @@ namespace FDXS
             this.label6.BackColor = System.Drawing.Color.Black;
             this.label6.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(12, 169);
+            this.label6.Location = new System.Drawing.Point(12, 233);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(177, 20);
             this.label6.TabIndex = 19;
@@ -184,7 +192,7 @@ namespace FDXS
             this.txb_dataadd.ForeColor = System.Drawing.Color.White;
             this.txb_dataadd.Location = new System.Drawing.Point(153, 134);
             this.txb_dataadd.Name = "txb_dataadd";
-            this.txb_dataadd.Size = new System.Drawing.Size(411, 26);
+            this.txb_dataadd.Size = new System.Drawing.Size(437, 26);
             this.txb_dataadd.TabIndex = 18;
             this.txb_dataadd.Type = MyFormControls.MyControlType.Special;
             // 
@@ -209,7 +217,7 @@ namespace FDXS
             this.txb_validadd.ForeColor = System.Drawing.Color.White;
             this.txb_validadd.Location = new System.Drawing.Point(153, 102);
             this.txb_validadd.Name = "txb_validadd";
-            this.txb_validadd.Size = new System.Drawing.Size(411, 26);
+            this.txb_validadd.Size = new System.Drawing.Size(437, 26);
             this.txb_validadd.TabIndex = 16;
             this.txb_validadd.Type = MyFormControls.MyControlType.Special;
             // 
@@ -232,7 +240,7 @@ namespace FDXS
             this.txb_dbpsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txb_dbpsw.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.txb_dbpsw.ForeColor = System.Drawing.Color.White;
-            this.txb_dbpsw.Location = new System.Drawing.Point(399, 38);
+            this.txb_dbpsw.Location = new System.Drawing.Point(425, 38);
             this.txb_dbpsw.Name = "txb_dbpsw";
             this.txb_dbpsw.PasswordChar = '*';
             this.txb_dbpsw.Size = new System.Drawing.Size(165, 26);
@@ -260,7 +268,7 @@ namespace FDXS
             this.btn_ok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ok.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_ok.ForeColor = System.Drawing.Color.White;
-            this.btn_ok.Location = new System.Drawing.Point(464, 198);
+            this.btn_ok.Location = new System.Drawing.Point(490, 263);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(100, 26);
             this.btn_ok.TabIndex = 12;
@@ -287,7 +295,7 @@ namespace FDXS
             this.txb_dbname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txb_dbname.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.txb_dbname.ForeColor = System.Drawing.Color.White;
-            this.txb_dbname.Location = new System.Drawing.Point(399, 6);
+            this.txb_dbname.Location = new System.Drawing.Point(425, 6);
             this.txb_dbname.Name = "txb_dbname";
             this.txb_dbname.Size = new System.Drawing.Size(165, 26);
             this.txb_dbname.TabIndex = 10;
@@ -327,7 +335,7 @@ namespace FDXS
             this.btn_cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_cancel.ForeColor = System.Drawing.Color.White;
-            this.btn_cancel.Location = new System.Drawing.Point(358, 198);
+            this.btn_cancel.Location = new System.Drawing.Point(384, 263);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(100, 26);
             this.btn_cancel.TabIndex = 29;
@@ -336,12 +344,121 @@ namespace FDXS
             this.btn_cancel.UseVisualStyleBackColor = true;
             this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
+            // txb_mailServer
+            // 
+            this.txb_mailServer.BackColor = System.Drawing.Color.Black;
+            this.txb_mailServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_mailServer.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_mailServer.ForeColor = System.Drawing.Color.White;
+            this.txb_mailServer.Location = new System.Drawing.Point(153, 166);
+            this.txb_mailServer.Name = "txb_mailServer";
+            this.txb_mailServer.Size = new System.Drawing.Size(163, 26);
+            this.txb_mailServer.TabIndex = 37;
+            this.txb_mailServer.Type = MyFormControls.MyControlType.Special;
+            // 
+            // myLabel1
+            // 
+            this.myLabel1.AutoSize = true;
+            this.myLabel1.BackColor = System.Drawing.Color.Black;
+            this.myLabel1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.myLabel1.ForeColor = System.Drawing.Color.White;
+            this.myLabel1.Location = new System.Drawing.Point(12, 169);
+            this.myLabel1.Name = "myLabel1";
+            this.myLabel1.Size = new System.Drawing.Size(119, 20);
+            this.myLabel1.TabIndex = 36;
+            this.myLabel1.Text = "MailServer";
+            this.myLabel1.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // txb_mailPsw
+            // 
+            this.txb_mailPsw.BackColor = System.Drawing.Color.Black;
+            this.txb_mailPsw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_mailPsw.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_mailPsw.ForeColor = System.Drawing.Color.White;
+            this.txb_mailPsw.Location = new System.Drawing.Point(425, 198);
+            this.txb_mailPsw.Name = "txb_mailPsw";
+            this.txb_mailPsw.PasswordChar = '*';
+            this.txb_mailPsw.Size = new System.Drawing.Size(165, 26);
+            this.txb_mailPsw.TabIndex = 35;
+            this.txb_mailPsw.Type = MyFormControls.MyControlType.Special;
+            // 
+            // myLabel2
+            // 
+            this.myLabel2.AutoSize = true;
+            this.myLabel2.BackColor = System.Drawing.Color.Black;
+            this.myLabel2.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.myLabel2.ForeColor = System.Drawing.Color.White;
+            this.myLabel2.Location = new System.Drawing.Point(322, 201);
+            this.myLabel2.Name = "myLabel2";
+            this.myLabel2.Size = new System.Drawing.Size(86, 20);
+            this.myLabel2.TabIndex = 34;
+            this.myLabel2.Text = "MailPsw";
+            this.myLabel2.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // txb_mailPort
+            // 
+            this.txb_mailPort.BackColor = System.Drawing.Color.Black;
+            this.txb_mailPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_mailPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_mailPort.ForeColor = System.Drawing.Color.White;
+            this.txb_mailPort.Location = new System.Drawing.Point(153, 198);
+            this.txb_mailPort.Name = "txb_mailPort";
+            this.txb_mailPort.Size = new System.Drawing.Size(163, 26);
+            this.txb_mailPort.TabIndex = 33;
+            this.txb_mailPort.Type = MyFormControls.MyControlType.Special;
+            // 
+            // txb_mailUser
+            // 
+            this.txb_mailUser.BackColor = System.Drawing.Color.Black;
+            this.txb_mailUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_mailUser.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_mailUser.ForeColor = System.Drawing.Color.White;
+            this.txb_mailUser.Location = new System.Drawing.Point(425, 166);
+            this.txb_mailUser.Name = "txb_mailUser";
+            this.txb_mailUser.Size = new System.Drawing.Size(165, 26);
+            this.txb_mailUser.TabIndex = 32;
+            this.txb_mailUser.Type = MyFormControls.MyControlType.Special;
+            // 
+            // myLabel3
+            // 
+            this.myLabel3.AutoSize = true;
+            this.myLabel3.BackColor = System.Drawing.Color.Black;
+            this.myLabel3.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.myLabel3.ForeColor = System.Drawing.Color.White;
+            this.myLabel3.Location = new System.Drawing.Point(12, 201);
+            this.myLabel3.Name = "myLabel3";
+            this.myLabel3.Size = new System.Drawing.Size(97, 20);
+            this.myLabel3.TabIndex = 31;
+            this.myLabel3.Text = "MailPort";
+            this.myLabel3.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // myLabel4
+            // 
+            this.myLabel4.AutoSize = true;
+            this.myLabel4.BackColor = System.Drawing.Color.Black;
+            this.myLabel4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.myLabel4.ForeColor = System.Drawing.Color.White;
+            this.myLabel4.Location = new System.Drawing.Point(322, 169);
+            this.myLabel4.Name = "myLabel4";
+            this.myLabel4.Size = new System.Drawing.Size(97, 20);
+            this.myLabel4.TabIndex = 30;
+            this.myLabel4.Text = "MailUser";
+            this.myLabel4.Type = MyFormControls.MyControlType.Standard;
+            // 
             // Dlg_AppSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(576, 231);
+            this.ClientSize = new System.Drawing.Size(606, 303);
+            this.Controls.Add(this.txb_mailServer);
+            this.Controls.Add(this.myLabel1);
+            this.Controls.Add(this.txb_mailPsw);
+            this.Controls.Add(this.myLabel2);
+            this.Controls.Add(this.txb_mailPort);
+            this.Controls.Add(this.txb_mailUser);
+            this.Controls.Add(this.myLabel3);
+            this.Controls.Add(this.myLabel4);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.txb_bakPath);
             this.Controls.Add(this.label10);
@@ -400,5 +517,13 @@ namespace FDXS
         private MyTextBox txb_bakPath;
         private MyLabel label10;
         private MyButton btn_cancel;
+        private MyTextBox txb_mailServer;
+        private MyLabel myLabel1;
+        private MyTextBox txb_mailPsw;
+        private MyLabel myLabel2;
+        private MyTextBox txb_mailPort;
+        private MyTextBox txb_mailUser;
+        private MyLabel myLabel3;
+        private MyLabel myLabel4;
     }
 }

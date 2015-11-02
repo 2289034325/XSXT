@@ -25,7 +25,7 @@ namespace FDXS
 
 
         /// <summary>
-        /// 登陆
+        /// 保存
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -39,13 +39,26 @@ namespace FDXS
             string dataadd = txb_dataadd.Text.Trim();
             string dbPath = txb_dbPath.Text.Trim();
             string bkPath = txb_bakPath.Text.Trim();
+            string mailServer = txb_mailServer.Text.Trim();
+            string mailPortS = txb_mailPort.Text.Trim();
+            string mailUser = txb_mailUser.Text.Trim();
+            string mailPsw = txb_mailPsw.Text.Trim();            
 
             if (string.IsNullOrEmpty(dbname) || string.IsNullOrEmpty(dbuser) ||
                 string.IsNullOrEmpty(dbpsw) || string.IsNullOrEmpty(validadd) ||
                 string.IsNullOrEmpty(dbPath) || string.IsNullOrEmpty(bkPath) ||
-                string.IsNullOrEmpty(dbserver) || string.IsNullOrEmpty(dataadd))
+                string.IsNullOrEmpty(dbserver) || string.IsNullOrEmpty(dataadd)||
+                string.IsNullOrEmpty(mailServer) || string.IsNullOrEmpty(mailPortS) ||
+                string.IsNullOrEmpty(mailUser) || string.IsNullOrEmpty(mailPsw))
             {
                 MessageBox.Show("不能输入空白");
+                return;
+            }
+
+            int mailPort = 0;
+            if(!int.TryParse(mailPortS,out mailPort))
+            {
+                MessageBox.Show("邮件端口必须是整数");
                 return;
             }
 
@@ -85,6 +98,10 @@ namespace FDXS
             Settings.Default.XsTaskInterval = dp_xsinterval.Value.TimeOfDay;
             Settings.Default.DBPath = dbPath;
             Settings.Default.DBbakPath = bkPath;
+            Settings.Default.MailServer = mailServer;
+            Settings.Default.MailPort = mailPort;
+            Settings.Default.MailUser = mailUser;
+            Settings.Default.MailPsw = mailPsw;
 
             Settings.Default.Save();
 
@@ -108,6 +125,10 @@ namespace FDXS
             dp_xsinterval.Value = Convert.ToDateTime(DateTime.Now.Date + Settings.Default.XsTaskInterval);
             txb_dbPath.Text = Settings.Default.DBPath;
             txb_bakPath.Text = Settings.Default.DBbakPath;
+            txb_mailServer.Text = Settings.Default.MailServer;
+            txb_mailPort.Text = Settings.Default.MailPort.ToString();
+            txb_mailUser.Text = Settings.Default.MailUser;
+            txb_mailPsw.Text = Settings.Default.MailPsw;
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

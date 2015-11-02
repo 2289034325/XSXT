@@ -174,7 +174,9 @@ namespace JCSJGL
                 fendian = r.TFendian.dianming,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
                 lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),
-                jianshu = r.TFendianJinchuhuoMXes.Sum(mr=>mr.shuliang),
+                jianshu = r.TFendianJinchuhuoMXes.Sum(mr => (short?)mr.shuliang) ?? 0,
+                jinjia = r.TFendianJinchuhuoMXes.Sum(mr => (decimal?)mr.TTiaoma.jinjia * mr.shuliang) ?? 0,
+                shoujia = r.TFendianJinchuhuoMXes.Sum(mr => (decimal?)mr.TTiaoma.shoujia * mr.shuliang) ?? 0,
                 r.beizhu,
                 r.fashengshijian,
                 r.shangbaoshijian

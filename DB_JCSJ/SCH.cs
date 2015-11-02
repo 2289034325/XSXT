@@ -500,6 +500,7 @@ namespace DB_JCSJ
             public TFendianJinchuhuo[] GetFDJinchuhuoByCond(int[] ppids,int[] jmsids,int[] fdids, string kh,string tm,DateTime? fssj_start, DateTime? fssj_end, DateTime? sbsj_start, DateTime? sbsj_end, int pageSize, int pageIndex, out int recordCount)
             {
                 var jcs = _db.TFendianJinchuhuos.Include(r => r.TFendian).Include(r => r.TFendianJinchuhuoMXes).
+                    Include(r=>r.TFendianJinchuhuoMXes.Select(mx=>mx.TTiaoma)).
                     Include(r=>r.TFendian.Jms).AsQueryable();
                 if (ppids.Length != 0)
                 {

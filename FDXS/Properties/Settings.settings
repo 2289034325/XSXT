@@ -59,5 +59,17 @@
     <Setting Name="DayTaskDoneDate" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2015-08-25</Value>
     </Setting>
+    <Setting Name="MailUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MailUser</Value>
+    </Setting>
+    <Setting Name="MailPsw" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ai123456</Value>
+    </Setting>
+    <Setting Name="MailServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">www.acxca.com</Value>
+    </Setting>
+    <Setting Name="MailPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

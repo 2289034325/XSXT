@@ -359,6 +359,15 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
+            //清空，不然会出现bug
+            //如果有两行，第一行库存是够的，第二行库存不够，那么第一个会被放进购物车
+            //检查第二行的时候发现库存不够，直接退出处理，而此时，第一个仍然被留在购物车里
+            //当用户把库存不足的第二行删掉，或者修正了其库存的时候，再次店确定按钮
+            //则第一行又会被添加一次，第一，如果次操作成功的画会造成库存数量的异常
+            //其次，如果该操作会出现Insert条码的异常，因为那个被添加两次的数据不属于同一个数据上下文
+            //所以为被执行Insert操作
+            _XSS.Clear();
+
             if (grid_kaidan.Rows.Count == 0)
             {
                 return;

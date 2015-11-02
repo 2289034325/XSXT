@@ -37,13 +37,12 @@ namespace Tool
             // 
             // lbl_msg
             // 
-            this.lbl_msg.AutoSize = true;
             this.lbl_msg.BackColor = System.Drawing.Color.Black;
             this.lbl_msg.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.lbl_msg.ForeColor = System.Drawing.Color.White;
             this.lbl_msg.Location = new System.Drawing.Point(12, 9);
             this.lbl_msg.Name = "lbl_msg";
-            this.lbl_msg.Size = new System.Drawing.Size(177, 20);
+            this.lbl_msg.Size = new System.Drawing.Size(649, 78);
             this.lbl_msg.TabIndex = 0;
             this.lbl_msg.Text = "正在处理，请稍等";
             this.lbl_msg.Type = MyFormControls.MyControlType.Standard;
@@ -89,7 +88,6 @@ namespace Tool
             this.Text = "处理进度";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Dlg_Progress_FormClosing);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

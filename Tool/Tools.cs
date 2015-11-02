@@ -10,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Management;
+using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -341,6 +343,54 @@ namespace Tool
 
             return false;
         }
+
+        /// <summary>
+        /// 检查是不是正常的邮件地址
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static bool IsEmail(string e)
+        {
+            //电信手机号码正则        
+            string rs = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            Regex r = new Regex(rs);
+
+            if (r.IsMatch(e))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 使用QQ邮箱发邮件到指定邮箱
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="body"></param>
+        /// <param name="from"></param>
+        /// <param name="psw"></param>
+        /// <param name="to"></param>
+        public static void SendMail(string subject, string body,string mailServer,int mailPort, string user, string psw,string from, string to)
+        {
+            MailMessage myMail = new MailMessage();
+            myMail.From = new MailAddress(from);
+            foreach (string t in to.Split(new char[] { ';' }))
+            {
+                myMail.To.Add(new MailAddress(t));
+            }
+            myMail.Subject = subject;
+            myMail.SubjectEncoding = Encoding.UTF8;
+            myMail.Body = body;
+            myMail.BodyEncoding = Encoding.UTF8;
+            myMail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = mailServer;
+            smtp.Port = mailPort;
+            smtp.Credentials = new NetworkCredential(user, psw);
+            smtp.Send(myMail);
+        }
+
 
         /// <summary>
         /// 根据当前年月计算款号前缀

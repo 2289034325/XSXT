@@ -42,6 +42,8 @@
             <asp:BoundField DataField="fangxiang" HeaderText="方向"></asp:BoundField>
             <asp:BoundField DataField="lyqx" HeaderText="来源去向"></asp:BoundField>
             <asp:BoundField DataField="jianshu" HeaderText="件数"></asp:BoundField>
+            <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
+            <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="fashengshijian" HeaderText="发生时间"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>            

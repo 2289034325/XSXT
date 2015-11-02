@@ -149,6 +149,8 @@ namespace FDXS
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
                     c.laiyuanquxiang.ToString(),
                     c.TJinchuMXes.Sum(r=>(short?)r.shuliang)??0,
+                    c.TJinchuMXes.Sum(r=>(decimal?)r.TTiaoma.jinjia*r.shuliang)??0,
+                    c.TJinchuMXes.Sum(r=>(decimal?)r.TTiaoma.shoujia*r.shuliang)??0,
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,
@@ -206,6 +208,7 @@ namespace FDXS
                     mx.TTiaoma.yanse,
                     mx.TTiaoma.chima,
                     mx.shuliang,
+                    mx.TTiaoma.jinjia,
                     mx.TTiaoma.shoujia
                 });
         }
@@ -792,6 +795,91 @@ namespace FDXS
                         }, false).Start();
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 将指定进出库数据发送到邮箱
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_mail_Click(object sender, EventArgs e)
+        {
+            int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TJinchuhuo jch = db.GetJinchuhuoById(id);
+            TJinchuMX[] mxs = db.GetJinchuhuoMxsByJchId(id);
+
+            if (mxs.Count() == 0)
+            {
+                MessageBox.Show("没有数据");
+                return;
+            }
+
+            //拼接邮件内容
+            string body = "<table style='border:solid 1px grey;font-color:black' rules='all' border='1'>";
+            body += "<tr style='background-color:#2C6980;font-weight: bold;color:white;'>"
+                +"<th>条码</th><th>款号</th><th>品名</th><th>颜色</th><th>尺码</th><th>数量</th><th>进价</th></tr>";
+            foreach (TJinchuMX mx in mxs)
+            {
+                body += "<tr>";
+                body += "<td>" + mx.TTiaoma.tiaoma + "</td>";
+                body += "<td>" + mx.TTiaoma.kuanhao + "</td>";
+                body += "<td>" + mx.TTiaoma.pinming + "</td>";
+                body += "<td>" + mx.TTiaoma.yanse + "</td>";
+                body += "<td>" + mx.TTiaoma.chima + "</td>";
+                body += "<td>" + mx.shuliang + "</td>";
+                body += "<td>" + mx.TTiaoma.jinjia + "</td>";
+                body += "</tr>";
+            }
+            body += "<tr>";
+            body += "<td style='color:red;font-weight: bold;font-size:15px;'>合计</td>";
+            body += "<td></td>";
+            body += "<td></td>";
+            body += "<td></td>";
+            body += "<td></td>";
+            body += "<td style='color:red;font-weight: bold;font-size:15px;'>" + jch.TJinchuMXes.Sum(r => r.shuliang) + "</td>";
+            body += "<td style='color:red;font-weight: bold;font-size:15px;'>" + jch.TJinchuMXes.Sum(r => r.TTiaoma.jinjia * r.shuliang) + "</td>";
+            body += "</tr>";
+            body += "</table>";
+
+            Dlg_SingleCommon dl = new Dlg_SingleCommon();
+            if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string to = dl.txb_input.Text.Trim();
+                if (!Tool.CommonFunc.IsEmail(to))
+                {
+                    MessageBox.Show("输入的不是合法的邮件地址");
+                    return;
+                }
+
+                string server = Settings.Default.MailServer;
+                int port = Settings.Default.MailPort;
+                string user = Settings.Default.MailUser;
+                string psw = Settings.Default.MailPsw;
+                string subject = ((Tool.JCSJ.DBCONSTS.JCH_FX)jch.fangxiang).ToString() + "货清单-" + Settings.Default.FDMC;                
+                string from = "MissSystem@acxca.com";
+
+
+                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                {
+                    try
+                    {
+                        ShowMsg("开始身份验证", false);
+                        JCSJWCF.Login();
+
+                        ShowMsg("开始发送", false);
+                        Tool.CommonFunc.SendMail(subject, body, server, port, user, psw, from, to);
+
+                        ShowMsg("发送成功", false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                        ShowMsg(ex.Message, true);
+                    }
+                }, false).Start();
             }
         }
     }
