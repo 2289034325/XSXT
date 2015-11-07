@@ -73,6 +73,20 @@ namespace FDXS
             if (mx != null)
             {
                 db.UpdateChurukuMx(mx.id, (short)(mx.shuliang + 1));
+
+                foreach (DataGridViewRow dr in grid_jcmx.Rows)
+                {
+                    int id = (int)dr.Cells[col_mx_id.Name].Value;
+                    if (id == mx.id)
+                    {
+                        dr.Cells[col_mx_sl.Name].Value = short.Parse(dr.Cells[col_mx_sl.Name].Value.ToString()) + 1;
+                        //置顶显示该行
+                        grid_jcmx.ClearSelection();
+                        dr.Selected = true;
+                        grid_jcmx.FirstDisplayedScrollingRowIndex = dr.Index;
+                        break;
+                    }
+                }
             }
             else
             {
@@ -82,11 +96,13 @@ namespace FDXS
                     tiaomaid = tm.id,
                     shuliang = 1
                 };
-                TJinchuMX[] mxs = new TJinchuMX[] { nmx };
-                db.InsertJinchuMxs(mxs);
+                //TJinchuMX[] mxs = new TJinchuMX[] { nmx };
+                nmx = db.InsertJinchuMx(nmx);
+
+                addJinchuMx(nmx);
             }
 
-            refreshMx();
+            //refreshMx();
         }
 
         /// <summary>
@@ -199,7 +215,7 @@ namespace FDXS
         /// <param name="mx"></param>
         private void addJinchuMx(TJinchuMX mx)
         {
-            grid_jcmx.Rows.Add(new object[] 
+            int i = grid_jcmx.Rows.Add(new object[] 
                 {
                     mx.id,
                     mx.TTiaoma.tiaoma,
@@ -211,6 +227,11 @@ namespace FDXS
                     mx.TTiaoma.jinjia,
                     mx.TTiaoma.shoujia
                 });
+
+            grid_jcmx.ClearSelection();
+            grid_jcmx.Rows[i].Selected = true;
+            //置顶显示该行
+            grid_jcmx.FirstDisplayedScrollingRowIndex = i;
         }
 
         /// <summary>
@@ -723,11 +744,13 @@ namespace FDXS
                 }).ToArray();
 
                 TJinchuhuo[] njs = db.InsertJinchuhuos(jchs);
-                foreach (TJinchuhuo jc in jchs)
-                {
-                    jc.TUser = RuntimeInfo.LoginUser;
-                    addJinchuhuo(jc);
-                }
+
+                //在grid中加载数据会卡住，而且grid表现异常，可让用户下载完数据后点击查询按钮刷新除新数据
+                //foreach (TJinchuhuo jc in jchs)
+                //{
+                //    jc.TUser = RuntimeInfo.LoginUser;
+                //    addJinchuhuo(jc);
+                //}
 
                 //像服务器返回信息表示已经收到数据
                 JCSJWCF.XiazaiJinhuoShujuFinish(jhs.Select(r => r.id).ToArray());

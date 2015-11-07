@@ -45,11 +45,14 @@ namespace DB_FD
         /// 插入一组出入库明细
         /// </summary>
         /// <param name="mxs"></param>
-        public void InsertJinchuMxs(TJinchuMX[] mxs)
+        public TJinchuMX InsertJinchuMx(TJinchuMX mx)
         {
-            _db.TJinchuMXes.AddRange(mxs);
+            var nmx = _db.TJinchuMXes.Add(mx);
 
             _db.SaveChanges();
+
+            nmx.TTiaoma = _db.TTiaomas.Single(r => r.id == nmx.tiaomaid);
+            return nmx;
         }
         public void InsertUpdateJinchuMxs(TJinchuMX[] insert, TJinchuMX[] update)
         {

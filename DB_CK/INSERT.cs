@@ -45,5 +45,18 @@ namespace DB_CK
             _db.SaveChanges();
         }
 
+        public void InsertUpdateChurukuMxes(TChurukuMX[] insert, TChurukuMX[] update)
+        {
+            foreach (TChurukuMX u in update)
+            {
+                var ou = _db.TChurukuMXes.Single(r => r.churukuid == u.churukuid && r.tiaomaid == u.tiaomaid);
+                ou.shuliang += u.shuliang;
+            }
+
+            _db.TChurukuMXes.AddRange(insert);
+
+            _db.SaveChanges();
+        }
+
     }
 }

@@ -101,72 +101,115 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonMethod.cs" />
-    <Compile Include="Dlg_AppSettings.cs">
+    <Compile Include="BM\BarCode.cs" />
+    <Compile Include="BM\CONSTS.cs" />
+    <Compile Include="BM\Dlg_ChongfuKuanhao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_AppSettings.Designer.cs">
-      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    <Compile Include="BM\Dlg_ChongfuKuanhao.Designer.cs">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Denglu.cs">
+    <Compile Include="BM\Dlg_ChongfuTiaoma.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Denglu.Designer.cs">
+    <Compile Include="BM\Dlg_ChongfuTiaoma.Designer.cs">
+      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\Dlg_Denglu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\Dlg_Denglu.Designer.cs">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Jinchu.cs">
+    <Compile Include="BM\Dlg_Jiazai.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Jinchu.Designer.cs">
+    <Compile Include="BM\Dlg_Jiazai.Designer.cs">
+      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\Dlg_Kuanhao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\Dlg_Kuanhao.Designer.cs">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\Entities.cs" />
+    <Compile Include="BM\Form_Bianma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\Form_Bianma.Designer.cs">
+      <DependentUpon>Form_Bianma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\WCF.cs" />
+    <Compile Include="CK\CommonMethod.cs" />
+    <Compile Include="CK\Dlg_AppSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Dlg_AppSettings.Designer.cs">
+      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CK\Dlg_Denglu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Dlg_Denglu.Designer.cs">
+      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CK\Dlg_Jinchu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Dlg_Jinchu.Designer.cs">
       <DependentUpon>Dlg_Jinchu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_XiugaiMima.cs">
+    <Compile Include="CK\Dlg_XiugaiMima.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_XiugaiMima.Designer.cs">
+    <Compile Include="CK\Dlg_XiugaiMima.Designer.cs">
       <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_ScanSet.cs">
+    <Compile Include="CK\Dlg_ScanSet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_ScanSet.Designer.cs">
+    <Compile Include="CK\Dlg_ScanSet.Designer.cs">
       <DependentUpon>Dlg_ScanSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Fendian.cs">
+    <Compile Include="CK\Dlg_Fendian.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Fendian.Designer.cs">
+    <Compile Include="CK\Dlg_Fendian.Designer.cs">
       <DependentUpon>Dlg_Fendian.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Tiaomahao.cs">
+    <Compile Include="CK\Dlg_Zhuce.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Tiaomahao.Designer.cs">
-      <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_Zhuce.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_Zhuce.Designer.cs">
+    <Compile Include="CK\Dlg_Zhuce.Designer.cs">
       <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Churuku.cs">
+    <Compile Include="CK\Form_Churuku.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Churuku.Designer.cs">
+    <Compile Include="CK\Form_Churuku.Designer.cs">
       <DependentUpon>Form_Churuku.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_KucunYilan.cs">
+    <Compile Include="CK\Form_KucunYilan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_KucunYilan.Designer.cs">
+    <Compile Include="CK\Form_KucunYilan.Designer.cs">
       <DependentUpon>Form_KucunYilan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_KucunGuanli.cs">
+    <Compile Include="CK\Form_KucunGuanli.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_KucunGuanli.Designer.cs">
+    <Compile Include="CK\Form_KucunGuanli.Designer.cs">
       <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CK\MyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Dlg_Tiaomahao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Dlg_Tiaomahao.Designer.cs">
+      <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
@@ -174,78 +217,25 @@
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Peihuo.cs">
+    <Compile Include="CK\Form_Peihuo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Peihuo.Designer.cs">
+    <Compile Include="CK\Form_Peihuo.Designer.cs">
       <DependentUpon>Form_Peihuo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Tiaomaxinxi.cs">
+    <Compile Include="CK\Form_Tiaomaxinxi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Tiaomaxinxi.Designer.cs">
+    <Compile Include="CK\Form_Tiaomaxinxi.Designer.cs">
       <DependentUpon>Form_Tiaomaxinxi.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Yonghu.cs">
+    <Compile Include="CK\Form_Yonghu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Yonghu.Designer.cs">
+    <Compile Include="CK\Form_Yonghu.Designer.cs">
       <DependentUpon>Form_Yonghu.cs</DependentUpon>
     </Compile>
     <Compile Include="IDB.cs" />
-    <Compile Include="Models\JCSJContext.cs" />
-    <Compile Include="Models\Mapping\TCangkuFahuoFendianMap.cs" />
-    <Compile Include="Models\Mapping\TCangkuJinchuhuoMap.cs" />
-    <Compile Include="Models\Mapping\TCangkuJinchuhuoMXMap.cs" />
-    <Compile Include="Models\Mapping\TCangkuKucunMap.cs" />
-    <Compile Include="Models\Mapping\TCangkuKucunMXMap.cs" />
-    <Compile Include="Models\Mapping\TCangkuMap.cs" />
-    <Compile Include="Models\Mapping\TDiquMap.cs" />
-    <Compile Include="Models\Mapping\TFendianJinchuhuoMap.cs" />
-    <Compile Include="Models\Mapping\TFendianJinchuhuoMXMap.cs" />
-    <Compile Include="Models\Mapping\TFendianKucunMap.cs" />
-    <Compile Include="Models\Mapping\TFendianKucunMXMap.cs" />
-    <Compile Include="Models\Mapping\TFendianMap.cs" />
-    <Compile Include="Models\Mapping\TGongyingshangMap.cs" />
-    <Compile Include="Models\Mapping\THuiyuanMap.cs" />
-    <Compile Include="Models\Mapping\THuiyuanZKMap.cs" />
-    <Compile Include="Models\Mapping\TJiamengshangGXMap.cs" />
-    <Compile Include="Models\Mapping\TJiamengshangGXSQMap.cs" />
-    <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
-    <Compile Include="Models\Mapping\TJiamengshangPinpaiMap.cs" />
-    <Compile Include="Models\Mapping\TKuanhaoMap.cs" />
-    <Compile Include="Models\Mapping\TTiaomaJinjiaMap.cs" />
-    <Compile Include="Models\Mapping\TTiaomaMap.cs" />
-    <Compile Include="Models\Mapping\TUserMap.cs" />
-    <Compile Include="Models\Mapping\TXiaoshouMap.cs" />
-    <Compile Include="Models\Mapping\VDiquMap.cs" />
-    <Compile Include="Models\Mapping\VTiaomaMap.cs" />
-    <Compile Include="Models\TCangku.cs" />
-    <Compile Include="Models\TCangkuFahuoFendian.cs" />
-    <Compile Include="Models\TCangkuJinchuhuo.cs" />
-    <Compile Include="Models\TCangkuJinchuhuoMX.cs" />
-    <Compile Include="Models\TCangkuKucun.cs" />
-    <Compile Include="Models\TCangkuKucunMX.cs" />
-    <Compile Include="Models\TDiqu.cs" />
-    <Compile Include="Models\TFendian.cs" />
-    <Compile Include="Models\TFendianJinchuhuo.cs" />
-    <Compile Include="Models\TFendianJinchuhuoMX.cs" />
-    <Compile Include="Models\TFendianKucun.cs" />
-    <Compile Include="Models\TFendianKucunMX.cs" />
-    <Compile Include="Models\TGongyingshang.cs" />
-    <Compile Include="Models\THuiyuan.cs" />
-    <Compile Include="Models\THuiyuanZK.cs" />
-    <Compile Include="Models\TJiamengshang.cs" />
-    <Compile Include="Models\TJiamengshangGX.cs" />
-    <Compile Include="Models\TJiamengshangGXSQ.cs" />
-    <Compile Include="Models\TJiamengshangPinpai.cs" />
-    <Compile Include="Models\TKuanhao.cs" />
-    <Compile Include="Models\TTiaoma.cs" />
-    <Compile Include="Models\TTiaomaJinjia.cs" />
-    <Compile Include="Models\TUser.cs" />
-    <Compile Include="Models\TXiaoshou.cs" />
-    <Compile Include="Models\VDiqu.cs" />
-    <Compile Include="Models\VTiaoma.cs" />
     <Compile Include="RuntimeInfo.cs" />
     <Compile Include="Program.cs">
       <SubType>
@@ -262,50 +252,68 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="WCF.cs" />
-    <EmbeddedResource Include="Dlg_AppSettings.resx">
-      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    <Compile Include="CK\WCF.cs" />
+    <EmbeddedResource Include="BM\Dlg_ChongfuKuanhao.resx">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Denglu.resx">
+    <EmbeddedResource Include="BM\Dlg_ChongfuTiaoma.resx">
+      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Jinchu.resx">
+    <EmbeddedResource Include="BM\Dlg_Jiazai.resx">
+      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\Dlg_Kuanhao.resx">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\Form_Bianma.resx">
+      <DependentUpon>Form_Bianma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CK\Dlg_AppSettings.resx">
+      <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CK\Dlg_Denglu.resx">
+      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CK\Dlg_Jinchu.resx">
       <DependentUpon>Dlg_Jinchu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_XiugaiMima.resx">
+    <EmbeddedResource Include="CK\Dlg_XiugaiMima.resx">
       <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_ScanSet.resx">
+    <EmbeddedResource Include="CK\Dlg_ScanSet.resx">
       <DependentUpon>Dlg_ScanSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Fendian.resx">
+    <EmbeddedResource Include="CK\Dlg_Fendian.resx">
       <DependentUpon>Dlg_Fendian.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Tiaomahao.resx">
-      <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Zhuce.resx">
+    <EmbeddedResource Include="CK\Dlg_Zhuce.resx">
       <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Churuku.resx">
+    <EmbeddedResource Include="CK\Form_Churuku.resx">
       <DependentUpon>Form_Churuku.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_KucunYilan.resx">
+    <EmbeddedResource Include="CK\Form_KucunYilan.resx">
       <DependentUpon>Form_KucunYilan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_KucunGuanli.resx">
+    <EmbeddedResource Include="CK\Form_KucunGuanli.resx">
       <DependentUpon>Form_KucunGuanli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CK\Dlg_Tiaomahao.resx">
+      <DependentUpon>Dlg_Tiaomahao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Peihuo.resx">
+    <EmbeddedResource Include="CK\Form_Peihuo.resx">
       <DependentUpon>Form_Peihuo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Tiaomaxinxi.resx">
+    <EmbeddedResource Include="CK\Form_Tiaomaxinxi.resx">
       <DependentUpon>Form_Tiaomaxinxi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Yonghu.resx">
+    <EmbeddedResource Include="CK\Form_Yonghu.resx">
       <DependentUpon>Form_Yonghu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -452,8 +460,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\RMB.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="logo.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

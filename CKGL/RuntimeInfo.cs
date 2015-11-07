@@ -1,6 +1,4 @@
-﻿using DB_CK;
-using DB_CK.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Deployment.Application;
 using System.Linq;
@@ -18,9 +16,20 @@ namespace CKGL
         public const int DbVersion = 0;
 
         //当前登陆的用户
-        public static TUser LoginUser = null;
+        public static DB_CK.Models.TUser LoginUser_CK = null;
+        public static CKGL.JCSJData.TUser LoginUser_BM = null;
 
         //所有直营分店
         public static Dictionary<string, string> AllFds = null;
+
+
+        //是否已从服务器加载过必要的基础数据
+        public static bool BaseDataLoaded = false;
+
+        //供应商
+        public static CKGL.JCSJData.TGongyingshang[] Gyses = null;
+
+        //加盟的品牌
+        public static CKGL.JCSJData.TJiamengshang[] JmPps = null;
     }
 }

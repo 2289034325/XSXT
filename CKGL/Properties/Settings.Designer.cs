@@ -175,5 +175,83 @@ namespace CKGL.Properties {
                 this["DBbakDays"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2015")]
+        public int STARTYEAR {
+            get {
+                return ((int)(this["STARTYEAR"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data.xml")]
+        public string TempData {
+            get {
+                return ((string)(this["TempData"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int KH_NUM_LEN {
+            get {
+                return ((int)(this["KH_NUM_LEN"]));
+            }
+            set {
+                this["KH_NUM_LEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int TM_NUM_LEN {
+            get {
+                return ((int)(this["TM_NUM_LEN"]));
+            }
+            set {
+                this["TM_NUM_LEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LogoImg {
+            get {
+                return ((string)(this["LogoImg"]));
+            }
+            set {
+                this["LogoImg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BMUser {
+            get {
+                return ((string)(this["BMUser"]));
+            }
+            set {
+                this["BMUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BMPsw {
+            get {
+                return ((string)(this["BMPsw"]));
+            }
+            set {
+                this["BMPsw"] = value;
+            }
+        }
     }
 }

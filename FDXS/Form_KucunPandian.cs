@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,10 +18,13 @@ namespace FDXS
 {
     public partial class Form_KucunPandian : MyForm
     {
+        SpeechSynthesizer _synth;
         public Form_KucunPandian()
         {
             InitializeComponent();
             base.InitializeComponent();
+
+            _synth = new SpeechSynthesizer();
         }
 
         /// <summary>
@@ -39,7 +43,8 @@ namespace FDXS
             TTiaoma t = db.GetTiaomaByTmh(tm);
             if (t == null)
             {
-                MessageBox.Show("该条码不存在，请先更新条码信息");
+                _synth.Speak("该条码不存在");
+                //MessageBox.Show("该条码不存在，请先更新条码信息");
             }
             else
             {
@@ -65,6 +70,10 @@ namespace FDXS
                     db.UpdatePandian(pd.id, true);
                     pandianShuliang(pd.id, true);
                 }
+                PromptBuilder pb = new PromptBuilder();
+                //只读后4位
+                pb.AppendTextWithHint(tm.Substring(tm.Length-4), SayAs.SpellOut);
+                _synth.Speak(pb);
             }
         }
         
