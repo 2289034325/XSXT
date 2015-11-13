@@ -72,7 +72,16 @@ namespace FDXS
                 }
                 PromptBuilder pb = new PromptBuilder();
                 //只读后4位
-                pb.AppendTextWithHint(tm.Substring(tm.Length-4), SayAs.SpellOut);
+                string vc = "";
+                if (tm.Length <= 4)
+                {
+                    vc = tm;
+                }
+                else
+                {
+                    vc = tm.Substring(tm.Length - 4);
+                }
+                pb.AppendTextWithHint(vc, SayAs.SpellOut);
                 _synth.Speak(pb);
             }
         }
@@ -163,6 +172,18 @@ namespace FDXS
             DBContext db = IDB.GetDB();
             Dictionary<TTiaoma, short> kc = db.GetKucunView("", "", null, 1, null);
 
+            //如果第一次核对时，盘点数量为0，库存数量不为0，进行修正后使得库存数量为0,
+            //那么再次核对时，该条码将不会出现在上述列表中，导致不会对当前的grid进行刷新，库存数量依旧停留在上次修正前的数量
+            //故再次核对时，应当将上述列表中不存在的条码在grid中库存数量更正为0
+            foreach (DataGridViewRow dr in grid_pd.Rows)
+            {
+                int tmid = (int)dr.Cells[col_pd_tmid.Name].Value;
+                if (!kc.Any(k => k.Key.id == tmid))
+                {
+                    dr.Cells[col_pd_kcsl.Name].Value = (short)0;
+                }
+            }
+
             //并入grid
             bool exist = false;
             foreach (KeyValuePair<TTiaoma, short> p in kc)
@@ -200,7 +221,7 @@ namespace FDXS
                 short kcsl = (short)dr.Cells[col_pd_kcsl.Name].Value;
                 if (pdsl == kcsl)
                 {
-                    dr.DefaultCellStyle.BackColor = Color.SpringGreen;
+                    dr.DefaultCellStyle.BackColor = Color.DarkBlue;
                 }
                 else if (pdsl < kcsl)
                 {
@@ -209,7 +230,7 @@ namespace FDXS
                 }
                 else
                 {
-                    dr.DefaultCellStyle.BackColor = Color.Yellow;
+                    dr.DefaultCellStyle.BackColor = Color.DarkGreen;
                     yRows.Add(dr);
                 }
             }
@@ -434,6 +455,6 @@ namespace FDXS
 
             col_pd_pdsl.HeaderText = "盘点数量(" + tpdsl + ")";
             col_pd_kcsl.HeaderText = "库存数量(" + tkcsl + ")";
-        }
+        }       
     }
 }
