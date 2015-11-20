@@ -17,9 +17,33 @@ namespace FDXS
 {
     public partial class Form_KucunYilan : MyForm
     {
+        private const int _pageSize = 30;
+        private int _pageIndex;
+        private int _recordCount;
+        private int _pageCount 
+        {
+            get 
+            {
+                return _recordCount / _pageSize + (_recordCount % _pageSize == 0 ? 0 : 1);
+            }
+        }
+
+        //总的库存数据
+        private int _totalKucun;
+        private decimal _totalJinjia;
+        private decimal _totalShoujia;
+        //查询到的数据
+        private int _schKucun;
+        private decimal _schJinjia;
+        private decimal _schShoujia;
+
         public Form_KucunYilan()
         {
             InitializeComponent();
+            _pageIndex = 0;
+
+            
+
             base.InitializeComponent();
         }
 
@@ -30,6 +54,13 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
+            _pageIndex = 0;
+            getData(); 
+            lbl_zongji.Text = string.Format("数量{0}/{1}-成本{2}/{3}-售价{4}/{5}", _schKucun, _totalKucun, _schJinjia, _totalJinjia, _schShoujia, _totalShoujia);
+        }
+
+        private void getData()
+        {
             //查询条件
             string tmh = txb_tiaoma.Text.Trim();
             string kh = txb_kuanhao.Text.Trim();
@@ -39,9 +70,25 @@ namespace FDXS
             {
                 lx = byte.Parse(slx);
             }
+            DateTime? jhrq_start = null;
+            DateTime? jhrq_end = null;
+            if (dp_start.Checked)
+            {
+                jhrq_start = dp_start.Value.Date;
+            }
+            if (dp_end.Checked)
+            {
+                jhrq_end = dp_end.Value.Date;
+            }
+            short? sl_start = null;
+            if (chk_0.Checked)
+            {
+                sl_start = 1;
+            }
+
             //入-出+库存修正
             DBContext db = IDB.GetDB();
-            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh, kh, lx, null, null);
+            Dictionary<TTiaoma, short> ks = db.GetKucunView(tmh, kh, lx, sl_start, null, jhrq_start, jhrq_end, _pageSize, _pageIndex, out _recordCount,out _schKucun,out _schJinjia,out _schShoujia);
 
             grid_kc.Rows.Clear();
             foreach (KeyValuePair<TTiaoma, short> p in ks)
@@ -60,7 +107,8 @@ namespace FDXS
                     });
             }
 
-            col_sl.HeaderText = "数量(" + ks.Sum(r => r.Value) + ")";
+            //col_sl.HeaderText = "数量(" + ks.Sum(r => r.Value) + ")";
+            lbl_page.Text = _pageIndex + 1 + "/" + _pageCount;
         }
 
         /// <summary>
@@ -99,6 +147,45 @@ namespace FDXS
                 Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
                 ShowMsg(ex.Message, true);
             }  
+        }
+
+        private void btn_prev_Click(object sender, EventArgs e)
+        {
+            if (_pageIndex == 0)
+            {
+                return;
+            }
+
+            _pageIndex--;
+
+            getData();
+        }
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            if (_pageIndex + 1 >= _pageCount)
+            {
+                return;
+            }
+
+            _pageIndex++;
+
+            getData();
+        }
+
+
+        /// <summary>
+        /// 查询总计的库存数量和成本
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_zongji_Click(object sender, EventArgs e)
+        {
+            DBContext db = IDB.GetDB();
+
+            db.GetKucunZongji(out _totalKucun, out _totalJinjia, out _totalShoujia);
+
+            lbl_zongji.Text = string.Format("数量{0}/{1}-成本{2}/{3}-售价{4}/{5}", _schKucun, _totalKucun, _schJinjia, _totalJinjia, _schShoujia, _totalShoujia);
         }
     }
 }

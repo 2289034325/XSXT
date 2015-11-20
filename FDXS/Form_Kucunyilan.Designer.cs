@@ -43,6 +43,16 @@ namespace FDXS
             this.label17 = new MyFormControls.MyLabel();
             this.grid_kc = new MyFormControls.MyGrid();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label9 = new MyFormControls.MyLabel();
+            this.dp_start = new MyFormControls.MyDateTimePicker();
+            this.dp_end = new MyFormControls.MyDateTimePicker();
+            this.chk_0 = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btn_next = new MyFormControls.MyButton();
+            this.lbl_page = new MyFormControls.MyLabel();
+            this.btn_prev = new MyFormControls.MyButton();
+            this.lbl_zongji = new MyFormControls.MyLabel();
+            this.btn_zongji = new MyFormControls.MyButton();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_gyskh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,6 +64,7 @@ namespace FDXS
             this.col_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid_kc)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_sbkc
@@ -64,7 +75,7 @@ namespace FDXS
             this.btn_sbkc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_sbkc.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_sbkc.ForeColor = System.Drawing.Color.White;
-            this.btn_sbkc.Location = new System.Drawing.Point(492, 3);
+            this.btn_sbkc.Location = new System.Drawing.Point(3, 36);
             this.btn_sbkc.Name = "btn_sbkc";
             this.btn_sbkc.Size = new System.Drawing.Size(100, 26);
             this.btn_sbkc.TabIndex = 12;
@@ -111,7 +122,7 @@ namespace FDXS
             this.btn_sch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_sch.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_sch.ForeColor = System.Drawing.Color.White;
-            this.btn_sch.Location = new System.Drawing.Point(598, 3);
+            this.btn_sch.Location = new System.Drawing.Point(109, 36);
             this.btn_sch.Name = "btn_sch";
             this.btn_sch.Size = new System.Drawing.Size(100, 26);
             this.btn_sch.TabIndex = 6;
@@ -178,6 +189,8 @@ namespace FDXS
             this.grid_kc.AllowUserToDeleteRows = false;
             this.grid_kc.AllowUserToResizeRows = false;
             this.grid_kc.BackgroundColor = System.Drawing.Color.Black;
+            this.grid_kc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.grid_kc.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -207,31 +220,178 @@ namespace FDXS
             this.grid_kc.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_kc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_kc.EnableHeadersVisualStyles = false;
-            this.grid_kc.Location = new System.Drawing.Point(0, 30);
+            this.grid_kc.Location = new System.Drawing.Point(0, 65);
             this.grid_kc.Name = "grid_kc";
             this.grid_kc.ReadOnly = true;
             this.grid_kc.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grid_kc.RowHeadersVisible = false;
             this.grid_kc.RowTemplate.Height = 23;
-            this.grid_kc.Size = new System.Drawing.Size(1013, 454);
+            this.grid_kc.Size = new System.Drawing.Size(1076, 389);
             this.grid_kc.TabIndex = 11;
             this.grid_kc.Type = MyFormControls.MyControlType.Standard;
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.label17);
             this.flowLayoutPanel1.Controls.Add(this.txb_tiaoma);
             this.flowLayoutPanel1.Controls.Add(this.label16);
             this.flowLayoutPanel1.Controls.Add(this.txb_kuanhao);
             this.flowLayoutPanel1.Controls.Add(this.label8);
             this.flowLayoutPanel1.Controls.Add(this.cmb_leixing);
+            this.flowLayoutPanel1.Controls.Add(this.label9);
+            this.flowLayoutPanel1.Controls.Add(this.dp_start);
+            this.flowLayoutPanel1.Controls.Add(this.dp_end);
+            this.flowLayoutPanel1.Controls.Add(this.chk_0);
             this.flowLayoutPanel1.Controls.Add(this.btn_sbkc);
             this.flowLayoutPanel1.Controls.Add(this.btn_sch);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1013, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1076, 65);
             this.flowLayoutPanel1.TabIndex = 12;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Black;
+            this.label9.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(492, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(93, 20);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "进货日期";
+            this.label9.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // dp_start
+            // 
+            this.dp_start.Checked = false;
+            this.dp_start.Font = new System.Drawing.Font("宋体", 12F);
+            this.dp_start.Location = new System.Drawing.Point(591, 3);
+            this.dp_start.Name = "dp_start";
+            this.dp_start.ShowCheckBox = true;
+            this.dp_start.Size = new System.Drawing.Size(155, 26);
+            this.dp_start.TabIndex = 30;
+            this.dp_start.Type = MyFormControls.MyControlType.Special;
+            // 
+            // dp_end
+            // 
+            this.dp_end.Checked = false;
+            this.dp_end.Font = new System.Drawing.Font("宋体", 12F);
+            this.dp_end.Location = new System.Drawing.Point(752, 3);
+            this.dp_end.Name = "dp_end";
+            this.dp_end.ShowCheckBox = true;
+            this.dp_end.Size = new System.Drawing.Size(155, 26);
+            this.dp_end.TabIndex = 31;
+            this.dp_end.Type = MyFormControls.MyControlType.Special;
+            // 
+            // chk_0
+            // 
+            this.chk_0.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chk_0.AutoSize = true;
+            this.chk_0.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_0.ForeColor = System.Drawing.Color.White;
+            this.chk_0.Location = new System.Drawing.Point(913, 6);
+            this.chk_0.Name = "chk_0";
+            this.chk_0.Size = new System.Drawing.Size(87, 20);
+            this.chk_0.TabIndex = 18;
+            this.chk_0.Text = "不显示0";
+            this.chk_0.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.btn_next);
+            this.flowLayoutPanel2.Controls.Add(this.lbl_page);
+            this.flowLayoutPanel2.Controls.Add(this.btn_prev);
+            this.flowLayoutPanel2.Controls.Add(this.lbl_zongji);
+            this.flowLayoutPanel2.Controls.Add(this.btn_zongji);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 454);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1076, 30);
+            this.flowLayoutPanel2.TabIndex = 13;
+            // 
+            // btn_next
+            // 
+            this.btn_next.BackColor = System.Drawing.Color.Black;
+            this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_next.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_next.ForeColor = System.Drawing.Color.White;
+            this.btn_next.Location = new System.Drawing.Point(973, 3);
+            this.btn_next.Name = "btn_next";
+            this.btn_next.Size = new System.Drawing.Size(100, 26);
+            this.btn_next.TabIndex = 12;
+            this.btn_next.Text = "下一页";
+            this.btn_next.Type = MyFormControls.MyControlType.Standard;
+            this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
+            // 
+            // lbl_page
+            // 
+            this.lbl_page.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_page.AutoSize = true;
+            this.lbl_page.BackColor = System.Drawing.Color.Black;
+            this.lbl_page.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.lbl_page.ForeColor = System.Drawing.Color.White;
+            this.lbl_page.Location = new System.Drawing.Point(914, 6);
+            this.lbl_page.Name = "lbl_page";
+            this.lbl_page.Size = new System.Drawing.Size(53, 20);
+            this.lbl_page.TabIndex = 0;
+            this.lbl_page.Text = "1/10";
+            this.lbl_page.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // btn_prev
+            // 
+            this.btn_prev.BackColor = System.Drawing.Color.Black;
+            this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_prev.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_prev.ForeColor = System.Drawing.Color.White;
+            this.btn_prev.Location = new System.Drawing.Point(808, 3);
+            this.btn_prev.Name = "btn_prev";
+            this.btn_prev.Size = new System.Drawing.Size(100, 26);
+            this.btn_prev.TabIndex = 6;
+            this.btn_prev.Text = "上一页";
+            this.btn_prev.Type = MyFormControls.MyControlType.Standard;
+            this.btn_prev.UseVisualStyleBackColor = true;
+            this.btn_prev.Click += new System.EventHandler(this.btn_prev_Click);
+            // 
+            // lbl_zongji
+            // 
+            this.lbl_zongji.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_zongji.AutoSize = true;
+            this.lbl_zongji.BackColor = System.Drawing.Color.Black;
+            this.lbl_zongji.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.lbl_zongji.ForeColor = System.Drawing.Color.White;
+            this.lbl_zongji.Location = new System.Drawing.Point(751, 6);
+            this.lbl_zongji.Name = "lbl_zongji";
+            this.lbl_zongji.Size = new System.Drawing.Size(51, 20);
+            this.lbl_zongji.TabIndex = 13;
+            this.lbl_zongji.Text = "总计";
+            this.lbl_zongji.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // btn_zongji
+            // 
+            this.btn_zongji.BackColor = System.Drawing.Color.Black;
+            this.btn_zongji.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_zongji.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_zongji.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zongji.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_zongji.ForeColor = System.Drawing.Color.White;
+            this.btn_zongji.Location = new System.Drawing.Point(645, 3);
+            this.btn_zongji.Name = "btn_zongji";
+            this.btn_zongji.Size = new System.Drawing.Size(100, 26);
+            this.btn_zongji.TabIndex = 13;
+            this.btn_zongji.Text = "刷新总库存";
+            this.btn_zongji.Type = MyFormControls.MyControlType.Standard;
+            this.btn_zongji.UseVisualStyleBackColor = true;
+            this.btn_zongji.Click += new System.EventHandler(this.btn_zongji_Click);
             // 
             // col_tm
             // 
@@ -299,8 +459,9 @@ namespace FDXS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1013, 484);
+            this.ClientSize = new System.Drawing.Size(1076, 484);
             this.Controls.Add(this.grid_kc);
+            this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "Form_KucunYilan";
             this.Text = "库存一览";
@@ -308,7 +469,10 @@ namespace FDXS
             ((System.ComponentModel.ISupportInitialize)(this.grid_kc)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -324,6 +488,16 @@ namespace FDXS
         private MyComboBox cmb_leixing;
         private MyButton btn_sbkc;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private MyButton btn_next;
+        private MyLabel lbl_page;
+        private MyButton btn_prev;
+        private MyButton btn_zongji;
+        private MyLabel lbl_zongji;
+        private CheckBox chk_0;
+        private MyLabel label9;
+        private MyDateTimePicker dp_start;
+        private MyDateTimePicker dp_end;
         private DataGridViewTextBoxColumn col_tm;
         private DataGridViewTextBoxColumn col_kh;
         private DataGridViewTextBoxColumn col_gyskh;

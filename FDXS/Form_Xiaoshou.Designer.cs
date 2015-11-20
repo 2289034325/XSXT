@@ -33,16 +33,16 @@ namespace FDXS
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.grid_xs = new MyFormControls.MyGrid();
             this.label17 = new MyFormControls.MyLabel();
             this.txb_tiaoma = new MyFormControls.MyTextBox();
             this.label16 = new MyFormControls.MyLabel();
             this.txb_kuanhao = new MyFormControls.MyTextBox();
-            this.btn_sch = new MyFormControls.MyButton();
             this.label9 = new MyFormControls.MyLabel();
             this.dp_start = new MyFormControls.MyDateTimePicker();
             this.dp_end = new MyFormControls.MyDateTimePicker();
             this.btn_shangbao = new MyFormControls.MyButton();
+            this.btn_sch = new MyFormControls.MyButton();
+            this.grid_xs = new MyFormControls.MyGrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_kh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +79,126 @@ namespace FDXS
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1110, 30);
             this.flowLayoutPanel1.TabIndex = 12;
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Black;
+            this.label17.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(3, 6);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(51, 20);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "条码";
+            this.label17.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // txb_tiaoma
+            // 
+            this.txb_tiaoma.BackColor = System.Drawing.Color.Black;
+            this.txb_tiaoma.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_tiaoma.ForeColor = System.Drawing.Color.White;
+            this.txb_tiaoma.Location = new System.Drawing.Point(60, 3);
+            this.txb_tiaoma.Name = "txb_tiaoma";
+            this.txb_tiaoma.Size = new System.Drawing.Size(100, 26);
+            this.txb_tiaoma.TabIndex = 3;
+            this.txb_tiaoma.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // label16
+            // 
+            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Black;
+            this.label16.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(166, 6);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(51, 20);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "款号";
+            this.label16.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // txb_kuanhao
+            // 
+            this.txb_kuanhao.BackColor = System.Drawing.Color.Black;
+            this.txb_kuanhao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txb_kuanhao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.txb_kuanhao.ForeColor = System.Drawing.Color.White;
+            this.txb_kuanhao.Location = new System.Drawing.Point(223, 3);
+            this.txb_kuanhao.Name = "txb_kuanhao";
+            this.txb_kuanhao.Size = new System.Drawing.Size(100, 26);
+            this.txb_kuanhao.TabIndex = 4;
+            this.txb_kuanhao.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Black;
+            this.label9.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(329, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(93, 20);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "销售日期";
+            this.label9.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // dp_start
+            // 
+            this.dp_start.Font = new System.Drawing.Font("宋体", 12F);
+            this.dp_start.Location = new System.Drawing.Point(428, 3);
+            this.dp_start.Name = "dp_start";
+            this.dp_start.ShowCheckBox = true;
+            this.dp_start.Size = new System.Drawing.Size(155, 26);
+            this.dp_start.TabIndex = 27;
+            this.dp_start.Type = MyFormControls.MyControlType.Special;
+            // 
+            // dp_end
+            // 
+            this.dp_end.Font = new System.Drawing.Font("宋体", 12F);
+            this.dp_end.Location = new System.Drawing.Point(589, 3);
+            this.dp_end.Name = "dp_end";
+            this.dp_end.ShowCheckBox = true;
+            this.dp_end.Size = new System.Drawing.Size(155, 26);
+            this.dp_end.TabIndex = 28;
+            this.dp_end.Type = MyFormControls.MyControlType.Special;
+            // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.BackColor = System.Drawing.Color.Black;
+            this.btn_shangbao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_shangbao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_shangbao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_shangbao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_shangbao.ForeColor = System.Drawing.Color.White;
+            this.btn_shangbao.Location = new System.Drawing.Point(750, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(121, 26);
+            this.btn_shangbao.TabIndex = 30;
+            this.btn_shangbao.Text = "上报销售数据";
+            this.btn_shangbao.Type = MyFormControls.MyControlType.Special;
+            this.btn_shangbao.UseVisualStyleBackColor = false;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
+            // 
+            // btn_sch
+            // 
+            this.btn_sch.BackColor = System.Drawing.Color.Black;
+            this.btn_sch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_sch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_sch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_sch.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_sch.ForeColor = System.Drawing.Color.White;
+            this.btn_sch.Location = new System.Drawing.Point(877, 3);
+            this.btn_sch.Name = "btn_sch";
+            this.btn_sch.Size = new System.Drawing.Size(100, 26);
+            this.btn_sch.TabIndex = 6;
+            this.btn_sch.Text = "查询";
+            this.btn_sch.Type = MyFormControls.MyControlType.Standard;
+            this.btn_sch.UseVisualStyleBackColor = false;
+            this.btn_sch.Click += new System.EventHandler(this.btn_sch_Click);
             // 
             // grid_xs
             // 
@@ -134,126 +254,6 @@ namespace FDXS
             this.grid_xs.Type = MyFormControls.MyControlType.Standard;
             this.grid_xs.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_xs_UserDeletedRow);
             this.grid_xs.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_xs_UserDeletingRow);
-            // 
-            // label17
-            // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.Black;
-            this.label17.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
-            this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(3, 6);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(51, 20);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "条码";
-            this.label17.Type = MyFormControls.MyControlType.Standard;
-            // 
-            // txb_tiaoma
-            // 
-            this.txb_tiaoma.BackColor = System.Drawing.Color.Black;
-            this.txb_tiaoma.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txb_tiaoma.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.txb_tiaoma.ForeColor = System.Drawing.Color.White;
-            this.txb_tiaoma.Location = new System.Drawing.Point(60, 3);
-            this.txb_tiaoma.Name = "txb_tiaoma";
-            this.txb_tiaoma.Size = new System.Drawing.Size(100, 26);
-            this.txb_tiaoma.TabIndex = 3;
-            this.txb_tiaoma.Type = MyFormControls.MyControlType.Standard;
-            // 
-            // label16
-            // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Black;
-            this.label16.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
-            this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(166, 6);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(51, 20);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "款号";
-            this.label16.Type = MyFormControls.MyControlType.Standard;
-            // 
-            // txb_kuanhao
-            // 
-            this.txb_kuanhao.BackColor = System.Drawing.Color.Black;
-            this.txb_kuanhao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txb_kuanhao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.txb_kuanhao.ForeColor = System.Drawing.Color.White;
-            this.txb_kuanhao.Location = new System.Drawing.Point(223, 3);
-            this.txb_kuanhao.Name = "txb_kuanhao";
-            this.txb_kuanhao.Size = new System.Drawing.Size(100, 26);
-            this.txb_kuanhao.TabIndex = 4;
-            this.txb_kuanhao.Type = MyFormControls.MyControlType.Standard;
-            // 
-            // btn_sch
-            // 
-            this.btn_sch.BackColor = System.Drawing.Color.Black;
-            this.btn_sch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btn_sch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btn_sch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_sch.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.btn_sch.ForeColor = System.Drawing.Color.White;
-            this.btn_sch.Location = new System.Drawing.Point(809, 3);
-            this.btn_sch.Name = "btn_sch";
-            this.btn_sch.Size = new System.Drawing.Size(100, 26);
-            this.btn_sch.TabIndex = 6;
-            this.btn_sch.Text = "查询";
-            this.btn_sch.Type = MyFormControls.MyControlType.Standard;
-            this.btn_sch.UseVisualStyleBackColor = false;
-            this.btn_sch.Click += new System.EventHandler(this.btn_sch_Click);
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Black;
-            this.label9.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(329, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(93, 20);
-            this.label9.TabIndex = 26;
-            this.label9.Text = "销售日期";
-            this.label9.Type = MyFormControls.MyControlType.Standard;
-            // 
-            // dp_start
-            // 
-            this.dp_start.Font = new System.Drawing.Font("宋体", 12F);
-            this.dp_start.Location = new System.Drawing.Point(428, 3);
-            this.dp_start.Name = "dp_start";
-            this.dp_start.ShowCheckBox = true;
-            this.dp_start.Size = new System.Drawing.Size(120, 26);
-            this.dp_start.TabIndex = 27;
-            this.dp_start.Type = MyFormControls.MyControlType.Special;
-            // 
-            // dp_end
-            // 
-            this.dp_end.Font = new System.Drawing.Font("宋体", 12F);
-            this.dp_end.Location = new System.Drawing.Point(554, 3);
-            this.dp_end.Name = "dp_end";
-            this.dp_end.ShowCheckBox = true;
-            this.dp_end.Size = new System.Drawing.Size(122, 26);
-            this.dp_end.TabIndex = 28;
-            this.dp_end.Type = MyFormControls.MyControlType.Special;
-            // 
-            // btn_shangbao
-            // 
-            this.btn_shangbao.BackColor = System.Drawing.Color.Black;
-            this.btn_shangbao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btn_shangbao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btn_shangbao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_shangbao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.btn_shangbao.ForeColor = System.Drawing.Color.White;
-            this.btn_shangbao.Location = new System.Drawing.Point(682, 3);
-            this.btn_shangbao.Name = "btn_shangbao";
-            this.btn_shangbao.Size = new System.Drawing.Size(121, 26);
-            this.btn_shangbao.TabIndex = 30;
-            this.btn_shangbao.Text = "上报销售数据";
-            this.btn_shangbao.Type = MyFormControls.MyControlType.Special;
-            this.btn_shangbao.UseVisualStyleBackColor = false;
-            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
             // 
             // col_id
             // 

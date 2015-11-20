@@ -169,8 +169,11 @@ namespace FDXS
         private void btn_pd_hd_Click(object sender, EventArgs e)
         {
             //查询出当前库存
+            int recordCount = 0;
+            int i1;
+            decimal d1, d2;
             DBContext db = IDB.GetDB();
-            Dictionary<TTiaoma, short> kc = db.GetKucunView("", "", null, 1, null);
+            Dictionary<TTiaoma, short> kc = db.GetKucunView("", "", null, 1, null, null, null, null, null, out recordCount, out i1, out d1, out d2);
 
             //如果第一次核对时，盘点数量为0，库存数量不为0，进行修正后使得库存数量为0,
             //那么再次核对时，该条码将不会出现在上述列表中，导致不会对当前的grid进行刷新，库存数量依旧停留在上次修正前的数量

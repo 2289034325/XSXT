@@ -126,10 +126,25 @@ namespace DB_FD
         }
 
         /// <summary>
-        /// 取得当前库存信息
+        /// 查询库存信息
         /// </summary>
+        /// <param name="tmh">条码号</param>
+        /// <param name="kh">款号</param>
+        /// <param name="lx">类型</param>
+        /// <param name="sl_start">库存数量范围</param>
+        /// <param name="sl_end">库存数量范围</param>
+        /// <param name="jhrq_start">进货日期</param>
+        /// <param name="jhrq_end">进货日期</param>
+        /// <param name="pageSize">页大小</param>
+        /// <param name="pageIndex">当前页</param>
+        /// <param name="recordCount">命中的记录数</param>
+        /// <param name="schKucun">命中的库存数量</param>
+        /// <param name="schJinjia">命中的成本总价</param>
+        /// <param name="schShoujia">命中的售价总价</param>
         /// <returns></returns>
-        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, byte? lx,short?sl_start,short?sl_end)
+        public Dictionary<TTiaoma, short> GetKucunView(string tmh, string kh, byte? lx,
+            short?sl_start,short?sl_end,DateTime? jhrq_start,DateTime? jhrq_end, int? pageSize,int?pageIndex,
+            out int recordCount,out int schKucun,out decimal schJinjia,out decimal schShoujia)
         {
             var ks = from k in _db.VKucuns
                      join t in _db.TTiaomas
@@ -137,7 +152,8 @@ namespace DB_FD
                      select new
                      {
                          t,
-                         k.shuliang
+                         k.shuliang,
+                         k.jinhuoriqi
                      };
             if (!string.IsNullOrEmpty(tmh))
             {
@@ -159,6 +175,25 @@ namespace DB_FD
             {
                 ks = ks.Where(r => r.shuliang <= sl_end.Value);
             }
+            if (jhrq_start != null)
+            {
+                ks = ks.Where(r => r.jinhuoriqi >= jhrq_start);
+            }
+            if (jhrq_end != null)
+            {
+                ks = ks.Where(r => r.jinhuoriqi <= jhrq_end);
+            }
+
+            schKucun = ks.Sum(r => (int?)r.shuliang)??0;
+            schJinjia = ks.Sum(r => (short?)r.shuliang * r.t.jinjia)??0;
+            schShoujia = ks.Sum(r => (short?)r.shuliang * r.t.shoujia)??0;
+
+            recordCount = ks.Count();
+            if (pageSize != null && pageIndex != null)
+            {
+                ks = ks.OrderBy(r => r.t.tiaoma).Skip(pageSize.Value * pageIndex.Value).Take(pageSize.Value);
+            }
+
             return ks.ToDictionary(k => k.t, v => (short)v.shuliang);
         }
         /// <summary>
@@ -386,6 +421,29 @@ namespace DB_FD
         public int GetDbVersion()
         {
             return _db.TVersions.Max(r => r.banben);
+        }
+
+
+        /// <summary>
+        /// 查询库存总计
+        /// </summary>
+        /// <param name="zongshu">库存总数</param>
+        /// <param name="chengben">库存成本</param>
+        /// <param name="shoujia">库存售价</param>
+        public void GetKucunZongji(out int zongshu, out decimal chengben, out decimal shoujia)
+        {
+            var ks = from k in _db.VKucuns
+                     join t in _db.TTiaomas
+                     on k.id equals t.id
+                     select new
+                     {
+                         t,
+                         k.shuliang
+                     };
+
+            zongshu = ks.Sum(r => (int?)r.shuliang)??0;
+            chengben = ks.Sum(r => (short?)r.shuliang * r.t.jinjia)??0;
+            shoujia = ks.Sum(r => (short?)r.shuliang * r.t.shoujia)??0;
         }
     }
 }
