@@ -63,8 +63,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
-        <div runat="server" id="div_jms">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" CssClass="middle"></asp:DropDownList>
+        <div runat="server" id="div_pps">
+            <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_pps" CssClass="middle"></asp:DropDownList>
         </div>
         <div>
             <asp:Button ID="btn_toAdd" runat="server" Text="新增" OnClientClick="Add();return false;" />
@@ -75,7 +75,7 @@
     </div>
     <asp:GridView ID="grid_gys" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_gys_RowDeleting">
         <Columns>
-            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="pinpaishang" HeaderText="品牌商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="mingcheng" HeaderText="名称"></asp:BoundField>
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>

@@ -137,7 +137,7 @@ namespace CKGL.BM
             _jdc.EditTiaoma(t);
         }
 
-        internal static TJiamengshang[] GetJMPinpais()
+        internal static TPinpaishang[] GetJMPinpais()
         {
             AutoLogin();
             return _jdc.GetJMPinpais();

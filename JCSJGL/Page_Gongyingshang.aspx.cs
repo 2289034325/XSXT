@@ -21,21 +21,22 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //隐藏搜索条件
-                div_jms.Visible = false;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_jms.Visible = true;
+                    div_pps.Visible = true;
 
                     DBContext db = new DBContext();
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                    TPinpaishang[] jmss = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
                 }
                 else
                 {
+                    //隐藏搜索条件
+                    div_pps.Visible = false;
+
                     //加载供应商信息
                     loadGongyingshangs();
                 }
@@ -48,27 +49,27 @@ namespace JCSJGL
         private void loadGongyingshangs()
         {
             DBContext db = new DBContext();
-            int? jmsid = null;
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 }
                 grid_gys.Columns[0].Visible = true;
             }
             else
             {
                 grid_gys.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;
+                ppsid = _LoginUser.ppsid;
             }
 
-            TGongyingshang[] cs = db.GetGongyingshangs(jmsid);
+            TGongyingshang[] cs = db.GetGongyingshangs(ppsid);
             var dfs = cs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TJiamengshang.mingcheng,
+                pinpaishang = r.TPinpaishang.mingcheng,
                 mingcheng = r.mingcheng,
                 lianxiren = r.lianxiren,
                 dianhua = r.dianhua,
@@ -99,7 +100,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TGongyingshang og = db.GetGongyingshangById(f.id);
-            if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (og.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改此供应商信息", null);
             }
@@ -142,14 +143,14 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TGongyingshang f = getEditInfo();
-            f.jmsid = _LoginUser.jmsid;
+            f.ppsid = _LoginUser.ppsid.Value;
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
             int cc = db.GetGongyingshangCount(_LoginUser.jmsid);
-            if (cc >= _LoginUser.TJiamengshang.gongyingshangshu)
+            if (cc >= _LoginUser.TPinpaishang.gysshu)
             {
                 throw new MyException("拥有的供应商数量已到上限，如有需要增加更多供应商请联系系统管理员", null);
             }
@@ -172,7 +173,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TGongyingshang og = db.GetGongyingshangById(id);
-            if (og.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (og.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该供应商", null);
             }

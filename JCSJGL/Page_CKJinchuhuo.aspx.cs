@@ -21,33 +21,46 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
-
-                TCangku[] fs = null;
                 //隐藏搜索条件
-                div_sch_jms.Visible = false;
+                div_sch_pps.Visible = false;
 
                 //初始化分店下拉框
-                int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_sch_jms.Visible = true;
+                    div_sch_pps.Visible = true;
 
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
+                    //品牌商
+                    TPinpaishang[] ppses = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, ppses, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
+
+                    //加盟商
+                    TJiamengshang[] jmses = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, ppses, "mingcheng", "id");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
 
-                    fs = new TCangku[] { };
+                    //仓库
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
                 }
                 else
                 {
-                    jmsid = _LoginUser.jmsid;
-                    fs = db.GetCangkusAsItems(jmsid);
+                    //仓库
+                    TCangku[] fs = db.GetCangkusAsItems(_LoginUser.ppsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
+
+                    //加盟商
+                    TJiamengshang[] jmses = db.GetZiJiamengshangs(_LoginUser.ppsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
                 }
 
-                Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
-                cmb_ck.Items.Insert(0,new ListItem("所有仓库",""));
+                //来源去向
+                Tool.CommonFunc.InitDropDownList(cmb_lyqx, typeof(Tool.JCSJ.DBCONSTS.LYQX_CK));
+                cmb_lyqx.Items.Insert(0, new ListItem("", ""));
+
 
                 //日期下拉框
                 txb_fsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -75,24 +88,32 @@ namespace JCSJGL
             {
                 ckid = int.Parse(cmb_ck.SelectedValue);
             }
-            int? jmsid = null;
-            Dictionary<int,string> jmses = null;
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                  _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 } 
-                grid_jinchu.Columns[0].Visible = true;
-                jmses = db.GetJiamengshangs().ToDictionary(k=>k.id,v=>v.mingcheng);
             }
             else
             {
-                jmsid = _LoginUser.jmsid;
-                grid_jinchu.Columns[0].Visible = false;
-                jmses = db.GetZiJiamengshangGXes(jmsid.Value).ToDictionary(k=>k.id,v=>v.bzmingcheng);
+                ppsid = _LoginUser.ppsid;
             }
+            int? jmsid = null; 
+            if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+            {
+                jmsid = int.Parse(cmb_jms.SelectedValue);
+            }
+            string picima = txb_pcm.Text.Trim();
+            string tiaoma = txb_tm.Text.Trim();
+            byte? lyqx = null;
+            if (!string.IsNullOrEmpty(cmb_lyqx.SelectedValue))
+            {
+                lyqx = byte.Parse(cmb_lyqx.SelectedValue);
+            }
+
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
             if (!string.IsNullOrEmpty(txb_fsrq_start.Text.Trim()))
@@ -103,29 +124,22 @@ namespace JCSJGL
             {
                 xsrq_end = DateTime.Parse(txb_fsrq_end.Text.Trim()).Date.AddDays(1);
             }
-            DateTime? sbrq_start = null;
-            DateTime? sbrq_end = null;
-            if (!string.IsNullOrEmpty(txb_sbrq_start.Text.Trim()))
-            {
-                sbrq_start = DateTime.Parse(txb_sbrq_start.Text.Trim()).Date;
-            }
-            if (!string.IsNullOrEmpty(txb_sbrq_end.Text.Trim()))
-            {
-                sbrq_end = DateTime.Parse(txb_sbrq_end.Text.Trim()).Date.AddDays(1);
-            }
 
             int recordCount = 0;
-            TCangkuJinchuhuo[] jcs = db.GetCKJinchuhuoByCond(jmsid, ckid,
-                xsrq_start, xsrq_end, sbrq_start, sbrq_end,
-                grid_jinchu.PageSize, grid_jinchu.PageIndex, out recordCount);
+            TCangkuJinchuhuo[] jcs = db.GetCKJinchuhuoByCond(ppsid, ckid,picima,tiaoma,lyqx,jmsid,
+                xsrq_start, xsrq_end, grid_jinchu.PageSize, grid_jinchu.PageIndex, out recordCount);
             var xs = jcs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TCangku.TJiamengshang.mingcheng,
+                pinpaishang = r.TCangku.TPinpaishang.mingcheng,
                 cangku = r.TCangku.mingcheng,
+                picima = r.picima,
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
-                lyqx = ((Tool.JCSJ.DBCONSTS.JCH_LYQX)r.laiyuanquxiang).ToString(),             
+                lyqx = ((Tool.JCSJ.DBCONSTS.LYQX_CK)r.laiyuanquxiang).ToString(),
+                jiamengshang = r.TJiamengshang == null ? "" : r.TJiamengshang.mingcheng,
                 jianshu = r.TCangkuJinchuhuoMXes.Sum(mr => mr.shuliang),
+                zhekou = r.zhekou,
+                zhongjia = r.TCangkuJinchuhuoMXes.Sum(mr => (short?)mr.shuliang * mr.danjia) ?? 0,
                 r.beizhu,
                 r.fashengshijian,
                 r.shangbaoshijian
@@ -147,33 +161,21 @@ namespace JCSJGL
             search();
         }
 
-        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
+        protected void cmb_pps_SelectedIndexChanged(object sender, EventArgs e)
         {
-            grid_jinchu.DataSource = null;
-            grid_jinchu.DataBind();
-
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            cmb_ck.Items.Clear();
+            DBContext db = new DBContext();
+            if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
             {
-                cmb_ck.Items.Clear();
-                DBContext db = new DBContext();
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    int jmsid = int.Parse(cmb_jms.SelectedValue);
-                    TCangku[] fs = db.GetCangkusAsItems(jmsid);
+                int jmsid = int.Parse(cmb_pps.SelectedValue);
+                TCangku[] fs = db.GetCangkusAsItems(jmsid);
 
-                    Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
-                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
-                }
-                else
-                {
-                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
-                }
+                Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
+                cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
             }
             else
             {
-                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行", null);
+                cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
             }
         }
 
@@ -189,7 +191,24 @@ namespace JCSJGL
 
             if (e.CommandName == "MX")
             {
-                Response.Redirect(string.Format("Page_CKJinchuhuoMX.aspx?id={0}", id));
+                DBContext db = new DBContext();
+                //加载详细数据
+                TCangkuJinchuhuoMX[] mxes = db.GetCKJinchuhuoMXsByJcId(id);
+                var data = mxes.Select(r => new 
+                {
+                    tiaoma = r.TTiaoma.tiaoma,
+                    kuanhao = r.TTiaoma.TKuanhao.kuanhao,
+                    pinming = r.TTiaoma.TKuanhao.pinming,
+                    yanse = r.TTiaoma.yanse,
+                    chima = r.TTiaoma.chima,
+                    danjia = r.danjia,
+                    diaopaijia = r.TTiaoma.shoujia,
+                    zhekou = decimal.Round(r.danjia/r.TTiaoma.shoujia*10,2),
+                    shuliang = r.shuliang
+                });
+
+                grid_mx.DataSource = Tool.CommonFunc.LINQToDataTable(data);
+                grid_mx.DataBind();
             }
         }
 

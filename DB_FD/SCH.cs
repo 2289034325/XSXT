@@ -78,21 +78,31 @@ namespace DB_FD
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public TJinchuhuo[] GetJinchuhuos(int? id, DateTime start, DateTime end)
+        public TJinchuhuo[] GetJinchuhuos(string tm, DateTime? fsrq_start, DateTime? fsrq_end)
         {
-            TJinchuhuo[] cs = null;
-            if (id == null)
+            var jcs = _db.TJinchuhuos.Include(r => r.TJinchuMXes).
+                Include(r => r.TJinchuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser).AsQueryable();
+            if (!string.IsNullOrEmpty(tm))
             {
-                DateTime dend = end.AddDays(1);
-                cs = _db.TJinchuhuos.Include(r => r.TJinchuMXes).Include(r => r.TJinchuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
+                jcs = jcs.Where(r => r.TJinchuMXes.Any(xr => xr.TTiaoma.tiaoma == tm));
             }
-            else
+            if (fsrq_start != null)
             {
-                cs = _db.TJinchuhuos.Include(r => r.TJinchuMXes).Include(r => r.TJinchuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser).Where(r => r.id == id.Value).ToArray();
+                jcs = jcs.Where(r => r.charushijian >= fsrq_start);
+            }
+            if (fsrq_end != null)
+            {
+                jcs = jcs.Where(r => r.charushijian < fsrq_end);
             }
 
-            return cs;
+            return jcs.ToArray();
         }
+
+        public TJinchuhuo GetJinchuhuoByPcm(string pcm)
+        {
+            return _db.TJinchuhuos.SingleOrDefault(r => r.picima == pcm);
+        }
+        
 
         /// <summary>
         /// 根据ID取得进出货记录信息
@@ -101,7 +111,7 @@ namespace DB_FD
         /// <returns></returns>
         public TJinchuhuo GetJinchuhuoById(int id)
         {
-            return _db.TJinchuhuos.Include(r=>r.TJinchuMXes).SingleOrDefault(r => r.id == id);
+            return _db.TJinchuhuos.Include(r=>r.TJinchuMXes).Include(r=>r.TUser).SingleOrDefault(r => r.id == id);
         }
 
         /// <summary>
@@ -122,7 +132,7 @@ namespace DB_FD
         {
             return _db.TJinchuhuos.Include(r=>r.TJinchuMXes).
                 //未上报，且有明细数据
-                Where(r => r.shangbaoshijian == null && r.TJinchuMXes.Any()).ToArray();
+                Where(r => r.shangbaoshijian == null && r.queding == true && r.TJinchuMXes.Any()).ToArray();
         }
 
         /// <summary>

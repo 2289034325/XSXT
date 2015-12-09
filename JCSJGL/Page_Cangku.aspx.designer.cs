@@ -13,22 +13,22 @@ namespace JCSJGL {
     public partial class Page_Cangku {
         
         /// <summary>
-        /// div_jms 控件。
+        /// div_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_jms;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_pps;
         
         /// <summary>
-        /// cmb_jms 控件。
+        /// cmb_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
+        protected global::System.Web.UI.WebControls.DropDownList cmb_pps;
         
         /// <summary>
         /// btn_toAdd 控件。

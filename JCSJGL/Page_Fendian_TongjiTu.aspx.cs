@@ -41,83 +41,46 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
-
-                TFendian[] fs = null;
-                //初始化分店下拉框
-                int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    //显示搜索
-                    div_sch_jms.Visible = true;
-
-                    //品牌商
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有品牌商", ""));
-
                     //加盟商
-                    Tool.CommonFunc.InitDropDownList(cmb_zjms, jmss, "mingcheng", "id");
-                    cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
-
-                    //分店
-                    if (Request["jmsid"] != null)
-                    {
-                        cmb_zjms.SelectedValue = Request["jmsid"];
-                        TFendian[] zyds = db.GetFendiansAsItems(jmsid.Value);
-                    }
-                    else
-                    {
-                        fs = new TFendian[] { };
-                    }
+                    TJiamengshang[] jmses = db.GetJiamengshangs();
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
                 }
-                else
+                else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理)
                 {
-                    //显示搜索
-                    div_sch_jms.Visible = false;
-                    jmsid = _LoginUser.jmsid;
-                    //加载子加盟商，包括自己
-                    TJiamengshangGX[] zjmsgxes = db.GetZiJiamengshangGXes(jmsid.Value);
-                    Tool.CommonFunc.InitDropDownList(cmb_zjms, zjmsgxes, "bzmingcheng", "jmsid");
-                    cmb_zjms.Items.Insert(0, new ListItem(_LoginUser.TJiamengshang.mingcheng, _LoginUser.jmsid.ToString()));
-                    cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
-
-                    if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
-                    {
-                        fs = db.GetUserFendiansByUserId(_LoginUser.id).Select(r => r.TFendian).ToArray();
-                    }
-                    else
-                    {
-                        //加载所有的直营店和加盟分店
-                        TFendian[] zyds = db.GetFendiansAsItems(jmsid);
-                        TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid.Value);
-                        fs = zyds.Concat(jmds).ToArray();
-                    }
-
-                    if (_LoginUser.TJiamengshang.zjmsshu <= 0)
-                    {
-                        div_sch_zjms.Visible = false;
-                    }
-                    else
-                    { 
-                        //如果是店长，限制为可见的分店数据
-                        if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
-                        {
-                            div_sch_zjms.Visible = false;
-                        }
-                        else
-                        {
-                            div_sch_zjms.Visible = true;
-                        }
-                    }
+                    //加盟商
+                    TJiamengshang[] jmses = db.GetZiJiamengshangs(_LoginUser.ppsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
+                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
                 }
+                else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理)
+                {
+                    //隐藏搜索条件
+                    div_sch_jms.Visible = false;
 
-                Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
-                cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                    TFendian[] fds = db.GetFendians(_LoginUser.jmsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_fd, fds, "dianming", "id");
+                    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                }
+                //else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商店长)
+                //{
+                //    //隐藏搜索条件
+                //    div_sch_jms.Visible = false;
 
-                //日期
-                txb_xsrq_start.Text = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
+                //    TFendian[] fds = db.GetUserFendiansByUserId(_LoginUser.id).Select(r => r.TFendian).ToArray();
+                //    Tool.CommonFunc.InitDropDownList(cmb_fd, fds, "dianming", "id");
+                //    cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
+                //}
+
+                //日期下拉框
+                txb_xsrq_start.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txb_xsrq_end.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            
 
                 //图表类型下拉框
                 //cmb_ctype.DataSource = new string[] { "销售量", "销售额", "利润" };
@@ -543,25 +506,73 @@ namespace JCSJGL
 
         private int[] getFdids()
         {
+            DBContext db = new DBContext();
             int[] fdids = new int[] { };
 
-            //下拉框没有选择全部，那就只查询选定的分店的数据
-            if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
+            //如果是店长，则也限定为权限内可见范围的数据
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                int fdid = int.Parse(cmb_fd.SelectedValue);
-                fdids = new int[] { fdid };
-            }
-            //如果选择的是全部
-            else
-            {
-                //如果是店长，则也限定为权限内可见范围的数据
-                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
+                if (string.IsNullOrEmpty(cmb_fd.SelectedValue))
                 {
-                    DBContext db = new DBContext();
-                    TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
-                    fdids = ufs.Select(r => r.fendianid).ToArray();
+                    if (string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                    {
+                        TFendian[] fds = db.GetFendiansAsItems(null);
+                        fdids = fds.Select(r => r.id).ToArray();
+                    }
+                    else
+                    {
+                        int jmsid = int.Parse(cmb_jms.SelectedValue);
+                        TFendian[] fds = db.GetFendiansAsItems(jmsid);
+                        fdids = fds.Select(r => r.id).ToArray();
+                    }
+                }
+                else
+                {
+                    fdids = new int[] { int.Parse(cmb_fd.SelectedValue) };
                 }
             }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理)
+            {
+                if (string.IsNullOrEmpty(cmb_fd.SelectedValue))
+                {
+                    if (string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                    {
+                        TFendian[] fds = db.GetFendiansOfPinpaiAsItems(_LoginUser.ppsid.Value);
+                        fdids = fds.Select(r => r.id).ToArray();
+                    }
+                    else
+                    {
+                        int jmsid = int.Parse(cmb_jms.SelectedValue);
+                        TFendian[] fds = db.GetFendiansOfPinpaiAsItems(_LoginUser.ppsid.Value).Where(r => r.jmsid == jmsid).ToArray();
+                        fdids = fds.Select(r => r.id).ToArray();
+                    }
+                }
+                else
+                {
+                    fdids = new int[] { int.Parse(cmb_fd.SelectedValue) };
+                }
+
+            }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理)
+            {
+                if (string.IsNullOrEmpty(cmb_fd.SelectedValue))
+                {
+                    TFendian[] fds = db.GetFendiansAsItems(_LoginUser.jmsid.Value);
+                    fdids = fds.Select(r => r.id).ToArray();
+                }
+                else
+                {
+                    fdids = new int[] { int.Parse(cmb_fd.SelectedValue) };
+                }
+            }
+            //else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商店长)
+            //{
+            //    TUserFendian[] ufs = db.GetUserFendiansByUserId(_LoginUser.id);
+            //    fdids = ufs.Select(r => r.fendianid).ToArray();
+            //}
 
             return fdids;
         }
@@ -573,8 +584,6 @@ namespace JCSJGL
         {
             DBContext db = new DBContext();
             //限定查询的品牌范围
-            int[] ppids = getPPids();
-            int[] jmsids = getJmsids();
             int[] fdids = getFdids();
             DateTime? xsrq_start = null;
             DateTime? xsrq_end = null;
@@ -588,63 +597,11 @@ namespace JCSJGL
             }
 
             int recordCount = 0;
-            TXiaoshou[] xss = db.GetXiaoshousByCond(ppids, jmsids, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
+            TXiaoshou[] xss = db.GetXiaoshousByCond(null, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
 
             return xss;
         }
-        private int[] getPPids()
-        {
-            List<int> lppids = new List<int>();
-            //如果是品牌商查询，将子加盟商的名称替换为备注名称
-            DBContext db = new DBContext();
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    lppids.Add(int.Parse(cmb_jms.SelectedValue));
-                }
-            }
-            else
-            {
-                //grid_xiaoshou.Columns[0].Visible = false;
-                TJiamengshang[] pps = db.GetFuJiamengshangs(_LoginUser.jmsid);
-                lppids.AddRange(pps.Select(r => r.id));
-                lppids.Add(_LoginUser.jmsid);
-            }
-
-            return lppids.ToArray();
-        }
-        private int[] getJmsids()
-        {
-            List<int> jmsids = new List<int>();
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                //加盟商
-                if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
-                {
-                    jmsids.Add(int.Parse(cmb_zjms.SelectedValue));
-                }
-            }
-            else
-            {
-                //如果下拉框有选择，就只查询选择的子加盟商的数据
-                if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
-                {
-                    jmsids.Add(int.Parse(cmb_zjms.SelectedValue));
-                }
-                else
-                {
-                    //非系统管理员或总经理，只能查询自己直营店和加盟商的销售数据
-                    DBContext db = new DBContext();
-                    TJiamengshang[] jmses = db.GetZiJiamengshangs(_LoginUser.jmsid);
-                    jmsids.AddRange(jmses.Select(r => r.id));
-                    jmsids.Add(_LoginUser.jmsid);
-                }
-            }
-            return jmsids.ToArray();
-        }
+        
         /// <summary>
         /// 取得选中的X类型
         /// </summary>
@@ -660,114 +617,12 @@ namespace JCSJGL
 
             return ret;
         }
+
         protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmb_zjms.Items.Clear();
-            cmb_fd.Items.Clear();
-            TJiamengshang[] zjmses;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                TFendian[] fs;
-                DBContext db = new DBContext();
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    int jmsid = int.Parse(cmb_jms.SelectedValue);
-                    TJiamengshang jms = db.GetJiamengshangById(jmsid);
-                    //子加盟商
-                    zjmses = db.GetZiJiamengshangs(jmsid);
-                    Tool.CommonFunc.InitDropDownList(cmb_zjms, zjmses, "mingcheng", "id");
-                    cmb_zjms.Items.Insert(0, new ListItem(jms.mingcheng, jmsid.ToString()));
-                    cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
-
-                    //分店
-                    TFendian[] zyds = db.GetFendiansAsItems(jmsid);
-                    TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid);
-                    fs = zyds.Concat(jmds).ToArray();
-                }
-                else
-                {
-                    zjmses = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_zjms, zjmses, "mingcheng", "id");
-                    cmb_zjms.Items.Insert(0, new ListItem("所有加盟商", ""));
-
-                    fs = new TFendian[] { };
-                }
-
-                Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
-                cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
-            }
-            else
-            {
-                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行", null);
-            }
-        }
-        protected void cmb_zjms_SelectedIndexChanged(object sender, EventArgs e)
-        {
             DBContext db = new DBContext();
-            int? jmsid = null;
-            TFendian[] fs;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-               _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
-                    if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
-                    {
-                        //加载属于某子加盟商的并且加盟到某品牌商的分店
-                        int zjmsid = int.Parse(cmb_zjms.SelectedValue);
-                        fs = db.GetFendiansAsItems(zjmsid).Where(r => r.ppid == jmsid.Value).ToArray();
-                    }
-                    else
-                    {
-                        //加载属于某品牌商的，和加盟到该品牌的分店
-                        TFendian[] zyds = db.GetFendiansAsItems(jmsid);
-                        TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid.Value);
-                        fs = zyds.Concat(jmds).ToArray();
-                    }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
-                    {
-                        //加载属于某子加盟商的并且加盟到某品牌商的分店
-                        int zjmsid = int.Parse(cmb_zjms.SelectedValue);
-                        fs = db.GetFendiansAsItems(zjmsid);
-                    }
-                    else
-                    {
-                        fs = new TFendian[] { };
-                    }
-                }
-            }
-            else
-            {
-                jmsid = _LoginUser.jmsid;
-                if (!string.IsNullOrEmpty(cmb_zjms.SelectedValue))
-                {
-                    //加载属于某子加盟商的并且加盟到某品牌商的分店
-                    int zjmsid = int.Parse(cmb_zjms.SelectedValue);
-                    if (zjmsid == jmsid)
-                    {
-                        //子加盟商选择了自己，表示某品牌商想查看自己的直营店
-                        fs = db.GetFendiansAsItems(zjmsid);
-                    }
-                    else
-                    {
-                        fs = db.GetFendiansAsItems(zjmsid).Where(r => r.ppid == jmsid).ToArray();
-                    }
-                }
-                else
-                {
-                    //加载属于某品牌商的，和加盟到该品牌的分店
-                    TFendian[] zyds = db.GetFendiansAsItems(jmsid);
-                    TFendian[] jmds = db.GetFendiansOfPinpaiAsItems(jmsid.Value);
-                    fs = zyds.Concat(jmds).ToArray();
-                }
-            }
-
+            int[] fdids = getFdids();
+            TFendian[] fs = db.GetFendiansAsItemsByFdids(fdids);
             Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
             cmb_fd.Items.Insert(0, new ListItem("所有分店", ""));
         }

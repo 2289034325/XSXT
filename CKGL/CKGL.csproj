@@ -115,6 +115,12 @@
     <Compile Include="BM\Dlg_ChongfuTiaoma.Designer.cs">
       <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\Dlg_PrintSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\Dlg_PrintSet.Designer.cs">
+      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\Dlg_Denglu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,12 @@
     <Compile Include="CK\Form_Churuku.Designer.cs">
       <DependentUpon>Form_Churuku.cs</DependentUpon>
     </Compile>
+    <Compile Include="CK\Form_Jiamengshang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CK\Form_Jiamengshang.Designer.cs">
+      <DependentUpon>Form_Jiamengshang.cs</DependentUpon>
+    </Compile>
     <Compile Include="CK\Form_KucunYilan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,6 +271,9 @@
     <EmbeddedResource Include="BM\Dlg_ChongfuTiaoma.resx">
       <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BM\Dlg_PrintSet.resx">
+      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BM\Dlg_Denglu.resx">
       <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CK\Form_Churuku.resx">
       <DependentUpon>Form_Churuku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CK\Form_Jiamengshang.resx">
+      <DependentUpon>Form_Jiamengshang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CK\Form_KucunYilan.resx">
       <DependentUpon>Form_KucunYilan.cs</DependentUpon>
@@ -359,6 +377,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TKuanhao.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\CKGL.JCSJData.TPinpaishang.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\CKGL.JCSJData.TTiaoma.datasource">

@@ -31,24 +31,6 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
         
         /// <summary>
-        /// div_sch_zjms 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_zjms;
-        
-        /// <summary>
-        /// cmb_zjms 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_zjms;
-        
-        /// <summary>
         /// btn_sch 控件。
         /// </summary>
         /// <remarks>
@@ -58,13 +40,13 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.Button btn_sch;
         
         /// <summary>
-        /// grid_kc_total 控件。
+        /// grid_kc_jms 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_kc_total;
+        protected global::System.Web.UI.WebControls.GridView grid_kc_jms;
         
         /// <summary>
         /// grid_kc_fd 控件。
@@ -76,12 +58,12 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.GridView grid_kc_fd;
         
         /// <summary>
-        /// grid_kc 控件。
+        /// grid_mx 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_kc;
+        protected global::System.Web.UI.WebControls.GridView grid_mx;
     }
 }

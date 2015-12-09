@@ -1316,29 +1316,29 @@ input[type="submit"],input[type="button"],input[type="date"]
 }
 
 /******************************************************************************************/
-#div_mn_pc {
+.mn_main {
     width:80%;
     height:23px;
     margin:0 auto;
     float:none !important;
     background-color:#2C6980;
 }
-#div_mn_pc ul{
+.mn_main ul{
     float:none;
 }
-#div_mn_pc ul li{
+.mn_main ul li{
     width:150px;
     text-align:center;
 }
-#div_mn_pc ul li:hover{
+.mn_main ul li:hover{
     background-color:#2f2f2f;
 }
-#div_mn_pc ul li a{
+.mn_main ul li a{
     color:white;
     font-weight:bolder;
     font-size:1.25em;
 }
-#div_mn_pc ul li ul{
+.mn_main ul li ul{
     background-color:#2C6980;
 }
 .mobileMenuHide

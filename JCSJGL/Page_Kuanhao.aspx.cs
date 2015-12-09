@@ -23,18 +23,18 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 //隐藏搜索条件
-                div_sch_jms.Visible = false;
+                div_sch_pps.Visible = false;
 
                 DBContext db = new DBContext();
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_sch_jms.Visible = true;
+                    div_sch_pps.Visible = true;
 
                     TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
                 }
 
                 //初始化下拉框
@@ -62,26 +62,26 @@ namespace JCSJGL
             int recordCount = 0;
 
             DBContext db = new DBContext();
-            int? jmsid = null;
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 } 
                 grid_kuanhao.Columns[0].Visible = true;
             }
             else
             {
                 grid_kuanhao.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;
+                ppsid = _LoginUser.ppsid.Value;
             }
-            TKuanhao[] fs = db.GetKuanhaosByCond(jmsid, lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);
+            TKuanhao[] fs = db.GetKuanhaosByCond(ppsid, lx, kh, pm, grid_kuanhao.PageSize, grid_kuanhao.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TJiamengshang.mingcheng,
+                pinpaishang = r.TPinpaishang.mingcheng,
                 kuanhao = r.kuanhao,
                 leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.leixing).ToString(),
                 xingbie = ((Tool.JCSJ.DBCONSTS.KUANHAO_XB)r.xingbie).ToString(),
@@ -113,7 +113,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TKuanhao ok = db.GetKuanhaoById(f.id);
-            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该款号", null);
             }
@@ -167,18 +167,18 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TKuanhao f = getEditInfo();
-            f.jmsid = _LoginUser.jmsid;
+            f.ppsid = _LoginUser.ppsid.Value;
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
             f.xiugaishijian = DateTime.Now;
 
             DBContext db = new DBContext();
-            int cc = db.GetKuanhaoCount(_LoginUser.jmsid);
-            if (cc >= _LoginUser.TJiamengshang.kuanhaoshu)
+            int cc = db.GetKuanhaoCount(_LoginUser.ppsid.Value);
+            if (cc >= _LoginUser.TPinpaishang.kuanhaoshu)
             {
                 throw new MyException("拥有的款号数量已到上限，如有需要增加更多款号请联系系统管理员", null);
             }
-            TKuanhao[] oks = db.GetKuanhaosByMcJmsId(new string[]{f.kuanhao}, _LoginUser.jmsid);
+            TKuanhao[] oks = db.GetKuanhaosByMcPpsId(new string[]{f.kuanhao}, _LoginUser.ppsid.Value);
             if (oks.Count() > 0)
             {
                 throw new MyException("款号重复", null);
@@ -214,7 +214,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TKuanhao ok = db.GetKuanhaoById(id);
-            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该款号", null);
             }

@@ -224,7 +224,7 @@ namespace FDXS
             //做接口参数
             JCSJData.TFendianJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TFendianJinchuhuo
             {
-                oid = r.id,
+                picima = r.picima,
                 fangxiang = r.fangxiang,
                 laiyuanquxiang = r.laiyuanquxiang,
                 beizhu = r.beizhu,
@@ -232,6 +232,7 @@ namespace FDXS
                 TFendianJinchuhuoMXes = r.TJinchuMXes.Select(mr => new JCSJData.TFendianJinchuhuoMX
                 {
                     tiaomaid = mr.tiaomaid,
+                    danjia = mr.danjia,
                     shuliang = mr.shuliang
                 }).ToArray()
             }).ToArray();

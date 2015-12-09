@@ -283,7 +283,7 @@ namespace CKGL
                             RuntimeInfo.Gyses = BM.JCSJWCF.GetGongyingshangs();
 
                             //加盟的品牌
-                            RuntimeInfo.JmPps = BM.JCSJWCF.GetJMPinpais();
+                            //RuntimeInfo.JmPps = BM.JCSJWCF.GetJMPinpais();
 
                             RuntimeInfo.BaseDataLoaded = true;
                         }
@@ -303,6 +303,23 @@ namespace CKGL
                     fm.WindowState = FormWindowState.Maximized;
                     fm.Show();
                 }
+            }
+            else
+            {
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Activate();
+            }
+        }
+
+        private void mn_main_jms_Click(object sender, EventArgs e)
+        {
+            Form_Jiamengshang fm = (Form_Jiamengshang)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(Form_Jiamengshang)));
+            if (fm == null)
+            {
+                fm = new Form_Jiamengshang();
+                fm.MdiParent = this;
+                fm.WindowState = FormWindowState.Maximized;
+                fm.Show();
             }
             else
             {

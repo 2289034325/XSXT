@@ -6,12 +6,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
-    <div id="div_sch" class="div_sch">
+    <div id="div_sch" class="div_sch">       
         <div id="div_sch_jms" runat="server">
-            <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
-        </div>        
-        <div id="div_sch_zjms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_zjms" AutoPostBack="true" OnSelectedIndexChanged="cmb_zjms_SelectedIndexChanged"></asp:DropDownList>
+            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms" AutoPostBack="true" OnSelectedIndexChanged="cmb_jms_SelectedIndexChanged"></asp:DropDownList>
         </div>
         <div>
             <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd"></asp:DropDownList>
@@ -24,7 +21,7 @@
         </div>
     </div>
     <asp:GridView ID="grid_jms" runat="server" AutoGenerateColumns="False" DataKeyNames="jmsid" OnRowCommand="grid_jms_RowCommand"
-        AllowCustomPaging="true" AllowPaging="true" OnPageIndexChanging="grid_jms_PageIndexChanging">
+        >
         <Columns>
             <asp:BoundField DataField="jms" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="jmsid" HeaderText="加盟商ID" Visible="false"></asp:BoundField>

@@ -21,6 +21,15 @@ namespace CKGL.CK
         public Dlg_Jinchu()
         {
             InitializeComponent();
+
+            Churuku = null;
+        }
+
+        public Dlg_Jinchu(TChuruku Cr)
+        {
+            InitializeComponent();
+
+            Churuku = Cr;
         }
 
 
@@ -44,64 +53,66 @@ namespace CKGL.CK
             }
             byte lyqx = byte.Parse(cmb_lyqx.SelectedValue.ToString());
 
-            int? ckid = null;
-            int? fdid = null;
             int? jmsid = null;
             decimal? zk = null;
-            if (!string.IsNullOrEmpty((string)cmb_ck.SelectedValue))
+            if (cmb_jms.SelectedValue != null)
             {
-                ckid = int.Parse(cmb_ck.SelectedValue.ToString());
-            }
-            if (!string.IsNullOrEmpty((string)cmb_fd.SelectedValue))
-            {
-                fdid = int.Parse(cmb_fd.SelectedValue.ToString());
-            }
-            if (!string.IsNullOrEmpty((string)cmb_jms.SelectedValue))
-            {
-                jmsid = int.Parse(cmb_jms.SelectedValue.ToString());
+                jmsid = (int)cmb_jms.SelectedValue;
             }
             if (!string.IsNullOrEmpty(txb_zk.Text.Trim()))
             {
                 zk = decimal.Parse(txb_zk.Text.Trim());
+            }
+            if (zk != null)
+            {
+                if (zk <= 0 || zk > 10)
+                {
+                    MessageBox.Show("折扣范围为(0,10]");
+                    return;
+                }
             }
 
             string bz = txb_bz.Text.Trim();
 
             if (fx == (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进)
             {
-                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.丢弃 || lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.退货)
+                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.丢弃)
                 {
-                    MessageBox.Show("进货的来源不能是[丢弃、退货]");
+                    MessageBox.Show("进货的来源不能是[丢弃、其他]");
                     return;
                 }
             }
             else
             {
-                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
+                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.新货)
                 {
                     MessageBox.Show("出货的去向不能是[新货]");
                     return;
                 }
 
                 //出货给加盟商的时候必须有个折扣
-                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.加盟商)
+                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商)
                 {
-                    if (zk == null)
+                    if (jmsid == null)
                     {
-                        MessageBox.Show("出货给加盟商，必须填写一个折扣，范围为(0,10]");
+                        MessageBox.Show("请选择一个加盟商");
                         return;
                     }
-                    else if (zk <= 0 || zk > 10)
-                    {
-                        MessageBox.Show("折扣范围为(0,10]");
-                        return;
-                    }
+                }
+                else
+                {
+                    //来源去向不是[加盟商]的时候，不允许选择任何加盟商
+                    jmsid = null;
                 }
             }
 
             TChuruku cr = new TChuruku
             {
+                picima = null,
+                zhekou = zk,
+                jmsid =jmsid,
                 beizhu = bz,
+                queding = false,
                 caozuorenid = RuntimeInfo.LoginUser_CK.id,
                 fangxiang = fx,               
                 laiyuanquxiang = lyqx,
@@ -111,7 +122,15 @@ namespace CKGL.CK
             };
 
             DBContext db = IDB.GetDB();
-            Churuku = db.InsertChuruku(cr);
+            if (Churuku == null)
+            {
+                Churuku = db.InsertChuruku(cr);
+            }
+            else
+            {
+                cr.id = Churuku.id;
+                db.UpdateChuruku(cr);
+            }
 
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
@@ -126,40 +145,29 @@ namespace CKGL.CK
             Tool.CommonFunc.InitCombbox(cmb_fx, typeof(Tool.JCSJ.DBCONSTS.JCH_FX));
             cmb_fx.SelectedIndex = -1;
 
-            Tool.CommonFunc.InitCombbox(cmb_lyqx, typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
+            Tool.CommonFunc.InitCombbox(cmb_lyqx, typeof(Tool.JCSJ.DBCONSTS.LYQX_CK));
             cmb_lyqx.SelectedIndex = -1;
 
-            //if (RuntimeInfo.AllCks == null)
-            //{
-            //    //加载仓库、分店、子加盟商信息
-            //    new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-            //        {
-            //            try
-            //            {
-            //                CKGL.JCSJData.TCangku[] cks = JCSJWCF.GetCangkus();
-            //                CKGL.JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
-            //                CKGL.JCSJData.TJiamengshangGX[] jmses = JCSJWCF.GetZiJiamengshangs();
+            DBContext db = IDB.GetDB();
+            TJiamengshang[] jmses = db.GetJiamengshangs(true);
+            cmb_jms.DataSource = jmses;
+            cmb_jms.DisplayMember = "mingcheng";
+            cmb_jms.ValueMember = "id";
+            cmb_jms.SelectedIndex = -1;
 
-            //                RuntimeInfo.AllCks = cks.Where(r => r.id != Settings.Default.CKID).ToDictionary(k => k.id.ToString(), v => v.mingcheng);
-            //                RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
-            //                RuntimeInfo.AllJmses = jmses.ToDictionary(k => k.jmsid.ToString(), v => v.bzmingcheng);
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-            //                ShowMsg(ex.Message, true);
-            //                Close();
-            //            }
+            if (Churuku != null)
+            {
+                cmb_fx.SelectedValue = Churuku.fangxiang;
+                cmb_lyqx.SelectedValue = Churuku.laiyuanquxiang;
 
-            //        }, true).Start();
-            //}
+                if (Churuku.jmsid != null)
+                {
+                    cmb_jms.SelectedValue = Churuku.jmsid;
+                }
 
-            //Tool.CommonFunc.InitCombbox(cmb_ck, RuntimeInfo.AllCks);
-            //cmb_ck.SelectedIndex = -1;
-            //Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
-            //cmb_fd.SelectedIndex = -1;
-            //Tool.CommonFunc.InitCombbox(cmb_jms, RuntimeInfo.AllJmses);
-            //cmb_jms.SelectedIndex = -1;
+                txb_zk.Text = Churuku.zhekou.ToString();
+                txb_bz.Text = Churuku.beizhu;
+            }
         }
 
         /// <summary>
@@ -172,64 +180,15 @@ namespace CKGL.CK
             if (cmb_lyqx.SelectedValue != null)
             {
                 byte lyqx = byte.Parse(cmb_lyqx.SelectedValue.ToString());
-                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库)
+                if (lyqx == (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商)
                 {
-                    cmb_fd.SelectedIndex = -1;
-                    cmb_fd.Enabled = false;
-                    cmb_jms.SelectedIndex = -1;
-                    cmb_jms.Enabled = false;
-                    txb_zk.Enabled = false;
-
-                    cmb_ck.SelectedIndex = -1;
-                    cmb_ck.Enabled = true;
-                }
-                else if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
-                {
-                    cmb_ck.SelectedIndex = -1;
-                    cmb_ck.Enabled = false;
-                    cmb_jms.SelectedIndex = -1;
-                    cmb_jms.Enabled = false;
-                    txb_zk.Enabled = false;
-
-                    cmb_fd.SelectedIndex = -1;
-                    cmb_fd.Enabled = true;
-                }
-                else if (lyqx == (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.加盟商)
-                {
-                    cmb_fd.SelectedIndex = -1;
-                    cmb_fd.Enabled = false;
-                    cmb_ck.SelectedIndex = -1;
-                    cmb_ck.Enabled = false;
-
                     cmb_jms.SelectedIndex = -1;
                     cmb_jms.Enabled = true;
-                    byte fx = byte.Parse(cmb_fx.SelectedValue.ToString());
-                    if (fx == (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进)
-                    {
-                        txb_zk.Text = "";
-                        txb_zk.Enabled = false;
-                    }
-                    else if (fx == (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出)
-                    {
-                        txb_zk.Text = "";
-                        txb_zk.Enabled = true;
-                    }
-                    else
-                    {
-                        txb_zk.Text = "";
-                        txb_zk.Enabled = false;
-                    }
                 }
                 else
                 {
-                    cmb_fd.SelectedIndex = -1;
-                    cmb_fd.Enabled = false;
-                    cmb_ck.SelectedIndex = -1;
-                    cmb_ck.Enabled = false;
-
                     cmb_jms.SelectedIndex = -1;
                     cmb_jms.Enabled = false;
-                    txb_zk.Enabled = false;
                 }
             }
         }   

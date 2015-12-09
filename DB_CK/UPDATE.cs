@@ -38,10 +38,23 @@ namespace DB_CK
         public void UpdateChuruku(TChuruku c)
         {
             TChuruku oc = _db.TChurukus.Single(r => r.id == c.id);
-            //方向不允许修改
+
+            oc.fangxiang = c.fangxiang;
+            oc.jmsid = c.jmsid;
+            oc.zhekou = c.zhekou;
             oc.laiyuanquxiang = c.laiyuanquxiang;
             oc.beizhu = c.beizhu;
             oc.xiugaishijian = c.xiugaishijian;
+
+            _db.SaveChanges();
+        }
+
+
+        public void UpdateChurukuQueren(int id, bool zt)
+        {
+            var oc = _db.TChurukus.Single(r => r.id == id);
+
+            oc.queding = zt;
 
             _db.SaveChanges();
         }
@@ -50,11 +63,19 @@ namespace DB_CK
         /// 修改出入库明细的数量
         /// </summary>
         /// <param name="mx"></param>
-        public void UpdateChurukuMx(int id,short sl)
+        public void UpdateChurukuMx_sl(int id,short sl)
         {
             TChurukuMX om = _db.TChurukuMXes.Single(r => r.id == id);
-            //只允许修改数量
+
             om.shuliang = sl;
+
+            _db.SaveChanges();
+        }
+        public void UpdateChurukuMx_dj(int id, decimal dj)
+        {
+            TChurukuMX om = _db.TChurukuMXes.Single(r => r.id == id);
+
+            om.danjia = dj;
 
             _db.SaveChanges();
         }
@@ -63,14 +84,13 @@ namespace DB_CK
         /// 更新出入库记录的上报时间
         /// </summary>
         /// <param name="ids"></param>
-        /// <param name="sj"></param>
-        public void UpdateChurukuShangbaoshijian(int[] ids, DateTime sj)
+        /// <param name="sj"></param>        
+        public void UpdateChurukuShangbao(int id, string pcm,DateTime? sbsj)
         {
-            var crs = _db.TChurukus.Where(r => ids.Contains(r.id));
-            foreach (TChuruku cr in crs)
-            {
-                cr.shangbaoshijian = sj;
-            }
+            var oc = _db.TChurukus.Single(r => r.id == id);
+
+            oc.picima = pcm;
+            oc.shangbaoshijian = sbsj;
 
             _db.SaveChanges();
         }
@@ -85,6 +105,34 @@ namespace DB_CK
             TUser ou = _db.TUsers.Single(r => r.id == id);
 
             ou.mima = mm;
+
+            _db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 将全部加盟商的状态设置为非子加盟商状态
+        /// </summary>
+        public void UpdateJiamengshangZhuangtai()
+        {
+            var jmses = _db.TJiamengshangs;
+            foreach (TJiamengshang j in jmses)
+            {
+                j.zhuangtai = false;
+            }
+
+            _db.SaveChanges();
+        }
+
+        public void UpdateJiamengshang(TJiamengshang nj)
+        {
+            var oj = _db.TJiamengshangs.Single(r => r.id == nj.id);
+
+            oj.mingcheng = nj.mingcheng;
+            oj.daima = nj.daima;
+            oj.dizhi = nj.dizhi;
+            oj.lianxiren = nj.lianxiren;
+            oj.dianhua = nj.dianhua;
+            oj.zhuangtai = nj.zhuangtai;
 
             _db.SaveChanges();
         }

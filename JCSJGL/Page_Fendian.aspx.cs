@@ -52,13 +52,7 @@ namespace JCSJGL
                 VDiqu[] dqs = db.GetAllDiqus();
                 //将第一级和第二级地区连接
                 VDiqu[] ssdqs = dqs.Where(r => r.jibie == 1).ToArray();
-                Tool.CommonFunc.InitDropDownList(cmb_xzdq, ssdqs, "lujing", "id");
-
-                //品牌下拉框
-                TJiamengshang[] jmpps = db.GetFuJiamengshangs(_LoginUser.jmsid);
-                TJiamengshang me = db.GetJiamengshangById(_LoginUser.jmsid);
-                TJiamengshang[] pps = jmpps.Concat(new TJiamengshang[] { me }).ToArray();
-                Tool.CommonFunc.InitDropDownList(cmb_pp, pps, "mingcheng", "id");
+                Tool.CommonFunc.InitDropDownList(cmb_xzdq, ssdqs, "lujing", "id");              
             }
         }       
 
@@ -85,11 +79,10 @@ namespace JCSJGL
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.Jms.mingcheng,
+                jiamengshang = r.TJiamengshang.mingcheng,
                 fzxingbie = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZXB)r.fzxingbie).ToString(),
                 fzleixing = ((Tool.JCSJ.DBCONSTS.FENDIAN_FZLX)r.fzleixing).ToString(),
                 dianming = r.dianming,
-                pinpai = r.Pinpai.mingcheng,
                 mianji = r.mianji,
                 keliuliang = r.keliuliang,
                 dangci = ((Tool.JCSJ.DBCONSTS.FENDIAN_DC)r.dangci).ToString(),
@@ -105,7 +98,7 @@ namespace JCSJGL
                 beizhu = r.beizhu,
                 charushijian = r.charushijian,
                 xiugaishijian = r.xiugaishijian,
-                editParams = r.id + ",'" + r.fzxingbie + "','" + r.fzleixing + "','" + r.dianming + "',"+r.ppid+",'" + r.mianji + "','" + r.keliuliang + "','" +
+                editParams = r.id + ",'" + r.fzxingbie + "','" + r.fzleixing + "','" + r.dianming + "','" + r.mianji + "','" + r.keliuliang + "','" +
                 r.dangci + "','" + r.dpxingzhi + "','" + r.zhuanrangfei + "','" + r.yuezu + "','" + r.diquid + "','" + r.dizhi + "','" +
                 r.lianxiren + "','" + r.dianhua + "','" + r.kaidianriqi.ToString("yyyy-MM-dd") + "','" + r.zhuangtai + "','" + r.beizhu + "'"
             });
@@ -147,7 +140,6 @@ namespace JCSJGL
             byte fzxb = byte.Parse(cmb_fzxz.SelectedValue);
             byte fzlx = byte.Parse(cmb_fzlx.SelectedValue);
             string dm = txb_dm.Text.Trim();
-            int ppid = int.Parse(cmb_pp.SelectedValue);
             short mj = short.Parse(txb_mj.Text.Trim());
             short kll = short.Parse(txb_kll.Text.Trim());
             byte dc = byte.Parse(cmb_dc.SelectedValue);
@@ -189,7 +181,6 @@ namespace JCSJGL
                 fzxingbie = fzxb,
                 fzleixing = fzlx,
                 dianming = dm,
-                ppid = ppid,
                 mianji = mj,
                 keliuliang = kll,
                 dangci = dc,
@@ -218,7 +209,7 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TFendian f = getEditInfo();
-            f.jmsid = _LoginUser.jmsid;
+            f.jmsid = _LoginUser.jmsid.Value;
             f.jiqima = "";
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
@@ -226,7 +217,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             //限制分店数
-            int cc = db.GetFendianCount(_LoginUser.jmsid);
+            int cc = db.GetFendianCount(_LoginUser.jmsid.Value);
             if (cc >= _LoginUser.TJiamengshang.fendianshu)
             {
                 throw new MyException("拥有的分店数量已到上限，如有需要增加更多分店请联系系统管理员", null);

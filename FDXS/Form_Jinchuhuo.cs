@@ -46,7 +46,7 @@ namespace FDXS
             //检查该出入库记录是否已经上报
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不能再修改");
+                MessageBox.Show("该记录已经确定，不能再修改");
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace FDXS
             TJinchuMX mx = getMx(jcid, tm.id);
             if (mx != null)
             {
-                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang + 1));
+                db.UpdateJinchuhuoMx(mx.id, (short)(mx.shuliang + 1));
 
                 foreach (DataGridViewRow dr in grid_jcmx.Rows)
                 {
@@ -124,30 +124,22 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_cx_Click(object sender, EventArgs e)
         {
-            string sid = txb_id.Text.Trim();
-            int iid;
-            int? id;
-            if (string.IsNullOrEmpty(sid))
+            string sid = txb_tm.Text.Trim();
+
+            string tm = txb_tm.Text.Trim();
+            DateTime? dstart = null;
+            DateTime? dend = null;
+            if (dp_start.Checked)
             {
-                id = null;
+                dstart = dp_start.Value.Date;
             }
-            else
+            if (dp_end.Checked)
             {
-                if (!int.TryParse(sid, out iid))
-                {
-                    MessageBox.Show("id必须是整数");
-                    return;
-                }
-                else
-                {
-                    id = iid;
-                }
+                dend = dp_end.Value.Date.AddDays(1).Date;
             }
-            DateTime dstart = dp_start.Value.Date;
-            DateTime dend = dp_end.Value.Date;
 
             DBContext db = IDB.GetDB();
-            TJinchuhuo[] cs = db.GetJinchuhuos(id, dstart, dend);
+            TJinchuhuo[] cs = db.GetJinchuhuos(tm, dstart, dend);
 
             grid_jch.Rows.Clear();
             grid_jcmx.Rows.Clear();
@@ -159,14 +151,15 @@ namespace FDXS
 
         private void addJinchuhuo(TJinchuhuo c)
         {
-            grid_jch.Rows.Insert(0,new object[] 
+            grid_jch.Rows.Insert(0, new object[] 
                 {
                     c.id,
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
-                    c.laiyuanquxiang.ToString(),
+                    ((Tool.JCSJ.DBCONSTS.LYQX_FD)c.laiyuanquxiang).ToString(),
+                    c.picima,
                     c.TJinchuMXes.Sum(r=>(short?)r.shuliang)??0,
                     c.TJinchuMXes.Sum(r=>(decimal?)r.TTiaoma.jinjia*r.shuliang)??0,
-                    c.TJinchuMXes.Sum(r=>(decimal?)r.TTiaoma.shoujia*r.shuliang)??0,
+                    c.queding?"√":"",
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,
@@ -224,8 +217,7 @@ namespace FDXS
                     mx.TTiaoma.yanse,
                     mx.TTiaoma.chima,
                     mx.shuliang,
-                    mx.TTiaoma.jinjia,
-                    mx.TTiaoma.shoujia
+                    mx.TTiaoma.jinjia
                 });
 
             grid_jcmx.ClearSelection();
@@ -241,48 +233,30 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_jh_Click(object sender, EventArgs e)
         {
-            TJinchuhuo c = new TJinchuhuo
+            //TJinchuhuo c = new TJinchuhuo
+            //{
+            //    fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+            //    laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.LYQX_FD.新货,
+            //    beizhu = "",
+            //    queding = false,
+            //    caozuorenid = RuntimeInfo.LoginUser.id,
+            //    charushijian = DateTime.Now,
+            //    xiugaishijian = DateTime.Now,
+            //    shangbaoshijian = null
+            //};
+
+            //DBContext db = IDB.GetDB();
+            //TJinchuhuo nc = db.InsertJinchuhuo(c);
+            //nc.TUser = RuntimeInfo.LoginUser;
+            //addJinchuhuo(nc);
+
+            Dlg_Jinchu dj = new Dlg_Jinchu();
+            if (dj.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
-                beizhu = "",
-                caozuorenid = RuntimeInfo.LoginUser.id,
-                charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now,
-                shangbaoshijian = null
-            };
-
-            DBContext db = IDB.GetDB();
-            TJinchuhuo nc = db.InsertJinchuhuo(c);
-            nc.TUser = RuntimeInfo.LoginUser;
-            addJinchuhuo(nc);
+                addJinchuhuo(dj.Jinchu);
+            }
         }
-
-        /// <summary>
-        /// 增加一个出货记录
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ch_Click(object sender, EventArgs e)
-        {
-            TJinchuhuo c = new TJinchuhuo
-            {
-                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.退货,
-                beizhu = "",
-                caozuorenid = RuntimeInfo.LoginUser.id,
-                charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now,
-                shangbaoshijian = null
-            };
-
-            DBContext db = IDB.GetDB();
-            TJinchuhuo nc = db.InsertJinchuhuo(c);
-            nc.TUser = RuntimeInfo.LoginUser;
-
-            addJinchuhuo(nc);
-        }
-
+       
         /// <summary>
         /// 从文件导入进出货明细
         /// </summary>
@@ -293,26 +267,16 @@ namespace FDXS
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
             Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value);
 
-            //if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.出)
-            //{
-            //    MessageBox.Show("出货无法批量导入");
-            //    return;
-            //}            
-
             //检查该出入库记录是否已经上报
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不能再导入明细数据");
+                MessageBox.Show("该记录已经确定，不能再导入明细数据");
                 return;
             }
 
             DBContext db = IDB.GetDB();
-            //Dlg_Tiaomahao dt = new Dlg_Tiaomahao();
             if (_dlgtm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //string[] tmhs = _dlgtm.txb_tmhs.Text.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                //Dictionary<string, short> tmsls = tmhs.ToDictionary(k => k.Split(new char[] { ',' })[0], v => short.Parse(v.Split(new char[] { ',' })[1]));
-
                 string[] tmhs = _dlgtm.TMHs;
                 Dictionary<string, short> tmsls = tmhs.GroupBy(r => r).
                     Select(r => new { tmh = r.Key, sl = r.Count() }).ToDictionary(r => r.tmh, v => (short)v.sl);
@@ -338,21 +302,21 @@ namespace FDXS
                     MessageBox.Show("无法下载下列条码，请检查网络是否联通，或者确认这些条码来源\r\n" + errtms);
                     return;
                 }
-                Dictionary<int, short> tss = tms.ToDictionary(k => k.id, v => tmsls[v.tiaoma]);
-
 
                 List<TJinchuMX> mxs = new List<TJinchuMX>();
-                foreach (KeyValuePair<int, short> p in tss)
+                foreach (TTiaoma t in tms)
                 {
                     TJinchuMX mx = new TJinchuMX
                     {
                         jinchuid = crkid,
-                        tiaomaid = p.Key,
-                        shuliang = p.Value
+                        tiaomaid = t.id,
+                        danjia = t.jinjia,
+                        shuliang = tmsls[t.tiaoma]
                     };
 
                     mxs.Add(mx);
                 }
+
                 TJinchuMX[] all = mxs.ToArray();
                 //已经存在的，数量加1
                 TJinchuMX[] mx_exist = db.GetJinchuhuoMxsByJchId(crkid);
@@ -376,7 +340,7 @@ namespace FDXS
             if (!checkAllow())
             {
                 e.Cancel = true;
-                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
+                MessageBox.Show("该记录已经确定，不允许再删除");
                 return;
             }
             else
@@ -426,66 +390,7 @@ namespace FDXS
                 db.DeleteJinchuMx(mxid);
             }
         }
-
-        /// <summary>
-        /// 修改出入库信息时的验证
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void grid_crk_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            //不在编辑状态，不用验证
-            if (!grid_jch.IsCurrentCellInEditMode)
-            {
-                return;
-            }
-
-            //如果是来源去向列
-            if (e.ColumnIndex == col_jc_lyqx.Index)
-            {
-                Tool.JCSJ.DBCONSTS.JCH_LYQX lyfx = (Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), e.FormattedValue.ToString());
-
-                //来源只能是新货和内部，去向只能是退货，丢弃，其他
-                string sfx = (string)grid_jch.SelectedRows[0].Cells[col_jc_fx.Name].Value;
-                Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), sfx);
-                if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.进)
-                {
-                    if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
-                    {
-                        e.Cancel = true;
-                        MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]或者[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]或者[" +
-                            Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]");
-                    }
-                }
-                else
-                {
-                    if (lyfx == Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
-                    {
-                        e.Cancel = true;
-                        MessageBox.Show("出货的去向不能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]");
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 检查该行是否允许编辑
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void grid_crk_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            //DataGridViewRow dr = grid_jch.Rows[e.RowIndex];
-            //if (dr.Cells[col_jc_sbsj.Name].Value != null)
-            //{
-            //    e.Cancel = true;
-            //}
-            if (!checkAllow())
-            {
-                e.Cancel = true;
-            }
-        }
-
+        
         /// <summary>
         /// 修改出入库的信息
         /// </summary>
@@ -509,7 +414,7 @@ namespace FDXS
                 beizhu = bz,
                 xiugaishijian = DateTime.Now
             };
-            db.UpdateChuruku(nc);
+            db.UpdateJinchuhuo(nc);
         }
 
         /// <summary>
@@ -613,7 +518,7 @@ namespace FDXS
                 //    id = mxid,
                 //    shuliang = sl                    
                 //};
-                db.UpdateChurukuMx(mxid, sl);
+                db.UpdateJinchuhuoMx(mxid, sl);
             }
         }
 
@@ -626,7 +531,7 @@ namespace FDXS
             int crkid = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
             DBContext db = IDB.GetDB();
             TJinchuhuo c = db.GetJinchuhuoById(crkid);
-            if (c.shangbaoshijian != null)
+            if (c.queding)
             {
                 return false;
             }
@@ -656,24 +561,24 @@ namespace FDXS
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_shangbao_Click(object sender, EventArgs e)
-        {
-            new Tool.ActionMessageTool(btn_shangbao_Click_sync, false).Start();    
-        }
+        //private void btn_shangbao_Click(object sender, EventArgs e)
+        //{
+        //    new Tool.ActionMessageTool(btn_shangbao_Click_sync, false).Start();    
+        //}
 
-        private void btn_shangbao_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
-        {
-            try
-            {
-                MyTask.SBJinchuhuo();
-                ShowMsg("完成", false);
-            }
-            catch (Exception ex)
-            {
-                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                ShowMsg(ex.Message, true);
-            }               
-        }
+        //private void btn_shangbao_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
+        //{
+        //    try
+        //    {
+        //        MyTask.SBJinchuhuo();
+        //        ShowMsg("完成", false);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+        //        ShowMsg(ex.Message, true);
+        //    }               
+        //}
 
         /// <summary>
         /// 初始化
@@ -682,10 +587,7 @@ namespace FDXS
         /// <param name="e"></param>
         private void Form_Jinchuhuo_Load(object sender, EventArgs e)
         {
-            //来源去向列的下拉框值
-            col_jc_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
-            col_jc_lyqx.DisplayMember = "Text";
-            col_jc_lyqx.ValueMember = "Value";
+
         }
 
         /// <summary>
@@ -695,73 +597,89 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_xzjinhuo_Click(object sender, EventArgs e)
         {
-            new Tool.ActionMessageTool(btn_xzjinhuo_Click_sync, false).Start();  
-        }
-
-        private void btn_xzjinhuo_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
-        {
-            try
+            Dlg_Picima dp = new Dlg_Picima();
+            if (dp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                JCSJData.TCangkuJinchuhuo[] jhs = JCSJWCF.XiazaiJinhuoShuju();
-
-                if (jhs.Length == 0)
+                string pcm = dp.Pcm;
+                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
                 {
-                    ShowMsg("没有数据可下载", true);
-                    return;
-                }
-
-                DBContext db = IDB.GetDB();
-                //检查是否有本地不存在的条码
-                string[] tmhs = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r=>r.TTiaoma.tiaoma).ToArray();
-                TTiaoma[] tms = db.GetTiaomasByTmhs(tmhs);
-                string[] tmh_exist = tms.Select(r=>r.tiaoma).ToArray();
-
-                string[] tmh_not_exist = tmhs.Except(tmh_exist).ToArray();
-                //从服务器下载不存在的条码信息
-                CommonMethod.DownLoadTiaomaInfo(tmh_not_exist, true);
-
-                //string untmhs = tmh_not_exist.Aggregate((a, b) => { return a + "," + b; });
-                //if (tmh_not_exist.Length != 0)
-                //{
-                //    ShowMsg("本地缺少条码信息，请先下载条码信息\r\n" + untmhs, true);
-                //    return;
-                //}
-
-                TJinchuhuo[] jchs = jhs.Select(r => new TJinchuhuo
-                {
-                    fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
-                    laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库,
-                    beizhu = "从服务器下载",
-                    caozuorenid = RuntimeInfo.LoginUser.id,
-                    charushijian = DateTime.Now,
-                    xiugaishijian = DateTime.Now,
-                    TJinchuMXes = r.TCangkuJinchuhuoMXes.Select(xr => new TJinchuMX
+                    try
                     {
-                        tiaomaid = xr.tiaomaid,
-                        shuliang = xr.shuliang
-                    }).ToArray(),
+                        JCSJData.TCangkuJinchuhuo[] jhs = JCSJWCF.XiazaiJinhuoShuju();
 
-                }).ToArray();
+                        if (jhs.Length == 0)
+                        {
+                            ShowMsg("没有数据可下载", true);
+                            return;
+                        }
 
-                TJinchuhuo[] njs = db.InsertJinchuhuos(jchs);
+                        DBContext db = IDB.GetDB();
 
-                //在grid中加载数据会卡住，而且grid表现异常，可让用户下载完数据后点击查询按钮刷新除新数据
-                //foreach (TJinchuhuo jc in jchs)
-                //{
-                //    jc.TUser = RuntimeInfo.LoginUser;
-                //    addJinchuhuo(jc);
-                //}
+                        //保存条码
+                        TTiaoma[] tms = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r => new TTiaoma
+                        {
+                            id = r.TTiaoma.id,
+                            tiaoma = r.TTiaoma.tiaoma,
+                            gongyingshang = r.TTiaoma.TGongyingshang.mingcheng,
+                            kuanhao = r.TTiaoma.TKuanhao.kuanhao,
+                            gyskuanhao = r.TTiaoma.gyskuanhao,
+                            leixing = r.TTiaoma.TKuanhao.leixing,
+                            pinming = r.TTiaoma.TKuanhao.pinming,
+                            yanse = r.TTiaoma.yanse,
+                            chima = r.TTiaoma.chima,
+                            jinjia = r.danjia,
+                            shoujia = r.TTiaoma.shoujia,
+                            charushijian = DateTime.Now,
+                            xiugaishijian = DateTime.Now
+                        }).ToArray();
+                        string[] tmhs = tms.Select(r => r.tiaoma).ToArray();
+                        TTiaoma[] otms = db.GetTiaomasByTmhs(tmhs);
+                        TTiaoma[] ntms = tms.Where(r => !otms.Any(or => or.tiaoma == r.tiaoma)).ToArray();
+                        db.UpdateTiaomas(otms);
+                        db.InsertTiaomas(ntms);
 
-                //像服务器返回信息表示已经收到数据
-                JCSJWCF.XiazaiJinhuoShujuFinish(jhs.Select(r => r.id).ToArray());
+                        //保存进货信息
+                        foreach (JCSJData.TCangkuJinchuhuo j in jhs)
+                        {
+                            //如果某批次的进货数据已经存在，则直接跳过，不保存
+                            TJinchuhuo ojc = db.GetJinchuhuoByPcm(j.picima);
+                            if (ojc != null)
+                            {
+                                continue;
+                            }
 
-                int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
-                ShowMsg("进货" + total + "件", false);
-            }
-            catch (Exception ex)
-            {
-                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                ShowMsg(ex.Message, true);
+                            TJinchuhuo jc = new TJinchuhuo
+                            {
+                                picima = j.picima,
+                                fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
+                                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.LYQX_FD.新货,
+                                beizhu = "从服务器下载",
+                                caozuorenid = RuntimeInfo.LoginUser.id,
+                                charushijian = DateTime.Now,
+                                xiugaishijian = DateTime.Now,
+                                TJinchuMXes = j.TCangkuJinchuhuoMXes.Select(xr => new TJinchuMX
+                                {
+                                    tiaomaid = xr.tiaomaid,
+                                    danjia = xr.danjia,
+                                    shuliang = xr.shuliang
+                                }).ToArray(),
+
+                            };
+                            db.InsertJinchuhuo(jc);
+                        }
+
+                        //像服务器返回信息表示已经收到数据
+                        JCSJWCF.XiazaiJinhuoShujuFinish(jhs.Select(r => r.id).ToArray());
+
+                        int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
+                        ShowMsg("进货" + total + "件", false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                        ShowMsg(ex.Message, true);
+                    }
+                }, false).Start();
             }
         }
 
@@ -805,6 +723,8 @@ namespace FDXS
                         {
                             try
                             {
+                                ShowMsg("正在执行，请稍等", false);
+
                                 JCSJWCF.DeleteJinchuhuo(jc.id);
                                 db.UpdateJinchuhuoShangbaoshijian(new int[] { jc.id }, null);
 
@@ -904,6 +824,139 @@ namespace FDXS
                     }
                 }, false).Start();
             }
+        }
+
+        /// <summary>
+        /// 进货数量和价格确认
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_queren_Click(object sender, EventArgs e)
+        {
+            int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TJinchuhuo jch = db.GetJinchuhuoById(id);
+
+            if (jch.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已上报，无法修改确认状态");
+                return;
+            }
+
+            if (jch.TJinchuMXes.Count() == 0)
+            {
+                MessageBox.Show("没有详细数据，无法确认");
+                return;
+            }
+
+            db.UpdateJinchuhuoQueren(id, true);
+        }
+
+        /// <summary>
+        /// 取消确认状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_queren_quxiao_Click(object sender, EventArgs e)
+        {
+            int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TJinchuhuo jch = db.GetJinchuhuoById(id);
+
+            if (jch.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已上报，无法修改确认状态");
+                return;
+            }
+
+            db.UpdateJinchuhuoQueren(id, false);
+        }
+
+        /// <summary>
+        /// 修改数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_xg_Click(object sender, EventArgs e)
+        {
+            int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TJinchuhuo jch = db.GetJinchuhuoById(id);
+
+            if (jch.queding)
+            {
+                MessageBox.Show("数据已经确认，无法再修改");
+                return;
+            }
+
+            Dlg_Jinchu dj = new Dlg_Jinchu(jch);
+            dj.ShowDialog();
+        }
+
+        /// <summary>
+        /// 上报指定数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_sbsj_Click(object sender, EventArgs e)
+        {
+            int id = (int)grid_jch.SelectedRows[0].Cells[col_jc_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TJinchuhuo jch = db.GetJinchuhuoById(id);
+
+            if (!jch.queding)
+            {
+                MessageBox.Show("数据未确认，无法上报");
+                return;
+            }
+
+            if (jch.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已经上报");
+                return;
+            }
+
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    ShowMsg("正在上传数据，请稍等", false);
+
+                    //做接口参数
+                    JCSJData.TFendianJinchuhuo jcjc = new JCSJData.TFendianJinchuhuo
+                    {
+                        picima = jch.picima,
+                        oid = jch.id,
+                        fangxiang = jch.fangxiang,
+                        laiyuanquxiang = jch.laiyuanquxiang,
+                        beizhu = jch.beizhu,
+                        fashengshijian = jch.charushijian,
+                        TFendianJinchuhuoMXes = jch.TJinchuMXes.Select(mr => new JCSJData.TFendianJinchuhuoMX
+                        {
+                            tiaomaid = mr.tiaomaid,
+                            danjia = mr.danjia,
+                            shuliang = mr.shuliang
+                        }).ToArray()
+                    };
+
+                    //调用服务接口
+                    JCSJWCF.ShangbaoJinchuhuo_FD(new JCSJData.TFendianJinchuhuo[] { jcjc });
+
+                    //更新本地上报时间
+                    db.UpdateJinchuhuoShangbaoshijian(new int[] { jch.id }, DateTime.Now);
+
+                    ShowMsg("完成", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();           
         }
     }
 }

@@ -55,10 +55,10 @@ namespace CKGL.CK
         /// 上报仓库的进出货
         /// </summary>
         /// <param name="jcjcs"></param>
-        internal static void ShangbaoJinchuhuo_CK(TCangkuJinchuhuo[] jcjcs)
+        internal static string ShangbaoJinchuhuo_CK(TCangkuJinchuhuo jcjc)
         {
             Login();
-            _jdc.ShangbaoJinchuhuo_CK(jcjcs);
+            return _jdc.ShangbaoJinchuhuo_CK(jcjc);
         }
 
         /// <summary>
@@ -96,10 +96,10 @@ namespace CKGL.CK
         /// 取得所有的分店信息
         /// </summary>
         /// <returns></returns>
-        internal static TFendian[] GetFendians()
+        internal static TFendian[] GetFendians(int jmsid)
         {
             Login();
-            return _jdc.GetFendians();
+            return _jdc.GetFendians(jmsid);
         }
 
         /// <summary>
@@ -107,10 +107,22 @@ namespace CKGL.CK
         /// </summary>
         /// <param name="id"></param>
         /// <param name="fdid"></param>
-        internal static void CangkuFahuoFendian(int id, int fdid)
+        internal static void CangkuFahuoFendian(string pcm, int fdid)
         {
             Login();
-            _jdc.CangkufahuoFendian(id, fdid);
+            _jdc.CangkufahuoFendian(pcm, fdid);
+        }
+
+        internal static TJiamengshang[] GetJiamengshangs()
+        {
+            Login();
+            return _jdc.GetJiamengshangs();
+        }
+
+        internal static void ChexiaoJinchuShangbao(string pcm)
+        {
+            Login();
+            _jdc.DeleteJinchujilu_CK(pcm);
         }
     }
 }

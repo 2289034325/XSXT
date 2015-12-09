@@ -34,7 +34,7 @@ namespace DB_FD
         /// 修改进出货记录
         /// </summary>
         /// <param name="c"></param>
-        public void UpdateChuruku(TJinchuhuo c)
+        public void UpdateJinchuhuo(TJinchuhuo c)
         {
             TJinchuhuo oc = _db.TJinchuhuos.Single(r => r.id == c.id);
             //方向不允许修改
@@ -49,7 +49,7 @@ namespace DB_FD
         /// 修改进出货明细的数量
         /// </summary>
         /// <param name="mx"></param>
-        public void UpdateChurukuMx(int id,short sl)
+        public void UpdateJinchuhuoMx(int id,short sl)
         {
             TJinchuMX om = _db.TJinchuMXes.Single(r => r.id == id);
             //只允许修改数量
@@ -198,6 +198,15 @@ namespace DB_FD
         {
             TUser u = _db.TUsers.Single(r => r.id == id);
             u.mima = psw;
+
+            _db.SaveChanges();
+        }
+
+        public void UpdateJinchuhuoQueren(int id, bool queren)
+        {
+            TJinchuhuo oj = _db.TJinchuhuos.Single(r => r.id == id);
+
+            oj.queding = queren;
 
             _db.SaveChanges();
         }

@@ -13,22 +13,22 @@ namespace JCSJGL {
     public partial class Page_CKKucun {
         
         /// <summary>
-        /// div_sch_jms 控件。
+        /// div_sch_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_jms;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_pps;
         
         /// <summary>
-        /// cmb_jms 控件。
+        /// cmb_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
+        protected global::System.Web.UI.WebControls.DropDownList cmb_pps;
         
         /// <summary>
         /// cmb_ck 控件。
@@ -49,24 +49,6 @@ namespace JCSJGL {
         protected global::System.Web.UI.WebControls.Button btn_sch;
         
         /// <summary>
-        /// grid_kc_total 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_kc_total;
-        
-        /// <summary>
-        /// grid_kc_ck 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_kc_ck;
-        
-        /// <summary>
         /// grid_kc 控件。
         /// </summary>
         /// <remarks>
@@ -74,5 +56,14 @@ namespace JCSJGL {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grid_kc;
+        
+        /// <summary>
+        /// grid_mx 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grid_mx;
     }
 }

@@ -25,18 +25,18 @@ namespace JCSJGL
                 DBContext db = new DBContext();
 
                 //隐藏搜索条件
-                div_sch_jms.Visible = false;
+                div_sch_pps.Visible = false;
 
                 int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_sch_jms.Visible = true;
+                    div_sch_pps.Visible = true;
 
                     TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
                 }
                 else
                 {
@@ -79,28 +79,28 @@ namespace JCSJGL
             string tmh = txb_tmh_sch.Text.Trim();
             int recordCount = 0;
 
-            int? jmsid = null;
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 } 
                 grid_tiaoma.Columns[0].Visible = true;
             }
             else
             {
                 grid_tiaoma.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;   
+                ppsid = _LoginUser.ppsid.Value;   
             }
 
             DBContext db = new DBContext();
-            TTiaoma[] fs = db.GetTiaomasByCond(jmsid,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
+            TTiaoma[] fs = db.GetTiaomasByCond(ppsid,lx, kh, tmh, null,null, grid_tiaoma.PageSize, grid_tiaoma.PageIndex, out recordCount);
             var dfs = fs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TJiamengshang.mingcheng,
+                pinpaishang = r.TPinpaishang.mingcheng,
                 tiaoma = r.tiaoma,
                 yanse = r.yanse,
                 chima = r.chima,
@@ -142,7 +142,7 @@ namespace JCSJGL
             TTiaoma ot = db.GetTiaomaById(f.id);
             TKuanhao ok = db.GetKuanhaoById(ot.kuanhaoid);
             TGongyingshang og = db.GetGongyingshangById(f.gysid);
-            if (ot.jmsid != og.jmsid)
+            if (ot.ppsid != og.ppsid)
             {
                 throw new MyException("非法操作，无法修改该条码信息", null);
             }
@@ -154,7 +154,7 @@ namespace JCSJGL
             //        throw new MyException("这个条码信息来自品牌商，不能修改它所属的款号", null);
             //    }
             //}
-            if (ot.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ot.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该条码信息", null);
             }
@@ -259,7 +259,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TTiaoma ok = db.GetTiaomaById(id);
-            if (ok.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该条码", null);
             }

@@ -221,18 +221,6 @@ namespace CKGL.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LogoImg {
-            get {
-                return ((string)(this["LogoImg"]));
-            }
-            set {
-                this["LogoImg"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string BMUser {
             get {
                 return ((string)(this["BMUser"]));
@@ -251,6 +239,90 @@ namespace CKGL.Properties {
             }
             set {
                 this["BMPsw"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Print_PageWidth {
+            get {
+                return ((int)(this["Print_PageWidth"]));
+            }
+            set {
+                this["Print_PageWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Print_PageHeight {
+            get {
+                return ((int)(this["Print_PageHeight"]));
+            }
+            set {
+                this["Print_PageHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Print_IsDoublePage {
+            get {
+                return ((bool)(this["Print_IsDoublePage"]));
+            }
+            set {
+                this["Print_IsDoublePage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Print_LogoImg {
+            get {
+                return ((string)(this["Print_LogoImg"]));
+            }
+            set {
+                this["Print_LogoImg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Print_PageInterval_H {
+            get {
+                return ((int)(this["Print_PageInterval_H"]));
+            }
+            set {
+                this["Print_PageInterval_H"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Print_Offset_Left {
+            get {
+                return ((int)(this["Print_Offset_Left"]));
+            }
+            set {
+                this["Print_Offset_Left"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Print_Offset_Top {
+            get {
+                return ((int)(this["Print_Offset_Top"]));
+            }
+            set {
+                this["Print_Offset_Top"] = value;
             }
         }
     }

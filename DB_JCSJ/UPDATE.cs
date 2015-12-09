@@ -73,7 +73,7 @@ namespace DB_JCSJ
                 of.fzxingbie = f.fzxingbie;
                 of.fzleixing = f.fzleixing;
                 of.dianming = f.dianming;
-                of.ppid = f.ppid;
+                //of.ppid = f.ppid;
                 of.mianji = f.mianji;
                 of.keliuliang = f.keliuliang;
                 of.dangci = f.dangci;
@@ -257,16 +257,16 @@ namespace DB_JCSJ
             /// 下载进货数据后，更新其下载时间
             /// </summary>
             /// <param name="jcids"></param>
-            public void UpdateCangkuFahuoFendianXzsj(int[] jcids)
-            {
-                var ds = _db.TCangkuFahuoFendians.Where(r => jcids.Contains(r.ckjinchuid));
-                foreach (var d in ds)
-                {
-                    d.xzshijian = DateTime.Now;
-                }
+            //public void UpdateCangkuFahuoFendianXzsj(int[] jcids)
+            //{
+            //    var ds = _db.TCangkuFahuoFendians.Where(r => jcids.Contains(r.ckjinchuid));
+            //    foreach (var d in ds)
+            //    {
+            //        d.xzshijian = DateTime.Now;
+            //    }
 
-                _db.SaveChanges();
-            }
+            //    _db.SaveChanges();
+            //}
 
             /// <summary>
             /// 更新加盟商信息
@@ -285,22 +285,37 @@ namespace DB_JCSJ
                 oj.dianhua = j.dianhua;
                 oj.beizhu = j.beizhu;
 
-                oj.fjmsshu = j.fjmsshu;
-                oj.zjmsshu = j.zjmsshu;
                 oj.zhanghaoshu = j.zhanghaoshu;
-                oj.kuanhaoshu = j.kuanhaoshu;
-                oj.tiaomashu = j.tiaomashu;
                 oj.huiyuanshu = j.huiyuanshu;
                 oj.fendianshu = j.fendianshu;
-                oj.cangkushu = j.cangkushu;
-                oj.gongyingshangshu = j.gongyingshangshu;
                 oj.xsjilushu = j.xsjilushu;
                 oj.jchjilushu = j.jchjilushu;
                 oj.kcjilushu = j.kcjilushu;
-                oj.shoucifufei = j.shoucifufei;
-                oj.xufeidanjia = j.xufeidanjia;
-                oj.jiezhiriqi = j.jiezhiriqi;
                 oj.xiugaishijian = j.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+
+            public void UpdatePinpaishang(TPinpaishang p)
+            {
+                var oj = _db.TPinpaishangs.Single(r => r.id == p.id);
+
+                oj.mingcheng = p.mingcheng;
+                oj.shoujihao = p.shoujihao;
+                oj.youxiang = p.youxiang;
+                oj.diquid = p.diquid;
+                oj.dizhi = p.dizhi;
+                oj.lianxiren = p.lianxiren;
+                oj.dianhua = p.dianhua;
+                oj.beizhu = p.beizhu;
+
+                oj.zhanghaoshu = p.zhanghaoshu;
+                oj.kuanhaoshu = p.kuanhaoshu;
+                oj.tiaomashu = p.tiaomashu;
+                oj.cangkushu = p.cangkushu;
+                oj.jmsshu = p.jmsshu;
+                oj.gysshu = p.gysshu;
+                oj.xiugaishijian = p.xiugaishijian;
 
                 _db.SaveChanges();
             }
@@ -323,6 +338,21 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
+            public void UpdatePinpaishangWodeXinxi(TPinpaishang p)
+            {
+                var op = _db.TPinpaishangs.Single(r => r.id == p.id);
+
+                op.shoujihao = p.shoujihao;
+                op.youxiang = p.youxiang;
+                op.diquid = p.diquid;
+                op.dizhi = p.dizhi;
+                op.lianxiren = p.lianxiren;
+                op.dianhua = p.dianhua;
+                op.xiugaishijian = p.xiugaishijian;
+
+                _db.SaveChanges();
+            }
+
             /// <summary>
             /// 修改加盟商的动态验证码
             /// </summary>
@@ -331,6 +361,14 @@ namespace DB_JCSJ
             public void UpdateJiamengshangDtyzm(int id, string yzm)
             {
                 TJiamengshang oj = _db.TJiamengshangs.Single(r => r.id == id);
+
+                oj.dtyzm = yzm;
+
+                _db.SaveChanges();
+            }
+            public void UpdatePinpaishangDtyzm(int id, string yzm)
+            {
+                TPinpaishang oj = _db.TPinpaishangs.Single(r => r.id == id);
 
                 oj.dtyzm = yzm;
 
@@ -358,9 +396,9 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="id"></param>
             /// <param name="jieguo"></param>
-            public void UpdateJiamengGXSQShenhe(int id, byte jieguo)
+            public void UpdateJiamengSQShenhe(int id, byte jieguo)
             {
-                TJiamengshangGXSQ os = _db.TJiamengshangGXSQs.Single(r => r.id == id);
+                TJiamengSQ os = _db.TJiamengSQs.Single(r => r.id == id);
 
                 os.jieguo = jieguo;
 
@@ -371,9 +409,9 @@ namespace DB_JCSJ
             /// 修改下级加盟商的名称，便于辨识
             /// </summary>
             /// <param name="g"></param>
-            public void UpdateJiamengGXBeizhu(TJiamengshangGX g)
+            public void UpdateJiamengGXBeizhu(TJiamengGX g)
             {
-                TJiamengshangGX og = _db.TJiamengshangGXes.Single(r => r.id == g.id);
+                TJiamengGX og = _db.TJiamengGXes.Single(r => r.id == g.id);
 
                 og.bzmingcheng = g.bzmingcheng;
                 og.beizhu = g.beizhu;
@@ -385,28 +423,28 @@ namespace DB_JCSJ
             /// 加盟商进退货数据
             /// </summary>
             /// <param name="j"></param>
-            public void UpdateJiamengshangJintuihuo(TJiamengshangJintuihuo j)
-            {
-                TJiamengshangJintuihuo oj = _db.TJiamengshangJintuihuos.Single(r => r.id == j.id);
+            //public void UpdateJiamengshangJintuihuo(TJiamengshangJintuihuo j)
+            //{
+            //    TJiamengshangJintuihuo oj = _db.TJiamengshangJintuihuos.Single(r => r.id == j.id);
 
-                oj.zhekou = j.zhekou;
-                oj.beizhu = j.beizhu;
-                oj.xiugaishijian = j.xiugaishijian;
+            //    oj.zhekou = j.zhekou;
+            //    oj.beizhu = j.beizhu;
+            //    oj.xiugaishijian = j.xiugaishijian;
 
-                _db.SaveChanges();
-            }
-            /// <summary>
-            /// 进退货明细
-            /// </summary>
-            /// <param name="m"></param>
-            public void UpdateJiamengshangJintuihuoMX(TJiamengshangJintuihuoMX m)
-            {
-                TJiamengshangJintuihuoMX oj = _db.TJiamengshangJintuihuoMXes.Single(r => r.id == m.id);
+            //    _db.SaveChanges();
+            //}
+            ///// <summary>
+            ///// 进退货明细
+            ///// </summary>
+            ///// <param name="m"></param>
+            //public void UpdateJiamengshangJintuihuoMX(TJiamengshangJintuihuoMX m)
+            //{
+            //    TJiamengshangJintuihuoMX oj = _db.TJiamengshangJintuihuoMXes.Single(r => r.id == m.id);
 
-                oj.tiaomaid = m.tiaomaid;
-                oj.jinhuojia = m.jinhuojia;
+            //    oj.tiaomaid = m.tiaomaid;
+            //    oj.jinhuojia = m.jinhuojia;
 
-                _db.SaveChanges();
-            }
+            //    _db.SaveChanges();
+            //}
         }
     }

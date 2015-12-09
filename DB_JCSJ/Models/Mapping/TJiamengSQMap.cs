@@ -1,31 +1,53 @@
+
+
+
 using System.ComponentModel.DataAnnotations.Schema;
+
 using System.Data.Entity.ModelConfiguration;
 
 namespace DB_JCSJ.Models.Mapping
 {
-    public class TJiamengshangGXSQMap : EntityTypeConfiguration<TJiamengshangGXSQ>
+    public class TJiamengSQMap : EntityTypeConfiguration<TJiamengSQ>
     {
-        public TJiamengshangGXSQMap()
+        public TJiamengSQMap()
         {
             // Primary Key
+
             this.HasKey(t => t.id);
 
+
             // Properties
+
             // Table & Column Mappings
-            this.ToTable("TJiamengshangGXSQ");
+
+            this.ToTable("TJiamengSQ");
+
             this.Property(t => t.id).HasColumnName("id");
-            this.Property(t => t.dlsid).HasColumnName("dlsid");
+
+            this.Property(t => t.ppsid).HasColumnName("ppsid");
+
             this.Property(t => t.jmsid).HasColumnName("jmsid");
+
             this.Property(t => t.jieguo).HasColumnName("jieguo");
+
             this.Property(t => t.charushijian).HasColumnName("charushijian");
 
+
             // Relationships
-            this.HasRequired(t => t.Dls)
-                .WithMany(t => t.SQXjGxes)
-                .HasForeignKey(d => d.dlsid);
-            this.HasRequired(t => t.Jms)
-                .WithMany(t => t.SQSjGxes)
+
+            this.HasRequired(t => t.TJiamengshang)
+
+                .WithMany(t => t.TJiamengSQs)
+
                 .HasForeignKey(d => d.jmsid);
+
+            this.HasRequired(t => t.TPinpaishang)
+
+                .WithMany(t => t.TJiamengSQs)
+
+                .HasForeignKey(d => d.ppsid);
+
+
 
         }
     }

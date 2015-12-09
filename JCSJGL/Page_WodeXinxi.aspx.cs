@@ -23,26 +23,36 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
-                TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid);
+                TJiamengshang j = null;
+                TPinpaishang p = null;
+                if (_LoginUser.jmsid != null)
+                {
+                    j = db.GetJiamengshangById(_LoginUser.jmsid.Value);
+                }
+                else
+                {
+                    p = db.GetPinpaishangById(_LoginUser.ppsid.Value);
+                }
+
                 //设置下拉框内容
                 VDiqu[] dqs = db.GetAllDiqus();
                 VDiqu[] shengs = dqs.Where(r => r.jibie == 0).ToArray();
                 Tool.CommonFunc.InitDropDownList(cmb_sheng, shengs, "lujing", "id");
                 cmb_sheng.Items.Insert(0, new ListItem("", ""));
-                TDiqu dq = db.GetDiquById(j.diquid);
+                TDiqu dq = db.GetDiquById(j == null ? p.diquid : j.diquid);
                 VDiqu[] shis = dqs.Where(r => r.fid == dq.fid).ToArray();
                 Tool.CommonFunc.InitDropDownList(cmb_shi, shis, "mingcheng", "id");
 
 
-                txb_mc.Value = j.mingcheng;
-                txb_dm.Value = j.daima.ToString();
-                txb_sjh.Value = j.zhuceshouji;
-                txb_yx.Value = j.zhuceyouxiang;
+                txb_mc.Value = (j == null ? p.mingcheng : j.mingcheng);
+                txb_dm.Value = (j == null ? p.daima.ToString() : j.daima.ToString());
+                txb_sjh.Value = (j == null ? p.shoujihao : j.zhuceshouji);
+                txb_yx.Value = (j == null ? p.youxiang : j.zhuceyouxiang);
                 cmb_sheng.SelectedValue = dq.fid.Value.ToString();
                 cmb_shi.SelectedValue = dq.id.ToString();
-                txb_lxr.Value = j.lianxiren;
-                txb_dh.Value = j.dianhua;
-                txb_dz.Value = j.dizhi;                
+                txb_lxr.Value = (j == null ? p.lianxiren : j.lianxiren);
+                txb_dh.Value = (j == null ? p.dianhua : j.dianhua);
+                txb_dz.Value = (j == null ? p.dizhi : j.dizhi);                
             }      
         }
 
@@ -64,7 +74,7 @@ namespace JCSJGL
             if (!Tool.CommonFunc.IsTelNum(sjh))
             {
                 throw new MyException("手机号格式错误", null);
-            }           
+            }
             string yx = txb_yx.Value.Trim();
             if (string.IsNullOrEmpty(yx))
             {
@@ -80,21 +90,38 @@ namespace JCSJGL
             }
             string dz = txb_dz.Value.Trim();
 
-            TJiamengshang j = new TJiamengshang
-            {
-                //基本信息
-                id=  _LoginUser.jmsid,
-                zhuceshouji = sjh,
-                zhuceyouxiang = yx,
-                diquid = dqid,
-                dizhi = dz,
-                lianxiren = lxr,
-                dianhua = dh,
-                xiugaishijian = DateTime.Now                
-            };
-
             DBContext db = new DBContext();
-            db.UpdateJiamengshangWodexinxi(j);
+            if (_LoginUser.jmsid == null)
+            {
+                TPinpaishang p = new TPinpaishang 
+                {
+                    id = _LoginUser.ppsid.Value,
+                    shoujihao = sjh,
+                    youxiang = yx,
+                    diquid = dqid,
+                    dizhi = dz,
+                    lianxiren = lxr,
+                    dianhua = dh,
+                    xiugaishijian = DateTime.Now
+                };
+                db.UpdatePinpaishangWodeXinxi(p);
+            }
+            else
+            {
+                TJiamengshang j = new TJiamengshang
+                {
+                    //基本信息
+                    id = _LoginUser.jmsid.Value,
+                    zhuceshouji = sjh,
+                    zhuceyouxiang = yx,
+                    diquid = dqid,
+                    dizhi = dz,
+                    lianxiren = lxr,
+                    dianhua = dh,
+                    xiugaishijian = DateTime.Now
+                };
+                db.UpdateJiamengshangWodexinxi(j);
+            }
         }
         protected void cmb_sheng_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -42,7 +42,6 @@ namespace JCSJGL
             {
                 r.id,
                 r.mingcheng,
-                r.daima,
                 shoujihao = r.zhuceshouji,
                 youxiang = r.zhuceyouxiang,
                 diqu = dqs.Single(rr => rr.id == r.diquid).lujing,
@@ -51,28 +50,19 @@ namespace JCSJGL
                 r.dianhua,
                 r.beizhu,
 
-                r.fjmsshu,
-                r.zjmsshu,
+                r.pinpaishu,
                 r.zhanghaoshu,
-                r.kuanhaoshu,
-                r.tiaomashu,
                 r.huiyuanshu,
                 r.fendianshu,
-                r.cangkushu,
-                r.gongyingshangshu,
                 r.xsjilushu,
                 r.jchjilushu,
                 r.kcjilushu,
-                r.shoucifufei,
-                r.xufeidanjia,
-                jiezhiriqi = r.jiezhiriqi.ToString("yyyy/MM/dd"),
                 r.charushijian,
                 r.xiugaishijian,
                 editParams = 
                             r.id+",'"+r.mingcheng+"','"+r.zhuceshouji+"','"+r.zhuceyouxiang+"',"+r.diquid+",'"+r.dizhi+"','"+r.lianxiren+"','"+r.dianhua+"','"+ r.beizhu+
-                            "',"+r.fjmsshu+","+r.zjmsshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+","+ r.huiyuanshu+","+ r.fendianshu+
-                            ","+r.cangkushu+","+r.gongyingshangshu+","+r.xsjilushu+","+r.jchjilushu+","+r.kcjilushu+","+r.shoucifufei+","+ r.xufeidanjia+
-                            ",'"+r.jiezhiriqi.ToString("yyyy-MM-dd")+"'"
+                            "',"+r.pinpaishu+","+ r.zhanghaoshu+","+ r.huiyuanshu+","+ r.fendianshu+
+                            ","+r.xsjilushu+","+r.jchjilushu+","+r.kcjilushu
             });
 
             grid_jiamengshang.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -89,11 +79,7 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.修改, _LoginUser);
 
             TJiamengshang f = getEditInfo();
-            //父加盟商数量和子加盟商数量不得同时大于0
-            if (f.fjmsshu > 0 && f.zjmsshu > 0)
-            {
-                throw new MyException("不允许中间代理商", null);
-            }
+          
             if (string.IsNullOrEmpty(hid_id.Value))
             {
                 throw new MyException("请先选择需要修改的加盟商",null);
@@ -125,21 +111,13 @@ namespace JCSJGL
             string dz = txb_dz.Text.Trim();
             string bz = txb_bz.Text.Trim();
 
-            byte fjmss = byte.Parse(txb_fjmss.Text.Trim());
-            short zjmss = short.Parse(txb_zjmss.Text.Trim());
+            byte pps = byte.Parse(txb_pps.Text.Trim());
             byte zhs = byte.Parse(txb_zhs.Text.Trim());
-            int khs = int.Parse(txb_khs.Text.Trim());
-            int tms = int.Parse(txb_tms.Text.Trim());
             int hys = int.Parse(txb_hys.Text.Trim());
             short fds = short.Parse(txb_fds.Text.Trim());
-            byte cks = byte.Parse(txb_cks.Text.Trim());
-            short gyss = short.Parse(txb_gyss.Text.Trim());
             int xsjls = int.Parse(txb_xsjls.Text.Trim());
             int jchjls = int.Parse(txb_jchjls.Text.Trim());
             int kcjls = int.Parse(txb_kcjls.Text.Trim());
-            decimal scff = decimal.Parse(txb_scff.Text.Trim());
-            decimal xfdj = decimal.Parse(txb_xfdj.Text.Trim());
-            DateTime jzrq = DateTime.Parse(txb_jzrq.Text.Trim());
 
             TJiamengshang j = new TJiamengshang
             {
@@ -156,21 +134,13 @@ namespace JCSJGL
                 xiugaishijian = DateTime.Now,
                 dtyzm = Tool.CommonFunc.GetRandomNum(6),
 
-                fjmsshu = fjmss,
-                zjmsshu = zjmss,
+                pinpaishu = pps,
                  zhanghaoshu = zhs,
-                 kuanhaoshu = khs,
-                 tiaomashu = tms,
                  huiyuanshu = hys,
                  fendianshu = fds,
-                 cangkushu = cks,
-                 gongyingshangshu = gyss,
                  xsjilushu = xsjls,
                  jchjilushu = jchjls,
-                 kcjilushu = kcjls,
-                 shoucifufei = scff,
-                 xufeidanjia = xfdj,
-                 jiezhiriqi = jzrq,
+                 kcjilushu = kcjls
             };
 
             return j;

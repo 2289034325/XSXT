@@ -34,5 +34,14 @@ namespace DB_CK
 
             _db.SaveChanges();
         }
+
+        public void DeleteJiamengshang(int id)
+        {
+            TJiamengshang j = _db.TJiamengshangs.Single(r => r.id == id);
+
+            _db.TJiamengshangs.Remove(j);
+
+            _db.SaveChanges();
+        }
     }
 }

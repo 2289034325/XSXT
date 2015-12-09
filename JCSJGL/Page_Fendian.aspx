@@ -25,13 +25,12 @@
             });
 
         //编辑
-        function EditInfo(id,fzxb,fzlx,dm,pp,mj,kll,dc,dpxz,zrf,yz,dq,dz,lxr,dh,kdrq,zt,bz,czrid,crsj,xgsj) 
+        function EditInfo(id,fzxb,fzlx,dm,mj,kll,dc,dpxz,zrf,yz,dq,dz,lxr,dh,kdrq,zt,bz,czrid,crsj,xgsj) 
         {
             $("#hid_id").val(id);
             $("#cmb_fzxb").val(fzxb);
             $("#cmb_fzlx").val(fzlx);
             $("#txb_dm").val(dm);
-            $("#cmb_pp").val(pp);
             $("#txb_mj").val(mj);
             $("#txb_kll").val(kll);
             $("#cmb_dc").val(dc);
@@ -94,7 +93,6 @@
             <asp:BoundField DataField="fzxingbie" HeaderText="服装性质"></asp:BoundField>
             <asp:BoundField DataField="fzleixing" HeaderText="服装类型"></asp:BoundField>
             <asp:BoundField DataField="dianming" HeaderText="店名"></asp:BoundField>
-            <asp:BoundField DataField="pinpai" HeaderText="品牌"></asp:BoundField>
             <asp:BoundField DataField="mianji" HeaderText="面积"></asp:BoundField>
             <asp:BoundField DataField="keliuliang" HeaderText="客流量"></asp:BoundField>
             <asp:BoundField DataField="dangci" HeaderText="档次"></asp:BoundField>
@@ -132,10 +130,7 @@
         </div>
         <div>
             <label>店名</label><asp:TextBox runat="server" ID="txb_dm" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>品牌</label><asp:DropDownList runat="server" ID="cmb_pp" ClientIDMode="Static"></asp:DropDownList>
-        </div>
+        </div>       
         <div>
             <label>面积</label><asp:TextBox runat="server" ID="txb_mj" ClientIDMode="Static"></asp:TextBox>
         </div>

@@ -56,6 +56,7 @@
     <Compile Include="Models\CKContext.cs" />
     <Compile Include="Models\Mapping\TChurukuMap.cs" />
     <Compile Include="Models\Mapping\TChurukuMXMap.cs" />
+    <Compile Include="Models\Mapping\TJiamengshangMap.cs" />
     <Compile Include="Models\Mapping\TKucunXZMap.cs" />
     <Compile Include="Models\Mapping\TTiaomaMap.cs" />
     <Compile Include="Models\Mapping\TUserMap.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Models\Mapping\VKucunMap.cs" />
     <Compile Include="Models\TChuruku.cs" />
     <Compile Include="Models\TChurukuMX.cs" />
+    <Compile Include="Models\TJiamengshang.cs" />
     <Compile Include="Models\TKucunXZ.cs" />
     <Compile Include="Models\TTiaoma.cs" />
     <Compile Include="Models\TUser.cs" />

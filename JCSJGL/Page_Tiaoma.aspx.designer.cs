@@ -13,22 +13,22 @@ namespace JCSJGL {
     public partial class Page_Tiaoma {
         
         /// <summary>
-        /// div_sch_jms 控件。
+        /// div_sch_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_jms;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_sch_pps;
         
         /// <summary>
-        /// cmb_jms 控件。
+        /// cmb_pps 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmb_jms;
+        protected global::System.Web.UI.WebControls.DropDownList cmb_pps;
         
         /// <summary>
         /// cmb_lx 控件。

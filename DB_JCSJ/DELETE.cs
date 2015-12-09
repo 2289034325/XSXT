@@ -154,6 +154,16 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
+            public void DeleteCKJinchuhuo(int id)
+            {
+                TCangkuJinchuhuo oj = _db.TCangkuJinchuhuos.Include(r => r.TCangkuJinchuhuoMXes).
+                    Include(r=>r.TCangkufahuoFendians).Single(r => r.id == id);
+
+                _db.TCangkuJinchuhuos.Remove(oj);
+
+                _db.SaveChanges();
+            }
+
             /// <summary>
             /// 删除一个销售记录并更新会员积分
             /// </summary>
@@ -192,11 +202,11 @@ namespace DB_JCSJ
             /// 审核通过后，自动删除请求记录
             /// </summary>
             /// <param name="id"></param>
-            public void DeleteJiamengGXSQ(int id)
+            public void DeleteJiamengSQ(int id)
             {
-                TJiamengshangGXSQ s = _db.TJiamengshangGXSQs.Single(r => r.id == id);
+                TJiamengSQ s = _db.TJiamengSQs.Single(r => r.id == id);
 
-                _db.TJiamengshangGXSQs.Remove(s);
+                _db.TJiamengSQs.Remove(s);
 
                 _db.SaveChanges();
             }
@@ -206,40 +216,27 @@ namespace DB_JCSJ
             /// <param name="id"></param>
             public void DeleteJiamengGX(int id)
             {
-                TJiamengshangGX g = _db.TJiamengshangGXes.Single(r => r.id == id);
+                TJiamengGX g = _db.TJiamengGXes.Single(r => r.id == id);
 
-                _db.TJiamengshangGXes.Remove(g);
-
-                _db.SaveChanges();
-            }
-
-            /// <summary>
-            /// 删除一个加盟商进退货记录
-            /// </summary>
-            /// <param name="id"></param>
-            public void DeleteJiamengshangJintuihuo(int id)
-            {
-                TJiamengshangJintuihuo j = _db.TJiamengshangJintuihuos.Single(r => r.id == id);
-
-                _db.TJiamengshangJintuihuos.Remove(j);
+                _db.TJiamengGXes.Remove(g);
 
                 _db.SaveChanges();
-            }
-
-            public void DeleteJiamengshangJintuihuoMX(int id)
-            {
-                TJiamengshangJintuihuoMX m = _db.TJiamengshangJintuihuoMXes.Single(r => r.id == id);
-
-                _db.TJiamengshangJintuihuoMXes.Remove(m);
-
-                _db.SaveChanges();
-            }
+            }            
 
             public void DeleteUserFendian(int id)
             {
                 TUserFendian ouf = _db.TUserFendians.Single(r => r.id == id);
 
                 _db.TUserFendians.Remove(ouf);
+
+                _db.SaveChanges();
+            }
+
+            public void DeleteCangkufahuoFendian(int[] ckjcids)
+            {
+                var cfs = _db.TCangkufahuoFendians.Where(r => ckjcids.Contains(r.ckjinchuid));
+
+                _db.TCangkufahuoFendians.RemoveRange(cfs);
 
                 _db.SaveChanges();
             }

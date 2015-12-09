@@ -77,7 +77,7 @@ namespace JCSJWCF
             }
             else
             {
-                if (!validateDTMM(tc.jmsid, zcm))
+                if (!validateDTMM_PPS(tc.ppsid, zcm))
                 {
                     throw new MyException("验证码错误", null);
                 }
@@ -111,7 +111,7 @@ namespace JCSJWCF
             }
             else
             {
-                if (!validateDTMM(fd.jmsid, zcm))
+                if (!validateDTMM_JMS(fd.jmsid, zcm))
                 {
                     throw new MyException("验证码错误", null);
                 }
@@ -146,7 +146,7 @@ namespace JCSJWCF
             else
             {
                 //验证注册码
-                if (!validateDTMM(u.jmsid,zcm))
+                if (!validateDTMM_PPS(u.ppsid.Value,zcm))
                 {
                     throw new MyException("验证码错误", null);
                 }
@@ -163,7 +163,7 @@ namespace JCSJWCF
         /// </summary>
         /// <param name="mm"></param>
         /// <returns></returns>
-        private bool validateDTMM(int jmsid,string mm)
+        private bool validateDTMM_JMS(int jmsid,string mm)
         {
             DBContext db = new DBContext();
             TJiamengshang j= db.GetJiamengshangById(jmsid);            
@@ -172,6 +172,20 @@ namespace JCSJWCF
             {
                 //重新生成动态密码
                 db.UpdateJiamengshangDtyzm(jmsid, Tool.CommonFunc.GetRandomNum(6));
+                return true;
+            }
+
+            return false;
+        }
+        private bool validateDTMM_PPS(int ppsid, string mm)
+        {
+            DBContext db = new DBContext();
+            TPinpaishang j = db.GetPinpaishangById(ppsid);
+
+            if (mm == j.dtyzm)
+            {
+                //重新生成动态密码
+                db.UpdatePinpaishangDtyzm(ppsid, Tool.CommonFunc.GetRandomNum(6));
                 return true;
             }
 

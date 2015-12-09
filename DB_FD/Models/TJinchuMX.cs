@@ -8,6 +8,7 @@ namespace DB_FD.Models
         public int id { get; set; }
         public int jinchuid { get; set; }
         public int tiaomaid { get; set; }
+        public decimal danjia { get; set; }
         public short shuliang { get; set; }
         public virtual TJinchuhuo TJinchuhuo { get; set; }
         public virtual TTiaoma TTiaoma { get; set; }

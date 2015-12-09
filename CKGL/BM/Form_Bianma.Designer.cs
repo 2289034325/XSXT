@@ -47,6 +47,7 @@
             this.mni_dyall = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_dysel = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_szlg = new System.Windows.Forms.ToolStripMenuItem();
+            this.mni_logout = new System.Windows.Forms.ToolStripMenuItem();
             this.grid_all = new System.Windows.Forms.DataGridView();
             this.col_all_tmidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_all_khidex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,7 +77,6 @@
             this.cmb_gys = new System.Windows.Forms.ComboBox();
             this.btn_jssj = new System.Windows.Forms.Button();
             this.txb_sjxs = new System.Windows.Forms.TextBox();
-            this.mni_logout = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_all)).BeginInit();
             this.cmn_all.SuspendLayout();
@@ -181,14 +181,14 @@
             // mni_saveServer
             // 
             this.mni_saveServer.Name = "mni_saveServer";
-            this.mni_saveServer.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveServer.Size = new System.Drawing.Size(148, 22);
             this.mni_saveServer.Text = "保存到服务器";
             this.mni_saveServer.Click += new System.EventHandler(this.mni_saveServer_Click);
             // 
             // mni_saveLoacal
             // 
             this.mni_saveLoacal.Name = "mni_saveLoacal";
-            this.mni_saveLoacal.Size = new System.Drawing.Size(152, 22);
+            this.mni_saveLoacal.Size = new System.Drawing.Size(148, 22);
             this.mni_saveLoacal.Text = "保存到本地";
             this.mni_saveLoacal.Click += new System.EventHandler(this.mni_saveLoacal_Click);
             // 
@@ -227,8 +227,15 @@
             // 
             this.mni_szlg.Name = "mni_szlg";
             this.mni_szlg.Size = new System.Drawing.Size(152, 22);
-            this.mni_szlg.Text = "设置标签logo";
+            this.mni_szlg.Text = "打印设置";
             this.mni_szlg.Click += new System.EventHandler(this.mni_szlg_Click);
+            // 
+            // mni_logout
+            // 
+            this.mni_logout.Name = "mni_logout";
+            this.mni_logout.Size = new System.Drawing.Size(68, 21);
+            this.mni_logout.Text = "退出登录";
+            this.mni_logout.Click += new System.EventHandler(this.mni_logout_Click);
             // 
             // grid_all
             // 
@@ -485,13 +492,6 @@
             this.txb_sjxs.Name = "txb_sjxs";
             this.txb_sjxs.Size = new System.Drawing.Size(100, 21);
             this.txb_sjxs.TabIndex = 0;
-            // 
-            // mni_logout
-            // 
-            this.mni_logout.Name = "mni_logout";
-            this.mni_logout.Size = new System.Drawing.Size(68, 21);
-            this.mni_logout.Text = "退出登录";
-            this.mni_logout.Click += new System.EventHandler(this.mni_logout_Click);
             // 
             // Form_Bianma
             // 

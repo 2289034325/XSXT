@@ -303,19 +303,21 @@
   <xs:element name="ShangbaoJinchuhuo_CK">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cjcs" nillable="true" type="q26:ArrayOfTCangkuJinchuhuo" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cjcs" nillable="true" type="q26:TCangkuJinchuhuo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ShangbaoJinchuhuo_CKResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ShangbaoJinchuhuo_CKResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CangkufahuoFendian">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="oid" type="xs:int" />
+        <xs:element minOccurs="0" name="pcm" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="fdid" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -327,7 +329,9 @@
   </xs:element>
   <xs:element name="GetFendians">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="jmsid" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetFendiansResponse">
@@ -417,7 +421,7 @@
   <xs:element name="GetJMPinpaisResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJMPinpaisResult" nillable="true" type="q32:ArrayOfTJiamengshang" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJMPinpaisResult" nillable="true" type="q32:ArrayOfTPinpaishang" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -444,6 +448,18 @@
   <xs:element name="UpdateTiaomaResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJiamengshangs">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJiamengshangsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJiamengshangsResult" nillable="true" type="q34:ArrayOfTJiamengshang" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

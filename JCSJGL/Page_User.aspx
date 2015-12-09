@@ -57,23 +57,6 @@
             }
         }
 
-        //给店长角色增加一个管辖的分店
-        function AddFendian(id)
-        {            
-            if(IsPC())
-            {
-                $("#hid_id").val(id);     
-                $(".btnAdd").css("display","");
-                $(".btnEdit").css("display","none");           
-                $( "#div_cmb_fds" ).dialog( "option", "title", "增加一个管辖分店" );
-                $( "#div_cmb_fds" ).dialog().dialog( "open" );
-            }
-            else
-            {                
-                ShowEditDialog("div_cmb_fds",true);
-            }
-        }
-
         function AddUser()
         {
             if(IsPC())
@@ -92,8 +75,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
+        <div id="div_sch_pps" runat="server">
+            <label>品牌商</label><asp:DropDownList runat="server" CssClass="middle" ID="cmb_pps"></asp:DropDownList>
+        </div>
         <div id="div_sch_jms" runat="server">
             <label>加盟商</label><asp:DropDownList runat="server" CssClass="middle" ID="cmb_jms"></asp:DropDownList>
+        </div>
+        <div id="div_sch_xtyh" runat="server">
+            <label>系统用户</label><asp:CheckBox runat="server" ID="chk_xtyh" />
         </div>
         <div>
             <asp:Button ID="btn_toAdd" runat="server" Text="新增" OnClientClick="AddUser();return false;" />
@@ -105,6 +94,7 @@
 
     <asp:GridView ID="grid_yonghu" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_yonghu_RowCommand">
         <Columns>
+            <asp:BoundField DataField="pinpaishang" HeaderText="品牌商"></asp:BoundField>
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="dengluming" HeaderText="登录名"></asp:BoundField>
@@ -119,27 +109,11 @@
                     <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
-            <asp:ButtonField CommandName="FDS" Text="查看分店" ButtonType="Button" ShowHeader="false" />
-            <asp:TemplateField ShowHeader="False">
-                <ItemTemplate>
-                    <input type="button" onclick="AddFendian(<%# Eval("editParams")%>)" value="增加分店"></input>
-                </ItemTemplate>
-            </asp:TemplateField>
+            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />           
         </Columns>
-    </asp:GridView>
-    <asp:GridView ID="grid_ufs" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowCommand="grid_ufs_RowCommand">
-        <Columns>
-            <asp:BoundField DataField="id" HeaderText="ID"></asp:BoundField>
-            <asp:BoundField DataField="dianming" HeaderText="店名"></asp:BoundField>
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
-        </Columns>
-    </asp:GridView>
+    </asp:GridView>    
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />
-    <div id="div_edit" class="div_edit">
-        <div id="div_edit_jms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms_edit"></asp:DropDownList>
-        </div>
+    <div id="div_edit" class="div_edit">       
         <div>
             <label>登录名</label><asp:TextBox runat="server" ID="txb_dlm" ClientIDMode="Static"></asp:TextBox>
         </div>
@@ -165,21 +139,6 @@
             <div class="twoButtonInline">
                 <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
                 <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" OnClick="btn_add_Click" ClientIDMode="Static" />
-            </div>
-        </div>
-    </div>
-
-    <div id="div_cmb_fds" class="div_edit">
-        <div>
-            <label>分店</label><asp:DropDownList runat="server" ID="cmb_fd" ClientIDMode="Static"></asp:DropDownList>
-        </div>
-        <div>
-            <div class="twoButtonInline left">
-                <asp:Button runat="server" ID="Button1" Text="取消" OnClientClick="CloseEditDialog('div_cmb_fds');return false;" />
-            </div>
-            <div class="twoButtonInline">
-                <asp:Button runat="server" ID="btn_fdsel_edit" CssClass="btnEdit" Text="确定" ClientIDMode="Static" />
-                <asp:Button runat="server" ID="btn_fdsel_ok" CssClass="btnAdd" Text="确定" OnClick="btn_fdsel_ok_Click" ClientIDMode="Static" />
             </div>
         </div>
     </div>

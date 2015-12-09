@@ -6,13 +6,18 @@ namespace DB_JCSJ.Models
 {
     public partial class JCSJContext : DbContext
     {
+        static JCSJContext()
+        {
+            Database.SetInitializer<JCSJContext>(null);
+        }
+
         public JCSJContext()
             : base("Name=JCSJContext")
         {
         }
 
         public DbSet<TCangku> TCangkus { get; set; }
-        public DbSet<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
+        public DbSet<TCangkufahuoFendian> TCangkufahuoFendians { get; set; }
         public DbSet<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public DbSet<TCangkuJinchuhuoMX> TCangkuJinchuhuoMXes { get; set; }
         public DbSet<TCangkuKucun> TCangkuKucuns { get; set; }
@@ -26,22 +31,24 @@ namespace DB_JCSJ.Models
         public DbSet<TGongyingshang> TGongyingshangs { get; set; }
         public DbSet<THuiyuan> THuiyuans { get; set; }
         public DbSet<THuiyuanZK> THuiyuanZKs { get; set; }
+        public DbSet<TJiamengGX> TJiamengGXes { get; set; }
         public DbSet<TJiamengshang> TJiamengshangs { get; set; }
-        public DbSet<TJiamengshangGX> TJiamengshangGXes { get; set; }
-        public DbSet<TJiamengshangGXSQ> TJiamengshangGXSQs { get; set; }
-        public DbSet<TJiamengshangJintuihuo> TJiamengshangJintuihuos { get; set; }
-        public DbSet<TJiamengshangJintuihuoMX> TJiamengshangJintuihuoMXes { get; set; }
+        public DbSet<TJiamengSQ> TJiamengSQs { get; set; }
         public DbSet<TKuanhao> TKuanhaos { get; set; }
+        public DbSet<TPinpaishang> TPinpaishangs { get; set; }
+        public DbSet<TPinpaishangFendian> TPinpaishangFendians { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
         public DbSet<TUserFendian> TUserFendians { get; set; }
         public DbSet<TXiaoshou> TXiaoshous { get; set; }
+        public DbSet<VCKKC> VCKKCs { get; set; }
         public DbSet<VDiqu> VDiqus { get; set; }
+        public DbSet<VFDKC> VFDKCs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new TCangkuMap());
-            modelBuilder.Configurations.Add(new TCangkuFahuoFendianMap());
+            modelBuilder.Configurations.Add(new TCangkufahuoFendianMap());
             modelBuilder.Configurations.Add(new TCangkuJinchuhuoMap());
             modelBuilder.Configurations.Add(new TCangkuJinchuhuoMXMap());
             modelBuilder.Configurations.Add(new TCangkuKucunMap());
@@ -55,17 +62,19 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TGongyingshangMap());
             modelBuilder.Configurations.Add(new THuiyuanMap());
             modelBuilder.Configurations.Add(new THuiyuanZKMap());
+            modelBuilder.Configurations.Add(new TJiamengGXMap());
             modelBuilder.Configurations.Add(new TJiamengshangMap());
-            modelBuilder.Configurations.Add(new TJiamengshangGXMap());
-            modelBuilder.Configurations.Add(new TJiamengshangGXSQMap());
-            modelBuilder.Configurations.Add(new TJiamengshangJintuihuoMap());
-            modelBuilder.Configurations.Add(new TJiamengshangJintuihuoMXMap());
+            modelBuilder.Configurations.Add(new TJiamengSQMap());
             modelBuilder.Configurations.Add(new TKuanhaoMap());
+            modelBuilder.Configurations.Add(new TPinpaishangMap());
+            modelBuilder.Configurations.Add(new TPinpaishangFendianMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
             modelBuilder.Configurations.Add(new TUserFendianMap());
             modelBuilder.Configurations.Add(new TXiaoshouMap());
+            modelBuilder.Configurations.Add(new VCKKCMap());
             modelBuilder.Configurations.Add(new VDiquMap());
+            modelBuilder.Configurations.Add(new VFDKCMap());
         }
     }
 }

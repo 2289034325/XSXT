@@ -57,20 +57,23 @@ namespace DB_CK
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public TChuruku[] GetChurukus(int? id, DateTime start, DateTime end)
+        public TChuruku[] GetChurukus(int? jmsid, DateTime? fsrq_start, DateTime? fsrq_end)
         {
-            TChuruku[] cs = null;
-            if (id == null)
+            var cs = _db.TChurukus.Include(r => r.TChurukuMXes).Include(r => r.TChurukuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser);
+            if (jmsid != null)
             {
-                DateTime dend = end.AddDays(1);
-                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TChurukuMXes.Select(xr=>xr.TTiaoma)).Include(r=>r.TUser).Where(r => r.charushijian >= start && r.charushijian < dend).ToArray();
+                cs = cs.Where(r => r.jmsid == jmsid);
             }
-            else
+            if (fsrq_start != null)
             {
-                cs = _db.TChurukus.Include(r=>r.TChurukuMXes).Include(r=>r.TUser).Where(r => r.id == id.Value).ToArray();
+                cs = cs.Where(r => r.charushijian >= fsrq_start);
+            }
+            if (fsrq_end != null)
+            {
+                cs = cs.Where(r => r.charushijian < fsrq_end);
             }
 
-            return cs;
+            return cs.ToArray();
         }
 
         /// <summary>
@@ -79,7 +82,8 @@ namespace DB_CK
         /// <returns></returns>
         public TChuruku[] GetChurukuWeishangbao()
         {
-            return _db.TChurukus.Include(r=>r.TChurukuMXes).Where(r => r.shangbaoshijian == null && r.TChurukuMXes.Any()).ToArray();
+            return _db.TChurukus.Include(r=>r.TChurukuMXes).
+                Where(r => r.shangbaoshijian == null && r.queding == false && r.TChurukuMXes.Any()).ToArray();
         }
 
         /// <summary>
@@ -187,6 +191,22 @@ namespace DB_CK
             }
 
             return tms.ToArray();
+        }
+
+        public TJiamengshang[] GetJiamengshangs(bool? zt)
+        {
+            var js = _db.TJiamengshangs.AsQueryable();
+            if(zt != null)
+            {
+                js = js.Where(r=>r.zhuangtai == zt);
+            }
+
+            return js.ToArray();
+        }
+
+        public TJiamengshang GetJiamengshangById(int id)
+        {
+            return _db.TJiamengshangs.SingleOrDefault(r => r.id == id);
         }
 
 

@@ -218,27 +218,33 @@ namespace DB_JCSJ
             /// </summary>
             /// <param name="ckid"></param>
             /// <param name="cjcs"></param>
-            public void InsertCangkuJinchuhuo(int ckid, TCangkuJinchuhuo[] cjcs)
+            public TCangkuJinchuhuo[] InsertCangkuJinchuhuo(TCangkuJinchuhuo[] cjcs)
             {
-                _db.TCangkuJinchuhuos.AddRange(cjcs);
+                var nds = _db.TCangkuJinchuhuos.AddRange(cjcs);
 
                 _db.SaveChanges();
+
+                return nds.ToArray();
             }
-
-            /// <summary>
-            /// 插入仓库发货数据，让分店直接下载
-            /// </summary>
-            /// <param name="fh"></param>
-            public void InsertCangkuFahuoFendian(TCangkuFahuoFendian ff)
+            public TCangkuJinchuhuo InsertCangkuJinchuhuo(TCangkuJinchuhuo cjc)
             {
-                _db.TCangkuFahuoFendians.Add(ff);
+                var nd = _db.TCangkuJinchuhuos.Add(cjc);
 
                 _db.SaveChanges();
+
+                return nd;
             }
 
             public void InsertJiamengshang(TJiamengshang j)
             {
                 _db.TJiamengshangs.Add(j);
+
+                _db.SaveChanges();
+            }
+
+            public void InsertPinpaishang(TPinpaishang p)
+            {
+                _db.TPinpaishangs.Add(p);
 
                 _db.SaveChanges();
             }
@@ -256,9 +262,9 @@ namespace DB_JCSJ
             /// 插入一个加盟申请信息
             /// </summary>
             /// <param name="s"></param>
-            public void InsertJiamengGXSQ(TJiamengshangGXSQ s)
+            public void InsertJiamengGXSQ(TJiamengSQ s)
             {
-                _db.TJiamengshangGXSQs.Add(s);
+                _db.TJiamengSQs.Add(s);
 
                 _db.SaveChanges();
             }
@@ -267,34 +273,24 @@ namespace DB_JCSJ
             /// 插入一个加盟关系
             /// </summary>
             /// <param name="g"></param>
-            public void InsertJiamengGX(TJiamengshangGX g)
+            public void InsertJiamengGX(TJiamengGX g)
             {
-                _db.TJiamengshangGXes.Add(g);
+                _db.TJiamengGXes.Add(g);
 
                 _db.SaveChanges();
             }
 
-            /// <summary>
-            /// 插入一个加盟商进退货记录
-            /// </summary>
-            /// <param name="j"></param>
-            public void InsertJiamengshangJinchuhuo(TJiamengshangJintuihuo j)
-            {
-                _db.TJiamengshangJintuihuos.Add(j);
-
-                _db.SaveChanges();
-            }
-
-            public void InsertJiamengshangJinchuhuoMX(TJiamengshangJintuihuoMX m)
-            {
-                _db.TJiamengshangJintuihuoMXes.Add(m);
-
-                _db.SaveChanges();
-            }
-
+            
             public void InsertUserFendian(TUserFendian uf)
             {
                 _db.TUserFendians.Add(uf);
+
+                _db.SaveChanges();
+            }
+
+            public void InsertCangkuFahuoFendian(TCangkufahuoFendian cf)
+            {
+                _db.TCangkufahuoFendians.Add(cf);
 
                 _db.SaveChanges();
             }

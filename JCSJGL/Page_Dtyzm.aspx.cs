@@ -21,8 +21,17 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 DBContext db = new DBContext();
-                TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid);
-                div_yzm.InnerText = j.dtyzm;
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
+                {
+                    TPinpaishang j = db.GetPinpaishangById(_LoginUser.ppsid.Value);
+                    div_yzm.InnerText = j.dtyzm;
+                }
+                else
+                {
+                    TJiamengshang j = db.GetJiamengshangById(_LoginUser.jmsid.Value);
+                    div_yzm.InnerText = j.dtyzm;
+ 
+                }
             }
         }
 
@@ -35,8 +44,19 @@ namespace JCSJGL
         {
             DBContext db = new DBContext();
             string n = Tool.CommonFunc.GetRandomNum(6);
-            db.UpdateJiamengshangDtyzm(_LoginUser.jmsid, n);
-            div_yzm.InnerText = n;
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
+            {
+                db.UpdatePinpaishangDtyzm(_LoginUser.ppsid.Value, n);
+                div_yzm.InnerText = n;
+
+            }
+            else
+            {
+                db.UpdateJiamengshangDtyzm(_LoginUser.jmsid.Value, n);
+                div_yzm.InnerText = n;
+ 
+            }
+
         }
     }
 }

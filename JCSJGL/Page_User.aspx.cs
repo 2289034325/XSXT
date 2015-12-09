@@ -22,10 +22,8 @@ namespace JCSJGL
             //初始化
             if (!IsPostBack)
             {
-                //隐藏搜索条件
-                div_sch_jms.Visible = false;
-                div_edit_jms.Visible = false;
                 DBContext db = new DBContext();
+                div_sch_xtyh.Visible = false;
 
                 //初始化下拉框
                 Dictionary<string, string> jss = new Dictionary<string, string>();
@@ -33,36 +31,55 @@ namespace JCSJGL
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    //显示搜索
-                    div_sch_jms.Visible = true;
-                    div_edit_jms.Visible = true;
+                    div_sch_xtyh.Visible = true;
 
                     TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms_edit, jmss, "mingcheng", "id");
                     Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商",""));
+                    cmb_jms.Items.Insert(0, new ListItem("", ""));
 
-                    jss = Tool.CommonFunc.GetDicFromEnum(typeof(Tool.JCSJ.DBCONSTS.USER_XTJS));
+                    TPinpaishang[] ppss = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, ppss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("", ""));
 
+                    //角色
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.总经理.ToString());
+                    
                     //分店下拉框
                     fs = db.GetFendiansAsItems(null);
                 }
-                else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员 ||
-                         _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理)
+                else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
+                         _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理)
                 {
-                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.管理员.ToString());
-                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.经理).ToString(),Tool.JCSJ.DBCONSTS.USER_XTJS.经理.ToString());
-                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.编码).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.编码.ToString());
-                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.店长.ToString());
+                    //隐藏搜索条件
+                    div_sch_pps.Visible = false;
+                    div_sch_jms.Visible = false;
+                    grid_yonghu.Columns[0].Visible = false;
+                    grid_yonghu.Columns[1].Visible = false;
 
-                    //分店下拉框
-                    fs = db.GetFendiansAsItems(_LoginUser.jmsid);
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码.ToString());
+                    
+                    //加载用户
+                    loadUsers();
+                }
+                else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员 ||
+                         _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理)
+                {
+                    //隐藏搜索条件
+                    div_sch_pps.Visible = false;
+                    div_sch_jms.Visible = false;
+                    grid_yonghu.Columns[0].Visible = false;
+                    grid_yonghu.Columns[1].Visible = false;
 
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员.ToString());
+                    jss.Add(((byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理).ToString(), Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理.ToString());
+                    
                     //加载用户
                     loadUsers();
                 }
 
-                Tool.CommonFunc.InitDropDownList(cmb_fd, fs, "dianming", "id");
                 Tool.CommonFunc.InitDropDownList(cmb_js, jss);
                 Tool.CommonFunc.InitDropDownList(cmb_zt, typeof(Tool.JCSJ.DBCONSTS.USER_ZT));
             }            
@@ -76,34 +93,48 @@ namespace JCSJGL
         private void loadUsers()
         {   
             DBContext db = new DBContext();
-            int? jmsid = null;
+            TUser[] us = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (chk_xtyh.Checked)
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    //系统用户
+                    us = db.GetUsersOfSys();
                 }
-                grid_yonghu.Columns[0].Visible = true;
+                else
+                {
+                    if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                    {
+                        //加盟商用户
+                        us = db.GetUsersByJmsid(int.Parse(cmb_jms.SelectedValue));
+                    }
+                    else if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
+                    {
+                        //品牌商用户
+                        us = db.GetUsersByPpsid(int.Parse(cmb_pps.SelectedValue));
+                    }
+                    else
+                    {
+                        throw new MyException("加盟商或者品牌商必须选择一个", null);
+                    }
+                }
+            }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理)
+            {
+                us = db.GetUsersByJmsid(_LoginUser.jmsid.Value);
             }
             else
             {
-                grid_yonghu.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;
+                us = db.GetUsersByPpsid(_LoginUser.ppsid.Value); 
             }
 
-            TUser[] us = db.GetUsers(jmsid);
-            //排除其中的系统管理员和总经理账号
-            if (!(_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
-            {
-                us = us.Where(r => r.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 &&
-                    r.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理).ToArray();
-            }
             var dus = us.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TJiamengshang.mingcheng,
+                pinpaishang = r.TPinpaishang == null ? "" : r.TPinpaishang.mingcheng,
+                jiamengshang = r.TJiamengshang == null ? "" : r.TJiamengshang.mingcheng,
                 dengluming = r.dengluming,
                 yonghuming = r.yonghuming,
                 juese = r.juese,
@@ -135,29 +166,53 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TUser ou = db.GetUserById(nu.id);
-            if (!(ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
+
+            //不能修改自己的角色
+            if (nu.id == _LoginUser.id)
             {
-                //不允许在界面直接将权限提升为这两个角色
-                if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                if (nu.juese != _LoginUser.juese)
                 {
-                    throw new MyException("不允许将其他角色提升到该权限", null);
+                    throw new MyException("不能修改自己的角色", null);
+                }
+
+                if (nu.zhuangtai == (byte)Tool.JCSJ.DBCONSTS.USER_ZT.停用)
+                {
+                    throw new MyException("不能将自己的账号停用", null);
                 }
             }
 
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            //不允许在界面直接将权限提升为这两个角色
+            if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-
-            }
-            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
+                if (!(ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
+                {
+                    throw new MyException("不允许将用户提升到该角色权限", null);
+                }
+            }            
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
             {
                 if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     throw new MyException("非法操作，无法修改该账户信息", null);
                 }
-                if (ou.jmsid != _LoginUser.jmsid)
+                //不允许修改其他品牌商的账号信息
+                if (ou.ppsid != _LoginUser.ppsid)
+                {
+                    throw new MyException("非法操作，无法修改该账户信息", null);
+                }
+            }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员)
+            {
+                if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                                   ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    throw new MyException("非法操作，无法修改该账户信息", null);
+                }
+                //不允许修改其他加盟商的账号信息
+                if (_LoginUser.jmsid != null && ou.jmsid != _LoginUser.jmsid)
                 {
                     throw new MyException("非法操作，无法修改该账户信息", null);
                 }
@@ -211,90 +266,45 @@ namespace JCSJGL
             nu.charushijian = DateTime.Now;
             nu.xiugaishijian = DateTime.Now;
 
-
             DBContext db = new DBContext();
-            //确保不能新建比自己权限高的账户
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-            {
-                nu.jmsid = int.Parse(cmb_jms_edit.SelectedValue);
-                //可以添加这两个高权限账号，但是这两个账号必须跟自己属于同一个加盟商
-                if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                    nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-                {
-                    if (nu.jmsid != _LoginUser.jmsid)
-                    {
-                        throw new MyException("不允许给其他加盟商增加该类型账户", null);
-                    }
-                }
 
-                int cc = db.GetUserCount(nu.jmsid);
-                TJiamengshang j = db.GetJiamengshangById(nu.jmsid);
-                if (cc >= j.zhanghaoshu)
-                {
-                    throw new MyException("该加盟商拥有的账号数已到上限", null);
-                }      
-            }
-            else
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
             {
                 if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     throw new MyException("非法操作，无法增加", null);
                 }
+
+                nu.ppsid = _LoginUser.ppsid;
+
+                int cc = db.GetUserCountPps(nu.ppsid.Value);
+                if (cc >= _LoginUser.TPinpaishang.zhanghaoshu)
+                {
+                    throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员", null);
+                }
+            }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员)
+            {
+                if (nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                nu.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                {
+                    throw new MyException("非法操作，无法增加", null);
+                }
+
                 nu.jmsid = _LoginUser.jmsid;
 
-                int cc = db.GetUserCount(nu.jmsid);
+                int cc = db.GetUserCountJms(nu.jmsid.Value);
                 if (cc >= _LoginUser.TJiamengshang.zhanghaoshu)
                 {
                     throw new MyException("拥有的账号数已到上限，如需增加更多账号请联系系统管理员", null);
-                }    
+                }
             }
 
             db.InsertUser(nu);
 
             loadUsers();
         }
-
-        /// <summary>
-        /// 删除一个账号
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //protected void grid_yonghu_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        //{
-        //    //权限检查
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    int id = int.Parse(grid_yonghu.DataKeys[e.RowIndex].Value.ToString());
-
-        //    DBContext db = new DBContext();
-        //    TUser ou = db.GetUserById(id);
-        //    //不能删除别人的用户
-        //    if (_LoginUser.id == id)
-        //    {
-        //        throw new MyException("不能删除自己", null);
-        //    }
-        //    if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-        //    {
-
-        //    }
-        //    else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
-        //    {
-        //        if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-        //            ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-        //        {
-        //            throw new MyException("非法操作，无法删除该用户", null);
-        //        }
-        //        if (ou.jmsid != _LoginUser.jmsid)
-        //        {
-        //            throw new MyException("非法操作，无法删除该用户", null);
-        //        }
-        //    }
-
-        //    db.DeleteUser(id);
-
-        //    loadUsers();
-        //}
 
         /// <summary>
         /// 查询账户
@@ -304,73 +314,6 @@ namespace JCSJGL
         protected void btn_sch_Click(object sender, EventArgs e)
         {
             loadUsers();
-        }
-
-        /// <summary>
-        /// 给店长角色增加一个管辖的分店
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btn_fdsel_ok_Click(object sender, EventArgs e)
-        {
-            Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
-
-            int uid = int.Parse(hid_id.Value);
-            int fid = int.Parse(cmb_fd.SelectedValue);
-
-            DBContext db = new DBContext();
-            TUser u = db.GetUserById(uid);
-            TFendian f = db.GetFendianById(fid);
-            if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.店长)
-            {
-                throw new MyException("只能给店长增加管辖的分店", null);
-            }
-            if (u.jmsid != f.jmsid)
-            {
-                throw new MyException("用户和分店不属于同一个加盟商，无法增加", null);
-            }
-
-            TUserFendian uf = db.GetUserFendiansByUidFdid(uid, fid);
-            if (uf == null)
-            {
-                TUserFendian nuf = new TUserFendian 
-                {
-                    userid = uid,
-                    fendianid = fid
-                };
-
-                db.InsertUserFendian(nuf);
-
-                //重新加载数据
-                loadFendians(uid);
-            }
-        }
-
-        protected void grid_ufs_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Page")
-            {
-                return;
-            }
-
-            if (e.CommandName == "DEL")
-            {
-                Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-                int index = Convert.ToInt32(e.CommandArgument);
-                int id = int.Parse(grid_ufs.DataKeys[index].Value.ToString());
-                DBContext db = new DBContext();
-                TUserFendian oj = db.GetUserFendiansById(id);
-                TUser ou = db.GetUserById(oj.userid);
-                if (ou.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-                {
-                    throw new MyException("非法操作，无法删除", null);
-                }
-                db.DeleteUserFendian(id);
-
-                //重新加载数据
-                loadFendians(int.Parse(hid_id.Value));
-            }
         }
 
         protected void grid_yonghu_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -383,15 +326,7 @@ namespace JCSJGL
             DBContext db = new DBContext();
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_yonghu.DataKeys[index].Value.ToString());
-            if (e.CommandName == "FDS")
-            {
-                //为了给用户分店表删除一行后，加载数据用
-                hid_id.Value = id.ToString();
-
-                //加载分店
-                loadFendians(id);
-            }
-            else if (e.CommandName == "DEL")
+            if (e.CommandName == "DEL")
             {
                 //权限检查
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
@@ -401,8 +336,21 @@ namespace JCSJGL
                 {
                     throw new MyException("不能删除自己", null);
                 }
+
                 //不能删除高权限的账号
-                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员)
+                if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
+                {
+                    if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                        ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+                    {
+                        throw new MyException("非法操作，无法删除该用户", null);
+                    }
+                    if (ou.ppsid != _LoginUser.ppsid)
+                    {
+                        throw new MyException("非法操作，无法删除该用户", null);
+                    }
+                }
+                else if(_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员)
                 {
                     if (ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         ou.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
@@ -415,28 +363,11 @@ namespace JCSJGL
                     }
                 }
 
+
                 db.DeleteUser(id);
 
                 loadUsers();
             }
-        }
-
-        /// <summary>
-        /// 加载某用户管辖下的所有分店
-        /// </summary>
-        /// <param name="id"></param>
-        private void loadFendians(int id)
-        {
-            DBContext db = new DBContext();
-            TUserFendian[] ufs = db.GetUserFendiansByUserId(id);
-            var data = ufs.Select(r => new
-            {
-                id = r.id,
-                dianming = r.TFendian.dianming
-            });
-
-            grid_ufs.DataSource = Tool.CommonFunc.LINQToDataTable(data);
-            grid_ufs.DataBind();
         }
     }
 }

@@ -16,6 +16,9 @@ namespace JCSJGL
         {
             if (!IsPostBack)
             {
+                cmb_zhlx.Items.Insert(0, new ListItem("品牌商", "pps"));
+                cmb_zhlx.Items.Insert(0, new ListItem("加盟商", "jms"));
+
                 DBContext db = new DBContext();
                 VDiqu[] dqs = db.GetAllDiqus();
                 VDiqu[] shengs = dqs.Where(r => r.jibie == 0).ToArray();
@@ -51,6 +54,8 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_zhuce_Click(object sender, EventArgs e)
         {
+            DBContext db = new DBContext();
+            
             string zcm = txb_zcm.Value.Trim();
             List<string> zcms = SysTool.loadZcms();
             if (!zcms.Contains(zcm))
@@ -68,8 +73,12 @@ namespace JCSJGL
             {
                 throw new MyException("手机号格式错误", null);
             }
-            string mm = txb_mm.Value;
+            if (db.GetPinpaishangBySjh(sjh) != null || db.GetJiamengshangBySjh(sjh) != null)
+            {
+                throw new MyException("该手机号已经被注册，请换一个手机号注册", null);
+            }
 
+            string mm = txb_mm.Value;
             string mmqr = txb_mmqr.Value;
             if (string.IsNullOrEmpty(mm) || string.IsNullOrEmpty(mmqr))
             {
@@ -94,98 +103,148 @@ namespace JCSJGL
             }
             string dz = txb_dz.Value.Trim();
 
-            //生成一个随机的4位代码
-            DBContext db = new DBContext();
-            short[] dms = db.GetJiamengshangDaimas();
-            short ndm = 0;
-            if (dms.Count() >= 9000)
+            ////生成一个4位代码
+            //short[] dms = db.GetPinpaishangDaimas();
+            //short ndm = 0;
+            //if (dms.Count() >= 9000)
+            //{
+            //    throw new MyException("用户数已到上限，无法再注册", null);
+            //}
+            //if (dms.Count() == 0)
+            //{
+            //    //最小代码从1000开始，0开头的条码不好看
+            //    ndm = 1000;
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < dms.Length - 1; i++)
+            //    {
+            //        if (dms[i + 1] - dms[i] > 1)
+            //        {
+            //            ndm = (short)(dms[i] + 1);
+            //            break;
+            //        }
+            //    }
+            //    if (ndm == 0)
+            //    {
+            //        ndm = (short)(dms.Max() + 1);
+            //    }
+            //}
+           
+            ////控制新产生的代码，避免超过9999
+            //if (ndm > 9999 || ndm < 1000)
+            //{
+            //    throw new MyException("系统错误，请重新提交注册", null);
+            //}
+
+
+
+            string zhlx = cmb_zhlx.SelectedValue;
+            if (zhlx == "jms")
             {
-                throw new MyException("用户数已到上限，无法再注册", null);
-            }
-            if (dms.Count() == 0)
-            {
-                //最小代码从1000开始，0开头的条码不好看
-                ndm = 1000;
+                short? dmax = db.GetJiamengshangDaimaMax();
+                short ndm = dmax == null ? ((short)1000) : ((short)(dmax.Value + 1));
+                if (ndm > 9999)
+                {
+                    throw new MyException("系统错误，无法注册", null);
+                }
+
+                TJiamengshang j = new TJiamengshang
+                {
+                    //基本信息
+                    daima = ndm,
+                    mingcheng = mc,
+                    zhuceshouji = sjh,
+                    zhuceyouxiang = yx,
+                    diquid = dqid,
+                    dizhi = dz,
+                    lianxiren = lxr,
+                    dianhua = dh,
+                    beizhu = "",
+                    dtyzm = Tool.CommonFunc.GetRandomNum(6),
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now,
+
+                    //用量
+                    pinpaishu = 1,
+                    zhanghaoshu = 3,
+                    huiyuanshu = 10000,
+                    fendianshu = 1,
+                    xsjilushu = 10000,
+                    jchjilushu = 10000,
+                    kcjilushu = 10000
+                };
+
+                //以手机号做一个管理员账号
+                j.TUsers.Add(new TUser
+                {
+                    dengluming = sjh,
+                    mima = Tool.CommonFunc.MD5_16(mm),
+                    yonghuming = mc,
+                    jiqima = Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetRandomNum(6)),
+                    juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员,
+                    zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用,
+                    beizhu = "",
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now
+                });
+
+                db.InsertJiamengshang(j);
             }
             else
             {
-                for (int i = 0; i < dms.Length - 1; i++)
+                short? dmax = db.GetPinpaishangDaimaMax();
+                short ndm = dmax == null ? ((short)1000) : ((short)(dmax.Value + 1));
+                if (ndm > 9999)
                 {
-                    if (dms[i + 1] - dms[i] > 1)
-                    {
-                        ndm = (short)(dms[i] + 1);
-                        break;
-                    }
+                    throw new MyException("系统错误，无法注册", null);
                 }
-                if (ndm == 0)
+
+                TPinpaishang p = new TPinpaishang
                 {
-                    ndm = (short)(dms.Max() + 1);
-                }
+                    mingcheng = mc,
+                    daima = ndm,
+                    shoujihao = sjh,
+                    youxiang = yx,
+                    diquid = dqid,
+                    dizhi = dz,
+                    lianxiren = lxr,
+                    dianhua = dh,
+                    beizhu = "",
+                    zhanghaoshu = 5,
+                    jchjilushu = 10000,
+                    kcjilushu = 10000,
+                    kuanhaoshu = 10000,
+                    tiaomashu = 10000,
+                    cangkushu = 1,
+                    jmsshu = 50,
+                    gysshu = 100,
+                    dtyzm = Tool.CommonFunc.GetRandomNum(6),
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now
+                };
+                
+                p.TUsers.Add(new TUser
+                {
+                    dengluming = sjh,
+                    mima = Tool.CommonFunc.MD5_16(mm),
+                    yonghuming = mc,
+                    jiqima = Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetRandomNum(6)),
+                    juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员,
+                    zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用,
+                    beizhu = "",
+                    charushijian = DateTime.Now,
+                    xiugaishijian = DateTime.Now
+                });
+
+                db.InsertPinpaishang(p);
             }
-           
-            //控制新产生的代码，避免超过9999
-            if (ndm > 9999 || ndm < 1000)
-            {
-                throw new MyException("系统错误，请重新提交注册", null);
-            }
-
-            TJiamengshang j = new TJiamengshang
-            {
-                //基本信息
-                mingcheng = mc,
-                daima = ndm,
-                zhuceshouji = sjh,
-                zhuceyouxiang = yx,
-                diquid = dqid,
-                dizhi = dz,
-                lianxiren = lxr,
-                dianhua = dh,
-                beizhu = "",
-                dtyzm = Tool.CommonFunc.GetRandomNum(6),
-                charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now,
-
-                //用量
-                fjmsshu= 1,
-                zjmsshu = 0,
-                zhanghaoshu = 3,
-                kuanhaoshu = 10000,
-                tiaomashu = 100000,
-                huiyuanshu = 10000,
-                fendianshu = 1,
-                cangkushu = 0,
-                gongyingshangshu = 1,
-                xsjilushu = 10000,
-                jchjilushu = 10000,
-                kcjilushu = 10000,
-                shoucifufei = 0,
-                xufeidanjia = 0,
-                jiezhiriqi = DateTime.Now
-            };
-
-            //以手机号做一个管理员账号
-            j.TUsers.Add(new TUser
-            {
-                dengluming = sjh,
-                mima = Tool.CommonFunc.MD5_16(mm),
-                yonghuming = mc,
-                jiqima = Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetRandomNum(6)),
-                juese = (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.管理员,
-                zhuangtai = (byte)Tool.JCSJ.DBCONSTS.USER_ZT.可用,
-                beizhu = "",
-                charushijian = DateTime.Now,
-                xiugaishijian = DateTime.Now
-            });
-
-            db.InsertJiamengshang(j);
 
             //将用过的注册码删去
             SysTool.delZcm(zcm);
 
-            Response.Write("<script>alert('注册成功');window.location='Login.aspx';</script>");
-
             //转向登陆页面
-            //Response.Redirect("Login.aspx");
+            Response.Write("<script>alert('注册成功，点击确定转到登录页面');window.location='Login.aspx';</script>");
         }       
     }
 }

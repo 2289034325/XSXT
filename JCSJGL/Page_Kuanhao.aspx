@@ -71,8 +71,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
     <div id="div_sch" class="div_sch">
-        <div id="div_sch_jms" runat="server">
-            <label>加盟商</label><asp:DropDownList runat="server" ID="cmb_jms"></asp:DropDownList>
+        <div id="div_sch_pps" runat="server">
+            <label>品牌商</label><asp:DropDownList runat="server" ID="cmb_pps"></asp:DropDownList>
         </div>
         <div>
             <label>类型</label><asp:DropDownList runat="server" ID="cmb_lx_sch"></asp:DropDownList>
@@ -93,7 +93,7 @@
     <asp:GridView ID="grid_kuanhao" runat="server" AutoGenerateColumns="False" DataKeyNames="id" OnRowDeleting="grid_kuanhao_RowDeleting"
         AllowCustomPaging="true" AllowPaging="true" PageSize="20" OnPageIndexChanging="grid_kuanhao_PageIndexChanging">
         <Columns>
-            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
+            <asp:BoundField DataField="pinpaishang" HeaderText="品牌商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="kuanhao" HeaderText="款号"></asp:BoundField>
             <asp:BoundField DataField="leixing" HeaderText="类型"></asp:BoundField>

@@ -22,155 +22,29 @@ namespace JCSJGL
             {
                 //初始化分店下拉框
                 DBContext db = new DBContext();
-                TCangku[] fs = null;
 
-                //隐藏搜索条件
-                div_sch_jms.Visible = false;
-
-                //初始化分店下拉框
-                int? jmsid = null;
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
-                    //显示搜索
-                    div_sch_jms.Visible = true;
+                    TPinpaishang[] jmss = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
 
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
-
-                    fs = new TCangku[] { };
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
                 }
                 else
                 {
-                    jmsid = _LoginUser.jmsid;
+                    //隐藏搜索条件
+                    div_sch_pps.Visible = false;
+                    grid_kc.Columns[0].Visible = false;
 
-                    fs = db.GetCangkusAsItems(jmsid);
+                    TCangku[] fs = db.GetCangkusAsItems(_LoginUser.ppsid.Value);
+                    Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
+                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
                 }
 
-                Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
-                cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
-
-                string ckid_s = Request["ckid"];
-                if (!string.IsNullOrEmpty(ckid_s))
-                {
-                    int fdid = int.Parse(ckid_s);
-                    cmb_ck.SelectedValue = fdid.ToString();
-
-                    //加载某仓库的历史库存
-                    loadHistroy(fdid);
-                }
-                else
-                {
-                    //加载总库存和加盟商旗下的每个分店的最新库存数据
-                    int? fdid = null;
-                    if (!string.IsNullOrEmpty(cmb_ck.SelectedValue))
-                    {
-                        fdid = int.Parse(cmb_ck.SelectedValue);
-                    }
-                    loadKCOfCangkus(fdid);
-                }
             }
         }
-
-        /// <summary>
-        /// 加载所有仓库的最新库存数据
-        /// </summary>
-        private void loadKCOfCangkus(int? ckid)
-        {
-            grid_kc_total.Visible = true;
-            grid_kc_ck.Visible = true;
-            grid_kc.Visible = false;
-
-            DBContext db = new DBContext();
-            int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
-                }
-                grid_kc_total.Columns[0].Visible = true;
-                grid_kc_ck.Columns[0].Visible = true;
-            }
-            else
-            {
-                grid_kc_total.Columns[0].Visible = false;
-                grid_kc_ck.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;
-            }
-            TCangkuKucun[] jcs = db.GetCKKucunByCond(jmsid, ckid, true);
-            var xs = jcs.Select(r => new
-            {
-                jiamengshang = r.TCangku.TJiamengshang.mingcheng,
-                ckid = r.cangkuid,
-                cangku = r.TCangku.mingcheng,
-                kucunshuliang = r.TCangkuKucunMXes.Sum(mr => mr.shuliang),
-                chengbenjine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.jinjia * mr.shuliang),
-                shoujiajine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.shoujia * mr.shuliang),
-                r.shangbaoshijian
-            });
-
-            grid_kc_ck.DataSource = Tool.CommonFunc.LINQToDataTable(xs);
-            grid_kc_ck.DataBind();
-
-            //总库存
-            var data = xs.GroupBy(r=>r.jiamengshang).Select(r => new
-            {
-                jiamengshang = r.Key,
-                kucunshuliang = r.Sum(xr => xr.kucunshuliang),
-                chengbenjine = decimal.Round(r.Sum(xr => xr.chengbenjine), 2),
-                shoujiajine = decimal.Round(r.Sum(xr => xr.shoujiajine), 2),
-                shangbaoshijian = r.Min(xr => (DateTime?)xr.shangbaoshijian)
-            });
-
-            grid_kc_total.DataSource = data;
-            grid_kc_total.DataBind();
-        }
-
-        /// <summary>
-        /// 加载某个分店的历史库存数据
-        /// </summary>
-        /// <param name="fdid"></param>
-        private void loadHistroy(int ckid)
-        {
-            grid_kc_total.Visible = false;
-            grid_kc_ck.Visible = false;
-            grid_kc.Visible = true;
-
-            DBContext db = new DBContext();
-            int? jmsid = null;
-            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
-                {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
-                }
-                grid_kc.Columns[0].Visible = true;
-            }
-            else
-            {
-                jmsid = _LoginUser.jmsid;
-                grid_kc.Columns[0].Visible = false;
-            }
-            TCangkuKucun[] jcs = db.GetCKKucunByCond(jmsid, ckid, false);
-            var xs = jcs.Select(r => new
-            {
-                jiamengshang = r.TCangku.TJiamengshang.mingcheng,
-                id = r.id,
-                cangku = r.TCangku.mingcheng,
-                kucunshuliang = r.TCangkuKucunMXes.Sum(mr => mr.shuliang),
-                chengbenjine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.jinjia * mr.shuliang),
-                shoujiajine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.shoujia * mr.shuliang),
-                r.shangbaoshijian
-            });
-
-            grid_kc.DataSource = Tool.CommonFunc.LINQToDataTable(xs);
-            grid_kc.DataBind();
-        }
-
 
         /// <summary>
         /// 查询
@@ -179,71 +53,59 @@ namespace JCSJGL
         /// <param name="e"></param>
         protected void btn_sch_Click(object sender, EventArgs e)
         {
-            //加载总库存和加盟商旗下的每个分店的最新库存数据
-            int? fdid = null;
-            if (!string.IsNullOrEmpty(cmb_ck.SelectedValue))
-            {
-                fdid = int.Parse(cmb_ck.SelectedValue);
-            }
-
-
-            loadKCOfCangkus(fdid);
-        }
-
-        /// <summary>
-        /// 删除一个历史库存记录
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //protected void grid_kc_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        //{
-        //    //检查权限
-        //    Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
-
-        //    int id = int.Parse(grid_kc.DataKeys[e.RowIndex].Value.ToString());
-
-        //    DBContext db = new DBContext();
-        //    TCangkuKucun ok = db.GetCKKucunById(id);
-        //    if (ok.TCangku.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
-        //    {
-        //        throw new MyException("非法操作，无法删除该数据", null);
-        //    }
-        //    db.DeleteCKKucun(id);
-
-        //    loadHistroy(ok.cangkuid);            
-        //}
-
-        protected void cmb_jms_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            grid_kc_total.DataSource = null;
-            grid_kc_total.DataBind();
-            grid_kc_ck.DataSource = null;
-            grid_kc_ck.DataBind();
-            grid_kc.DataSource = null;
-            grid_kc.DataBind();
-
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                cmb_ck.Items.Clear();
-                DBContext db = new DBContext();
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    int jmsid = int.Parse(cmb_jms.SelectedValue);
-                    TCangku[] fs = db.GetCangkusAsItems(jmsid);
-
-                    Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
-                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
-                }
-                else
-                {
-                    cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 }
             }
             else
             {
-                //其他角色不可能触发该事件，如果有，判定为浏览器操作漏洞
-                throw new MyException("非法操作，请刷新页面重新执行", null);
+                ppsid = _LoginUser.ppsid.Value;
+            }
+
+            int? ckid = null;
+            if (!string.IsNullOrEmpty(cmb_ck.SelectedValue))
+            {
+                ckid = int.Parse(cmb_ck.SelectedValue);
+            }
+
+            DBContext db = new DBContext();
+            TCangkuKucun[] jcs = db.GetCKKucunByCond(ppsid, ckid);
+            var xs = jcs.Select(r => new
+            {
+                pinpaishang = r.TCangku.TPinpaishang.mingcheng,
+                ckid = r.cangkuid,
+                cangku = r.TCangku.mingcheng,
+                kucunshuliang = r.TCangkuKucunMXes.Sum(mr => mr.shuliang),
+                chengbenjine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.jinjia * mr.shuliang),
+                shoujiajine = r.TCangkuKucunMXes.Sum(mr => mr.TTiaoma.shoujia * mr.shuliang),
+                r.shangbaoshijian
+            });
+            
+            grid_kc.DataSource = Tool.CommonFunc.LINQToDataTable(xs);
+            grid_kc.DataBind();
+
+        }
+
+        protected void cmb_pps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmb_ck.Items.Clear();
+            DBContext db = new DBContext();
+            if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
+            {
+                int ppsid = int.Parse(cmb_pps.SelectedValue);
+                TCangku[] fs = db.GetCangkusAsItems(ppsid);
+
+                Tool.CommonFunc.InitDropDownList(cmb_ck, fs, "mingcheng", "id");
+                cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
+            }
+            else
+            {
+                cmb_ck.Items.Insert(0, new ListItem("所有仓库", ""));
             }
         }
 
@@ -257,40 +119,42 @@ namespace JCSJGL
             int index = Convert.ToInt32(e.CommandArgument);
             int id = int.Parse(grid_kc.DataKeys[index].Value.ToString());
 
+            DBContext db = new DBContext();
             if (e.CommandName == "DEL")
             {
                 //检查权限
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
-                DBContext db = new DBContext();
                 TCangkuKucun ok = db.GetCKKucunById(id);
-                if (ok.TCangku.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                if (ok.TCangku.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                 {
                     throw new MyException("非法操作，无法删除该数据", null);
                 }
                 db.DeleteCKKucun(id);
 
-                loadHistroy(ok.cangkuid);
+                btn_sch_Click(null,null);
             }
             else if (e.CommandName == "MX")
             {
-                Response.Redirect(string.Format("Page_CKKucunMX.aspx?id={0}", id));
-            }
-        }
+                TCangkuKucunMX[] amxs = db.GetCKKucunMXByKcId(id);
 
-        protected void grid_kc_ck_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Page")
-            {
-                return;
-            }
+                var mxs = amxs.Select(r => new
+                {
+                    r.TTiaoma.tiaoma,
+                    r.TTiaoma.TKuanhao.kuanhao,
+                    r.TTiaoma.gyskuanhao,
+                    leixing = ((Tool.JCSJ.DBCONSTS.KUANHAO_LX)r.TTiaoma.TKuanhao.leixing).ToString(),
+                    r.TTiaoma.TKuanhao.pinming,
+                    r.TTiaoma.yanse,
+                    r.TTiaoma.chima,
+                    r.TTiaoma.jinjia,
+                    r.TTiaoma.shoujia,
+                    r.shuliang,
+                    r.jinhuoriqi
+                });
 
-            int index = Convert.ToInt32(e.CommandArgument);
-            int ckid = int.Parse(grid_kc_ck.DataKeys[index].Value.ToString());
-
-            if (e.CommandName == "LSKC")
-            {
-                Response.Redirect(string.Format("Page_CKKucun.aspx?ckid={0}", ckid));
+                grid_mx.DataSource = Tool.CommonFunc.LINQToDataTable(mxs);
+                grid_mx.DataBind();
             }
         }
     }

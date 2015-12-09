@@ -25,7 +25,7 @@
             });
 
         //编辑
-        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,fjmss,zjmss,zhs,khs,tms,hys,fds,cks,gyss,xsjls,jchjls,kcjls,scff,xfdj,jzrq) {
+        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,pps,zhs,hys,fds,cks,xsjls,jchjls,kcjls) {
             $("#hid_id").val(id);
             $("#txb_mc").val(mc);
             $("#txb_sjh").val(sjh);
@@ -36,21 +36,13 @@
             $("#txb_dz").val(dz);
             $("#txb_bz").val(bz);   
             
-            $("#txb_fjmss").val(fjmss);
-            $("#txb_zjmss").val(zjmss);
+            $("#txb_pps").val(pps);
             $("#txb_zhs").val(zhs);
-            $("#txb_khs").val(khs);
-            $("#txb_tms").val(tms);
             $("#txb_hys").val(hys);
             $("#txb_fds").val(fds);
-            $("#txb_cks").val(cks);
-            $("#txb_gyss").val(gyss);
             $("#txb_xsjls").val(xsjls);
             $("#txb_jchjls").val(jchjls);
             $("#txb_kcjls").val(kcjls);
-            $("#txb_scff").val(scff);
-            $("#txb_xfdj").val(xfdj);
-            $("#txb_jzrq").val(jzrq);
 
             if(IsPC())
             {            
@@ -84,21 +76,13 @@
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="电话"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
-            <asp:BoundField DataField="fjmsshu" HeaderText="父加盟商数"></asp:BoundField>
-            <asp:BoundField DataField="zjmsshu" HeaderText="子加盟商数"></asp:BoundField>
+            <asp:BoundField DataField="pinpaishu" HeaderText="品牌数"></asp:BoundField>
             <asp:BoundField DataField="zhanghaoshu" HeaderText="账号数"></asp:BoundField>
-            <asp:BoundField DataField="kuanhaoshu" HeaderText="款号数"></asp:BoundField>
-            <asp:BoundField DataField="tiaomashu" HeaderText="条码数"></asp:BoundField>
             <asp:BoundField DataField="huiyuanshu" HeaderText="会员数"></asp:BoundField>
             <asp:BoundField DataField="fendianshu" HeaderText="分店数"></asp:BoundField>
-            <asp:BoundField DataField="cangkushu" HeaderText="仓库数"></asp:BoundField>
-            <asp:BoundField DataField="gongyingshangshu" HeaderText="供应商数"></asp:BoundField>
             <asp:BoundField DataField="xsjilushu" HeaderText="销售记录数"></asp:BoundField>
             <asp:BoundField DataField="jchjilushu" HeaderText="进出货记录数"></asp:BoundField>
             <asp:BoundField DataField="kcjilushu" HeaderText="库存记录数"></asp:BoundField>
-            <asp:BoundField DataField="shoucifufei" HeaderText="首付收费"></asp:BoundField>
-            <asp:BoundField DataField="xufeidanjia" HeaderText="续费单价"></asp:BoundField>
-            <asp:BoundField DataField="jiezhiriqi" HeaderText="截止日期"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">
@@ -141,31 +125,16 @@
             <label>备注</label><asp:TextBox CssClass="large" runat="server" ID="txb_bz" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <label>父加盟商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_fjmss" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>子加盟商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_zjmss" ClientIDMode="Static"></asp:TextBox>
+            <label>品牌数</label><asp:TextBox CssClass="short" runat="server" ID="txb_pps" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <label>账号数</label><asp:TextBox CssClass="short" runat="server" ID="txb_zhs" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>款号数</label><asp:TextBox CssClass="short" runat="server" ID="txb_khs" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>条码数</label><asp:TextBox CssClass="short" runat="server" ID="txb_tms" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <label>会员数</label><asp:TextBox CssClass="short" runat="server" ID="txb_hys" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <label>分店数</label><asp:TextBox CssClass="short" runat="server" ID="txb_fds" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>仓库数</label><asp:TextBox CssClass="short" runat="server" ID="txb_cks" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>供应商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_gyss" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <label>销售记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_xsjls" ClientIDMode="Static"></asp:TextBox>
@@ -175,15 +144,6 @@
         </div>
         <div>
             <label>库存记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_kcjls" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>首次付费</label><asp:TextBox CssClass="short" runat="server" ID="txb_scff" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>续费单价</label><asp:TextBox CssClass="short" runat="server" ID="txb_xfdj" ClientIDMode="Static"></asp:TextBox>
-        </div>
-        <div>
-            <label>截止日期</label><asp:TextBox CssClass="middle" TextMode="Date" runat="server" ID="txb_jzrq" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <div class="twoButtonInline left">

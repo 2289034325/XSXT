@@ -28,19 +28,18 @@
                     <div id="div_logout" class="div_logout"><a href="Login.aspx">退出</a></div>
                 </div>
             </div>
-            <asp:Menu ID="div_mn_pc" runat="server" CssClass="mainMenu" OnLoad="mn_Load" Orientation="Horizontal"
+            <asp:Menu ID="mn_admin" runat="server" CssClass="mn_main" Orientation="Horizontal"
                  StaticEnableDefaultPopOutImage="false">                
                 <Items>
                     <asp:MenuItem Text="基本信息">
                         <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="品牌商信息" Value="品牌商信息" NavigateUrl="~/Page_Pinpaishang.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                     <asp:MenuItem Text="销售数据">
                         <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>
@@ -49,45 +48,64 @@
                         <asp:MenuItem Text="销售记录" Value="销售记录" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                     <asp:MenuItem Text="进出货和库存">
-                        <asp:MenuItem Text="发货退货" Value="发货退货" NavigateUrl="~/Page_JMSFahuotuihuo.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                     <asp:MenuItem Text="设置">
-                        <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="注册码" Value="注册码" NavigateUrl="~/Page_Dtzcm.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                 </Items>
             </asp:Menu>
-            <asp:Menu ID="div_mn_mobile" runat="server" OnLoad="mn_Load" CssClass="mobileMenuHide" ClientIDMode="Static" >
+            <asp:Menu ID="mn_pps" runat="server" CssClass="mn_main" Orientation="Horizontal"
+                 StaticEnableDefaultPopOutImage="false">                
                 <Items>
-                    <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="销售数据" Value="销售数据" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="加盟商关系" Value="加盟商关系" NavigateUrl="~/Page_JiamengshangGuanxi.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="发货退货" Value="发货退货" NavigateUrl="~/Page_JMSFahuotuihuo.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="地区编码" Value="地区编码" NavigateUrl="~/Page_Diqu.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="注册码" Value="注册码" NavigateUrl="~/Page_Dtzcm.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="退出登陆" Value="退出登陆" NavigateUrl="~/Login.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="基本信息">
+                        <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx"></asp:MenuItem>                     
+                        <asp:MenuItem Text="加盟商" Value="加盟商" NavigateUrl="~/Page_WodeJiamengshang.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="销售数据">
+                        <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="进出货和库存">
+                        <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="仓库库存" Value="仓库库存" NavigateUrl="~/Page_CKKucun.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="设置">
+                        <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:Menu ID="mn_jms" runat="server" CssClass="mn_main" Orientation="Horizontal"
+                 StaticEnableDefaultPopOutImage="false">                
+                <Items>
+                    <asp:MenuItem Text="基本信息">
+                        <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="会员信息" Value="会员信息" NavigateUrl="~/Page_Huiyuan.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="加盟品牌" Value="加盟品牌" NavigateUrl="~/Page_WodePinpai.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="销售数据">
+                        <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="销售记录" Value="销售记录" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="进出货和库存">
+                        <asp:MenuItem Text="分店进出货" Value="分店进出货" NavigateUrl="~/Page_FDJinchuhuo.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="分店库存" Value="分店库存" NavigateUrl="~/Page_FDKucun.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
+                    <asp:MenuItem Text="设置">
+                        <asp:MenuItem Text="我的信息" Value="我的信息" NavigateUrl="~/Page_WodeXinxi.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="动态验证码" Value="动态验证码" NavigateUrl="~/Page_Dtyzm.aspx"></asp:MenuItem>
+                    </asp:MenuItem>
                 </Items>
             </asp:Menu>
         </div>

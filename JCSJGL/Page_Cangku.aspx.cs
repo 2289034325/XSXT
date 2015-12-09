@@ -23,18 +23,18 @@ namespace JCSJGL
             if (!IsPostBack)
             {
                 //隐藏搜索条件
-                div_jms.Visible = false;
+                div_pps.Visible = false;
 
                 if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                     _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
                 {
                     //显示搜索
-                    div_jms.Visible = true;
+                    div_pps.Visible = true;
 
                     DBContext db = new DBContext();
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_jms, jmss, "mingcheng", "id");
-                    cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+                    TPinpaishang[] jmss = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
                 }
                 else
                 {
@@ -50,27 +50,27 @@ namespace JCSJGL
         private void loadCangkus()
         {
             DBContext db = new DBContext();
-            int? jmsid = null;
+            int? ppsid = null;
             if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
             {
-                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                if (!string.IsNullOrEmpty(cmb_pps.SelectedValue))
                 {
-                    jmsid = int.Parse(cmb_jms.SelectedValue);
+                    ppsid = int.Parse(cmb_pps.SelectedValue);
                 }
                 grid_cangku.Columns[0].Visible = true;
             }
             else
             {
                 grid_cangku.Columns[0].Visible = false;
-                jmsid = _LoginUser.jmsid;
+                ppsid = _LoginUser.ppsid;
             }
 
-            TCangku[] cs = db.GetCangkus(jmsid);
+            TCangku[] cs = db.GetCangkus(ppsid);
             var dfs = cs.Select(r => new
             {
                 id = r.id,
-                jiamengshang = r.TJiamengshang.mingcheng,
+                pinpaishang = r.TPinpaishang.mingcheng,
                 mingcheng = r.mingcheng,
                 dizhi = r.dizhi,
                 lianxiren = r.lianxiren,
@@ -102,7 +102,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TCangku oc = db.GetCangkuById(f.id);
-            if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (oc.ppsid != _LoginUser.ppsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法修改该仓库的信息", null);
             }
@@ -145,7 +145,7 @@ namespace JCSJGL
             Authenticate.CheckOperation(_PageName, PageOpt.增加, _LoginUser);
 
             TCangku f = getEditInfo();
-            f.jmsid = _LoginUser.jmsid;
+            f.ppsid = _LoginUser.ppsid.Value;
             f.jiqima = "";
             f.caozuorenid = _LoginUser.id;
             f.charushijian = DateTime.Now;
@@ -153,8 +153,8 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             //限制可增加的仓库数量
-            int cc = db.GetCangkusCount(f.jmsid);
-            if (cc >= _LoginUser.TJiamengshang.cangkushu)
+            int cc = db.GetCangkusCount(f.ppsid);
+            if (cc >= _LoginUser.TPinpaishang.cangkushu)
             {
                 throw new MyException("拥有的仓库数量已到上限，如有需要增加更多仓库请联系系统管理员", null);
             }
@@ -177,7 +177,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TCangku oc = db.GetCangkuById(id);
-            if (oc.jmsid != _LoginUser.jmsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (oc.ppsid != _LoginUser.ppsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除此仓库", null);
             }

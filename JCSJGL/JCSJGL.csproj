@@ -119,7 +119,8 @@
     <Content Include="js_all_in_one.js" />
     <Content Include="css_all_in_one.css" />
     <Content Include="Page_Dtzcm.aspx" />
-    <Content Include="Page_JMSFahuoTuihuo.aspx" />
+    <Content Include="Page_PinpaishangXinxi.aspx" />
+    <Content Include="Page_WodePinpai.aspx" />
     <Content Include="Page_KuanhaoFenxi.aspx" />
     <Content Include="Page_WodeXinxi.aspx" />
     <Content Include="App_Data\ZCM.txt" />
@@ -143,18 +144,14 @@
     <Content Include="Page_Cangku.aspx" />
     <Content Include="Page_Error.aspx" />
     <Content Include="Page_CKJinchuhuo.aspx" />
-    <Content Include="Page_CKJinchuhuoMX.aspx" />
     <Content Include="Page_CKKucun.aspx" />
-    <Content Include="Page_CKKucunMX.aspx" />
     <Content Include="Page_Dtyzm.aspx" />
     <Content Include="Page_Diqu.aspx" />
-    <Content Include="Page_JiamengshangGuanxi.aspx" />
+    <Content Include="Page_WodeJiamengshang.aspx" />
     <Content Include="Page_JiamengshangXinxi.aspx" />
     <Content Include="Page_Fendian_TongjiBiao.aspx" />
     <Content Include="Page_Fendian_TongjiTu.aspx" />
-    <Content Include="Page_FDKucunMX.aspx" />
     <Content Include="Page_FDKucun.aspx" />
-    <Content Include="Page_FDJinchuhuoMX.aspx" />
     <Content Include="Page_Fendian.aspx" />
     <Content Include="Page_Gongyingshang.aspx" />
     <Content Include="Page_Huiyuan.aspx" />
@@ -179,12 +176,19 @@
     <Compile Include="Page_Dtzcm.aspx.designer.cs">
       <DependentUpon>Page_Dtzcm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Page_JMSFahuoTuihuo.aspx.cs">
-      <DependentUpon>Page_JMSFahuoTuihuo.aspx</DependentUpon>
+    <Compile Include="Page_PinpaishangXinxi.aspx.cs">
+      <DependentUpon>Page_PinpaishangXinxi.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page_JMSFahuoTuihuo.aspx.designer.cs">
-      <DependentUpon>Page_JMSFahuoTuihuo.aspx</DependentUpon>
+    <Compile Include="Page_PinpaishangXinxi.aspx.designer.cs">
+      <DependentUpon>Page_PinpaishangXinxi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page_WodePinpai.aspx.cs">
+      <DependentUpon>Page_WodePinpai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page_WodePinpai.aspx.designer.cs">
+      <DependentUpon>Page_WodePinpai.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_KuanhaoFenxi.aspx.cs">
       <DependentUpon>Page_KuanhaoFenxi.aspx</DependentUpon>
@@ -242,26 +246,12 @@
     <Compile Include="Page_CKJinchuhuo.aspx.designer.cs">
       <DependentUpon>Page_CKJinchuhuo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Page_CKJinchuhuoMX.aspx.cs">
-      <DependentUpon>Page_CKJinchuhuoMX.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page_CKJinchuhuoMX.aspx.designer.cs">
-      <DependentUpon>Page_CKJinchuhuoMX.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Page_CKKucun.aspx.cs">
       <DependentUpon>Page_CKKucun.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Page_CKKucun.aspx.designer.cs">
       <DependentUpon>Page_CKKucun.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Page_CKKucunMX.aspx.cs">
-      <DependentUpon>Page_CKKucunMX.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page_CKKucunMX.aspx.designer.cs">
-      <DependentUpon>Page_CKKucunMX.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Dtyzm.aspx.cs">
       <DependentUpon>Page_Dtyzm.aspx</DependentUpon>
@@ -277,12 +267,12 @@
     <Compile Include="Page_Diqu.aspx.designer.cs">
       <DependentUpon>Page_Diqu.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Page_JiamengshangGuanxi.aspx.cs">
-      <DependentUpon>Page_JiamengshangGuanxi.aspx</DependentUpon>
+    <Compile Include="Page_WodeJiamengshang.aspx.cs">
+      <DependentUpon>Page_WodeJiamengshang.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page_JiamengshangGuanxi.aspx.designer.cs">
-      <DependentUpon>Page_JiamengshangGuanxi.aspx</DependentUpon>
+    <Compile Include="Page_WodeJiamengshang.aspx.designer.cs">
+      <DependentUpon>Page_WodeJiamengshang.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_JiamengshangXinxi.aspx.cs">
       <DependentUpon>Page_JiamengshangXinxi.aspx</DependentUpon>
@@ -305,26 +295,12 @@
     <Compile Include="Page_Fendian_TongjiTu.aspx.designer.cs">
       <DependentUpon>Page_Fendian_TongjiTu.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Page_FDKucunMX.aspx.cs">
-      <DependentUpon>Page_FDKucunMX.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page_FDKucunMX.aspx.designer.cs">
-      <DependentUpon>Page_FDKucunMX.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Page_FDKucun.aspx.cs">
       <DependentUpon>Page_FDKucun.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Page_FDKucun.aspx.designer.cs">
       <DependentUpon>Page_FDKucun.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Page_FDJinchuhuoMX.aspx.cs">
-      <DependentUpon>Page_FDJinchuhuoMX.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Page_FDJinchuhuoMX.aspx.designer.cs">
-      <DependentUpon>Page_FDJinchuhuoMX.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page_Fendian.aspx.cs">
       <DependentUpon>Page_Fendian.aspx</DependentUpon>

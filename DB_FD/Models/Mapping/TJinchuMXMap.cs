@@ -16,6 +16,7 @@ namespace DB_FD.Models.Mapping
             this.Property(t => t.id).HasColumnName("id");
             this.Property(t => t.jinchuid).HasColumnName("jinchuid");
             this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");
+            this.Property(t => t.danjia).HasColumnName("danjia");
             this.Property(t => t.shuliang).HasColumnName("shuliang");
 
             // Relationships

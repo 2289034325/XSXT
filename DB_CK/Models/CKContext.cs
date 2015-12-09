@@ -18,6 +18,7 @@ namespace DB_CK.Models
 
         public DbSet<TChuruku> TChurukus { get; set; }
         public DbSet<TChurukuMX> TChurukuMXes { get; set; }
+        public DbSet<TJiamengshang> TJiamengshangs { get; set; }
         public DbSet<TKucunXZ> TKucunXZs { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
@@ -28,6 +29,7 @@ namespace DB_CK.Models
         {
             modelBuilder.Configurations.Add(new TChurukuMap());
             modelBuilder.Configurations.Add(new TChurukuMXMap());
+            modelBuilder.Configurations.Add(new TJiamengshangMap());
             modelBuilder.Configurations.Add(new TKucunXZMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());

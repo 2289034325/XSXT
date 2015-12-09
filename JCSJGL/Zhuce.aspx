@@ -89,6 +89,9 @@
     <form id="form" runat="server">
         <div class="div_out">
             <div class="div_input">
+                <label>帐户类型</label><asp:DropDownList runat="server" ID="cmb_zhlx" style="width:204px;"></asp:DropDownList>
+            </div>
+            <div class="div_input">
                 <label>名称</label><input type="text" id="txb_mc" runat="server" />
             </div>
             <div class="div_shuoming">

@@ -41,6 +41,8 @@
             this.mn_main_tmyl = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_cxlj = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main_bm = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_jms = new System.Windows.Forms.ToolStripMenuItem();
+            this.mn_main_yh = new System.Windows.Forms.ToolStripMenuItem();
             this.mn_main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +54,8 @@
             this.mn_main_kcyl,
             this.mn_main_kcgl,
             this.mn_main_tmyl,
+            this.mn_main_jms,
+            this.mn_main_yh,
             this.mn_main_cxlj,
             this.mn_main_bm});
             this.mn_main.Location = new System.Drawing.Point(0, 0);
@@ -75,34 +79,34 @@
             // 重置扫描枪ToolStripMenuItem
             // 
             this.重置扫描枪ToolStripMenuItem.Name = "重置扫描枪ToolStripMenuItem";
-            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.重置扫描枪ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.重置扫描枪ToolStripMenuItem.Text = "重置扫描枪";
             // 
             // mn_main_xtsz
             // 
             this.mn_main_xtsz.Name = "mn_main_xtsz";
-            this.mn_main_xtsz.Size = new System.Drawing.Size(136, 22);
+            this.mn_main_xtsz.Size = new System.Drawing.Size(152, 22);
             this.mn_main_xtsz.Text = "系统设置";
             this.mn_main_xtsz.Click += new System.EventHandler(this.mn_main_xtsz_Click);
             // 
             // mn_main_xtzc
             // 
             this.mn_main_xtzc.Name = "mn_main_xtzc";
-            this.mn_main_xtzc.Size = new System.Drawing.Size(136, 22);
+            this.mn_main_xtzc.Size = new System.Drawing.Size(152, 22);
             this.mn_main_xtzc.Text = "系统注册";
             this.mn_main_xtzc.Click += new System.EventHandler(this.mn_main_jcsj_zc_Click);
             // 
             // mn_main_version
             // 
             this.mn_main_version.Name = "mn_main_version";
-            this.mn_main_version.Size = new System.Drawing.Size(136, 22);
+            this.mn_main_version.Size = new System.Drawing.Size(152, 22);
             this.mn_main_version.Text = "版本";
             this.mn_main_version.Click += new System.EventHandler(this.mn_main_version_Click);
             // 
             // mn_main_xgmm
             // 
             this.mn_main_xgmm.Name = "mn_main_xgmm";
-            this.mn_main_xgmm.Size = new System.Drawing.Size(136, 22);
+            this.mn_main_xgmm.Size = new System.Drawing.Size(152, 22);
             this.mn_main_xgmm.Text = "修改密码";
             this.mn_main_xgmm.Click += new System.EventHandler(this.mn_main_xgmm_Click);
             // 
@@ -148,6 +152,19 @@
             this.mn_main_bm.Text = "编码";
             this.mn_main_bm.Click += new System.EventHandler(this.mn_main_bm_Click);
             // 
+            // mn_main_jms
+            // 
+            this.mn_main_jms.Name = "mn_main_jms";
+            this.mn_main_jms.Size = new System.Drawing.Size(56, 21);
+            this.mn_main_jms.Text = "加盟商";
+            this.mn_main_jms.Click += new System.EventHandler(this.mn_main_jms_Click);
+            // 
+            // mn_main_yh
+            // 
+            this.mn_main_yh.Name = "mn_main_yh";
+            this.mn_main_yh.Size = new System.Drawing.Size(68, 21);
+            this.mn_main_yh.Text = "用户管理";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -181,6 +198,8 @@
         private System.Windows.Forms.ToolStripMenuItem mn_main_cxlj;
         private System.Windows.Forms.ToolStripMenuItem mn_main_xgmm;
         private System.Windows.Forms.ToolStripMenuItem mn_main_bm;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_jms;
+        private System.Windows.Forms.ToolStripMenuItem mn_main_yh;
     }
 }
 

@@ -37,7 +37,7 @@ namespace CKGL.CK
             //检查该出入库记录是否已经上报
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不能再修改");
+                MessageBox.Show("该记录已经确认，不能再修改");
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace CKGL.CK
             TChurukuMX mx = getMx(jcid, tm.id);
             if (mx != null)
             {
-                db.UpdateChurukuMx(mx.id, (short)(mx.shuliang + 1));
+                db.UpdateChurukuMx_sl(mx.id, (short)(mx.shuliang + 1));
             }
             else
             {
@@ -93,30 +93,43 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void btn_crk_cx_Click(object sender, EventArgs e)
         {
-            string sid = txb_id.Text.Trim();
-            int iid;
-            int? id;
-            if (string.IsNullOrEmpty(sid))
-            {
-                id = null;
-            }
-            else
-            {
-                if (!int.TryParse(sid, out iid))
-                {
-                    MessageBox.Show("id必须是整数");
-                    return;
-                }
-                else
-                {
-                    id = iid;
-                }
-            }
-            DateTime dstart = dp_start.Value.Date;
-            DateTime dend = dp_end.Value.Date;
+            //string sid = txb_id.Text.Trim();
+            //int iid;
+            //int? id;
+            //if (string.IsNullOrEmpty(sid))
+            //{
+            //    id = null;
+            //}
+            //else
+            //{
+            //    if (!int.TryParse(sid, out iid))
+            //    {
+            //        MessageBox.Show("id必须是整数");
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        id = iid;
+            //    }
+            //}
 
+            int? jmsid = null;
+            if (!string.IsNullOrEmpty(cmb_jms.SelectedValue.ToString()))
+            {
+                jmsid = int.Parse(cmb_jms.SelectedValue.ToString());
+            }
+            DateTime? fsrq_start = null;
+            if (dp_start.Checked)
+            {
+                fsrq_start = dp_start.Value;
+            }
+            DateTime? fsrq_end = null;
+            if (dp_end.Checked)
+            {
+                fsrq_end = dp_end.Value.AddDays(1).Date;
+            }
             DBContext db = IDB.GetDB();
-            TChuruku[] cs = db.GetChurukus(id, dstart, dend);
+            TChuruku[] cs = db.GetChurukus(jmsid, fsrq_start, fsrq_end);
 
             grid_crk.Rows.Clear();
             grid_crkmx.Rows.Clear();
@@ -128,13 +141,17 @@ namespace CKGL.CK
 
         private void addChuruku(TChuruku c)
         {
-            grid_crk.Rows.Insert(0,new object[] 
+            grid_crk.Rows.Insert(0, new object[] 
                 {
                     c.id,
                     ((Tool.JCSJ.DBCONSTS.JCH_FX)c.fangxiang).ToString(),
-                    c.laiyuanquxiang.ToString(),
+                    (Tool.JCSJ.DBCONSTS.LYQX_CK)c.laiyuanquxiang,
+                    c.picima,
+                    c.TJiamengshang == null?"":c.TJiamengshang.mingcheng,
                     c.TChurukuMXes.Sum(r=>(short?)r.shuliang)??0,
+                    c.zhekou,
                     c.TChurukuMXes.Sum(r=>(short?)r.shuliang*r.TTiaoma.jinjia)??0,
+                    c.queding?"√":"",
                     c.beizhu,
                     c.TUser.yonghuming,
                     c.charushijian,
@@ -191,8 +208,10 @@ namespace CKGL.CK
                     mx.TTiaoma.pinming,
                     mx.TTiaoma.yanse,
                     mx.TTiaoma.chima,
+                    mx.TTiaoma.shoujia,
+                    decimal.Round(mx.danjia/mx.TTiaoma.shoujia*10,2),
+                    mx.danjia,
                     mx.shuliang,
-                    mx.TTiaoma.shoujia
                 });
         }
 
@@ -207,7 +226,7 @@ namespace CKGL.CK
             TChuruku c = new TChuruku
             {
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.新货,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.新货,
                 beizhu = "",
                 caozuorenid = RuntimeInfo.LoginUser_CK.id,
                 charushijian = DateTime.Now,
@@ -232,7 +251,7 @@ namespace CKGL.CK
             TChuruku c = new TChuruku
             {
                 fangxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_FX.出,
-                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店,
+                laiyuanquxiang = (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商,
                 beizhu = "",
                 caozuorenid = RuntimeInfo.LoginUser_CK.id,
                 charushijian = DateTime.Now,
@@ -246,6 +265,16 @@ namespace CKGL.CK
             addChuruku(nc);
         }
 
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            Dlg_Jinchu dj = new Dlg_Jinchu();
+            if (dj.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                TChuruku cr = dj.Churuku;
+                addChuruku(cr);
+            }
+        }
+
         /// <summary>
         /// 从文件导入出入库明细
         /// </summary>
@@ -255,26 +284,27 @@ namespace CKGL.CK
         {
             int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
 
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
             //检查该出入库记录是否已经上报
-            if (!checkAllow())
+            if (oc.queding)
             {
-                MessageBox.Show("该记录已经上报到服务器，不能再导入明细数据");
+                MessageBox.Show("该记录已经确认，不能再导入明细数据");
                 return;
             }
 
-            DBContext db = IDB.GetDB();
             if (_dlgtm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Dictionary<string, short> tmsls = _dlgtm.TMHs.GroupBy(r => r).
                     Select(r => new { tmh = r.Key, sl = r.Count() }).ToDictionary(r => r.tmh, v => (short)v.sl);
 
-                daoru(crkid, tmsls);
+                daoru(crkid, tmsls, oc.zhekou);
 
                 refreshMx();            
             }
         }
 
-        private void daoru(int crkid, Dictionary<string, short> tmsls)
+        private void daoru(int crkid, Dictionary<string, short> tmsls,decimal? zhekou)
         {
             DBContext db = IDB.GetDB();
 
@@ -299,17 +329,16 @@ namespace CKGL.CK
                 MessageBox.Show("无法下载下列条码，请检查网络是否联通，或者确认这些条码来源\r\n" + errtms);
                 return;
             }
-            Dictionary<int, short> tss = tms.ToDictionary(k => k.id, v => tmsls[v.tiaoma]);
-
 
             List<TChurukuMX> mxs = new List<TChurukuMX>();
-            foreach (KeyValuePair<int, short> p in tss)
+            foreach (TTiaoma t in tms)
             {
                 TChurukuMX mx = new TChurukuMX
                 {
                     churukuid = crkid,
-                    tiaomaid = p.Key,
-                    shuliang = p.Value
+                    tiaomaid = t.id,
+                    danjia = decimal.Round(zhekou == null ? t.jinjia : t.shoujia * zhekou.Value / 10, 2),
+                    shuliang = tmsls[t.tiaoma]
                 };
 
                 mxs.Add(mx);
@@ -334,7 +363,7 @@ namespace CKGL.CK
         {
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
+                MessageBox.Show("该记录已经确认，不允许再删除");
                 e.Cancel = true;
             }
             else
@@ -355,7 +384,7 @@ namespace CKGL.CK
 
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
+                MessageBox.Show("该记录已经确认，不允许再删除");
                 e.Cancel = true;
             }
             else
@@ -385,27 +414,26 @@ namespace CKGL.CK
                 //如果是来源去向列
                 if (e.ColumnIndex == col_crk_lyqx.Index)
                 {
-                    Tool.JCSJ.DBCONSTS.JCH_LYQX lyfx = (Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), e.FormattedValue.ToString());
+                    Tool.JCSJ.DBCONSTS.LYQX_CK lyfx = (Tool.JCSJ.DBCONSTS.LYQX_CK)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.LYQX_CK), e.FormattedValue.ToString());
 
-                    //来源只能是新货和内部，去向只能是退货，丢弃，其他
+                    //来源只能是新货和加盟商，去向只能是丢弃，其他
                     string sfx = (string)grid_crk.SelectedRows[0].Cells[col_crk_fx.Name].Value;
                     Tool.JCSJ.DBCONSTS.JCH_FX fx = (Tool.JCSJ.DBCONSTS.JCH_FX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_FX), sfx);
                     if (fx == Tool.JCSJ.DBCONSTS.JCH_FX.进)
                     {
-                        if (lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.分店 && lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.新货 &&
-                            lyfx != Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库)
+                        if (lyfx != Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商 && lyfx != Tool.JCSJ.DBCONSTS.LYQX_CK.新货)
                         {
                             e.Cancel = true;
-                            MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]或者["
-                                + Tool.JCSJ.DBCONSTS.JCH_LYQX.分店.ToString() + "]或者[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.仓库.ToString() + "]");
+                            MessageBox.Show("进货的来源只能是[" + Tool.JCSJ.DBCONSTS.LYQX_CK.新货.ToString() + "]或者["
+                                + Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商.ToString() + "]");
                         }
                     }
                     else
                     {
-                        if (lyfx == Tool.JCSJ.DBCONSTS.JCH_LYQX.新货)
+                        if (lyfx == Tool.JCSJ.DBCONSTS.LYQX_CK.新货)
                         {
                             e.Cancel = true;
-                            MessageBox.Show("出货的去向不能是[" + Tool.JCSJ.DBCONSTS.JCH_LYQX.新货.ToString() + "]");
+                            MessageBox.Show("出货的去向不能是[" + Tool.JCSJ.DBCONSTS.LYQX_CK.新货.ToString() + "]");
                         }
                     }
                 }
@@ -431,34 +459,37 @@ namespace CKGL.CK
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void grid_crk_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
+        //private void grid_crk_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        //{
+            //if (e.RowIndex < 0)
+            //{
+            //    return;
+            //}
 
-            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
-            if (!checkAllow())
-            {
-                MessageBox.Show("该记录已经上报到服务器，不允许再修改");
-                return;
-            }
-            else
-            {
-                DBContext db = IDB.GetDB();
-                byte lyqx = (byte)(Tool.JCSJ.DBCONSTS.JCH_LYQX)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
-                string bz = (string)grid_crk.SelectedRows[0].Cells[col_crk_bz.Name].Value ?? "";
-                TChuruku nc = new TChuruku
-                {
-                    id = crkid,
-                    laiyuanquxiang = lyqx,
-                    beizhu = bz,
-                    xiugaishijian = DateTime.Now
-                };
-                db.UpdateChuruku(nc);
-            }
-        }
+            //int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            //if (e.ColumnIndex == col_crk_pcm.Index)
+            //{
+            //    if (!checkAllow())
+            //    {
+            //        MessageBox.Show("该记录已经确认，不允许再修改");
+            //        return;
+            //    }
+            //}
+            
+            //    DBContext db = IDB.GetDB();
+            //    byte lyqx = (byte)(Tool.JCSJ.DBCONSTS.LYQX_CK)Enum.Parse(typeof(Tool.JCSJ.DBCONSTS.LYQX_CK), (string)grid_crk.SelectedRows[0].Cells[col_crk_lyqx.Name].Value);
+            //    string bz = (string)grid_crk.SelectedRows[0].Cells[col_crk_bz.Name].Value ?? "";
+            //    TChuruku nc = new TChuruku
+            //    {
+            //        id = crkid,
+            //        laiyuanquxiang = lyqx,
+            //        beizhu = bz,
+            //        xiugaishijian = DateTime.Now
+            //    };
+            //    db.UpdateChuruku(nc);
+            
+        //}
 
         /// <summary>
         /// 检查该行出入库明细是否允许修改
@@ -486,20 +517,42 @@ namespace CKGL.CK
                 return;
             }
 
-            short sl;
-            if (!short.TryParse(e.FormattedValue.ToString(), out sl))
+            if (e.ColumnIndex == col_mx_dj.Index)
             {
-                MessageBox.Show("只允许输入数字");
-                e.Cancel = true;
-                return;
+                decimal dj;
+                if (!decimal.TryParse(e.FormattedValue.ToString(), out dj))
+                {
+                    MessageBox.Show("只允许输入数字");
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    if (dj <= 0)
+                    {
+                        MessageBox.Show("只允许输入大于0的数字");
+                        e.Cancel = true;
+                        return;
+                    }
+                }
             }
             else
             {
-                if (sl <= 0)
+                short sl;
+                if (!short.TryParse(e.FormattedValue.ToString(), out sl))
                 {
-                    MessageBox.Show("只允许输入大于0的数字");
+                    MessageBox.Show("只允许输入数字");
                     e.Cancel = true;
                     return;
+                }
+                else
+                {
+                    if (sl <= 0)
+                    {
+                        MessageBox.Show("只允许输入大于0的数字");
+                        e.Cancel = true;
+                        return;
+                    }
                 }
             }
         }
@@ -518,20 +571,27 @@ namespace CKGL.CK
 
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再修改");
+                MessageBox.Show("数据已经确定，不允许再修改");
                 return;
             }
             else
             {
                 int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
-                short sl = short.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
-                DBContext db = IDB.GetDB();
-                //TChurukuMX mx = new TChurukuMX 
-                //{
-                //    id = mxid,
-                //    shuliang = sl                    
-                //};
-                db.UpdateChurukuMx(mxid, sl);
+                if (e.ColumnIndex == col_mx_dj.Index)
+                {
+                    decimal dj = decimal.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_dj.Name].Value.ToString());
+                    decimal dpj = decimal.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sj.Name].Value.ToString());
+                    DBContext db = IDB.GetDB();
+                    db.UpdateChurukuMx_dj(mxid, dj);
+                    //修改折扣
+                    grid_crkmx.SelectedRows[0].Cells[col_mx_zk.Name].Value = decimal.Round(dj / dpj * 10, 2);
+                }
+                else
+                {
+                    short sl = short.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
+                    DBContext db = IDB.GetDB();
+                    db.UpdateChurukuMx_sl(mxid, sl);
+                }
             }
         }
 
@@ -544,7 +604,8 @@ namespace CKGL.CK
             int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
             DBContext db = IDB.GetDB();
             TChuruku c = db.GetChurukuById(crkid);
-            if (c.shangbaoshijian != null)
+
+            if (c.queding)
             {
                 return false;
             }
@@ -576,49 +637,55 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void btn_shangbao_Click(object sender, EventArgs e)
         {
-            //取得所有未上报的数据
-            DBContext db = IDB.GetDB();
-            TChuruku[] jcs = db.GetChurukuWeishangbao();
-            if (jcs.Count() == 0)
-            {
-                MessageBox.Show("没有需要上报的数据");
-                return;
-            }
+            ////取得所有未上报的数据
+            //DBContext db = IDB.GetDB();
+            //TChuruku[] jcs = db.GetChurukuWeishangbao();
+            //if (jcs.Count() == 0)
+            //{
+            //    MessageBox.Show("没有需要上报的数据");
+            //    return;
+            //}
 
-            JCSJData.TCangkuJinchuhuo[] jcjcs = jcs.Select(r => new JCSJData.TCangkuJinchuhuo
-            {
-                oid = r.id,
-                fangxiang = r.fangxiang,
-                laiyuanquxiang = r.laiyuanquxiang,                          
-                beizhu = r.beizhu,
-                fashengshijian = r.charushijian,
-                TCangkuJinchuhuoMXes = r.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
-                {
-                    tiaomaid = mr.tiaomaid,
-                    shuliang = mr.shuliang,                    
-                }).ToArray()
-            }).ToArray();
+            //new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            //{
+            //    try
+            //    {
+            //        ShowMsg("正在上传数据，请稍等", false);
 
+            //        //数据中心处理      
+            //        foreach (TChuruku c in jcs)
+            //        {
+            //            JCSJData.TCangkuJinchuhuo jcjc = new JCSJData.TCangkuJinchuhuo
+            //            {
+            //                picima = c.picima,
+            //                fangxiang = c.fangxiang,
+            //                laiyuanquxiang = c.laiyuanquxiang,
+            //                zhekou = c.zhekou,
+            //                jmsid = c.jmsid,
+            //                beizhu = c.beizhu,
+            //                fashengshijian = c.charushijian,
+            //                TCangkuJinchuhuoMXes = c.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
+            //                {
+            //                    tiaomaid = mr.tiaomaid,
+            //                    danjia = mr.danjia,
+            //                    shuliang = mr.shuliang,
+            //                }).ToArray()
+            //            };
 
-            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-            {
-                try
-                {
-                    //数据中心处理                
-                    JCSJWCF.ShangbaoJinchuhuo_CK(jcjcs);
+            //            string pcm = JCSJWCF.ShangbaoJinchuhuo_CK(jcjc);
 
-                    //更新本地上报时间
-                    int[] ids = jcs.Select(r => r.id).ToArray();
-                    db.UpdateChurukuShangbaoshijian(ids, DateTime.Now);
+            //            //更新本地上报时间
+            //            db.UpdateChurukuShangbao(c.id, pcm);
+            //        }
 
-                    ShowMsg("完成",false);
-                }
-                catch (Exception ex)
-                {
-                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                    ShowMsg(ex.Message, true);
-                }
-            }, false).Start();
+            //        ShowMsg("完成",false);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+            //        ShowMsg(ex.Message, true);
+            //    }
+            //}, false).Start();
         }
 
         /// <summary>
@@ -628,10 +695,12 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void Form_Churuku_Load(object sender, EventArgs e)
         {
-            //来源去向列的下拉框值
-            col_crk_lyqx.DataSource = Tool.CommonFunc.GetTableFromEnum(typeof(Tool.JCSJ.DBCONSTS.JCH_LYQX));
-            col_crk_lyqx.DisplayMember = "Text";
-            col_crk_lyqx.ValueMember = "Value";            
+            DBContext db = IDB.GetDB();
+            TJiamengshang[] jmses = db.GetJiamengshangs(true);
+            Tool.CommonFunc.InitCombbox(cmb_jms, jmses, "mingcheng", "id");
+            DataTable dt = (DataTable)cmb_jms.DataSource;
+            dt.Rows.InsertAt(dt.NewRow(), 0);
+            cmb_jms.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -660,10 +729,10 @@ namespace CKGL.CK
             {
                 MessageBox.Show("请先上报进出货数据");
                 return;
-            }
-            else if (crk.fangxiang != (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进 && crk.laiyuanquxiang != (byte)Tool.JCSJ.DBCONSTS.JCH_LYQX.分店)
+            }            
+            if (crk.laiyuanquxiang != (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商)
             {
-                MessageBox.Show("只能上传出货到分店的数据");
+                MessageBox.Show("只能上传出货到加盟商的数据");
                 return;
             }
 
@@ -676,7 +745,7 @@ namespace CKGL.CK
                 {
                     try
                     {
-                        JCSJData.TFendian[] fds = JCSJWCF.GetFendians();
+                        JCSJData.TFendian[] fds = JCSJWCF.GetFendians(crk.jmsid.Value);
                         RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
                         if (RuntimeInfo.AllFds.Count != 0)
                         {
@@ -707,7 +776,7 @@ namespace CKGL.CK
                 {
                     try
                     {
-                        JCSJWCF.CangkuFahuoFendian(id, fdid);
+                        JCSJWCF.CangkuFahuoFendian(crk.picima, fdid);
                         ShowMsg("上传成功", false);
                     }
                     catch (Exception ex)
@@ -724,15 +793,6 @@ namespace CKGL.CK
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_add_Click(object sender, EventArgs e)
-        {
-            Dlg_Jinchu dj = new Dlg_Jinchu();
-            if (dj.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                TChuruku cr = dj.Churuku;
-                addChuruku(cr);
-            }
-        }
 
         /// <summary>
         /// 从编码窗口获取进货列表
@@ -741,10 +801,15 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void cmn_crk_frombm_Click(object sender, EventArgs e)
         {
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+
             //检查该出入库记录是否已经上报
-            if (!checkAllow())
+            if (oc.queding)
             {
-                MessageBox.Show("该记录已经上报到服务器，不能再导入明细数据");
+                MessageBox.Show("该记录已经确认，不能再导入明细数据");
                 return;
             }
 
@@ -755,7 +820,6 @@ namespace CKGL.CK
                 return;
             }
 
-            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
             //从编码窗口取数据
             List<BM.TKuanhaoExtend> khs = bmfm.KhExes.Where(k => k.xj == BM.XTCONSTS.KUANHAO_XINJIU.旧).ToList();
             List<BM.TTiaomaExtend> tmexes = khs.SelectMany(k => k.tms).Where(t => t.xj == BM.XTCONSTS.TIAOMA_XINJIU.旧).ToList();
@@ -763,10 +827,192 @@ namespace CKGL.CK
             Dictionary<string, short> tmsls = tmexes.ToDictionary(k => k.tiaoma.tiaoma, v => v.shuliang);
 
             //保存到数据库
-            daoru(crkid, tmsls);
+            daoru(crkid, tmsls, oc.zhekou);
 
             //刷新
             refreshMx();         
+        }
+
+        /// <summary>
+        /// 修改出入库信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_xiugai_Click(object sender, EventArgs e)
+        {
+
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+
+            if (oc.queding)
+            {
+                MessageBox.Show("已经确定，无法修改");
+                return;
+            }
+
+            Dlg_Jinchu dj = new Dlg_Jinchu();
+            dj.Churuku = oc;
+            dj.ShowDialog();
+        }
+
+        /// <summary>
+        /// 确认数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_qr_Click(object sender, EventArgs e)
+        {
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+
+            if (oc.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已经上报，不能再改变确认状态");
+                return;
+            }
+
+            db.UpdateChurukuQueren(oc.id,true);
+
+        }
+
+        /// <summary>
+        /// 取消确认
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_qxqr_Click(object sender, EventArgs e)
+        {
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+
+            if (oc.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已经上报，不能再改变确认状态");
+                return;
+            }
+
+            db.UpdateChurukuQueren(oc.id, false);
+        }
+
+        /// <summary>
+        /// 上报进出数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_sb_Click(object sender, EventArgs e)
+        {
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+
+            if (!oc.queding)
+            {
+                MessageBox.Show("上报前请先确认数据是否正确");
+                return;
+            }
+
+            if (oc.shangbaoshijian != null)
+            {
+                MessageBox.Show("数据已经上报");
+                return;
+            }
+
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            {
+                try
+                {
+                    ShowMsg("正在上传数据，请稍等", false);
+
+                    JCSJData.TCangkuJinchuhuo jcjc = new JCSJData.TCangkuJinchuhuo
+                    {
+                        picima = oc.picima,
+                        fangxiang = oc.fangxiang,
+                        laiyuanquxiang = oc.laiyuanquxiang,
+                        zhekou = oc.zhekou,
+                        jmsid = oc.jmsid,
+                        beizhu = oc.beizhu,
+                        fashengshijian = oc.charushijian,
+                        TCangkuJinchuhuoMXes = oc.TChurukuMXes.Select(mr => new JCSJData.TCangkuJinchuhuoMX
+                        {
+                            tiaomaid = mr.tiaomaid,
+                            danjia = mr.danjia,
+                            shuliang = mr.shuliang,
+                        }).ToArray()
+                    };
+
+                    string pcm = JCSJWCF.ShangbaoJinchuhuo_CK(jcjc);
+
+                    //更新本地上报时间
+                    db.UpdateChurukuShangbao(oc.id, pcm, DateTime.Now);
+
+                    grid_crk.SelectedRows[0].Cells[col_crk_pcm.Name].Value = pcm;
+                    grid_crk.SelectedRows[0].Cells[col_crk_sbsj.Name].Value = DateTime.Now;
+
+                    ShowMsg("完成", false);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, false).Start();
+        }
+
+        /// <summary>
+        /// 撤销上报的数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmn_crk_cxsb_Click(object sender, EventArgs e)
+        {
+            int crkid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
+
+            DBContext db = IDB.GetDB();
+            TChuruku oc = db.GetChurukuById(crkid);
+            
+            if (oc.shangbaoshijian == null)
+            {
+                MessageBox.Show("数据未上报，无法撤销");
+                return;
+            }
+
+            if ((DateTime.Now - oc.shangbaoshijian.Value).TotalDays > 1)
+            {
+                MessageBox.Show("上报已经超过1天的数据，不允许撤销");
+                return;
+            }
+            else
+            {
+                if (MessageBox.Show("是否确定撤销", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    //先去服务器删除
+                    new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                    {
+                        try
+                        {
+                            JCSJWCF.ChexiaoJinchuShangbao(oc.picima);
+                            db.UpdateChurukuShangbao(oc.id, null, null);
+
+                            grid_crk.SelectedRows[0].Cells[col_crk_pcm.Name].Value = "";
+                            grid_crk.SelectedRows[0].Cells[col_crk_sbsj.Name].Value = "";
+
+                            ShowMsg("撤销成功", false);
+                        }
+                        catch (Exception ex)
+                        {
+                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                            ShowMsg(ex.Message, true);
+                        }
+                    }, false).Start();
+                }
+            }
         }
     }
 }

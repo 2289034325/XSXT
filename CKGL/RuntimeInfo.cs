@@ -30,6 +30,6 @@ namespace CKGL
         public static CKGL.JCSJData.TGongyingshang[] Gyses = null;
 
         //加盟的品牌
-        public static CKGL.JCSJData.TJiamengshang[] JmPps = null;
+        public static CKGL.JCSJData.TPinpaishang[] JmPps = null;
     }
 }

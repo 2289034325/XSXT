@@ -1836,7 +1836,7 @@ namespace CKGL.BM
                         if (string.IsNullOrEmpty(tm) || string.IsNullOrWhiteSpace(tm))
                         {
                             string NUM = Tool.CommonFunc.GetRandomNum(Settings.Default.TM_NUM_LEN);
-                            tt.tiaoma.tiaoma = RuntimeInfo.LoginUser_BM.TJiamengshang.daima + AB + NUM;
+                            tt.tiaoma.tiaoma = RuntimeInfo.LoginUser_BM.TPinpaishang.daima + AB + NUM;
                         }
                     }
                 }
@@ -2114,62 +2114,96 @@ namespace CKGL.BM
         }
         private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            e.HasMorePages = true; //此处打开多页打印属性          
+            if (_pIndex >= _dataPrint.Count)
+            {
+                e.HasMorePages = false;
+                return;
+            }
+            else
+            {
+                e.HasMorePages = true; //此处打开多页打印属性         
+            }
+
+            //读取打印设置
+            //float pageWidth = Settings.Default.Print_PageWidth;
+            //float pageHeight = Settings.Default.Print_PageHeight;
+            float pageWidth = Settings.Default.Print_PageWidth * 4;
+            bool isDoublePage = Settings.Default.Print_IsDoublePage;
+            float pageInterval_H = Settings.Default.Print_PageInterval_H * 3;
+            float offset_left = Settings.Default.Print_Offset_Left * 4;
+            float offset_top = Settings.Default.Print_Offset_Top * 4;
 
             Graphics printG = e.Graphics; //获得绘图对象 
-            Font printFont = new Font("黑体", 12,FontStyle.Bold);
-            float yPosition = 0;
-            float lblMargin = 10;
-            float valMargin = 60;
+            Font printFont = new Font("黑体", 12, FontStyle.Bold);
+            float yPosition = offset_top;
+            float lblMargin = offset_left+10;
             float cH = printFont.GetHeight(printG);
             SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
 
+            //将信息绘制到标签上
+            drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush,offset_left);
+
+            //如果是双排标签，并且当前是偶数页时，要向右侧再打印一个标签
+            if (isDoublePage && _pIndex % 2 == 0)
+            {
+                _pIndex += 1;
+                if (_pIndex < _dataPrint.Count)
+                {
+                    //绘制右侧的标签
+                    yPosition = offset_top;
+                    offset_left += pageWidth + pageInterval_H;
+                    lblMargin = offset_left + 10;
+                    drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush, offset_left);
+                    _pIndex += 1;
+                }
+            }
+            else
+            {
+                _pIndex += 1;
+            }
+
+            if (_pIndex >= _dataPrint.Count)
+            {
+                e.HasMorePages = false;
+            }
+        }
+
+        private void drawInfo(Graphics printG, Font printFont,
+            float yPosition, float lblMargin, float cH, SolidBrush myBrush, float offset_left)
+        {
             //LOGO
-            RectangleF destRect = new RectangleF(0, yPosition, 150, 50);
+            RectangleF destRect = new RectangleF(offset_left, yPosition, 150, 50);
             printG.DrawImage(getLogo(), destRect);
             yPosition += 60;
             //信息
             printG.DrawString("款号：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.款号], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.款号], printFont, myBrush, lblMargin+60, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("品名：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.品名], new Font("黑体", 10, FontStyle.Bold), myBrush, valMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.品名], new Font("黑体", 10, FontStyle.Bold), myBrush, lblMargin + 60, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("颜色：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.颜色], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.颜色], printFont, myBrush, lblMargin + 60, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("尺码：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.尺码], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.尺码], printFont, myBrush, lblMargin + 60, yPosition, new StringFormat());
             yPosition += cH;
             printG.DrawString("序号：", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.序号], printFont, myBrush, valMargin, yPosition, new StringFormat());
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.序号], printFont, myBrush, lblMargin + 60, yPosition, new StringFormat());
             yPosition += cH;
             yPosition += cH;
             //条码
-            destRect = new RectangleF(0, yPosition, 150, 50);
+            destRect = new RectangleF(lblMargin, yPosition, 135, 50);
             printG.DrawImage(Get128CodeAuto(_dataPrint[_pIndex][(int)PRINT_ITEM.条码]), destRect);
             yPosition += 80;
             //横线
-            printG.DrawString("-------------------------", printFont, myBrush, lblMargin-10, yPosition, new StringFormat());
+            printG.DrawString("------------------", printFont, myBrush, offset_left, yPosition, new StringFormat());
             yPosition += cH;
             //吊牌价
             printG.DrawString("零售价", printFont, myBrush, lblMargin, yPosition, new StringFormat());
-            destRect = new RectangleF(65, yPosition, 40, 20);
+            destRect = new RectangleF(lblMargin + 60, yPosition, 40, 20);
             printG.DrawImage(getRmb(), destRect);
-            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.吊牌价], printFont, myBrush, 108, yPosition, new StringFormat());
-
-            //有的行需要打印多次，每打印一次，将数量减去1，减为0后，打印下一行
-            int sl = int.Parse(_dataPrint[_pIndex][(int)PRINT_ITEM.数量]);
-            sl--;
-            _dataPrint[_pIndex][(int)PRINT_ITEM.数量] = sl.ToString();
-            if (sl <= 0)
-            {
-                _pIndex++;
-                if (_pIndex >= _dataPrint.Count)
-                {
-                    e.HasMorePages = false;
-                }
-            }
+            printG.DrawString(_dataPrint[_pIndex][(int)PRINT_ITEM.吊牌价], printFont, myBrush, lblMargin + 100, yPosition, new StringFormat());
         }
 
         /// <summary>
@@ -2178,7 +2212,7 @@ namespace CKGL.BM
         /// <returns></returns>
         private Image getLogo()
         {
-            Image im = Image.FromFile(Settings.Default.LogoImg);
+            Image im = Image.FromFile(Settings.Default.Print_LogoImg);
             return im;
         }
         private Image getRmb()
@@ -2236,7 +2270,7 @@ namespace CKGL.BM
         private void preData(DataGridViewRow[] drs)
         {
             //检查logo图片是否存在
-            if (!File.Exists(Settings.Default.LogoImg))
+            if (!File.Exists(Settings.Default.Print_LogoImg))
             {
                 MessageBox.Show("标签logo图片不存在，请重新设置");
                 return;
@@ -2251,26 +2285,26 @@ namespace CKGL.BM
                 string cm = dr.Cells[col_all_cm.Name].Value.ToString();
                 string dpj = decimal.Parse(dr.Cells[col_all_sj.Name].Value.ToString()).ToString("#");
                 string gyskh = dr.Cells[col_all_gyskh.Name].Value.ToString();
-                string sl = dr.Cells[col_all_sl.Name].Value.ToString();
+                int sl = int.Parse(dr.Cells[col_all_sl.Name].Value.ToString());
 
-                string[] d = new string[] 
+                string[] d = new string[]
                 {
-                    xh,tm,string.IsNullOrEmpty(gyskh)?kh:gyskh,pm,ys,cm,dpj,sl
+                    xh,tm,string.IsNullOrEmpty(gyskh)?kh:gyskh,pm,ys,cm,dpj
                 };
 
-                _dataPrint.Add(d);
+                do
+                {
+                    _dataPrint.Add(d);
+                    sl--;
+                }
+                while(sl>0);
             }
         }
 
         private void mni_szlg_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string fn = ofd.FileName;
-                Settings.Default.LogoImg = fn;
-                Settings.Default.Save();
-            }
+            Dlg_PrintSet dp = new Dlg_PrintSet();
+            dp.ShowDialog();
         }
 
         /// <summary>

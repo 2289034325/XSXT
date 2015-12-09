@@ -121,14 +121,14 @@ namespace JCSJWCF
         void ShangbaoKucun_CK(TCangkuKucunMX[] cks);
 
         [OperationContract(IsInitiating = false)]
-        void ShangbaoJinchuhuo_CK(TCangkuJinchuhuo[] cjcs);
+        string ShangbaoJinchuhuo_CK(TCangkuJinchuhuo cjcs);
 
         /// <summary>
         /// 将仓库发货到分店的出货数据上传到服务器，让分店不用扫描入库，就能直接下载
         /// </summary>
         /// <param name="cjcs"></param>
         [OperationContract(IsInitiating = false)]
-        void CangkufahuoFendian(int oid,int fdid);
+        void CangkufahuoFendian(string pcm,int fdid);
 
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace JCSJWCF
         /// </summary>
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
-        TFendian[] GetFendians();
+        TFendian[] GetFendians(int jmsid);
         [OperationContract(IsInitiating = false)]
         TCangku[] GetCangkus();
 
@@ -153,6 +153,7 @@ namespace JCSJWCF
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
         TCangkuJinchuhuo[] XiazaiJinhuoShuju();
+        TCangkuJinchuhuo XiazaiJinhuoShuju(string pcm);
 
         [OperationContract(IsInitiating = false)]
         void XiazaiJinhuoShujuFinish(int[] ckjcids);
@@ -163,18 +164,29 @@ namespace JCSJWCF
         [OperationContract(IsInitiating = false)]
         void DeleteJinchujilu_FD(int oid);
 
+
+        /// <summary>
+        /// 仓库系统撤销上报的数据
+        /// </summary>
+        /// <param name="oid"></param>
+        [OperationContract(IsInitiating = false)]
+        void DeleteJinchujilu_CK(string pcm);
+
        
         /// <summary>
         /// 取得某加盟商加盟的品牌
         /// </summary>
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
-        TJiamengshang[] GetJMPinpais();
+        TPinpaishang[] GetJMPinpais();
 
         [OperationContract(IsInitiating = false)]
         void XiugaiKuanhao(int id, string kh);
 
         [OperationContract(IsInitiating = false)]
         void UpdateTiaoma(TTiaoma t);
+
+        [OperationContract(IsInitiating = false)]
+        TJiamengshang[] GetJiamengshangs();
     }
 }

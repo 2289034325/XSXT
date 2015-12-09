@@ -223,6 +223,12 @@
   <wsdl:message name="IDataService_UpdateTiaoma_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateTiaomaResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetJiamengshangs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJiamengshangs" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetJiamengshangs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJiamengshangsResponse" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IDataService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="BMZHLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/BMZHLogin" message="tns:IDataService_BMZHLogin_InputMessage" />
@@ -359,6 +365,10 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="UpdateTiaoma">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/UpdateTiaoma" message="tns:IDataService_UpdateTiaoma_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/UpdateTiaomaResponse" message="tns:IDataService_UpdateTiaoma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetJiamengshangs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetJiamengshangs" message="tns:IDataService_GetJiamengshangs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetJiamengshangsResponse" message="tns:IDataService_GetJiamengshangs_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IDataService" type="tns:IDataService">
@@ -663,6 +673,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateTiaoma">
       <soap12:operation soapAction="http://tempuri.org/IDataService/UpdateTiaoma" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJiamengshangs">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetJiamengshangs" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
