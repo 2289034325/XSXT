@@ -103,6 +103,12 @@
   <wsdl:message name="IDataService_GetTiaomasByTiaomahaos_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTiaomasByTiaomahaosResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByTiaomahaos_FD_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByTiaomahaos_FD" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetTiaomasByTiaomahaos_FD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiaomasByTiaomahaos_FDResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataService_HuiyuanZhuce_InputMessage">
     <wsdl:part name="parameters" element="tns:HuiyuanZhuce" />
   </wsdl:message>
@@ -187,6 +193,12 @@
   <wsdl:message name="IDataService_XiazaiJinhuoShuju_OutputMessage">
     <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuResponse" />
   </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShujuByPcm_InputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuByPcm" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_XiazaiJinhuoShujuByPcm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuByPcmResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataService_XiazaiJinhuoShujuFinish_InputMessage">
     <wsdl:part name="parameters" element="tns:XiazaiJinhuoShujuFinish" />
   </wsdl:message>
@@ -204,6 +216,12 @@
   </wsdl:message>
   <wsdl:message name="IDataService_DeleteJinchujilu_FD_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteJinchujilu_FDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_CK_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_CK" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_DeleteJinchujilu_CK_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteJinchujilu_CKResponse" />
   </wsdl:message>
   <wsdl:message name="IDataService_GetJMPinpais_InputMessage">
     <wsdl:part name="parameters" element="tns:GetJMPinpais" />
@@ -286,6 +304,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos" message="tns:IDataService_GetTiaomasByTiaomahaos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse" message="tns:IDataService_GetTiaomasByTiaomahaos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetTiaomasByTiaomahaos_FD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FD" message="tns:IDataService_GetTiaomasByTiaomahaos_FD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FDResponse" message="tns:IDataService_GetTiaomasByTiaomahaos_FD_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="HuiyuanZhuce">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/HuiyuanZhuce" message="tns:IDataService_HuiyuanZhuce_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/HuiyuanZhuceResponse" message="tns:IDataService_HuiyuanZhuce_OutputMessage" />
@@ -342,6 +364,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju" message="tns:IDataService_XiazaiJinhuoShuju_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse" message="tns:IDataService_XiazaiJinhuoShuju_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShujuByPcm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcm" message="tns:IDataService_XiazaiJinhuoShujuByPcm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcmResponse" message="tns:IDataService_XiazaiJinhuoShujuByPcm_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="XiazaiJinhuoShujuFinish">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" message="tns:IDataService_XiazaiJinhuoShujuFinish_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinishResponse" message="tns:IDataService_XiazaiJinhuoShujuFinish_OutputMessage" />
@@ -353,6 +379,10 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteJinchujilu_FD">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD" message="tns:IDataService_DeleteJinchujilu_FD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse" message="tns:IDataService_DeleteJinchujilu_FD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="DeleteJinchujilu_CK">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_CK" message="tns:IDataService_DeleteJinchujilu_CK_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/DeleteJinchujilu_CKResponse" message="tns:IDataService_DeleteJinchujilu_CK_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetJMPinpais">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetJMPinpais" message="tns:IDataService_GetJMPinpais_InputMessage" />
@@ -500,6 +530,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTiaomasByTiaomahaos_FD">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="HuiyuanZhuce">
       <soap12:operation soapAction="http://tempuri.org/IDataService/HuiyuanZhuce" style="document" />
       <wsdl:input>
@@ -626,6 +665,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="XiazaiJinhuoShujuByPcm">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="XiazaiJinhuoShujuFinish">
       <soap12:operation soapAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish" style="document" />
       <wsdl:input>
@@ -646,6 +694,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteJinchujilu_FD">
       <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_FD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteJinchujilu_CK">
+      <soap12:operation soapAction="http://tempuri.org/IDataService/DeleteJinchujilu_CK" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

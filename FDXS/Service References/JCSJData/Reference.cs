@@ -3187,7 +3187,7 @@ namespace FDXS.JCSJData {
         private System.DateTime shangbaoshijianField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal zhekouField;
+        private System.Nullable<decimal> zhekouField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3369,7 +3369,7 @@ namespace FDXS.JCSJData {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal zhekou {
+        public System.Nullable<decimal> zhekou {
             get {
                 return this.zhekouField;
             }
@@ -4048,6 +4048,9 @@ namespace FDXS.JCSJData {
         private FDXS.JCSJData.TTiaoma TTiaomaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal danjiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4094,6 +4097,19 @@ namespace FDXS.JCSJData {
                 if ((object.ReferenceEquals(this.TTiaomaField, value) != true)) {
                     this.TTiaomaField = value;
                     this.RaisePropertyChanged("TTiaoma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal danjia {
+            get {
+                return this.danjiaField;
+            }
+            set {
+                if ((this.danjiaField.Equals(value) != true)) {
+                    this.danjiaField = value;
+                    this.RaisePropertyChanged("danjia");
                 }
             }
         }
@@ -5758,6 +5774,12 @@ namespace FDXS.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaosResponse")]
         System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByTiaomahaosAsync(string[] tmhs);
         
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FD", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FDResponse")]
+        FDXS.JCSJData.TTiaoma[] GetTiaomasByTiaomahaos_FD(string[] tmhs);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FD", ReplyAction="http://tempuri.org/IDataService/GetTiaomasByTiaomahaos_FDResponse")]
+        System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByTiaomahaos_FDAsync(string[] tmhs);
+        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/HuiyuanZhuce", ReplyAction="http://tempuri.org/IDataService/HuiyuanZhuceResponse")]
         FDXS.JCSJData.THuiyuan HuiyuanZhuce(FDXS.JCSJData.THuiyuan h);
         
@@ -5842,6 +5864,12 @@ namespace FDXS.JCSJData {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShuju", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuResponse")]
         System.Threading.Tasks.Task<FDXS.JCSJData.TCangkuJinchuhuo[]> XiazaiJinhuoShujuAsync();
         
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcm", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcmResponse")]
+        FDXS.JCSJData.TCangkuJinchuhuo XiazaiJinhuoShujuByPcm(string pcm);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcm", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuByPcmResponse")]
+        System.Threading.Tasks.Task<FDXS.JCSJData.TCangkuJinchuhuo> XiazaiJinhuoShujuByPcmAsync(string pcm);
+        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinish", ReplyAction="http://tempuri.org/IDataService/XiazaiJinhuoShujuFinishResponse")]
         void XiazaiJinhuoShujuFinish(int[] ckjcids);
         
@@ -5859,6 +5887,12 @@ namespace FDXS.JCSJData {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteJinchujilu_FD", ReplyAction="http://tempuri.org/IDataService/DeleteJinchujilu_FDResponse")]
         System.Threading.Tasks.Task DeleteJinchujilu_FDAsync(int oid);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteJinchujilu_CK", ReplyAction="http://tempuri.org/IDataService/DeleteJinchujilu_CKResponse")]
+        void DeleteJinchujilu_CK(string pcm);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/DeleteJinchujilu_CK", ReplyAction="http://tempuri.org/IDataService/DeleteJinchujilu_CKResponse")]
+        System.Threading.Tasks.Task DeleteJinchujilu_CKAsync(string pcm);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDataService/GetJMPinpais", ReplyAction="http://tempuri.org/IDataService/GetJMPinpaisResponse")]
         FDXS.JCSJData.TPinpaishang[] GetJMPinpais();
@@ -6074,6 +6108,14 @@ namespace FDXS.JCSJData {
             return base.Channel.GetTiaomasByTiaomahaosAsync(tmhs);
         }
         
+        public FDXS.JCSJData.TTiaoma[] GetTiaomasByTiaomahaos_FD(string[] tmhs) {
+            return base.Channel.GetTiaomasByTiaomahaos_FD(tmhs);
+        }
+        
+        public System.Threading.Tasks.Task<FDXS.JCSJData.TTiaoma[]> GetTiaomasByTiaomahaos_FDAsync(string[] tmhs) {
+            return base.Channel.GetTiaomasByTiaomahaos_FDAsync(tmhs);
+        }
+        
         public FDXS.JCSJData.THuiyuan HuiyuanZhuce(FDXS.JCSJData.THuiyuan h) {
             return base.Channel.HuiyuanZhuce(h);
         }
@@ -6186,6 +6228,14 @@ namespace FDXS.JCSJData {
             return base.Channel.XiazaiJinhuoShujuAsync();
         }
         
+        public FDXS.JCSJData.TCangkuJinchuhuo XiazaiJinhuoShujuByPcm(string pcm) {
+            return base.Channel.XiazaiJinhuoShujuByPcm(pcm);
+        }
+        
+        public System.Threading.Tasks.Task<FDXS.JCSJData.TCangkuJinchuhuo> XiazaiJinhuoShujuByPcmAsync(string pcm) {
+            return base.Channel.XiazaiJinhuoShujuByPcmAsync(pcm);
+        }
+        
         public void XiazaiJinhuoShujuFinish(int[] ckjcids) {
             base.Channel.XiazaiJinhuoShujuFinish(ckjcids);
         }
@@ -6208,6 +6258,14 @@ namespace FDXS.JCSJData {
         
         public System.Threading.Tasks.Task DeleteJinchujilu_FDAsync(int oid) {
             return base.Channel.DeleteJinchujilu_FDAsync(oid);
+        }
+        
+        public void DeleteJinchujilu_CK(string pcm) {
+            base.Channel.DeleteJinchujilu_CK(pcm);
+        }
+        
+        public System.Threading.Tasks.Task DeleteJinchujilu_CKAsync(string pcm) {
+            return base.Channel.DeleteJinchujilu_CKAsync(pcm);
         }
         
         public FDXS.JCSJData.TPinpaishang[] GetJMPinpais() {

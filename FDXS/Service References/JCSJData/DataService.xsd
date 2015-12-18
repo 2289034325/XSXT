@@ -198,17 +198,31 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTiaomasByTiaomahaos_FD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="tmhs" nillable="true" type="q17:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTiaomasByTiaomahaos_FDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetTiaomasByTiaomahaos_FDResult" nillable="true" type="q18:ArrayOfTTiaoma" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="HuiyuanZhuce">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="h" nillable="true" type="q17:THuiyuan" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="h" nillable="true" type="q19:THuiyuan" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="HuiyuanZhuceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="HuiyuanZhuceResult" nillable="true" type="q18:THuiyuan" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="HuiyuanZhuceResult" nillable="true" type="q20:THuiyuan" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -222,7 +236,7 @@
   <xs:element name="GetHuiyuanByShoujihaoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetHuiyuanByShoujihaoResult" nillable="true" type="q19:THuiyuan" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetHuiyuanByShoujihaoResult" nillable="true" type="q21:THuiyuan" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -236,14 +250,14 @@
   <xs:element name="GetHuiyuanByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetHuiyuanByIdResult" nillable="true" type="q20:THuiyuan" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetHuiyuanByIdResult" nillable="true" type="q22:THuiyuan" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateHuiyuan">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="h" nillable="true" type="q21:THuiyuan" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="h" nillable="true" type="q23:THuiyuan" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -255,7 +269,7 @@
   <xs:element name="ShangbaoXiaoshou">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="xss" nillable="true" type="q22:ArrayOfTXiaoshou" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="xss" nillable="true" type="q24:ArrayOfTXiaoshou" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -267,7 +281,7 @@
   <xs:element name="ShangbaoKucun_FD">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="fks" nillable="true" type="q23:ArrayOfTFendianKucunMX" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="fks" nillable="true" type="q25:ArrayOfTFendianKucunMX" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -279,7 +293,7 @@
   <xs:element name="ShangbaoJinchuhuo_FD">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="fjcs" nillable="true" type="q24:ArrayOfTFendianJinchuhuo" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="fjcs" nillable="true" type="q26:ArrayOfTFendianJinchuhuo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -291,7 +305,7 @@
   <xs:element name="ShangbaoKucun_CK">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cks" nillable="true" type="q25:ArrayOfTCangkuKucunMX" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cks" nillable="true" type="q27:ArrayOfTCangkuKucunMX" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -303,7 +317,7 @@
   <xs:element name="ShangbaoJinchuhuo_CK">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cjcs" nillable="true" type="q26:TCangkuJinchuhuo" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="cjcs" nillable="true" type="q28:TCangkuJinchuhuo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -337,7 +351,7 @@
   <xs:element name="GetFendiansResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetFendiansResult" nillable="true" type="q27:ArrayOfTFendian" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetFendiansResult" nillable="true" type="q29:ArrayOfTFendian" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -349,7 +363,7 @@
   <xs:element name="GetCangkusResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetCangkusResult" nillable="true" type="q28:ArrayOfTCangku" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetCangkusResult" nillable="true" type="q30:ArrayOfTCangku" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -361,7 +375,7 @@
   <xs:element name="GetZiJiamengshangsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetZiJiamengshangsResult" nillable="true" type="q29:ArrayOfTJiamengshang" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetZiJiamengshangsResult" nillable="true" type="q31:ArrayOfTJiamengshang" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -373,14 +387,28 @@
   <xs:element name="XiazaiJinhuoShujuResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="XiazaiJinhuoShujuResult" nillable="true" type="q30:ArrayOfTCangkuJinchuhuo" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="XiazaiJinhuoShujuResult" nillable="true" type="q32:ArrayOfTCangkuJinchuhuo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuByPcm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pcm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XiazaiJinhuoShujuByPcmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="XiazaiJinhuoShujuByPcmResult" nillable="true" type="q33:TCangkuJinchuhuo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="XiazaiJinhuoShujuFinish">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ckjcids" nillable="true" type="q31:ArrayOfint" />
+        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ckjcids" nillable="true" type="q34:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -413,6 +441,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteJinchujilu_CK">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pcm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteJinchujilu_CKResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetJMPinpais">
     <xs:complexType>
       <xs:sequence />
@@ -421,7 +461,7 @@
   <xs:element name="GetJMPinpaisResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJMPinpaisResult" nillable="true" type="q32:ArrayOfTPinpaishang" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJMPinpaisResult" nillable="true" type="q35:ArrayOfTPinpaishang" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -441,7 +481,7 @@
   <xs:element name="UpdateTiaoma">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="t" nillable="true" type="q33:TTiaoma" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="t" nillable="true" type="q36:TTiaoma" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -458,7 +498,7 @@
   <xs:element name="GetJiamengshangsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJiamengshangsResult" nillable="true" type="q34:ArrayOfTJiamengshang" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/DB_JCSJ.Models" minOccurs="0" name="GetJiamengshangsResult" nillable="true" type="q37:ArrayOfTJiamengshang" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

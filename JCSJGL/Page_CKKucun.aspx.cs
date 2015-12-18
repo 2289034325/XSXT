@@ -78,6 +78,7 @@ namespace JCSJGL
             var xs = jcs.Select(r => new
             {
                 pinpaishang = r.TCangku.TPinpaishang.mingcheng,
+                r.id,
                 ckid = r.cangkuid,
                 cangku = r.TCangku.mingcheng,
                 kucunshuliang = r.TCangkuKucunMXes.Sum(mr => mr.shuliang),
@@ -126,7 +127,7 @@ namespace JCSJGL
                 Authenticate.CheckOperation(_PageName, PageOpt.删除, _LoginUser);
 
                 TCangkuKucun ok = db.GetCKKucunById(id);
-                if (ok.TCangku.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+                if (ok.TCangku.ppsid != _LoginUser.ppsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
                 {
                     throw new MyException("非法操作，无法删除该数据", null);
                 }

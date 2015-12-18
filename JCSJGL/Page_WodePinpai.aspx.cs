@@ -82,6 +82,12 @@ namespace JCSJGL
             {
                 throw new MyException("加盟的品牌已到上限，如果想要加盟更多的品牌请联系系统管理员", null);
             }
+            //检查加盟申请是否超出限制
+            int qc = db.GetJiamengShenqingCount(_LoginUser.jmsid.Value);
+            if (qc >= _LoginUser.TJiamengshang.pinpaishu)
+            {
+                throw new MyException("加盟申请已到上限，如果想要加盟更多的品牌请联系系统管理员", null);
+            }
 
             //检查是否已经存在
             TJiamengSQ osq = db.GetJiamengSQByPpsIdJmsId(ppsid, _LoginUser.jmsid.Value);

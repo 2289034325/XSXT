@@ -401,12 +401,6 @@
     <None Include="Service References\JCSJData\DataService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshang.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\JCSJData\FDXS.JCSJData.TPinpaishang.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\JCSJValid\ValidService.wsdl" />
     <None Include="Service References\JCSJValid\ValidService.xsd">
       <SubType>Designer</SubType>
@@ -458,18 +452,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
-    <None Include="Resources\mzd_name_white.png" />
-    <None Include="Resources\companyinfo_white.png" />
-    <None Include="Resources\menu_windows_white.png" />
-    <None Include="Resources\menu_windows_black.png" />
-    <None Include="Resources\user_white.png" />
-    <None Include="Resources\password_white.png" />
-    <None Include="Resources\超大科技_行楷.png" />
-    <None Include="Resources\超达科技_于右任.png" />
-    <None Include="Resources\超达科技_颜真卿.png" />
-    <None Include="Resources\超达科技_孙中山.png" />
-    <None Include="Resources\超达科技_毛泽东.png" />
-    <None Include="Resources\LOGO.bmp" />
     <None Include="Service References\JCSJValid\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -495,7 +477,13 @@
     <None Include="Service References\JCSJData\FDXS.JCSJData.THuiyuan.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TJiamengshang.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TKuanhao.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JCSJData\FDXS.JCSJData.TPinpaishang.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\JCSJData\FDXS.JCSJData.TTiaoma.datasource">
@@ -511,6 +499,18 @@
     <None Include="Service References\JCSJData\configuration.svcinfo" />
     <None Include="Service References\JCSJData\configuration91.svcinfo" />
     <None Include="Service References\JCSJData\DataService.disco" />
+    <None Include="Resources\mzd_name_white.png" />
+    <None Include="Resources\companyinfo_white.png" />
+    <None Include="Resources\menu_windows_white.png" />
+    <None Include="Resources\menu_windows_black.png" />
+    <None Include="Resources\user_white.png" />
+    <None Include="Resources\password_white.png" />
+    <None Include="Resources\超大科技_行楷.png" />
+    <None Include="Resources\超达科技_于右任.png" />
+    <None Include="Resources\超达科技_颜真卿.png" />
+    <None Include="Resources\超达科技_孙中山.png" />
+    <None Include="Resources\超达科技_毛泽东.png" />
+    <None Include="Resources\LOGO.bmp" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\JCSJData\" />

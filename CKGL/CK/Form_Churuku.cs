@@ -31,17 +31,25 @@ namespace CKGL.CK
         /// <param name="tmh"></param>
         public override void OnScan(string tmh)
         {
+            //判断是不是正在批量输入
+            if (_dlgtm.Visible)
+            {
+                _dlgtm.OnScan(tmh);
+                return;
+            }
+
             int jcid = (int)grid_crk.SelectedRows[0].Cells[col_crk_id.Name].Value;
 
 
             //检查该出入库记录是否已经上报
-            if (!checkAllow())
+            DBContext db = IDB.GetDB();
+            TChuruku cr = db.GetChurukuById(jcid);
+            if (cr.queding)
             {
                 MessageBox.Show("该记录已经确认，不能再修改");
                 return;
             }
 
-            DBContext db = IDB.GetDB();
             TTiaoma tm = db.GetTiaomaByTmh(tmh);
             if (tm == null)
             {
@@ -71,6 +79,7 @@ namespace CKGL.CK
                 {
                     churukuid = jcid,
                     tiaomaid = tm.id,
+                    danjia = decimal.Round(cr.zhekou == null ? tm.jinjia : tm.shoujia * cr.zhekou.Value / 10, 2),
                     shuliang = 1
                 };
                 TChurukuMX[] mxs = new TChurukuMX[] { nmx };
@@ -114,14 +123,17 @@ namespace CKGL.CK
             //}
 
             int? jmsid = null;
-            if (!string.IsNullOrEmpty(cmb_jms.SelectedValue.ToString()))
+            if (cmb_jms.SelectedValue != null)
             {
-                jmsid = int.Parse(cmb_jms.SelectedValue.ToString());
+                if (!string.IsNullOrEmpty(cmb_jms.SelectedValue.ToString()))
+                {
+                    jmsid = int.Parse(cmb_jms.SelectedValue.ToString());
+                }
             }
             DateTime? fsrq_start = null;
             if (dp_start.Checked)
             {
-                fsrq_start = dp_start.Value;
+                fsrq_start = dp_start.Value.Date;
             }
             DateTime? fsrq_end = null;
             if (dp_end.Checked)
@@ -150,7 +162,7 @@ namespace CKGL.CK
                     c.TJiamengshang == null?"":c.TJiamengshang.mingcheng,
                     c.TChurukuMXes.Sum(r=>(short?)r.shuliang)??0,
                     c.zhekou,
-                    c.TChurukuMXes.Sum(r=>(short?)r.shuliang*r.TTiaoma.jinjia)??0,
+                    c.TChurukuMXes.Sum(r=>(short?)r.shuliang*r.danjia)??0,
                     c.queding?"√":"",
                     c.beizhu,
                     c.TUser.yonghuming,
@@ -576,19 +588,19 @@ namespace CKGL.CK
             }
             else
             {
-                int mxid = (int)grid_crkmx.SelectedRows[0].Cells[col_mx_id.Name].Value;
+                int mxid = (int)grid_crkmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
                 if (e.ColumnIndex == col_mx_dj.Index)
                 {
-                    decimal dj = decimal.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_dj.Name].Value.ToString());
-                    decimal dpj = decimal.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sj.Name].Value.ToString());
+                    decimal dj = decimal.Parse(grid_crkmx.Rows[e.RowIndex].Cells[col_mx_dj.Name].Value.ToString());
+                    decimal dpj = decimal.Parse(grid_crkmx.Rows[e.RowIndex].Cells[col_mx_sj.Name].Value.ToString());
                     DBContext db = IDB.GetDB();
                     db.UpdateChurukuMx_dj(mxid, dj);
                     //修改折扣
-                    grid_crkmx.SelectedRows[0].Cells[col_mx_zk.Name].Value = decimal.Round(dj / dpj * 10, 2);
+                    grid_crkmx.Rows[e.RowIndex].Cells[col_mx_zk.Name].Value = decimal.Round(dj / dpj * 10, 2);
                 }
                 else
                 {
-                    short sl = short.Parse(grid_crkmx.SelectedRows[0].Cells[col_mx_sl.Name].Value.ToString());
+                    short sl = short.Parse(grid_crkmx.Rows[e.RowIndex].Cells[col_mx_sl.Name].Value.ToString());
                     DBContext db = IDB.GetDB();
                     db.UpdateChurukuMx_sl(mxid, sl);
                 }
@@ -699,7 +711,15 @@ namespace CKGL.CK
             TJiamengshang[] jmses = db.GetJiamengshangs(true);
             Tool.CommonFunc.InitCombbox(cmb_jms, jmses, "mingcheng", "id");
             DataTable dt = (DataTable)cmb_jms.DataSource;
-            dt.Rows.InsertAt(dt.NewRow(), 0);
+            if (dt == null)
+            {
+                cmb_jms.Items.Add("");
+            }
+            else
+            {
+                dt.Rows.InsertAt(dt.NewRow(), 0); 
+            }           
+
             cmb_jms.SelectedIndex = 0;
         }
 
@@ -729,46 +749,42 @@ namespace CKGL.CK
             {
                 MessageBox.Show("请先上报进出货数据");
                 return;
-            }            
+            }
             if (crk.laiyuanquxiang != (byte)Tool.JCSJ.DBCONSTS.LYQX_CK.加盟商)
             {
                 MessageBox.Show("只能上传出货到加盟商的数据");
                 return;
             }
 
+            JCSJData.TFendian[] fds = null;
             //下载分店列表
-            bool dldok = true;
-            if (RuntimeInfo.AllFds == null)
+            new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
             {
-                dldok = false;
-                new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+                try
                 {
-                    try
-                    {
-                        JCSJData.TFendian[] fds = JCSJWCF.GetFendians(crk.jmsid.Value);
-                        RuntimeInfo.AllFds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
-                        if (RuntimeInfo.AllFds.Count != 0)
-                        {
-                            dldok = true;
-                        }
-                        else
-                        {
-                            ShowMsg("没有分店信息，请先到管理页面增加分店信息", true);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                        ShowMsg(ex.Message, true);
-                    }
-                }, true).Start();
-            }
-            if (!dldok)
+                    fds = JCSJWCF.GetFendians(crk.jmsid.Value);
+                }
+                catch (Exception ex)
+                {
+                    Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                    ShowMsg(ex.Message, true);
+                }
+            }, true).Start();
+
+            if (fds == null)
             {
+                MessageBox.Show("与服务器通信出错，请重新尝试操作");
                 return;
             }
 
-            Dlg_Fendian dl = new Dlg_Fendian();
+            if (fds.Length == 0)
+            {
+                MessageBox.Show("该加盟商没有分店信息");
+                return;
+            }
+            Dictionary<string, string> dfds = fds.ToDictionary(k => k.id.ToString(), v => v.dianming);
+            Dlg_Fendian dl = new Dlg_Fendian(dfds);
+
             if (dl.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 int fdid = int.Parse(dl.cmb_fd.SelectedValue.ToString());

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.mn_main = new System.Windows.Forms.MenuStrip();
-            this.mni_khxx = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addxkh = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_addsm = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_bzbm = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +37,6 @@
             this.mni_jiazai_fuwuqi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_bendi = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_jiazai_wenjian = new System.Windows.Forms.ToolStripMenuItem();
-            this.mni_jiazai_fhjl = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveServer = new System.Windows.Forms.ToolStripMenuItem();
             this.mni_saveLoacal = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +85,6 @@
             // 
             this.mn_main.AllowMerge = false;
             this.mn_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mni_khxx,
             this.mni_addxkh,
             this.mni_addsm,
             this.mni_bzbm,
@@ -101,13 +98,6 @@
             this.mn_main.Size = new System.Drawing.Size(1170, 25);
             this.mn_main.TabIndex = 10;
             this.mn_main.Text = "menuStrip1";
-            // 
-            // mni_khxx
-            // 
-            this.mni_khxx.Name = "mni_khxx";
-            this.mni_khxx.Size = new System.Drawing.Size(68, 21);
-            this.mni_khxx.Text = "款号信息";
-            this.mni_khxx.Click += new System.EventHandler(this.mni_khxx_Click);
             // 
             // mni_addxkh
             // 
@@ -135,8 +125,7 @@
             this.mni_jiazai.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mni_jiazai_fuwuqi,
             this.mni_jiazai_bendi,
-            this.mni_jiazai_wenjian,
-            this.mni_jiazai_fhjl});
+            this.mni_jiazai_wenjian});
             this.mni_jiazai.Name = "mni_jiazai";
             this.mni_jiazai.Size = new System.Drawing.Size(92, 21);
             this.mni_jiazai.Text = "加载条码信息";
@@ -161,13 +150,6 @@
             this.mni_jiazai_wenjian.Size = new System.Drawing.Size(196, 22);
             this.mni_jiazai_wenjian.Text = "从CSV文件加载";
             this.mni_jiazai_wenjian.Click += new System.EventHandler(this.mni_jiazai_wenjian_Click);
-            // 
-            // mni_jiazai_fhjl
-            // 
-            this.mni_jiazai_fhjl.Name = "mni_jiazai_fhjl";
-            this.mni_jiazai_fhjl.Size = new System.Drawing.Size(196, 22);
-            this.mni_jiazai_fhjl.Text = "从供应商发货记录加载";
-            this.mni_jiazai_fhjl.Click += new System.EventHandler(this.mni_jiazai_fhjl_Click);
             // 
             // 保存ToolStripMenuItem
             // 
@@ -212,21 +194,21 @@
             // mni_dyall
             // 
             this.mni_dyall.Name = "mni_dyall";
-            this.mni_dyall.Size = new System.Drawing.Size(152, 22);
+            this.mni_dyall.Size = new System.Drawing.Size(148, 22);
             this.mni_dyall.Text = "打印所有行";
             this.mni_dyall.Click += new System.EventHandler(this.mni_dyall_Click);
             // 
             // mni_dysel
             // 
             this.mni_dysel.Name = "mni_dysel";
-            this.mni_dysel.Size = new System.Drawing.Size(152, 22);
+            this.mni_dysel.Size = new System.Drawing.Size(148, 22);
             this.mni_dysel.Text = "打印选中的行";
             this.mni_dysel.Click += new System.EventHandler(this.mni_dysel_Click);
             // 
             // mni_szlg
             // 
             this.mni_szlg.Name = "mni_szlg";
-            this.mni_szlg.Size = new System.Drawing.Size(152, 22);
+            this.mni_szlg.Size = new System.Drawing.Size(148, 22);
             this.mni_szlg.Text = "打印设置";
             this.mni_szlg.Click += new System.EventHandler(this.mni_szlg_Click);
             // 
@@ -521,7 +503,6 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip mn_main;
-        private System.Windows.Forms.ToolStripMenuItem mni_khxx;
         private System.Windows.Forms.ToolStripMenuItem mni_addxkh;
         private System.Windows.Forms.ToolStripMenuItem mni_addsm;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai;
@@ -540,7 +521,6 @@
         private System.Windows.Forms.Button btn_szgys;
         private System.Windows.Forms.ComboBox cmb_gys;
         private System.Windows.Forms.ToolStripMenuItem mni_jiazai_wenjian;
-        private System.Windows.Forms.ToolStripMenuItem mni_jiazai_fhjl;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_tmidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_khidex;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_all_kh;

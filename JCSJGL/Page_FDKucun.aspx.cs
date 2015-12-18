@@ -96,8 +96,7 @@ namespace JCSJGL
                 fdid = r.fendianid,
                 fendian = r.TFendian.dianming,
                 kucunshuliang = r.TFendianKucunMXes.Sum(mr => (int?)mr.shuliang)??0,
-                chengbenjine = r.TFendianKucunMXes.Sum(mr => (decimal?)mr.TTiaoma.jinjia * mr.shuliang)??0,
-                shoujiajine = r.TFendianKucunMXes.Sum(mr => (decimal?)mr.TTiaoma.shoujia * mr.shuliang)??0,
+                jine = r.TFendianKucunMXes.Sum(mr => (decimal?)mr.danjia * mr.shuliang)??0,
                 r.shangbaoshijian
             });
 
@@ -107,8 +106,7 @@ namespace JCSJGL
                 id = r.Key.jmsid,
                 jiamengshang = r.Key.jms,
                 kucunshuliang = r.Sum(xr => xr.kucunshuliang),
-                chengbenjine = decimal.Round(r.Sum(xr => xr.chengbenjine), 2),
-                shoujiajine = decimal.Round(r.Sum(xr => xr.shoujiajine), 2)
+                jine = decimal.Round(r.Sum(xr => xr.jine), 2)
             });
 
             grid_kc_jms.DataSource = Tool.CommonFunc.LINQToDataTable(data);
@@ -151,8 +149,7 @@ namespace JCSJGL
                     fdid = r.fendianid,
                     fendian = r.TFendian.dianming,
                     kucunshuliang = r.TFendianKucunMXes.Sum(mr => mr.shuliang),
-                    chengbenjine = r.TFendianKucunMXes.Sum(mr => mr.TTiaoma.jinjia * mr.shuliang),
-                    shoujiajine = r.TFendianKucunMXes.Sum(mr => mr.TTiaoma.shoujia * mr.shuliang),
+                    jine = r.TFendianKucunMXes.Sum(mr => mr.danjia * mr.shuliang),
                     r.shangbaoshijian
                 });
 
@@ -192,8 +189,8 @@ namespace JCSJGL
                     r.TTiaoma.TKuanhao.pinming,
                     r.TTiaoma.yanse,
                     r.TTiaoma.chima,
-                    r.TTiaoma.jinjia,
-                    r.TTiaoma.shoujia,
+                    jinjia = r.danjia,
+                    diaopaijia = r.TTiaoma.shoujia,
                     r.shuliang,
                     r.jinhuoriqi
                 });

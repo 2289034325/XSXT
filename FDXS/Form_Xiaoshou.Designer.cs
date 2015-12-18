@@ -72,8 +72,8 @@ namespace FDXS
             this.flowLayoutPanel1.Controls.Add(this.label9);
             this.flowLayoutPanel1.Controls.Add(this.dp_start);
             this.flowLayoutPanel1.Controls.Add(this.dp_end);
-            this.flowLayoutPanel1.Controls.Add(this.btn_shangbao);
             this.flowLayoutPanel1.Controls.Add(this.btn_sch);
+            this.flowLayoutPanel1.Controls.Add(this.btn_shangbao);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -174,7 +174,7 @@ namespace FDXS
             this.btn_shangbao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_shangbao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_shangbao.ForeColor = System.Drawing.Color.White;
-            this.btn_shangbao.Location = new System.Drawing.Point(750, 3);
+            this.btn_shangbao.Location = new System.Drawing.Point(856, 3);
             this.btn_shangbao.Name = "btn_shangbao";
             this.btn_shangbao.Size = new System.Drawing.Size(121, 26);
             this.btn_shangbao.TabIndex = 30;
@@ -191,7 +191,7 @@ namespace FDXS
             this.btn_sch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_sch.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btn_sch.ForeColor = System.Drawing.Color.White;
-            this.btn_sch.Location = new System.Drawing.Point(877, 3);
+            this.btn_sch.Location = new System.Drawing.Point(750, 3);
             this.btn_sch.Name = "btn_sch";
             this.btn_sch.Size = new System.Drawing.Size(100, 26);
             this.btn_sch.TabIndex = 6;

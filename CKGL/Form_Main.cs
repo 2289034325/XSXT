@@ -197,6 +197,8 @@ namespace CKGL
                     Application.Exit();
                 }
             }
+
+            this.Text = Settings.Default.CKMC;
         }
 
         /// <summary>
@@ -326,6 +328,13 @@ namespace CKGL
                 fm.WindowState = FormWindowState.Maximized;
                 fm.Activate();
             }
+        }
+
+        private void mn_main_czsmq_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ScanName = "";
+            Settings.Default.Save();
+            System.Windows.Forms.Application.Restart();
         }
     }
 }

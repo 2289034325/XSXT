@@ -332,6 +332,24 @@ namespace DB_JCSJ
 
                 return tms.ToArray();
             }
+            public TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
+            {
+                var tms = _db.TTiaomas.Include(r => r.TKuanhao).Include(r => r.TGongyingshang).Where(r => tmhs.Contains(r.tiaoma));
+
+                return tms.ToArray();
+            }
+            /// <summary>
+            /// 取得条码信息以及进货时的单价
+            /// </summary>
+            /// <param name="tmhs"></param>
+            /// <returns></returns>
+            public TTiaoma[] GetTiaomasByTiaomahaosWithDanjia(string[] tmhs)
+            {
+                var tms = _db.TTiaomas.Include(r => r.TCangkuJinchuhuoMXes).Include(r=>r.TCangkuJinchuhuoMXes.Select(xr=>xr.TCangkuJinchuhuo)).
+                    Include(r => r.TKuanhao).Include(r => r.TGongyingshang).Where(r => tmhs.Contains(r.tiaoma));
+
+                return tms.ToArray();
+            }
             public TTiaoma GetTiaomaByTiaomahaoWithPpsId(string tmh, int ppsid)
             {
                 return _db.TTiaomas.SingleOrDefault(r => r.tiaoma == tmh && r.ppsid == ppsid);
@@ -783,10 +801,11 @@ namespace DB_JCSJ
             {
                 return _db.TCangkuJinchuhuoMXes.Where(r => r.TCangkuJinchuhuo.TCangku.ppsid == ppsid).Count();
             }
-            public TCangkuJinchuhuo[] GetCKJinchuhuoByCond(int? ppsid,int? ckid,string picima,string tiaoma,byte? lyqx,int? jmsid,DateTime? fssj_start,DateTime? fssj_end, int pageSize, int pageIndex, out int recordCount)
+            public TCangkuJinchuhuo[] GetCKJinchuhuoByCond(int? ppsid,int? ckid,string picima,string tiaoma,
+                byte? lyqx,int? jmsid,DateTime? fssj_start,DateTime? fssj_end, int pageSize, int pageIndex, out int recordCount)
             {
-                var jcs = _db.TCangkuJinchuhuos.Include(r => r.TCangku).Include(r => r.TCangku.TPinpaishang).
-                    Include(r => r.TCangkuJinchuhuoMXes).AsQueryable();
+                var jcs = _db.TCangkuJinchuhuos.Include(r => r.TCangku).Include(r => r.TJiamengshang)
+                    .Include(r => r.TCangku.TPinpaishang).Include(r => r.TCangkuJinchuhuoMXes).AsQueryable();
                 if (ppsid != null)
                 {
                     jcs = jcs.Where(r => r.TCangku.ppsid == ppsid);
@@ -799,7 +818,18 @@ namespace DB_JCSJ
                 {
                     jcs = jcs.Where(r => r.picima == picima);
                 }
-
+                if (!string.IsNullOrEmpty(tiaoma))
+                {
+                    jcs = jcs.Where(r => r.TCangkuJinchuhuoMXes.Any(xr=>xr.TTiaoma.tiaoma == tiaoma));
+                }
+                if (lyqx != null)
+                {
+                    jcs = jcs.Where(r => r.laiyuanquxiang == lyqx);
+                }
+                if (jmsid != null)
+                {
+                    jcs = jcs.Where(r => r.jmsid == jmsid);
+                }
                 if (fssj_start != null)
                 {
                     jcs = jcs.Where(r => r.fashengshijian >= fssj_start);
@@ -815,23 +845,22 @@ namespace DB_JCSJ
             }
             public TCangkuKucun[] GetCKKucunByCond(int? ppsid, int? ckid)
             {
-                var kcs = _db.TCangkuKucuns.AsQueryable();
-                if (ckid != null)
-                {
-                    kcs = kcs.Where(r => r.cangkuid == ckid);
-                }
+                var kcs = from v in _db.VCKKCs
+                          join k in _db.TCangkuKucuns
+                          on v.id equals k.id
+                          select k;
+
+                kcs = kcs.Include(r => r.TCangku).Include(r => r.TCangku.TPinpaishang).Include(r=>r.TCangkuKucunMXes).
+                    Include(r => r.TCangkuKucunMXes.Select(rx => rx.TTiaoma));
+
                 if (ppsid != null)
                 {
                     kcs = kcs.Where(r => r.TCangku.ppsid == ppsid);
                 }
-                ////是否取最新的库存记录
-                //if (latest)
-                //{
-                //    kcs = kcs.GroupBy(r => r.cangkuid).Select(r => r.OrderByDescending(g => g.shangbaoshijian).FirstOrDefault());
-                //}
-
-                kcs = kcs.Include(r => r.TCangku).Include(r=>r.TCangku.TPinpaishang).Include(r => r.TCangkuKucunMXes).
-                    Include(r => r.TCangkuKucunMXes.Select(rx => rx.TTiaoma)).OrderByDescending(r => r.shangbaoshijian);
+                if (ckid != null)
+                {
+                    kcs = kcs.Where(r => r.cangkuid == ckid);
+                }
 
                 return kcs.ToArray();
             }
@@ -891,6 +920,10 @@ namespace DB_JCSJ
             public int GetFuPinpaishangCount(int jmsid)
             {
                 return _db.TJiamengGXes.Where(r => r.jmsid == jmsid).Count();
+            }
+            public int GetJiamengShenqingCount(int jmsid)
+            {
+                return _db.TJiamengSQs.Where(r => r.jmsid == jmsid).Count();
             }
 
             /// <summary>

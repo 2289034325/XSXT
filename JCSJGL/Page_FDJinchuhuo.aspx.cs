@@ -97,8 +97,7 @@ namespace JCSJGL
                 fangxiang = ((Tool.JCSJ.DBCONSTS.JCH_FX)r.fangxiang).ToString(),
                 lyqx = ((Tool.JCSJ.DBCONSTS.LYQX_FD)r.laiyuanquxiang).ToString(),
                 jianshu = r.TFendianJinchuhuoMXes.Sum(mr => (short?)mr.shuliang) ?? 0,
-                jinjia = r.TFendianJinchuhuoMXes.Sum(mr => (decimal?)mr.TTiaoma.jinjia * mr.shuliang) ?? 0,
-                shoujia = r.TFendianJinchuhuoMXes.Sum(mr => (decimal?)mr.TTiaoma.shoujia * mr.shuliang) ?? 0,
+                jine = r.TFendianJinchuhuoMXes.Sum(mr => (decimal?)mr.danjia * mr.shuliang) ?? 0,
                 r.beizhu,
                 r.fashengshijian,
                 r.shangbaoshijian
@@ -199,8 +198,8 @@ namespace JCSJGL
                     r.TTiaoma.TKuanhao.pinming,
                     r.TTiaoma.yanse,
                     r.TTiaoma.chima,
-                    r.TTiaoma.jinjia,
-                    r.TTiaoma.shoujia,
+                    r.danjia,
+                    diaopaijia = r.TTiaoma.shoujia,
                     r.shuliang
                 });
 

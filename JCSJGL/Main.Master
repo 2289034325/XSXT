@@ -33,7 +33,7 @@
                 <Items>
                     <asp:MenuItem Text="基本信息">
                         <asp:MenuItem Text="系统用户" Value="系统用户" NavigateUrl="~/Page_User.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="品牌商信息" Value="品牌商信息" NavigateUrl="~/Page_Pinpaishang.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="品牌商信息" Value="品牌商信息" NavigateUrl="~/Page_PinpaishangXinxi.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="加盟商信息" Value="加盟商信息" NavigateUrl="~/Page_JiamengshangXinxi.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="分店信息" Value="分店信息" NavigateUrl="~/Page_Fendian.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
@@ -67,11 +67,14 @@
                         <asp:MenuItem Text="仓库信息" Value="仓库信息" NavigateUrl="~/Page_Cangku.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="供应商信息" Value="供应商信息" NavigateUrl="~/Page_Gongyingshang.aspx"></asp:MenuItem>                     
                         <asp:MenuItem Text="加盟商" Value="加盟商" NavigateUrl="~/Page_WodeJiamengshang.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="款号信息" Value="款号信息" NavigateUrl="~/Page_Kuanhao.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="条码信息" Value="条码信息" NavigateUrl="~/Page_Tiaoma.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                     <asp:MenuItem Text="销售数据">
                         <asp:MenuItem Text="销售统计表" Value="销售统计表" NavigateUrl="~/Page_Fendian_TongjiBiao.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="销售统计图" Value="销售统计图" NavigateUrl="~/Page_Fendian_TongjiTu.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="款号分析" Value="款号分析" NavigateUrl="~/Page_KuanhaoFenxi.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="销售记录" Value="销售记录" NavigateUrl="~/Page_Xiaoshou.aspx"></asp:MenuItem>
                     </asp:MenuItem>
                     <asp:MenuItem Text="进出货和库存">
                         <asp:MenuItem Text="仓库进出货" Value="仓库进出货" NavigateUrl="~/Page_CKJinchuhuo.aspx"></asp:MenuItem>

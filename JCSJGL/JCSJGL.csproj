@@ -116,8 +116,6 @@
     <Content Include="jquery-ui-1.11.4.custom\jquery-ui.theme.css" />
     <Content Include="jquery-ui-1.11.4.custom\jquery-ui.theme.min.css" />
     <Content Include="Common.js" />
-    <Content Include="js_all_in_one.js" />
-    <Content Include="css_all_in_one.css" />
     <Content Include="Page_Dtzcm.aspx" />
     <Content Include="Page_PinpaishangXinxi.aspx" />
     <Content Include="Page_WodePinpai.aspx" />

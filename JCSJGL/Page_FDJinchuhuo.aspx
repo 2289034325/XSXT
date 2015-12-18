@@ -36,7 +36,7 @@
             <asp:BoundField DataField="fangxiang" HeaderText="方向"></asp:BoundField>
             <asp:BoundField DataField="lyqx" HeaderText="来源去向"></asp:BoundField>
             <asp:BoundField DataField="jianshu" HeaderText="件数"></asp:BoundField>
-            <asp:BoundField DataField="jinjia" HeaderText="金额"></asp:BoundField>
+            <asp:BoundField DataField="jine" HeaderText="金额"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
             <asp:BoundField DataField="fashengshijian" HeaderText="发生时间"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>            
@@ -53,8 +53,8 @@
             <asp:BoundField DataField="pinming" HeaderText="品名"></asp:BoundField>
             <asp:BoundField DataField="yanse" HeaderText="颜色"></asp:BoundField>
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
-            <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
-            <asp:BoundField DataField="shoujia" HeaderText="吊牌价"></asp:BoundField>
+            <asp:BoundField DataField="danjia" HeaderText="进价"></asp:BoundField>
+            <asp:BoundField DataField="diaopaijia" HeaderText="吊牌价"></asp:BoundField>
             <asp:BoundField DataField="shuliang" HeaderText="数量"></asp:BoundField>
         </Columns>
     </asp:GridView>

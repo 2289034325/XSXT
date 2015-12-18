@@ -13,7 +13,7 @@ namespace CKGL
         public static Version ClientVersion = new Version();
 
         //当前需要的数据库版本
-        public const int DbVersion = 0;
+        public const int DbVersion = 1;
 
         //当前登陆的用户
         public static DB_CK.Models.TUser LoginUser_CK = null;

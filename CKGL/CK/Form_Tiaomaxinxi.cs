@@ -27,10 +27,10 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
-            DateTime start = dp_start.Value;
-            DateTime end = dp_end.Value;
+            //DateTime start = dp_start.Value;
+            //DateTime end = dp_end.Value;
 
-            CommonMethod.DownLoadTiaomaInfo(start, end, false);
+            //CommonMethod.DownLoadTiaomaInfo(start, end, false);
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace CKGL.CK
             cmb_lx.SelectedIndex = 0;
 
             //日期
-            dp_start.Value = DateTime.Now.AddDays(-15);
-            dp_end.Value = DateTime.Now;
+            //dp_start.Value = DateTime.Now.AddDays(-15);
+            //dp_end.Value = DateTime.Now;
 
         }
 
@@ -96,6 +96,7 @@ namespace CKGL.CK
                         t.pinming,
                         t.yanse,
                         t.chima,
+                        t.jinjia,
                         t.shoujia,
                         t.xiugaishijian
                     });

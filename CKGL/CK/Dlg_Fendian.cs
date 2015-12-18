@@ -16,9 +16,11 @@ namespace CKGL.CK
 {
     public partial class Dlg_Fendian : Form
     {
-        public Dlg_Fendian()
+        private Dictionary<string, string> _fds;
+        public Dlg_Fendian(Dictionary<string,string> fds)
         {
             InitializeComponent();
+            _fds = fds;
         }
 
 
@@ -34,10 +36,13 @@ namespace CKGL.CK
                 MessageBox.Show("请选择一个分店");
                 return;
             }
-            else
+            if (string.IsNullOrEmpty(cmb_fd.SelectedValue.ToString()))
             {
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                MessageBox.Show("请选择一个分店");
+                return;
             }
+
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
         /// <summary>
@@ -47,7 +52,7 @@ namespace CKGL.CK
         /// <param name="e"></param>
         private void Dlg_Fendian_Load(object sender, EventArgs e)
         {
-            Tool.CommonFunc.InitCombbox(cmb_fd, RuntimeInfo.AllFds);
+            Tool.CommonFunc.InitCombbox(cmb_fd, _fds);
         }
     }
 }

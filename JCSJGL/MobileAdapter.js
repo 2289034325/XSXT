@@ -66,14 +66,18 @@ $(document).ready(function () {
         inner.css("position", "fixed").css("top", "31px").css("height", screen.availHeight - 31 + "px").css("overflow", "scroll");
         inner.css("-webkit-overflow-scrolling", "touch");
         mobileMenu.append(inner);
-        $("#div_mn_mobile > ul > li").find(">a").each(function ()
+        $(".mn_main > ul > li > ul > li").find(">a").each(function ()
         {
             $(this).css("width", document.body.clientWidth);
             inner.append(this);
         });
+        //退出登录
+        var lo = $("<a href='Login.aspx'>退出登录</a>");
+        lo.css("width", document.body.clientWidth);
+        inner.append(lo);
         divTitle.after(mobileMenu);
 
-        //点击，显示菜单       
+        ////点击，显示菜单       
         divTitle.click(function ()
         {
             if (mobileMenu.attr('data-click-state') == 1)
@@ -89,6 +93,7 @@ $(document).ready(function () {
                 mobileMenu.css("display", "");
             }
         });
+
 
         //grid让开title的距离
         $("#div_body").css("top", "31px").css("position", "absolute").css("height", screen.availHeight - 61 + "px");

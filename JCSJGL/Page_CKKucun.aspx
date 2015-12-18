@@ -3,14 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>仓库库存记录</title>
     <script type="text/javascript">
-        $(document).ready(
-            function ()
-            {
-                $(".delete").click(function ()
-                {
-                    return confirm('是否确定删除?');
-                });
-            });
+        
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="server">
@@ -32,10 +25,8 @@
             <asp:BoundField DataField="cangku" HeaderText="仓库"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
             <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
-            <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>             
             <asp:ButtonField CommandName="MX" Text="查看" ButtonType="Button" HeaderText="明细" />    
-            <asp:ButtonField CommandName="DEL" Text="删除" ButtonType="Button" ShowHeader="false" ControlStyle-CssClass="delete" />
         </Columns>
     </asp:GridView>
     <asp:GridView ID="grid_mx" runat="server" AutoGenerateColumns="False">

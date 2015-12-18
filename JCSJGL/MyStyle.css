@@ -210,7 +210,7 @@ td {
         display: inline-block;
         box-sizing: border-box;
     }
-    div_edit input[type="date"] {
+    .div_edit input[type="date"] {
         font-size:0.8em;
         width: 75%;
         display: inline-block;

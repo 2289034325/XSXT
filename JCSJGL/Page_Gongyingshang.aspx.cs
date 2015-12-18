@@ -173,7 +173,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TGongyingshang og = db.GetGongyingshangById(id);
-            if (og.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (og.ppsid != _LoginUser.ppsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该供应商", null);
             }

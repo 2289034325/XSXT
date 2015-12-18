@@ -137,7 +137,7 @@
         </div>
         <div>
             <div class="twoButtonInline left">
-                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog();return false;" />
+                <asp:Button runat="server" ID="btn_cancel" Text="取消" OnClientClick="CloseEditDialog('div_edit');return false;" />
             </div><div class="twoButtonInline">
                 <asp:Button runat="server" ID="btn_edit" CssClass="btnEdit" Text="确定" OnClick="btn_edit_Click" ClientIDMode="Static" />
                 <asp:Button runat="server" ID="btn_add" CssClass="btnAdd" Text="确定" OnClick="btn_add_Click" ClientIDMode="Static" />

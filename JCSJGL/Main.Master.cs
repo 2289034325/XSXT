@@ -22,7 +22,6 @@ namespace JCSJGL
         }
         protected void Page_Init(object sender, EventArgs e)
         {
-            Tool.CommonFunc.LogInfo(Session.SessionID + ":Page_Init");
             //登陆验证
             TUser u = (TUser)Session["USER"];
             if (u == null)

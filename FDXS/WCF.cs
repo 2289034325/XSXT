@@ -107,7 +107,7 @@ namespace FDXS
         internal static TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs)
         {
             Login();
-            return _jdc.GetTiaomasByTiaomahaos(tmhs);
+            return _jdc.GetTiaomasByTiaomahaos_FD(tmhs);
         }
 
         internal static void ShangbaoXiaoshou(TXiaoshou[] jxss)
@@ -120,6 +120,11 @@ namespace FDXS
         {
             Login();
             return _jdc.XiazaiJinhuoShuju();
+        }
+        internal static TCangkuJinchuhuo XiazaiJinhuoShujuByPcm(string pcm)
+        {
+            Login();
+            return _jdc.XiazaiJinhuoShujuByPcm(pcm);
         }
 
         internal static void XiazaiJinhuoShujuFinish(int[] ckjcids)

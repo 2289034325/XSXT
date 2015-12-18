@@ -30,6 +30,15 @@ namespace DB_FD
             _db.SaveChanges();
         }
 
+        public void UpdateTiaomaJinjia(int id, decimal jj)
+        {
+            TTiaoma ot = _db.TTiaomas.Single(r => r.id == id);
+
+            ot.jinjia = jj;
+
+            _db.SaveChanges();
+        }
+
         /// <summary>
         /// 修改进出货记录
         /// </summary>
@@ -49,11 +58,17 @@ namespace DB_FD
         /// 修改进出货明细的数量
         /// </summary>
         /// <param name="mx"></param>
-        public void UpdateJinchuhuoMx(int id,short sl)
+        public void UpdateJinchuhuoMx_sl(int id,short sl)
         {
             TJinchuMX om = _db.TJinchuMXes.Single(r => r.id == id);
-            //只允许修改数量
             om.shuliang = sl;
+
+            _db.SaveChanges();
+        }
+        public void UpdateJinchuhuoMx_jj(int id, decimal jj)
+        {
+            TJinchuMX om = _db.TJinchuMXes.Single(r => r.id == id);
+            om.danjia = jj;
 
             _db.SaveChanges();
         }

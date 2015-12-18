@@ -87,6 +87,8 @@ namespace JCSJWCF
 
         [OperationContract(IsInitiating = false)]
         TTiaoma[] GetTiaomasByTiaomahaos(string[] tmhs);
+        [OperationContract(IsInitiating = false)]
+        TTiaoma[] GetTiaomasByTiaomahaos_FD(string[] tmhs);
 
 
         [OperationContract(IsInitiating = false)]
@@ -153,7 +155,9 @@ namespace JCSJWCF
         /// <returns></returns>
         [OperationContract(IsInitiating = false)]
         TCangkuJinchuhuo[] XiazaiJinhuoShuju();
-        TCangkuJinchuhuo XiazaiJinhuoShuju(string pcm);
+
+        [OperationContract(IsInitiating = false)]
+        TCangkuJinchuhuo XiazaiJinhuoShujuByPcm(string pcm);
 
         [OperationContract(IsInitiating = false)]
         void XiazaiJinhuoShujuFinish(int[] ckjcids);

@@ -28,8 +28,7 @@
             <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="jmsid" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
-            <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
-            <asp:BoundField DataField="shoujiajine" HeaderText="吊牌价金额"></asp:BoundField>
+            <asp:BoundField DataField="jine" HeaderText="金额"></asp:BoundField>
             <asp:ButtonField CommandName="FDKC" Text="分店库存" ButtonType="Button" ShowHeader="false" />
         </Columns>
         <PagerSettings Mode="NextPrevious" Visible="true" NextPageText="Next" PreviousPageText="Prev" />   
@@ -40,8 +39,7 @@
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="fendian" HeaderText="分店"></asp:BoundField>
             <asp:BoundField DataField="kucunshuliang" HeaderText="库存数量"></asp:BoundField>
-            <asp:BoundField DataField="chengbenjine" HeaderText="成本金额"></asp:BoundField>
-            <asp:BoundField DataField="shoujiajine" HeaderText="售价金额"></asp:BoundField>
+            <asp:BoundField DataField="jine" HeaderText="金额"></asp:BoundField>
             <asp:BoundField DataField="shangbaoshijian" HeaderText="上报时间"></asp:BoundField>      
             <asp:ButtonField CommandName="MX" Text="查看" ButtonType="Button" HeaderText="明细" />
         </Columns>
@@ -56,7 +54,7 @@
             <asp:BoundField DataField="yanse" HeaderText="颜色"></asp:BoundField>
             <asp:BoundField DataField="chima" HeaderText="尺码"></asp:BoundField>
             <asp:BoundField DataField="jinjia" HeaderText="进价"></asp:BoundField>
-            <asp:BoundField DataField="shoujia" HeaderText="售价"></asp:BoundField>
+            <asp:BoundField DataField="diaopaijia" HeaderText="吊牌价"></asp:BoundField>
             <asp:BoundField DataField="shuliang" HeaderText="数量"></asp:BoundField>
             <asp:BoundField DataField="jinhuoriqi" HeaderText="进货日期"></asp:BoundField>
         </Columns>

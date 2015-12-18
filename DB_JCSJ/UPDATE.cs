@@ -292,6 +292,7 @@ namespace DB_JCSJ
                 oj.jchjilushu = j.jchjilushu;
                 oj.kcjilushu = j.kcjilushu;
                 oj.xiugaishijian = j.xiugaishijian;
+                oj.kcjilushu = j.kcjilushu;
 
                 _db.SaveChanges();
             }
@@ -315,6 +316,9 @@ namespace DB_JCSJ
                 oj.cangkushu = p.cangkushu;
                 oj.jmsshu = p.jmsshu;
                 oj.gysshu = p.gysshu;
+                oj.jchjilushu = p.jchjilushu;
+                oj.kcjilushu = p.kcjilushu;
+
                 oj.xiugaishijian = p.xiugaishijian;
 
                 _db.SaveChanges();

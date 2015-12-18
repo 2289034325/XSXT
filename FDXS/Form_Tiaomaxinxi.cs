@@ -42,7 +42,7 @@ namespace FDXS
         private void btn_xzzxtm_Click(object sender, EventArgs e)
         {
             //new Tool.ActionMessageTool(btn_xzzxtm_Click_sync, false).Start();    
-            CommonMethod.DownLoadTiaomaInfo(dp_start.Value, dp_end.Value, false);
+            //CommonMethod.DownLoadTiaomaInfo(dp_start.Value, dp_end.Value, false);
         }
 
         //private void btn_xzzxtm_Click_sync(Tool.ActionMessageTool.ShowMsg ShowMsg)
@@ -90,8 +90,8 @@ namespace FDXS
             cmb_lx.SelectedIndex = 0;
 
             //日期
-            dp_start.Value = DateTime.Now.AddDays(-15);
-            dp_end.Value = DateTime.Now;
+            //dp_start.Value = DateTime.Now.AddDays(-15);
+            //dp_end.Value = DateTime.Now;
         }
 
         /// <summary>
@@ -122,6 +122,7 @@ namespace FDXS
                     t.pinming,
                     t.yanse,
                     t.chima,
+                    t.jinjia,
                     t.shoujia,
                     t.xiugaishijian
                 });

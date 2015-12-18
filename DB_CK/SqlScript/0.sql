@@ -1,6 +1,4 @@
-﻿USE [CK]
-GO
-/****** Object:  Table [dbo].[TVersion]    Script Date: 10/07/2015 14:37:51 ******/
+﻿/****** Object:  Table [dbo].[TVersion]    Script Date: 10/07/2015 14:37:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -84,9 +82,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[TChuruku](
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[picima] [varchar](8) NULL,
 	[fangxiang] [tinyint] NOT NULL,
 	[laiyuanquxiang] [tinyint] NOT NULL,
+	[zhekou] [decimal](4, 2) NULL,
+	[jmsid] [int] NULL,
 	[beizhu] [nvarchar](50) NOT NULL,
+	[queding] [bit] NOT NULL,
 	[caozuorenid] [int] NOT NULL,
 	[charushijian] [datetime] NOT NULL,
 	[xiugaishijian] [datetime] NOT NULL,
@@ -125,6 +127,7 @@ CREATE TABLE [dbo].[TChurukuMX](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[churukuid] [int] NOT NULL,
 	[tiaomaid] [int] NOT NULL,
+	[danjia] [decimal](6, 2) NOT NULL,
 	[shuliang] [smallint] NOT NULL,
  CONSTRAINT [PK_TChurukuMX] PRIMARY KEY CLUSTERED 
 (
@@ -137,6 +140,32 @@ CREATE TABLE [dbo].[TChurukuMX](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+/****** Object:  Table [dbo].[TJiamengshang]    Script Date: 12/14/2015 14:58:39 ******/
+CREATE TABLE [dbo].[TJiamengshang](
+	[id] [int] NOT NULL,
+	[mingcheng] [nvarchar](20) NOT NULL,
+	[daima] [smallint] NOT NULL,
+	[dizhi] [nvarchar](50) NOT NULL,
+	[lianxiren] [nvarchar](5) NOT NULL,
+	[dianhua] [varchar](30) NOT NULL,
+	[zhuangtai] [bit] NOT NULL,
+ CONSTRAINT [PK_TJiamengshang] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IX_TJiamengshang] UNIQUE NONCLUSTERED 
+(
+	[mingcheng] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IX_TJiamengshang_1] UNIQUE NONCLUSTERED 
+(
+	[daima] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
 /****** Object:  View [dbo].[VKucun]    Script Date: 10/07/2015 14:37:52 ******/
 SET ANSI_NULLS ON
 GO
@@ -205,4 +234,10 @@ ALTER TABLE [dbo].[TKucunXZ]  WITH CHECK ADD  CONSTRAINT [FK_TKucunXZ_TUser] FOR
 REFERENCES [dbo].[TUser] ([id])
 GO
 ALTER TABLE [dbo].[TKucunXZ] CHECK CONSTRAINT [FK_TKucunXZ_TUser]
+GO
+/****** Object:  ForeignKey [FK_TChuruku_TJiamengshang]    Script Date: 10/07/2015 14:37:51 ******/
+ALTER TABLE [dbo].[TChuruku] WITH NOCHECK
+    ADD CONSTRAINT [FK_TChuruku_TJiamengshang] FOREIGN KEY ([jmsid]) REFERENCES [dbo].[TJiamengshang] ([id]);
+GO
+ALTER TABLE [dbo].[TChuruku] CHECK CONSTRAINT [FK_TChuruku_TJiamengshang]
 GO

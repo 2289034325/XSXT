@@ -35,8 +35,8 @@
                 <label>登录名</label><input type="text" id="txb_dlm" runat="server" /><br />
                 <label>密码</label><input type="password" style="float:right;" id="txb_mm" runat="server" /><br /><br />
                 <input runat="server" type="checkbox" id="chk_auto" /><label class="lbl_autologin">自动登陆</label>
-                <input type="button" value="登陆" onclick="login()" style="float:right;" /><br />
-                <a style="float:right;" href="Zhuce.aspx">注册</a>
+                <input type="button" value="登陆" onclick="login()" style="float:right;" /><br /><br />
+                <a style="float:right;" href="Zhuce.aspx">注册</a>           
             </div>
         </div>
     </form>

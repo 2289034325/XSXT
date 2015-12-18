@@ -16,7 +16,7 @@
                         {
                             autoOpen: false,
                             resizable: false,
-                            height:615,
+                            height:450,
                             width:400,
                             modal: true
                         });                
@@ -25,15 +25,15 @@
             });
 
         //编辑
-        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,pps,zhs,hys,fds,cks,xsjls,jchjls,kcjls) {
+        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,pps,zhs,hys,fds,xsjls,jchjls,kcjls) {
             $("#hid_id").val(id);
             $("#txb_mc").val(mc);
             $("#txb_sjh").val(sjh);
             $("#txb_yx").val(yx);
             $("#cmb_xzdq").val(dq);
+            $("#txb_dz").val(dz);
             $("#txb_lxr").val(lxr);
             $("#txb_dh").val(dh);
-            $("#txb_dz").val(dz);
             $("#txb_bz").val(bz);   
             
             $("#txb_pps").val(pps);
@@ -90,12 +90,7 @@
                     <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField ShowHeader="False">
-                <ItemTemplate>
-                    <asp:Button ID="btn_delete" runat="server" OnClientClick="return confirm('确定删除吗?')" Text="刪除" CommandName="SC" />
-                </ItemTemplate>
-            </asp:TemplateField>
-
+            <asp:ButtonField CommandName="SC" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
         </Columns>
     </asp:GridView>
     <asp:HiddenField runat="server" ID="hid_id" ClientIDMode="Static" />

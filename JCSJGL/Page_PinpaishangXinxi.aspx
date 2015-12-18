@@ -16,7 +16,7 @@
                         {
                             autoOpen: false,
                             resizable: false,
-                            height:615,
+                            height:460,
                             width:400,
                             modal: true
                         });                
@@ -25,7 +25,7 @@
             });
 
         //编辑
-        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,jmss,zhs,khs,tms,cks,gyss) {
+        function EditInfo(id,mc,sjh,yx,dq,dz,lxr,dh,bz,jmss,zhs,khs,tms,cks,gyss,jchjls,kcjls) {
             $("#hid_id").val(id);
             $("#txb_mc").val(mc);
             $("#txb_sjh").val(sjh);
@@ -42,6 +42,8 @@
             $("#txb_tms").val(tms);
             $("#txb_cks").val(cks);
             $("#txb_gyss").val(gyss);
+            $("#txb_jchjls").val(jchjls);
+            $("#txb_kcjls").val(kcjls);
 
             if(IsPC())
             {            
@@ -75,33 +77,22 @@
             <asp:BoundField DataField="lianxiren" HeaderText="联系人"></asp:BoundField>
             <asp:BoundField DataField="dianhua" HeaderText="电话"></asp:BoundField>
             <asp:BoundField DataField="beizhu" HeaderText="备注"></asp:BoundField>
-            <asp:BoundField DataField="fjmsshu" HeaderText="父加盟商数"></asp:BoundField>
-            <asp:BoundField DataField="zjmsshu" HeaderText="子加盟商数"></asp:BoundField>
+            <asp:BoundField DataField="jmsshu" HeaderText="加盟商数"></asp:BoundField>
             <asp:BoundField DataField="zhanghaoshu" HeaderText="账号数"></asp:BoundField>
             <asp:BoundField DataField="kuanhaoshu" HeaderText="款号数"></asp:BoundField>
             <asp:BoundField DataField="tiaomashu" HeaderText="条码数"></asp:BoundField>
-            <asp:BoundField DataField="huiyuanshu" HeaderText="会员数"></asp:BoundField>
-            <asp:BoundField DataField="fendianshu" HeaderText="分店数"></asp:BoundField>
             <asp:BoundField DataField="cangkushu" HeaderText="仓库数"></asp:BoundField>
-            <asp:BoundField DataField="gongyingshangshu" HeaderText="供应商数"></asp:BoundField>
-            <asp:BoundField DataField="xsjilushu" HeaderText="销售记录数"></asp:BoundField>
+            <asp:BoundField DataField="gysshu" HeaderText="供应商数"></asp:BoundField>
             <asp:BoundField DataField="jchjilushu" HeaderText="进出货记录数"></asp:BoundField>
             <asp:BoundField DataField="kcjilushu" HeaderText="库存记录数"></asp:BoundField>
-            <asp:BoundField DataField="shoucifufei" HeaderText="首付收费"></asp:BoundField>
-            <asp:BoundField DataField="xufeidanjia" HeaderText="续费单价"></asp:BoundField>
-            <asp:BoundField DataField="jiezhiriqi" HeaderText="截止日期"></asp:BoundField>
             <asp:BoundField DataField="charushijian" HeaderText="插入时间"></asp:BoundField>
             <asp:BoundField DataField="xiugaishijian" HeaderText="修改时间"></asp:BoundField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <input type="button" onclick="EditInfo(<%# Eval("editParams")%>)" value="修改"></input>
                 </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField ShowHeader="False">
-                <ItemTemplate>
-                    <asp:Button ID="btn_delete" runat="server" OnClientClick="return confirm('确定删除吗?')" Text="刪除" CommandName="SC" />
-                </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>            
+            <asp:ButtonField CommandName="SC" Text="删除" ButtonType="Button" ShowHeader="false" ItemStyle-CssClass="delete" />
 
         </Columns>
     </asp:GridView>
@@ -144,10 +135,16 @@
             <label>条码数</label><asp:TextBox CssClass="short" runat="server" ID="txb_tms" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
+            <label>供应商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_gyss" ClientIDMode="Static"></asp:TextBox>
+        </div>
+        <div>
             <label>仓库数</label><asp:TextBox CssClass="short" runat="server" ID="txb_cks" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
-            <label>供应商数</label><asp:TextBox CssClass="short" runat="server" ID="txb_gyss" ClientIDMode="Static"></asp:TextBox>
+            <label>进出货记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_jchjls" ClientIDMode="Static"></asp:TextBox>
+        </div>
+        <div>
+            <label>库存记录数</label><asp:TextBox CssClass="short" runat="server" ID="txb_kcjls" ClientIDMode="Static"></asp:TextBox>
         </div>
         <div>
             <div class="twoButtonInline left">

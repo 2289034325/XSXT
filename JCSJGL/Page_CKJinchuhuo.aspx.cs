@@ -55,6 +55,8 @@ namespace JCSJGL
                     TJiamengshang[] jmses = db.GetZiJiamengshangs(_LoginUser.ppsid.Value);
                     Tool.CommonFunc.InitDropDownList(cmb_jms, jmses, "mingcheng", "id");
                     cmb_jms.Items.Insert(0, new ListItem("所有加盟商", ""));
+
+                    grid_jinchu.Columns[0].Visible = false;
                 }
 
                 //来源去向
@@ -148,6 +150,9 @@ namespace JCSJGL
             grid_jinchu.VirtualItemCount = recordCount;
             grid_jinchu.DataSource = Tool.CommonFunc.LINQToDataTable(xs);
             grid_jinchu.DataBind();
+
+            grid_mx.DataSource = null;
+            grid_mx.DataBind();
         }
 
         /// <summary>

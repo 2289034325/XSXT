@@ -37,12 +37,12 @@
         AllowPaging="true" PageSize="5" OnPageIndexChanging="grid_jinchu_PageIndexChanging" OnRowCommand="grid_jinchu_RowCommand">
         <Columns>
             <asp:BoundField DataField="pinpaishang" HeaderText="品牌商"></asp:BoundField>
-            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="id" HeaderText="ID" Visible="false"></asp:BoundField>
             <asp:BoundField DataField="cangku" HeaderText="仓库"></asp:BoundField>
             <asp:BoundField DataField="picima" HeaderText="批次码"></asp:BoundField>
             <asp:BoundField DataField="fangxiang" HeaderText="方向"></asp:BoundField>
             <asp:BoundField DataField="lyqx" HeaderText="来源去向"></asp:BoundField>
+            <asp:BoundField DataField="jiamengshang" HeaderText="加盟商"></asp:BoundField>
             <asp:BoundField DataField="jianshu" HeaderText="件数"></asp:BoundField>
             <asp:BoundField DataField="zhekou" HeaderText="折扣"></asp:BoundField>
             <asp:BoundField DataField="zhongjia" HeaderText="总价"></asp:BoundField>

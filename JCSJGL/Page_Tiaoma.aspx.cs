@@ -34,8 +34,8 @@ namespace JCSJGL
                     //显示搜索
                     div_sch_pps.Visible = true;
 
-                    TJiamengshang[] jmss = db.GetJiamengshangs();
-                    Tool.CommonFunc.InitDropDownList(cmb_pps, jmss, "mingcheng", "id");
+                    TPinpaishang[] ppses = db.GetPinpaishangs(null);
+                    Tool.CommonFunc.InitDropDownList(cmb_pps, ppses, "mingcheng", "id");
                     cmb_pps.Items.Insert(0, new ListItem("所有品牌商", ""));
                 }
                 else
@@ -259,7 +259,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             TTiaoma ok = db.GetTiaomaById(id);
-            if (ok.ppsid != _LoginUser.ppsid.Value && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
+            if (ok.ppsid != _LoginUser.ppsid && _LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员)
             {
                 throw new MyException("非法操作，无法删除该条码", null);
             }

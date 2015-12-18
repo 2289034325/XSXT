@@ -59,7 +59,8 @@ namespace DB_CK
         /// <returns></returns>
         public TChuruku[] GetChurukus(int? jmsid, DateTime? fsrq_start, DateTime? fsrq_end)
         {
-            var cs = _db.TChurukus.Include(r => r.TChurukuMXes).Include(r => r.TChurukuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser);
+            var cs = _db.TChurukus.Include(r => r.TChurukuMXes).Include(r=>r.TJiamengshang).
+                Include(r => r.TChurukuMXes.Select(xr => xr.TTiaoma)).Include(r => r.TUser);
             if (jmsid != null)
             {
                 cs = cs.Where(r => r.jmsid == jmsid);

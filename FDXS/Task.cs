@@ -157,11 +157,14 @@ namespace FDXS
             DBContext db = IDB.GetDB();
             //取不为0的库存
             VKucun[] ks = db.GetKucunsByCond(1, null);
+            int[] ids = ks.Select(r=>r.id).ToArray();
+            TTiaoma[] tms = db.GetTiaomasByIds(ids);
 
             //做服务接口参数
             JCSJData.TFendianKucunMX[] fks = ks.Select(r => new JCSJData.TFendianKucunMX
             {
                 tiaomaid = r.id,
+                danjia = tms.Single(tr=>tr.id == r.id).jinjia,
                 shuliang = r.shuliang,
                 jinhuoriqi = r.jinhuoriqi
             }).ToArray();

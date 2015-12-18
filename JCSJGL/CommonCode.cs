@@ -86,6 +86,14 @@ namespace JCSJGL
                     throw new MyException("没有权限",null);
                 }
             }
+            else if (Page == PageName.品牌商信息)
+            {
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理))
+                {
+                    throw new MyException("没有权限", null);
+                }
+            }
             else if (Page == PageName.子加盟商)
             {
                 if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
@@ -275,67 +283,34 @@ namespace JCSJGL
         {
             if (Page == PageName.加盟商信息)
             {
-                if (OPT == PageOpt.增加)
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
+                    throw new MyException("没有权限", null);
                 }
-                else if (OPT == PageOpt.修改)
+            }
+            else if (Page == PageName.品牌商信息)
+            {
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
-                }
-                else if (OPT == PageOpt.删除)
-                {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
-
+                    throw new MyException("没有权限", null);
                 }
             }
             else if (Page == PageName.用户管理)
             {
-                if (OPT == PageOpt.增加)
+                if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                    LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
+                    LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
+                    throw new MyException("没有权限", null);
                 }
-                else if (OPT == PageOpt.修改)
-                {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
-                }
-                else if (OPT == PageOpt.删除)
-                {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
-                    {
-                        throw new MyException("没有权限",null);
-                    }
-
-                }
-            } 
+            }
             else if (Page == PageName.分店信息)
             {
                 if (OPT == PageOpt.增加)
                 {
                     if (LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员)
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.修改)
@@ -343,7 +318,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -351,7 +326,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -362,7 +337,7 @@ namespace JCSJGL
                 {
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.修改)
@@ -370,7 +345,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -378,7 +353,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -387,10 +362,9 @@ namespace JCSJGL
             {
                 if (OPT == PageOpt.增加)
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
+                    if (LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员)
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.修改)
@@ -398,7 +372,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -406,7 +380,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -415,10 +389,9 @@ namespace JCSJGL
             {
                 if (OPT == PageOpt.增加)
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
+                    if (LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码)
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.修改)
@@ -426,7 +399,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -434,7 +407,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -443,10 +416,9 @@ namespace JCSJGL
             {
                 if (OPT == PageOpt.增加)
                 {
-                    if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-                        LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
+                    if (LoginUser.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码)
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.修改)
@@ -454,7 +426,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -462,7 +434,7 @@ namespace JCSJGL
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -472,14 +444,14 @@ namespace JCSJGL
                 if (OPT == PageOpt.增加)
                 {
                     //会员信息只能在分店注册
-                    throw new MyException("没有权限",null);
+                    throw new MyException("没有权限", null);
                 }
                 else if (OPT == PageOpt.修改)
                 {
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
                 else if (OPT == PageOpt.删除)
@@ -487,7 +459,7 @@ namespace JCSJGL
                     //删除会员会导致分店数据库的会员信息变为垃圾数据
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -496,18 +468,18 @@ namespace JCSJGL
             {
                 if (OPT == PageOpt.增加)
                 {
-                    throw new MyException("没有权限",null);
+                    throw new MyException("没有权限", null);
                 }
                 else if (OPT == PageOpt.修改)
                 {
-                        throw new MyException("没有权限",null);
+                    throw new MyException("没有权限", null);
                 }
                 else if (OPT == PageOpt.删除)
                 {
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
 
                 }
@@ -516,18 +488,18 @@ namespace JCSJGL
             {
                 if (OPT == PageOpt.增加)
                 {
-                    throw new MyException("没有权限",null);
+                    throw new MyException("没有权限", null);
                 }
                 else if (OPT == PageOpt.修改)
                 {
-                    throw new MyException("没有权限",null);
+                    throw new MyException("没有权限", null);
                 }
                 else if (OPT == PageOpt.删除)
                 {
                     if (!(LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
                         LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员))
                     {
-                        throw new MyException("没有权限",null);
+                        throw new MyException("没有权限", null);
                     }
                 }
             }

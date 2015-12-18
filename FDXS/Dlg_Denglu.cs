@@ -31,22 +31,8 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            //检查数据库版本
-            try
-            {
-                DBContext db = IDB.GetDB();
-                db.InitializeDatabase(RuntimeInfo.DbVersion);
-            }
-            catch (Exception ex)
-            {
-                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                MessageBox.Show("数据库初始化失败");
-                //Application.Exit();
-                return;
-            }
-
             string dlm = txb_dlm.Text.Trim();
-            string mm = txb_mm.Text;
+            string mm = txb_mm.Text;           
 
             if (string.IsNullOrEmpty(dlm))
             {
@@ -64,6 +50,10 @@ namespace FDXS
         /// <param name="e"></param>
         private void Dlg_Denglu_Load(object sender, EventArgs e)
         {
+            //默认自动登录
+            chk_auto.Checked = true;
+
+            //从配置文件读取上次登录的账号密码
             string dlm = Settings.Default.AutoLoginDlm;
             string mm = Settings.Default.AutoLoginMm;
 
@@ -81,7 +71,19 @@ namespace FDXS
         /// <param name="mm"></param>
         private void login(string dlm, string mm)
         {
+            //检查数据库版本
             DBContext db = IDB.GetDB();
+            try
+            {
+                db.InitializeDatabase(RuntimeInfo.DbVersion);
+            }
+            catch (Exception ex)
+            {
+                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+                MessageBox.Show("数据库初始化失败");
+                //Application.Exit();
+                return;
+            }
 
             TUser User = db.GetUser(dlm, mm);
             if (User != null)
@@ -98,8 +100,13 @@ namespace FDXS
                     {
                         Settings.Default.AutoLoginDlm = dlm;
                         Settings.Default.AutoLoginMm = mm;
-                        Settings.Default.Save();
                     }
+                    else
+                    {
+                        Settings.Default.AutoLoginDlm = "";
+                        Settings.Default.AutoLoginMm = "";
+                    }
+                    Settings.Default.Save();
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 }
             }

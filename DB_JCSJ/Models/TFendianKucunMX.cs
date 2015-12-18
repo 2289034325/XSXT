@@ -14,6 +14,8 @@ namespace DB_JCSJ.Models
 
         public int tiaomaid { get; set; }
 
+        public decimal danjia { get; set; }
+
         public short shuliang { get; set; }
 
         public Nullable<System.DateTime> jinhuoriqi { get; set; }

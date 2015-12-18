@@ -3,12 +3,38 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_head" runat="server">
     <title>子加盟商</title>
     <script type="text/javascript">
+        $(document).ready(
+          function () {
+              if(IsPC())
+              {
+                  var udl = $( "#div_edit" ).dialog(
+                      {
+                          autoOpen: false,
+                          resizable: false,
+                          height:220,
+                          width:400,
+                          modal: true
+                      });                
+                  udl.parent().appendTo(jQuery("form:first"));          
+              }
+          });
+
         function EditInfo(id,bzmc,bz) {
             $("#hid_id").val(id);
             $("#txb_bzmc").val(bzmc);
             $("#txb_bz").val(bz);
             
-            ShowEditDialog("div_edit",false);
+            if(IsPC())
+            {            
+                $(".btnAdd").css("display","none");
+                $(".btnEdit").css("display","");
+                $( "#div_edit" ).dialog( "option", "title", "修改" );
+                $( "#div_edit" ).dialog().dialog( "open" );
+            }
+            else
+            {                
+                ShowEditDialog("div_edit",false);
+            }
         }
     </script>
 </asp:Content>

@@ -41,6 +41,7 @@ namespace JCSJGL
             var dfs = js.Select(r => new
             {
                 r.id,
+                r.daima,
                 r.mingcheng,
                 shoujihao = r.zhuceshouji,
                 youxiang = r.zhuceyouxiang,

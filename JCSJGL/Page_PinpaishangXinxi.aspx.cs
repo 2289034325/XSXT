@@ -51,19 +51,20 @@ namespace JCSJGL
                 r.dianhua,
                 r.beizhu,
 
-
                 r.jmsshu,
                 r.zhanghaoshu,
                 r.kuanhaoshu,
                 r.tiaomashu,
                 r.cangkushu,
                 r.gysshu,
+                r.jchjilushu,
+                r.kcjilushu,
                 r.charushijian,
                 r.xiugaishijian,
                 editParams = 
                             r.id+",'"+r.mingcheng+"','"+r.shoujihao+"','"+r.youxiang+"',"+r.diquid+",'"+r.dizhi+"','"+r.lianxiren+"','"+r.dianhua+"','"+ r.beizhu+
-                            "',"+r.jmsshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+","+ 
-                            ","+r.cangkushu+","+r.gysshu
+                            "',"+r.jmsshu+","+ r.zhanghaoshu+","+r.kuanhaoshu+","+ r.tiaomashu+
+                            "," + r.cangkushu + "," + r.gysshu + "," + r.jchjilushu + "," + r.kcjilushu
             });
 
             grid_jiamengshang.DataSource = Tool.CommonFunc.LINQToDataTable(dfs);
@@ -119,6 +120,8 @@ namespace JCSJGL
             int tms = int.Parse(txb_tms.Text.Trim());
             byte cks = byte.Parse(txb_cks.Text.Trim());
             short gyss = short.Parse(txb_gyss.Text.Trim());
+            int jchjls = int.Parse(txb_jchjls.Text.Trim());
+            int kcjls = int.Parse(txb_kcjls.Text.Trim());
 
             TPinpaishang j = new TPinpaishang
             {
@@ -137,11 +140,13 @@ namespace JCSJGL
 
 
                 jmsshu = jmss,
-                 zhanghaoshu = zhs,
-                 kuanhaoshu = khs,
-                 tiaomashu = tms,
-                 cangkushu = cks,
-                 gysshu = gyss
+                zhanghaoshu = zhs,
+                kuanhaoshu = khs,
+                tiaomashu = tms,
+                cangkushu = cks,
+                gysshu = gyss,
+                jchjilushu = jchjls,
+                kcjilushu = kcjls
             };
 
             return j;

@@ -254,8 +254,8 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int? ppsid = getPpsid();
-            int[] fdids = getFdids();
-            Dictionary<int, string> bzmcs = getBeizhuMcs();
+            int[] fdids = db.GetFendiansAsItems(jmsid).Select(r=>r.id).ToArray();
+            //Dictionary<int, string> bzmcs = getBeizhuMcs();
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(ppsid, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
             if (e.CommandName == "FENDIAN")
@@ -310,7 +310,8 @@ namespace JCSJGL
                 var data = xss.GroupBy(r => new
                 {
                     jmsid = r.TFendian.jmsid,
-                    jms = bzmcs[r.TFendian.jmsid],
+                    //jms = bzmcs[r.TFendian.jmsid],
+                    jms = r.TFendian.TJiamengshang.mingcheng,
                     rq = r.xiaoshoushijian.ToString("yyyy-MM-dd")
                 }).Select(r => new
                 {
@@ -358,7 +359,7 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int? ppsid = getPpsid();
-            int[] fdids = new int[] { };
+            int[] fdids = db.GetFendiansAsItems(jmsid).Select(r=>r.id).ToArray();
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(ppsid, fdids, "", "", rq_start, rq_end, null, null, null, null, out recordCount);
             if (e.CommandName == "FENDIAN")

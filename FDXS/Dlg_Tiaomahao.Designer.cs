@@ -119,7 +119,7 @@ namespace FDXS
 
         private MyButton btn_ok;
         private MyButton btn_cancel;
-        private MyTextBox txb_tmhs;
         private MyLabel myLabel1;
+        public MyTextBox txb_tmhs;
     }
 }

@@ -289,7 +289,17 @@ namespace Tool
             moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
-                cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
+                if (mo.Properties["ProcessorId"] != null)
+                {
+                    if (mo.Properties["ProcessorId"].Value != null)
+                    {
+                        cpuInfo = mo.Properties["ProcessorId"].Value.ToString();
+                        if (!string.IsNullOrEmpty(cpuInfo))
+                        {
+                            break;
+                        }
+                    }
+                }
             }
             jqm += cpuInfo;
 
@@ -299,8 +309,17 @@ namespace Tool
             string dskInfo = "";
             foreach( ManagementObject mo in moc )     
             {
-                dskInfo = mo.Properties["SerialNumber"].Value.ToString();    
-                break;
+                if (mo.Properties["SerialNumber"] != null)
+                {
+                    if (mo.Properties["SerialNumber"].Value != null)
+                    {
+                        dskInfo = mo.Properties["SerialNumber"].Value.ToString();
+                        if (!string.IsNullOrEmpty(dskInfo))
+                        {
+                            break;
+                        }
+                    }
+                }
             }
             jqm += dskInfo;
 
@@ -310,11 +329,24 @@ namespace Tool
             string mbdInfo = null;
             foreach( ManagementObject mo in moc )    
             {
-                mbdInfo = mo.Properties["SerialNumber"].Value.ToString();   
-                break;
+                if (mo.Properties["SerialNumber"] != null)
+                {
+                    if (mo.Properties["SerialNumber"].Value != null)
+                    {
+                        mbdInfo = mo.Properties["SerialNumber"].Value.ToString();   
+                        if (!string.IsNullOrEmpty(dskInfo))
+                        {
+                            break;
+                        }
+                    }
+                }
             }
             jqm += mbdInfo;
 
+            if (string.IsNullOrEmpty(jqm))
+            {
+                throw new MyException("电脑硬件信息无法识别，无法使用该程序", null);
+            }
 
             return jqm;
         }

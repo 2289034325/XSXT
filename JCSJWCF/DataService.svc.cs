@@ -264,7 +264,7 @@ namespace JCSJWCF
         public TKuanhao[] GetKuanhaosByCond(int pageSize, int pageIndex, out int recordCount)
         {
             DBContext db = new DBContext();
-            TKuanhao[] ks = db.GetKuanhaosByCond(_jmsid, null, null, null, pageSize, pageIndex, out recordCount);
+            TKuanhao[] ks = db.GetKuanhaosByCond(_ppsid, null, null, null, pageSize, pageIndex, out recordCount);
             //去除循环引用
             foreach (TKuanhao k in ks)
             {
@@ -292,7 +292,7 @@ namespace JCSJWCF
                 throw new MyException(errMsg, null);
             }
 
-            int cc = db.GetKuanhaoCount(_jmsid);
+            int cc = db.GetKuanhaoCount(_ppsid);
             if (cc >= _LoginUser.TPinpaishang.kuanhaoshu)
             {
                 throw new MyException("拥有的款号数已到上限，如要增加更多款号请联系系统管理员", null);
@@ -384,35 +384,7 @@ namespace JCSJWCF
 
             return ks;
         }
-
-        /// <summary>
-        /// 检查是否有重复的款号
-        /// </summary>
-        /// <param name="khs"></param>
-        /// <returns></returns>
-        public string[] CheckKuanhaosChongfu(string[] khs)
-        {
-            DBContext db = new DBContext();
-            return db.GetKuanhaoExistByMcWithPpsId(_ppsid, khs);
-        }
-
-        /// <summary>
-        /// 检查条码是否有重复
-        /// </summary>
-        /// <param name="tms"></param>
-        /// <returns></returns>
-        public string[] CheckTiaomaChongfu(string[] tms)
-        {
-            DBContext db = new DBContext();
-            TTiaoma[] etms = db.GetTiaomasByTiaomahaosWithPpsId(tms, _ppsid);
-            foreach (TTiaoma tm in etms)
-            {
-                tm.TGongyingshang.TTiaomas.Clear();
-            }
-
-            return etms.Select(r=>r.tiaoma).ToArray();
-        }
-
+        
         /// <summary>
         /// 保存一组款号
         /// </summary>
@@ -465,7 +437,7 @@ namespace JCSJWCF
             int[] khids = ts.Select(r => r.kuanhaoid).ToArray();
             
             DBContext db = new DBContext();
-            //检查确保，不能保存成别的加盟商的条码
+            //检查条码的品牌商id和款号的品牌商id是否一致
             int[] ppsids = db.GetPinpaishangIdsByKhIds(khids);
             if (ppsids.Any(r => r != _ppsid))
             {
@@ -491,7 +463,7 @@ namespace JCSJWCF
             TTiaoma ot = db.GetTiaomaById(t.id);
             if (ot.ppsid != _ppsid)
             {
-                throw new MyException("非法操作，无法修改该条码信息", null);
+                throw new MyException("该条码属于其他品牌商，您无权修改该条码信息", null);
             }
             else
             {
@@ -514,10 +486,44 @@ namespace JCSJWCF
             }
 
             DBContext db = new DBContext();
-            TTiaoma[] ts = db.GetTiaomasByTiaomahaosWithPpsId(tmhs, _ppsid);
+            TTiaoma[] ts = db.GetTiaomasByTiaomahaos(tmhs);
             //去除循环引用
             foreach (TTiaoma t in ts)
             {
+                t.TKuanhao.TTiaomas.Clear();
+                t.TGongyingshang.TTiaomas.Clear();
+            }
+
+            return ts;
+        }
+        public TTiaoma[] GetTiaomasByTiaomahaos_FD(string[] tmhs)
+        {
+            int dataLimit = int.Parse(ConfigurationManager.AppSettings["Get_Data_Limit"]);
+            if (tmhs.Count() > dataLimit)
+            {
+                throw new MyException("数据太多，请减少请求的条码数量", null);
+            }
+
+            DBContext db = new DBContext();
+            TTiaoma[] ts = db.GetTiaomasByTiaomahaosWithDanjia(tmhs);
+
+            //某个品牌商可将统一个条码的衣服发货给多个加盟商，也可能向某一个加盟商发货同一个条码的衣服多次
+            //因此这里得到的进货价信息可能会重复，这里要将重复的信息去掉
+            foreach (TTiaoma t in ts)
+            {
+                //首选价格为，发货到自己加盟商的记录的价格，其次，如果没有发货到自己加盟商的记录，则就采用条码信息中原本的进价
+                var myFh = t.TCangkuJinchuhuoMXes.Where(r => r.TCangkuJinchuhuo.jmsid == _jmsid).
+                    OrderBy(r=>r.TCangkuJinchuhuo.fashengshijian).LastOrDefault();
+                if (myFh != null)
+                {
+                    t.jinjia = myFh.danjia;
+                }
+            }
+
+            //去除循环引用
+            foreach (TTiaoma t in ts)
+            {
+                t.TCangkuJinchuhuoMXes.Clear();
                 t.TKuanhao.TTiaomas.Clear();
                 t.TGongyingshang.TTiaomas.Clear();
             }
@@ -601,7 +607,7 @@ namespace JCSJWCF
             //检查是否可以修改
             DBContext db = new DBContext();
             THuiyuan oh = db.GetHuiyuanById(h.id);
-            if (oh.TFendian.jmsid != _jmsid)
+            if (oh.jmsid != _jmsid)
             {
                 throw new MyException("非法操作，无法修改该会员信息", null);
             }
@@ -695,7 +701,7 @@ namespace JCSJWCF
         public void ShangbaoKucun_CK(TCangkuKucunMX[] cks)
         {
             DBContext db = new DBContext();
-            int cc = db.GetCKKucunCount(_jmsid);
+            int cc = db.GetCKKucunCount(_ppsid);
             if (cc + cks.Count() > _LoginCangku.TPinpaishang.kcjilushu)
             {
                 throw new MyException("上传的库存记录数已到上限，如要上传更多库存记录请联系系统管理员", null);
@@ -831,10 +837,10 @@ namespace JCSJWCF
             }
             return jchs;
         }
-        public TCangkuJinchuhuo XiazaiJinhuoShuju(string pcm)
+        public TCangkuJinchuhuo XiazaiJinhuoShujuByPcm(string pcm)
         {
             DBContext db = new DBContext();
-            TCangkuJinchuhuo jch = db.GetCKJinchuhuoByPcm(pcm);
+            TCangkuJinchuhuo jch = db.GetCKJinchuhuoByPcmWithInfo(pcm);
 
             if (jch == null)
             {
@@ -940,7 +946,7 @@ namespace JCSJWCF
             TKuanhao ok = db.GetKuanhaoById(id);
             if (ok.ppsid != _ppsid)
             {
-                throw new MyException("非法操作，不允许修改其他用户的款号", null);
+                throw new MyException("非法操作，不允许修改其它品牌商的款号", null);
             }
             db.UpdateKuanhaoMc(id, kh);
         }
@@ -951,7 +957,7 @@ namespace JCSJWCF
             TTiaoma otm = db.GetTiaomaById(t.id);
             if (otm.ppsid != _ppsid)
             {
-                throw new MyException("非法操作，不允许修改其他用户的条码", null);
+                throw new MyException("该条码属于其他品牌商，您无权修改该条码信息", null);
             }
 
             db.UpdateTiaoma(t);

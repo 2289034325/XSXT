@@ -28,6 +28,8 @@ namespace DB_JCSJ.Models.Mapping
 
             this.Property(t => t.tiaomaid).HasColumnName("tiaomaid");
 
+            this.Property(t => t.danjia).HasColumnName("danjia");
+
             this.Property(t => t.shuliang).HasColumnName("shuliang");
 
             this.Property(t => t.jinhuoriqi).HasColumnName("jinhuoriqi");

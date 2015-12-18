@@ -2012,6 +2012,13 @@ namespace CKGL.BM
             jte.xj = XTCONSTS.TIAOMA_XINJIU.旧;
             jte.tiaoma = jt;
 
+            //如果该条码跟当前用户不是属于同一个品牌商，则不允许使用
+            if (jt.ppsid != RuntimeInfo.LoginUser_BM.ppsid)
+            {
+                MessageBox.Show("该条码属于其他品牌商，您无权对该条码重新定义或者重新使用");
+                return;
+            }
+
             Dlg_ChongfuTiaoma dc = new Dlg_ChongfuTiaoma(jte, te, tke.kuanhao);
             DialogResult dlr = dc.ShowDialog();
             if (dlr == System.Windows.Forms.DialogResult.OK)

@@ -224,6 +224,7 @@ namespace DB_FD
 
             return ks.ToArray();
         }
+        
         /// <summary>
         /// 查询一批条码的库存
         /// </summary>

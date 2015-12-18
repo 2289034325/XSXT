@@ -14,7 +14,6 @@ namespace JCSJGL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Tool.CommonFunc.LogInfo(Session.SessionID+":Login_Page_Load");
             if (IsPostBack)
             {
                 string dlm = txb_dlm.Value.Trim();
@@ -77,7 +76,14 @@ namespace JCSJGL
                     string page = Request["despage"];
                     if (string.IsNullOrEmpty(page))
                     {
-                        page = "Page_Fendian_TongjiBiao.aspx";
+                        if (u.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码)
+                        {
+                            page = "Page_Tiaoma.aspx";
+                        }
+                        else
+                        {
+                            page = "Page_Fendian_TongjiBiao.aspx";
+                        }
                     }
                     //写cookie
                     if (chk_auto.Checked)

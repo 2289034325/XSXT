@@ -182,7 +182,7 @@ namespace JCSJGL
                 chima = r.TTiaoma == null ? "" : r.TTiaoma.chima,
                 r.shuliang,
                 r.jinjia,
-                r.shoujia,
+                diaopaijia = r.shoujia,
                 r.zhekou,
                 r.moling,
                 jiage = r.jine,

@@ -16,14 +16,12 @@ namespace JCSJGL
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            Tool.CommonFunc.LogInfo("Application_Start");
             using (var dbcontext = new DB_JCSJ.Models.JCSJContext())
             {
                 var objectContext = ((IObjectContextAdapter)dbcontext).ObjectContext;
                 var mappingCollection = (StorageMappingItemCollection)objectContext.MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
                 mappingCollection.GenerateViews(new List<EdmSchemaError>());
             }
-            Tool.CommonFunc.LogInfo("Application_Start_end");
         }
 
         protected void Session_Start(object sender, EventArgs e)

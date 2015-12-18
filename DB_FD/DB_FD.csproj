@@ -79,6 +79,9 @@
     <Compile Include="Models\VKucun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCH.cs" />
+    <Content Include="SqlScript\1.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="UPDATE.cs" />
   </ItemGroup>
   <ItemGroup>

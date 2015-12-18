@@ -128,10 +128,11 @@ namespace FDXS
             
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
             t.Interval = 1000;
+            string dmum = Settings.Default.FDMC + ":" + RuntimeInfo.LoginUser.yonghuming;
             t.Tick += new EventHandler((Object o, EventArgs arg) =>
             {
                 //显示日期和登陆人
-                mn_main_info.Text = RuntimeInfo.LoginUser.yonghuming + "\r\n" + DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss");
+                mn_main_info.Text = dmum + "\r\n" + DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss");
             });
             t.Start();
         }

@@ -1,6 +1,4 @@
-﻿USE [FD]
-GO
-/****** Object:  Table [dbo].[TVersion]    Script Date: 10/07/2015 14:33:27 ******/
+﻿/****** Object:  Table [dbo].[TVersion]    Script Date: 10/07/2015 14:33:27 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +137,9 @@ CREATE TABLE [dbo].[TJinchuhuo](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[fangxiang] [tinyint] NOT NULL,
 	[laiyuanquxiang] [tinyint] NOT NULL,
+	[picima] [varchar](8) NULL,
 	[beizhu] [nvarchar](50) NOT NULL,
+	[queding] [bit] NOT NULL,
 	[caozuorenid] [int] NOT NULL,
 	[charushijian] [datetime] NOT NULL,
 	[xiugaishijian] [datetime] NOT NULL,
@@ -226,6 +226,7 @@ CREATE TABLE [dbo].[TJinchuMX](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[jinchuid] [int] NOT NULL,
 	[tiaomaid] [int] NOT NULL,
+	[danjia] [decimal](6, 2) NOT NULL,
 	[shuliang] [smallint] NOT NULL,
  CONSTRAINT [PK_TJinchuMX] PRIMARY KEY CLUSTERED 
 (

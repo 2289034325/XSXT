@@ -72,7 +72,7 @@ namespace FDXS
             TJinchuMX mx = getMx(jcid, tm.id);
             if (mx != null)
             {
-                db.UpdateJinchuhuoMx(mx.id, (short)(mx.shuliang + 1));
+                db.UpdateJinchuhuoMx_sl(mx.id, (short)(mx.shuliang + 1));
 
                 foreach (DataGridViewRow dr in grid_jcmx.Rows)
                 {
@@ -217,7 +217,8 @@ namespace FDXS
                     mx.TTiaoma.yanse,
                     mx.TTiaoma.chima,
                     mx.shuliang,
-                    mx.TTiaoma.jinjia
+                    mx.danjia,
+                    mx.TTiaoma.shoujia
                 });
 
             grid_jcmx.ClearSelection();
@@ -327,6 +328,9 @@ namespace FDXS
                 db.InsertUpdateJinchuMxs(mx_insert,mx_update);
 
                 refreshMx();
+
+                //操作成功后清除输入的条码号
+                _dlgtm.txb_tmhs.Text = "";
             }
         }
 
@@ -367,7 +371,7 @@ namespace FDXS
         {
             if (!checkAllow())
             {
-                MessageBox.Show("该记录已经上报到服务器，不允许再删除");
+                MessageBox.Show("数据已经被确定，不允许再删除");
                 e.Cancel = true;
             }
             else
@@ -494,6 +498,25 @@ namespace FDXS
                     }
                 }
             }
+            else if (e.ColumnIndex == col_mx_jj.Index)
+            {
+                decimal jj;
+                if (!decimal.TryParse(e.FormattedValue.ToString(), out jj))
+                {
+                    MessageBox.Show("只允许输入数字");
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    if (jj <= 0)
+                    {
+                        MessageBox.Show("只允许输入大于0的数字");
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -508,17 +531,26 @@ namespace FDXS
                 return;
             }
 
+            DBContext db = IDB.GetDB();
             if (e.ColumnIndex == col_mx_sl.Index)
             {
                 int mxid = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
                 short sl = short.Parse(grid_jcmx.Rows[e.RowIndex].Cells[col_mx_sl.Name].Value.ToString());
-                DBContext db = IDB.GetDB();
-                //TJinchuMX mx = new TJinchuMX 
-                //{
-                //    id = mxid,
-                //    shuliang = sl                    
-                //};
-                db.UpdateJinchuhuoMx(mxid, sl);
+                db.UpdateJinchuhuoMx_sl(mxid, sl);
+            }
+            else if (e.ColumnIndex == col_mx_jj.Index)
+            {
+                int mxid = (int)grid_jcmx.Rows[e.RowIndex].Cells[col_mx_id.Name].Value;
+                decimal jj = decimal.Parse(grid_jcmx.Rows[e.RowIndex].Cells[col_mx_jj.Name].Value.ToString());
+                db.UpdateJinchuhuoMx_jj(mxid, jj);
+
+                //如果是进货记录的画，更新条码信息的进价                
+                TJinchuMX mx = db.GetJinchuhuoMXById(mxid);
+                TJinchuhuo jc = db.GetJinchuhuoById(mx.jinchuid);
+                if (jc.fangxiang == (byte)Tool.JCSJ.DBCONSTS.JCH_FX.进)
+                {
+                    db.UpdateTiaomaJinjia(mx.tiaomaid, jj);
+                }
             }
         }
 
@@ -605,7 +637,36 @@ namespace FDXS
                 {
                     try
                     {
-                        JCSJData.TCangkuJinchuhuo[] jhs = JCSJWCF.XiazaiJinhuoShuju();
+                        DBContext db = IDB.GetDB();
+                        //检测批次码是否已存在
+                        if (!string.IsNullOrEmpty(pcm))
+                        {
+                            TJinchuhuo ojc = db.GetJinchuhuoByPcm(pcm);
+                            if (ojc != null)
+                            {
+                                ShowMsg("该批次码数据已经存在", true);
+                                return;
+                            }
+                        }
+
+                        JCSJData.TCangkuJinchuhuo[] jhs = new JCSJData.TCangkuJinchuhuo[] { };
+                        if (string.IsNullOrEmpty(pcm))
+                        {
+                            jhs = JCSJWCF.XiazaiJinhuoShuju();
+                        }
+                        else
+                        {
+                            JCSJData.TCangkuJinchuhuo jh = JCSJWCF.XiazaiJinhuoShujuByPcm(pcm);
+                            if (jh != null)
+                            {
+                                jhs = new JCSJData.TCangkuJinchuhuo[] { jh };
+                            }
+                            else
+                            {
+                                ShowMsg("该批次码不存在", true);
+                                return;
+                            }
+                        }
 
                         if (jhs.Length == 0)
                         {
@@ -613,7 +674,6 @@ namespace FDXS
                             return;
                         }
 
-                        DBContext db = IDB.GetDB();
 
                         //保存条码
                         TTiaoma[] tms = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Select(r => new TTiaoma
@@ -634,17 +694,22 @@ namespace FDXS
                         }).ToArray();
                         string[] tmhs = tms.Select(r => r.tiaoma).ToArray();
                         TTiaoma[] otms = db.GetTiaomasByTmhs(tmhs);
-                        TTiaoma[] ntms = tms.Where(r => !otms.Any(or => or.tiaoma == r.tiaoma)).ToArray();
-                        db.UpdateTiaomas(otms);
+                        string[] otmhs = otms.Select(r => r.tiaoma).ToArray();
+
+                        TTiaoma[] utms = tms.Where(r => otmhs.Contains(r.tiaoma)).ToArray();
+                        TTiaoma[] ntms = tms.Where(r => !otmhs.Contains(r.tiaoma)).ToArray();
+                        db.UpdateTiaomas(utms);
                         db.InsertTiaomas(ntms);
 
                         //保存进货信息
+                        List<string> cpcm = new List<string>();
                         foreach (JCSJData.TCangkuJinchuhuo j in jhs)
                         {
                             //如果某批次的进货数据已经存在，则直接跳过，不保存
                             TJinchuhuo ojc = db.GetJinchuhuoByPcm(j.picima);
                             if (ojc != null)
                             {
+                                cpcm.Add(j.picima);
                                 continue;
                             }
 
@@ -670,9 +735,13 @@ namespace FDXS
 
                         //像服务器返回信息表示已经收到数据
                         JCSJWCF.XiazaiJinhuoShujuFinish(jhs.Select(r => r.id).ToArray());
-
-                        int total = jhs.SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
-                        ShowMsg("进货" + total + "件", false);
+                        int total = jhs.Where(r=>!cpcm.Contains(r.picima)).SelectMany(r => r.TCangkuJinchuhuoMXes).Sum(r => r.shuliang);
+                        string cInfo = "";
+                        if (cpcm.Count() != 0)
+                        {
+                            cInfo = "\r\n【" + cpcm.Aggregate((a, b) => { return a + "," + b; }) + "】的数据被下载过，在本次操作已中被忽略";
+                        }
+                        ShowMsg("进货" + total + "件" + cInfo, false);
                     }
                     catch (Exception ex)
                     {
