@@ -11,7 +11,7 @@ namespace DB_JCSJ.Models
         public TCangkuJinchuhuo()
         {
 
-            this.TCangkufahuoFendians = new List<TCangkufahuoFendian>();
+            this.TCangkuFahuoFendians = new List<TCangkuFahuoFendian>();
 
             this.TCangkuJinchuhuoMXes = new List<TCangkuJinchuhuoMX>();
 
@@ -40,7 +40,7 @@ namespace DB_JCSJ.Models
 
         public virtual TCangku TCangku { get; set; }
 
-        public virtual ICollection<TCangkufahuoFendian> TCangkufahuoFendians { get; set; }
+        public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
 
         public virtual TJiamengshang TJiamengshang { get; set; }
 

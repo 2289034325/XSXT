@@ -21,8 +21,6 @@ namespace DB_JCSJ.Models
 
             this.TKuanhaos = new List<TKuanhao>();
 
-            this.TPinpaishangFendians = new List<TPinpaishangFendian>();
-
             this.TTiaomas = new List<TTiaoma>();
 
             this.TUsers = new List<TUser>();
@@ -83,8 +81,6 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TJiamengSQ> TJiamengSQs { get; set; }
 
         public virtual ICollection<TKuanhao> TKuanhaos { get; set; }
-
-        public virtual ICollection<TPinpaishangFendian> TPinpaishangFendians { get; set; }
 
         public virtual ICollection<TTiaoma> TTiaomas { get; set; }
 

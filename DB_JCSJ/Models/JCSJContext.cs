@@ -17,7 +17,7 @@ namespace DB_JCSJ.Models
         }
 
         public DbSet<TCangku> TCangkus { get; set; }
-        public DbSet<TCangkufahuoFendian> TCangkufahuoFendians { get; set; }
+        public DbSet<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
         public DbSet<TCangkuJinchuhuo> TCangkuJinchuhuos { get; set; }
         public DbSet<TCangkuJinchuhuoMX> TCangkuJinchuhuoMXes { get; set; }
         public DbSet<TCangkuKucun> TCangkuKucuns { get; set; }
@@ -36,7 +36,6 @@ namespace DB_JCSJ.Models
         public DbSet<TJiamengSQ> TJiamengSQs { get; set; }
         public DbSet<TKuanhao> TKuanhaos { get; set; }
         public DbSet<TPinpaishang> TPinpaishangs { get; set; }
-        public DbSet<TPinpaishangFendian> TPinpaishangFendians { get; set; }
         public DbSet<TTiaoma> TTiaomas { get; set; }
         public DbSet<TUser> TUsers { get; set; }
         public DbSet<TUserFendian> TUserFendians { get; set; }
@@ -48,7 +47,7 @@ namespace DB_JCSJ.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new TCangkuMap());
-            modelBuilder.Configurations.Add(new TCangkufahuoFendianMap());
+            modelBuilder.Configurations.Add(new TCangkuFahuoFendianMap());
             modelBuilder.Configurations.Add(new TCangkuJinchuhuoMap());
             modelBuilder.Configurations.Add(new TCangkuJinchuhuoMXMap());
             modelBuilder.Configurations.Add(new TCangkuKucunMap());
@@ -67,7 +66,6 @@ namespace DB_JCSJ.Models
             modelBuilder.Configurations.Add(new TJiamengSQMap());
             modelBuilder.Configurations.Add(new TKuanhaoMap());
             modelBuilder.Configurations.Add(new TPinpaishangMap());
-            modelBuilder.Configurations.Add(new TPinpaishangFendianMap());
             modelBuilder.Configurations.Add(new TTiaomaMap());
             modelBuilder.Configurations.Add(new TUserMap());
             modelBuilder.Configurations.Add(new TUserFendianMap());

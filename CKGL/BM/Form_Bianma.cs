@@ -2148,7 +2148,7 @@ namespace CKGL.BM
             SolidBrush myBrush = new SolidBrush(Color.Black);//刷子
 
             //将信息绘制到标签上
-            drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush,offset_left);
+            drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush,offset_left,pageWidth);
 
             //如果是双排标签，并且当前是偶数页时，要向右侧再打印一个标签
             if (isDoublePage && _pIndex % 2 == 0)
@@ -2160,7 +2160,7 @@ namespace CKGL.BM
                     yPosition = offset_top;
                     offset_left += pageWidth + pageInterval_H;
                     lblMargin = offset_left + 10;
-                    drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush, offset_left);
+                    drawInfo(printG, printFont, yPosition, lblMargin, cH, myBrush, offset_left,pageWidth);
                     _pIndex += 1;
                 }
             }
@@ -2176,10 +2176,10 @@ namespace CKGL.BM
         }
 
         private void drawInfo(Graphics printG, Font printFont,
-            float yPosition, float lblMargin, float cH, SolidBrush myBrush, float offset_left)
+            float yPosition, float lblMargin, float cH, SolidBrush myBrush, float offset_left,float page_width)
         {
             //LOGO
-            RectangleF destRect = new RectangleF(offset_left, yPosition, 150, 50);
+            RectangleF destRect = new RectangleF(offset_left, yPosition, page_width*0.9f, 50);
             printG.DrawImage(getLogo(), destRect);
             yPosition += 60;
             //信息
@@ -2200,7 +2200,7 @@ namespace CKGL.BM
             yPosition += cH;
             yPosition += cH;
             //条码
-            destRect = new RectangleF(lblMargin, yPosition, 135, 50);
+            destRect = new RectangleF(lblMargin, yPosition, page_width*0.8f, 50);
             printG.DrawImage(Get128CodeAuto(_dataPrint[_pIndex][(int)PRINT_ITEM.条码]), destRect);
             yPosition += 80;
             //横线

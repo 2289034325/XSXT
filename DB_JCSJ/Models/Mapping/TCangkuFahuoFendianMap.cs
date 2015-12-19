@@ -7,9 +7,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DB_JCSJ.Models.Mapping
 {
-    public class TCangkufahuoFendianMap : EntityTypeConfiguration<TCangkufahuoFendian>
+    public class TCangkuFahuoFendianMap : EntityTypeConfiguration<TCangkuFahuoFendian>
     {
-        public TCangkufahuoFendianMap()
+        public TCangkuFahuoFendianMap()
         {
             // Primary Key
 
@@ -20,7 +20,7 @@ namespace DB_JCSJ.Models.Mapping
 
             // Table & Column Mappings
 
-            this.ToTable("TCangkufahuoFendian");
+            this.ToTable("TCangkuFahuoFendian");
 
             this.Property(t => t.id).HasColumnName("id");
 
@@ -33,13 +33,13 @@ namespace DB_JCSJ.Models.Mapping
 
             this.HasRequired(t => t.TCangkuJinchuhuo)
 
-                .WithMany(t => t.TCangkufahuoFendians)
+                .WithMany(t => t.TCangkuFahuoFendians)
 
                 .HasForeignKey(d => d.ckjinchuid);
 
             this.HasRequired(t => t.TFendian)
 
-                .WithMany(t => t.TCangkufahuoFendians)
+                .WithMany(t => t.TCangkuFahuoFendians)
 
                 .HasForeignKey(d => d.fendianid);
 

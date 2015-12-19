@@ -17,7 +17,7 @@ namespace DB_JCSJ.Tests
             DB_JCSJ.DBContext db = new DBContext();
             try
             {
-                TCangkuFahuoFendian[] fs = db.GetFDJinhuoshuju(1);
+                //TCangkuFahuoFendian[] fs = db.GetFDJinhuoshuju(1);
             }
             catch (Exception ex)
             {

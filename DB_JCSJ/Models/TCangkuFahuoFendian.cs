@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DB_JCSJ.Models
 {
-    public partial class TCangkufahuoFendian
+    public partial class TCangkuFahuoFendian
     {
 
         public int id { get; set; }

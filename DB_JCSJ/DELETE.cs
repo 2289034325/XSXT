@@ -157,7 +157,7 @@ namespace DB_JCSJ
             public void DeleteCKJinchuhuo(int id)
             {
                 TCangkuJinchuhuo oj = _db.TCangkuJinchuhuos.Include(r => r.TCangkuJinchuhuoMXes).
-                    Include(r=>r.TCangkufahuoFendians).Single(r => r.id == id);
+                    Include(r => r.TCangkuFahuoFendians).Single(r => r.id == id);
 
                 _db.TCangkuJinchuhuos.Remove(oj);
 
@@ -234,9 +234,9 @@ namespace DB_JCSJ
 
             public void DeleteCangkufahuoFendian(int[] ckjcids)
             {
-                var cfs = _db.TCangkufahuoFendians.Where(r => ckjcids.Contains(r.ckjinchuid));
+                var cfs = _db.TCangkuFahuoFendians.Where(r => ckjcids.Contains(r.ckjinchuid));
 
-                _db.TCangkufahuoFendians.RemoveRange(cfs);
+                _db.TCangkuFahuoFendians.RemoveRange(cfs);
 
                 _db.SaveChanges();
             }

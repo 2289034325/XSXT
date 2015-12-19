@@ -11,15 +11,13 @@ namespace DB_JCSJ.Models
         public TFendian()
         {
 
-            this.TCangkufahuoFendians = new List<TCangkufahuoFendian>();
+            this.TCangkuFahuoFendians = new List<TCangkuFahuoFendian>();
 
             this.TFendianJinchuhuos = new List<TFendianJinchuhuo>();
 
             this.TFendianKucuns = new List<TFendianKucun>();
 
             this.THuiyuans = new List<THuiyuan>();
-
-            this.TPinpaishangFendians = new List<TPinpaishangFendian>();
 
             this.TUserFendians = new List<TUserFendian>();
 
@@ -76,7 +74,7 @@ namespace DB_JCSJ.Models
 
         public System.DateTime xiugaishijian { get; set; }
 
-        public virtual ICollection<TCangkufahuoFendian> TCangkufahuoFendians { get; set; }
+        public virtual ICollection<TCangkuFahuoFendian> TCangkuFahuoFendians { get; set; }
 
         public virtual TDiqu TDiqu { get; set; }
 
@@ -89,8 +87,6 @@ namespace DB_JCSJ.Models
         public virtual ICollection<TFendianKucun> TFendianKucuns { get; set; }
 
         public virtual ICollection<THuiyuan> THuiyuans { get; set; }
-
-        public virtual ICollection<TPinpaishangFendian> TPinpaishangFendians { get; set; }
 
         public virtual ICollection<TUserFendian> TUserFendians { get; set; }
 

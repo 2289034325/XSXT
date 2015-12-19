@@ -288,9 +288,9 @@ namespace DB_JCSJ
                 _db.SaveChanges();
             }
 
-            public void InsertCangkuFahuoFendian(TCangkufahuoFendian cf)
+            public void InsertCangkuFahuoFendian(TCangkuFahuoFendian cf)
             {
-                _db.TCangkufahuoFendians.Add(cf);
+                _db.TCangkuFahuoFendians.Add(cf);
 
                 _db.SaveChanges();
             }

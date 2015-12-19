@@ -145,6 +145,12 @@ namespace JCSJWCF
             }
             else
             {
+                //检查用户角色是不是编码
+                if (u.juese != (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商编码)
+                {
+                    throw new MyException("该帐号不是编码账号", null);
+                }
+
                 //验证注册码
                 if (!validateDTMM_PPS(u.ppsid.Value,zcm))
                 {

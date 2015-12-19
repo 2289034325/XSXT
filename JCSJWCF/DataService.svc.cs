@@ -782,14 +782,14 @@ namespace JCSJWCF
             }
             else
             {
-                TCangkufahuoFendian ff = db.GetCangkuFahuoFendianByJcId(jc.id);
+                TCangkuFahuoFendian ff = db.GetCangkuFahuoFendianByJcId(jc.id);
                 if (ff != null)
                 {
                     throw new MyException("请不要重复上传", null);
                 }
                 else
                 {
-                    db.InsertCangkuFahuoFendian(new TCangkufahuoFendian
+                    db.InsertCangkuFahuoFendian(new TCangkuFahuoFendian
                     {
                         ckjinchuid = jc.id,
                         fendianid = fdid

@@ -1022,14 +1022,14 @@ namespace DB_JCSJ
                 return _db.TJiamengshangs.SingleOrDefault(r => r.zhuceshouji == sjh);
             }
 
-            public TCangkufahuoFendian GetCangkuFahuoFendianByJcId(int jcid)
+            public TCangkuFahuoFendian GetCangkuFahuoFendianByJcId(int jcid)
             {
-                return _db.TCangkufahuoFendians.SingleOrDefault(r => r.ckjinchuid == jcid);
+                return _db.TCangkuFahuoFendians.SingleOrDefault(r => r.ckjinchuid == jcid);
             }
 
             public TCangkuJinchuhuo[] GetCKFahuoFendianByFdId(int fdid)
             {
-                return _db.TCangkufahuoFendians.Where(r => r.fendianid == fdid).
+                return _db.TCangkuFahuoFendians.Where(r => r.fendianid == fdid).
                     Select(r=>r.TCangkuJinchuhuo).Include(r=>r.TCangkuJinchuhuoMXes).
                     Include(r => r.TCangkuJinchuhuoMXes.Select(xr => xr.TTiaoma)).
                     Include(r => r.TCangkuJinchuhuoMXes.Select(xr => xr.TTiaoma.TKuanhao)).
