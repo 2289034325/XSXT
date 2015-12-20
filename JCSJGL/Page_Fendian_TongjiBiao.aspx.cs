@@ -70,6 +70,8 @@ namespace JCSJGL
                 {
                     btn_sch_Click(null, null);
                 }
+
+                btn_sch_Click(null, null);
             }
         }
 
@@ -113,23 +115,6 @@ namespace JCSJGL
             grid_rq_fd.DataBind();
 
             DBContext db = new DBContext();
-            //if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
-            //        _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
-            //{
-            //    grid_jms.Columns[0].Visible = true;
-            //    grid_jms_rq.Columns[0].Visible = true;
-            //}
-            //else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
-            //        _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理)
-            //{
-            //    grid_jms.Columns[0].Visible = true;
-            //    grid_jms_rq.Columns[0].Visible = true;
-            //}
-            //else
-            //{
-            //    grid_jms.Columns[0].Visible = false;
-            //    grid_jms_rq.Columns[0].Visible = false;
-            //}
 
             //限定查询的品牌范围
             int? ppsid = getPpsid();
@@ -160,8 +145,60 @@ namespace JCSJGL
                 lr = decimal.Round(r.Sum(g => (decimal?)g.lirun) ?? 0, 2)
             });
 
+            //补上空白
+            TJiamengshang[] jmses = getJiamengshangs();
+            List<TJiamengshang> jmses_miss = jmses.Where(r => !data.Any(xr => xr.jmsid == r.id)).ToList();
+            var data_missing = jmses_miss.Select(r => new 
+            {
+                jmsid = r.id,
+                jms = r.mingcheng,
+                xl = 0,
+                xse = 0M,
+                lr = 0M
+            });
+
+            data = data.Concat(data_missing);
+
             grid_jms.DataSource = Tool.CommonFunc.LINQToDataTable(data);
             grid_jms.DataBind();
+        }
+
+        private TJiamengshang[] getJiamengshangs()
+        {
+            TJiamengshang[] jmses = new TJiamengshang[] { };
+            DBContext db = new DBContext();
+
+            //系统管理员和总经理必须选择一个加盟商查看数据
+            if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.系统管理员 ||
+                _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.总经理)
+            {
+                int jmsid = int.Parse(cmb_jms.SelectedValue);
+                TJiamengshang jms = db.GetJiamengshangById(jmsid);
+                jmses = new TJiamengshang[] { jms };
+            }
+            //品牌商可查看旗下所有加盟商的数据
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商管理员 ||
+                 _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.品牌商经理)
+            {
+                if (string.IsNullOrEmpty(cmb_jms.SelectedValue))
+                {
+                    jmses = db.GetZiJiamengshangs(_LoginUser.ppsid.Value);
+                }
+                else
+                {
+                    int jmsid = int.Parse(cmb_jms.SelectedValue);
+                    TJiamengshang jms = db.GetJiamengshangById(jmsid);
+                    jmses = new TJiamengshang[] { jms };
+                }
+            }
+            else if (_LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商管理员 ||
+                    _LoginUser.juese == (byte)Tool.JCSJ.DBCONSTS.USER_XTJS.加盟商经理)
+            {
+                TJiamengshang jms = db.GetJiamengshangById(_LoginUser.jmsid.Value);
+                jmses = new TJiamengshang[] { jms };
+            }
+
+            return jmses;
         }
 
         private int? getPpsid()
@@ -254,7 +291,16 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int? ppsid = getPpsid();
-            int[] fdids = db.GetFendiansAsItems(jmsid).Select(r=>r.id).ToArray();
+            int[] fdids = null;
+            if (string.IsNullOrEmpty(cmb_fd.SelectedValue))
+            {
+                fdids = db.GetFendiansAsItems(jmsid).Select(r => r.id).ToArray();
+            }
+            else
+            {
+                fdids = new int[] { int.Parse(cmb_fd.SelectedValue) };
+            }
+
             //Dictionary<int, string> bzmcs = getBeizhuMcs();
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(ppsid, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
@@ -269,9 +315,9 @@ namespace JCSJGL
                 {
                     fds = db.GetFendians(jmsid);
                 }
-                var data = xss.GroupBy(r => new { jmsid = r.TFendian.jmsid, fdid = r.fendianid, fd = r.TFendian.dianming }).Select(r => new
+                var data = xss.GroupBy(r => new { fdid = r.fendianid, fd = r.TFendian.dianming }).Select(r => new
                 {
-                    jmsid = r.Key.jmsid,
+                    jmsid = jmsid,
                     fdid = r.Key.fdid,
                     fd = r.Key.fd,
                     xl = r.Sum(g => g.shuliang),
@@ -307,21 +353,55 @@ namespace JCSJGL
             }
             else if (e.CommandName == "RIQI")
             {
+                TJiamengshang jms = db.GetJiamengshangById(jmsid);
+
                 var data = xss.GroupBy(r => new
                 {
-                    jmsid = r.TFendian.jmsid,
+                    //jmsid = r.TFendian.jmsid,
                     //jms = bzmcs[r.TFendian.jmsid],
-                    jms = r.TFendian.TJiamengshang.mingcheng,
+                    //jms = r.TFendian.TJiamengshang.mingcheng,
                     rq = r.xiaoshoushijian.ToString("yyyy-MM-dd")
                 }).Select(r => new
                 {
-                    jmsid = r.Key.jmsid,
-                    jms = r.Key.jms,
+                    jmsid = jms.id,
+                    jms = jms.mingcheng,
                     rq = r.Key.rq,
                     xl = r.Sum(g => g.shuliang),
                     xse = decimal.Round(r.Sum(g => g.jine), 2),
                     lr = decimal.Round(r.Sum(g => g.lirun), 2)
                 }).OrderBy(r => r.rq);
+
+                if (data.Count() > 0)
+                {
+                    //补上空白
+                    List<DateTime> dates_in = data.Select(r => DateTime.Parse(r.rq)).ToList();
+                    List<DateTime> dates_miss = new List<DateTime>();
+                    DateTime date_start = data.Min(r => DateTime.Parse(r.rq));
+                    DateTime date_end = data.Max(r => DateTime.Parse(r.rq));
+                    for (DateTime date_tmp = date_start; date_tmp <= date_end; )
+                    {
+                        if (!dates_in.Contains(date_tmp))
+                        {
+                            if (!dates_miss.Contains(date_tmp))
+                            {
+                                dates_miss.Add(date_tmp);
+                            }
+                        }
+                        date_tmp = date_tmp.AddDays(1);
+                    }
+                    var data_miss = dates_miss.Select(r => new
+                    {
+                        jmsid = jmsid,
+                        jms = jms.mingcheng,
+                        rq = r.ToString("yyyy-MM-dd"),
+                        xl = 0,
+                        xse = 0M,
+                        lr = 0M
+                    });
+
+                    data = data.Concat(data_miss).OrderByDescending(r => r.rq);
+                }
+
 
                 grid_jms.DataSource = null;
                 grid_jms.DataBind();
@@ -359,14 +439,23 @@ namespace JCSJGL
 
             DBContext db = new DBContext();
             int? ppsid = getPpsid();
-            int[] fdids = db.GetFendiansAsItems(jmsid).Select(r=>r.id).ToArray();
+            //int[] fdids = db.GetFendiansAsItems(jmsid).Select(r=>r.id).ToArray();
+            int[] fdids = null;
+            if (string.IsNullOrEmpty(cmb_fd.SelectedValue))
+            {
+                fdids = db.GetFendiansAsItems(jmsid).Select(r => r.id).ToArray();
+            }
+            else
+            {
+                fdids = new int[] { int.Parse(cmb_fd.SelectedValue) };
+            }
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(ppsid, fdids, "", "", rq_start, rq_end, null, null, null, null, out recordCount);
             if (e.CommandName == "FENDIAN")
             {
-                var data = xss.GroupBy(r => new {jmsid = r.TFendian.jmsid,rq=r.xiaoshoushijian.ToString("yyyy-MM-dd"), fdid = r.fendianid, fd = r.TFendian.dianming }).Select(r => new
+                var data = xss.GroupBy(r => new {rq=r.xiaoshoushijian.ToString("yyyy-MM-dd"), fdid = r.fendianid, fd = r.TFendian.dianming }).Select(r => new
                 {
-                    jmsid = r.Key.jmsid,
+                    jmsid = jmsid,
                     fdid = r.Key.fdid,
                     fd = r.Key.fd,
                     rq = r.Key.rq,
@@ -374,6 +463,32 @@ namespace JCSJGL
                     xse = decimal.Round(r.Sum(g => g.jine), 2),
                     lr = decimal.Round(r.Sum(g => g.lirun), 2)
                 });
+
+                TFendian[] fds = new TFendian[] { };
+                if (!string.IsNullOrEmpty(cmb_fd.SelectedValue))
+                {
+                    fds = new TFendian[] { new TFendian { id = int.Parse(cmb_fd.SelectedValue), dianming = cmb_fd.SelectedItem.Text } };
+                }
+                else
+                {
+                    fds = db.GetFendians(jmsid);
+                }
+                Dictionary<int, string> fdmcs = fds.ToDictionary(k => k.id, v => v.dianming);
+                int[] aids = fds.Select(r => r.id).ToArray();
+                int[] misids = aids.Except(data.Select(r => r.fdid)).ToArray();
+
+                var misdata = misids.Select(r => new
+                {
+                    jmsid = jmsid,
+                    fdid = r,
+                    fd = fdmcs[r],
+                    rq = rq_s,
+                    xl = 0,
+                    xse = 0M,
+                    lr = 0M
+                });
+
+                var adata = data.Concat(misdata);
 
                 grid_jms.DataSource = null;
                 grid_jms.DataBind();
@@ -384,7 +499,7 @@ namespace JCSJGL
                 grid_rq_fd.DataSource = null;
                 grid_rq_fd.DataBind();
 
-                grid_rq_fd.DataSource = Tool.CommonFunc.LINQToDataTable(data);
+                grid_rq_fd.DataSource = Tool.CommonFunc.LINQToDataTable(adata);
                 grid_rq_fd.DataBind();
             }
             else if (e.CommandName == "XIANGXI")
@@ -417,23 +532,54 @@ namespace JCSJGL
             }
 
             DBContext db = new DBContext();
+            TFendian fd = db.GetFendianById(fdid);
             int? ppsid = getPpsid();
             int[] fdids = new int[] { fdid };
             int recordCount = 0;
             TXiaoshou[] xss = db.GetXiaoshousByCond(ppsid, fdids, "", "", xsrq_start, xsrq_end, null, null, null, null, out recordCount);
             if (e.CommandName == "RIQI")
             {
-                var data = xss.GroupBy(r => new { jmsid = r.TFendian.jmsid, rq = r.xiaoshoushijian.ToString("yyyy-MM-dd"), fdid = r.fendianid, fd = r.TFendian.dianming }).Select(r => new
+                var data = xss.GroupBy(r => new { rq = r.xiaoshoushijian.ToString("yyyy-MM-dd") }).Select(r => new
                 {
-                    jmsid = r.Key.jmsid,
-                    fdid = r.Key.fdid,
-                    fd = r.Key.fd,
+                    jmsid = jmsid,
+                    fdid = fdid,
+                    fd = fd.dianming,
                     rq = r.Key.rq,
                     xl = r.Sum(g => g.shuliang),
                     xse = decimal.Round(r.Sum(g => g.jine), 2),
                     lr = decimal.Round(r.Sum(g => g.lirun), 2)
                 });
+                if (data.Count() > 0)
+                {
+                    //补上空白
+                    List<DateTime> dates_in = data.Select(r => DateTime.Parse(r.rq)).ToList();
+                    List<DateTime> dates_miss = new List<DateTime>();
+                    DateTime date_start = data.Min(r => DateTime.Parse(r.rq));
+                    DateTime date_end = data.Max(r => DateTime.Parse(r.rq));
+                    for (DateTime date_tmp = date_start; date_tmp <= date_end; )
+                    {
+                        if (!dates_in.Contains(date_tmp))
+                        {
+                            if (!dates_miss.Contains(date_tmp))
+                            {
+                                dates_miss.Add(date_tmp);
+                            }
+                        }
+                        date_tmp = date_tmp.AddDays(1);
+                    }
+                    var data_miss = dates_miss.Select(r => new
+                    {
+                        jmsid = jmsid,
+                        fdid = fdid,
+                        fd = fd.dianming,
+                        rq = r.ToString("yyyy-MM-dd"),
+                        xl = 0,
+                        xse = 0M,
+                        lr = 0M
+                    });
 
+                    data = data.Concat(data_miss).OrderByDescending(r => r.rq);
+                }
 
                 grid_jms.DataSource = null;
                 grid_jms.DataBind();
