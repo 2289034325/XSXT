@@ -323,7 +323,8 @@ namespace DB_FD
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public TXiaoshou[] GetXiaoshousByCond(string tmh, string kh, DateTime? start, DateTime? end)
+        public TXiaoshou[] GetXiaoshousByCond(string tmh, string kh, DateTime? start, DateTime? end, int? pageSize, int? pageIndex,
+            out int recordCount)
         {
             var xss = _db.TXiaoshous.Include(r => r.TUser).Include(r => r.THuiyuan).Include(r => r.TTiaoma).AsQueryable();
             if (!string.IsNullOrEmpty(tmh))
@@ -341,6 +342,13 @@ namespace DB_FD
             if (end != null)
             {
                 xss = xss.Where(r => r.xiaoshoushijian < end);
+            }
+
+            recordCount = xss.Count();
+
+            if (pageSize != null)
+            {
+                xss = xss.OrderByDescending(r => r.id).Skip(pageSize.Value * pageIndex.Value).Take(pageSize.Value);
             }
 
             return xss.ToArray();

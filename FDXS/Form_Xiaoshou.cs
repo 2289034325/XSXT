@@ -23,12 +23,27 @@ namespace FDXS
         //开单数据
         //private List<TXiaoshou> _XSS;
 
+        private int _pageIndex;
+        private int _pageSize; 
+        private int _recordCount;
+        private int _pageCount
+        {
+            get
+            {
+                return _recordCount / _pageSize + (_recordCount % _pageSize == 0 ? 0 : 1);
+            }
+        }
+        
+
         public Form_Xiaoshou()
         {
             InitializeComponent();
             base.InitializeComponent();
             //_dlgKaidan = null;
             //_XSS = null;
+
+            _pageSize = 20;
+            _pageIndex = 0;
         }
 
         /// <summary>
@@ -64,6 +79,37 @@ namespace FDXS
         /// <param name="e"></param>
         private void btn_sch_Click(object sender, EventArgs e)
         {
+            _pageIndex = 0;
+
+            getData();
+        }
+
+        private void btn_prev_Click(object sender, EventArgs e)
+        {
+            if (_pageIndex == 0)
+            {
+                return;
+            }
+
+            _pageIndex--;
+
+            getData();
+        }
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            if (_pageIndex + 1 >= _pageCount)
+            {
+                return;
+            }
+
+            _pageIndex++;
+
+            getData();
+        }
+
+        private void getData()
+        {
             //查询条件
             string tmh = txb_tiaoma.Text.Trim();
             string kh = txb_kuanhao.Text.Trim();
@@ -73,7 +119,7 @@ namespace FDXS
             //查询数据
             DBContext db = IDB.GetDB();
             grid_xs.Rows.Clear();
-            TXiaoshou[] xss = db.GetXiaoshousByCond(tmh, kh, dstart, dend);
+            TXiaoshou[] xss = db.GetXiaoshousByCond(tmh, kh, dstart, dend, _pageSize, _pageIndex, out _recordCount);
             int tsl = 0;
             foreach (TXiaoshou x in xss)
             {
@@ -81,11 +127,7 @@ namespace FDXS
                 addXiaoshou(x);
             }
 
-            //合計行
-            //int index = grid_xs.Rows.Add();
-            //grid_xs.Rows[index].Cells[col_tm.Name].Value = "合計";
-            //grid_xs.Rows[index].Cells[col_sl.Name].Value = tsl;
-            //grid_xs.Rows[index].DefaultCellStyle.ForeColor = Color.Red;
+            lbl_page.Text = _pageIndex + 1 + "/" + _pageCount;
         }
 
         /// <summary>

@@ -26,10 +26,10 @@
     <ProductName>FDXS</ProductName>
     <PublisherName>AC</PublisherName>
     <SuiteName>XS</SuiteName>
-    <MinimumRequiredVersion>3.0.0.13</MinimumRequiredVersion>
+    <MinimumRequiredVersion>3.0.0.15</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

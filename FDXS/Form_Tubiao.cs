@@ -32,7 +32,8 @@ namespace FDXS
         {
             //取数据
             DBContext db = IDB.GetDB();
-            TXiaoshou[] xss = db.GetXiaoshousByCond(null,null,null,null);
+            int recordCount = 0;
+            TXiaoshou[] xss = db.GetXiaoshousByCond(null,null,null,null,null,null,out recordCount);
             var ddata_s = xss.GroupBy(r => r.xiaoshoushijian.Date).
                 Select(r => new { X = r.Key, Y = r.Sum(rx => rx.shuliang) }).OrderBy(r => r.X).ToList();
             var ddata_j = xss.GroupBy(r => r.xiaoshoushijian.Date).

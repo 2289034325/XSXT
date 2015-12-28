@@ -29,9 +29,9 @@ namespace FDXS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label17 = new MyFormControls.MyLabel();
             this.txb_tiaoma = new MyFormControls.MyTextBox();
@@ -40,8 +40,8 @@ namespace FDXS
             this.label9 = new MyFormControls.MyLabel();
             this.dp_start = new MyFormControls.MyDateTimePicker();
             this.dp_end = new MyFormControls.MyDateTimePicker();
-            this.btn_shangbao = new MyFormControls.MyButton();
             this.btn_sch = new MyFormControls.MyButton();
+            this.btn_shangbao = new MyFormControls.MyButton();
             this.grid_xs = new MyFormControls.MyGrid();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_tm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,8 +59,13 @@ namespace FDXS
             this.col_xssj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_beizhu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btn_next = new MyFormControls.MyButton();
+            this.lbl_page = new MyFormControls.MyLabel();
+            this.btn_prev = new MyFormControls.MyButton();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_xs)).BeginInit();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -166,23 +171,6 @@ namespace FDXS
             this.dp_end.TabIndex = 28;
             this.dp_end.Type = MyFormControls.MyControlType.Special;
             // 
-            // btn_shangbao
-            // 
-            this.btn_shangbao.BackColor = System.Drawing.Color.Black;
-            this.btn_shangbao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btn_shangbao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btn_shangbao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_shangbao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.btn_shangbao.ForeColor = System.Drawing.Color.White;
-            this.btn_shangbao.Location = new System.Drawing.Point(856, 3);
-            this.btn_shangbao.Name = "btn_shangbao";
-            this.btn_shangbao.Size = new System.Drawing.Size(121, 26);
-            this.btn_shangbao.TabIndex = 30;
-            this.btn_shangbao.Text = "上报销售数据";
-            this.btn_shangbao.Type = MyFormControls.MyControlType.Special;
-            this.btn_shangbao.UseVisualStyleBackColor = false;
-            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
-            // 
             // btn_sch
             // 
             this.btn_sch.BackColor = System.Drawing.Color.Black;
@@ -200,6 +188,23 @@ namespace FDXS
             this.btn_sch.UseVisualStyleBackColor = false;
             this.btn_sch.Click += new System.EventHandler(this.btn_sch_Click);
             // 
+            // btn_shangbao
+            // 
+            this.btn_shangbao.BackColor = System.Drawing.Color.Black;
+            this.btn_shangbao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_shangbao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_shangbao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_shangbao.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_shangbao.ForeColor = System.Drawing.Color.White;
+            this.btn_shangbao.Location = new System.Drawing.Point(856, 3);
+            this.btn_shangbao.Name = "btn_shangbao";
+            this.btn_shangbao.Size = new System.Drawing.Size(121, 26);
+            this.btn_shangbao.TabIndex = 30;
+            this.btn_shangbao.Text = "上报销售数据";
+            this.btn_shangbao.Type = MyFormControls.MyControlType.Special;
+            this.btn_shangbao.UseVisualStyleBackColor = false;
+            this.btn_shangbao.Click += new System.EventHandler(this.btn_shangbao_Click);
+            // 
             // grid_xs
             // 
             this.grid_xs.AllowUserToAddRows = false;
@@ -207,14 +212,14 @@ namespace FDXS
             this.grid_xs.BackgroundColor = System.Drawing.Color.Black;
             this.grid_xs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grid_xs.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_xs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_xs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.grid_xs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_xs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_id,
@@ -233,23 +238,23 @@ namespace FDXS
             this.col_xssj,
             this.col_sbsj,
             this.col_beizhu});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_xs.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_xs.DefaultCellStyle = dataGridViewCellStyle5;
             this.grid_xs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_xs.EnableHeadersVisualStyles = false;
             this.grid_xs.Location = new System.Drawing.Point(0, 30);
             this.grid_xs.Name = "grid_xs";
             this.grid_xs.ReadOnly = true;
             this.grid_xs.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.grid_xs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.grid_xs.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.grid_xs.RowTemplate.Height = 23;
-            this.grid_xs.Size = new System.Drawing.Size(1110, 454);
+            this.grid_xs.Size = new System.Drawing.Size(1110, 424);
             this.grid_xs.TabIndex = 11;
             this.grid_xs.Type = MyFormControls.MyControlType.Standard;
             this.grid_xs.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.grid_xs_UserDeletedRow);
@@ -366,12 +371,73 @@ namespace FDXS
             this.col_beizhu.Name = "col_beizhu";
             this.col_beizhu.ReadOnly = true;
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.btn_next);
+            this.flowLayoutPanel2.Controls.Add(this.lbl_page);
+            this.flowLayoutPanel2.Controls.Add(this.btn_prev);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 454);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1110, 30);
+            this.flowLayoutPanel2.TabIndex = 14;
+            // 
+            // btn_next
+            // 
+            this.btn_next.BackColor = System.Drawing.Color.Black;
+            this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_next.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_next.ForeColor = System.Drawing.Color.White;
+            this.btn_next.Location = new System.Drawing.Point(1007, 3);
+            this.btn_next.Name = "btn_next";
+            this.btn_next.Size = new System.Drawing.Size(100, 26);
+            this.btn_next.TabIndex = 12;
+            this.btn_next.Text = "下一页";
+            this.btn_next.Type = MyFormControls.MyControlType.Standard;
+            this.btn_next.UseVisualStyleBackColor = true;
+            this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
+            // 
+            // lbl_page
+            // 
+            this.lbl_page.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbl_page.AutoSize = true;
+            this.lbl_page.BackColor = System.Drawing.Color.Black;
+            this.lbl_page.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
+            this.lbl_page.ForeColor = System.Drawing.Color.White;
+            this.lbl_page.Location = new System.Drawing.Point(948, 6);
+            this.lbl_page.Name = "lbl_page";
+            this.lbl_page.Size = new System.Drawing.Size(53, 20);
+            this.lbl_page.TabIndex = 0;
+            this.lbl_page.Text = "1/10";
+            this.lbl_page.Type = MyFormControls.MyControlType.Standard;
+            // 
+            // btn_prev
+            // 
+            this.btn_prev.BackColor = System.Drawing.Color.Black;
+            this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_prev.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_prev.ForeColor = System.Drawing.Color.White;
+            this.btn_prev.Location = new System.Drawing.Point(842, 3);
+            this.btn_prev.Name = "btn_prev";
+            this.btn_prev.Size = new System.Drawing.Size(100, 26);
+            this.btn_prev.TabIndex = 6;
+            this.btn_prev.Text = "上一页";
+            this.btn_prev.Type = MyFormControls.MyControlType.Standard;
+            this.btn_prev.UseVisualStyleBackColor = true;
+            this.btn_prev.Click += new System.EventHandler(this.btn_prev_Click);
+            // 
             // Form_Xiaoshou
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1110, 484);
             this.Controls.Add(this.grid_xs);
+            this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "Form_Xiaoshou";
             this.Text = "销售";
@@ -379,6 +445,8 @@ namespace FDXS
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_xs)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -412,5 +480,9 @@ namespace FDXS
         private System.Windows.Forms.DataGridViewTextBoxColumn col_xssj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_sbsj;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_beizhu;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private MyButton btn_next;
+        private MyLabel lbl_page;
+        private MyButton btn_prev;
     }
 }
