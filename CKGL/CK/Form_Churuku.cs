@@ -829,18 +829,28 @@ namespace CKGL.CK
                 return;
             }
 
-            CKGL.BM.Form_Bianma bmfm = (CKGL.BM.Form_Bianma)this.ParentForm.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(CKGL.BM.Form_Bianma)));
-            if (bmfm == null)
+            //CKGL.BM.Form_Bianma bmfm = (CKGL.BM.Form_Bianma)this.ParentForm.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(CKGL.BM.Form_Bianma)));
+            //if (bmfm == null)
+            //{
+            //    MessageBox.Show("编码窗口未打开");
+            //    return;
+            //}
+
+            ////从编码窗口取数据
+            //List<BM.TKuanhaoExtend> khs = bmfm.KhExes.Where(k => k.xj == BM.XTCONSTS.KUANHAO_XINJIU.旧).ToList();
+            //List<BM.TTiaomaExtend> tmexes = khs.SelectMany(k => k.tms).Where(t => t.xj == BM.XTCONSTS.TIAOMA_XINJIU.旧).ToList();
+            ////取条码数量列表
+            //Dictionary<string, short> tmsls = tmexes.ToDictionary(k => k.tiaoma.tiaoma, v => v.shuliang);
+
+            //取条码数量列表
+            IDataObject iData = Clipboard.GetDataObject();
+            if (!iData.GetDataPresent(typeof(Dictionary<string, short>)))
             {
-                MessageBox.Show("编码窗口未打开");
+                MessageBox.Show("未找到要粘贴的数据，请先到编码窗口进行复制操作");
                 return;
             }
 
-            //从编码窗口取数据
-            List<BM.TKuanhaoExtend> khs = bmfm.KhExes.Where(k => k.xj == BM.XTCONSTS.KUANHAO_XINJIU.旧).ToList();
-            List<BM.TTiaomaExtend> tmexes = khs.SelectMany(k => k.tms).Where(t => t.xj == BM.XTCONSTS.TIAOMA_XINJIU.旧).ToList();
-            //取条码数量列表
-            Dictionary<string, short> tmsls = tmexes.ToDictionary(k => k.tiaoma.tiaoma, v => v.shuliang);
+            Dictionary<string, short> tmsls = (Dictionary<string, short>)iData.GetData(typeof(Dictionary<string, short>));
 
             //保存到数据库
             daoru(crkid, tmsls, oc.zhekou);

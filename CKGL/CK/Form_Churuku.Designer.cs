@@ -30,14 +30,33 @@
         {
             this.components = new System.ComponentModel.Container();
             this.cmn_crk = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmn_crk_frombm = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_crk_uplazy = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_crk_xiugai = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_crk_qr = new System.Windows.Forms.ToolStripMenuItem();
             this.cmn_crk_qxqr = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmn_crk_frombm = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_crk_daoru = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmn_crk_sb = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmn_crk_cxsb = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmn_crk_uplazy = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.grid_crk = new System.Windows.Forms.DataGridView();
+            this.col_crk_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_lyqx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_pcm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_jms = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_je = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_qd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_czr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_djsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_crk_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label38 = new System.Windows.Forms.Label();
             this.cmb_jms = new System.Windows.Forms.ComboBox();
@@ -57,26 +76,7 @@
             this.col_mx_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_dj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_mx_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmn_crk_sb = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.撤销上报ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmn_crk_cxsb = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.col_crk_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_lyqx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_pcm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_jms = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_zk = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_je = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_qd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_bz = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_czr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_djsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_xgsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_crk_sbsj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmn_crk.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -104,27 +104,6 @@
             this.cmn_crk.Name = "cmn_crk";
             this.cmn_crk.Size = new System.Drawing.Size(161, 198);
             // 
-            // cmn_crk_frombm
-            // 
-            this.cmn_crk_frombm.Name = "cmn_crk_frombm";
-            this.cmn_crk_frombm.Size = new System.Drawing.Size(160, 22);
-            this.cmn_crk_frombm.Text = "从编码窗口拉取";
-            this.cmn_crk_frombm.Click += new System.EventHandler(this.cmn_crk_frombm_Click);
-            // 
-            // cmn_crk_daoru
-            // 
-            this.cmn_crk_daoru.Name = "cmn_crk_daoru";
-            this.cmn_crk_daoru.Size = new System.Drawing.Size(160, 22);
-            this.cmn_crk_daoru.Text = "输入多个条码";
-            this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
-            // 
-            // cmn_crk_uplazy
-            // 
-            this.cmn_crk_uplazy.Name = "cmn_crk_uplazy";
-            this.cmn_crk_uplazy.Size = new System.Drawing.Size(160, 22);
-            this.cmn_crk_uplazy.Text = "上传让分店下载";
-            this.cmn_crk_uplazy.Click += new System.EventHandler(this.cmn_crk_uplazy_Click);
-            // 
             // cmn_crk_xiugai
             // 
             this.cmn_crk_xiugai.Name = "cmn_crk_xiugai";
@@ -145,6 +124,56 @@
             this.cmn_crk_qxqr.Size = new System.Drawing.Size(160, 22);
             this.cmn_crk_qxqr.Text = "取消确认";
             this.cmn_crk_qxqr.Click += new System.EventHandler(this.cmn_crk_qxqr_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(157, 6);
+            // 
+            // cmn_crk_frombm
+            // 
+            this.cmn_crk_frombm.Name = "cmn_crk_frombm";
+            this.cmn_crk_frombm.Size = new System.Drawing.Size(160, 22);
+            this.cmn_crk_frombm.Text = "从编码窗口复制";
+            this.cmn_crk_frombm.Click += new System.EventHandler(this.cmn_crk_frombm_Click);
+            // 
+            // cmn_crk_daoru
+            // 
+            this.cmn_crk_daoru.Name = "cmn_crk_daoru";
+            this.cmn_crk_daoru.Size = new System.Drawing.Size(160, 22);
+            this.cmn_crk_daoru.Text = "输入多个条码";
+            this.cmn_crk_daoru.Click += new System.EventHandler(this.cmn_crk_daoru_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            // 
+            // cmn_crk_sb
+            // 
+            this.cmn_crk_sb.Name = "cmn_crk_sb";
+            this.cmn_crk_sb.Size = new System.Drawing.Size(160, 22);
+            this.cmn_crk_sb.Text = "上报数据";
+            this.cmn_crk_sb.Click += new System.EventHandler(this.cmn_crk_sb_Click);
+            // 
+            // cmn_crk_cxsb
+            // 
+            this.cmn_crk_cxsb.Name = "cmn_crk_cxsb";
+            this.cmn_crk_cxsb.Size = new System.Drawing.Size(160, 22);
+            this.cmn_crk_cxsb.Text = "撤销上报";
+            this.cmn_crk_cxsb.Click += new System.EventHandler(this.cmn_crk_cxsb_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
+            // 
+            // cmn_crk_uplazy
+            // 
+            this.cmn_crk_uplazy.Name = "cmn_crk_uplazy";
+            this.cmn_crk_uplazy.Size = new System.Drawing.Size(160, 22);
+            this.cmn_crk_uplazy.Text = "上传让分店下载";
+            this.cmn_crk_uplazy.Click += new System.EventHandler(this.cmn_crk_uplazy_Click);
             // 
             // splitContainer5
             // 
@@ -200,6 +229,94 @@
             this.grid_crk.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.grid_crk_RowStateChanged);
             this.grid_crk.SelectionChanged += new System.EventHandler(this.grid_crk_SelectionChanged);
             this.grid_crk.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.grid_crk_UserDeletingRow);
+            // 
+            // col_crk_id
+            // 
+            this.col_crk_id.HeaderText = "ID";
+            this.col_crk_id.Name = "col_crk_id";
+            this.col_crk_id.ReadOnly = true;
+            this.col_crk_id.Visible = false;
+            // 
+            // col_crk_fx
+            // 
+            this.col_crk_fx.HeaderText = "方向";
+            this.col_crk_fx.Name = "col_crk_fx";
+            this.col_crk_fx.ReadOnly = true;
+            this.col_crk_fx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // col_crk_lyqx
+            // 
+            this.col_crk_lyqx.HeaderText = "来源去向";
+            this.col_crk_lyqx.Name = "col_crk_lyqx";
+            this.col_crk_lyqx.ReadOnly = true;
+            this.col_crk_lyqx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // col_crk_pcm
+            // 
+            this.col_crk_pcm.HeaderText = "批次码";
+            this.col_crk_pcm.Name = "col_crk_pcm";
+            this.col_crk_pcm.ReadOnly = true;
+            // 
+            // col_crk_jms
+            // 
+            this.col_crk_jms.DataPropertyName = "id";
+            this.col_crk_jms.HeaderText = "加盟商";
+            this.col_crk_jms.Name = "col_crk_jms";
+            this.col_crk_jms.ReadOnly = true;
+            // 
+            // col_crk_sl
+            // 
+            this.col_crk_sl.HeaderText = "数量";
+            this.col_crk_sl.Name = "col_crk_sl";
+            this.col_crk_sl.ReadOnly = true;
+            // 
+            // col_crk_zk
+            // 
+            this.col_crk_zk.HeaderText = "折扣";
+            this.col_crk_zk.Name = "col_crk_zk";
+            this.col_crk_zk.ReadOnly = true;
+            // 
+            // col_crk_je
+            // 
+            this.col_crk_je.HeaderText = "金额";
+            this.col_crk_je.Name = "col_crk_je";
+            this.col_crk_je.ReadOnly = true;
+            // 
+            // col_crk_qd
+            // 
+            this.col_crk_qd.HeaderText = "确认";
+            this.col_crk_qd.Name = "col_crk_qd";
+            this.col_crk_qd.ReadOnly = true;
+            // 
+            // col_crk_bz
+            // 
+            this.col_crk_bz.HeaderText = "备注";
+            this.col_crk_bz.Name = "col_crk_bz";
+            this.col_crk_bz.ReadOnly = true;
+            // 
+            // col_crk_czr
+            // 
+            this.col_crk_czr.HeaderText = "操作人";
+            this.col_crk_czr.Name = "col_crk_czr";
+            this.col_crk_czr.ReadOnly = true;
+            // 
+            // col_crk_djsj
+            // 
+            this.col_crk_djsj.HeaderText = "登记时间";
+            this.col_crk_djsj.Name = "col_crk_djsj";
+            this.col_crk_djsj.ReadOnly = true;
+            // 
+            // col_crk_xgsj
+            // 
+            this.col_crk_xgsj.HeaderText = "修改时间";
+            this.col_crk_xgsj.Name = "col_crk_xgsj";
+            this.col_crk_xgsj.ReadOnly = true;
+            // 
+            // col_crk_sbsj
+            // 
+            this.col_crk_sbsj.HeaderText = "上报时间";
+            this.col_crk_sbsj.Name = "col_crk_sbsj";
+            this.col_crk_sbsj.ReadOnly = true;
             // 
             // flowLayoutPanel1
             // 
@@ -373,128 +490,11 @@
             this.col_mx_sl.HeaderText = "数量";
             this.col_mx_sl.Name = "col_mx_sl";
             // 
-            // cmn_crk_sb
-            // 
-            this.cmn_crk_sb.Name = "cmn_crk_sb";
-            this.cmn_crk_sb.Size = new System.Drawing.Size(160, 22);
-            this.cmn_crk_sb.Text = "上报数据";
-            this.cmn_crk_sb.Click += new System.EventHandler(this.cmn_crk_sb_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(157, 6);
-            // 
             // 撤销上报ToolStripMenuItem
             // 
             this.撤销上报ToolStripMenuItem.Name = "撤销上报ToolStripMenuItem";
             this.撤销上报ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.撤销上报ToolStripMenuItem.Text = "撤销上报";
-            // 
-            // cmn_crk_cxsb
-            // 
-            this.cmn_crk_cxsb.Name = "cmn_crk_cxsb";
-            this.cmn_crk_cxsb.Size = new System.Drawing.Size(160, 22);
-            this.cmn_crk_cxsb.Text = "撤销上报";
-            this.cmn_crk_cxsb.Click += new System.EventHandler(this.cmn_crk_cxsb_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
-            // 
-            // col_crk_id
-            // 
-            this.col_crk_id.HeaderText = "ID";
-            this.col_crk_id.Name = "col_crk_id";
-            this.col_crk_id.ReadOnly = true;
-            this.col_crk_id.Visible = false;
-            // 
-            // col_crk_fx
-            // 
-            this.col_crk_fx.HeaderText = "方向";
-            this.col_crk_fx.Name = "col_crk_fx";
-            this.col_crk_fx.ReadOnly = true;
-            this.col_crk_fx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // col_crk_lyqx
-            // 
-            this.col_crk_lyqx.HeaderText = "来源去向";
-            this.col_crk_lyqx.Name = "col_crk_lyqx";
-            this.col_crk_lyqx.ReadOnly = true;
-            this.col_crk_lyqx.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // col_crk_pcm
-            // 
-            this.col_crk_pcm.HeaderText = "批次码";
-            this.col_crk_pcm.Name = "col_crk_pcm";
-            this.col_crk_pcm.ReadOnly = true;
-            // 
-            // col_crk_jms
-            // 
-            this.col_crk_jms.DataPropertyName = "id";
-            this.col_crk_jms.HeaderText = "加盟商";
-            this.col_crk_jms.Name = "col_crk_jms";
-            this.col_crk_jms.ReadOnly = true;
-            // 
-            // col_crk_sl
-            // 
-            this.col_crk_sl.HeaderText = "数量";
-            this.col_crk_sl.Name = "col_crk_sl";
-            this.col_crk_sl.ReadOnly = true;
-            // 
-            // col_crk_zk
-            // 
-            this.col_crk_zk.HeaderText = "折扣";
-            this.col_crk_zk.Name = "col_crk_zk";
-            this.col_crk_zk.ReadOnly = true;
-            // 
-            // col_crk_je
-            // 
-            this.col_crk_je.HeaderText = "金额";
-            this.col_crk_je.Name = "col_crk_je";
-            this.col_crk_je.ReadOnly = true;
-            // 
-            // col_crk_qd
-            // 
-            this.col_crk_qd.HeaderText = "确认";
-            this.col_crk_qd.Name = "col_crk_qd";
-            this.col_crk_qd.ReadOnly = true;
-            // 
-            // col_crk_bz
-            // 
-            this.col_crk_bz.HeaderText = "备注";
-            this.col_crk_bz.Name = "col_crk_bz";
-            this.col_crk_bz.ReadOnly = true;
-            // 
-            // col_crk_czr
-            // 
-            this.col_crk_czr.HeaderText = "操作人";
-            this.col_crk_czr.Name = "col_crk_czr";
-            this.col_crk_czr.ReadOnly = true;
-            // 
-            // col_crk_djsj
-            // 
-            this.col_crk_djsj.HeaderText = "登记时间";
-            this.col_crk_djsj.Name = "col_crk_djsj";
-            this.col_crk_djsj.ReadOnly = true;
-            // 
-            // col_crk_xgsj
-            // 
-            this.col_crk_xgsj.HeaderText = "修改时间";
-            this.col_crk_xgsj.Name = "col_crk_xgsj";
-            this.col_crk_xgsj.ReadOnly = true;
-            // 
-            // col_crk_sbsj
-            // 
-            this.col_crk_sbsj.HeaderText = "上报时间";
-            this.col_crk_sbsj.Name = "col_crk_sbsj";
-            this.col_crk_sbsj.ReadOnly = true;
             // 
             // Form_Churuku
             // 

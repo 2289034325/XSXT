@@ -26,10 +26,10 @@
     <ProductName>CKGL</ProductName>
     <PublisherName>AC</PublisherName>
     <SuiteName>FDXS</SuiteName>
-    <MinimumRequiredVersion>2.0.0.3</MinimumRequiredVersion>
+    <MinimumRequiredVersion>2.0.0.6</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -102,52 +102,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BM\BarCode.cs" />
-    <Compile Include="BM\CONSTS.cs" />
-    <Compile Include="BM\Dlg_ChongfuKuanhao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_ChongfuKuanhao.Designer.cs">
-      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Dlg_ChongfuTiaoma.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_ChongfuTiaoma.Designer.cs">
-      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Dlg_PrintSet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_PrintSet.Designer.cs">
-      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Dlg_Denglu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_Denglu.Designer.cs">
-      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Dlg_Jiazai.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_Jiazai.Designer.cs">
-      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Dlg_Kuanhao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Dlg_Kuanhao.Designer.cs">
-      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\Entities.cs" />
-    <Compile Include="BM\Form_Bianma.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BM\Form_Bianma.Designer.cs">
-      <DependentUpon>Form_Bianma.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BM\WCF.cs" />
     <Compile Include="CK\CommonMethod.cs" />
     <Compile Include="CK\Dlg_AppSettings.cs">
       <SubType>Form</SubType>
@@ -266,27 +220,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="CK\WCF.cs" />
-    <EmbeddedResource Include="BM\Dlg_ChongfuKuanhao.resx">
-      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Dlg_ChongfuTiaoma.resx">
-      <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Dlg_PrintSet.resx">
-      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Dlg_Denglu.resx">
-      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Dlg_Jiazai.resx">
-      <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Dlg_Kuanhao.resx">
-      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BM\Form_Bianma.resx">
-      <DependentUpon>Form_Bianma.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CK\Dlg_AppSettings.resx">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -482,9 +415,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\RMB.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="logo.ico" />
     <Content Include="SqlScript\0.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

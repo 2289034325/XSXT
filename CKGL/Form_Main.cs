@@ -262,55 +262,55 @@ namespace CKGL
 
         private void mn_main_bm_Click(object sender, EventArgs e)
         {
-            CKGL.BM.Form_Bianma fm = (CKGL.BM.Form_Bianma)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(CKGL.BM.Form_Bianma)));
-            if (fm == null)
-            {
-                if (RuntimeInfo.LoginUser_BM == null)
-                {
-                    BM.Dlg_Denglu dl = new BM.Dlg_Denglu();
-                    if (dl.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                    {
-                        return;
-                    }
-                }
+            //CKGL.BM.Form_Bianma fm = (CKGL.BM.Form_Bianma)this.MdiChildren.SingleOrDefault(r => r.GetType().Equals(typeof(CKGL.BM.Form_Bianma)));
+            //if (fm == null)
+            //{
+            //    if (RuntimeInfo.LoginUser_BM == null)
+            //    {
+            //        BM.Dlg_Denglu dl = new BM.Dlg_Denglu();
+            //        if (dl.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            //        {
+            //            return;
+            //        }
+            //    }
 
-                if (!RuntimeInfo.BaseDataLoaded)
-                {
-                    //从服务器加载基础数据
-                    new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
-                    {
-                        try
-                        {
-                            //供应商
-                            RuntimeInfo.Gyses = BM.JCSJWCF.GetGongyingshangs();
+            //    if (!RuntimeInfo.BaseDataLoaded)
+            //    {
+            //        //从服务器加载基础数据
+            //        new Tool.ActionMessageTool(delegate(Tool.ActionMessageTool.ShowMsg ShowMsg)
+            //        {
+            //            try
+            //            {
+            //                //供应商
+            //                RuntimeInfo.Gyses = BM.JCSJWCF.GetGongyingshangs();
 
-                            //加盟的品牌
-                            //RuntimeInfo.JmPps = BM.JCSJWCF.GetJMPinpais();
+            //                //加盟的品牌
+            //                //RuntimeInfo.JmPps = BM.JCSJWCF.GetJMPinpais();
 
-                            RuntimeInfo.BaseDataLoaded = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
-                            ShowMsg("从服务器加载基础数据失败\r\n" + ex.Message, true);
-                            return;
-                        }
-                    }, true).Start();
-                }
+            //                RuntimeInfo.BaseDataLoaded = true;
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Tool.CommonFunc.LogEx(Settings.Default.LogFile, ex);
+            //                ShowMsg("从服务器加载基础数据失败\r\n" + ex.Message, true);
+            //                return;
+            //            }
+            //        }, true).Start();
+            //    }
 
-                if (RuntimeInfo.BaseDataLoaded)
-                {
-                    fm = new CKGL.BM.Form_Bianma();
-                    fm.MdiParent = this;
-                    fm.WindowState = FormWindowState.Maximized;
-                    fm.Show();
-                }
-            }
-            else
-            {
-                fm.WindowState = FormWindowState.Maximized;
-                fm.Activate();
-            }
+            //    if (RuntimeInfo.BaseDataLoaded)
+            //    {
+            //        fm = new CKGL.BM.Form_Bianma();
+            //        fm.MdiParent = this;
+            //        fm.WindowState = FormWindowState.Maximized;
+            //        fm.Show();
+            //    }
+            //}
+            //else
+            //{
+            //    fm.WindowState = FormWindowState.Maximized;
+            //    fm.Activate();
+            //}
         }
 
         private void mn_main_jms_Click(object sender, EventArgs e)
