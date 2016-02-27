@@ -1,5 +1,4 @@
-﻿using BIANMA.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tool;
+using BIANMA.Properties;
 
 namespace BIANMA
 {
@@ -26,18 +26,18 @@ namespace BIANMA
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_ok_Click(object sender, EventArgs e)
-        {
+        {           
             string validadd = txb_validadd.Text.Trim();
             string dataadd = txb_dataadd.Text.Trim();
 
-            if (string.IsNullOrEmpty(validadd) ||                string.IsNullOrEmpty(dataadd))
+            if (string.IsNullOrEmpty(validadd) || string.IsNullOrEmpty(dataadd))
             {
                 MessageBox.Show("不能输入空白");
                 return;
             }
-
-            Settings.Default.WCF_VALIDADD = validadd;
-            Settings.Default.WCF_DATAADD = dataadd;
+            
+            Settings.Default.WCFValidADD = validadd;
+            Settings.Default.WCFDataADD = dataadd;
 
             Settings.Default.Save();
 
@@ -51,8 +51,8 @@ namespace BIANMA
         /// <param name="e"></param>
         private void Dlg_AppSettings_Load(object sender, EventArgs e)
         {
-            txb_validadd.Text = Settings.Default.WCF_VALIDADD;
-            txb_dataadd.Text = Settings.Default.WCF_DATAADD.ToString();
+            txb_validadd.Text = Settings.Default.WCFValidADD;
+            txb_dataadd.Text = Settings.Default.WCFDataADD;
         }
     }
 }

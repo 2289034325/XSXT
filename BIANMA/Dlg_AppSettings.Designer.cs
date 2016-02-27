@@ -37,7 +37,7 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(177, 60);
+            this.btn_ok.Location = new System.Drawing.Point(397, 66);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 12;
@@ -47,15 +47,15 @@
             // 
             // txb_validadd
             // 
-            this.txb_validadd.Location = new System.Drawing.Point(89, 6);
+            this.txb_validadd.Location = new System.Drawing.Point(92, 12);
             this.txb_validadd.Name = "txb_validadd";
-            this.txb_validadd.Size = new System.Drawing.Size(163, 21);
+            this.txb_validadd.Size = new System.Drawing.Size(380, 21);
             this.txb_validadd.TabIndex = 16;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Location = new System.Drawing.Point(15, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 15;
@@ -63,15 +63,15 @@
             // 
             // txb_dataadd
             // 
-            this.txb_dataadd.Location = new System.Drawing.Point(89, 33);
+            this.txb_dataadd.Location = new System.Drawing.Point(92, 39);
             this.txb_dataadd.Name = "txb_dataadd";
-            this.txb_dataadd.Size = new System.Drawing.Size(163, 21);
+            this.txb_dataadd.Size = new System.Drawing.Size(380, 21);
             this.txb_dataadd.TabIndex = 18;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 36);
+            this.label5.Location = new System.Drawing.Point(15, 42);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 17;
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(267, 95);
+            this.ClientSize = new System.Drawing.Size(485, 101);
             this.Controls.Add(this.txb_dataadd);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txb_validadd);

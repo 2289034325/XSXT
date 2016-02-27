@@ -1,7 +1,6 @@
 ﻿using BIANMA.JCSJData;
 using BIANMA.JCSJValid;
 using BIANMA.Properties;
-using DB_JCSJ;
 using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
@@ -27,13 +26,13 @@ namespace BIANMA
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFDataADD);
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFValidADD);
                 }
             }
 
@@ -48,14 +47,14 @@ namespace BIANMA
         {
             if (_jdc == null)
             {
-                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCF_DATAADD);
+                _jdc = new DataServiceClient("WsHttpBinding_IDataService",Settings.Default.WCFDataADD);
                 _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
             }
             else
             {
                 if (_jdc.State != System.ServiceModel.CommunicationState.Opened)
                 {
-                    _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCF_DATAADD);
+                    _jdc = new DataServiceClient("WsHttpBinding_IDataService", Settings.Default.WCFDataADD);
                     _jdc.BMZHLogin(_dlm, Tool.CommonFunc.MD5_16(_mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), RuntimeInfo.ClientVersion.ToString());
                 }
             }
@@ -63,7 +62,7 @@ namespace BIANMA
 
         internal static void BMZHBangding(string dlm, string mm, string zcm)
         {
-            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService",Settings.Default.WCF_VALIDADD);
+            ValidServiceClient vdc = new ValidServiceClient("BasicHttpBinding_IValidService",Settings.Default.WCFValidADD);
             vdc.BMZHBangding(dlm, Tool.CommonFunc.MD5_16(mm), Tool.CommonFunc.MD5_16(Tool.CommonFunc.GetJQM()), zcm, RuntimeInfo.ClientVersion.ToString());
         }
 
@@ -139,7 +138,7 @@ namespace BIANMA
             _jdc.EditTiaoma(t);
         }
 
-        internal static TJiamengshang[] GetJMPinpais()
+        internal static TPinpaishang[] GetJMPinpais()
         {
             AutoLogin();
             return _jdc.GetJMPinpais();

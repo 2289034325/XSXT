@@ -1,4 +1,4 @@
-﻿namespace CKGL.BM
+﻿namespace BIANMA
 {
     partial class Dlg_PrintSet
     {

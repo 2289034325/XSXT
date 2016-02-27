@@ -1,7 +1,8 @@
-﻿using DB_JCSJ;
+﻿using BIANMA.JCSJData;
 using DB_JCSJ.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -138,6 +139,10 @@ namespace BIANMA
 
         public static TKuanhaoExtend[] FromXml(string xmlPath)
         {
+            if (!File.Exists(xmlPath))
+            {
+                return new TKuanhaoExtend[] { };
+            }
             XElement doc = XElement.Load(xmlPath);
             List<TKuanhaoExtend> ks = new List<TKuanhaoExtend>();
             List<XElement> xmls = doc.Elements("TKuanhaoExtend").ToList();

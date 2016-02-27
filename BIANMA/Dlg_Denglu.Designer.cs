@@ -33,12 +33,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_ok = new System.Windows.Forms.Button();
+            this.chk_autoLogin = new System.Windows.Forms.CheckBox();
+            this.btn_bangding = new System.Windows.Forms.Button();
+            this.txb_yzm = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btn_set = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txb_mm
             // 
-            this.txb_mm.Location = new System.Drawing.Point(59, 39);
+            this.txb_mm.Location = new System.Drawing.Point(212, 6);
             this.txb_mm.Name = "txb_mm";
             this.txb_mm.PasswordChar = '*';
             this.txb_mm.Size = new System.Drawing.Size(100, 21);
@@ -55,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 42);
+            this.label2.Location = new System.Drawing.Point(165, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 9;
@@ -72,7 +76,7 @@
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(232, 37);
+            this.btn_ok.Location = new System.Drawing.Point(237, 48);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
             this.btn_ok.TabIndex = 12;
@@ -80,12 +84,48 @@
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
+            // chk_autoLogin
+            // 
+            this.chk_autoLogin.AutoSize = true;
+            this.chk_autoLogin.Location = new System.Drawing.Point(59, 48);
+            this.chk_autoLogin.Name = "chk_autoLogin";
+            this.chk_autoLogin.Size = new System.Drawing.Size(72, 16);
+            this.chk_autoLogin.TabIndex = 13;
+            this.chk_autoLogin.Text = "自动登录";
+            this.chk_autoLogin.UseVisualStyleBackColor = true;
+            // 
+            // btn_bangding
+            // 
+            this.btn_bangding.Location = new System.Drawing.Point(237, 130);
+            this.btn_bangding.Name = "btn_bangding";
+            this.btn_bangding.Size = new System.Drawing.Size(75, 23);
+            this.btn_bangding.TabIndex = 16;
+            this.btn_bangding.Text = "机器绑定";
+            this.btn_bangding.UseVisualStyleBackColor = true;
+            this.btn_bangding.Click += new System.EventHandler(this.btn_bangding_Click);
+            // 
+            // txb_yzm
+            // 
+            this.txb_yzm.Location = new System.Drawing.Point(59, 128);
+            this.txb_yzm.Name = "txb_yzm";
+            this.txb_yzm.Size = new System.Drawing.Size(100, 21);
+            this.txb_yzm.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 131);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "验证码";
+            // 
             // btn_set
             // 
-            this.btn_set.Location = new System.Drawing.Point(232, 101);
+            this.btn_set.Location = new System.Drawing.Point(237, 159);
             this.btn_set.Name = "btn_set";
             this.btn_set.Size = new System.Drawing.Size(75, 23);
-            this.btn_set.TabIndex = 13;
+            this.btn_set.TabIndex = 17;
             this.btn_set.Text = "设置";
             this.btn_set.UseVisualStyleBackColor = true;
             this.btn_set.Click += new System.EventHandler(this.btn_set_Click);
@@ -94,8 +134,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 81);
+            this.ClientSize = new System.Drawing.Size(319, 87);
             this.Controls.Add(this.btn_set);
+            this.Controls.Add(this.btn_bangding);
+            this.Controls.Add(this.txb_yzm);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.chk_autoLogin);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.txb_mm);
             this.Controls.Add(this.txb_dlm);
@@ -106,6 +150,7 @@
             this.Name = "Dlg_Denglu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登陆";
+            this.Load += new System.EventHandler(this.Dlg_Denglu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,6 +163,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.CheckBox chk_autoLogin;
+        private System.Windows.Forms.Button btn_bangding;
+        private System.Windows.Forms.TextBox txb_yzm;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btn_set;
     }
 }

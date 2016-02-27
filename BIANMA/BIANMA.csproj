@@ -20,16 +20,17 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://120.25.246.150:7000/BM/</InstallUrl>
     <ProductName>BM</ProductName>
     <PublisherName>AC</PublisherName>
     <SuiteName>FDXS</SuiteName>
+    <MinimumRequiredVersion>2.0.0.7</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -100,17 +101,11 @@
     <Compile Include="Dlg_AppSettings.Designer.cs">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Biaoqian.cs">
+    <Compile Include="Dlg_ChongfuKuanhao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Biaoqian.Designer.cs">
-      <DependentUpon>Dlg_Biaoqian.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_JiazaiFahuoJilu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_JiazaiFahuoJilu.Designer.cs">
-      <DependentUpon>Dlg_JiazaiFahuoJilu.cs</DependentUpon>
+    <Compile Include="Dlg_ChongfuKuanhao.Designer.cs">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg_ChongfuTiaoma.cs">
       <SubType>Form</SubType>
@@ -118,17 +113,11 @@
     <Compile Include="Dlg_ChongfuTiaoma.Designer.cs">
       <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_ChongfuKuanhao.cs">
+    <Compile Include="Dlg_Denglu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_ChongfuKuanhao.Designer.cs">
-      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_Kuanhao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_Kuanhao.Designer.cs">
-      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    <Compile Include="Dlg_Denglu.Designer.cs">
+      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg_Jiazai.cs">
       <SubType>Form</SubType>
@@ -136,43 +125,19 @@
     <Compile Include="Dlg_Jiazai.Designer.cs">
       <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_XiugaiMima.cs">
+    <Compile Include="Dlg_Kuanhao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_XiugaiMima.Designer.cs">
-      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
+    <Compile Include="Dlg_Kuanhao.Designer.cs">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg_Bangding.cs">
+    <Compile Include="Dlg_PrintSet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dlg_Bangding.Designer.cs">
-      <DependentUpon>Dlg_Bangding.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_Zhuce.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_Zhuce.Designer.cs">
-      <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg_Denglu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dlg_Denglu.Designer.cs">
-      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
+    <Compile Include="Dlg_PrintSet.Designer.cs">
+      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities.cs" />
-    <Compile Include="Form_Fenlei.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Fenlei.Designer.cs">
-      <DependentUpon>Form_Fenlei.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Bianma.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Bianma.Designer.cs">
-      <DependentUpon>Form_Bianma.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,41 +161,23 @@
     <EmbeddedResource Include="Dlg_AppSettings.resx">
       <DependentUpon>Dlg_AppSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Biaoqian.resx">
-      <DependentUpon>Dlg_Biaoqian.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_JiazaiFahuoJilu.resx">
-      <DependentUpon>Dlg_JiazaiFahuoJilu.cs</DependentUpon>
+    <EmbeddedResource Include="Dlg_ChongfuKuanhao.resx">
+      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_ChongfuTiaoma.resx">
       <DependentUpon>Dlg_ChongfuTiaoma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_ChongfuKuanhao.resx">
-      <DependentUpon>Dlg_ChongfuKuanhao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Kuanhao.resx">
-      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
+    <EmbeddedResource Include="Dlg_Denglu.resx">
+      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg_Jiazai.resx">
       <DependentUpon>Dlg_Jiazai.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_XiugaiMima.resx">
-      <DependentUpon>Dlg_XiugaiMima.cs</DependentUpon>
+    <EmbeddedResource Include="Dlg_Kuanhao.resx">
+      <DependentUpon>Dlg_Kuanhao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Bangding.resx">
-      <DependentUpon>Dlg_Bangding.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Zhuce.resx">
-      <DependentUpon>Dlg_Zhuce.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg_Denglu.resx">
-      <DependentUpon>Dlg_Denglu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Fenlei.resx">
-      <DependentUpon>Form_Fenlei.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Bianma.resx">
-      <DependentUpon>Form_Bianma.cs</DependentUpon>
+    <EmbeddedResource Include="Dlg_PrintSet.resx">
+      <DependentUpon>Dlg_PrintSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
@@ -244,7 +191,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="BIANMA_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TCangku.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TCangkuJinchuhuo.datasource" />
@@ -256,6 +202,7 @@
     <None Include="Properties\DataSources\DB_JCSJ.Models.TJiamengshangPinpai.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TKuanhao.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TPinpai.datasource" />
+    <None Include="Properties\DataSources\DB_JCSJ.Models.TPinpaishang.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TTiaoma.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.TUser.datasource" />
     <None Include="Properties\DataSources\DB_JCSJ.Models.VTiaoma.datasource" />
@@ -360,69 +307,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Biaoqian\Base.htm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\LOGO.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\RMB.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_diagonals-thick_18_b81900_40x40.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_diagonals-thick_20_666666_40x40.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_flat_10_000000_40x100.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_glass_100_f6f6f6_1x400.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_glass_100_fdf5ce_1x400.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_glass_65_ffffff_1x400.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_gloss-wave_35_f6a828_500x100.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_highlight-soft_100_eeeeee_1x100.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-bg_highlight-soft_75_ffe45c_1x100.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-icons_222222_256x240.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-icons_228ef1_256x240.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-icons_ef8c08_256x240.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-icons_ffd27a_256x240.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\images\ui-icons_ffffff_256x240.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\jquery-ui.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\jquery-ui.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Biaoqian\jquery.js">
+    <Content Include="images\RMB.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="logo.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
