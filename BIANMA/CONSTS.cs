@@ -35,7 +35,7 @@ namespace BIANMA
             尺码 = 4,
             数量 = 5,
             进价 = 6,
-            售价 = 7
+            吊牌价 = 7
         }
 
         /// <summary>

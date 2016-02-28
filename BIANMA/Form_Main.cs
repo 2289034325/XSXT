@@ -1178,7 +1178,7 @@ namespace BIANMA
         {
             string bq = "";
             //表头
-            bq += "序号,条码,款号,品名,颜色,尺码,售价\r\n";
+            bq += "序号,条码,款号,品名,颜色,尺码,吊牌价\r\n";
             int i = 1;
             foreach (TKuanhaoExtend tk in _khs)
             {
@@ -1398,7 +1398,7 @@ namespace BIANMA
                 decimal sj = 0;
                 if (!decimal.TryParse((string)e.FormattedValue, out sj))
                 {
-                    MessageBox.Show("售价必须是数字");
+                    MessageBox.Show("吊牌价必须是数字");
                     e.Cancel = true;
                 }
             }
@@ -1519,7 +1519,7 @@ namespace BIANMA
             //复制
             if (e.Control && e.KeyCode == Keys.C)
             {
-                //选中一整行，复制供应商款号，颜色，尺码，进价，售价，数量
+                //选中一整行，复制供应商款号，颜色，尺码，进价，吊牌价，数量
                 if (grid_all.SelectedRows.Count == 1)
                 {
                     _copy_otmidex = (int)grid_all.SelectedRows[0].Cells[col_all_tmidex.Name].Value;
@@ -1533,7 +1533,7 @@ namespace BIANMA
             //粘贴
             else if (e.Control && e.KeyCode == Keys.V)
             {
-                //行选中模式，复制供应商款号，颜色，尺码，进价，售价，数量
+                //行选中模式，复制供应商款号，颜色，尺码，进价，吊牌价，数量
                 if (grid_all.SelectedRows.Count == 1)
                 {
                     if (_copy_otmidex != null)
@@ -1585,7 +1585,7 @@ namespace BIANMA
                         //只读和条码列不允许粘贴
                         if (!dc.ReadOnly)
                         {
-                            //供应商款号，颜色，尺码，进价，售价，数量
+                            //供应商款号，颜色，尺码，进价，吊牌价，数量
                             if (dc.ColumnIndex == col_all_gyskh.Index || dc.ColumnIndex == col_all_ys.Index ||
                                 dc.ColumnIndex == col_all_cm.Index || dc.ColumnIndex == col_all_jj.Index ||
                                 dc.ColumnIndex == col_all_sj.Index || dc.ColumnIndex == col_all_sl.Index)
@@ -1630,7 +1630,7 @@ namespace BIANMA
         }
 
         /// <summary>
-        /// 按照系数计算售价
+        /// 按照系数计算吊牌价
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1741,10 +1741,10 @@ namespace BIANMA
                     pm = r.Split(new char[] { ',' })[(byte)XTCONSTS.FILE_COLUMN.品名],
                     te = createTTiaomaExtendFromString(r)
                 }).ToArray();
-                //款号和品名不得为空空白
-                if (tsEE.Any(r => string.IsNullOrEmpty(r.pm)) || tsEE.Any(r=>string.IsNullOrEmpty(r.kh)))
+                //品名不得为空空白
+                if (tsEE.Any(r => string.IsNullOrEmpty(r.pm)))
                 {
-                    MessageBox.Show("款号和品名不允许为空白");
+                    MessageBox.Show("品名不允许为空白");
                     return;
                 }
 
@@ -1754,8 +1754,8 @@ namespace BIANMA
                     kuanhao = new TKuanhao
                     {
                         beizhu = "",
-                        //默认用供应商款号作为款号
-                        kuanhao = r.Key.gyskuanhao,
+                        //默认款号为空白，等待标准编码生成款号，或者手动填入款号
+                        kuanhao = "",
                         leixing = r.Key.lx,
                         pinming = r.Key.pm,
                         xingbie = (byte)DBCONSTS.KUANHAO_XB.女,
@@ -1814,7 +1814,7 @@ namespace BIANMA
             string cm = ss[(byte)XTCONSTS.FILE_COLUMN.尺码];
             string sl = ss[(byte)XTCONSTS.FILE_COLUMN.数量];
             string jj = ss[(byte)XTCONSTS.FILE_COLUMN.进价];
-            string sj = ss[(byte)XTCONSTS.FILE_COLUMN.售价];
+            string sj = ss[(byte)XTCONSTS.FILE_COLUMN.吊牌价];
             TTiaomaExtend te = new TTiaomaExtend
             {
                 idex = getClientId(),
